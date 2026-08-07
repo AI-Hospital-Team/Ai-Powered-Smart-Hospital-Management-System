@@ -2,9 +2,9 @@
 
 ## 👨‍💻 Author
 
-**1. Prathmesh Gavram Panmand**
+**1. Prathmesh Gavram Panmand:-** https://github.com/prathmesh235
 <br>
-**2. Radheshyam Subhash Wayal**
+**2. Radheshyam Subhash Wayal:-** https://github.com/Radheshamwayal7
 
 
 ## 📌 Project Overview
