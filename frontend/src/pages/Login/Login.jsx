@@ -1,0 +1,70 @@
+import { useState } from "react";
+import "./Login.css";
+
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    alert("Login UI is working!");
+  };
+
+  return (
+    <div className="login-page">
+      <div className="login-container">
+
+        <div className="login-header">
+          <div className="hospital-icon">🏥</div>
+
+          <h1>AI Hospital</h1>
+
+          <p>Hospital Management System</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="login-form">
+
+          <div className="form-group">
+            <label>Email</label>
+
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Password</label>
+
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-button">
+            Login
+          </button>
+
+        </form>
+
+        <p className="login-footer">
+          AI Hospital Management System
+        </p>
+
+      </div>
+    </div>
+  );
+}
+
+export default Login;
