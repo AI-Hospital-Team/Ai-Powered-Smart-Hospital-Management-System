@@ -4,7 +4,9 @@ import Login from "./pages/Login/Login";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/Admin/Dashboard";
 import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
+import PatientDashboard from "./pages/Patient/PatientDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+
 
 function App() {
   return (
@@ -38,6 +40,18 @@ function App() {
         >
           <Route index element={<DoctorDashboard />} />
         </Route>
+
+        {/* Patient Dashboard */}
+        <Route
+        path="/patient"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<PatientDashboard />} />
+      </Route>
 
       </Routes>
     </BrowserRouter>
