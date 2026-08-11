@@ -8,6 +8,7 @@ import PatientDashboard from "./pages/Patient/PatientDashboard";
 import Appointments from "./pages/Patient/Appointments/Appointments";
 import BookAppointment from "./pages/Patient/BookAppointment/BookAppointment";
 import MedicalRecords from "./pages/Patient/MedicalRecords/MedicalRecords";
+import Prescriptions from "./pages/Patient/Prescriptions/Prescriptions";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -72,6 +73,13 @@ function App() {
             path="medical-records"
             element={<MedicalRecords />}
           />
+
+          {/* Prescriptions */}
+          <Route
+            path="prescriptions"
+            element={<Prescriptions />}
+          />
+
         </Route>
 
       </Routes>
