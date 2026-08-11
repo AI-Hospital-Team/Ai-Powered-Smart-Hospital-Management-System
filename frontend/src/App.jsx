@@ -15,8 +15,6 @@ import Profile from "./pages/Patient/Profile/Profile";
 import Bills from "./pages/Patient/Bills/Bills";
 import Notifications from "./pages/Patient/Notifications/Notifications";
 
-import ProtectedRoute from "./components/ProtectedRoute";
-
 function App() {
   return (
     <BrowserRouter>
@@ -27,82 +25,50 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Admin Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
         </Route>
 
         {/* Doctor Dashboard */}
-        <Route
-          path="/doctor"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/doctor" element={<DashboardLayout />}>
           <Route index element={<DoctorDashboard />} />
         </Route>
 
-        {/* Patient Dashboard */}
-        <Route
-          path="/patient"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
+        {/* Patient Routes */}
+        <Route path="/patient" element={<DashboardLayout />}>
 
-          {/* Patient Dashboard */}
-          <Route
-            index
-            element={<PatientDashboard />}
-          />
+          <Route index element={<PatientDashboard />} />
 
-          {/* Patient Appointments */}
           <Route
             path="appointments"
             element={<Appointments />}
           />
 
-          {/* Book Appointment */}
           <Route
             path="book-appointment"
             element={<BookAppointment />}
           />
 
-          {/* Medical Records */}
           <Route
             path="medical-records"
             element={<MedicalRecords />}
           />
 
-          {/* Prescriptions */}
           <Route
             path="prescriptions"
             element={<Prescriptions />}
           />
 
-          {/* Patient Profile */}
           <Route
             path="profile"
             element={<Profile />}
           />
 
-          {/* Patient Bills */}
           <Route
             path="bills"
             element={<Bills />}
           />
 
-          {/* Patient Notifications */}
           <Route
             path="notifications"
             element={<Notifications />}

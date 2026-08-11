@@ -1,119 +1,198 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
+
 import "./DashboardLayout.css";
 
 function DashboardLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const isDoctor = location.pathname.startsWith("/doctor");
-  const isPatient = location.pathname.startsWith("/patient");
+  const role = localStorage.getItem("role");
 
-  let role = "Admin";
-
-  if (isDoctor) {
-    role = "Doctor";
-  } else if (isPatient) {
-    role = "Patient";
+  // If user is not logged in
+  if (!role) {
+    return <Navigate to="/login" replace />;
   }
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("role");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className="dashboard-layout">
 
+      {/* ================= SIDEBAR ================= */}
       <aside className="sidebar">
 
+        {/* Sidebar Header */}
         <div className="sidebar-header">
-          <span className="hospital-logo">🏥</span>
-          <h2>AI Hospital</h2>
+          <h2>Hospital Management</h2>
+          <p>{role} Panel</p>
         </div>
 
-        <nav className="sidebar-nav">
+        {/* Sidebar Menu */}
+        <nav className="sidebar-menu">
 
-          {/* Admin Navigation */}
+          {/* ================= ADMIN ================= */}
           {role === "Admin" && (
             <>
-              <Link to="/dashboard">Dashboard</Link>
-              <Link to="/dashboard/patients">Patients</Link>
-              <Link to="/dashboard/doctors">Doctors</Link>
-              <Link to="/dashboard/appointments">Appointments</Link>
-              <Link to="/dashboard/medical-records">
-                Medical Records
+              <Link
+                to="/dashboard"
+                className={
+                  location.pathname === "/dashboard"
+                    ? "active"
+                    : ""
+                }
+              >
+                Dashboard
               </Link>
-              <Link to="/dashboard/prescriptions">
-                Prescriptions
-              </Link>
-              <Link to="/dashboard/billing">Billing</Link>
             </>
           )}
 
-          {/* Doctor Navigation */}
+          {/* ================= DOCTOR ================= */}
           {role === "Doctor" && (
             <>
-              <Link to="/doctor">Dashboard</Link>
-              <Link to="/doctor/patients">My Patients</Link>
-              <Link to="/doctor/appointments">Appointments</Link>
-              <Link to="/doctor/medical-records">
-                Medical Records
-              </Link>
-              <Link to="/doctor/prescriptions">
-                Prescriptions
+              <Link
+                to="/doctor"
+                className={
+                  location.pathname === "/doctor"
+                    ? "active"
+                    : ""
+                }
+              >
+                Dashboard
               </Link>
             </>
           )}
 
-          {/* Patient Navigation */}
+          {/* ================= PATIENT ================= */}
           {role === "Patient" && (
             <>
-              <Link to="/patient">Dashboard</Link>
-
-              <Link to="/patient/appointments">
-                My Appointments
+              <Link
+                to="/patient"
+                className={
+                  location.pathname === "/patient"
+                    ? "active"
+                    : ""
+                }
+              >
+                Dashboard
               </Link>
 
-              <Link to="/patient/medical-records">
+              <Link
+                to="/patient/appointments"
+                className={
+                  location.pathname === "/patient/appointments"
+                    ? "active"
+                    : ""
+                }
+              >
+                Appointments
+              </Link>
+
+              <Link
+                to="/patient/book-appointment"
+                className={
+                  location.pathname === "/patient/book-appointment"
+                    ? "active"
+                    : ""
+                }
+              >
+                Book Appointment
+              </Link>
+
+              <Link
+                to="/patient/medical-records"
+                className={
+                  location.pathname === "/patient/medical-records"
+                    ? "active"
+                    : ""
+                }
+              >
                 Medical Records
               </Link>
 
-              <Link to="/patient/prescriptions">
+              <Link
+                to="/patient/prescriptions"
+                className={
+                  location.pathname === "/patient/prescriptions"
+                    ? "active"
+                    : ""
+                }
+              >
                 Prescriptions
               </Link>
 
-              <Link to="/patient/profile">
+              <Link
+                to="/patient/profile"
+                className={
+                  location.pathname === "/patient/profile"
+                    ? "active"
+                    : ""
+                }
+              >
                 Profile
               </Link>
 
-              <Link to="/patient/bills">
-                Billing
+              <Link
+                to="/patient/bills"
+                className={
+                  location.pathname === "/patient/bills"
+                    ? "active"
+                    : ""
+                }
+              >
+                Bills
               </Link>
 
-              <Link to="/patient/notifications">
+              <Link
+                to="/patient/notifications"
+                className={
+                  location.pathname === "/patient/notifications"
+                    ? "active"
+                    : ""
+                }
+              >
                 Notifications
               </Link>
             </>
           )}
 
+          {/* ================= LOGOUT ================= */}
+          <button
+            type="button"
+            className="logout-button"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+
         </nav>
-
-        <div className="sidebar-bottom">
-          <Link to="/login">Logout</Link>
-        </div>
-
       </aside>
 
-      <main className="dashboard-main">
+      {/* ================= MAIN CONTENT ================= */}
+      <main className="main-content">
 
-        <header className="dashboard-navbar">
-
-          <h2>Hospital Management System</h2>
-
-          <div className="user-info">
-            <span>{role}</span>
-            <span className="user-icon">👤</span>
-          </div>
-
+        {/* Top Bar */}
+        <header className="topbar">
+          <h1>{role} Dashboard</h1>
         </header>
 
-        <section className="dashboard-content">
+        {/* Page Content */}
+        <div className="page-content">
           <Outlet />
-        </section>
+        </div>
 
       </main>
 
