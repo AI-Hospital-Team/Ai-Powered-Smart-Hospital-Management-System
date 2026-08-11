@@ -7,8 +7,8 @@ import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
 import PatientDashboard from "./pages/Patient/PatientDashboard";
 import Appointments from "./pages/Patient/Appointments/Appointments";
 import BookAppointment from "./pages/Patient/BookAppointment/BookAppointment";
+import MedicalRecords from "./pages/Patient/MedicalRecords/MedicalRecords";
 import ProtectedRoute from "./components/ProtectedRoute";
-
 
 function App() {
   return (
@@ -45,17 +45,34 @@ function App() {
 
         {/* Patient Dashboard */}
         <Route
-        path="/patient"
-        element={
-          <ProtectedRoute>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<PatientDashboard />} />
-        <Route path="appointments" element={<Appointments />} />
-        <Route path="book-appointment" element={<BookAppointment />} />
-      </Route>
+          path="/patient"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* Patient Dashboard */}
+          <Route index element={<PatientDashboard />} />
+
+          {/* Patient Appointments */}
+          <Route
+            path="appointments"
+            element={<Appointments />}
+          />
+
+          {/* Book Appointment */}
+          <Route
+            path="book-appointment"
+            element={<BookAppointment />}
+          />
+
+          {/* Medical Records */}
+          <Route
+            path="medical-records"
+            element={<MedicalRecords />}
+          />
+        </Route>
 
       </Routes>
     </BrowserRouter>
