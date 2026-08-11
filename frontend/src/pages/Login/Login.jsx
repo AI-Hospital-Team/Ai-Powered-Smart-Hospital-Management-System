@@ -11,7 +11,6 @@ function Login() {
     console.log("Email:", email);
     console.log("Password:", password);
 
-    alert("Login UI is working!");
   };
 
   return (
