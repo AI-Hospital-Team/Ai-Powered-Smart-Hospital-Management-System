@@ -5,6 +5,8 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/Admin/Dashboard";
 import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
 import PatientDashboard from "./pages/Patient/PatientDashboard";
+import Appointments from "./pages/Patient/Appointments/Appointments";
+import BookAppointment from "./pages/Patient/BookAppointment/BookAppointment";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 
@@ -51,6 +53,8 @@ function App() {
         }
       >
         <Route index element={<PatientDashboard />} />
+        <Route path="appointments" element={<Appointments />} />
+        <Route path="book-appointment" element={<BookAppointment />} />
       </Route>
 
       </Routes>
