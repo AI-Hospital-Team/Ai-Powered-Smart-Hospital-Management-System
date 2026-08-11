@@ -10,6 +10,7 @@ import BookAppointment from "./pages/Patient/BookAppointment/BookAppointment";
 import MedicalRecords from "./pages/Patient/MedicalRecords/MedicalRecords";
 import Prescriptions from "./pages/Patient/Prescriptions/Prescriptions";
 import Profile from "./pages/Patient/Profile/Profile";
+import Bills from "./pages/Patient/Bills/Bills";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -85,6 +86,12 @@ function App() {
           <Route
             path="profile"
             element={<Profile />}
+          />
+
+          {/* Patient Bills */}
+          <Route
+            path="bills"
+            element={<Bills />}
           />
 
         </Route>

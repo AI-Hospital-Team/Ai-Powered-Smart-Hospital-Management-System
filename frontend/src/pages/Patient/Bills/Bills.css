@@ -1,0 +1,44 @@
+.bills-page {
+  padding: 0;
+}
+
+.bills-page .dashboard-cards {
+  margin-bottom: 24px;
+}
+
+.bills-page .dashboard-card {
+  min-height: 90px;
+}
+
+.bills-page .dashboard-section {
+  margin-bottom: 24px;
+}
+
+.bills-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bills-page th,
+.bills-page td {
+  padding: 12px;
+  text-align: left;
+}
+
+.bills-page th {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .bills-page .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .bills-page .table-container {
+    overflow-x: auto;
+  }
+
+  .bills-page table {
+    min-width: 700px;
+  }
+}
