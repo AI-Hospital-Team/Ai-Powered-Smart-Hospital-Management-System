@@ -1,16 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    console.log("Email:", email);
-    console.log("Password:", password);
-
+    if (email && password) {
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/dashboard");
+    } else {
+      alert("Please enter email and password");
+    }
   };
 
   return (
@@ -19,23 +25,20 @@ function Login() {
 
         <div className="login-header">
           <div className="hospital-icon">🏥</div>
-
           <h1>AI Hospital</h1>
-
           <p>Hospital Management System</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <form className="login-form" onSubmit={handleLogin}>
 
           <div className="form-group">
             <label>Email</label>
 
             <input
               type="email"
-              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
+              placeholder="Enter your email"
             />
           </div>
 
@@ -44,10 +47,9 @@ function Login() {
 
             <input
               type="password"
-              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
+              placeholder="Enter your password"
             />
           </div>
 
@@ -57,9 +59,9 @@ function Login() {
 
         </form>
 
-        <p className="login-footer">
+        <div className="login-footer">
           AI Hospital Management System
-        </p>
+        </div>
 
       </div>
     </div>
