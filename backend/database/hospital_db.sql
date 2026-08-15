@@ -67,3 +67,15 @@ CREATE TABLE billing (
 
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
 );
+
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    patient_id INT NULL,
+    doctor_id INT NULL,
+
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+);
