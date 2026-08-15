@@ -1,127 +1,78 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import "./Home.css";
 
 function Home() {
-  const navigate = useNavigate();
-
   const [darkMode, setDarkMode] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLoginMenu, setShowLoginMenu] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const [loginMenuOpen, setLoginMenuOpen] = useState(false);
 
   const [loginRole, setLoginRole] = useState("Patient");
 
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
+  const [ayushmanInfo, setAyushmanInfo] = useState("coverage");
+  const [showAyushmanDetails, setShowAyushmanDetails] = useState(false);
 
-  const [registerData, setRegisterData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    role: "Patient",
-    password: "",
-    confirmPassword: "",
-  });
+  /* =====================================================
+     LOGIN
+  ===================================================== */
 
   const openLogin = (role = "Patient") => {
     setLoginRole(role);
-    setShowLogin(true);
-    setShowLoginMenu(false);
-    setShowRegister(false);
+    setLoginOpen(true);
+    setRegisterOpen(false);
+    setLoginMenuOpen(false);
   };
+
+  /* =====================================================
+     REGISTER
+  ===================================================== */
 
   const openRegister = () => {
-    setShowRegister(true);
-    setShowLogin(false);
-    setShowLoginMenu(false);
+    setRegisterOpen(true);
+    setLoginOpen(false);
+    setLoginMenuOpen(false);
   };
 
-  const closeModals = () => {
-    setShowLogin(false);
-    setShowRegister(false);
+  /* =====================================================
+     AYUSHMAN INTERACTIVE INFO
+  ===================================================== */
+
+  const ayushmanContent = {
+    coverage: {
+      icon: "💰",
+      title: "₹5 Lakh Coverage",
+      text: "Eligible families can receive health coverage of up to ₹5 lakh per family per year for eligible secondary and tertiary hospitalization.",
+      points: [
+        "Up to ₹5 lakh annual coverage",
+        "Family-based health protection",
+        "Applicable to eligible hospitalization expenses",
+      ],
+    },
+
+    eligibility: {
+      icon: "👨‍👩‍👧‍👦",
+      title: "Eligibility",
+      text: "Eligibility is based on government-defined beneficiary criteria and applicable PM-JAY rules.",
+      points: [
+        "Eligibility depends on beneficiary criteria",
+        "Family members may be covered",
+        "Government rules determine eligibility",
+      ],
+    },
+
+    benefits: {
+      icon: "🏥",
+      title: "Key Benefits",
+      text: "PM-JAY provides financial protection for eligible beneficiaries receiving treatment at empanelled hospitals.",
+      points: [
+        "Cashless hospitalization",
+        "Access to eligible hospital treatment",
+        "Reduced financial burden",
+      ],
+    },
   };
 
-  const handleLoginChange = (e) => {
-    setLoginData({
-      ...loginData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleRegisterChange = (e) => {
-    setRegisterData({
-      ...registerData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    if (!loginData.email || !loginData.password) {
-      alert("Please enter email and password.");
-      return;
-    }
-
-    /*
-      Demo login.
-
-      Replace this section later with your Spring Boot API call.
-    */
-
-    if (loginRole === "Doctor") {
-      navigate("/doctor/dashboard");
-    } else if (loginRole === "Patient") {
-      navigate("/patient/dashboard");
-    } else {
-      navigate("/dashboard");
-    }
-
-    setShowLogin(false);
-  };
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-
-    if (
-      !registerData.name ||
-      !registerData.email ||
-      !registerData.phone ||
-      !registerData.password
-    ) {
-      alert("Please fill all required fields.");
-      return;
-    }
-
-    if (registerData.password !== registerData.confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    alert("Registration successful.");
-
-    setRegisterData({
-      name: "",
-      email: "",
-      phone: "",
-      role: "Patient",
-      password: "",
-      confirmPassword: "",
-    });
-
-    setShowRegister(false);
-    setShowLogin(true);
-    setLoginRole(registerData.role);
-  };
-
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
+  const activeAyushman = ayushmanContent[ayushmanInfo];
 
   return (
     <div className={`home-page ${darkMode ? "dark-mode" : ""}`}>
@@ -133,28 +84,20 @@ function Home() {
       <header className="home-header">
 
         <div className="hospital-logo">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png"
-            alt="AI Hospital Logo"
-          />
+          <div className="logo-symbol">🏥</div>
 
           <div>
             <h2>AI Smart Hospital</h2>
-            <p>Healthcare • Technology • Care</p>
+            <p>Intelligent Healthcare Management</p>
           </div>
         </div>
 
         <nav>
           <a href="#home">Home</a>
-
           <a href="#services">Services</a>
-
           <a href="#departments">Departments</a>
-
           <a href="#doctors">Doctors</a>
-
           <a href="#about">About</a>
-
           <a href="#contact">Contact</a>
         </nav>
 
@@ -163,7 +106,7 @@ function Home() {
           <button
             className="theme-btn"
             onClick={() => setDarkMode(!darkMode)}
-            title="Toggle theme"
+            title="Change Theme"
           >
             {darkMode ? "☀️" : "🌙"}
           </button>
@@ -172,12 +115,12 @@ function Home() {
 
             <button
               className="login-btn"
-              onClick={() => setShowLoginMenu(!showLoginMenu)}
+              onClick={() => setLoginMenuOpen(!loginMenuOpen)}
             >
               Login ▾
             </button>
 
-            {showLoginMenu && (
+            {loginMenuOpen && (
               <div className="login-menu">
 
                 <button onClick={() => openLogin("Patient")}>
@@ -194,7 +137,6 @@ function Home() {
 
               </div>
             )}
-
           </div>
 
           <button
@@ -205,7 +147,6 @@ function Home() {
           </button>
 
         </div>
-
       </header>
 
 
@@ -221,7 +162,7 @@ function Home() {
         </span>
 
         <a href="tel:108">
-          Call Emergency: 108
+          📞 Call Emergency - 108
         </a>
 
       </div>
@@ -233,11 +174,11 @@ function Home() {
 
       <div className="announcement">
 
-        <span>📢</span>
+        <span>🔔</span>
 
         <span>
-          <strong>Important:</strong> Online appointments are now
-          available. Book your appointment from anywhere.
+          <strong>Smart Healthcare:</strong> Book appointments,
+          manage medical records and connect with doctors digitally.
         </span>
 
       </div>
@@ -247,33 +188,31 @@ function Home() {
           HERO
       ===================================================== */}
 
-      <section
-        className="hero-section"
-        id="home"
-      >
+      <section className="hero-section" id="home">
 
         <div className="hero-overlay"></div>
 
         <div className="hero-content">
 
-          <div className="hero-badge">
-            🏥 ADVANCED DIGITAL HEALTHCARE
-          </div>
+          <span className="hero-badge">
+            ✨ AI-POWERED SMART HEALTHCARE
+          </span>
 
           <p className="welcome-text">
             WELCOME TO AI SMART HOSPITAL
           </p>
 
           <h1>
-            Smarter Healthcare.
+            Better Healthcare.
             <br />
-            <span>Better Care.</span>
+            <span>Smarter Future.</span>
           </h1>
 
           <p className="hero-description">
-            Experience modern healthcare powered by artificial
-            intelligence, expert doctors, advanced technology and
-            patient-focused services.
+            Experience modern healthcare powered by technology,
+            intelligent medical systems and compassionate doctors.
+            Manage appointments, medical records and healthcare
+            services from one secure platform.
           </p>
 
           <div className="hero-buttons">
@@ -285,24 +224,20 @@ function Home() {
               📅 Book Appointment
             </button>
 
-            <button
+            <a
+              href="#services"
               className="secondary-btn"
-              onClick={() => scrollToSection("services")}
             >
               Explore Services →
-            </button>
+            </a>
 
           </div>
 
           <div className="hero-features">
 
-            <span>✓ 24/7 Emergency</span>
-
-            <span>✓ Expert Doctors</span>
-
-            <span>✓ AI Powered</span>
-
-            <span>✓ Digital Records</span>
+            <span>✓ AI Assisted Healthcare</span>
+            <span>✓ Secure Medical Records</span>
+            <span>✓ 24/7 Emergency Support</span>
 
           </div>
 
@@ -320,8 +255,8 @@ function Home() {
             </div>
 
             <div>
-              <h2>AI Smart Care</h2>
-              <p>Technology for better healthcare</p>
+              <h2>Smart Care</h2>
+              <p>Technology + Human Care</p>
             </div>
 
           </div>
@@ -333,10 +268,8 @@ function Home() {
             </div>
 
             <div>
-              <strong>Expert Medical Team</strong>
-              <small>
-                Experienced healthcare professionals
-              </small>
+              <strong>Expert Doctors</strong>
+              <small>Available for you</small>
             </div>
 
           </div>
@@ -344,18 +277,18 @@ function Home() {
           <div className="hero-stats">
 
             <div>
+              <strong>24/7</strong>
+              <span>Emergency</span>
+            </div>
+
+            <div>
               <strong>50+</strong>
               <span>Doctors</span>
             </div>
 
             <div>
-              <strong>15+</strong>
-              <span>Departments</span>
-            </div>
-
-            <div>
-              <strong>24/7</strong>
-              <span>Support</span>
+              <strong>10K+</strong>
+              <span>Patients</span>
             </div>
 
           </div>
@@ -384,7 +317,7 @@ function Home() {
         </div>
 
         <div className="stat-box">
-          <span>😊</span>
+          <span>❤️</span>
           <strong>10K+</strong>
           <p>Happy Patients</p>
         </div>
@@ -405,15 +338,15 @@ function Home() {
       <section className="trust-bar">
 
         <div>
-          <span>🛡️</span>
-          <strong>Secure Medical Records</strong>
-          <small>Your information stays protected</small>
+          <span>🔐</span>
+          <strong>Secure Records</strong>
+          <small>Your medical data stays protected</small>
         </div>
 
         <div>
           <span>🤖</span>
-          <strong>AI Assisted Healthcare</strong>
-          <small>Smart technology for better decisions</small>
+          <strong>AI Assistance</strong>
+          <small>Smart healthcare technology</small>
         </div>
 
         <div>
@@ -423,9 +356,9 @@ function Home() {
         </div>
 
         <div>
-          <span>📞</span>
-          <strong>24/7 Support</strong>
-          <small>We are here when you need us</small>
+          <span>🚑</span>
+          <strong>Emergency Care</strong>
+          <small>24/7 emergency assistance</small>
         </div>
 
       </section>
@@ -435,49 +368,27 @@ function Home() {
           SERVICES
       ===================================================== */}
 
-      <section
-        className="services-section"
-        id="services"
-      >
+      <section className="services-section" id="services">
 
         <div className="section-heading">
 
           <p>OUR SERVICES</p>
 
           <h2>
-            Complete Healthcare Services
+            Complete Healthcare
+            <br />
+            Under One Platform
           </h2>
 
           <span>
-            Everything you need for convenient,
-            modern and reliable healthcare.
+            Access essential healthcare services through our
+            intelligent hospital management system.
           </span>
 
         </div>
 
 
         <div className="services-grid">
-
-          <div className="service-card ai-card">
-
-            <div className="service-icon">
-              🤖
-            </div>
-
-            <h3>AI Health Assistant</h3>
-
-            <p>
-              Get AI-assisted health guidance,
-              symptom analysis and smart health
-              recommendations.
-            </p>
-
-            <a href="#ai">
-              Learn More →
-            </a>
-
-          </div>
-
 
           <div className="service-card">
 
@@ -488,18 +399,18 @@ function Home() {
             <h3>Online Appointments</h3>
 
             <p>
-              Book appointments with doctors
-              quickly without waiting in long queues.
+              Book appointments with doctors according to your
+              preferred date and time.
             </p>
 
             <a
-              href="#"
+              href="#contact"
               onClick={(e) => {
                 e.preventDefault();
                 openLogin("Patient");
               }}
             >
-              Book Now →
+              Book Appointment →
             </a>
 
           </div>
@@ -514,12 +425,12 @@ function Home() {
             <h3>Doctor Consultation</h3>
 
             <p>
-              Consult experienced doctors from
-              different medical departments.
+              Connect with qualified doctors and receive
+              professional medical guidance.
             </p>
 
             <a href="#doctors">
-              Find Doctors →
+              Find Doctor →
             </a>
 
           </div>
@@ -534,12 +445,12 @@ function Home() {
             <h3>Medical Records</h3>
 
             <p>
-              Manage prescriptions, reports and
-              medical history digitally.
+              Securely manage prescriptions, reports and
+              important medical records.
             </p>
 
             <a
-              href="#"
+              href="#contact"
               onClick={(e) => {
                 e.preventDefault();
                 openLogin("Patient");
@@ -557,11 +468,11 @@ function Home() {
               💊
             </div>
 
-            <h3>Digital Prescriptions</h3>
+            <h3>Pharmacy Support</h3>
 
             <p>
-              Access prescriptions and medication
-              information from your digital account.
+              Manage prescriptions and get information about
+              required medicines.
             </p>
 
             <a href="#contact">
@@ -574,18 +485,38 @@ function Home() {
           <div className="service-card">
 
             <div className="service-icon">
-              🚑
+              🧪
             </div>
 
-            <h3>Emergency Care</h3>
+            <h3>Diagnostic Services</h3>
 
             <p>
-              Emergency medical support available
-              around the clock.
+              Access laboratory testing and diagnostic services
+              through our hospital network.
             </p>
 
-            <a href="tel:108">
-              Call 108 →
+            <a href="#contact">
+              Explore →
+            </a>
+
+          </div>
+
+
+          <div className="service-card ai-card">
+
+            <div className="service-icon">
+              🤖
+            </div>
+
+            <h3>AI Healthcare</h3>
+
+            <p>
+              Use intelligent healthcare tools for symptom
+              analysis, risk alerts and medical information.
+            </p>
+
+            <a href="#ai">
+              Explore AI →
             </a>
 
           </div>
@@ -595,137 +526,633 @@ function Home() {
       </section>
 
 
-      {/* =========================================================
-    HEALTHCARE EXPERIENCE / PHOTO SECTION
-   ========================================================= */}
+      {/* =====================================================
+          HEALTHCARE GALLERY
+      ===================================================== */}
 
-<section className="healthcare-gallery">
+      <section className="healthcare-gallery">
 
-  <div className="section-heading">
-    <p>MODERN HEALTHCARE EXPERIENCE</p>
+        <div className="section-heading">
 
-    <h2>
-      Advanced Care With
-      <span> Human Touch</span>
-    </h2>
+          <p>MODERN HEALTHCARE</p>
 
-    <span>
-      Experience modern healthcare supported by expert doctors,
-      advanced technology, comfortable facilities and intelligent
-      hospital management.
-    </span>
-  </div>
+          <h2>
+            Healthcare Designed
+            <span> Around You</span>
+          </h2>
 
-  <div className="healthcare-gallery-grid">
+          <span>
+            Modern infrastructure, expert professionals and
+            technology working together.
+          </span>
 
-    {/* Large Image */}
-    <div className="gallery-large">
-      <img
-        src="https://images.ctfassets.net/kfkw517g6gvn/71kXqZiHb5a9pu6o8HirUW/72b773632f7c2b4a6c5b009922062373/liv42900.jpg"
-        alt="Modern hospital consultation"
-      />
-
-      <div className="gallery-overlay">
-        <div className="gallery-icon">👨‍⚕️</div>
-
-        <div>
-          <h3>Expert Medical Consultation</h3>
-          <p>Professional doctors focused on patient care.</p>
         </div>
-      </div>
-    </div>
 
 
-    {/* Small Image 1 */}
-    <div className="gallery-small">
-      <img
-        src="https://trlshealthcare.com/blog/blog_images/1755607033.jpg"
-        alt="Doctor consultation"
-      />
+        <div className="healthcare-gallery-grid">
 
-      <div className="gallery-caption">
-        <strong>Specialist Care</strong>
-        <span>Trusted medical professionals</span>
-      </div>
-    </div>
+          <div className="gallery-large">
 
+            <img
+              src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=80"
+              alt="Modern Hospital"
+            />
 
-    {/* Small Image 2 */}
-    <div className="gallery-small">
-      <img
-        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85"
-        alt="Healthcare technology"
-      />
+            <div className="gallery-overlay">
 
-      <div className="gallery-caption">
-        <strong>Smart Healthcare</strong>
-        <span>Technology-powered patient care</span>
-      </div>
-    </div>
+              <div className="gallery-icon">
+                🏥
+              </div>
 
-  </div>
+              <div>
+                <h3>Modern Hospital Infrastructure</h3>
+                <p>
+                  Designed for safe and comfortable patient care.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
 
 
-  {/* Feature Cards */}
+          <div className="gallery-small">
 
-  <div className="gallery-features">
+            <img
+              src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=80"
+              alt="Medical Team"
+            />
 
-    <div>
-      <span>🏥</span>
-      <div>
-        <strong>Modern Facilities</strong>
-        <small>Comfortable and well-equipped environment</small>
-      </div>
-    </div>
+            <div className="gallery-caption">
+              <strong>Expert Medical Team</strong>
+              <span>Experienced healthcare professionals</span>
+            </div>
 
-    <div>
-      <span>🩺</span>
-      <div>
-        <strong>Expert Doctors</strong>
-        <small>Experienced specialists for your care</small>
-      </div>
-    </div>
+          </div>
 
-    <div>
-      <span>🤖</span>
-      <div>
-        <strong>AI-Powered Care</strong>
-        <small>Smart technology supporting healthcare</small>
-      </div>
-    </div>
 
-    <div>
-      <span>❤️</span>
-      <div>
-        <strong>Patient First</strong>
-        <small>Care designed around every patient</small>
-      </div>
-    </div>
+          <div className="gallery-small">
 
-  </div>
+            <img
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
+              alt="Healthcare Technology"
+            />
 
-</section>
+            <div className="gallery-caption">
+              <strong>Smart Healthcare Technology</strong>
+              <span>Technology-enabled medical services</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div className="gallery-features">
+
+          <div>
+            <span>🧑‍⚕️</span>
+            <div>
+              <strong>Qualified Staff</strong>
+              <small>Experienced medical professionals</small>
+            </div>
+          </div>
+
+          <div>
+            <span>🛡️</span>
+            <div>
+              <strong>Patient Safety</strong>
+              <small>Safety-focused healthcare environment</small>
+            </div>
+          </div>
+
+          <div>
+            <span>💻</span>
+            <div>
+              <strong>Digital Healthcare</strong>
+              <small>Smart and connected medical services</small>
+            </div>
+          </div>
+
+          <div>
+            <span>❤️</span>
+            <div>
+              <strong>Patient First</strong>
+              <small>Care focused on patient needs</small>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          AYUSHMAN BHARAT
+          NO AYUSHMAN CARD IMAGE
+      ===================================================== */}
+
+      <section className="insurance-section" id="ayushman">
+
+        <div className="insurance-content">
+
+          {/* LEFT ICON */}
+
+          <div className="insurance-icon">
+            🏥
+          </div>
+
+
+          {/* MAIN CONTENT */}
+
+          <div className="insurance-text">
+
+            <p className="section-label">
+              AYUSHMAN BHARAT • HEALTHCARE SUPPORT
+            </p>
+
+            <h2>
+              Get Free Healthcare Treatment
+              <span> Up To ₹5 Lakh</span>
+            </h2>
+
+            <p>
+              Ayushman Bharat Pradhan Mantri Jan Arogya Yojana
+              (PM-JAY) provides eligible families with health
+              coverage of up to ₹5 lakh per family per year for
+              eligible secondary and tertiary hospitalization.
+            </p>
+
+
+            <div className="insurance-features">
+
+              <div>
+                <span>✓</span>
+                <strong>Up to ₹5 Lakh Coverage</strong>
+              </div>
+
+              <div>
+                <span>✓</span>
+                <strong>Cashless Hospitalization</strong>
+              </div>
+
+              <div>
+                <span>✓</span>
+                <strong>Eligible Family Members</strong>
+              </div>
+
+              <div>
+                <span>✓</span>
+                <strong>Hospital Treatment Support</strong>
+              </div>
+
+            </div>
+
+
+            <button
+              className="insurance-btn"
+              onClick={() =>
+                setShowAyushmanDetails(!showAyushmanDetails)
+              }
+            >
+              🪪 Check Ayushman Details
+              {showAyushmanDetails ? " ↑" : " →"}
+            </button>
+
+            <small className="insurance-note">
+              * Benefits and eligibility depend on applicable
+              government scheme rules and beneficiary eligibility.
+            </small>
+
+          </div>
+
+
+          {/* =================================================
+              INTERACTIVE INFORMATION CARD
+          ================================================= */}
+
+          <div className="ayushman-card">
+
+            <div className="ayushman-card-header">
+
+              <div className="ayushman-shield">
+                🛡️
+              </div>
+
+              <div>
+                <strong>
+                  Ayushman Bharat
+                </strong>
+
+                <span>
+                  PM-JAY Health Protection
+                </span>
+              </div>
+
+            </div>
+
+
+            {/* TABS */}
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "7px",
+                marginBottom: "18px",
+              }}
+            >
+
+              <button
+                onClick={() => setAyushmanInfo("coverage")}
+                style={{
+                  padding: "10px 5px",
+                  border: "1px solid #d9e9ed",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontWeight: "700",
+                  background:
+                    ayushmanInfo === "coverage"
+                      ? "#087f8c"
+                      : "#f7fbfc",
+                  color:
+                    ayushmanInfo === "coverage"
+                      ? "white"
+                      : "#36556d",
+                }}
+              >
+                💰 Coverage
+              </button>
+
+
+              <button
+                onClick={() => setAyushmanInfo("eligibility")}
+                style={{
+                  padding: "10px 5px",
+                  border: "1px solid #d9e9ed",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontWeight: "700",
+                  background:
+                    ayushmanInfo === "eligibility"
+                      ? "#087f8c"
+                      : "#f7fbfc",
+                  color:
+                    ayushmanInfo === "eligibility"
+                      ? "white"
+                      : "#36556d",
+                }}
+              >
+                👨‍👩‍👧 Eligibility
+              </button>
+
+
+              <button
+                onClick={() => setAyushmanInfo("benefits")}
+                style={{
+                  padding: "10px 5px",
+                  border: "1px solid #d9e9ed",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontWeight: "700",
+                  background:
+                    ayushmanInfo === "benefits"
+                      ? "#087f8c"
+                      : "#f7fbfc",
+                  color:
+                    ayushmanInfo === "benefits"
+                      ? "white"
+                      : "#36556d",
+                }}
+              >
+                🎁 Benefits
+              </button>
+
+            </div>
+
+
+            {/* ACTIVE INFORMATION */}
+
+            <div
+              style={{
+                padding: "22px",
+                background: "#f3fafb",
+                borderRadius: "14px",
+                border: "1px solid #dcecef",
+                minHeight: "205px",
+              }}
+            >
+
+              <div
+                style={{
+                  fontSize: "30px",
+                  marginBottom: "10px",
+                }}
+              >
+                {activeAyushman.icon}
+              </div>
+
+              <h3
+                style={{
+                  color: "#087f8c",
+                  fontSize: "20px",
+                  marginBottom: "9px",
+                }}
+              >
+                {activeAyushman.title}
+              </h3>
+
+              <p
+                style={{
+                  color: "#607887",
+                  fontSize: "12px",
+                  lineHeight: "1.6",
+                  marginBottom: "13px",
+                }}
+              >
+                {activeAyushman.text}
+              </p>
+
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "7px",
+                }}
+              >
+
+                {activeAyushman.points.map((point, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      fontSize: "11px",
+                      color: "#36556d",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: "19px",
+                        height: "19px",
+                        borderRadius: "50%",
+                        display: "grid",
+                        placeItems: "center",
+                        background: "#d8f6ef",
+                        color: "#087f8c",
+                        fontWeight: "900",
+                        flexShrink: 0,
+                      }}
+                    >
+                      ✓
+                    </span>
+
+                    {point}
+
+                  </div>
+                ))}
+
+              </div>
+
+            </div>
+
+
+            {/* DETAILS BUTTON */}
+
+            <button
+              onClick={() =>
+                setShowAyushmanDetails(!showAyushmanDetails)
+              }
+              style={{
+                width: "100%",
+                marginTop: "15px",
+                padding: "12px",
+                border: "none",
+                borderRadius: "9px",
+                background: "#087f8c",
+                color: "white",
+                fontWeight: "800",
+                cursor: "pointer",
+              }}
+            >
+              {showAyushmanDetails
+                ? "Hide Scheme Details ↑"
+                : "View Scheme Details →"}
+            </button>
+
+
+            {/* EXPANDED DETAILS */}
+
+            {showAyushmanDetails && (
+              <div
+                style={{
+                  marginTop: "15px",
+                  padding: "17px",
+                  background: "#eef9fb",
+                  borderRadius: "12px",
+                  border: "1px solid #d8ebef",
+                }}
+              >
+
+                <h4
+                  style={{
+                    color: "#17445c",
+                    marginBottom: "9px",
+                  }}
+                >
+                  📌 Important Information
+                </h4>
+
+                <p
+                  style={{
+                    color: "#647f8e",
+                    fontSize: "11px",
+                    lineHeight: "1.6",
+                    marginBottom: "10px",
+                  }}
+                >
+                  PM-JAY is a government healthcare scheme designed
+                  to provide financial protection to eligible
+                  beneficiary families.
+                </p>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "7px",
+                  }}
+                >
+
+                  <span
+                    style={{
+                      color: "#36556d",
+                      fontSize: "11px",
+                    }}
+                  >
+                    💰 Coverage: Up to ₹5 lakh per family per year
+                  </span>
+
+                  <span
+                    style={{
+                      color: "#36556d",
+                      fontSize: "11px",
+                    }}
+                  >
+                    🏥 Treatment: Eligible hospitalization services
+                  </span>
+
+                  <span
+                    style={{
+                      color: "#36556d",
+                      fontSize: "11px",
+                    }}
+                  >
+                    💳 Payment: Cashless treatment at eligible
+                    empanelled hospitals
+                  </span>
+
+                  <span
+                    style={{
+                      color: "#36556d",
+                      fontSize: "11px",
+                    }}
+                  >
+                    👨‍👩‍👧 Family: Eligible family members as per
+                    applicable rules
+                  </span>
+
+                </div>
+
+                <a
+                  href="https://beneficiary.nha.gov.in/"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "inline-block",
+                    marginTop: "13px",
+                    color: "#087f8c",
+                    fontSize: "11px",
+                    fontWeight: "800",
+                  }}
+                >
+                  Check Official Information →
+                </a>
+
+              </div>
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          AYUSHMAN BENEFITS
+      ===================================================== */}
+
+      <section className="ayushman-details-section">
+
+        <div className="section-heading">
+
+          <p>PM-JAY BENEFITS</p>
+
+          <h2>
+            Understanding Your
+            <br />
+            Healthcare Support
+          </h2>
+
+          <span>
+            Key features of Ayushman Bharat health protection
+            for eligible beneficiaries.
+          </span>
+
+        </div>
+
+
+        <div className="ayushman-benefits-grid">
+
+          <div className="ayushman-benefit-card">
+
+            <span>💰</span>
+
+            <h3>₹5 Lakh Coverage</h3>
+
+            <p>
+              Health coverage of up to ₹5 lakh per family per year
+              for eligible beneficiaries.
+            </p>
+
+          </div>
+
+
+          <div className="ayushman-benefit-card">
+
+            <span>💳</span>
+
+            <h3>Cashless Treatment</h3>
+
+            <p>
+              Eligible beneficiaries can receive cashless
+              treatment at applicable empanelled hospitals.
+            </p>
+
+          </div>
+
+
+          <div className="ayushman-benefit-card">
+
+            <span>🏥</span>
+
+            <h3>Hospitalization</h3>
+
+            <p>
+              Support for eligible secondary and tertiary
+              hospitalization services.
+            </p>
+
+          </div>
+
+
+          <div className="ayushman-benefit-card">
+
+            <span>👨‍👩‍👧‍👦</span>
+
+            <h3>Family Protection</h3>
+
+            <p>
+              Eligible family members can receive healthcare
+              protection according to applicable rules.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
 
       {/* =====================================================
           DEPARTMENTS
       ===================================================== */}
 
-      <section
-        className="departments-section"
-        id="departments"
-      >
+      <section className="departments-section" id="departments">
 
         <div className="section-heading">
 
-          <p>MEDICAL DEPARTMENTS</p>
+          <p>OUR DEPARTMENTS</p>
 
           <h2>
-            Specialized Care Under One Roof
+            Specialized Medical Care
           </h2>
 
           <span>
-            Our departments provide specialized
-            healthcare with modern medical facilities.
+            Professional care across multiple medical specialties.
           </span>
 
         </div>
@@ -737,7 +1164,7 @@ function Home() {
             <div>❤️</div>
             <h3>Cardiology</h3>
             <p>
-              Heart and cardiovascular care.
+              Diagnosis and treatment of heart-related conditions.
             </p>
             <span>View Department →</span>
           </div>
@@ -746,7 +1173,7 @@ function Home() {
             <div>🧠</div>
             <h3>Neurology</h3>
             <p>
-              Brain and nervous system treatment.
+              Specialized treatment for neurological disorders.
             </p>
             <span>View Department →</span>
           </div>
@@ -755,7 +1182,7 @@ function Home() {
             <div>🦴</div>
             <h3>Orthopedics</h3>
             <p>
-              Bone, joint and muscle care.
+              Bone, joint and musculoskeletal healthcare.
             </p>
             <span>View Department →</span>
           </div>
@@ -764,34 +1191,16 @@ function Home() {
             <div>👶</div>
             <h3>Pediatrics</h3>
             <p>
-              Specialized healthcare for children.
+              Healthcare services focused on children.
             </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
-            <div>🩸</div>
-            <h3>General Medicine</h3>
+            <div>👩</div>
+            <h3>Gynecology</h3>
             <p>
-              Diagnosis and treatment of common diseases.
-            </p>
-            <span>View Department →</span>
-          </div>
-
-          <div className="department-card">
-            <div>👁️</div>
-            <h3>Ophthalmology</h3>
-            <p>
-              Complete eye care and treatment.
-            </p>
-            <span>View Department →</span>
-          </div>
-
-          <div className="department-card">
-            <div>🦷</div>
-            <h3>Dentistry</h3>
-            <p>
-              Complete dental healthcare services.
+              Comprehensive women's healthcare services.
             </p>
             <span>View Department →</span>
           </div>
@@ -800,7 +1209,25 @@ function Home() {
             <div>🫁</div>
             <h3>Pulmonology</h3>
             <p>
-              Respiratory and lung care.
+              Diagnosis and management of respiratory conditions.
+            </p>
+            <span>View Department →</span>
+          </div>
+
+          <div className="department-card">
+            <div>🧴</div>
+            <h3>Dermatology</h3>
+            <p>
+              Medical care for skin, hair and nail conditions.
+            </p>
+            <span>View Department →</span>
+          </div>
+
+          <div className="department-card">
+            <div>🩺</div>
+            <h3>General Medicine</h3>
+            <p>
+              Primary diagnosis and comprehensive medical care.
             </p>
             <span>View Department →</span>
           </div>
@@ -814,10 +1241,7 @@ function Home() {
           DOCTORS
       ===================================================== */}
 
-      <section
-        className="doctors-section"
-        id="doctors"
-      >
+      <section className="doctors-section" id="doctors">
 
         <div className="section-heading">
 
@@ -828,8 +1252,8 @@ function Home() {
           </h2>
 
           <span>
-            Skilled professionals dedicated to
-            providing quality patient care.
+            Experienced healthcare professionals committed to
+            quality patient care.
           </span>
 
         </div>
@@ -837,37 +1261,140 @@ function Home() {
 
         <div className="doctors-grid">
 
-          <DoctorCard
-            emoji="👨‍⚕️"
-            name="Dr. Rajesh Sharma"
-            specialty="Cardiologist"
-            experience="15+ Years Experience"
-            rating="4.9"
-          />
+          <div className="doctor-card">
 
-          <DoctorCard
-            emoji="👩‍⚕️"
-            name="Dr. Priya Patil"
-            specialty="Neurologist"
-            experience="12+ Years Experience"
-            rating="4.8"
-          />
+            <div className="doctor-photo">
+              👨‍⚕️
+            </div>
 
-          <DoctorCard
-            emoji="👨‍⚕️"
-            name="Dr. Amit Kulkarni"
-            specialty="Orthopedic Surgeon"
-            experience="10+ Years Experience"
-            rating="4.9"
-          />
+            <div className="doctor-info">
 
-          <DoctorCard
-            emoji="👩‍⚕️"
-            name="Dr. Neha Deshmukh"
-            specialty="Pediatrician"
-            experience="9+ Years Experience"
-            rating="4.8"
-          />
+              <span className="doctor-available">
+                ● AVAILABLE TODAY
+              </span>
+
+              <h3>Dr. Rajesh Sharma</h3>
+
+              <p>Cardiologist</p>
+
+              <small>
+                12+ years of experience in cardiovascular care.
+              </small>
+
+              <div className="doctor-bottom">
+                <span>★★★★★</span>
+                <span>12+ Years</span>
+              </div>
+
+              <button onClick={() => openLogin("Patient")}>
+                Book Appointment
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div className="doctor-card">
+
+            <div className="doctor-photo">
+              👩‍⚕️
+            </div>
+
+            <div className="doctor-info">
+
+              <span className="doctor-available">
+                ● AVAILABLE TODAY
+              </span>
+
+              <h3>Dr. Priya Mehta</h3>
+
+              <p>Neurologist</p>
+
+              <small>
+                Specialist in neurological diagnosis and treatment.
+              </small>
+
+              <div className="doctor-bottom">
+                <span>★★★★★</span>
+                <span>10+ Years</span>
+              </div>
+
+              <button onClick={() => openLogin("Patient")}>
+                Book Appointment
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div className="doctor-card">
+
+            <div className="doctor-photo">
+              👨‍⚕️
+            </div>
+
+            <div className="doctor-info">
+
+              <span className="doctor-available">
+                ● AVAILABLE TODAY
+              </span>
+
+              <h3>Dr. Amit Patil</h3>
+
+              <p>Orthopedic Surgeon</p>
+
+              <small>
+                Expert in bone, joint and musculoskeletal care.
+              </small>
+
+              <div className="doctor-bottom">
+                <span>★★★★★</span>
+                <span>11+ Years</span>
+              </div>
+
+              <button onClick={() => openLogin("Patient")}>
+                Book Appointment
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div className="doctor-card">
+
+            <div className="doctor-photo">
+              👩‍⚕️
+            </div>
+
+            <div className="doctor-info">
+
+              <span className="doctor-available">
+                ● AVAILABLE TODAY
+              </span>
+
+              <h3>Dr. Sneha Kulkarni</h3>
+
+              <p>Pediatrician</p>
+
+              <small>
+                Dedicated to children's healthcare and wellbeing.
+              </small>
+
+              <div className="doctor-bottom">
+                <span>★★★★★</span>
+                <span>9+ Years</span>
+              </div>
+
+              <button onClick={() => openLogin("Patient")}>
+                Book Appointment
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -885,12 +1412,12 @@ function Home() {
           <p>OUR FACILITIES</p>
 
           <h2>
-            Modern Healthcare Infrastructure
+            Everything You Need
           </h2>
 
           <span>
-            Advanced facilities designed for patient
-            comfort and quality healthcare.
+            Modern facilities designed for efficient and
+            comfortable healthcare delivery.
           </span>
 
         </div>
@@ -898,41 +1425,53 @@ function Home() {
 
         <div className="facilities-grid">
 
-          <Facility
-            icon="🛏️"
-            title="Modern Patient Rooms"
-            text="Comfortable and well-equipped patient rooms."
-          />
+          <div className="facility-card">
+            <div>🚑</div>
+            <div>
+              <h3>24/7 Emergency</h3>
+              <p>Round-the-clock emergency medical support.</p>
+            </div>
+          </div>
 
-          <Facility
-            icon="🔬"
-            title="Advanced Laboratory"
-            text="Modern diagnostic and testing facilities."
-          />
+          <div className="facility-card">
+            <div>🧪</div>
+            <div>
+              <h3>Advanced Laboratory</h3>
+              <p>Modern diagnostic and laboratory facilities.</p>
+            </div>
+          </div>
 
-          <Facility
-            icon="🩻"
-            title="Digital Diagnostics"
-            text="Advanced imaging and diagnostic technology."
-          />
+          <div className="facility-card">
+            <div>💊</div>
+            <div>
+              <h3>Hospital Pharmacy</h3>
+              <p>Convenient access to prescribed medicines.</p>
+            </div>
+          </div>
 
-          <Facility
-            icon="🚑"
-            title="24/7 Ambulance"
-            text="Emergency ambulance support available."
-          />
+          <div className="facility-card">
+            <div>🛏️</div>
+            <div>
+              <h3>Comfortable Rooms</h3>
+              <p>Clean and comfortable patient accommodation.</p>
+            </div>
+          </div>
 
-          <Facility
-            icon="💊"
-            title="Hospital Pharmacy"
-            text="Easy access to prescribed medicines."
-          />
+          <div className="facility-card">
+            <div>🩻</div>
+            <div>
+              <h3>Imaging Services</h3>
+              <p>Advanced medical imaging and diagnostics.</p>
+            </div>
+          </div>
 
-          <Facility
-            icon="🧑‍⚕️"
-            title="Nursing Care"
-            text="Professional nursing and patient support."
-          />
+          <div className="facility-card">
+            <div>🩺</div>
+            <div>
+              <h3>Specialist Care</h3>
+              <p>Access to multiple medical specialties.</p>
+            </div>
+          </div>
 
         </div>
 
@@ -950,12 +1489,12 @@ function Home() {
           <p>WHY CHOOSE US</p>
 
           <h2>
-            Healthcare Designed Around You
+            Healthcare With Intelligence
           </h2>
 
           <span>
-            We combine medical expertise and technology
-            to make healthcare simpler.
+            Combining technology, medical expertise and patient
+            care in one platform.
           </span>
 
         </div>
@@ -965,28 +1504,28 @@ function Home() {
 
           <div className="why-card">
             <div>🤖</div>
-            <h3>AI Technology</h3>
+            <h3>AI Powered</h3>
             <p>
-              Smart technology supports doctors and
-              improves healthcare workflows.
+              Intelligent tools assist healthcare professionals
+              and patients.
             </p>
           </div>
 
           <div className="why-card">
-            <div>🔒</div>
-            <h3>Data Security</h3>
+            <div>🔐</div>
+            <h3>Secure</h3>
             <p>
-              Patient information is handled with
-              security and privacy in mind.
+              Medical information is managed through a secure
+              digital system.
             </p>
           </div>
 
           <div className="why-card">
             <div>⚡</div>
-            <h3>Fast Service</h3>
+            <h3>Fast</h3>
             <p>
-              Quick appointment booking and
-              convenient digital services.
+              Quickly access appointments, doctors and medical
+              information.
             </p>
           </div>
 
@@ -994,8 +1533,8 @@ function Home() {
             <div>❤️</div>
             <h3>Patient First</h3>
             <p>
-              Our services are designed around
-              patient comfort and care.
+              Every feature is designed around better patient
+              experience.
             </p>
           </div>
 
@@ -1008,10 +1547,7 @@ function Home() {
           ABOUT
       ===================================================== */}
 
-      <section
-        className="about-section"
-        id="about"
-      >
+      <section className="about-section" id="about">
 
         <div className="about-content">
 
@@ -1020,32 +1556,33 @@ function Home() {
           </p>
 
           <h2>
-            Building the Future of Healthcare
+            Building the Future of
+            <span> Healthcare</span>
           </h2>
 
           <p>
-            AI Smart Hospital is a modern healthcare
-            management platform designed to connect
-            patients, doctors and hospital administrators
-            through one digital system.
+            AI Smart Hospital is a modern hospital management
+            platform designed to connect patients, doctors and
+            hospital administrators through a single digital
+            system.
           </p>
 
           <p>
-            Our platform helps manage appointments,
-            medical records, prescriptions and other
-            healthcare services while using AI-assisted
-            features to improve healthcare workflows.
+            Our goal is to simplify healthcare management,
+            improve accessibility and use technology to support
+            better medical decisions.
           </p>
+
 
           <div className="about-points">
 
-            <span>✓ Patient-focused healthcare</span>
+            <span>✓ Digital Appointment Management</span>
 
-            <span>✓ Digital medical records</span>
+            <span>✓ Secure Medical Records</span>
 
-            <span>✓ AI-assisted services</span>
+            <span>✓ Doctor Management</span>
 
-            <span>✓ Online appointment management</span>
+            <span>✓ AI Healthcare Assistance</span>
 
           </div>
 
@@ -1055,7 +1592,7 @@ function Home() {
         <div className="about-card">
 
           <div className="about-medical-icon">
-            🏥
+            🤖
           </div>
 
           <h3>
@@ -1063,28 +1600,24 @@ function Home() {
           </h3>
 
           <p>
-            Connecting healthcare professionals and
-            patients through modern digital technology.
+            One platform for patients, doctors and hospital
+            administration.
           </p>
 
+
           <div className="about-stat">
-
-            <strong>24/7</strong>
-
-            <span>
-              Digital healthcare access
-            </span>
-
+            <strong>10K+</strong>
+            <span>Patients Served</span>
           </div>
 
           <div className="about-stat">
+            <strong>50+</strong>
+            <span>Healthcare Professionals</span>
+          </div>
 
-            <strong>100%</strong>
-
-            <span>
-              Patient-focused design
-            </span>
-
+          <div className="about-stat">
+            <strong>24/7</strong>
+            <span>Healthcare Support</span>
           </div>
 
         </div>
@@ -1096,10 +1629,7 @@ function Home() {
           AI SECTION
       ===================================================== */}
 
-      <section
-        className="ai-section"
-        id="ai"
-      >
+      <section className="ai-section" id="ai">
 
         <div className="ai-content">
 
@@ -1110,28 +1640,30 @@ function Home() {
           <div>
 
             <p className="section-label">
-              AI-POWERED HEALTHCARE
+              ARTIFICIAL INTELLIGENCE
             </p>
 
             <h2>
-              Smarter Decisions With AI
+              Smarter Healthcare With AI
             </h2>
 
             <p>
-              Our AI-assisted healthcare features are
-              designed to support medical professionals
-              and improve the patient experience.
+              Our platform can integrate intelligent healthcare
+              features that help patients and healthcare
+              professionals access useful medical information
+              faster.
             </p>
+
 
             <div className="ai-features">
 
-              <span>✓ Symptom Analysis</span>
+              <span>🧠 Symptom Analysis</span>
 
-              <span>✓ Risk Alerts</span>
+              <span>⚠️ Risk Alerts</span>
 
-              <span>✓ Medical Summary</span>
+              <span>📄 Record Summarization</span>
 
-              <span>✓ Smart Recommendations</span>
+              <span>💡 Smart Recommendations</span>
 
             </div>
 
@@ -1156,9 +1688,7 @@ function Home() {
 
           <div>
 
-            <h2>
-              Hospital Hours
-            </h2>
+            <h2>Hospital Hours</h2>
 
             <div className="hours-row">
               <span>Monday - Friday</span>
@@ -1177,7 +1707,7 @@ function Home() {
 
             <div className="hours-row">
               <span>Emergency</span>
-              <strong>24/7</strong>
+              <strong>24 / 7</strong>
             </div>
 
           </div>
@@ -1193,16 +1723,17 @@ function Home() {
 
           <div>
 
-            <h2>
-              Hospital Location
-            </h2>
+            <h2>Hospital Location</h2>
 
             <p className="location-text">
               AI Smart Hospital
               <br />
               Pune, Maharashtra, India
-              <br />
-              Near Main City Medical Center
+            </p>
+
+            <p className="location-text">
+              Easily accessible healthcare services for
+              patients and families.
             </p>
 
             <a
@@ -1211,7 +1742,7 @@ function Home() {
               target="_blank"
               rel="noreferrer"
             >
-              📍 Open Google Maps
+              📍 Open Maps
             </a>
 
           </div>
@@ -1229,15 +1760,15 @@ function Home() {
 
         <div className="section-heading">
 
-          <p>PATIENT STORIES</p>
+          <p>PATIENT REVIEWS</p>
 
           <h2>
             What Our Patients Say
           </h2>
 
           <span>
-            Patient experiences help us improve our
-            healthcare services.
+            Feedback from patients who experienced our healthcare
+            services.
           </span>
 
         </div>
@@ -1245,23 +1776,80 @@ function Home() {
 
         <div className="testimonial-grid">
 
-          <Testimonial
-            text="The online appointment system made it very easy to consult a doctor without waiting in a queue."
-            name="Rahul"
-            role="Patient"
-          />
+          <div className="testimonial-card">
 
-          <Testimonial
-            text="The digital medical records feature is very convenient. I can access my reports whenever I need them."
-            name="Sneha"
-            role="Patient"
-          />
+            <div className="stars">
+              ⭐⭐⭐⭐⭐
+            </div>
 
-          <Testimonial
-            text="The hospital platform provides a clean and simple way to manage healthcare services."
-            name="Amit"
-            role="Patient"
-          />
+            <p>
+              "The appointment booking process was very simple.
+              I could quickly find a doctor and manage my
+              appointment."
+            </p>
+
+            <div className="testimonial-user">
+
+              <div>👤</div>
+
+              <div>
+                <strong>Rahul Sharma</strong>
+                <small>Patient</small>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div className="testimonial-card">
+
+            <div className="stars">
+              ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+              "The digital medical record system makes it much
+              easier to keep track of prescriptions and reports."
+            </p>
+
+            <div className="testimonial-user">
+
+              <div>👩</div>
+
+              <div>
+                <strong>Neha Joshi</strong>
+                <small>Patient</small>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div className="testimonial-card">
+
+            <div className="stars">
+              ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+              "A clean and modern healthcare platform with useful
+              digital features."
+            </p>
+
+            <div className="testimonial-user">
+
+              <div>👨</div>
+
+              <div>
+                <strong>Amit Verma</strong>
+                <small>Patient</small>
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -1276,24 +1864,28 @@ function Home() {
 
         <div className="section-heading">
 
-          <p>OUR TECHNOLOGY PARTNERS</p>
+          <p>HEALTHCARE NETWORK</p>
 
           <h2>
-            Powered by Modern Technology
+            Our Healthcare Ecosystem
           </h2>
+
+          <span>
+            Connecting healthcare services and technology.
+          </span>
 
         </div>
 
 
         <div className="partners-grid">
 
-          <div>AI Healthcare</div>
+          <div>🏥 Hospital Network</div>
 
-          <div>Digital Health</div>
+          <div>🧪 Diagnostic Labs</div>
 
-          <div>Cloud Technology</div>
+          <div>💊 Pharmacy Partners</div>
 
-          <div>Secure Systems</div>
+          <div>🤖 AI Technology</div>
 
         </div>
 
@@ -1304,10 +1896,7 @@ function Home() {
           CONTACT
       ===================================================== */}
 
-      <section
-        className="contact-section"
-        id="contact"
-      >
+      <section className="contact-section" id="contact">
 
         <div className="contact-icon">
           📞
@@ -1318,19 +1907,19 @@ function Home() {
         </p>
 
         <h2>
-          We Are Here For You
+          We're Here For You
         </h2>
 
         <p>
-          Contact our healthcare support team for
-          appointments, general information and
-          emergency assistance.
+          Have questions about appointments, doctors or
+          healthcare services? Our support team is ready to help.
         </p>
+
 
         <div className="contact-buttons">
 
           <a
-            href="tel:+912012345678"
+            href="tel:+919999999999"
             className="contact-btn"
           >
             📞 Call Hospital
@@ -1367,29 +1956,32 @@ function Home() {
 
             <div className="footer-logo">
 
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png"
-                alt="Hospital Logo"
-              />
+              <div className="logo-symbol">
+                🏥
+              </div>
 
               <div>
                 <h3>AI Smart Hospital</h3>
-                <p>Healthcare • Technology • Care</p>
+                <p>Intelligent Healthcare Management</p>
               </div>
 
             </div>
 
+
             <p className="footer-description">
-              A modern healthcare management platform
-              connecting patients, doctors and hospitals
-              through technology.
+              A modern healthcare management platform connecting
+              patients, doctors and hospital services through
+              technology.
             </p>
 
+
             <div className="footer-social">
+
               <span>f</span>
               <span>in</span>
               <span>𝕏</span>
               <span>▶</span>
+
             </div>
 
           </div>
@@ -1400,13 +1992,9 @@ function Home() {
             <h4>Quick Links</h4>
 
             <a href="#home">Home</a>
-
             <a href="#services">Services</a>
-
             <a href="#departments">Departments</a>
-
             <a href="#doctors">Doctors</a>
-
             <a href="#about">About Us</a>
 
           </div>
@@ -1417,7 +2005,7 @@ function Home() {
             <h4>Patient Services</h4>
 
             <a
-              href="#"
+              href="#contact"
               onClick={(e) => {
                 e.preventDefault();
                 openLogin("Patient");
@@ -1426,22 +2014,12 @@ function Home() {
               Book Appointment
             </a>
 
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                openLogin("Patient");
-              }}
-            >
-              Patient Login
-            </a>
-
             <a href="#services">
               Medical Records
             </a>
 
-            <a href="#services">
-              Digital Prescription
+            <a href="#ayushman">
+              Ayushman Bharat
             </a>
 
             <a href="#contact">
@@ -1455,23 +2033,20 @@ function Home() {
 
             <h4>Contact Us</h4>
 
-            <p>
-              📍 Pune, Maharashtra, India
-            </p>
+            <p>📍 Pune, Maharashtra, India</p>
 
-            <p>
-              📞 +91 20 1234 5678
-            </p>
+            <p>📞 +91 99999 99999</p>
 
-            <p>
-              ✉️ support@aismarthospital.com
-            </p>
+            <p>✉️ support@aismarthospital.com</p>
+
 
             <div className="footer-hours">
 
-              <strong>Emergency Services</strong>
+              <strong>Emergency Support</strong>
 
-              <span>Available 24 Hours</span>
+              <span>
+                Available 24 hours / 7 days
+              </span>
 
             </div>
 
@@ -1487,15 +2062,9 @@ function Home() {
           </span>
 
           <div>
-
-            <a href="#privacy">
-              Privacy Policy
-            </a>
-
-            <a href="#terms">
-              Terms & Conditions
-            </a>
-
+            <a href="#home">Privacy</a>
+            <a href="#home">Terms</a>
+            <a href="#home">Security</a>
           </div>
 
         </div>
@@ -1507,41 +2076,41 @@ function Home() {
           LOGIN MODAL
       ===================================================== */}
 
-      {showLogin && (
+      {loginOpen && (
 
         <div
           className="login-overlay"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              closeModals();
-            }
-          }}
+          onClick={() => setLoginOpen(false)}
         >
 
-          <div className="hospital-login">
+          <div
+            className="hospital-login"
+            onClick={(e) => e.stopPropagation()}
+          >
 
             <button
               className="close-login"
-              onClick={closeModals}
+              onClick={() => setLoginOpen(false)}
             >
               ×
             </button>
 
+
             <div className="hospital-login-logo">
 
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png"
-                alt="Hospital Logo"
-              />
+              <div className="large-logo">
+                🏥
+              </div>
 
             </div>
+
 
             <h1>
               {loginRole} Login
             </h1>
 
             <p className="login-subtitle">
-              Login to your AI Smart Hospital account
+              Login to AI Smart Hospital
             </p>
 
 
@@ -1550,7 +2119,6 @@ function Home() {
               <button
                 className={loginRole === "Patient" ? "active" : ""}
                 onClick={() => setLoginRole("Patient")}
-                type="button"
               >
                 Patient
               </button>
@@ -1558,7 +2126,6 @@ function Home() {
               <button
                 className={loginRole === "Doctor" ? "active" : ""}
                 onClick={() => setLoginRole("Doctor")}
-                type="button"
               >
                 Doctor
               </button>
@@ -1566,7 +2133,6 @@ function Home() {
               <button
                 className={loginRole === "Admin" ? "active" : ""}
                 onClick={() => setLoginRole("Admin")}
-                type="button"
               >
                 Admin
               </button>
@@ -1574,33 +2140,32 @@ function Home() {
             </div>
 
 
-            <form onSubmit={handleLogin}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert(`${loginRole} login submitted`);
+              }}
+            >
 
-              <label htmlFor="login-email">
-                Email Address
+              <label>
+                Email / Username
               </label>
 
               <input
-                id="login-email"
-                type="email"
-                name="email"
-                value={loginData.email}
-                onChange={handleLoginChange}
-                placeholder="Enter your email"
+                type="text"
+                placeholder="Enter email or username"
+                required
               />
 
 
-              <label htmlFor="login-password">
+              <label>
                 Password
               </label>
 
               <input
-                id="login-password"
                 type="password"
-                name="password"
-                value={loginData.password}
-                onChange={handleLoginChange}
-                placeholder="Enter your password"
+                placeholder="Enter password"
+                required
               />
 
 
@@ -1614,27 +2179,25 @@ function Home() {
             </form>
 
 
-            <button
-              className="forgot-password"
-              type="button"
-              onClick={() => alert("Password reset feature will be connected to backend.")}
-            >
-              Forgot Password?
-            </button>
-
-
-            <p className="register-text">
+            <div className="register-text">
 
               Don't have an account?
 
-              <button
-                type="button"
-                onClick={openRegister}
-              >
+              <button onClick={openRegister}>
                 Register
               </button>
 
-            </p>
+            </div>
+
+
+            <button
+              className="forgot-password"
+              onClick={() =>
+                alert("Password recovery feature will be connected to backend.")
+              }
+            >
+              Forgot Password?
+            </button>
 
           </div>
 
@@ -1647,22 +2210,21 @@ function Home() {
           REGISTER MODAL
       ===================================================== */}
 
-      {showRegister && (
+      {registerOpen && (
 
         <div
           className="login-overlay"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              closeModals();
-            }
-          }}
+          onClick={() => setRegisterOpen(false)}
         >
 
-          <div className="register-modal">
+          <div
+            className="register-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
 
             <button
               className="close-login"
-              onClick={closeModals}
+              onClick={() => setRegisterOpen(false)}
             >
               ×
             </button>
@@ -1670,10 +2232,9 @@ function Home() {
 
             <div className="register-top">
 
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png"
-                alt="Hospital Logo"
-              />
+              <div className="large-logo">
+                🏥
+              </div>
 
               <div>
 
@@ -1690,21 +2251,23 @@ function Home() {
             </div>
 
 
-            <form onSubmit={handleRegister}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Registration submitted");
+              }}
+            >
 
               <div className="register-field">
 
-                <label htmlFor="register-name">
+                <label>
                   Full Name
                 </label>
 
                 <input
-                  id="register-name"
                   type="text"
-                  name="name"
-                  value={registerData.name}
-                  onChange={handleRegisterChange}
-                  placeholder="Enter your full name"
+                  placeholder="Enter full name"
+                  required
                 />
 
               </div>
@@ -1712,17 +2275,14 @@ function Home() {
 
               <div className="register-field">
 
-                <label htmlFor="register-email">
-                  Email Address
+                <label>
+                  Email
                 </label>
 
                 <input
-                  id="register-email"
                   type="email"
-                  name="email"
-                  value={registerData.email}
-                  onChange={handleRegisterChange}
-                  placeholder="Enter your email"
+                  placeholder="Enter email"
+                  required
                 />
 
               </div>
@@ -1730,17 +2290,14 @@ function Home() {
 
               <div className="register-field">
 
-                <label htmlFor="register-phone">
-                  Phone Number
+                <label>
+                  Mobile Number
                 </label>
 
                 <input
-                  id="register-phone"
                   type="tel"
-                  name="phone"
-                  value={registerData.phone}
-                  onChange={handleRegisterChange}
-                  placeholder="Enter phone number"
+                  placeholder="Enter mobile number"
+                  required
                 />
 
               </div>
@@ -1748,23 +2305,42 @@ function Home() {
 
               <div className="register-field">
 
-                <label htmlFor="register-role">
-                  Role
+                <label>
+                  Date of Birth
                 </label>
 
-                <select
-                  id="register-role"
-                  name="role"
-                  value={registerData.role}
-                  onChange={handleRegisterChange}
-                >
-                  <option value="Patient">
-                    Patient
+                <input
+                  type="date"
+                  required
+                />
+
+              </div>
+
+
+              <div className="register-field">
+
+                <label>
+                  Gender
+                </label>
+
+                <select required>
+
+                  <option value="">
+                    Select Gender
                   </option>
 
-                  <option value="Doctor">
-                    Doctor
+                  <option value="male">
+                    Male
                   </option>
+
+                  <option value="female">
+                    Female
+                  </option>
+
+                  <option value="other">
+                    Other
+                  </option>
+
                 </select>
 
               </div>
@@ -1772,43 +2348,22 @@ function Home() {
 
               <div className="register-field">
 
-                <label htmlFor="register-password">
+                <label>
                   Password
                 </label>
 
                 <input
-                  id="register-password"
                   type="password"
-                  name="password"
-                  value={registerData.password}
-                  onChange={handleRegisterChange}
                   placeholder="Create password"
-                />
-
-              </div>
-
-
-              <div className="register-field">
-
-                <label htmlFor="register-confirm-password">
-                  Confirm Password
-                </label>
-
-                <input
-                  id="register-confirm-password"
-                  type="password"
-                  name="confirmPassword"
-                  value={registerData.confirmPassword}
-                  onChange={handleRegisterChange}
-                  placeholder="Confirm password"
+                  required
                 />
 
               </div>
 
 
               <button
-                className="register-submit"
                 type="submit"
+                className="register-submit"
               >
                 Create Account
               </button>
@@ -1820,10 +2375,7 @@ function Home() {
 
               Already have an account?
 
-              <button
-                type="button"
-                onClick={() => openLogin(registerData.role)}
-              >
+              <button onClick={() => openLogin("Patient")}>
                 Login
               </button>
 
@@ -1838,143 +2390,5 @@ function Home() {
     </div>
   );
 }
-
-
-/* =========================================================
-   DOCTOR CARD COMPONENT
-   ========================================================= */
-
-function DoctorCard({
-  emoji,
-  name,
-  specialty,
-  experience,
-  rating,
-}) {
-  const handleAppointment = () => {
-    alert("Please login as a patient to book an appointment.");
-  };
-
-  return (
-    <div className="doctor-card">
-
-      <div className="doctor-photo">
-        {emoji}
-      </div>
-
-      <div className="doctor-info">
-
-        <span className="doctor-available">
-          ● Available
-        </span>
-
-        <h3>{name}</h3>
-
-        <p>{specialty}</p>
-
-        <small>
-          {experience}
-        </small>
-
-        <div className="doctor-bottom">
-
-          <span>
-            ⭐ {rating}
-          </span>
-
-          <span>
-            🕐 Mon - Sat
-          </span>
-
-        </div>
-
-        <button onClick={handleAppointment}>
-          Book Appointment
-        </button>
-
-      </div>
-
-    </div>
-  );
-}
-
-
-/* =========================================================
-   FACILITY COMPONENT
-   ========================================================= */
-
-function Facility({
-  icon,
-  title,
-  text,
-}) {
-  return (
-    <div className="facility-card">
-
-      <div>
-        {icon}
-      </div>
-
-      <section>
-
-        <h3>
-          {title}
-        </h3>
-
-        <p>
-          {text}
-        </p>
-
-      </section>
-
-    </div>
-  );
-}
-
-
-/* =========================================================
-   TESTIMONIAL COMPONENT
-   ========================================================= */
-
-function Testimonial({
-  text,
-  name,
-  role,
-}) {
-  return (
-    <div className="testimonial-card">
-
-      <div className="stars">
-        ⭐⭐⭐⭐⭐
-      </div>
-
-      <p>
-        "{text}"
-      </p>
-
-      <div className="testimonial-user">
-
-        <div>
-          👤
-        </div>
-
-        <section>
-
-          <strong>
-            {name}
-          </strong>
-
-          <small>
-            {role}
-          </small>
-
-        </section>
-
-      </div>
-
-    </div>
-  );
-}
-
 
 export default Home;
