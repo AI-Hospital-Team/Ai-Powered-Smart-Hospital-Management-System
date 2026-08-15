@@ -9,7 +9,7 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -17,28 +17,60 @@ function Login() {
       return;
     }
 
-    // Clear previous login
-    localStorage.clear();
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email.trim(),
+            password: password,
+            role: role,
+          }),
+        }
+      );
 
-    // Save current user
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("role", role);
+      if (!response.ok) {
+        const message = await response.text();
+        alert(message || "Invalid email, password or role");
+        return;
+      }
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        email: email.trim(),
-        role: role,
-      })
-    );
+      const user = await response.json();
 
-    // Redirect based on selected role
-    if (role === "Admin") {
-      navigate("/dashboard", { replace: true });
-    } else if (role === "Doctor") {
-      navigate("/doctor", { replace: true });
-    } else if (role === "Patient") {
-      navigate("/patient", { replace: true });
+      // Clear previous login
+      localStorage.clear();
+
+      // Save logged-in user
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("role", user.role);
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          email: user.email,
+          role: user.role,
+          userId: user.userId,
+          patientId: user.patientId,
+          doctorId: user.doctorId,
+        })
+      );
+
+      // Redirect based on role
+      if (user.role === "Admin") {
+        navigate("/dashboard", { replace: true });
+      } else if (user.role === "Doctor") {
+        navigate("/doctor", { replace: true });
+      } else if (user.role === "Patient") {
+        navigate("/patient", { replace: true });
+      }
+
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Cannot connect to the hospital server.");
     }
   };
 

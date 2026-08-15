@@ -2181,46 +2181,100 @@ function Home() {
               </button>
 
             </div>
+            
+<form
+  onSubmit={async (e) => {
+    e.preventDefault();
 
+    const formData = new FormData(e.currentTarget);
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert(`${loginRole} login submitted`);
-              }}
-            >
+    const email = formData.get("email");
+    const password = formData.get("password");
 
-              <label>
-                Email / Username
-              </label>
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
 
-              <input
-                type="text"
-                placeholder="Enter email or username"
-                required
-              />
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email.trim(),
+            password: password,
+            role: loginRole,
+          }),
+        }
+      );
 
+      if (!response.ok) {
+        const message = await response.text();
+        alert(message || "Invalid email, password or role");
+        return;
+      }
 
-              <label>
-                Password
-              </label>
+      const user = await response.json();
 
-              <input
-                type="password"
-                placeholder="Enter password"
-                required
-              />
+      localStorage.clear();
 
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("role", user.role);
 
-              <button
-                type="submit"
-                className="hospital-login-button"
-              >
-                Login as {loginRole}
-              </button>
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
 
-            </form>
+      setLoginOpen(false);
 
+      if (user.role === "Admin") {
+        navigate("/dashboard", { replace: true });
+      } else if (user.role === "Doctor") {
+        navigate("/doctor", { replace: true });
+      } else if (user.role === "Patient") {
+        navigate("/patient", { replace: true });
+      }
+
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Cannot connect to the hospital server.");
+    }
+  }}
+>
+  <label>
+    Email / Username
+  </label>
+
+  <input
+    type="email"
+    name="email"
+    placeholder="Enter email or username"
+    required
+  />
+
+  <label>
+    Password
+  </label>
+
+  <input
+    type="password"
+    name="password"
+    placeholder="Enter password"
+    required
+  />
+
+  <button
+    type="submit"
+    className="hospital-login-button"
+  >
+    Login as {loginRole}
+  </button>
+</form>
 
             <div className="register-text">
 
