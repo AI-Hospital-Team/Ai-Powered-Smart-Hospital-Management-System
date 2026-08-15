@@ -62,10 +62,76 @@ body {
     0 5px 25px rgba(0, 90, 130, 0.08);
 }
 
-.hospital-logo {
+.hospital-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+}
+
+.hospital-home-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-symbol {
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  background: linear-gradient(
+    135deg,
+    #e9fbfc,
+    #d7f2f5
+  );
+
+  border: 2px solid #c8eaf0;
+  border-radius: 16px;
+
+  font-size: 31px;
+
+  box-shadow: 0 5px 15px rgba(0, 80, 100, 0.08);
+
+  transition: 0.25s ease;
+}
+
+.hospital-home-link:hover .logo-symbol {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 9px 22px rgba(8, 127, 140, 0.20);
+}
+
+.hospital-brand-text h2 {
+  margin: 0;
+  color: #35cbd1;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+/* Light theme - hospital brand */
+.hospital-brand-text h2 {
+  color: #087f8c;
+}
+
+/* Dark theme - hospital brand */
+.dark-mode .hospital-brand-text h2 {
+  color: #35cbd1;
+}
+
+.hospital-brand-text p {
+  color: #667b87;
+}
+
+.dark-mode .hospital-brand-text p {
+  color: #91aab5;
+}
+
+.hospital-brand-text p {
+  margin: 4px 0 0;
+  color: #91aab5;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .logo-symbol {
@@ -84,31 +150,57 @@ body {
   font-size: 29px;
 }
 
-.hospital-logo h2 {
-  color: #087f8c;
-  font-size: 22px;
-}
 
-.hospital-logo p {
-  font-size: 11px;
-  color: #708494;
-  margin-top: 2px;
-}
 
 .home-header nav {
   display: flex;
-  gap: 25px;
+  align-items: center;
+  gap: 30px;
 }
 
 .home-header nav a {
+  position: relative;
+
   color: #36556d;
   font-size: 14px;
   font-weight: 600;
-  transition: 0.25s;
+
+  text-decoration: none;
+
+  padding: 8px 0;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
+/* Animated underline */
+.home-header nav a::after {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+
+  width: 0;
+  height: 2px;
+
+  background: #078a9a;
+  border-radius: 10px;
+
+  transform: translateX(-50%);
+
+  transition: width 0.25s ease;
+}
+
+/* Hover */
 .home-header nav a:hover {
   color: #078a9a;
+  transform: translateY(-1px);
+}
+
+.home-header nav a:hover::after {
+  width: 100%;
 }
 
 .header-actions {
@@ -219,36 +311,77 @@ body {
    EMERGENCY
 ========================================================= */
 
-.emergency-bar {
-  min-height: 43px;
+/* =========================================================
+   EMERGENCY BAR
+========================================================= */
 
-  padding: 9px 5%;
+.emergency-bar {
+  min-height: 48px;
+  padding: 8px 5%;
 
   display: flex;
-
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 
-  background: #b42318;
+  background: linear-gradient(
+    90deg,
+    #8f1d18,
+    #b42318,
+    #9f211b
+  );
 
   color: white;
 
   font-size: 13px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+
+/* Emergency text */
+.emergency-bar strong {
+  font-weight: 800;
+}
+
+
+/* Call Emergency button */
 .emergency-bar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   color: white;
 
   font-weight: 800;
+  font-size: 12px;
 
-  padding: 5px 13px;
+  padding: 7px 16px;
 
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
 
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.25s ease;
 }
 
 
+.emergency-bar a:hover {
+  background: rgba(255, 255, 255, 0.18);
+
+  border-color: white;
+
+  transform: translateY(-1px);
+}
 /* =========================================================
    ANNOUNCEMENT
 ========================================================= */
@@ -450,133 +583,220 @@ body {
 
 
 /* =========================================================
-   HERO CARD
+   SMART CARE HERO CARD
 ========================================================= */
 
 .hero-card {
   position: relative;
-
   z-index: 3;
 
   width: 350px;
+  padding: 24px;
 
-  padding: 25px;
+  background: rgba(255, 255, 255, 0.97);
 
-  background: rgba(255, 255, 255, 0.96);
-
-  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
 
   box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.25);
+    0 25px 55px rgba(0, 35, 50, 0.28);
 
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
+.hero-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 32px 65px rgba(0, 35, 50, 0.34);
+}
+
+
+/* ---------- Card Header ---------- */
 
 .hero-card-top {
   display: flex;
-
   align-items: center;
-
   gap: 13px;
 
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .hospital-round-icon {
-  width: 55px;
-  height: 55px;
+  width: 56px;
+  height: 56px;
 
   display: grid;
-
   place-items: center;
 
-  background: #e6f8fa;
+  background: linear-gradient(
+    135deg,
+    #e5f9fb,
+    #d5f1f5
+  );
 
-  border-radius: 50%;
+  border: 1px solid #c9ebef;
+  border-radius: 17px;
 
   font-size: 27px;
+
+  box-shadow:
+    0 6px 16px rgba(8, 127, 140, 0.10);
 }
 
 .hero-card h2 {
+  margin: 0;
+
   color: #087f8c;
+
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
 }
 
 .hero-card p {
+  margin: 4px 0 0;
+
   color: #718696;
 
   font-size: 12px;
+  font-weight: 500;
 }
 
-.hero-medical-image {
-  height: 180px;
 
-  border-radius: 15px;
+/* ---------- Doctor Section ---------- */
+
+.hero-medical-image {
+  height: 165px;
+
+  padding: 20px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 15px;
+  gap: 18px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #dff8fa,
-      #eef8fc
-    );
+  background: linear-gradient(
+    135deg,
+    #e5f8fa,
+    #f2fbfc
+  );
 
-  border: 1px solid #d6eef3;
+  border: 1px solid #d2edf1;
+  border-radius: 18px;
+
+  position: relative;
+  overflow: hidden;
 }
 
+/* Decorative glow */
+.hero-medical-image::before {
+  content: "";
+
+  position: absolute;
+
+  width: 150px;
+  height: 150px;
+
+  top: -75px;
+  right: -50px;
+
+  background: rgba(8, 127, 140, 0.08);
+
+  border-radius: 50%;
+}
+
+
+/* Doctor icon */
 .doctor-circle {
-  width: 90px;
-  height: 90px;
+  width: 88px;
+  height: 88px;
+
+  flex-shrink: 0;
 
   display: grid;
-
   place-items: center;
 
   border-radius: 50%;
 
   background: white;
 
-  font-size: 48px;
+  border: 5px solid rgba(255, 255, 255, 0.8);
+
+  font-size: 46px;
 
   box-shadow:
-    0 8px 25px rgba(0, 90, 120, 0.12);
+    0 10px 25px rgba(0, 90, 120, 0.15);
+
+  position: relative;
+  z-index: 1;
 }
 
+
+/* Doctor text */
 .hero-medical-image strong {
   display: block;
 
   color: #16475f;
 
+  font-size: 16px;
+  font-weight: 800;
+
   margin-bottom: 5px;
+
+  position: relative;
+  z-index: 1;
 }
 
 .hero-medical-image small {
+  display: block;
+
   color: #718696;
+
+  font-size: 11px;
+
+  position: relative;
+  z-index: 1;
 }
+
+
+/* ---------- Statistics ---------- */
 
 .hero-stats {
   display: grid;
 
   grid-template-columns: repeat(3, 1fr);
 
-  gap: 10px;
+  gap: 9px;
 
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .hero-stats div {
   text-align: center;
 
-  padding: 11px 5px;
+  padding: 12px 5px;
 
-  background: #f2fafb;
+  background: #f4fbfc;
 
-  border-radius: 10px;
+  border: 1px solid #e0f1f3;
+
+  border-radius: 13px;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.hero-stats div:hover {
+  transform: translateY(-2px);
+
+  background: #eaf8fa;
 }
 
 .hero-stats strong {
@@ -585,14 +805,56 @@ body {
   color: #087f8c;
 
   font-size: 19px;
+  font-weight: 800;
+
+  line-height: 1.2;
 }
 
 .hero-stats span {
+  display: block;
+
+  margin-top: 3px;
+
   color: #708494;
 
   font-size: 10px;
+  font-weight: 500;
 }
 
+/* =========================================================
+   SMART CARE - DARK MODE
+========================================================= */
+
+.dark-mode .hero-medical-image {
+  background: linear-gradient(
+    135deg,
+    #123f4d,
+    #0c3441
+  );
+
+  border-color: #245766;
+}
+
+.dark-mode .hero-medical-image strong {
+  color: #e8f8fa;
+}
+
+.dark-mode .hero-medical-image small {
+  color: #9ccbd1;
+}
+
+.dark-mode .hero-stats div {
+  background: #123b48;
+  border-color: #245766;
+}
+
+.dark-mode .hero-stats div:hover {
+  background: #174b59;
+}
+
+.dark-mode .hero-stats span {
+  color: #9ccbd1;
+}
 
 /* =========================================================
    STATS
@@ -4018,6 +4280,248 @@ body {
 
   .ayushman-quick-stats span {
     font-size: 7px;
+  }
+
+}
+
+/* =========================================================
+   RESPONSIVE HEADER
+========================================================= */
+
+/* TABLET */
+@media (max-width: 1000px) {
+
+  .home-header {
+    padding: 14px 24px;
+    gap: 20px;
+  }
+
+  .hospital-brand {
+    gap: 10px;
+  }
+
+  .logo-symbol {
+    width: 52px;
+    height: 52px;
+    font-size: 27px;
+  }
+
+  .hospital-brand-text h2 {
+    font-size: 21px;
+  }
+
+  .hospital-brand-text p {
+    font-size: 10px;
+  }
+
+  .home-header nav {
+    gap: 16px;
+  }
+
+  .home-header nav a {
+    font-size: 13px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .login-btn,
+  .register-btn {
+    padding: 10px 14px;
+  }
+}
+
+
+/* MOBILE */
+@media (max-width: 700px) {
+
+  .home-header {
+    padding: 12px 16px;
+    min-height: 70px;
+    flex-wrap: wrap;
+  }
+
+  .hospital-brand {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .logo-symbol {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    font-size: 24px;
+  }
+
+  .hospital-brand-text h2 {
+    font-size: 18px;
+    white-space: nowrap;
+  }
+
+  .hospital-brand-text p {
+    font-size: 9px;
+    white-space: nowrap;
+  }
+
+  /* Hide desktop navigation on mobile */
+  .home-header nav {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .theme-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+  }
+
+  .login-btn,
+  .register-btn {
+    min-height: 38px;
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+}
+
+
+/* SMALL PHONES */
+@media (max-width: 450px) {
+
+  .home-header {
+    padding: 10px 12px;
+  }
+
+  .logo-symbol {
+    width: 42px;
+    height: 42px;
+    font-size: 21px;
+  }
+
+  .hospital-brand-text h2 {
+    font-size: 16px;
+  }
+
+  .hospital-brand-text p {
+    font-size: 8px;
+  }
+
+  .theme-btn {
+    display: none;
+  }
+
+  .login-btn,
+  .register-btn {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
+
+/* =========================================================
+   FOOTER PROJECT INFO
+========================================================= */
+
+.footer-project-info {
+  margin-top: 30px;
+  padding: 28px 20px;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.footer-project-badge {
+  display: inline-block;
+
+  padding: 5px 12px;
+
+  border: 1px solid rgba(85, 217, 226, 0.35);
+  border-radius: 999px;
+
+  color: #55d9e2;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+}
+
+.footer-project-info h3 {
+  margin: 12px 0 7px;
+
+  color: #ffffff;
+
+  font-size: 22px;
+}
+
+.footer-project-info h3 span {
+  color: #55d9e2;
+}
+
+.footer-project-info p {
+  margin: 0 auto 16px;
+
+  max-width: 600px;
+
+  color: #8eafb9;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.footer-project-buttons {
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.footer-project-buttons a {
+  padding: 8px 15px;
+
+  border: 1px solid rgba(85, 217, 226, 0.35);
+  border-radius: 8px;
+
+  color: #bdebef;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+.footer-project-buttons a:hover {
+  background: #087f8c;
+
+  border-color: #087f8c;
+
+  color: #ffffff;
+}
+
+
+@media (max-width: 600px) {
+
+  .footer-project-info {
+    padding: 24px 15px;
+  }
+
+  .footer-project-info h3 {
+    font-size: 18px;
+  }
+
+  .footer-project-buttons {
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+  .footer-project-buttons a {
+    width: 160px;
   }
 
 }

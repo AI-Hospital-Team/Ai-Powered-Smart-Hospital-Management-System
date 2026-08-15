@@ -1,3 +1,5 @@
+import About from "./pages/About/About";
+import Project from "./pages/Project/Project";
 import Home from "./pages/Home/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -24,6 +26,10 @@ function App() {
         {/* Login */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+
+        {/* Project & Team Pages */}
+        <Route path="/about" element={<About />} />
+        <Route path="/project" element={<Project />} />
 
         {/* Admin Dashboard */}
         <Route path="/dashboard" element={<DashboardLayout />}>
