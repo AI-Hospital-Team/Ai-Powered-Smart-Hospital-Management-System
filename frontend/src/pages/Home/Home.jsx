@@ -2064,6 +2064,39 @@ function Home() {
 
         </div>
 
+{/* =====================================================
+    ABOUT OUR PROJECT
+===================================================== */}
+
+<div className="footer-project-info">
+
+  <span className="footer-project-badge">
+    ✨ OUR PROJECT
+  </span>
+
+  <h3>
+    AI-Powered Smart Hospital
+    <span> Management System</span>
+  </h3>
+
+  <p>
+    A modern academic project focused on smarter,
+    organized and technology-driven healthcare.
+  </p>
+
+  <div className="footer-project-buttons">
+
+    <a href="/about">
+      About Us →
+    </a>
+
+    <a href="/project">
+      Our Project →
+    </a>
+
+  </div>
+
+</div>
 
         <div className="footer-bottom">
 

@@ -1,0 +1,415 @@
+/* =========================================================
+   ABOUT PAGE
+========================================================= */
+
+.about-page {
+  min-height: 100vh;
+  background: #f4f9fc;
+  color: #17324d;
+}
+
+
+/* ---------- Header ---------- */
+
+.about-page-header {
+  height: 75px;
+  padding: 0 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+  border-bottom: 1px solid #dcecf1;
+}
+
+.about-back {
+  color: #087f8c;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.about-back:hover {
+  color: #20b8c5;
+}
+
+.about-page-header span {
+  color: #36556d;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* ---------- Main ---------- */
+
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 70px 25px;
+}
+
+
+/* ---------- Hero ---------- */
+
+.about-hero {
+  max-width: 780px;
+  margin: 0 auto 55px;
+  text-align: center;
+}
+
+.about-badge {
+  display: inline-block;
+
+  padding: 7px 15px;
+
+  border-radius: 999px;
+
+  background: #e5f7f9;
+  border: 1px solid #c8ebef;
+
+  color: #087f8c;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+}
+
+.about-hero h1 {
+  margin: 18px 0 15px;
+
+  color: #17324d;
+
+  font-size: 42px;
+  line-height: 1.15;
+}
+
+.about-hero h1 span {
+  color: #20b8c5;
+}
+
+.about-hero p {
+  margin: 0;
+
+  color: #657d8b;
+
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+
+/* ---------- Team ---------- */
+
+.team-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 25px;
+
+  max-width: 900px;
+
+  margin: 0 auto 65px;
+}
+
+.team-card {
+  padding: 30px;
+
+  background: #ffffff;
+
+  border: 1px solid #dcecf1;
+
+  border-radius: 22px;
+
+  box-shadow: 0 15px 40px rgba(0, 70, 100, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 20px 45px rgba(0, 70, 100, 0.13);
+}
+
+
+/* ---------- Avatar ---------- */
+
+.team-avatar {
+  width: 62px;
+  height: 62px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 15px;
+
+  border-radius: 17px;
+
+  background: linear-gradient(
+    135deg,
+    #087f8c,
+    #20b8c5
+  );
+
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  box-shadow: 0 8px 20px rgba(8, 127, 140, 0.2);
+}
+
+
+/* ---------- Role ---------- */
+
+.team-role {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  color: #087f8c;
+
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.team-card h2 {
+  margin: 0 0 12px;
+
+  color: #17324d;
+
+  font-size: 23px;
+}
+
+.team-card > p {
+  margin: 0 0 18px;
+
+  color: #657d8b;
+
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+
+/* ---------- Skills ---------- */
+
+.team-skills {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-bottom: 20px;
+}
+
+.team-skills span {
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: #e9f8fa;
+
+  color: #087f8c;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+/* ---------- Social Links ---------- */
+
+.team-links {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.team-links a {
+  padding: 7px 11px;
+
+  border: 1px solid #d5e9ed;
+  border-radius: 8px;
+
+  background: #f8fcfd;
+
+  color: #36556d;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+.team-links a:hover {
+  background: #087f8c;
+  border-color: #087f8c;
+
+  color: #ffffff;
+}
+
+
+/* ---------- Resume ---------- */
+
+.resume-button {
+  width: 100%;
+
+  padding: 11px 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #087f8c;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.resume-button:hover {
+  background: #066c77;
+
+  transform: translateY(-1px);
+}
+
+
+/* ---------- Academic ---------- */
+
+.academic-section {
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.academic-section h2 {
+  margin: 15px 0 25px;
+
+  color: #17324d;
+
+  font-size: 28px;
+}
+
+.academic-grid {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 12px;
+}
+
+.academic-grid div {
+  min-height: 90px;
+
+  padding: 16px 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background: #ffffff;
+
+  border: 1px solid #dcecf1;
+
+  border-radius: 14px;
+
+  box-shadow: 0 8px 25px rgba(0, 70, 100, 0.05);
+}
+
+.academic-grid strong {
+  margin-bottom: 7px;
+
+  color: #087f8c;
+
+  font-size: 11px;
+}
+
+.academic-grid span {
+  color: #637b8a;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .academic-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .about-page-header {
+    padding: 0 20px;
+  }
+
+  .about-container {
+    padding: 50px 18px;
+  }
+
+  .about-hero h1 {
+    font-size: 31px;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .academic-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 450px) {
+
+  .about-page-header {
+    height: 65px;
+  }
+
+  .about-page-header span {
+    font-size: 13px;
+  }
+
+  .about-back {
+    font-size: 13px;
+  }
+
+  .about-hero h1 {
+    font-size: 27px;
+  }
+
+  .about-hero p {
+    font-size: 13px;
+  }
+
+  .team-card {
+    padding: 22px;
+  }
+
+}
