@@ -83,15 +83,24 @@ function Home() {
 
       <header className="home-header">
 
-        <div className="hospital-logo">
-          <div className="logo-symbol">🏥</div>
+      <div className="hospital-brand">
 
-          <div>
-            <h2>AI Smart Hospital</h2>
-            <p>Intelligent Healthcare Management</p>
+        <a
+          href="#home"
+          className="hospital-home-link"
+          aria-label="Go to Home"
+        >
+          <div className="logo-symbol">
+            🏥
           </div>
+        </a>
+
+        <div className="hospital-brand-text">
+          <h2>AI Smart Hospital</h2>
+          <p>Intelligent Healthcare Management</p>
         </div>
 
+      </div>  
         <nav>
           <a href="#home">Home</a>
           <a href="#services">Services</a>
@@ -101,6 +110,7 @@ function Home() {
           <a href="#contact">Contact</a>
         </nav>
 
+       
         <div className="header-actions">
 
           <button
@@ -2054,6 +2064,39 @@ function Home() {
 
         </div>
 
+{/* =====================================================
+    ABOUT OUR PROJECT
+===================================================== */}
+
+<div className="footer-project-info">
+
+  <span className="footer-project-badge">
+    ✨ OUR PROJECT
+  </span>
+
+  <h3>
+    AI-Powered Smart Hospital
+    <span> Management System</span>
+  </h3>
+
+  <p>
+    A modern academic project focused on smarter,
+    organized and technology-driven healthcare.
+  </p>
+
+  <div className="footer-project-buttons">
+
+    <a href="/about">
+      About Us →
+    </a>
+
+    <a href="/project">
+      Our Project →
+    </a>
+
+  </div>
+
+</div>
 
         <div className="footer-bottom">
 
