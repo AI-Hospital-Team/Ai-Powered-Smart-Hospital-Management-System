@@ -1,3 +1,4 @@
+import "./PatientDashboard.css";
 function PatientDashboard() {
   return (
     <div className="patient-dashboard">
@@ -12,69 +13,74 @@ function PatientDashboard() {
       <div className="dashboard-cards">
 
         <div className="dashboard-card">
-          <div className="card-icon">📅</div>
+          <span>📅</span>
           <div>
-            <h3>My Appointments</h3>
-            <p>0</p>
+            <small>Appointments</small>
+            <strong>0</strong>
           </div>
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">📋</div>
+          <span>📋</span>
           <div>
-            <h3>Medical Records</h3>
-            <p>0</p>
+            <small>Medical Records</small>
+            <strong>0</strong>
           </div>
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">💊</div>
+          <span>💊</span>
           <div>
-            <h3>Prescriptions</h3>
-            <p>0</p>
+            <small>Prescriptions</small>
+            <strong>0</strong>
           </div>
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">💳</div>
+          <span>💳</span>
           <div>
-            <h3>Pending Bills</h3>
-            <p>0</p>
+            <small>Pending Bills</small>
+            <strong>0</strong>
           </div>
         </div>
 
       </div>
 
       <div className="dashboard-section">
+        <h2>Quick Actions</h2>
 
-        <h2>My Appointments</h2>
-
-        <div className="table-container">
-
-          <table>
-
-            <thead>
-              <tr>
-                <th>Doctor</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>No appointments</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-
-          </table>
-
+        <div className="quick-actions">
+          <button>📅 Book Appointment</button>
+          <button>📋 Medical Records</button>
+          <button>💊 Prescriptions</button>
+          <button>👤 My Profile</button>
         </div>
+      </div>
 
+      <div className="dashboard-section">
+        <h2>Upcoming Appointment</h2>
+
+        <div className="appointment-box">
+          <div>
+            <small>Doctor</small>
+            <p>No appointments yet</p>
+          </div>
+
+          <div>
+            <small>Date</small>
+            <p>-</p>
+          </div>
+
+          <div>
+            <small>Time</small>
+            <p>-</p>
+          </div>
+
+          <div>
+            <small>Status</small>
+            <p>-</p>
+          </div>
+        </div>
       </div>
 
     </div>

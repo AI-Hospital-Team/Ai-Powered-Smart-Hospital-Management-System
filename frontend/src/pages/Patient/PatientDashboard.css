@@ -1,0 +1,150 @@
+.patient-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  color: #17324d;
+}
+
+/* Header */
+.page-header {
+  margin-bottom: 22px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 30px;
+  color: #17324d;
+}
+
+.page-header p {
+  margin: 6px 0 0;
+  color: #718797;
+}
+
+/* Cards */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 18px;
+  background: #ffffff;
+
+  border: 1px solid #e1edf2;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 15px rgba(0, 70, 100, 0.06);
+}
+
+.dashboard-card span {
+  font-size: 25px;
+}
+
+.dashboard-card small {
+  display: block;
+  margin-bottom: 4px;
+  color: #718797;
+  font-size: 13px;
+}
+
+.dashboard-card strong {
+  color: #087f8c;
+  font-size: 22px;
+}
+
+/* Sections */
+.dashboard-section {
+  padding: 22px;
+  margin-bottom: 18px;
+
+  background: #ffffff;
+  border: 1px solid #e1edf2;
+  border-radius: 12px;
+}
+
+.dashboard-section h2 {
+  margin: 0 0 15px;
+  font-size: 20px;
+  color: #17324d;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quick-actions button {
+  padding: 10px 16px;
+
+  border: 1px solid #bde5ea;
+  border-radius: 7px;
+
+  background: #f4fcfd;
+  color: #087f8c;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quick-actions button:hover {
+  background: #087f8c;
+  color: #ffffff;
+}
+
+/* Appointment */
+.appointment-box {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 20px;
+
+  padding: 16px;
+
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
+.appointment-box small {
+  display: block;
+  color: #718797;
+  font-size: 12px;
+}
+
+.appointment-box p {
+  margin: 5px 0 0;
+  color: #17324d;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .appointment-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .patient-dashboard {
+    padding: 20px 15px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .appointment-box {
+    grid-template-columns: 1fr;
+  }
+}
