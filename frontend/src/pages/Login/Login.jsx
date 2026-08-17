@@ -6,14 +6,18 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Patient");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    // Clear previous error
+    setErrorMessage("");
+
+    // Validate fields
     if (!email || !password) {
-      alert("Please enter email and password");
+      setErrorMessage("Please enter email and password.");
       return;
     }
 
@@ -33,9 +37,9 @@ function Login() {
         }
       );
 
+      // Wrong login
       if (!response.ok) {
-        const message = await response.text();
-        alert(message || "Invalid email, password or role");
+        setErrorMessage("Invalid email or password.");
         return;
       }
 
@@ -70,10 +74,9 @@ function Login() {
 
     } catch (error) {
       console.error("Login error:", error);
-      alert("Cannot connect to the hospital server.");
+      setErrorMessage("Cannot connect to the hospital server.");
     }
   };
-
   return (
     <div className="login-page">
 
@@ -133,12 +136,20 @@ function Login() {
           </div>
 
           {/* LOGIN */}
-          <button
-            type="submit"
-            className="login-button"
-          >
-            Login
-          </button>
+          {/* ERROR MESSAGE */}
+            {errorMessage && (
+              <div className="login-error">
+                ❌ {errorMessage}
+              </div>
+            )}
+
+        {/* LOGIN */}
+<button
+  type="submit"
+  className="login-button"
+>
+  Login
+</button>
 
         </form>
 

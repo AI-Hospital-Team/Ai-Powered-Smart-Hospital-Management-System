@@ -1,47 +1,237 @@
-.dashboard-layout {
+/* ================= DASHBOARD PAGE ================= */
+
+.dashboard-page {
   min-height: 100vh;
-  background: #f4f8fb;
+  background: #f4f9fc;
+  color: #17324d;
+  transition: 0.25s ease;
 }
 
-.topbar {
-  height: 65px;
-  padding: 0 35px;
+
+/* ================= HEADER ================= */
+
+.dashboard-header {
+  min-height: 78px;
+  padding: 0 5%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
-  border-bottom: 1px solid #dce8ee;
+
+  background: #ffffff;
+  border-bottom: 1px solid #dcecf1;
+
+  box-shadow: 0 3px 15px rgba(0, 70, 100, 0.05);
 }
 
-.topbar h1 {
+
+/* ================= BRAND ================= */
+
+.hospital-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-symbol {
+  width: 45px;
+  height: 45px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #c8e9ed;
+  border-radius: 12px;
+
+  background: #e8f8fa;
+
+  font-size: 24px;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.logo-symbol:hover {
+  transform: translateY(-1px);
+}
+
+.hospital-brand-text h2 {
   margin: 0;
+
   color: #087f8c;
   font-size: 21px;
+  font-weight: 800;
 }
 
-.topbar span {
+.hospital-brand-text p {
+  margin: 3px 0 0;
+
   color: #718797;
-  font-size: 13px;
+  font-size: 11px;
 }
 
-.logout-button {
-  padding: 9px 18px;
-  border: none;
-  border-radius: 7px;
-  background: #e53935;
-  color: white;
-  font-weight: 600;
+
+/* ================= HEADER ACTIONS ================= */
+
+.dashboard-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.header-link,
+.theme-btn,
+.logout-btn {
+  border-radius: 9px;
+  padding: 9px 13px;
+
+  font-size: 12px;
+  font-weight: 700;
+
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.logout-button:hover {
-  background: #c62828;
+
+/* Home + Account */
+
+.header-link {
+  border: 1px solid #c8e9ed;
+  background: #f5fcfd;
+  color: #087f8c;
 }
 
-.main-content {
+.header-link:hover {
+  background: #087f8c;
+  color: white;
+}
+
+
+/* Theme */
+
+.theme-btn {
+  width: 40px;
+  height: 38px;
+
+  padding: 0;
+
+  border: 1px solid #c8e9ed;
+  background: #f5fcfd;
+  color: #087f8c;
+
+  font-size: 17px;
+}
+
+.theme-btn:hover {
+  background: #e5f7f9;
+}
+
+
+/* Logout */
+
+.logout-btn {
+  border: 1px solid #f1c7c7;
+  background: #fff5f5;
+  color: #d33a3a;
+}
+
+.logout-btn:hover {
+  background: #d33a3a;
+  color: white;
+}
+
+
+/* ================= MAIN ================= */
+
+.dashboard-main {
   width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 42px 35px;
 }
 
-.page-content {
-  width: 100%;
+/* ================= DARK MODE ================= */
+
+.dashboard-page.dark-mode {
+  background: #071c27;
+  color: #e6f5f7;
+}
+
+.dashboard-page.dark-mode .dashboard-header {
+  background: #0b2632;
+  border-color: #164554;
+}
+
+.dashboard-page.dark-mode .hospital-brand-text h2 {
+  color: #35cbd1;
+}
+
+.dashboard-page.dark-mode .hospital-brand-text p {
+  color: #9ab6c0;
+}
+
+.dashboard-page.dark-mode .logo-symbol {
+  background: #103845;
+  border-color: #1c5968;
+}
+
+.dashboard-page.dark-mode .header-link,
+.dashboard-page.dark-mode .theme-btn {
+  background: #103845;
+  border-color: #1c5968;
+  color: #72e2e5;
+}
+
+.dashboard-page.dark-mode .header-link:hover {
+  background: #087f8c;
+  color: white;
+}
+
+.dashboard-page.dark-mode .logout-btn {
+  background: #3a1f24;
+  border-color: #6d3038;
+  color: #ff8585;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 750px) {
+
+  .dashboard-header {
+    padding: 12px 18px;
+    gap: 15px;
+  }
+
+  .hospital-brand-text p {
+    display: none;
+  }
+
+  .hospital-brand-text h2 {
+    font-size: 17px;
+  }
+
+  .logo-symbol {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dashboard-header-actions {
+    gap: 5px;
+  }
+
+  .header-link,
+  .theme-btn,
+  .logout-btn {
+    padding: 8px 9px;
+    font-size: 11px;
+  }
+
+  .theme-btn {
+    width: 36px;
+  }
+
+  .dashboard-main {
+    padding: 30px 16px;
+  }
 }

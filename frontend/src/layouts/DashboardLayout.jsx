@@ -1,15 +1,19 @@
-import {
-  Outlet,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
-
+import { Outlet, useNavigate, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./DashboardLayout.css";
 
 function DashboardLayout() {
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role");
+
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
   if (!role) {
     return <Navigate to="/login" replace />;
@@ -25,28 +29,66 @@ function DashboardLayout() {
   };
 
   return (
-    <div className="dashboard-layout">
+    <div className={`dashboard-page ${darkMode ? "dark-mode" : ""}`}>
 
-      <header className="topbar">
+      {/* HEADER */}
+      <header className="dashboard-header">
 
-        <div>
-          <h1>AI Smart Hospital</h1>
-          <span>{role} Dashboard</span>
+        <div className="hospital-brand">
+
+          <button
+            className="logo-symbol"
+            onClick={() => navigate("/")}
+            title="Home"
+          >
+            🏥
+          </button>
+
+          <div className="hospital-brand-text">
+            <h2>AI Smart Hospital</h2>
+            <p>Intelligent Healthcare Management</p>
+          </div>
+
         </div>
 
-        <button
-          className="logout-button"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
+        <div className="dashboard-header-actions">
+
+          <button
+            className="header-link"
+            onClick={() => navigate("/")}
+          >
+            🏠 Home
+          </button>
+
+          <button
+            className="theme-btn"
+            onClick={() => setDarkMode(!darkMode)}
+            title="Change Theme"
+          >
+            {darkMode ? "☀️" : "🌙"}
+          </button>
+
+          <button
+            className="header-link"
+            onClick={() => navigate("/patient/account")}
+          >
+            👤 Account
+          </button>
+
+          <button
+            className="logout-btn"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+
+        </div>
 
       </header>
 
-      <main className="main-content">
-        <div className="page-content">
-          <Outlet />
-        </div>
+      {/* DASHBOARD CONTENT */}
+      <main className="dashboard-main">
+        <Outlet />
       </main>
 
     </div>
