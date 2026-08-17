@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "./Home.css";
 
 function Home() {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
