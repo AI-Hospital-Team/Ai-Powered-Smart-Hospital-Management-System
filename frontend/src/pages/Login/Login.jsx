@@ -6,16 +6,19 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Patient");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!email.trim() || !password.trim()) {
       alert("Please enter email and password");
       return;
     }
+
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -33,44 +36,75 @@ function Login() {
         }
       );
 
+      // Read response safely
+      const contentType = response.headers.get("content-type");
+
+      let data;
+
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = await response.text();
+      }
+
+      // Login failed
       if (!response.ok) {
-        const message = await response.text();
-        alert(message || "Invalid email, password or role");
+        console.error("Login failed:", data);
+
+        if (typeof data === "object" && data.message) {
+          alert(data.message);
+        } else {
+          alert("Invalid email, password or role");
+        }
+
         return;
       }
 
-      const user = await response.json();
+      // Backend returned user
+      const user = data;
 
-      // Clear previous login
-      localStorage.clear();
+      console.log("Login successful:", user);
 
-      // Save logged-in user
+      // Clear old login data
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("role");
+      localStorage.removeItem("user");
+
+      // Save login state
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("role", user.role);
 
       localStorage.setItem(
         "user",
         JSON.stringify({
+          userId: user.userId,
           email: user.email,
           role: user.role,
-          userId: user.userId,
           patientId: user.patientId,
           doctorId: user.doctorId,
         })
       );
 
-      // Redirect based on role
-      if (user.role === "Admin") {
-        navigate("/dashboard", { replace: true });
-      } else if (user.role === "Doctor") {
-        navigate("/doctor", { replace: true });
-      } else if (user.role === "Patient") {
-        navigate("/patient", { replace: true });
-      }
+      // Redirect according to backend role
+      const userRole = user.role?.toLowerCase();
 
+      if (userRole === "admin") {
+        navigate("/dashboard", { replace: true });
+      } else if (userRole === "doctor") {
+        navigate("/doctor", { replace: true });
+      } else if (userRole === "patient") {
+        navigate("/patient", { replace: true });
+      } else {
+        alert("Invalid user role received from server.");
+      }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Cannot connect to the hospital server.");
+
+      alert(
+        "Cannot connect to the hospital server. Make sure Spring Boot is running on port 8080."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,6 +135,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
+              autoComplete="email"
               required
             />
           </div>
@@ -114,6 +149,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
+              autoComplete="current-password"
               required
             />
           </div>
@@ -132,12 +168,13 @@ function Login() {
             </select>
           </div>
 
-          {/* LOGIN */}
+          {/* LOGIN BUTTON */}
           <button
             type="submit"
             className="login-button"
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
         </form>
