@@ -1,148 +1,419 @@
+/* ================= PATIENT DASHBOARD ================= */
+
 .patient-dashboard {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px;
-  color: #17324d;
+  width: 100%;
 }
 
-/* Header */
+
+/* ================= PAGE HEADER ================= */
+
 .page-header {
-  margin-bottom: 22px;
+  margin-bottom: 28px;
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 30px;
   color: #17324d;
+  font-size: 34px;
+  font-weight: 800;
 }
 
 .page-header p {
-  margin: 6px 0 0;
+  margin: 7px 0 0;
   color: #718797;
+  font-size: 14px;
 }
 
-/* Cards */
+
+/* ================= SUMMARY CARDS ================= */
+
 .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 18px;
+  margin-bottom: 22px;
 }
 
 .dashboard-card {
+  min-height: 115px;
+
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 15px;
 
-  padding: 18px;
+  padding: 20px;
+
   background: #ffffff;
+  border: 1px solid #dcecf1;
+  border-radius: 16px;
 
-  border: 1px solid #e1edf2;
-  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 70, 100, 0.06);
 
-  box-shadow: 0 4px 15px rgba(0, 70, 100, 0.06);
+  transition: 0.2s ease;
 }
 
-.dashboard-card span {
-  font-size: 25px;
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  border-color: #b9e7eb;
+  box-shadow: 0 12px 28px rgba(0, 100, 120, 0.10);
 }
+
+
+/* Card icon */
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 13px;
+  background: #e8f8fa;
+
+  font-size: 23px;
+}
+
+
+/* Card text */
 
 .dashboard-card small {
   display: block;
-  margin-bottom: 4px;
+
   color: #718797;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .dashboard-card strong {
+  display: block;
+
+  margin: 3px 0;
+
   color: #087f8c;
-  font-size: 22px;
+  font-size: 25px;
+  font-weight: 800;
 }
 
-/* Sections */
+.dashboard-card em {
+  display: block;
+
+  color: #8aa0ad;
+  font-size: 10px;
+  font-style: normal;
+}
+
+
+/* ================= SECTIONS ================= */
+
 .dashboard-section {
-  padding: 22px;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
+  padding: 25px;
 
   background: #ffffff;
-  border: 1px solid #e1edf2;
-  border-radius: 12px;
+  border: 1px solid #dcecf1;
+  border-radius: 16px;
+
+  box-shadow: 0 8px 25px rgba(0, 70, 100, 0.05);
 }
 
-.dashboard-section h2 {
-  margin: 0 0 15px;
-  font-size: 20px;
+
+/* ================= SECTION HEADING ================= */
+
+.section-heading {
+  margin-bottom: 19px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
   color: #17324d;
+  font-size: 20px;
+  font-weight: 800;
 }
 
-/* Quick Actions */
-.quick-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+.section-heading p {
+  margin: 5px 0 0;
 
-.quick-actions button {
-  padding: 10px 16px;
-
-  border: 1px solid #bde5ea;
-  border-radius: 7px;
-
-  background: #f4fcfd;
-  color: #087f8c;
-
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.quick-actions button:hover {
-  background: #087f8c;
-  color: #ffffff;
-}
-
-/* Appointment */
-.appointment-box {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 20px;
-
-  padding: 16px;
-
-  background: #f7fafc;
-  border-radius: 8px;
-}
-
-.appointment-box small {
-  display: block;
   color: #718797;
   font-size: 12px;
 }
 
-.appointment-box p {
-  margin: 5px 0 0;
-  color: #17324d;
-  font-size: 14px;
+
+/* ================= QUICK ACTIONS ================= */
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
-/* Responsive */
-@media (max-width: 800px) {
+.quick-card {
+  min-height: 82px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 16px;
+
+  border: 1px solid #c8e9ed;
+  border-radius: 14px;
+
+  background: #f7fcfd;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.quick-card:hover {
+  transform: translateY(-2px);
+
+  background: #eaf9fa;
+  border-color: #35cbd1;
+
+  box-shadow: 0 8px 20px rgba(0, 120, 140, 0.10);
+}
+
+
+/* Quick icon */
+
+.quick-icon {
+  width: 45px;
+  height: 45px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+  background: #e5f7f9;
+
+  font-size: 21px;
+}
+
+
+/* Quick text */
+
+.quick-card div {
+  flex: 1;
+}
+
+.quick-card strong {
+  display: block;
+
+  color: #087f8c;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.quick-card small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #718797;
+  font-size: 11px;
+}
+
+
+/* Arrow */
+
+.quick-arrow {
+  color: #20b8c5;
+  font-size: 20px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.quick-card:hover .quick-arrow {
+  transform: translateX(4px);
+}
+
+
+/* ================= APPOINTMENT ================= */
+
+.appointment-box {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 15px;
+
+  padding: 18px;
+
+  background: #f7fbfd;
+  border-radius: 12px;
+}
+
+.appointment-box small {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #718797;
+  font-size: 11px;
+}
+
+.appointment-box strong {
+  color: #17324d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.empty-message {
+  margin: 13px 0 0;
+
+  color: #8aa0ad;
+  font-size: 11px;
+}
+
+
+/* ================= DARK MODE ================= */
+
+.dashboard-page.dark-mode .page-header h1 {
+  color: #e6f5f7;
+}
+
+.dashboard-page.dark-mode .page-header p {
+  color: #9ab6c0;
+}
+
+
+/* Cards */
+
+.dashboard-page.dark-mode .dashboard-card {
+  background: #0b2632;
+  border-color: #164554;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+}
+
+.dashboard-page.dark-mode .dashboard-card:hover {
+  border-color: #287485;
+}
+
+.dashboard-page.dark-mode .card-icon {
+  background: #103845;
+}
+
+.dashboard-page.dark-mode .dashboard-card small {
+  color: #9ab6c0;
+}
+
+.dashboard-page.dark-mode .dashboard-card strong {
+  color: #35cbd1;
+}
+
+.dashboard-page.dark-mode .dashboard-card em {
+  color: #829fa9;
+}
+
+
+/* Sections */
+
+.dashboard-page.dark-mode .dashboard-section {
+  background: #0b2632;
+  border-color: #164554;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+}
+
+.dashboard-page.dark-mode .section-heading h2 {
+  color: #e6f5f7;
+}
+
+.dashboard-page.dark-mode .section-heading p {
+  color: #9ab6c0;
+}
+
+
+/* Quick cards */
+
+.dashboard-page.dark-mode .quick-card {
+  background: #103845;
+  border-color: #1c5968;
+}
+
+.dashboard-page.dark-mode .quick-card:hover {
+  background: #124653;
+  border-color: #35cbd1;
+}
+
+.dashboard-page.dark-mode .quick-icon {
+  background: #164653;
+}
+
+.dashboard-page.dark-mode .quick-card strong {
+  color: #35cbd1;
+}
+
+.dashboard-page.dark-mode .quick-card small {
+  color: #9ab6c0;
+}
+
+.dashboard-page.dark-mode .quick-arrow {
+  color: #35cbd1;
+}
+
+
+/* Appointment */
+
+.dashboard-page.dark-mode .appointment-box {
+  background: #071c27;
+}
+
+.dashboard-page.dark-mode .appointment-box small {
+  color: #9ab6c0;
+}
+
+.dashboard-page.dark-mode .appointment-box strong {
+  color: #e6f5f7;
+}
+
+.dashboard-page.dark-mode .empty-message {
+  color: #829fa9;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 950px) {
+
   .dashboard-cards {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .appointment-box {
-    grid-template-columns: repeat(2, 1fr);
+  .quick-actions {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 500px) {
-  .patient-dashboard {
-    padding: 20px 15px;
-  }
+
+@media (max-width: 600px) {
 
   .dashboard-cards {
     grid-template-columns: 1fr;
   }
+
+  .dashboard-section {
+    padding: 20px;
+  }
+
+  .page-header h1 {
+    font-size: 27px;
+  }
+
+  .appointment-box {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+@media (max-width: 450px) {
 
   .appointment-box {
     grid-template-columns: 1fr;

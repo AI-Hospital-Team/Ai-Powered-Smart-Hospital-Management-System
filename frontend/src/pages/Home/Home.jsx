@@ -8,6 +8,12 @@ function Home() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [registerError, setRegisterError] = useState("");
+  const [registerSuccess, setRegisterSuccess] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const [loginRole, setLoginRole] = useState("Patient");
 
@@ -2185,8 +2191,10 @@ function Home() {
             </div>
             
 <form
+
   onSubmit={async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  setErrorMessage("");
 
     const formData = new FormData(e.currentTarget);
 
@@ -2194,7 +2202,7 @@ function Home() {
     const password = formData.get("password");
 
     if (!email || !password) {
-      alert("Please enter email and password");
+      setErrorMessage("Please enter email and password.");
       return;
     }
 
@@ -2216,7 +2224,7 @@ function Home() {
 
       if (!response.ok) {
         const message = await response.text();
-        alert(message || "Invalid email, password or role");
+        setErrorMessage("Invalid email or password.");
         return;
       }
 
@@ -2244,7 +2252,7 @@ function Home() {
 
     } catch (error) {
       console.error("Login error:", error);
-      alert("Cannot connect to the hospital server.");
+      setErrorMessage("Unable to connect to the hospital server.");
     }
   }}
 >
@@ -2277,9 +2285,13 @@ function Home() {
     Login as {loginRole}
   </button>
 </form>
+          {errorMessage && (
+            <div className="login-error">
+              ⚠️ {errorMessage}
+            </div>
+          )}
 
-            <div className="register-text">
-
+      <div className="register-text">
               Don't have an account?
 
               <button onClick={openRegister}>
@@ -2290,13 +2302,14 @@ function Home() {
 
 
             <button
-              className="forgot-password"
-              onClick={() =>
-                alert("Password recovery feature will be connected to backend.")
-              }
-            >
-              Forgot Password?
-            </button>
+                type="button"
+                className="forgot-password"
+                onClick={() =>
+                  setErrorMessage("Password recovery will be available soon.")
+                }
+              >
+                Forgot Password?
+              </button>
 
           </div>
 
@@ -2305,186 +2318,394 @@ function Home() {
       )}
 
 
-      {/* =====================================================
-          REGISTER MODAL
-      ===================================================== */}
+    {/* =====================================================
+    REGISTER MODAL
+===================================================== */}
 
-      {registerOpen && (
+{registerOpen && (
+  <div
+    className="login-overlay"
+    onClick={() => setRegisterOpen(false)}
+  >
 
-        <div
-          className="login-overlay"
-          onClick={() => setRegisterOpen(false)}
-        >
+    <div
+      className="register-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
 
-          <div
-            className="register-modal"
-            onClick={(e) => e.stopPropagation()}
+      {/* CLOSE */}
+      <button
+        className="close-login"
+        onClick={() => setRegisterOpen(false)}
+      >
+        ×
+      </button>
+
+
+      {/* HEADER */}
+      <div className="register-top">
+
+        <div className="large-logo">
+          🏥
+        </div>
+
+        <div>
+          <h1>Create Account</h1>
+          <p>Join AI Smart Hospital</p>
+        </div>
+
+      </div>
+
+
+          {/* REGISTER FORM */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          setRegisterError("");
+          setRegisterSuccess("");
+
+          const formData = new FormData(e.currentTarget);
+
+          const fullName = formData.get("fullName").trim();
+          const email = formData.get("email").trim();
+          const mobile = formData.get("mobile").trim();
+          const dob = formData.get("dob");
+          const gender = formData.get("gender");
+
+
+          /* ================= FULL NAME ================= */
+
+          if (!/^[A-Za-z ]{2,50}$/.test(fullName)) {
+            setRegisterError(
+              "Please enter a valid full name using letters only."
+            );
+            return;
+          }
+
+
+          /* ================= EMAIL ================= */
+
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setRegisterError(
+              "Please enter a valid email address."
+            );
+            return;
+          }
+
+
+          /* ================= MOBILE ================= */
+
+          if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+            setRegisterError(
+              "Mobile number must be exactly 10 digits and start with 6-9."
+            );
+            return;
+          }
+
+
+          /* ================= DATE OF BIRTH ================= */
+
+          if (!dob) {
+            setRegisterError(
+              "Please select your date of birth."
+            );
+            return;
+          }
+
+          const selectedDate = new Date(dob);
+          const today = new Date();
+
+          if (selectedDate > today) {
+            setRegisterError(
+              "Date of birth cannot be in the future."
+            );
+            return;
+          }
+
+
+          /* ================= GENDER ================= */
+
+          if (!gender) {
+            setRegisterError(
+              "Please select your gender."
+            );
+            return;
+          }
+
+
+          /* ================= PASSWORD ================= */
+
+          if (
+            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(
+              registerPassword
+            )
+          ) {
+            setRegisterError(
+              "Password must contain 8+ characters, uppercase, lowercase and a number."
+            );
+            return;
+          }
+
+
+          /* ================= CONFIRM PASSWORD ================= */
+
+          if (registerPassword !== confirmPassword) {
+            setRegisterError(
+              "Passwords do not match."
+            );
+            return;
+          }
+
+
+          /* ================= SUCCESS ================= */
+
+          setRegisterSuccess(
+            "Account created successfully. Please login."
+          );
+
+          e.currentTarget.reset();
+
+          setRegisterPassword("");
+          setConfirmPassword("");
+
+
+          /* ================= OPEN LOGIN ================= */
+
+          setTimeout(() => {
+
+            setRegisterSuccess("");
+
+            setRegisterOpen(false);
+
+            openLogin("Patient");
+
+          }, 1500);
+        }}
+      >
+
+
+        {/* ================= FULL NAME ================= */}
+
+        <div className="register-field">
+
+          <label>
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            name="fullName"
+            placeholder="Enter your full name"
+            maxLength="50"
+            required
+          />
+
+        </div>
+
+
+        {/* ================= EMAIL ================= */}
+
+        <div className="register-field">
+
+          <label>
+            Email
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            placeholder="example@gmail.com"
+            required
+          />
+
+        </div>
+
+
+        {/* ================= MOBILE ================= */}
+
+        <div className="register-field">
+
+          <label>
+            Mobile Number
+          </label>
+
+          <div className="mobile-input">
+
+            <span>
+              +91
+            </span>
+
+            <input
+              type="tel"
+              name="mobile"
+              placeholder="10-digit mobile number"
+              inputMode="numeric"
+              maxLength="10"
+              pattern="[6-9][0-9]{9}"
+              onInput={(e) => {
+                e.target.value =
+                  e.target.value.replace(/\D/g, "");
+              }}
+              required
+            />
+
+          </div>
+
+        </div>
+
+
+        {/* ================= DATE OF BIRTH ================= */}
+
+        <div className="register-field">
+
+          <label>
+            Date of Birth
+          </label>
+
+          <input
+            type="date"
+            name="dob"
+            max={new Date().toISOString().split("T")[0]}
+            required
+          />
+
+        </div>
+
+
+        {/* ================= GENDER ================= */}
+
+        <div className="register-field">
+
+          <label>
+            Gender
+          </label>
+
+          <select
+            name="gender"
+            required
           >
 
-            <button
-              className="close-login"
-              onClick={() => setRegisterOpen(false)}
-            >
-              ×
-            </button>
+            <option value="">
+              Select Gender
+            </option>
 
+            <option value="male">
+              Male
+            </option>
 
-            <div className="register-top">
+            <option value="female">
+              Female
+            </option>
 
-              <div className="large-logo">
-                🏥
-              </div>
+            <option value="other">
+              Other
+            </option>
 
-              <div>
-
-                <h1>
-                  Create Account
-                </h1>
-
-                <p>
-                  Join AI Smart Hospital
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Registration submitted");
-              }}
-            >
-
-              <div className="register-field">
-
-                <label>
-                  Full Name
-                </label>
-
-                <input
-                  type="text"
-                  placeholder="Enter full name"
-                  required
-                />
-
-              </div>
-
-
-              <div className="register-field">
-
-                <label>
-                  Email
-                </label>
-
-                <input
-                  type="email"
-                  placeholder="Enter email"
-                  required
-                />
-
-              </div>
-
-
-              <div className="register-field">
-
-                <label>
-                  Mobile Number
-                </label>
-
-                <input
-                  type="tel"
-                  placeholder="Enter mobile number"
-                  required
-                />
-
-              </div>
-
-
-              <div className="register-field">
-
-                <label>
-                  Date of Birth
-                </label>
-
-                <input
-                  type="date"
-                  required
-                />
-
-              </div>
-
-
-              <div className="register-field">
-
-                <label>
-                  Gender
-                </label>
-
-                <select required>
-
-                  <option value="">
-                    Select Gender
-                  </option>
-
-                  <option value="male">
-                    Male
-                  </option>
-
-                  <option value="female">
-                    Female
-                  </option>
-
-                  <option value="other">
-                    Other
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div className="register-field">
-
-                <label>
-                  Password
-                </label>
-
-                <input
-                  type="password"
-                  placeholder="Create password"
-                  required
-                />
-
-              </div>
-
-
-              <button
-                type="submit"
-                className="register-submit"
-              >
-                Create Account
-              </button>
-
-            </form>
-
-
-            <p className="already-account">
-
-              Already have an account?
-
-              <button onClick={() => openLogin("Patient")}>
-                Login
-              </button>
-
-            </p>
-
-          </div>
+          </select>
 
         </div>
 
-      )}
+
+        {/* ================= PASSWORD ================= */}
+
+        <div className="register-field">
+
+          <label>
+            Password
+          </label>
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Create a strong password"
+            value={registerPassword}
+            onChange={(e) =>
+              setRegisterPassword(e.target.value)
+            }
+            required
+          />
+
+          <small className="password-hint">
+            8+ characters • Uppercase • Lowercase • Number
+          </small>
+
+        </div>
+
+
+        {/* ================= CONFIRM PASSWORD ================= */}
+
+        <div className="register-field">
+
+          <label>
+            Confirm Password
+          </label>
+
+          <input
+            type="password"
+            placeholder="Re-enter your password"
+            value={confirmPassword}
+            onChange={(e) =>
+              setConfirmPassword(e.target.value)
+            }
+            required
+          />
+
+        </div>
+
+
+        {/* ================= ERROR ================= */}
+
+        {registerError && (
+          <div className="register-error">
+            ⚠️ {registerError}
+          </div>
+        )}
+
+
+        {/* ================= SUCCESS ================= */}
+
+        {registerSuccess && (
+          <div className="login-success">
+            ✅ {registerSuccess}
+          </div>
+        )}
+
+
+        {/* ================= CREATE ACCOUNT ================= */}
+
+        <button
+          type="submit"
+          className="register-submit"
+        >
+          Create Account
+        </button>
+
+      </form>
+
+
+      {/* ================= LOGIN ================= */}
+
+      <p className="already-account">
+
+        Already have an account?
+
+        <button
+          type="button"
+          onClick={() => {
+            setRegisterOpen(false);
+            openLogin("Patient");
+          }}
+        >
+          Login
+        </button>
+
+      </p>
+
+
+    </div>
+       </div>
+    )}
 
     </div>
   );
