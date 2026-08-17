@@ -8,26 +8,20 @@ import DashboardLayout from "./layouts/DashboardLayout";
 
 import Dashboard from "./pages/Admin/Dashboard";
 import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
-
 import PatientDashboard from "./pages/Patient/PatientDashboard";
-import Appointments from "./pages/Patient/Appointments/Appointments";
-import BookAppointment from "./pages/Patient/BookAppointment/BookAppointment";
-import MedicalRecords from "./pages/Patient/MedicalRecords/MedicalRecords";
-import Prescriptions from "./pages/Patient/Prescriptions/Prescriptions";
-import Profile from "./pages/Patient/Profile/Profile";
-import Bills from "./pages/Patient/Bills/Bills";
-import Notifications from "./pages/Patient/Notifications/Notifications";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Login */}
+        {/* Home */}
         <Route path="/" element={<Home />} />
+
+        {/* Login */}
         <Route path="/login" element={<Login />} />
 
-        {/* Project & Team Pages */}
+        {/* Other Pages */}
         <Route path="/about" element={<About />} />
         <Route path="/project" element={<Project />} />
 
@@ -41,46 +35,9 @@ function App() {
           <Route index element={<DoctorDashboard />} />
         </Route>
 
-        {/* Patient Routes */}
+        {/* Patient Dashboard */}
         <Route path="/patient" element={<DashboardLayout />}>
-
           <Route index element={<PatientDashboard />} />
-
-          <Route
-            path="appointments"
-            element={<Appointments />}
-          />
-
-          <Route
-            path="book-appointment"
-            element={<BookAppointment />}
-          />
-
-          <Route
-            path="medical-records"
-            element={<MedicalRecords />}
-          />
-
-          <Route
-            path="prescriptions"
-            element={<Prescriptions />}
-          />
-
-          <Route
-            path="profile"
-            element={<Profile />}
-          />
-
-          <Route
-            path="bills"
-            element={<Bills />}
-          />
-
-          <Route
-            path="notifications"
-            element={<Notifications />}
-          />
-
         </Route>
 
       </Routes>
