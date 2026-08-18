@@ -1,79 +1,172 @@
+import "./PatientDashboard.css";
+
 function PatientDashboard() {
   return (
     <div className="patient-dashboard">
 
+      {/* PAGE HEADER */}
       <div className="page-header">
-        <div>
-          <h1>Patient Dashboard</h1>
-          <p>Welcome, Patient</p>
-        </div>
+        <h1>Patient Dashboard</h1>
+        <p>Your healthcare, organized in one place</p>
       </div>
 
+
+      {/* SUMMARY CARDS */}
       <div className="dashboard-cards">
 
         <div className="dashboard-card">
-          <div className="card-icon">📅</div>
+          <span className="card-icon">📅</span>
+
           <div>
-            <h3>My Appointments</h3>
-            <p>0</p>
+            <small>Appointments</small>
+            <strong>0</strong>
+            <em>Upcoming & scheduled visits</em>
           </div>
         </div>
 
+
         <div className="dashboard-card">
-          <div className="card-icon">📋</div>
+          <span className="card-icon">📋</span>
+
           <div>
-            <h3>Medical Records</h3>
-            <p>0</p>
+            <small>Medical Records</small>
+            <strong>0</strong>
+            <em>Your health history</em>
           </div>
         </div>
 
+
         <div className="dashboard-card">
-          <div className="card-icon">💊</div>
+          <span className="card-icon">💊</span>
+
           <div>
-            <h3>Prescriptions</h3>
-            <p>0</p>
+            <small>Prescriptions</small>
+            <strong>0</strong>
+            <em>Current medications</em>
           </div>
         </div>
 
+
         <div className="dashboard-card">
-          <div className="card-icon">💳</div>
+          <span className="card-icon">💳</span>
+
           <div>
-            <h3>Pending Bills</h3>
-            <p>0</p>
+            <small>Pending Bills</small>
+            <strong>0</strong>
+            <em>Payments to be completed</em>
           </div>
         </div>
 
       </div>
 
+
+      {/* QUICK ACTIONS */}
       <div className="dashboard-section">
 
-        <h2>My Appointments</h2>
+        <div className="section-heading">
+          <h2>Quick Actions</h2>
+          <p>Access your most important healthcare services</p>
+        </div>
 
-        <div className="table-container">
 
-          <table>
+        <div className="quick-actions">
 
-            <thead>
-              <tr>
-                <th>Doctor</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+          <button className="quick-card">
 
-            <tbody>
-              <tr>
-                <td>No appointments</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-            </tbody>
+            <span className="quick-icon">📅</span>
 
-          </table>
+            <div>
+              <strong>Book Appointment</strong>
+              <small>Schedule a visit with a doctor</small>
+            </div>
+
+            <span className="quick-arrow">→</span>
+
+          </button>
+
+
+          <button className="quick-card">
+
+            <span className="quick-icon">📋</span>
+
+            <div>
+              <strong>Medical Records</strong>
+              <small>View your medical history</small>
+            </div>
+
+            <span className="quick-arrow">→</span>
+
+          </button>
+
+
+          <button className="quick-card">
+
+            <span className="quick-icon">💊</span>
+
+            <div>
+              <strong>Prescriptions</strong>
+              <small>Check your prescribed medicines</small>
+            </div>
+
+            <span className="quick-arrow">→</span>
+
+          </button>
+
+
+          <button className="quick-card">
+
+            <span className="quick-icon">👤</span>
+
+            <div>
+              <strong>My Profile</strong>
+              <small>Manage your personal details</small>
+            </div>
+
+            <span className="quick-arrow">→</span>
+
+          </button>
 
         </div>
+
+      </div>
+
+
+      {/* UPCOMING APPOINTMENT */}
+      <div className="dashboard-section">
+
+        <div className="section-heading">
+          <h2>Upcoming Appointment</h2>
+          <p>Your next scheduled visit</p>
+        </div>
+
+
+        <div className="appointment-box">
+
+          <div>
+            <small>Doctor</small>
+            <strong>No upcoming appointments</strong>
+          </div>
+
+          <div>
+            <small>Date</small>
+            <strong>—</strong>
+          </div>
+
+          <div>
+            <small>Time</small>
+            <strong>—</strong>
+          </div>
+
+          <div>
+            <small>Status</small>
+            <strong>—</strong>
+          </div>
+
+        </div>
+
+        <p className="empty-message">
+          You don't have any appointments scheduled yet.
+        </p>
 
       </div>
 

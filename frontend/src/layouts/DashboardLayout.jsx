@@ -1,199 +1,94 @@
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
-
+import { Outlet, useNavigate, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./DashboardLayout.css";
 
 function DashboardLayout() {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role");
 
-  // If user is not logged in
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
   if (!role) {
     return <Navigate to="/login" replace />;
   }
 
-  // Logout
-      const handleLogout = () => {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("role");
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("role");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
 
-      navigate("/", { replace: true });
-    };
-    
+    navigate("/", { replace: true });
+  };
+
   return (
-    <div className="dashboard-layout">
+    <div className={`dashboard-page ${darkMode ? "dark-mode" : ""}`}>
 
-      {/* ================= SIDEBAR ================= */}
-      <aside className="sidebar">
+      {/* HEADER */}
+      <header className="dashboard-header">
 
-        {/* Sidebar Header */}
-        <div className="sidebar-header">
-          <h2>Hospital Management</h2>
-          <p>{role} Panel</p>
+        <div className="hospital-brand">
+
+          <button
+            className="logo-symbol"
+            onClick={() => navigate("/")}
+            title="Home"
+          >
+            🏥
+          </button>
+
+          <div className="hospital-brand-text">
+            <h2>AI Smart Hospital</h2>
+            <p>Intelligent Healthcare Management</p>
+          </div>
+
         </div>
 
-        {/* Sidebar Menu */}
-        <nav className="sidebar-menu">
+        <div className="dashboard-header-actions">
 
-          {/* ================= ADMIN ================= */}
-          {role === "Admin" && (
-            <>
-              <Link
-                to="/dashboard"
-                className={
-                  location.pathname === "/dashboard"
-                    ? "active"
-                    : ""
-                }
-              >
-                Dashboard
-              </Link>
-            </>
-          )}
-
-          {/* ================= DOCTOR ================= */}
-          {role === "Doctor" && (
-            <>
-              <Link
-                to="/doctor"
-                className={
-                  location.pathname === "/doctor"
-                    ? "active"
-                    : ""
-                }
-              >
-                Dashboard
-              </Link>
-            </>
-          )}
-
-          {/* ================= PATIENT ================= */}
-          {role === "Patient" && (
-            <>
-              <Link
-                to="/patient"
-                className={
-                  location.pathname === "/patient"
-                    ? "active"
-                    : ""
-                }
-              >
-                Dashboard
-              </Link>
-
-              <Link
-                to="/patient/appointments"
-                className={
-                  location.pathname === "/patient/appointments"
-                    ? "active"
-                    : ""
-                }
-              >
-                Appointments
-              </Link>
-
-              <Link
-                to="/patient/book-appointment"
-                className={
-                  location.pathname === "/patient/book-appointment"
-                    ? "active"
-                    : ""
-                }
-              >
-                Book Appointment
-              </Link>
-
-              <Link
-                to="/patient/medical-records"
-                className={
-                  location.pathname === "/patient/medical-records"
-                    ? "active"
-                    : ""
-                }
-              >
-                Medical Records
-              </Link>
-
-              <Link
-                to="/patient/prescriptions"
-                className={
-                  location.pathname === "/patient/prescriptions"
-                    ? "active"
-                    : ""
-                }
-              >
-                Prescriptions
-              </Link>
-
-              <Link
-                to="/patient/profile"
-                className={
-                  location.pathname === "/patient/profile"
-                    ? "active"
-                    : ""
-                }
-              >
-                Profile
-              </Link>
-
-              <Link
-                to="/patient/bills"
-                className={
-                  location.pathname === "/patient/bills"
-                    ? "active"
-                    : ""
-                }
-              >
-                Bills
-              </Link>
-
-              <Link
-                to="/patient/notifications"
-                className={
-                  location.pathname === "/patient/notifications"
-                    ? "active"
-                    : ""
-                }
-              >
-                Notifications
-              </Link>
-            </>
-          )}
-
-          {/* ================= LOGOUT ================= */}
           <button
-            type="button"
-            className="logout-button"
+            className="header-link"
+            onClick={() => navigate("/")}
+          >
+            🏠 Home
+          </button>
+
+          <button
+            className="theme-btn"
+            onClick={() => setDarkMode(!darkMode)}
+            title="Change Theme"
+          >
+            {darkMode ? "☀️" : "🌙"}
+          </button>
+
+          <button
+            className="header-link"
+            onClick={() => navigate("/patient/account")}
+          >
+            👤 Account
+          </button>
+
+          <button
+            className="logout-btn"
             onClick={handleLogout}
           >
             Logout
           </button>
 
-        </nav>
-      </aside>
-
-      {/* ================= MAIN CONTENT ================= */}
-      <main className="main-content">
-
-        {/* Top Bar */}
-        <header className="topbar">
-          <h1>{role} Dashboard</h1>
-        </header>
-
-        {/* Page Content */}
-        <div className="page-content">
-          <Outlet />
         </div>
 
+      </header>
+
+      {/* DASHBOARD CONTENT */}
+      <main className="dashboard-main">
+        <Outlet />
       </main>
 
     </div>

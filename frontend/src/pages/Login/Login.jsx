@@ -6,15 +6,27 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Patient");
+<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
+=======
+  const [errorMessage, setErrorMessage] = useState("");
+>>>>>>> origin/main
 
   const navigate = useNavigate();
-
   const handleLogin = async (e) => {
     e.preventDefault();
 
+<<<<<<< HEAD
     if (!email.trim() || !password.trim()) {
       alert("Please enter email and password");
+=======
+    // Clear previous error
+    setErrorMessage("");
+
+    // Validate fields
+    if (!email || !password) {
+      setErrorMessage("Please enter email and password.");
+>>>>>>> origin/main
       return;
     }
 
@@ -36,6 +48,7 @@ function Login() {
         }
       );
 
+<<<<<<< HEAD
       // Read response safely
       const contentType = response.headers.get("content-type");
 
@@ -57,6 +70,11 @@ function Login() {
           alert("Invalid email, password or role");
         }
 
+=======
+      // Wrong login
+      if (!response.ok) {
+        setErrorMessage("Invalid email or password.");
+>>>>>>> origin/main
         return;
       }
 
@@ -99,15 +117,18 @@ function Login() {
       }
     } catch (error) {
       console.error("Login error:", error);
+<<<<<<< HEAD
 
       alert(
         "Cannot connect to the hospital server. Make sure Spring Boot is running on port 8080."
       );
     } finally {
       setLoading(false);
+=======
+      setErrorMessage("Cannot connect to the hospital server.");
+>>>>>>> origin/main
     }
   };
-
   return (
     <div className="login-page">
 
@@ -168,6 +189,7 @@ function Login() {
             </select>
           </div>
 
+<<<<<<< HEAD
           {/* LOGIN BUTTON */}
           <button
             type="submit"
@@ -176,6 +198,23 @@ function Login() {
           >
             {loading ? "Logging in..." : "Login"}
           </button>
+=======
+          {/* LOGIN */}
+          {/* ERROR MESSAGE */}
+            {errorMessage && (
+              <div className="login-error">
+                ❌ {errorMessage}
+              </div>
+            )}
+
+        {/* LOGIN */}
+<button
+  type="submit"
+  className="login-button"
+>
+  Login
+</button>
+>>>>>>> origin/main
 
         </form>
 
