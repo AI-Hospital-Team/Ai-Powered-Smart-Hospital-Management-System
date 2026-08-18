@@ -4,20 +4,20 @@ USE hospital_db;
 
 CREATE TABLE patients (
     patient_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     age INT,
-    gender VARCHAR(10),
-    phone VARCHAR(15),
-    email VARCHAR(100),
-    address VARCHAR(255)
+    gender VARCHAR(255),
+    phone VARCHAR(255),
+    email VARCHAR(255),
+    address VARCHAR(255),
+    blood_group VARCHAR(255),
+    date_of_birth DATE
 );
 
 CREATE TABLE doctors (
     doctor_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    specialization VARCHAR(100),
-    phone VARCHAR(15),
-    email VARCHAR(100)
+    name VARCHAR(255) NOT NULL,
+    specialization VARCHAR(255)
 );
 
 CREATE TABLE appointments (
@@ -25,8 +25,9 @@ CREATE TABLE appointments (
     patient_id INT NOT NULL,
     doctor_id INT NOT NULL,
     appointment_date DATE NOT NULL,
-    appointment_time TIME,
-    status VARCHAR(20) DEFAULT 'Scheduled',
+    appointment_time TIME NOT NULL,
+    reason VARCHAR(500),
+    status VARCHAR(50) DEFAULT 'Pending',
 
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
@@ -70,9 +71,9 @@ CREATE TABLE billing (
 
 CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(20) NOT NULL,
+    role VARCHAR(255) NOT NULL,
     patient_id INT NULL,
     doctor_id INT NULL,
 

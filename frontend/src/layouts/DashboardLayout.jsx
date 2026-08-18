@@ -6,19 +6,40 @@ function DashboardLayout() {
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
 
+  // Save dark mode preference
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
-  if (!role) {
+  // Check whether user is logged in
+  if (!role || isLoggedIn !== "true") {
     return <Navigate to="/login" replace />;
   }
 
+  // Decide account page according to user role
+  const getAccountPath = () => {
+    switch (role.toLowerCase()) {
+      case "patient":
+        return "/patient/account";
+
+      case "doctor":
+        return "/doctor/account";
+
+      case "admin":
+        return "/admin/account";
+
+      default:
+        return "/";
+    }
+  };
+
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("role");
@@ -31,9 +52,10 @@ function DashboardLayout() {
   return (
     <div className={`dashboard-page ${darkMode ? "dark-mode" : ""}`}>
 
-      {/* HEADER */}
+      {/* ================= HEADER ================= */}
       <header className="dashboard-header">
 
+        {/* Hospital Logo + Name */}
         <div className="hospital-brand">
 
           <button
@@ -51,8 +73,10 @@ function DashboardLayout() {
 
         </div>
 
+        {/* Header Actions */}
         <div className="dashboard-header-actions">
 
+          {/* Home */}
           <button
             className="header-link"
             onClick={() => navigate("/")}
@@ -60,21 +84,24 @@ function DashboardLayout() {
             🏠 Home
           </button>
 
+          {/* Dark / Light Mode */}
           <button
             className="theme-btn"
-            onClick={() => setDarkMode(!darkMode)}
-            title="Change Theme"
+            onClick={() => setDarkMode((prev) => !prev)}
+            title={darkMode ? "Light Mode" : "Dark Mode"}
           >
             {darkMode ? "☀️" : "🌙"}
           </button>
 
+          {/* Account */}
           <button
             className="header-link"
-            onClick={() => navigate("/patient/account")}
+            onClick={() => navigate(getAccountPath())}
           >
             👤 Account
           </button>
 
+          {/* Logout */}
           <button
             className="logout-btn"
             onClick={handleLogout}
@@ -86,7 +113,7 @@ function DashboardLayout() {
 
       </header>
 
-      {/* DASHBOARD CONTENT */}
+      {/* ================= DASHBOARD CONTENT ================= */}
       <main className="dashboard-main">
         <Outlet />
       </main>

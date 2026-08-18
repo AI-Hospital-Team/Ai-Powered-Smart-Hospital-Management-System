@@ -10,6 +10,13 @@ import Dashboard from "./pages/Admin/Dashboard";
 import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
 import PatientDashboard from "./pages/Patient/PatientDashboard";
 
+import Appointments from "./pages/Patient/Appointments/Appointments";
+import BookAppointment from "./pages/Patient/BookAppointment/BookAppointment";
+import MedicalRecords from "./pages/Patient/MedicalRecords/MedicalRecords";
+import Prescriptions from "./pages/Patient/Prescriptions/Prescriptions";
+import Profile from "./pages/Patient/Profile/Profile";
+import Bills from "./pages/Patient/Bills/Bills";
+
 function App() {
   return (
     <BrowserRouter>
@@ -37,7 +44,46 @@ function App() {
 
         {/* Patient Dashboard */}
         <Route path="/patient" element={<DashboardLayout />}>
+
+          {/* /patient */}
           <Route index element={<PatientDashboard />} />
+
+          {/* /patient/appointments */}
+          <Route
+            path="appointments"
+            element={<Appointments />}
+          />
+
+          {/* /patient/book-appointment */}
+          <Route
+            path="book-appointment"
+            element={<BookAppointment />}
+          />
+
+          {/* /patient/medical-records */}
+          <Route
+            path="medical-records"
+            element={<MedicalRecords />}
+          />
+
+          {/* /patient/prescriptions */}
+          <Route
+            path="prescriptions"
+            element={<Prescriptions />}
+          />
+
+          {/* /patient/profile */}
+          <Route
+            path="profile"
+            element={<Profile />}
+          />
+
+          {/* /patient/bills */}
+          <Route
+            path="bills"
+            element={<Bills />}
+          />
+
         </Route>
 
       </Routes>
