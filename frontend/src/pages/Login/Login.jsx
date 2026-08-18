@@ -6,20 +6,22 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Patient");
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Clear previous error
     setErrorMessage("");
 
-    // Validate fields
-    if (!email || !password) {
+    if (!email.trim() || !password.trim()) {
       setErrorMessage("Please enter email and password.");
       return;
     }
+
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -37,51 +39,75 @@ function Login() {
         }
       );
 
-      // Wrong login
+      const contentType = response.headers.get("content-type");
+
+      let data;
+
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = await response.text();
+      }
+
       if (!response.ok) {
-        setErrorMessage("Invalid email or password.");
+        console.error("Login failed:", data);
+
+        if (typeof data === "object" && data?.message) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage("Invalid email, password or role.");
+        }
+
         return;
       }
 
-      const user = await response.json();
+      const user = data;
 
-      // Clear previous login
-      localStorage.clear();
+      console.log("Login successful:", user);
 
-      // Save logged-in user
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("role");
+      localStorage.removeItem("user");
+
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("role", user.role);
 
       localStorage.setItem(
         "user",
         JSON.stringify({
+          userId: user.userId,
           email: user.email,
           role: user.role,
-          userId: user.userId,
           patientId: user.patientId,
           doctorId: user.doctorId,
         })
       );
 
-      // Redirect based on role
-      if (user.role === "Admin") {
-        navigate("/dashboard", { replace: true });
-      } else if (user.role === "Doctor") {
-        navigate("/doctor", { replace: true });
-      } else if (user.role === "Patient") {
-        navigate("/patient", { replace: true });
-      }
+      const userRole = user.role?.toLowerCase();
 
+      if (userRole === "admin") {
+        navigate("/dashboard", { replace: true });
+      } else if (userRole === "doctor") {
+        navigate("/doctor", { replace: true });
+      } else if (userRole === "patient") {
+        navigate("/patient", { replace: true });
+      } else {
+        setErrorMessage("Invalid user role received from server.");
+      }
     } catch (error) {
       console.error("Login error:", error);
-      setErrorMessage("Cannot connect to the hospital server.");
+
+      setErrorMessage(
+        "Cannot connect to the hospital server. Make sure Spring Boot is running on port 8080."
+      );
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="login-page">
-
       <div className="login-container">
-
         <div className="login-header">
           <div className="hospital-icon">🏥</div>
 
@@ -90,12 +116,7 @@ function Login() {
           <p>Hospital Management System</p>
         </div>
 
-        <form
-          className="login-form"
-          onSubmit={handleLogin}
-        >
-
-          {/* EMAIL */}
+        <form className="login-form" onSubmit={handleLogin}>
           <div className="form-group">
             <label>Email</label>
 
@@ -104,11 +125,11 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
+              autoComplete="email"
               required
             />
           </div>
 
-          {/* PASSWORD */}
           <div className="form-group">
             <label>Password</label>
 
@@ -117,11 +138,11 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
+              autoComplete="current-password"
               required
             />
           </div>
 
-          {/* ROLE */}
           <div className="form-group">
             <label>Login As</label>
 
@@ -135,30 +156,21 @@ function Login() {
             </select>
           </div>
 
-          {/* LOGIN */}
-          {/* ERROR MESSAGE */}
-            {errorMessage && (
-              <div className="login-error">
-                ❌ {errorMessage}
-              </div>
-            )}
+          {errorMessage && (
+            <div className="login-error">
+              {errorMessage}
+            </div>
+          )}
 
-        {/* LOGIN */}
-<button
-  type="submit"
-  className="login-button"
->
-  Login
-</button>
-
+          <button
+            type="submit"
+            className="login-button"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
-
-        <div className="login-footer">
-          AI Hospital Management System
-        </div>
-
       </div>
-
     </div>
   );
 }
