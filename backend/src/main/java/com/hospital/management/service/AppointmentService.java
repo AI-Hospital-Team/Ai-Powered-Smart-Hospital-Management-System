@@ -12,15 +12,79 @@ public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
 
-    public AppointmentService(AppointmentRepository appointmentRepository) {
+    public AppointmentService(
+            AppointmentRepository appointmentRepository) {
+
         this.appointmentRepository = appointmentRepository;
     }
 
-    public Appointment createAppointment(Appointment appointment) {
+    // ==========================================
+    // CREATE
+    // ==========================================
+
+    public Appointment createAppointment(
+            Appointment appointment) {
+
+        if (appointment.getStatus() == null ||
+                appointment.getStatus().isBlank()) {
+
+            appointment.setStatus("Pending");
+        }
+
         return appointmentRepository.save(appointment);
     }
 
+    // ==========================================
+    // GET ALL
+    // ==========================================
+
     public List<Appointment> getAllAppointments() {
+
         return appointmentRepository.findAll();
+    }
+
+    // ==========================================
+    // GET BY DOCTOR
+    // ==========================================
+
+    public List<Appointment> getAppointmentsByDoctor(
+            Integer doctorId) {
+
+        return appointmentRepository
+                .findByDoctorId(doctorId);
+    }
+
+    // ==========================================
+    // GET BY PATIENT
+    // ==========================================
+
+    public List<Appointment> getAppointmentsByPatient(
+            Integer patientId) {
+
+        return appointmentRepository
+                .findByPatientId(patientId);
+    }
+
+    // ==========================================
+    // UPDATE STATUS
+    // ==========================================
+
+    public Appointment updateAppointmentStatus(
+            Integer appointmentId,
+            String status) {
+
+        Appointment appointment =
+                appointmentRepository
+                        .findById(appointmentId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Appointment not found with ID: "
+                                                + appointmentId
+                                )
+                        );
+
+        appointment.setStatus(status);
+
+        return appointmentRepository.save(appointment);
     }
 }

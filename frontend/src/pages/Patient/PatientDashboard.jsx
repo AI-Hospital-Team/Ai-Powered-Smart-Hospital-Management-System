@@ -1,306 +1,770 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./PatientDashboard.css";
 
 function PatientDashboard() {
-  const navigate = useNavigate();
+  // ==========================================
+  // USER
+  // ==========================================
 
-  const [patient, setPatient] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState(null);
+
+  // ==========================================
+  // APPOINTMENTS
+  // ==========================================
+
+  const [appointments, setAppointments] = useState([]);
+  const [appointmentsLoading, setAppointmentsLoading] =
+    useState(true);
+  const [appointmentsError, setAppointmentsError] =
+    useState("");
+
+  // ==========================================
+  // MEDICAL RECORDS
+  // ==========================================
+
+  const [medicalRecords, setMedicalRecords] = useState([]);
+  const [recordsLoading, setRecordsLoading] =
+    useState(true);
+  const [recordsError, setRecordsError] = useState("");
+
+  // ==========================================
+  // PRESCRIPTIONS
+  // ==========================================
+
+  const [prescriptions, setPrescriptions] = useState([]);
+  const [prescriptionsLoading, setPrescriptionsLoading] =
+    useState(true);
+  const [prescriptionsError, setPrescriptionsError] =
+    useState("");
+
+  // ==========================================
+  // LOAD LOGGED-IN USER
+  // ==========================================
 
   useEffect(() => {
-    const loadPatient = async () => {
-      try {
-        const storedUser = localStorage.getItem("user");
+    try {
+      const storedUser = localStorage.getItem("user");
 
-        if (!storedUser) {
-          setErrorMessage("Patient login information not found.");
-          setLoading(false);
-          return;
-        }
-
-        const user = JSON.parse(storedUser);
-
-        if (user.patientId == null) {
-          setErrorMessage("Patient ID not found in login information.");
-          setLoading(false);
-          return;
-        }
-
-        const response = await fetch(
-          `http://localhost:8080/api/patients/${user.patientId}`
+      if (!storedUser) {
+        console.error(
+          "No user found in localStorage"
         );
 
-        if (!response.ok) {
-          throw new Error("Failed to load patient information.");
-        }
+        setAppointmentsLoading(false);
+        setRecordsLoading(false);
+        setPrescriptionsLoading(false);
 
-        const data = await response.json();
-
-        setPatient(data);
-      } catch (error) {
-        console.error("Patient dashboard error:", error);
-
-        setErrorMessage(
-          "Unable to load patient information. Please try again."
-        );
-      } finally {
-        setLoading(false);
+        return;
       }
-    };
 
-    loadPatient();
+      const parsedUser = JSON.parse(storedUser);
+
+      console.log(
+        "Logged-in patient:",
+        parsedUser
+      );
+
+      setUser(parsedUser);
+    } catch (error) {
+      console.error(
+        "Error reading user:",
+        error
+      );
+
+      setAppointmentsLoading(false);
+      setRecordsLoading(false);
+      setPrescriptionsLoading(false);
+    }
   }, []);
 
-  if (loading) {
-    return (
-      <div className="patient-dashboard">
-        <div className="dashboard-loading">
-          Loading patient information...
-        </div>
-      </div>
-    );
-  }
+  // ==========================================
+  // FETCH PATIENT DATA
+  // ==========================================
 
-  if (errorMessage) {
-    return (
-      <div className="patient-dashboard">
-        <div className="dashboard-error">
-          {errorMessage}
-        </div>
-      </div>
+  useEffect(() => {
+    if (!user?.patientId) {
+      return;
+    }
+
+    const patientId = user.patientId;
+
+    console.log(
+      "Fetching data for Patient ID:",
+      patientId
     );
-  }
+
+    // ========================================
+    // FETCH APPOINTMENTS
+    // ========================================
+
+    setAppointmentsLoading(true);
+    setAppointmentsError("");
+
+    fetch(
+      `http://localhost:8080/api/appointments/patient/${patientId}`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Appointments API failed: ${response.status}`
+          );
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        console.log(
+          "Patient appointments:",
+          data
+        );
+
+        if (Array.isArray(data)) {
+          setAppointments(data);
+        } else {
+          setAppointments([]);
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Appointments error:",
+          error
+        );
+
+        setAppointmentsError(
+          "Failed to load appointments."
+        );
+
+        setAppointments([]);
+      })
+      .finally(() => {
+        setAppointmentsLoading(false);
+      });
+
+    // ========================================
+    // FETCH MEDICAL RECORDS
+    // ========================================
+
+    setRecordsLoading(true);
+    setRecordsError("");
+
+    fetch(
+      `http://localhost:8080/api/medical-records/patient/${patientId}`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Medical records API failed: ${response.status}`
+          );
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        console.log(
+          "Patient medical records:",
+          data
+        );
+
+        if (Array.isArray(data)) {
+          setMedicalRecords(data);
+        } else {
+          setMedicalRecords([]);
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Medical records error:",
+          error
+        );
+
+        setRecordsError(
+          "Failed to load medical records."
+        );
+
+        setMedicalRecords([]);
+      })
+      .finally(() => {
+        setRecordsLoading(false);
+      });
+
+    // ========================================
+    // FETCH PRESCRIPTIONS
+    // ========================================
+
+    setPrescriptionsLoading(true);
+    setPrescriptionsError("");
+
+    fetch(
+      `http://localhost:8080/api/prescriptions/patient/${patientId}`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Prescriptions API failed: ${response.status}`
+          );
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        console.log(
+          "Patient prescriptions:",
+          data
+        );
+
+        if (Array.isArray(data)) {
+          setPrescriptions(data);
+        } else {
+          setPrescriptions([]);
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Prescriptions error:",
+          error
+        );
+
+        setPrescriptionsError(
+          "Failed to load prescriptions."
+        );
+
+        setPrescriptions([]);
+      })
+      .finally(() => {
+        setPrescriptionsLoading(false);
+      });
+  }, [user]);
+
+  // ==========================================
+  // RETURN
+  // ==========================================
 
   return (
     <div className="patient-dashboard">
 
-      {/* PAGE HEADER */}
+      {/* ======================================
+          PAGE HEADER
+      ====================================== */}
+
       <div className="page-header">
-        <h1>Patient Dashboard</h1>
 
-        <p>
-          Welcome, <strong>{patient?.name}</strong>
-        </p>
-      </div>
+        <div>
 
-      {/* PATIENT INFORMATION */}
-      <div className="patient-info-section">
+          <h1>
+            Patient Dashboard
+          </h1>
 
-        <div className="patient-info-header">
-
-          <div className="patient-avatar">
-            👤
-          </div>
-
-          <div>
-            <h2>{patient?.name}</h2>
-            <p>Patient ID: {patient?.patientId}</p>
-          </div>
+          <p>
+            Welcome, Patient
+          </p>
 
         </div>
 
-        <div className="patient-info-grid">
-
-          <div>
-            <small>Age</small>
-            <strong>{patient?.age ?? "—"} years</strong>
-          </div>
-
-          <div>
-            <small>Gender</small>
-            <strong>{patient?.gender || "—"}</strong>
-          </div>
-
-          <div>
-            <small>Blood Group</small>
-            <strong>{patient?.bloodGroup || "—"}</strong>
-          </div>
-
-          <div>
-            <small>Phone</small>
-            <strong>{patient?.phone || "—"}</strong>
-          </div>
-
-          <div>
-            <small>Email</small>
-            <strong>{patient?.email || "—"}</strong>
-          </div>
-
-          <div>
-            <small>Address</small>
-            <strong>{patient?.address || "—"}</strong>
-          </div>
-
-        </div>
       </div>
 
-      {/* SUMMARY CARDS */}
+      {/* ======================================
+          DASHBOARD CARDS
+      ====================================== */}
+
       <div className="dashboard-cards">
 
-        <button
-          className="dashboard-card"
-          onClick={() => navigate("/patient/appointments")}
-        >
-          <span className="card-icon">📅</span>
+        {/* ====================================
+            APPOINTMENTS CARD
+        ==================================== */}
+
+        <div className="dashboard-card">
+
+          <div className="card-icon">
+            📅
+          </div>
 
           <div>
-            <small>Appointments</small>
-            <strong>0</strong>
-            <em>Upcoming & scheduled visits</em>
-          </div>
-        </button>
 
-        <button
-          className="dashboard-card"
-          onClick={() => navigate("/patient/medical-records")}
-        >
-          <span className="card-icon">📋</span>
+            <h3>
+              Appointments
+            </h3>
+
+            <p>
+              {appointmentsLoading
+                ? "..."
+                : appointments.length}
+            </p>
+
+          </div>
+
+        </div>
+
+        {/* ====================================
+            MEDICAL RECORDS CARD
+        ==================================== */}
+
+        <div className="dashboard-card">
+
+          <div className="card-icon">
+            📋
+          </div>
 
           <div>
-            <small>Medical Records</small>
-            <strong>0</strong>
-            <em>Your health history</em>
-          </div>
-        </button>
 
-        <button
-          className="dashboard-card"
-          onClick={() => navigate("/patient/prescriptions")}
-        >
-          <span className="card-icon">💊</span>
+            <h3>
+              Medical Records
+            </h3>
+
+            <p>
+              {recordsLoading
+                ? "..."
+                : medicalRecords.length}
+            </p>
+
+          </div>
+
+        </div>
+
+        {/* ====================================
+            PRESCRIPTIONS CARD
+        ==================================== */}
+
+        <div className="dashboard-card">
+
+          <div className="card-icon">
+            💊
+          </div>
 
           <div>
-            <small>Prescriptions</small>
-            <strong>0</strong>
-            <em>Current medications</em>
-          </div>
-        </button>
 
-        <button
-          className="dashboard-card"
-          onClick={() => navigate("/patient/bills")}
-        >
-          <span className="card-icon">💳</span>
+            <h3>
+              Prescriptions
+            </h3>
 
-          <div>
-            <small>Pending Bills</small>
-            <strong>0</strong>
-            <em>Payments to be completed</em>
+            <p>
+              {prescriptionsLoading
+                ? "..."
+                : prescriptions.length}
+            </p>
+
           </div>
-        </button>
+
+        </div>
 
       </div>
 
-      {/* QUICK ACTIONS */}
+      {/* ======================================
+          MY APPOINTMENTS
+      ====================================== */}
+
       <div className="dashboard-section">
 
-        <div className="section-heading">
-          <h2>Quick Actions</h2>
-          <p>Access your most important healthcare services</p>
+        <h2>
+          My Appointments
+        </h2>
+
+        <div className="table-container">
+
+          {/* LOADING */}
+
+          {appointmentsLoading ? (
+
+            <p>
+              Loading appointments...
+            </p>
+
+          ) : appointmentsError ? (
+
+            /* ERROR */
+
+            <p>
+              {appointmentsError}
+            </p>
+
+          ) : appointments.length === 0 ? (
+
+            /* EMPTY */
+
+            <p>
+              No appointments found.
+            </p>
+
+          ) : (
+
+            /* TABLE */
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Date
+                  </th>
+
+                  <th>
+                    Doctor
+                  </th>
+
+                  <th>
+                    Time
+                  </th>
+
+                  <th>
+                    Reason
+                  </th>
+
+                  <th>
+                    Status
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {appointments.map(
+                  (appointment) => (
+
+                    <tr
+                      key={
+                        appointment.appointmentId
+                      }
+                    >
+
+                      <td>
+                        {
+                          appointment.appointmentDate
+                        }
+                      </td>
+
+                      <td>
+                        Doctor #
+                        {
+                          appointment.doctorId
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          appointment.appointmentTime
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          appointment.reason ||
+                          "-"
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          appointment.status ||
+                          "-"
+                        }
+                      </td>
+
+                    </tr>
+
+                  )
+                )}
+
+              </tbody>
+
+            </table>
+
+          )}
+
         </div>
 
-        <div className="quick-actions">
-
-          {/* BOOK APPOINTMENT */}
-          <button
-            className="quick-card"
-            onClick={() => navigate("/patient/book-appointment")}
-          >
-            <span className="quick-icon">📅</span>
-
-            <div>
-              <strong>Book Appointment</strong>
-              <small>Schedule a visit with a doctor</small>
-            </div>
-
-            <span className="quick-arrow">→</span>
-          </button>
-
-          {/* MEDICAL RECORDS */}
-          <button
-            className="quick-card"
-            onClick={() => navigate("/patient/medical-records")}
-          >
-            <span className="quick-icon">📋</span>
-
-            <div>
-              <strong>Medical Records</strong>
-              <small>View your medical history</small>
-            </div>
-
-            <span className="quick-arrow">→</span>
-          </button>
-
-          {/* PRESCRIPTIONS */}
-          <button
-            className="quick-card"
-            onClick={() => navigate("/patient/prescriptions")}
-          >
-            <span className="quick-icon">💊</span>
-
-            <div>
-              <strong>Prescriptions</strong>
-              <small>Check your prescribed medicines</small>
-            </div>
-
-            <span className="quick-arrow">→</span>
-          </button>
-
-          {/* PROFILE */}
-          <button
-            className="quick-card"
-            onClick={() => navigate("/patient/profile")}
-          >
-            <span className="quick-icon">👤</span>
-
-            <div>
-              <strong>My Profile</strong>
-              <small>Manage your personal details</small>
-            </div>
-
-            <span className="quick-arrow">→</span>
-          </button>
-
-        </div>
       </div>
 
-      {/* UPCOMING APPOINTMENT */}
+      {/* ======================================
+          MY MEDICAL RECORDS
+      ====================================== */}
+
       <div className="dashboard-section">
 
-        <div className="section-heading">
-          <h2>Upcoming Appointment</h2>
-          <p>Your next scheduled visit</p>
+        <h2>
+          My Medical Records
+        </h2>
+
+        <div className="table-container">
+
+          {/* LOADING */}
+
+          {recordsLoading ? (
+
+            <p>
+              Loading medical records...
+            </p>
+
+          ) : recordsError ? (
+
+            /* ERROR */
+
+            <p>
+              {recordsError}
+            </p>
+
+          ) : medicalRecords.length === 0 ? (
+
+            /* EMPTY */
+
+            <p>
+              No medical records found.
+            </p>
+
+          ) : (
+
+            /* TABLE */
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Date
+                  </th>
+
+                  <th>
+                    Doctor
+                  </th>
+
+                  <th>
+                    Diagnosis
+                  </th>
+
+                  <th>
+                    Symptoms
+                  </th>
+
+                  <th>
+                    Treatment
+                  </th>
+
+                  <th>
+                    Notes
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {medicalRecords.map(
+                  (record) => (
+
+                    <tr
+                      key={
+                        record.recordId
+                      }
+                    >
+
+                      <td>
+                        {
+                          record.recordDate
+                        }
+                      </td>
+
+                      <td>
+                        Doctor #
+                        {
+                          record.doctorId
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          record.diagnosis ||
+                          "-"
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          record.symptoms ||
+                          "-"
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          record.treatment ||
+                          "-"
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          record.notes ||
+                          "-"
+                        }
+                      </td>
+
+                    </tr>
+
+                  )
+                )}
+
+              </tbody>
+
+            </table>
+
+          )}
+
         </div>
 
-        <div className="appointment-box">
+      </div>
 
-          <div>
-            <small>Doctor</small>
-            <strong>No upcoming appointments</strong>
-          </div>
+      {/* ======================================
+          MY PRESCRIPTIONS
+      ====================================== */}
 
-          <div>
-            <small>Date</small>
-            <strong>—</strong>
-          </div>
+      <div className="dashboard-section">
 
-          <div>
-            <small>Time</small>
-            <strong>—</strong>
-          </div>
+        <h2>
+          My Prescriptions
+        </h2>
 
-          <div>
-            <small>Status</small>
-            <strong>—</strong>
-          </div>
+        <div className="table-container">
+
+          {/* LOADING */}
+
+          {prescriptionsLoading ? (
+
+            <p>
+              Loading prescriptions...
+            </p>
+
+          ) : prescriptionsError ? (
+
+            /* ERROR */
+
+            <p>
+              {prescriptionsError}
+            </p>
+
+          ) : prescriptions.length === 0 ? (
+
+            /* EMPTY */
+
+            <p>
+              No prescriptions found.
+            </p>
+
+          ) : (
+
+            /* TABLE */
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Date
+                  </th>
+
+                  <th>
+                    Doctor
+                  </th>
+
+                  <th>
+                    Medicine
+                  </th>
+
+                  <th>
+                    Dosage
+                  </th>
+
+                  <th>
+                    Frequency
+                  </th>
+
+                  <th>
+                    Duration
+                  </th>
+
+                  <th>
+                    Instructions
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {prescriptions.map(
+                  (prescription) => (
+
+                    <tr
+                      key={
+                        prescription.prescriptionId
+                      }
+                    >
+
+                      <td>
+                        {
+                          prescription.prescriptionDate
+                        }
+                      </td>
+
+                      <td>
+                        Doctor #
+                        {
+                          prescription.doctorId
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          prescription.medicineName
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          prescription.dosage ||
+                          "-"
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          prescription.frequency ||
+                          "-"
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          prescription.duration ||
+                          "-"
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          prescription.instructions ||
+                          "-"
+                        }
+                      </td>
+
+                    </tr>
+
+                  )
+                )}
+
+              </tbody>
+
+            </table>
+
+          )}
 
         </div>
-
-        <p className="empty-message">
-          You don't have any appointments scheduled yet.
-        </p>
 
       </div>
 
