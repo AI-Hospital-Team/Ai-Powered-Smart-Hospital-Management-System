@@ -350,39 +350,6 @@ function Home() {
 
 
       {/* =====================================================
-          TRUST BAR
-      ===================================================== */}
-
-      <section className="trust-bar">
-
-        <div>
-          <span>🔐</span>
-          <strong>Secure Records</strong>
-          <small>Your medical data stays protected</small>
-        </div>
-
-        <div>
-          <span>🤖</span>
-          <strong>AI Assistance</strong>
-          <small>Smart healthcare technology</small>
-        </div>
-
-        <div>
-          <span>👨‍⚕️</span>
-          <strong>Qualified Doctors</strong>
-          <small>Experienced medical professionals</small>
-        </div>
-
-        <div>
-          <span>🚑</span>
-          <strong>Emergency Care</strong>
-          <small>24/7 emergency assistance</small>
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
           SERVICES
       ===================================================== */}
 
@@ -665,496 +632,153 @@ function Home() {
       </section>
 
 
-      {/* =====================================================
-          AYUSHMAN BHARAT
-          NO AYUSHMAN CARD IMAGE
-      ===================================================== */}
+{/* =====================================================
+    AYUSHMAN BHARAT
+===================================================== */}
 
-      <section className="insurance-section" id="ayushman">
+<section
+  className="insurance-section"
+  id="ayushman"
+  
+>
 
-        <div className="insurance-content">
+  
+  <div className="insurance-layout">
 
-          {/* LEFT ICON */}
+    {/* LEFT CONTENT */}
 
-          <div className="insurance-icon">
-            🏥
+    <div className="insurance-content">
+
+      <div className="insurance-icon">
+        🏥
+      </div>
+
+      <div className="insurance-text">
+
+        <p className="section-label">
+          AYUSHMAN BHARAT • HEALTHCARE SUPPORT
+        </p>
+
+        <h2>
+          Get Free Healthcare Treatment
+          <span> Up To ₹5 Lakh</span>
+        </h2>
+
+        <p className="insurance-description">
+          Ayushman Bharat Pradhan Mantri Jan Arogya Yojana
+          (PM-JAY) provides eligible families with health
+          coverage of up to ₹5 lakh per family per year for
+          eligible secondary and tertiary hospitalization.
+        </p>
+
+
+        {/* FEATURES */}
+
+        <div className="insurance-features">
+
+          <div>
+            <span>✓</span>
+            <strong>Up to ₹5 Lakh Coverage</strong>
           </div>
 
-
-          {/* MAIN CONTENT */}
-
-          <div className="insurance-text">
-
-            <p className="section-label">
-              AYUSHMAN BHARAT • HEALTHCARE SUPPORT
-            </p>
-
-            <h2>
-              Get Free Healthcare Treatment
-              <span> Up To ₹5 Lakh</span>
-            </h2>
-
-            <p>
-              Ayushman Bharat Pradhan Mantri Jan Arogya Yojana
-              (PM-JAY) provides eligible families with health
-              coverage of up to ₹5 lakh per family per year for
-              eligible secondary and tertiary hospitalization.
-            </p>
-
-
-            <div className="insurance-features">
-
-              <div>
-                <span>✓</span>
-                <strong>Up to ₹5 Lakh Coverage</strong>
-              </div>
-
-              <div>
-                <span>✓</span>
-                <strong>Cashless Hospitalization</strong>
-              </div>
-
-              <div>
-                <span>✓</span>
-                <strong>Eligible Family Members</strong>
-              </div>
-
-              <div>
-                <span>✓</span>
-                <strong>Hospital Treatment Support</strong>
-              </div>
-
-            </div>
-
-
-            <button
-              className="insurance-btn"
-              onClick={() =>
-                setShowAyushmanDetails(!showAyushmanDetails)
-              }
-            >
-              🪪 Check Ayushman Details
-              {showAyushmanDetails ? " ↑" : " →"}
-            </button>
-
-            <small className="insurance-note">
-              * Benefits and eligibility depend on applicable
-              government scheme rules and beneficiary eligibility.
-            </small>
-
+          <div>
+            <span>✓</span>
+            <strong>Cashless Hospitalization</strong>
           </div>
 
+          <div>
+            <span>✓</span>
+            <strong>Eligible Family Members</strong>
+          </div>
 
-          {/* =================================================
-              INTERACTIVE INFORMATION CARD
-          ================================================= */}
-
-          <div className="ayushman-card">
-
-            <div className="ayushman-card-header">
-
-              <div className="ayushman-shield">
-                🛡️
-              </div>
-
-              <div>
-                <strong>
-                  Ayushman Bharat
-                </strong>
-
-                <span>
-                  PM-JAY Health Protection
-                </span>
-              </div>
-
-            </div>
-
-
-            {/* TABS */}
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "7px",
-                marginBottom: "18px",
-              }}
-            >
-
-              <button
-                onClick={() => setAyushmanInfo("coverage")}
-                style={{
-                  padding: "10px 5px",
-                  border: "1px solid #d9e9ed",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  fontWeight: "700",
-                  background:
-                    ayushmanInfo === "coverage"
-                      ? "#087f8c"
-                      : "#f7fbfc",
-                  color:
-                    ayushmanInfo === "coverage"
-                      ? "white"
-                      : "#36556d",
-                }}
-              >
-                💰 Coverage
-              </button>
-
-
-              <button
-                onClick={() => setAyushmanInfo("eligibility")}
-                style={{
-                  padding: "10px 5px",
-                  border: "1px solid #d9e9ed",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  fontWeight: "700",
-                  background:
-                    ayushmanInfo === "eligibility"
-                      ? "#087f8c"
-                      : "#f7fbfc",
-                  color:
-                    ayushmanInfo === "eligibility"
-                      ? "white"
-                      : "#36556d",
-                }}
-              >
-                👨‍👩‍👧 Eligibility
-              </button>
-
-
-              <button
-                onClick={() => setAyushmanInfo("benefits")}
-                style={{
-                  padding: "10px 5px",
-                  border: "1px solid #d9e9ed",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  fontWeight: "700",
-                  background:
-                    ayushmanInfo === "benefits"
-                      ? "#087f8c"
-                      : "#f7fbfc",
-                  color:
-                    ayushmanInfo === "benefits"
-                      ? "white"
-                      : "#36556d",
-                }}
-              >
-                🎁 Benefits
-              </button>
-
-            </div>
-
-
-            {/* ACTIVE INFORMATION */}
-
-            <div
-              style={{
-                padding: "22px",
-                background: "#f3fafb",
-                borderRadius: "14px",
-                border: "1px solid #dcecef",
-                minHeight: "205px",
-              }}
-            >
-
-              <div
-                style={{
-                  fontSize: "30px",
-                  marginBottom: "10px",
-                }}
-              >
-                {activeAyushman.icon}
-              </div>
-
-              <h3
-                style={{
-                  color: "#087f8c",
-                  fontSize: "20px",
-                  marginBottom: "9px",
-                }}
-              >
-                {activeAyushman.title}
-              </h3>
-
-              <p
-                style={{
-                  color: "#607887",
-                  fontSize: "12px",
-                  lineHeight: "1.6",
-                  marginBottom: "13px",
-                }}
-              >
-                {activeAyushman.text}
-              </p>
-
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "7px",
-                }}
-              >
-
-                {activeAyushman.points.map((point, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      fontSize: "11px",
-                      color: "#36556d",
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: "19px",
-                        height: "19px",
-                        borderRadius: "50%",
-                        display: "grid",
-                        placeItems: "center",
-                        background: "#d8f6ef",
-                        color: "#087f8c",
-                        fontWeight: "900",
-                        flexShrink: 0,
-                      }}
-                    >
-                      ✓
-                    </span>
-
-                    {point}
-
-                  </div>
-                ))}
-
-              </div>
-
-            </div>
-
-
-            {/* DETAILS BUTTON */}
-
-            <button
-              onClick={() =>
-                setShowAyushmanDetails(!showAyushmanDetails)
-              }
-              style={{
-                width: "100%",
-                marginTop: "15px",
-                padding: "12px",
-                border: "none",
-                borderRadius: "9px",
-                background: "#087f8c",
-                color: "white",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              {showAyushmanDetails
-                ? "Hide Scheme Details ↑"
-                : "View Scheme Details →"}
-            </button>
-
-
-            {/* EXPANDED DETAILS */}
-
-            {showAyushmanDetails && (
-              <div
-                style={{
-                  marginTop: "15px",
-                  padding: "17px",
-                  background: "#eef9fb",
-                  borderRadius: "12px",
-                  border: "1px solid #d8ebef",
-                }}
-              >
-
-                <h4
-                  style={{
-                    color: "#17445c",
-                    marginBottom: "9px",
-                  }}
-                >
-                  📌 Important Information
-                </h4>
-
-                <p
-                  style={{
-                    color: "#647f8e",
-                    fontSize: "11px",
-                    lineHeight: "1.6",
-                    marginBottom: "10px",
-                  }}
-                >
-                  PM-JAY is a government healthcare scheme designed
-                  to provide financial protection to eligible
-                  beneficiary families.
-                </p>
-
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "7px",
-                  }}
-                >
-
-                  <span
-                    style={{
-                      color: "#36556d",
-                      fontSize: "11px",
-                    }}
-                  >
-                    💰 Coverage: Up to ₹5 lakh per family per year
-                  </span>
-
-                  <span
-                    style={{
-                      color: "#36556d",
-                      fontSize: "11px",
-                    }}
-                  >
-                    🏥 Treatment: Eligible hospitalization services
-                  </span>
-
-                  <span
-                    style={{
-                      color: "#36556d",
-                      fontSize: "11px",
-                    }}
-                  >
-                    💳 Payment: Cashless treatment at eligible
-                    empanelled hospitals
-                  </span>
-
-                  <span
-                    style={{
-                      color: "#36556d",
-                      fontSize: "11px",
-                    }}
-                  >
-                    👨‍👩‍👧 Family: Eligible family members as per
-                    applicable rules
-                  </span>
-
-                </div>
-
-                <a
-                  href="https://beneficiary.nha.gov.in/"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    display: "inline-block",
-                    marginTop: "13px",
-                    color: "#087f8c",
-                    fontSize: "11px",
-                    fontWeight: "800",
-                  }}
-                >
-                  Check Official Information →
-                </a>
-
-              </div>
-            )}
-
+          <div>
+            <span>✓</span>
+            <strong>Hospital Treatment Support</strong>
           </div>
 
         </div>
 
-      </section>
+
+        {/* OFFICIAL PORTAL */}
+
+        <a
+          href="https://beneficiary.nha.gov.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="insurance-btn"
+        >
+          🪪 Check Ayushman Details →
+        </a>
 
 
-      {/* =====================================================
-          AYUSHMAN BENEFITS
-      ===================================================== */}
+        <small className="insurance-note">
+          * Benefits and eligibility depend on applicable
+          government scheme rules and beneficiary eligibility.
+        </small>
 
-      <section className="ayushman-details-section">
+      </div>
 
-        <div className="section-heading">
+    </div>
+{/* RIGHT AYUSHMAN CARD */}
+<div className="ayushman-visual-card">
 
-          <p>PM-JAY BENEFITS</p>
+  <div className="ayushman-card-header">
+    <div className="ayushman-card-icon">
+      🏥
+    </div>
 
-          <h2>
-            Understanding Your
-            <br />
-            Healthcare Support
-          </h2>
+    <div>
+      <span>GOVERNMENT HEALTHCARE SCHEME</span>
+      <h3>Ayushman Bharat</h3>
+    </div>
+  </div>
 
-          <span>
-            Key features of Ayushman Bharat health protection
-            for eligible beneficiaries.
-          </span>
+  <p className="ayushman-card-description">
+    Health protection for eligible families under
+    Pradhan Mantri Jan Arogya Yojana (PM-JAY).
+  </p>
 
-        </div>
+  <div className="ayushman-card-coverage">
+    <span>Annual Coverage</span>
+    <strong>₹5 Lakh</strong>
+    <small>Per eligible family per year</small>
+  </div>
 
+  <div className="ayushman-card-points">
+    <div>
+      <span>✓</span>
+      Cashless hospitalization
+    </div>
 
-        <div className="ayushman-benefits-grid">
+    <div>
+      <span>✓</span>
+      Eligible family members
+    </div>
 
-          <div className="ayushman-benefit-card">
+    <div>
+      <span>✓</span>
+      Treatment at empanelled hospitals
+    </div>
+  </div>
 
-            <span>💰</span>
+  <a
+    href="https://beneficiary.nha.gov.in/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="ayushman-card-button"
+  >
+    Check Eligibility
+    <span>→</span>
+  </a>
 
-            <h3>₹5 Lakh Coverage</h3>
+  <small className="ayushman-card-note">
+    Official beneficiary portal
+  </small>
 
-            <p>
-              Health coverage of up to ₹5 lakh per family per year
-              for eligible beneficiaries.
-            </p>
+</div>
+  </div>
 
-          </div>
-
-
-          <div className="ayushman-benefit-card">
-
-            <span>💳</span>
-
-            <h3>Cashless Treatment</h3>
-
-            <p>
-              Eligible beneficiaries can receive cashless
-              treatment at applicable empanelled hospitals.
-            </p>
-
-          </div>
-
-
-          <div className="ayushman-benefit-card">
-
-            <span>🏥</span>
-
-            <h3>Hospitalization</h3>
-
-            <p>
-              Support for eligible secondary and tertiary
-              hospitalization services.
-            </p>
-
-          </div>
-
-
-          <div className="ayushman-benefit-card">
-
-            <span>👨‍👩‍👧‍👦</span>
-
-            <h3>Family Protection</h3>
-
-            <p>
-              Eligible family members can receive healthcare
-              protection according to applicable rules.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
+</section>
       {/* =====================================================
           DEPARTMENTS
       ===================================================== */}
@@ -1420,148 +1044,6 @@ function Home() {
 
 
       {/* =====================================================
-          FACILITIES
-      ===================================================== */}
-
-      <section className="facilities-section">
-
-        <div className="section-heading">
-
-          <p>OUR FACILITIES</p>
-
-          <h2>
-            Everything You Need
-          </h2>
-
-          <span>
-            Modern facilities designed for efficient and
-            comfortable healthcare delivery.
-          </span>
-
-        </div>
-
-
-        <div className="facilities-grid">
-
-          <div className="facility-card">
-            <div>🚑</div>
-            <div>
-              <h3>24/7 Emergency</h3>
-              <p>Round-the-clock emergency medical support.</p>
-            </div>
-          </div>
-
-          <div className="facility-card">
-            <div>🧪</div>
-            <div>
-              <h3>Advanced Laboratory</h3>
-              <p>Modern diagnostic and laboratory facilities.</p>
-            </div>
-          </div>
-
-          <div className="facility-card">
-            <div>💊</div>
-            <div>
-              <h3>Hospital Pharmacy</h3>
-              <p>Convenient access to prescribed medicines.</p>
-            </div>
-          </div>
-
-          <div className="facility-card">
-            <div>🛏️</div>
-            <div>
-              <h3>Comfortable Rooms</h3>
-              <p>Clean and comfortable patient accommodation.</p>
-            </div>
-          </div>
-
-          <div className="facility-card">
-            <div>🩻</div>
-            <div>
-              <h3>Imaging Services</h3>
-              <p>Advanced medical imaging and diagnostics.</p>
-            </div>
-          </div>
-
-          <div className="facility-card">
-            <div>🩺</div>
-            <div>
-              <h3>Specialist Care</h3>
-              <p>Access to multiple medical specialties.</p>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          WHY CHOOSE US
-      ===================================================== */}
-
-      <section className="why-section">
-
-        <div className="section-heading">
-
-          <p>WHY CHOOSE US</p>
-
-          <h2>
-            Healthcare With Intelligence
-          </h2>
-
-          <span>
-            Combining technology, medical expertise and patient
-            care in one platform.
-          </span>
-
-        </div>
-
-
-        <div className="why-grid">
-
-          <div className="why-card">
-            <div>🤖</div>
-            <h3>AI Powered</h3>
-            <p>
-              Intelligent tools assist healthcare professionals
-              and patients.
-            </p>
-          </div>
-
-          <div className="why-card">
-            <div>🔐</div>
-            <h3>Secure</h3>
-            <p>
-              Medical information is managed through a secure
-              digital system.
-            </p>
-          </div>
-
-          <div className="why-card">
-            <div>⚡</div>
-            <h3>Fast</h3>
-            <p>
-              Quickly access appointments, doctors and medical
-              information.
-            </p>
-          </div>
-
-          <div className="why-card">
-            <div>❤️</div>
-            <h3>Patient First</h3>
-            <p>
-              Every feature is designed around better patient
-              experience.
-            </p>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
           ABOUT
       ===================================================== */}
 
@@ -1768,147 +1250,6 @@ function Home() {
         </div>
 
       </section>
-
-
-      {/* =====================================================
-          TESTIMONIALS
-      ===================================================== */}
-
-      <section className="testimonials-section">
-
-        <div className="section-heading">
-
-          <p>PATIENT REVIEWS</p>
-
-          <h2>
-            What Our Patients Say
-          </h2>
-
-          <span>
-            Feedback from patients who experienced our healthcare
-            services.
-          </span>
-
-        </div>
-
-
-        <div className="testimonial-grid">
-
-          <div className="testimonial-card">
-
-            <div className="stars">
-              ⭐⭐⭐⭐⭐
-            </div>
-
-            <p>
-              "The appointment booking process was very simple.
-              I could quickly find a doctor and manage my
-              appointment."
-            </p>
-
-            <div className="testimonial-user">
-
-              <div>👤</div>
-
-              <div>
-                <strong>Rahul Sharma</strong>
-                <small>Patient</small>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div className="testimonial-card">
-
-            <div className="stars">
-              ⭐⭐⭐⭐⭐
-            </div>
-
-            <p>
-              "The digital medical record system makes it much
-              easier to keep track of prescriptions and reports."
-            </p>
-
-            <div className="testimonial-user">
-
-              <div>👩</div>
-
-              <div>
-                <strong>Neha Joshi</strong>
-                <small>Patient</small>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div className="testimonial-card">
-
-            <div className="stars">
-              ⭐⭐⭐⭐⭐
-            </div>
-
-            <p>
-              "A clean and modern healthcare platform with useful
-              digital features."
-            </p>
-
-            <div className="testimonial-user">
-
-              <div>👨</div>
-
-              <div>
-                <strong>Amit Verma</strong>
-                <small>Patient</small>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          PARTNERS
-      ===================================================== */}
-
-      <section className="partners-section">
-
-        <div className="section-heading">
-
-          <p>HEALTHCARE NETWORK</p>
-
-          <h2>
-            Our Healthcare Ecosystem
-          </h2>
-
-          <span>
-            Connecting healthcare services and technology.
-          </span>
-
-        </div>
-
-
-        <div className="partners-grid">
-
-          <div>🏥 Hospital Network</div>
-
-          <div>🧪 Diagnostic Labs</div>
-
-          <div>💊 Pharmacy Partners</div>
-
-          <div>🤖 AI Technology</div>
-
-        </div>
-
-      </section>
-
 
       {/* =====================================================
           CONTACT

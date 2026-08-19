@@ -911,54 +911,6 @@ body {
   margin-top: 3px;
 }
 
-
-/* =========================================================
-   TRUST
-========================================================= */
-
-.trust-bar {
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  background: #eff9fb;
-
-  border-bottom: 1px solid #dceef2;
-}
-
-.trust-bar > div {
-  padding: 24px;
-
-  display: grid;
-
-  grid-template-columns: 45px 1fr;
-
-  align-items: center;
-
-  column-gap: 10px;
-}
-
-.trust-bar span {
-  grid-row: span 2;
-
-  font-size: 25px;
-
-  text-align: center;
-}
-
-.trust-bar strong {
-  color: #1b5069;
-
-  font-size: 14px;
-}
-
-.trust-bar small {
-  color: #7a909d;
-
-  font-size: 11px;
-}
-
-
 /* =========================================================
    COMMON SECTION
 ========================================================= */
@@ -1343,129 +1295,68 @@ body {
   line-height: 1.4;
 }
 
-
-/* =========================================================
-   AYUSHMAN BHARAT
-   INTERACTIVE INFORMATION SECTION
-========================================================= */
+/* =====================================================
+   AYUSHMAN BHARAT SECTION
+===================================================== */
 
 .insurance-section {
-  position: relative;
-
-  padding: 95px 7%;
-
-  overflow: hidden;
-
-  background:
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(41, 191, 203, 0.12),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #edfaff 0%,
-      #f8fcff 50%,
-      #ffffff 100%
-    );
+  padding: 90px 8%;
+  background: linear-gradient(135deg, #f1fbfd, #ffffff);
 }
 
-.insurance-section::before {
-  content: "";
-
-  position: absolute;
-
-  width: 300px;
-  height: 300px;
-
-  border-radius: 50%;
-
-  background: rgba(8, 127, 140, 0.06);
-
-  top: -150px;
-  right: -100px;
-}
-
-.insurance-content {
-  position: relative;
-
-  z-index: 2;
-
+.insurance-layout {
   max-width: 1200px;
-
-  margin: auto;
+  margin: 0 auto;
 
   display: grid;
-
-  grid-template-columns: 80px 1fr 390px;
-
-  gap: 35px;
-
+  grid-template-columns: 1fr 380px;
   align-items: center;
+  gap: 70px;
 }
 
+/* LEFT SIDE */
 
-/* =========================================================
-   INSURANCE ICON
-========================================================= */
+.insurance-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 35px;
+}
 
 .insurance-icon {
-  width: 75px;
-  height: 75px;
+  min-width: 85px;
+  height: 85px;
 
-  display: flex;
+  display: grid;
+  place-items: center;
 
-  align-items: center;
-  justify-content: center;
-
-  background: white;
-
-  border-radius: 20px;
-
-  font-size: 36px;
-
-  box-shadow:
-    0 12px 30px rgba(0, 80, 120, 0.1);
-
-  border: 1px solid #e0edf3;
-
-  transition: 0.3s;
-}
-
-.insurance-icon:hover {
-  transform: translateY(-5px) rotate(2deg);
-
-  box-shadow:
-    0 18px 35px rgba(0, 80, 120, 0.15);
-}
-
-
-/* =========================================================
-   INSURANCE TEXT
-========================================================= */
-
-.insurance-text .section-label {
-  color: #087f8c;
-
-  font-size: 12px;
-
-  font-weight: 900;
-
-  letter-spacing: 1.8px;
-
-  margin-bottom: 12px;
-}
-
-.insurance-text h2 {
-  color: #123047;
+  background: #ffffff;
+  border-radius: 22px;
 
   font-size: 38px;
 
-  line-height: 1.2;
+  box-shadow: 0 10px 25px rgba(8, 127, 140, 0.12);
+}
 
-  margin-bottom: 18px;
-
+.insurance-text {
   max-width: 700px;
+}
+
+.insurance-text .section-label {
+  margin-bottom: 15px;
+
+  color: #087f8c;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.insurance-text h2 {
+  margin: 0 0 20px;
+
+  color: #123d56;
+  font-size: 42px;
+  line-height: 1.15;
+  font-weight: 900;
 }
 
 .insurance-text h2 span {
@@ -1473,590 +1364,335 @@ body {
 }
 
 .insurance-text > p:not(.section-label) {
+  margin-bottom: 25px;
+
   color: #607887;
-
   font-size: 15px;
-
-  line-height: 1.75;
-
-  max-width: 720px;
-
-  margin-bottom: 22px;
+  line-height: 1.8;
 }
 
-
-/* =========================================================
-   INSURANCE FEATURES
-========================================================= */
+/* FEATURES */
 
 .insurance-features {
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-
-  gap: 14px 25px;
-
-  margin: 25px 0;
+  gap: 15px 35px;
+  margin-bottom: 28px;
 }
 
 .insurance-features div {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
-
-  color: #18394f;
-
-  font-size: 14px;
-
-  font-weight: 600;
 }
 
 .insurance-features span {
-  width: 27px;
-  height: 27px;
+  width: 30px;
+  height: 30px;
 
-  flex-shrink: 0;
+  display: grid;
+  place-items: center;
 
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #d8f6ef;
-
+  background: #d9f7f0;
   color: #087f8c;
 
+  border-radius: 50%;
   font-weight: 900;
 }
 
+.insurance-features strong {
+  color: #173f56;
+  font-size: 14px;
+}
 
-/* =========================================================
-   INSURANCE BUTTON
-========================================================= */
+/* BUTTON */
 
 .insurance-btn {
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  padding: 14px 22px;
-
-  border-radius: 9px;
+  padding: 14px 24px;
 
   background: #087f8c;
-
   color: white;
 
-  font-size: 14px;
+  text-decoration: none;
+  border-radius: 9px;
 
   font-weight: 800;
+  font-size: 14px;
 
-  cursor: pointer;
-
-  transition: 0.25s;
+  transition: 0.25s ease;
 }
 
 .insurance-btn:hover {
-  background: #066c77;
-
+  background: #056d78;
   transform: translateY(-2px);
-
-  box-shadow:
-    0 10px 25px rgba(8, 127, 140, 0.25);
 }
 
 .insurance-note {
   display: block;
+  margin-top: 12px;
 
-  margin-top: 13px;
-
-  color: #7b8d98;
-
+  color: #718895;
   font-size: 11px;
-
-  line-height: 1.5;
 }
 
+/* =====================================================
+   AYUSHMAN SECTION
+===================================================== */
 
-/* =========================================================
-   AYUSHMAN INTERACTIVE INFORMATION CARD
-========================================================= */
-
-.ayushman-info-card {
-  position: relative;
-
-  padding: 25px;
-
-  background: rgba(255, 255, 255, 0.96);
-
-  border-radius: 22px;
-
-  border: 1px solid #dcecf2;
-
-  box-shadow:
-    0 20px 50px rgba(0, 60, 100, 0.13);
-
-  overflow: hidden;
-
-  transition: 0.3s;
+.insurance-section {
+  padding: 100px 7%;
+  background: linear-gradient(135deg, #eefbfc, #ffffff);
 }
 
-.ayushman-info-card:hover {
-  transform: translateY(-6px);
+.insurance-layout {
+  max-width: 1250px;
+  margin: 0 auto;
 
-  box-shadow:
-    0 28px 60px rgba(0, 70, 110, 0.18);
-}
-
-
-/* =========================================================
-   AYUSHMAN CARD HEADER
-========================================================= */
-
-.ayushman-info-header {
-  display: flex;
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
+  gap: 70px;
+}
 
-  gap: 13px;
 
+/* =====================================================
+   LEFT CONTENT
+===================================================== */
+
+.insurance-content {
+  width: 100%;
+}
+
+.insurance-text {
+  max-width: 650px;
+}
+
+.insurance-text h2 {
+  font-size: 44px;
+  line-height: 1.15;
+  margin: 15px 0 22px;
+}
+
+.insurance-text > p {
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 620px;
+}
+
+.insurance-features {
+  margin-top: 28px;
+}
+
+.ayushman-visual-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #d9e9ed;
+  border-radius: 22px;
+  box-shadow: 0 15px 40px rgba(18, 76, 95, 0.10);
+}
+
+.ayushman-card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   margin-bottom: 18px;
 }
 
-.ayushman-info-icon {
-  width: 48px;
-  height: 48px;
-
+.ayushman-card-icon {
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
-
   display: grid;
-
   place-items: center;
-
-  background:
-    linear-gradient(
-      135deg,
-      #e1f8fa,
-      #eef9ff
-    );
-
-  border: 1px solid #d2edf1;
-
-  border-radius: 13px;
-
-  font-size: 23px;
+  background: #e7f8fa;
+  border-radius: 15px;
+  font-size: 26px;
 }
 
-.ayushman-info-header strong {
+.ayushman-card-header span {
   display: block;
-
+  margin-bottom: 5px;
   color: #087f8c;
-
-  font-size: 16px;
-
-  margin-bottom: 3px;
-}
-
-.ayushman-info-header span {
-  display: block;
-
-  color: #7a8d99;
-
-  font-size: 11px;
-}
-
-
-/* =========================================================
-   AYUSHMAN INFO HIGHLIGHT
-========================================================= */
-
-.ayushman-highlight {
-  padding: 17px;
-
-  margin-bottom: 17px;
-
-  border-radius: 14px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #e8f9fb,
-      #f6fcff
-    );
-
-  border: 1px solid #d6edf1;
-}
-
-.ayushman-highlight-top {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  gap: 10px;
-
-  margin-bottom: 7px;
-}
-
-.ayushman-highlight strong {
-  color: #163d55;
-
-  font-size: 14px;
-}
-
-.ayushman-highlight-badge {
-  padding: 5px 9px;
-
-  border-radius: 20px;
-
-  background: #d8f6ef;
-
-  color: #087f8c;
-
   font-size: 9px;
-
-  font-weight: 900;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.5px;
-}
-
-.ayushman-highlight h3 {
-  color: #087f8c;
-
-  font-size: 27px;
-
-  margin-bottom: 3px;
-}
-
-.ayushman-highlight p {
-  color: #748995;
-
-  font-size: 10px;
-
-  line-height: 1.5;
-}
-
-
-/* =========================================================
-   AYUSHMAN TABS
-========================================================= */
-
-.ayushman-tabs {
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 6px;
-
-  margin-bottom: 15px;
-}
-
-.ayushman-tabs button {
-  border: 1px solid #dcebef;
-
-  background: #f8fcfd;
-
-  color: #567180;
-
-  padding: 9px 5px;
-
-  border-radius: 8px;
-
-  font-size: 10px;
-
   font-weight: 800;
-
-  cursor: pointer;
-
-  transition: 0.25s;
+  letter-spacing: 1.1px;
 }
 
-.ayushman-tabs button:hover {
-  background: #e9f8fa;
-
-  color: #087f8c;
-
-  border-color: #b9e2e7;
+.ayushman-card-header h3 {
+  margin: 0;
+  color: #123f5c;
+  font-size: 24px;
+  font-weight: 800;
 }
 
-.ayushman-tabs button.active {
-  background: #087f8c;
-
-  color: white;
-
-  border-color: #087f8c;
-
-  box-shadow:
-    0 5px 12px rgba(8, 127, 140, 0.18);
-}
-
-
-/* =========================================================
-   AYUSHMAN TAB CONTENT
-========================================================= */
-
-.ayushman-tab-content {
-  min-height: 145px;
-
-  padding: 16px;
-
-  background: #fbfdfe;
-
-  border: 1px solid #e3edf1;
-
-  border-radius: 13px;
-
-  animation: ayushmanFade 0.3s ease;
-}
-
-@keyframes ayushmanFade {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.ayushman-tab-content h3 {
-  color: #173e55;
-
-  font-size: 15px;
-
-  margin-bottom: 7px;
-}
-
-.ayushman-tab-content p {
-  color: #728793;
-
-  font-size: 11px;
-
+.ayushman-card-description {
+  margin: 0 0 20px;
+  color: #607887;
+  font-size: 13px;
   line-height: 1.6;
-
-  margin-bottom: 12px;
 }
 
-.ayushman-tab-list {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 7px;
+.ayushman-card-coverage {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #eefafb, #f8fcfd);
+  border: 1px solid #d8ecef;
+  border-radius: 16px;
 }
 
-.ayushman-tab-list div {
-  display: flex;
+.ayushman-card-coverage span {
+  display: block;
+  color: #607887;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
 
-  align-items: center;
+.ayushman-card-coverage strong {
+  display: block;
+  color: #087f8c;
+  font-size: 32px;
+  line-height: 1.1;
+  margin-bottom: 5px;
+}
 
-  gap: 7px;
-
-  color: #34566a;
-
+.ayushman-card-coverage small {
+  color: #718895;
   font-size: 10px;
+}
 
+.ayushman-card-points {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.ayushman-card-points div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #36556d;
+  font-size: 12px;
   font-weight: 600;
 }
 
-.ayushman-tab-list span {
-  width: 19px;
-  height: 19px;
-
+.ayushman-card-points span {
+  width: 20px;
+  height: 20px;
   display: grid;
-
   place-items: center;
-
   flex-shrink: 0;
-
   border-radius: 50%;
-
-  background: #dff7f1;
-
+  background: #d9f6ef;
   color: #087f8c;
-
-  font-size: 9px;
-
+  font-size: 11px;
   font-weight: 900;
 }
 
-
-/* =========================================================
-   AYUSHMAN CARD FOOTER
-========================================================= */
-
-.ayushman-info-footer {
+.ayushman-card-button {
   display: flex;
-
   align-items: center;
-
-  justify-content: space-between;
-
+  justify-content: center;
   gap: 10px;
-
-  margin-top: 15px;
-
-  padding-top: 14px;
-
-  border-top: 1px solid #e5eef1;
-}
-
-.ayushman-info-footer span {
-  color: #7b8f9b;
-
-  font-size: 9px;
-
-  line-height: 1.4;
-}
-
-.ayushman-official-btn {
-  flex-shrink: 0;
-
-  padding: 8px 11px;
-
-  border-radius: 7px;
-
-  border: none;
-
-  background: #e8f8fa;
-
-  color: #087f8c;
-
-  font-size: 9px;
-
-  font-weight: 800;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.ayushman-official-btn:hover {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
   background: #087f8c;
-
-  color: white;
-}
-
-
-/* =========================================================
-   AYUSHMAN QUICK STATS
-========================================================= */
-
-.ayushman-quick-stats {
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 8px;
-
-  margin-top: 13px;
-}
-
-.ayushman-quick-stat {
-  padding: 10px 5px;
-
-  text-align: center;
-
-  background: #f3fafb;
-
-  border-radius: 9px;
-
-  border: 1px solid #e2eef1;
-}
-
-.ayushman-quick-stat strong {
-  display: block;
-
-  color: #087f8c;
-
-  font-size: 14px;
-
-  margin-bottom: 2px;
-}
-
-.ayushman-quick-stat span {
-  color: #7b8d98;
-
-  font-size: 8px;
-}
-
-
-/* =========================================================
-   AYUSHMAN DETAILS
-========================================================= */
-
-.ayushman-details-section {
-  padding: 90px 7%;
-
-  background: white;
-}
-
-.ayushman-benefits-grid {
-  max-width: 1100px;
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: 20px;
-}
-
-.ayushman-benefit-card {
-  padding: 28px 22px;
-
-  text-align: center;
-
-  background: #f8fcfd;
-
-  border: 1px solid #dcecf0;
-
-  border-radius: 17px;
-
-  transition: 0.3s;
-}
-
-.ayushman-benefit-card:hover {
-  transform: translateY(-5px);
-
-  border-color: #8bd8df;
-
-  box-shadow:
-    0 15px 35px rgba(0, 70, 100, 0.08);
-}
-
-.ayushman-benefit-card > span {
-  display: block;
-
-  font-size: 35px;
-
-  margin-bottom: 15px;
-}
-
-.ayushman-benefit-card h3 {
-  color: #17445d;
-
-  margin-bottom: 10px;
-
-  font-size: 17px;
-}
-
-.ayushman-benefit-card p {
-  color: #748995;
-
+  color: #ffffff;
+  text-decoration: none;
   font-size: 13px;
-
-  line-height: 1.6;
+  font-weight: 800;
+  transition: all 0.2s ease;
 }
 
+.ayushman-card-button:hover {
+  background: #066d78;
+  transform: translateY(-1px);
+}
+
+.ayushman-card-note {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: #8a9ba4;
+  font-size: 9px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .insurance-layout {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .ayushman-image-card {
+    height: 380px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .insurance-section {
+    padding: 70px 5%;
+  }
+
+  .insurance-text h2 {
+    font-size: 34px;
+  }
+
+  .ayushman-image-card {
+    height: 320px;
+  }
+
+  .ayushman-image-overlay {
+    padding: 20px;
+  }
+
+  .ayushman-image-overlay h3 {
+    font-size: 22px;
+  }
+
+}
+.ayushman-image-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 350px;
+}
+
+.ayushman-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.ayushman-image-overlay {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1));
+}
 
 /* =========================================================
    DEPARTMENTS
@@ -2275,135 +1911,6 @@ body {
 .doctor-info button:hover {
   background: #066c77;
 }
-
-
-/* =========================================================
-   FACILITIES
-========================================================= */
-
-.facilities-section {
-  background: white;
-}
-
-.facilities-grid {
-  max-width: 1100px;
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 18px;
-}
-
-.facility-card {
-  padding: 27px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 17px;
-
-  background: #f8fcfd;
-
-  border: 1px solid #deedf1;
-
-  border-radius: 14px;
-}
-
-.facility-card > div:first-child {
-  width: 53px;
-  height: 53px;
-
-  flex-shrink: 0;
-
-  display: grid;
-
-  place-items: center;
-
-  background: #e3f7f9;
-
-  border-radius: 12px;
-
-  font-size: 25px;
-}
-
-.facility-card h3 {
-  color: #19465e;
-
-  font-size: 15px;
-
-  margin-bottom: 5px;
-}
-
-.facility-card p {
-  color: #788d9a;
-
-  font-size: 12px;
-
-  line-height: 1.4;
-}
-
-
-/* =========================================================
-   WHY
-========================================================= */
-
-.why-section {
-  background:
-    linear-gradient(
-      135deg,
-      #eaf8fa,
-      #f6fbfd
-    );
-}
-
-.why-grid {
-  max-width: 1100px;
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: 20px;
-}
-
-.why-card {
-  text-align: center;
-
-  padding: 30px 20px;
-
-  background: white;
-
-  border-radius: 15px;
-
-  border: 1px solid #dfeef2;
-}
-
-.why-card > div {
-  font-size: 32px;
-
-  margin-bottom: 15px;
-}
-
-.why-card h3 {
-  color: #17445d;
-
-  margin-bottom: 10px;
-}
-
-.why-card p {
-  color: #758a97;
-
-  font-size: 13px;
-
-  line-height: 1.6;
-}
-
 
 /* =========================================================
    ABOUT
@@ -2731,137 +2238,6 @@ body {
 
   font-weight: 700;
 }
-
-
-/* =========================================================
-   TESTIMONIALS
-========================================================= */
-
-.testimonials-section {
-  background: white;
-}
-
-.testimonial-grid {
-  max-width: 1100px;
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 20px;
-}
-
-.testimonial-card {
-  padding: 28px;
-
-  border: 1px solid #dcecf0;
-
-  border-radius: 17px;
-
-  background: #fbfdfe;
-
-  box-shadow:
-    0 8px 25px rgba(0, 70, 100, 0.04);
-}
-
-.stars {
-  letter-spacing: 2px;
-
-  margin-bottom: 15px;
-}
-
-.testimonial-card > p {
-  color: #607b8b;
-
-  line-height: 1.7;
-
-  font-size: 14px;
-
-  min-height: 90px;
-}
-
-.testimonial-user {
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  margin-top: 20px;
-
-  padding-top: 15px;
-
-  border-top: 1px solid #e2edf0;
-}
-
-.testimonial-user > div:first-child {
-  width: 40px;
-  height: 40px;
-
-  display: grid;
-
-  place-items: center;
-
-  background: #e3f7f9;
-
-  border-radius: 50%;
-}
-
-.testimonial-user strong {
-  display: block;
-
-  color: #19445c;
-
-  font-size: 13px;
-}
-
-.testimonial-user small {
-  color: #80919b;
-
-  font-size: 11px;
-}
-
-
-/* =========================================================
-   PARTNERS
-========================================================= */
-
-.partners-section {
-  background: #f3fafc;
-}
-
-.partners-grid {
-  max-width: 900px;
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: 15px;
-}
-
-.partners-grid div {
-  padding: 20px;
-
-  text-align: center;
-
-  background: white;
-
-  border: 1px solid #deedf1;
-
-  border-radius: 12px;
-
-  color: #466678;
-
-  font-size: 13px;
-
-  font-weight: 700;
-}
-
 
 /* =========================================================
    CONTACT
