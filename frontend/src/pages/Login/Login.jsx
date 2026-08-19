@@ -49,6 +49,7 @@ function Login() {
         data = await response.text();
       }
 
+      // Login failed
       if (!response.ok) {
         console.error("Login failed:", data);
 
@@ -61,30 +62,66 @@ function Login() {
         return;
       }
 
+      // Backend response
       const user = data;
 
-      console.log("Login successful:", user);
+      console.log("LOGIN RESPONSE FROM BACKEND:", user);
+      console.log("PASSWORD FROM BACKEND:", user.password);
 
+      /*
+       * Clear old login data.
+       * This is important because your browser previously
+       * had an old user object containing password.
+       */
       localStorage.removeItem("isLoggedIn");
       localStorage.removeItem("role");
       localStorage.removeItem("user");
 
+      /*
+       * Create a SAFE user object.
+       *
+       * IMPORTANT:
+       * password is intentionally NOT included.
+       */
+      const safeUser = {
+        userId: user.userId,
+        email: user.email,
+        role: user.role,
+        patientId: user.patientId ?? null,
+        doctorId: user.doctorId ?? null,
+      };
+
+      console.log("USER BEFORE LOCALSTORAGE:", safeUser);
+
+      /*
+       * Save login state
+       */
       localStorage.setItem("isLoggedIn", "true");
+
       localStorage.setItem("role", user.role);
 
+      /*
+       * Save ONLY safe user information.
+       * Password is NOT stored.
+       */
       localStorage.setItem(
         "user",
-        JSON.stringify({
-          userId: user.userId,
-          email: user.email,
-          role: user.role,
-          patientId: user.patientId,
-          doctorId: user.doctorId,
-        })
+        JSON.stringify(safeUser)
+      );
+
+      /*
+       * Verify what was actually stored.
+       */
+      console.log(
+        "USER STORED IN LOCALSTORAGE:",
+        JSON.parse(localStorage.getItem("user"))
       );
 
       const userRole = user.role?.toLowerCase();
 
+      /*
+       * Redirect based on role
+       */
       if (userRole === "admin") {
         navigate("/dashboard", { replace: true });
       } else if (userRole === "doctor") {
@@ -94,6 +131,7 @@ function Login() {
       } else {
         setErrorMessage("Invalid user role received from server.");
       }
+
     } catch (error) {
       console.error("Login error:", error);
 
@@ -107,17 +145,31 @@ function Login() {
 
   return (
     <div className="login-page">
+
       <div className="login-container">
+
+        {/* Header */}
         <div className="login-header">
-          <div className="hospital-icon">🏥</div>
+
+          <div className="hospital-icon">
+            🏥
+          </div>
 
           <h1>AI Hospital</h1>
 
           <p>Hospital Management System</p>
+
         </div>
 
-        <form className="login-form" onSubmit={handleLogin}>
+        {/* Login Form */}
+        <form
+          className="login-form"
+          onSubmit={handleLogin}
+        >
+
+          {/* Email */}
           <div className="form-group">
+
             <label>Email</label>
 
             <input
@@ -128,9 +180,12 @@ function Login() {
               autoComplete="email"
               required
             />
+
           </div>
 
+          {/* Password */}
           <div className="form-group">
+
             <label>Password</label>
 
             <input
@@ -141,36 +196,57 @@ function Login() {
               autoComplete="current-password"
               required
             />
+
           </div>
 
+          {/* Role */}
           <div className="form-group">
+
             <label>Login As</label>
 
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
-              <option value="Patient">Patient</option>
-              <option value="Doctor">Doctor</option>
-              <option value="Admin">Admin</option>
+
+              <option value="Patient">
+                Patient
+              </option>
+
+              <option value="Doctor">
+                Doctor
+              </option>
+
+              <option value="Admin">
+                Admin
+              </option>
+
             </select>
+
           </div>
 
+          {/* Error */}
           {errorMessage && (
             <div className="login-error">
               {errorMessage}
             </div>
           )}
 
+          {/* Login Button */}
           <button
             type="submit"
             className="login-button"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading
+              ? "Logging in..."
+              : "Login"}
           </button>
+
         </form>
+
       </div>
+
     </div>
   );
 }

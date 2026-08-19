@@ -34,10 +34,19 @@ public class Appointment {
     @Column(length = 500)
     private String reason;
 
+    @Column(length = 50)
     private String status = "Pending";
+
+    // ==========================================
+    // CONSTRUCTOR
+    // ==========================================
 
     public Appointment() {
     }
+
+    // ==========================================
+    // GETTERS AND SETTERS
+    // ==========================================
 
     public Integer getAppointmentId() {
         return appointmentId;
