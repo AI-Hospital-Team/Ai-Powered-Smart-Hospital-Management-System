@@ -8,56 +8,103 @@ function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [cancellingId, setCancellingId] = useState(null);
 
-  useEffect(() => {
-    fetchAppointments();
-  }, []);
+  // =====================================================
+  // GET LOGGED-IN PATIENT
+  // =====================================================
+
+  const getPatientId = () => {
+    try {
+      const userData = localStorage.getItem("user");
+
+      if (!userData) {
+        return null;
+      }
+
+      const user = JSON.parse(userData);
+
+      return user?.patientId || user?.id || null;
+    } catch (error) {
+      console.error("Error reading user:", error);
+      return null;
+    }
+  };
+
+  // =====================================================
+  // FETCH PATIENT APPOINTMENTS
+  // =====================================================
 
   const fetchAppointments = async () => {
     try {
       setLoading(true);
       setError("");
 
-      const userData = localStorage.getItem("user");
+      const patientId = getPatientId();
 
-      if (!userData) {
-        setError("Patient information not found. Please login again.");
-        setLoading(false);
+      if (!patientId) {
+        setError(
+          "Patient information not found. Please login again."
+        );
+        setAppointments([]);
         return;
       }
 
-      const user = JSON.parse(userData);
-
-      if (!user.patientId) {
-        setError("Patient ID not found. Please login again.");
-        setLoading(false);
-        return;
-      }
+      console.log("Fetching appointments for patient:", patientId);
 
       const response = await fetch(
-        `http://localhost:8080/api/appointments/patient/${user.patientId}`
+        `http://localhost:8080/api/appointments/patient/${patientId}`
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch appointments");
+        throw new Error(
+          `Failed to fetch appointments: ${response.status}`
+        );
       }
 
       const data = await response.json();
 
-      setAppointments(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error("Appointment fetch error:", err);
-      setError("Unable to load appointments.");
+      console.log("Patient appointments:", data);
+
+      setAppointments(
+        Array.isArray(data) ? data : []
+      );
+    } catch (error) {
+      console.error(
+        "Error fetching appointments:",
+        error
+      );
+
+      setError(
+        "Unable to load appointments. Please try again."
+      );
+
+      setAppointments([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleBookAppointment = () => {
-    navigate("/patient/book-appointment");
-  };
+  // =====================================================
+  // LOAD APPOINTMENTS
+  // =====================================================
 
-  const handleCancelAppointment = async (appointmentId) => {
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  // =====================================================
+  // CANCEL APPOINTMENT
+  // =====================================================
+
+  const handleCancelAppointment = async (
+    appointmentId
+  ) => {
+    if (!appointmentId) {
+      alert("Appointment ID not found.");
+      return;
+    }
+
     const confirmCancel = window.confirm(
       "Are you sure you want to cancel this appointment?"
     );
@@ -67,137 +114,306 @@ function Appointments() {
     }
 
     try {
+      setCancellingId(appointmentId);
+      setError("");
+
+      console.log(
+        "Cancelling appointment:",
+        appointmentId
+      );
+
       const response = await fetch(
-        `http://localhost:8080/api/appointments/${appointmentId}/cancel`,
+        `http://localhost:8080/api/appointments/${appointmentId}/status`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: "Cancelled",
+          }),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to cancel appointment");
+        let errorMessage =
+          "Unable to cancel appointment.";
+
+        try {
+          const errorText = await response.text();
+
+          if (errorText) {
+            console.error(
+              "Cancel API error:",
+              errorText
+            );
+          }
+        } catch (error) {
+          console.error(
+            "Error reading cancel response:",
+            error
+          );
+        }
+
+        throw new Error(errorMessage);
       }
 
-      alert("Appointment cancelled successfully.");
+      const updatedAppointment =
+        await response.json();
 
-      fetchAppointments();
-    } catch (err) {
-      console.error("Cancel appointment error:", err);
-      alert("Unable to cancel appointment.");
+      console.log(
+        "Appointment cancelled:",
+        updatedAppointment
+      );
+
+      // =================================================
+      // UPDATE UI IMMEDIATELY
+      // =================================================
+
+      setAppointments((previousAppointments) =>
+        previousAppointments.map(
+          (appointment) =>
+            appointment.appointmentId ===
+            appointmentId
+              ? {
+                  ...appointment,
+                  ...updatedAppointment,
+                  status: "Cancelled",
+                }
+              : appointment
+        )
+      );
+
+      alert("Appointment cancelled successfully.");
+    } catch (error) {
+      console.error(
+        "Cancel appointment error:",
+        error
+      );
+
+      setError(
+        "Unable to cancel appointment. Please try again."
+      );
+
+      alert(
+        "Unable to cancel appointment. Please try again."
+      );
+    } finally {
+      setCancellingId(null);
     }
   };
 
+  // =====================================================
+  // BOOK APPOINTMENT
+  // =====================================================
+
+  const handleBookAppointment = () => {
+    navigate("/patient/book-appointment");
+  };
+
+  // =====================================================
+  // GET STATUS CLASS
+  // =====================================================
+
   const getStatusClass = (status) => {
-    if (!status) return "status-default";
+    if (!status) {
+      return "status-pending";
+    }
 
     switch (status.toLowerCase()) {
-      case "confirmed":
-        return "status-confirmed";
-
-      case "pending":
-        return "status-pending";
+      case "completed":
+        return "status-completed";
 
       case "cancelled":
         return "status-cancelled";
 
-      case "completed":
-        return "status-completed";
+      case "pending":
+        return "status-pending";
 
       default:
-        return "status-default";
+        return "status-pending";
     }
   };
+
+  // =====================================================
+  // FORMAT TIME
+  // =====================================================
+
+  const formatTime = (time) => {
+    if (!time) {
+      return "-";
+    }
+
+    return time;
+  };
+
+  // =====================================================
+  // LOADING
+  // =====================================================
+
+  if (loading) {
+    return (
+      <div className="appointments-page">
+
+        <div className="appointments-header">
+          <div>
+            <h1>My Appointments</h1>
+
+            <p>
+              View and manage your hospital
+              appointments.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            className="book-appointment-btn"
+            onClick={handleBookAppointment}
+          >
+            + Book Appointment
+          </button>
+        </div>
+
+        <div className="appointments-loading">
+          <div className="loading-spinner">
+            ⏳
+          </div>
+
+          <p>Loading appointments...</p>
+        </div>
+
+      </div>
+    );
+  }
+
+  // =====================================================
+  // RENDER
+  // =====================================================
 
   return (
     <div className="appointments-page">
 
-      {/* PAGE HEADER */}
+      {/* =================================================
+          HEADER
+      ================================================= */}
+
       <div className="appointments-header">
+
         <div>
           <h1>My Appointments</h1>
-          <p>View and manage your hospital appointments.</p>
+
+          <p>
+            View and manage your hospital
+            appointments.
+          </p>
         </div>
 
         <button
+          type="button"
           className="book-appointment-btn"
           onClick={handleBookAppointment}
         >
           + Book Appointment
         </button>
+
       </div>
 
-      {/* LOADING */}
-      {loading && (
-        <div className="appointment-message">
-          <div className="loader"></div>
-          <p>Loading appointments...</p>
+      {/* =================================================
+          ERROR
+      ================================================= */}
+
+      {error && (
+        <div className="appointments-error">
+          {error}
         </div>
       )}
 
-      {/* ERROR */}
-      {!loading && error && (
-        <div className="appointment-error">
-          <p>{error}</p>
+      {/* =================================================
+          NO APPOINTMENTS
+      ================================================= */}
 
-          <button onClick={fetchAppointments}>
-            Try Again
-          </button>
-        </div>
-      )}
-
-      {/* NO APPOINTMENTS */}
-      {!loading && !error && appointments.length === 0 && (
+      {!error && appointments.length === 0 && (
         <div className="no-appointments">
 
-          <div className="no-appointment-icon">
+          <div className="no-appointments-icon">
             📅
           </div>
 
           <h2>No Appointments Found</h2>
 
           <p>
-            You currently don't have any appointments.
+            You don't have any appointments yet.
           </p>
 
           <button
+            type="button"
             className="book-appointment-btn"
             onClick={handleBookAppointment}
           >
-            Book Your First Appointment
+            + Book Your First Appointment
           </button>
 
         </div>
       )}
 
-      {/* APPOINTMENTS */}
-      {!loading && !error && appointments.length > 0 && (
-        <div className="appointments-container">
+      {/* =================================================
+          APPOINTMENT CARDS
+      ================================================= */}
 
-          {appointments.map((appointment) => (
+      <div className="appointments-list">
+
+        {appointments.map((appointment) => {
+
+          const appointmentId =
+            appointment.appointmentId;
+
+          const status =
+            appointment.status || "Pending";
+
+          const isPending =
+            status.toLowerCase() ===
+            "pending";
+
+          const isCompleted =
+            status.toLowerCase() ===
+            "completed";
+
+          const isCancelled =
+            status.toLowerCase() ===
+            "cancelled";
+
+          const isCancelling =
+            cancellingId === appointmentId;
+
+          return (
             <div
               className="appointment-card"
-              key={appointment.appointmentId}
+              key={appointmentId}
             >
 
-              {/* CARD HEADER */}
+              {/* =========================================
+                  CARD HEADER
+              ========================================= */}
+
               <div className="appointment-card-header">
 
                 <div className="doctor-info">
 
-                  <div className="doctor-avatar">
+                  <div className="doctor-icon">
                     👨‍⚕️
                   </div>
 
                   <div>
                     <h2>
                       {appointment.doctorName ||
-                        appointment.doctor?.name ||
-                        "Doctor"}
+                        `Doctor #${
+                          appointment.doctorId ||
+                          "N/A"
+                        }`}
                     </h2>
 
                     <p>
                       {appointment.specialization ||
-                        appointment.doctor?.specialization ||
                         "Medical Specialist"}
                     </p>
                   </div>
@@ -206,100 +422,165 @@ function Appointments() {
 
                 <span
                   className={`appointment-status ${getStatusClass(
-                    appointment.status
+                    status
                   )}`}
                 >
-                  {appointment.status || "Pending"}
+                  {status}
                 </span>
 
               </div>
 
-              {/* APPOINTMENT DETAILS */}
+              {/* =========================================
+                  APPOINTMENT DETAILS
+              ========================================= */}
+
               <div className="appointment-details">
 
-                <div className="detail-item">
-                  <span className="detail-icon">📅</span>
+                {/* DATE */}
+
+                <div className="appointment-detail">
+
+                  <span className="detail-icon">
+                    📅
+                  </span>
 
                   <div>
-                    <small>Date</small>
+                    <span className="detail-label">
+                      Date
+                    </span>
+
                     <strong>
                       {appointment.appointmentDate ||
-                        appointment.date ||
-                        "Not available"}
+                        "-"}
                     </strong>
                   </div>
+
                 </div>
 
-                <div className="detail-item">
-                  <span className="detail-icon">⏰</span>
+                {/* TIME */}
+
+                <div className="appointment-detail">
+
+                  <span className="detail-icon">
+                    ⏰
+                  </span>
 
                   <div>
-                    <small>Time</small>
+                    <span className="detail-label">
+                      Time
+                    </span>
+
                     <strong>
-                      {appointment.appointmentTime ||
-                        appointment.time ||
-                        "Not available"}
+                      {formatTime(
+                        appointment.appointmentTime
+                      )}
                     </strong>
                   </div>
+
                 </div>
 
-                <div className="detail-item">
-                  <span className="detail-icon">🏥</span>
+                {/* DEPARTMENT */}
+
+                <div className="appointment-detail">
+
+                  <span className="detail-icon">
+                    🏥
+                  </span>
 
                   <div>
-                    <small>Department</small>
+                    <span className="detail-label">
+                      Department
+                    </span>
+
                     <strong>
                       {appointment.department ||
                         "General"}
                     </strong>
                   </div>
+
                 </div>
 
-                <div className="detail-item">
-                  <span className="detail-icon">🆔</span>
+                {/* APPOINTMENT ID */}
+
+                <div className="appointment-detail">
+
+                  <span className="detail-icon">
+                    🆔
+                  </span>
 
                   <div>
-                    <small>Appointment ID</small>
+                    <span className="detail-label">
+                      Appointment ID
+                    </span>
+
                     <strong>
-                      #{appointment.appointmentId}
+                      #{appointmentId}
                     </strong>
                   </div>
+
                 </div>
 
               </div>
 
-              {/* REASON */}
-              {appointment.reason && (
-                <div className="appointment-reason">
-                  <strong>Reason:</strong>
-                  <p>{appointment.reason}</p>
-                </div>
-              )}
+              {/* =========================================
+                  REASON
+              ========================================= */}
 
-              {/* ACTIONS */}
+              <div className="appointment-reason">
+
+                <strong>Reason:</strong>
+
+                <p>
+                  {appointment.reason ||
+                    "No reason provided."}
+                </p>
+
+              </div>
+
+              {/* =========================================
+                  ACTION
+              ========================================= */}
+
               <div className="appointment-actions">
 
-                {appointment.status?.toLowerCase() !== "cancelled" &&
-                  appointment.status?.toLowerCase() !== "completed" && (
-                    <button
-                      className="cancel-btn"
-                      onClick={() =>
-                        handleCancelAppointment(
-                          appointment.appointmentId
-                        )
-                      }
-                    >
-                      Cancel Appointment
-                    </button>
-                  )}
+                {isPending && (
+                  <button
+                    type="button"
+                    className="cancel-appointment-btn"
+                    onClick={() =>
+                      handleCancelAppointment(
+                        appointmentId
+                      )
+                    }
+                    disabled={isCancelling}
+                  >
+                    {isCancelling
+                      ? "Cancelling..."
+                      : "Cancel Appointment"}
+                  </button>
+                )}
+
+                {isCompleted && (
+                  <div className="appointment-info completed-info">
+                    This appointment has been
+                    completed.
+                  </div>
+                )}
+
+                {isCancelled && (
+                  <div className="appointment-info cancelled-info">
+                    This appointment has been
+                    cancelled.
+                  </div>
+                )}
 
               </div>
 
             </div>
-          ))}
+          );
+        })}
 
-        </div>
-      )}
+      </div>
 
     </div>
   );
