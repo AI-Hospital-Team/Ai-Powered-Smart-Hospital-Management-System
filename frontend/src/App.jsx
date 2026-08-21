@@ -7,6 +7,14 @@ import Login from "./pages/Login/Login";
 import DashboardLayout from "./layouts/DashboardLayout";
 
 import Dashboard from "./pages/Admin/Dashboard";
+
+import AdminPatients from "./pages/Admin/Patients/Patients";
+import AdminDoctors from "./pages/Admin/Doctors/Doctors";
+import AdminAppointments from "./pages/Admin/Appointments/Appointments";
+import AdminMedicalRecords from "./pages/Admin/MedicalRecords/MedicalRecords";
+import AdminPrescriptions from "./pages/Admin/Prescriptions/Prescriptions";
+import AdminBills from "./pages/Admin/Bills/Bills";
+
 import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
 import PatientDashboard from "./pages/Patient/PatientDashboard";
 
@@ -22,63 +30,113 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Home */}
+        {/* ==============================
+            HOME
+        ============================== */}
+
         <Route path="/" element={<Home />} />
 
-        {/* Login */}
+        {/* ==============================
+            LOGIN
+        ============================== */}
+
         <Route path="/login" element={<Login />} />
 
-        {/* Other Pages */}
+        {/* ==============================
+            OTHER PAGES
+        ============================== */}
+
         <Route path="/about" element={<About />} />
         <Route path="/project" element={<Project />} />
 
-        {/* Admin Dashboard */}
+        {/* ==============================
+            ADMIN DASHBOARD
+        ============================== */}
+
         <Route path="/dashboard" element={<DashboardLayout />}>
+
+          {/* Admin Dashboard */}
           <Route index element={<Dashboard />} />
+
+          {/* Patients */}
+          <Route
+            path="patients"
+            element={<AdminPatients />}
+          />
+
+          {/* Doctors */}
+          <Route
+            path="doctors"
+            element={<AdminDoctors />}
+          />
+
+          {/* Appointments */}
+          <Route
+            path="appointments"
+            element={<AdminAppointments />}
+          />
+
+          {/* Medical Records */}
+          <Route
+            path="medical-records"
+            element={<AdminMedicalRecords />}
+          />
+
+          {/* Prescriptions */}
+          <Route
+            path="prescriptions"
+            element={<AdminPrescriptions />}
+          />
+
+          {/* Bills */}
+          <Route
+            path="bills"
+            element={<AdminBills />}
+          />
+
         </Route>
 
-        {/* Doctor Dashboard */}
+        {/* ==============================
+            DOCTOR DASHBOARD
+        ============================== */}
+
         <Route path="/doctor" element={<DashboardLayout />}>
           <Route index element={<DoctorDashboard />} />
         </Route>
 
-        {/* Patient Dashboard */}
+        {/* ==============================
+            PATIENT DASHBOARD
+        ============================== */}
+
         <Route path="/patient" element={<DashboardLayout />}>
 
-          {/* /patient */}
           <Route index element={<PatientDashboard />} />
 
-          {/* /patient/appointments */}
           <Route
             path="appointments"
             element={<Appointments />}
           />
 
-          {/* /patient/book-appointment */}
           <Route
             path="book-appointment"
             element={<BookAppointment />}
           />
 
-          {/* /patient/medical-records */}
           <Route
             path="medical-records"
             element={<MedicalRecords />}
           />
 
-          {/* /patient/prescriptions */}
           <Route
             path="prescriptions"
             element={<Prescriptions />}
           />
 
-          {/* /patient/profile */}
           <Route
             path="profile"
             element={<Profile />}
           />
 
-          {/* /patient/bills */}
           <Route
             path="bills"
             element={<Bills />}

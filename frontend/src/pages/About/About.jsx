@@ -12,9 +12,9 @@ function About() {
         <span>About Us</span>
       </header>
 
-
       <main className="about-container">
 
+        {/* Hero Section */}
         <section className="about-hero">
 
           <span className="about-badge">
@@ -29,14 +29,82 @@ function About() {
           <p>
             We are developing the AI-Powered Smart Hospital
             Management System as an academic project with
-            the goal of creating a smarter and more organized
-            healthcare experience.
+            the goal of creating a smarter, intelligent and
+            organized healthcare experience.
           </p>
 
         </section>
 
 
+        {/* Team Section */}
         <section className="team-grid">
+
+          {/* Prathmesh */}
+          <article className="team-card">
+
+            <div className="team-avatar">
+              PP
+            </div>
+
+            <span className="team-role">
+              Java Developer & AI Integration
+            </span>
+
+            <h2>Prathmesh Panmand</h2>
+
+            <p>
+              Working on Java-based application development,
+              AI integration, REST APIs and database management
+              while contributing to the overall system design
+              and intelligent healthcare features.
+            </p>
+
+            <div className="team-skills">
+              <span>Java</span>
+              <span>Spring Boot</span>
+              <span>AI Integration</span>
+              <span>REST API</span>
+              <span>MySQL</span>
+              <span>Git & GitHub</span>
+            </div>
+
+            <div className="team-links">
+
+              <a
+                href="https://www.linkedin.com/in/prathmesh-panmand-aa696316/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+              </a>
+
+              <a
+                href="https://github.com/prathmesh235"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </a>
+
+              <a
+                href="https://www.instagram.com/prathmesh_235/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Instagram
+              </a>
+              <a href="mailto:shamwayal7@gmail.com">
+                Email
+              </a>
+
+            </div>
+
+            <button className="resume-button">
+              View Resume →
+            </button>
+
+          </article>
+
 
           {/* Radheshyam */}
           <article className="team-card">
@@ -46,22 +114,25 @@ function About() {
             </div>
 
             <span className="team-role">
-              Backend Developer
+              Java Developer & AI Integration
             </span>
 
             <h2>Radheshyam Wayal</h2>
 
             <p>
-              Working on backend development, database
-              management and system integration while
-              collaborating on the overall project.
+              Working on Java backend development, Spring Boot,
+              database management and AI integration while
+              contributing to REST API development and
+              intelligent hospital management features.
             </p>
 
             <div className="team-skills">
-              <span>Frontend</span>
-              <span>Git & GitHub</span>
               <span>Java</span>
+              <span>Spring Boot</span>
+              <span>AI Integration</span>
+              <span>REST API</span>
               <span>MySQL</span>
+              <span>Git & GitHub</span>
             </div>
 
             <div className="team-links">
@@ -102,71 +173,10 @@ function About() {
 
           </article>
 
-
-          {/* Prathmesh */}
-          <article className="team-card">
-
-            <div className="team-avatar">
-              PP
-            </div>
-
-            <span className="team-role">
-              Frontend Developer
-            </span>
-
-            <h2>Prathmesh Panmand</h2>
-
-            <p>
-              Working on frontend development, user experience
-              and interface design while collaborating on the
-              overall project.
-            </p>
-
-            <div className="team-skills">
-              <span>Frontend</span>
-              <span>Git & GitHub</span>
-              <span>MySQL</span>
-              <span>MongoDB</span>
-              <span>Postman API</span>
-            </div>
-
-            <div className="team-links">
-
-              <a
-                href="https://www.linkedin.com/in/prathmesh-panmand-aa696316/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-              </a>
-
-              <a
-                href="https://github.com/prathmesh235"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </a>
-
-              <a
-                href="https://www.instagram.com/prathmesh_235/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Instagram
-              </a>
-
-            </div>
-
-            <button className="resume-button">
-              View Resume →
-            </button>
-
-          </article>
-
         </section>
 
 
+        {/* Academic Information */}
         <section className="academic-section">
 
           <span className="about-badge">
@@ -186,22 +196,30 @@ function About() {
 
             <div>
               <strong>Course</strong>
-              <span>BCA — Third Year</span>
+              <span>
+                BCA — Third Year
+              </span>
             </div>
 
             <div>
               <strong>Duration</strong>
-              <span>2024 – 2027</span>
+              <span>
+                2024 – 2027
+              </span>
             </div>
 
             <div>
               <strong>Project Guide</strong>
-              <span>Miss K. Y. Yendhe Mam</span>
+              <span>
+                Miss K. Y. Yendhe Mam
+              </span>
             </div>
 
             <div>
               <strong>Academic Year</strong>
-              <span>2026 – 27</span>
+              <span>
+                2026 – 27
+              </span>
             </div>
 
           </div>

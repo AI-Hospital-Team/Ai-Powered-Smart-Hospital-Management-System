@@ -12,18 +12,15 @@ function PatientDashboard() {
   // ==========================================
 
   const [appointments, setAppointments] = useState([]);
-  const [appointmentsLoading, setAppointmentsLoading] =
-    useState(true);
-  const [appointmentsError, setAppointmentsError] =
-    useState("");
+  const [appointmentsLoading, setAppointmentsLoading] = useState(true);
+  const [appointmentsError, setAppointmentsError] = useState("");
 
   // ==========================================
   // MEDICAL RECORDS
   // ==========================================
 
   const [medicalRecords, setMedicalRecords] = useState([]);
-  const [recordsLoading, setRecordsLoading] =
-    useState(true);
+  const [recordsLoading, setRecordsLoading] = useState(true);
   const [recordsError, setRecordsError] = useState("");
 
   // ==========================================
@@ -31,10 +28,8 @@ function PatientDashboard() {
   // ==========================================
 
   const [prescriptions, setPrescriptions] = useState([]);
-  const [prescriptionsLoading, setPrescriptionsLoading] =
-    useState(true);
-  const [prescriptionsError, setPrescriptionsError] =
-    useState("");
+  const [prescriptionsLoading, setPrescriptionsLoading] = useState(true);
+  const [prescriptionsError, setPrescriptionsError] = useState("");
 
   // ==========================================
   // LOAD LOGGED-IN USER
@@ -45,9 +40,7 @@ function PatientDashboard() {
       const storedUser = localStorage.getItem("user");
 
       if (!storedUser) {
-        console.error(
-          "No user found in localStorage"
-        );
+        console.error("No user found in localStorage");
 
         setAppointmentsLoading(false);
         setRecordsLoading(false);
@@ -58,17 +51,11 @@ function PatientDashboard() {
 
       const parsedUser = JSON.parse(storedUser);
 
-      console.log(
-        "Logged-in patient:",
-        parsedUser
-      );
+      console.log("Logged-in user:", parsedUser);
 
       setUser(parsedUser);
     } catch (error) {
-      console.error(
-        "Error reading user:",
-        error
-      );
+      console.error("Error reading user:", error);
 
       setAppointmentsLoading(false);
       setRecordsLoading(false);
@@ -87,10 +74,7 @@ function PatientDashboard() {
 
     const patientId = user.patientId;
 
-    console.log(
-      "Fetching data for Patient ID:",
-      patientId
-    );
+    console.log("Fetching data for Patient ID:", patientId);
 
     // ========================================
     // FETCH APPOINTMENTS
@@ -112,10 +96,7 @@ function PatientDashboard() {
         return response.json();
       })
       .then((data) => {
-        console.log(
-          "Patient appointments:",
-          data
-        );
+        console.log("Patient appointments:", data);
 
         if (Array.isArray(data)) {
           setAppointments(data);
@@ -124,15 +105,9 @@ function PatientDashboard() {
         }
       })
       .catch((error) => {
-        console.error(
-          "Appointments error:",
-          error
-        );
+        console.error("Appointments error:", error);
 
-        setAppointmentsError(
-          "Failed to load appointments."
-        );
-
+        setAppointmentsError("Failed to load appointments.");
         setAppointments([]);
       })
       .finally(() => {
@@ -159,10 +134,7 @@ function PatientDashboard() {
         return response.json();
       })
       .then((data) => {
-        console.log(
-          "Patient medical records:",
-          data
-        );
+        console.log("Patient medical records:", data);
 
         if (Array.isArray(data)) {
           setMedicalRecords(data);
@@ -171,15 +143,9 @@ function PatientDashboard() {
         }
       })
       .catch((error) => {
-        console.error(
-          "Medical records error:",
-          error
-        );
+        console.error("Medical records error:", error);
 
-        setRecordsError(
-          "Failed to load medical records."
-        );
-
+        setRecordsError("Failed to load medical records.");
         setMedicalRecords([]);
       })
       .finally(() => {
@@ -206,10 +172,7 @@ function PatientDashboard() {
         return response.json();
       })
       .then((data) => {
-        console.log(
-          "Patient prescriptions:",
-          data
-        );
+        console.log("Patient prescriptions:", data);
 
         if (Array.isArray(data)) {
           setPrescriptions(data);
@@ -218,15 +181,9 @@ function PatientDashboard() {
         }
       })
       .catch((error) => {
-        console.error(
-          "Prescriptions error:",
-          error
-        );
+        console.error("Prescriptions error:", error);
 
-        setPrescriptionsError(
-          "Failed to load prescriptions."
-        );
-
+        setPrescriptionsError("Failed to load prescriptions.");
         setPrescriptions([]);
       })
       .finally(() => {
@@ -246,19 +203,19 @@ function PatientDashboard() {
       ====================================== */}
 
       <div className="page-header">
-
         <div>
-
-          <h1>
-            Patient Dashboard
-          </h1>
+          <h1>Patient Dashboard</h1>
 
           <p>
-            Welcome, Patient
+            Welcome, {user?.name || "Patient"}
           </p>
 
+          {user?.patientId && (
+            <small>
+              Patient ID: {user.patientId}
+            </small>
+          )}
         </div>
-
       </div>
 
       {/* ======================================
@@ -267,82 +224,58 @@ function PatientDashboard() {
 
       <div className="dashboard-cards">
 
-        {/* ====================================
-            APPOINTMENTS CARD
-        ==================================== */}
+        {/* APPOINTMENTS */}
 
         <div className="dashboard-card">
-
           <div className="card-icon">
             📅
           </div>
 
           <div>
-
-            <h3>
-              Appointments
-            </h3>
+            <h3>Appointments</h3>
 
             <p>
               {appointmentsLoading
                 ? "..."
                 : appointments.length}
             </p>
-
           </div>
-
         </div>
 
-        {/* ====================================
-            MEDICAL RECORDS CARD
-        ==================================== */}
+        {/* MEDICAL RECORDS */}
 
         <div className="dashboard-card">
-
           <div className="card-icon">
             📋
           </div>
 
           <div>
-
-            <h3>
-              Medical Records
-            </h3>
+            <h3>Medical Records</h3>
 
             <p>
               {recordsLoading
                 ? "..."
                 : medicalRecords.length}
             </p>
-
           </div>
-
         </div>
 
-        {/* ====================================
-            PRESCRIPTIONS CARD
-        ==================================== */}
+        {/* PRESCRIPTIONS */}
 
         <div className="dashboard-card">
-
           <div className="card-icon">
             💊
           </div>
 
           <div>
-
-            <h3>
-              Prescriptions
-            </h3>
+            <h3>Prescriptions</h3>
 
             <p>
               {prescriptionsLoading
                 ? "..."
                 : prescriptions.length}
             </p>
-
           </div>
-
         </div>
 
       </div>
@@ -353,118 +286,67 @@ function PatientDashboard() {
 
       <div className="dashboard-section">
 
-        <h2>
-          My Appointments
-        </h2>
+        <h2>My Appointments</h2>
 
         <div className="table-container">
 
-          {/* LOADING */}
-
           {appointmentsLoading ? (
 
-            <p>
-              Loading appointments...
-            </p>
+            <p>Loading appointments...</p>
 
           ) : appointmentsError ? (
 
-            /* ERROR */
-
-            <p>
-              {appointmentsError}
-            </p>
+            <p>{appointmentsError}</p>
 
           ) : appointments.length === 0 ? (
 
-            /* EMPTY */
-
-            <p>
-              No appointments found.
-            </p>
+            <p>No appointments found.</p>
 
           ) : (
-
-            /* TABLE */
 
             <table>
 
               <thead>
-
                 <tr>
-
-                  <th>
-                    Date
-                  </th>
-
-                  <th>
-                    Doctor
-                  </th>
-
-                  <th>
-                    Time
-                  </th>
-
-                  <th>
-                    Reason
-                  </th>
-
-                  <th>
-                    Status
-                  </th>
-
+                  <th>Date</th>
+                  <th>Doctor</th>
+                  <th>Time</th>
+                  <th>Reason</th>
+                  <th>Status</th>
                 </tr>
-
               </thead>
 
               <tbody>
 
-                {appointments.map(
-                  (appointment) => (
+                {appointments.map((appointment) => (
 
-                    <tr
-                      key={
-                        appointment.appointmentId
-                      }
-                    >
+                  <tr
+                    key={appointment.appointmentId}
+                  >
 
-                      <td>
-                        {
-                          appointment.appointmentDate
-                        }
-                      </td>
+                    <td>
+                      {appointment.appointmentDate}
+                    </td>
 
-                      <td>
-                        Doctor #
-                        {
-                          appointment.doctorId
-                        }
-                      </td>
+                    <td>
+                      Doctor #{appointment.doctorId}
+                    </td>
 
-                      <td>
-                        {
-                          appointment.appointmentTime
-                        }
-                      </td>
+                    <td>
+                      {appointment.appointmentTime}
+                    </td>
 
-                      <td>
-                        {
-                          appointment.reason ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {appointment.reason || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          appointment.status ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {appointment.status || "-"}
+                    </td>
 
-                    </tr>
+                  </tr>
 
-                  )
-                )}
+                ))}
 
               </tbody>
 
@@ -482,130 +364,72 @@ function PatientDashboard() {
 
       <div className="dashboard-section">
 
-        <h2>
-          My Medical Records
-        </h2>
+        <h2>My Medical Records</h2>
 
         <div className="table-container">
 
-          {/* LOADING */}
-
           {recordsLoading ? (
 
-            <p>
-              Loading medical records...
-            </p>
+            <p>Loading medical records...</p>
 
           ) : recordsError ? (
 
-            /* ERROR */
-
-            <p>
-              {recordsError}
-            </p>
+            <p>{recordsError}</p>
 
           ) : medicalRecords.length === 0 ? (
 
-            /* EMPTY */
-
-            <p>
-              No medical records found.
-            </p>
+            <p>No medical records found.</p>
 
           ) : (
-
-            /* TABLE */
 
             <table>
 
               <thead>
-
                 <tr>
-
-                  <th>
-                    Date
-                  </th>
-
-                  <th>
-                    Doctor
-                  </th>
-
-                  <th>
-                    Diagnosis
-                  </th>
-
-                  <th>
-                    Symptoms
-                  </th>
-
-                  <th>
-                    Treatment
-                  </th>
-
-                  <th>
-                    Notes
-                  </th>
-
+                  <th>Date</th>
+                  <th>Doctor</th>
+                  <th>Diagnosis</th>
+                  <th>Symptoms</th>
+                  <th>Treatment</th>
+                  <th>Notes</th>
                 </tr>
-
               </thead>
 
               <tbody>
 
-                {medicalRecords.map(
-                  (record) => (
+                {medicalRecords.map((record) => (
 
-                    <tr
-                      key={
-                        record.recordId
-                      }
-                    >
+                  <tr
+                    key={record.recordId}
+                  >
 
-                      <td>
-                        {
-                          record.recordDate
-                        }
-                      </td>
+                    <td>
+                      {record.recordDate}
+                    </td>
 
-                      <td>
-                        Doctor #
-                        {
-                          record.doctorId
-                        }
-                      </td>
+                    <td>
+                      Doctor #{record.doctorId}
+                    </td>
 
-                      <td>
-                        {
-                          record.diagnosis ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {record.diagnosis || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          record.symptoms ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {record.symptoms || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          record.treatment ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {record.treatment || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          record.notes ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {record.notes || "-"}
+                    </td>
 
-                    </tr>
+                  </tr>
 
-                  )
-                )}
+                ))}
 
               </tbody>
 
@@ -623,140 +447,77 @@ function PatientDashboard() {
 
       <div className="dashboard-section">
 
-        <h2>
-          My Prescriptions
-        </h2>
+        <h2>My Prescriptions</h2>
 
         <div className="table-container">
 
-          {/* LOADING */}
-
           {prescriptionsLoading ? (
 
-            <p>
-              Loading prescriptions...
-            </p>
+            <p>Loading prescriptions...</p>
 
           ) : prescriptionsError ? (
 
-            /* ERROR */
-
-            <p>
-              {prescriptionsError}
-            </p>
+            <p>{prescriptionsError}</p>
 
           ) : prescriptions.length === 0 ? (
 
-            /* EMPTY */
-
-            <p>
-              No prescriptions found.
-            </p>
+            <p>No prescriptions found.</p>
 
           ) : (
-
-            /* TABLE */
 
             <table>
 
               <thead>
-
                 <tr>
-
-                  <th>
-                    Date
-                  </th>
-
-                  <th>
-                    Doctor
-                  </th>
-
-                  <th>
-                    Medicine
-                  </th>
-
-                  <th>
-                    Dosage
-                  </th>
-
-                  <th>
-                    Frequency
-                  </th>
-
-                  <th>
-                    Duration
-                  </th>
-
-                  <th>
-                    Instructions
-                  </th>
-
+                  <th>Date</th>
+                  <th>Doctor</th>
+                  <th>Medicine</th>
+                  <th>Dosage</th>
+                  <th>Frequency</th>
+                  <th>Duration</th>
+                  <th>Instructions</th>
                 </tr>
-
               </thead>
 
               <tbody>
 
-                {prescriptions.map(
-                  (prescription) => (
+                {prescriptions.map((prescription) => (
 
-                    <tr
-                      key={
-                        prescription.prescriptionId
-                      }
-                    >
+                  <tr
+                    key={prescription.prescriptionId}
+                  >
 
-                      <td>
-                        {
-                          prescription.prescriptionDate
-                        }
-                      </td>
+                    <td>
+                      {prescription.prescriptionDate}
+                    </td>
 
-                      <td>
-                        Doctor #
-                        {
-                          prescription.doctorId
-                        }
-                      </td>
+                    <td>
+                      Doctor #{prescription.doctorId}
+                    </td>
 
-                      <td>
-                        {
-                          prescription.medicineName
-                        }
-                      </td>
+                    <td>
+                      {prescription.medicineName || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          prescription.dosage ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {prescription.dosage || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          prescription.frequency ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {prescription.frequency || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          prescription.duration ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {prescription.duration || "-"}
+                    </td>
 
-                      <td>
-                        {
-                          prescription.instructions ||
-                          "-"
-                        }
-                      </td>
+                    <td>
+                      {prescription.instructions || "-"}
+                    </td>
 
-                    </tr>
+                  </tr>
 
-                  )
-                )}
+                ))}
 
               </tbody>
 
