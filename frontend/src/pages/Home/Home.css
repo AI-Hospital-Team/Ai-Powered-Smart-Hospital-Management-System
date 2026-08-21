@@ -1899,20 +1899,6 @@ body {
    AYUSHMAN BHARAT SECTION
 ===================================================== */
 
-.insurance-section {
-  padding: 90px 8%;
-  background: linear-gradient(135deg, #f1fbfd, #ffffff);
-}
-
-.insurance-layout {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  align-items: center;
-  gap: 70px;
-}
 
 /* LEFT SIDE */
 
@@ -1937,39 +1923,6 @@ body {
   box-shadow: 0 10px 25px rgba(8, 127, 140, 0.12);
 }
 
-.insurance-text {
-  max-width: 700px;
-}
-
-.insurance-text .section-label {
-  margin-bottom: 15px;
-
-  color: #087f8c;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.insurance-text h2 {
-  margin: 0 0 20px;
-
-  color: #123d56;
-  font-size: 42px;
-  line-height: 1.15;
-  font-weight: 900;
-}
-
-.insurance-text h2 span {
-  color: #087f8c;
-}
-
-.insurance-text > p:not(.section-label) {
-  margin-bottom: 25px;
-
-  color: #607887;
-  font-size: 15px;
-  line-height: 1.8;
-}
 
 /* FEATURES */
 
@@ -2697,24 +2650,6 @@ body {
   line-height: 1.7;
 
   margin-bottom: 9px;
-}
-
-.map-button {
-  display: inline-block;
-
-  margin-top: 10px;
-
-  padding: 10px 14px;
-
-  border-radius: 8px;
-
-  background: #087f8c;
-
-  color: white;
-
-  font-size: 12px;
-
-  font-weight: 700;
 }
 
 /* =====================================================
@@ -4506,25 +4441,6 @@ body {
   color: #d7edf2;
 }
 
-.dark-mode .home-header {
-  background: rgba(6, 30, 42, 0.97);
-
-  border-color: #173c4c;
-}
-
-.dark-mode .hospital-logo h2 {
-  color: #70e2e7;
-}
-
-.dark-mode .hospital-logo p,
-.dark-mode .home-header nav a {
-  color: #9bbac3;
-}
-
-.dark-mode .home-header nav a:hover {
-  color: #72e1e6;
-}
-
 .dark-mode .theme-btn {
   background: #123b4b;
 
@@ -4571,32 +4487,15 @@ body {
   color: #93b1bb;
 }
 
-.dark-mode .trust-bar {
-  background: #0b2b38;
-
-  border-color: #194453;
-}
-
-.dark-mode .trust-bar strong {
-  color: #c4e1e6;
-}
-
-.dark-mode .trust-bar small {
-  color: #91afb9;
-}
-
 .dark-mode .services-section,
 .dark-mode .departments-section,
 .dark-mode .doctors-section,
-.dark-mode .facilities-section,
-.dark-mode .testimonials-section,
-.dark-mode .partners-section,
+
 .dark-mode .ayushman-details-section {
   background: #071c27;
 }
 
 .dark-mode .healthcare-gallery,
-.dark-mode .why-section,
 .dark-mode .information-section {
   background: #0a2835;
 }
@@ -4840,36 +4739,6 @@ body {
 
 
 /* =========================================================
-   RESPONSIVE 1150
-========================================================= */
-
-@media (max-width: 1150px) {
-
-  .home-header nav {
-    gap: 14px;
-  }
-
-  .hero-section {
-    padding: 70px 5%;
-  }
-
-  .hero-card {
-    width: 320px;
-  }
-
-  .departments-grid,
-  .doctors-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .footer-main {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-}
-
-
-/* =========================================================
    RESPONSIVE 1000
 ========================================================= */
 
@@ -4895,247 +4764,12 @@ body {
 
 }
 
-
-/* =========================================================
-   RESPONSIVE 900
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .home-header {
-    flex-wrap: wrap;
-
-    gap: 12px;
-  }
-
-  .home-header nav {
-    order: 3;
-
-    width: 100%;
-
-    justify-content: center;
-
-    overflow-x: auto;
-
-    padding-bottom: 5px;
-  }
-
-  .hero-section {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    min-height: auto;
-  }
-
-  .hero-content {
-    width: 100%;
-  }
-
-  .hero-card {
-    width: 100%;
-
-    max-width: 450px;
-
-    margin: auto;
-  }
-
-  .stats-section,
-  .trust-bar {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .services-grid,
-  .facilities-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .about-section {
-    grid-template-columns: 1fr;
-  }
-
-  .information-section {
-    grid-template-columns: 1fr;
-  }
-
-  .testimonial-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .healthcare-gallery-grid {
-    grid-template-columns: 1fr 1fr;
-
-    grid-template-rows: 300px 220px;
-  }
-
-  .gallery-large {
-    grid-column: 1 / -1;
-
-    grid-row: auto;
-  }
-
-}
-
-
 /* =========================================================
    RESPONSIVE 650
 ========================================================= */
 
 @media (max-width: 650px) {
 
-  .home-header {
-    padding: 10px 4%;
-  }
-
-  .hospital-logo h2 {
-    font-size: 18px;
-  }
-
-  .hospital-logo p {
-    font-size: 9px;
-  }
-
-  .logo-symbol {
-    width: 44px;
-    height: 44px;
-
-    font-size: 24px;
-  }
-
-  .header-actions {
-    width: 100%;
-
-    justify-content: center;
-  }
-
-  .theme-btn,
-  .login-btn,
-  .register-btn {
-    padding: 9px 11px;
-
-    font-size: 11px;
-  }
-
-  .home-header nav {
-    justify-content: flex-start;
-
-    gap: 18px;
-  }
-
-  .emergency-bar {
-    flex-direction: column;
-
-    gap: 7px;
-
-    text-align: center;
-  }
-
-  .announcement {
-    flex-direction: column;
-
-    text-align: center;
-
-    gap: 4px;
-  }
-
-  .hero-section {
-    padding: 60px 5%;
-  }
-
-  .hero-content h1 {
-    font-size: 43px;
-  }
-
-  .hero-description {
-    font-size: 14px;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
-  .hero-features {
-    gap: 10px;
-
-    font-size: 11px;
-  }
-
-  .stats-section,
-  .trust-bar,
-  .services-grid,
-  .departments-grid,
-  .doctors-grid,
-  .facilities-grid,
-  .why-grid,
-  .partners-grid,
-  .ayushman-benefits-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stat-box {
-    border-right: none;
-
-    border-bottom: 1px solid #e3edf0;
-  }
-
-  .trust-bar > div {
-    border-bottom: 1px solid #dcecf1;
-  }
-
-  .services-section,
-  .departments-section,
-  .doctors-section,
-  .facilities-section,
-  .why-section,
-  .testimonials-section,
-  .partners-section {
-    padding: 65px 5%;
-  }
-
-  .healthcare-gallery {
-    padding: 65px 5%;
-  }
-
-  .healthcare-gallery-grid {
-    grid-template-columns: 1fr;
-
-    grid-template-rows:
-      280px
-      220px
-      220px;
-  }
-
-  .gallery-large {
-    grid-column: auto;
-
-    grid-row: auto;
-  }
-
-  .gallery-overlay {
-    left: 18px;
-
-    right: 18px;
-
-    bottom: 18px;
-  }
-
-  .gallery-overlay h3 {
-    font-size: 17px;
-  }
-
-  .gallery-features {
-    grid-template-columns: 1fr;
-  }
 
 
   /* =======================================================
@@ -5322,142 +4956,6 @@ body {
 }
 
 /* =========================================================
-   RESPONSIVE HEADER
-========================================================= */
-
-/* TABLET */
-@media (max-width: 1000px) {
-
-  .home-header {
-    padding: 14px 24px;
-    gap: 20px;
-  }
-
-  .hospital-brand {
-    gap: 10px;
-  }
-
-  .logo-symbol {
-    width: 52px;
-    height: 52px;
-    font-size: 27px;
-  }
-
-  .hospital-brand-text h2 {
-    font-size: 21px;
-  }
-
-  .hospital-brand-text p {
-    font-size: 10px;
-  }
-
-  .home-header nav {
-    gap: 16px;
-  }
-
-  .home-header nav a {
-    font-size: 13px;
-  }
-
-  .header-actions {
-    gap: 8px;
-  }
-
-  .login-btn,
-  .register-btn {
-    padding: 10px 14px;
-  }
-}
-
-
-/* MOBILE */
-@media (max-width: 700px) {
-
-  .home-header {
-    padding: 12px 16px;
-    min-height: 70px;
-    flex-wrap: wrap;
-  }
-
-  .hospital-brand {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .logo-symbol {
-    width: 46px;
-    height: 46px;
-    border-radius: 13px;
-    font-size: 24px;
-  }
-
-  .hospital-brand-text h2 {
-    font-size: 18px;
-    white-space: nowrap;
-  }
-
-  .hospital-brand-text p {
-    font-size: 9px;
-    white-space: nowrap;
-  }
-
-  /* Hide desktop navigation on mobile */
-  .home-header nav {
-    display: none;
-  }
-
-  .header-actions {
-    gap: 6px;
-  }
-
-  .theme-btn {
-    width: 38px;
-    height: 38px;
-    padding: 0;
-  }
-
-  .login-btn,
-  .register-btn {
-    min-height: 38px;
-    padding: 9px 12px;
-    font-size: 12px;
-  }
-}
-
-
-/* SMALL PHONES */
-@media (max-width: 450px) {
-
-  .home-header {
-    padding: 10px 12px;
-  }
-
-  .logo-symbol {
-    width: 42px;
-    height: 42px;
-    font-size: 21px;
-  }
-
-  .hospital-brand-text h2 {
-    font-size: 16px;
-  }
-
-  .hospital-brand-text p {
-    font-size: 8px;
-  }
-
-  .theme-btn {
-    display: none;
-  }
-
-  .login-btn,
-  .register-btn {
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-}
-
-/* =========================================================
    FOOTER PROJECT INFO
 ========================================================= */
 
@@ -5563,17 +5061,6 @@ body {
 
 }
 
-.login-error {
-  margin: 12px 0;
-  padding: 10px 14px;
-  background: #fff1f1;
-  border: 1px solid #f5b5b5;
-  border-radius: 8px;
-  color: #d32f2f;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-}
 
 .login-error {
   display: flex;
@@ -6811,38 +6298,6 @@ body {
   line-height: 1.8;
 }
 
-
-/* =====================================================
-   HOURS
-===================================================== */
-
-.hours-list {
-  margin-top: 20px;
-}
-
-
-.hours-row {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  padding: 17px 4px;
-
-  border-bottom: 1px solid rgba(0, 120, 150, 0.12);
-
-  color: #62809a;
-
-  font-size: 15px;
-}
-
-
-.hours-row strong {
-  color: #008b9d;
-
-  font-weight: 800;
-}
 
 
 .emergency-row {
