@@ -16,11 +16,47 @@ public class BillService {
         this.billRepository = billRepository;
     }
 
-    public List<Bill> getBillsByPatientId(Integer patientId) {
-        return billRepository.findByPatientId(patientId);
+    public Bill createBill(Bill bill) {
+
+        if (bill.getStatus() == null ||
+                bill.getStatus().isBlank()) {
+
+            bill.setStatus("Pending");
+        }
+
+        return billRepository.save(bill);
     }
 
     public List<Bill> getAllBills() {
         return billRepository.findAll();
+    }
+
+    public List<Bill> getBillsByPatient(Integer patientId) {
+        return billRepository.findByPatientId(patientId);
+    }
+
+    public List<Bill> getBillsByDoctor(Integer doctorId) {
+        return billRepository.findByDoctorId(doctorId);
+    }
+
+    public Bill getBillById(Integer billId) {
+
+        return billRepository.findById(billId)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Bill not found with ID: " + billId
+                        )
+                );
+    }
+
+    public Bill updateBillStatus(
+            Integer billId,
+            String status) {
+
+        Bill bill = getBillById(billId);
+
+        bill.setStatus(status);
+
+        return billRepository.save(bill);
     }
 }

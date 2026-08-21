@@ -30,27 +30,25 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    // ==========================================
+    // =====================================================
     // CREATE APPOINTMENT
-    // ==========================================
+    // =====================================================
 
     @PostMapping
     public ResponseEntity<Appointment> createAppointment(
             @RequestBody Appointment appointment) {
 
         Appointment savedAppointment =
-                appointmentService.createAppointment(
-                        appointment
-                );
+                appointmentService.createAppointment(appointment);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(savedAppointment);
     }
 
-    // ==========================================
+    // =====================================================
     // GET ALL APPOINTMENTS
-    // ==========================================
+    // =====================================================
 
     @GetMapping
     public ResponseEntity<List<Appointment>> getAllAppointments() {
@@ -60,58 +58,94 @@ public class AppointmentController {
         );
     }
 
-    // ==========================================
+    // =====================================================
     // GET APPOINTMENTS BY DOCTOR
-    // ==========================================
+    // =====================================================
 
     @GetMapping("/doctor/{doctorId}")
-    public ResponseEntity<List<Appointment>>
-            getAppointmentsByDoctor(
-                    @PathVariable Integer doctorId) {
+    public ResponseEntity<List<Appointment>> getAppointmentsByDoctor(
+            @PathVariable Integer doctorId) {
 
         return ResponseEntity.ok(
-                appointmentService
-                        .getAppointmentsByDoctor(doctorId)
+                appointmentService.getAppointmentsByDoctor(doctorId)
         );
     }
 
-    // ==========================================
+    // =====================================================
     // GET APPOINTMENTS BY PATIENT
-    // ==========================================
+    // =====================================================
 
     @GetMapping("/patient/{patientId}")
-    public ResponseEntity<List<Appointment>>
-            getAppointmentsByPatient(
-                    @PathVariable Integer patientId) {
+    public ResponseEntity<List<Appointment>> getAppointmentsByPatient(
+            @PathVariable Integer patientId) {
 
         return ResponseEntity.ok(
-                appointmentService
-                        .getAppointmentsByPatient(patientId)
+                appointmentService.getAppointmentsByPatient(patientId)
         );
     }
 
-    // ==========================================
+    // =====================================================
     // UPDATE APPOINTMENT STATUS
-    // ==========================================
+    // =====================================================
 
     @PutMapping("/{appointmentId}/status")
-    public ResponseEntity<Appointment>
-            updateAppointmentStatus(
-                    @PathVariable Integer appointmentId,
-                    @RequestBody Map<String, String> request) {
+    public ResponseEntity<?> updateAppointmentStatus(
+            @PathVariable Integer appointmentId,
+            @RequestBody Map<String, String> request) {
 
         String status = request.get("status");
 
         if (status == null || status.isBlank()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .badRequest()
+                    .body("Status is required.");
         }
 
-        Appointment updatedAppointment =
-                appointmentService.updateAppointmentStatus(
-                        appointmentId,
-                        status
-                );
+        try {
 
-        return ResponseEntity.ok(updatedAppointment);
+            Appointment updatedAppointment =
+                    appointmentService.updateAppointmentStatus(
+                            appointmentId,
+                            status
+                    );
+
+            return ResponseEntity.ok(updatedAppointment);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
+
+    // =====================================================
+    // CANCEL APPOINTMENT
+    // =====================================================
+    // This endpoint is for Patient cancellation.
+    //
+    // Example:
+    // PUT http://localhost:8080/api/appointments/3/cancel
+    // =====================================================
+
+    @PutMapping("/{appointmentId}/cancel")
+    public ResponseEntity<?> cancelAppointment(
+            @PathVariable Integer appointmentId) {
+
+        try {
+
+            Appointment cancelledAppointment =
+                    appointmentService.cancelAppointment(
+                            appointmentId
+                    );
+
+            return ResponseEntity.ok(cancelledAppointment);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 }

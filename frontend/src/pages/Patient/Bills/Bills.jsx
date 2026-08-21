@@ -8,265 +8,603 @@ function Bills() {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
+
+  // ==========================================
+  // LOAD PATIENT + BILLS
+  // ==========================================
 
   useEffect(() => {
-    fetchBills();
+    const loadBills = async () => {
+      try {
+        const storedUser = localStorage.getItem("user");
+
+        if (!storedUser) {
+          setError("Patient information not found.");
+          setLoading(false);
+          return;
+        }
+
+        const parsedUser = JSON.parse(storedUser);
+
+        setUser(parsedUser);
+
+        if (!parsedUser.patientId) {
+          setError("Patient ID is missing.");
+          setLoading(false);
+          return;
+        }
+
+        const response = await fetch(
+          `http://localhost:8080/api/bills/patient/${parsedUser.patientId}`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Bills API failed: ${response.status}`
+          );
+        }
+
+        const data = await response.json();
+
+        console.log("Patient bills:", data);
+
+        setBills(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error loading bills:", error);
+
+        setError("Failed to load bills.");
+        setBills([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBills();
   }, []);
 
-  const fetchBills = async () => {
+  // ==========================================
+  // PAY BILL
+  // ==========================================
+
+  const handlePayBill = async (billId) => {
     try {
-      setLoading(true);
-      setError("");
-
-      const userData = localStorage.getItem("user");
-
-      if (!userData) {
-        setError("Patient information not found. Please login again.");
-        setLoading(false);
-        return;
-      }
-
-      const user = JSON.parse(userData);
-
-      if (!user.patientId) {
-        setError("Patient ID not found. Please login again.");
-        setLoading(false);
-        return;
-      }
-
       const response = await fetch(
-        `http://localhost:8080/api/bills/patient/${user.patientId}`
+        `http://localhost:8080/api/bills/${billId}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: "Paid",
+          }),
+        }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch bills");
+        throw new Error(
+          `Payment API failed: ${response.status}`
+        );
       }
 
-      const data = await response.json();
+      const updatedBill = await response.json();
 
-      setBills(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error("Bills fetch error:", err);
-      setError("Unable to load bills.");
-    } finally {
-      setLoading(false);
+      setBills((previousBills) =>
+        previousBills.map((bill) =>
+          bill.billId === billId
+            ? updatedBill
+            : bill
+        )
+      );
+
+      alert("Bill paid successfully.");
+    } catch (error) {
+      console.error("Error paying bill:", error);
+
+      alert("Failed to update bill status.");
     }
   };
 
-  const getStatusClass = (status) => {
-    if (!status) return "bill-status-default";
+  // ==========================================
+  // LOADING
+  // ==========================================
 
-    switch (status.toLowerCase()) {
-      case "paid":
-        return "bill-status-paid";
+  if (loading) {
+    return (
+      <div className="bills-page">
+        <div className="bills-container">
+          <div className="bills-loading">
+            <div className="loading-icon">💰</div>
+            <h2>Loading Bills...</h2>
+            <p>Please wait while we fetch your bills.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-      case "pending":
-        return "bill-status-pending";
+  // ==========================================
+  // ERROR
+  // ==========================================
 
-      case "unpaid":
-        return "bill-status-unpaid";
+  if (error) {
+    return (
+      <div className="bills-page">
+        <div className="bills-container">
 
-      case "cancelled":
-        return "bill-status-cancelled";
+          <div className="bills-error">
+            <div className="error-icon">⚠️</div>
 
-      default:
-        return "bill-status-default";
-    }
-  };
+            <h2>Unable to Load Bills</h2>
 
-  const formatAmount = (amount) => {
-    if (amount === null || amount === undefined) {
-      return "₹0.00";
-    }
+            <p>{error}</p>
 
-    return `₹${Number(amount).toLocaleString("en-IN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
-  };
+            <button
+              className="dashboard-button"
+              onClick={() =>
+                navigate("/patient/dashboard")
+              }
+            >
+              ← Back to Dashboard
+            </button>
+          </div>
 
-  const handlePayment = (billId) => {
-    alert(`Payment option for Bill #${billId} will be available soon.`);
-  };
+        </div>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // CALCULATIONS
+  // ==========================================
+
+  const totalAmount = bills.reduce(
+    (total, bill) =>
+      total + Number(bill.amount || 0),
+    0
+  );
+
+  const pendingAmount = bills
+    .filter(
+      (bill) =>
+        bill.status?.toLowerCase() === "pending"
+    )
+    .reduce(
+      (total, bill) =>
+        total + Number(bill.amount || 0),
+      0
+    );
+
+  const paidAmount = bills
+    .filter(
+      (bill) =>
+        bill.status?.toLowerCase() === "paid"
+    )
+    .reduce(
+      (total, bill) =>
+        total + Number(bill.amount || 0),
+      0
+    );
+
+  // ==========================================
+  // RETURN
+  // ==========================================
 
   return (
     <div className="bills-page">
 
-      {/* HEADER */}
-      <div className="bills-header">
+      <div className="bills-container">
 
-        <div>
-          <h1>My Bills</h1>
-          <p>View your hospital bills and payment status.</p>
-        </div>
+        {/* =====================================
+            PAGE HEADER
+        ===================================== */}
 
-        <button
-          className="back-dashboard-btn"
-          onClick={() => navigate("/patient/dashboard")}
-        >
-          ← Dashboard
-        </button>
+        <div className="bills-page-header">
 
-      </div>
+          <div className="bills-title-area">
 
-      {/* LOADING */}
-      {loading && (
-        <div className="bills-message">
-          <div className="bill-loader"></div>
-          <p>Loading bills...</p>
-        </div>
-      )}
+            <div className="bills-title-icon">
+              💰
+            </div>
 
-      {/* ERROR */}
-      {!loading && error && (
-        <div className="bills-error">
-          <p>{error}</p>
+            <div>
+              <h1>My Bills</h1>
 
-          <button onClick={fetchBills}>
-            Try Again
-          </button>
-        </div>
-      )}
+              <p>
+                View and manage your hospital bills
+                securely.
+              </p>
 
-      {/* NO BILLS */}
-      {!loading && !error && bills.length === 0 && (
-        <div className="no-bills">
+              {user?.patientId && (
+                <span className="patient-id-badge">
+                  Patient ID: {user.patientId}
+                </span>
+              )}
+            </div>
 
-          <div className="no-bills-icon">
-            💳
           </div>
 
-          <h2>No Bills Found</h2>
-
-          <p>
-            You currently don't have any hospital bills.
-          </p>
+          <button
+            className="dashboard-button"
+            onClick={() =>
+              navigate("/patient/dashboard")
+            }
+          >
+            ← Dashboard
+          </button>
 
         </div>
-      )}
 
-      {/* BILLS */}
-      {!loading && !error && bills.length > 0 && (
-        <div className="bills-container">
+        {/* =====================================
+            SUMMARY CARDS
+        ===================================== */}
 
-          {bills.map((bill) => (
-            <div
-              className="bill-card"
-              key={bill.billId || bill.id}
-            >
+        <div className="bill-summary">
 
-              {/* BILL HEADER */}
-              <div className="bill-card-header">
+          {/* TOTAL BILLS */}
 
-                <div className="bill-title">
+          <div className="summary-card total-card">
 
-                  <div className="bill-icon">
-                    🧾
-                  </div>
+            <div className="summary-card-icon">
+              📄
+            </div>
 
-                  <div>
-                    <h2>
-                      Bill #
-                      {bill.billId || bill.id}
-                    </h2>
+            <div className="summary-card-content">
 
-                    <p>
-                      {bill.billDate ||
-                        bill.date ||
-                        "Date not available"}
-                    </p>
-                  </div>
+              <span>Total Bills</span>
 
-                </div>
+              <strong>
+                {bills.length}
+              </strong>
 
-                <span
-                  className={`bill-status ${getStatusClass(
-                    bill.status
-                  )}`}
-                >
-                  {bill.status || "Pending"}
-                </span>
-
-              </div>
-
-              {/* BILL DETAILS */}
-              <div className="bill-details">
-
-                <div className="bill-detail">
-                  <span>Patient</span>
-                  <strong>
-                    {bill.patientName || "Patient"}
-                  </strong>
-                </div>
-
-                <div className="bill-detail">
-                  <span>Bill Type</span>
-                  <strong>
-                    {bill.billType ||
-                      bill.type ||
-                      "Hospital Service"}
-                  </strong>
-                </div>
-
-                <div className="bill-detail">
-                  <span>Amount</span>
-                  <strong className="bill-amount">
-                    {formatAmount(
-                      bill.amount ||
-                        bill.totalAmount ||
-                        bill.total
-                    )}
-                  </strong>
-                </div>
-
-              </div>
-
-              {/* DESCRIPTION */}
-              {(bill.description || bill.details) && (
-                <div className="bill-description">
-                  <span>Description</span>
-                  <p>
-                    {bill.description || bill.details}
-                  </p>
-                </div>
-              )}
-
-              {/* ACTIONS */}
-              <div className="bill-actions">
-
-                {bill.status?.toLowerCase() !== "paid" && (
-                  <button
-                    className="pay-btn"
-                    onClick={() =>
-                      handlePayment(
-                        bill.billId || bill.id
-                      )
-                    }
-                  >
-                    Pay Now
-                  </button>
-                )}
-
-                <button
-                  className="view-bill-btn"
-                  onClick={() =>
-                    alert(
-                      `Bill #${
-                        bill.billId || bill.id
-                      }`
-                    )
-                  }
-                >
-                  View Details
-                </button>
-
-              </div>
+              <small>
+                Hospital bills
+              </small>
 
             </div>
-          ))}
+
+          </div>
+
+          {/* TOTAL AMOUNT */}
+
+          <div className="summary-card amount-card">
+
+            <div className="summary-card-icon">
+              💵
+            </div>
+
+            <div className="summary-card-content">
+
+              <span>Total Amount</span>
+
+              <strong>
+                ₹{totalAmount.toFixed(2)}
+              </strong>
+
+              <small>
+                Overall amount
+              </small>
+
+            </div>
+
+          </div>
+
+          {/* PENDING */}
+
+          <div className="summary-card pending-card">
+
+            <div className="summary-card-icon">
+              🟡
+            </div>
+
+            <div className="summary-card-content">
+
+              <span>Pending</span>
+
+              <strong>
+                ₹{pendingAmount.toFixed(2)}
+              </strong>
+
+              <small>
+                Amount due
+              </small>
+
+            </div>
+
+          </div>
+
+          {/* PAID */}
+
+          <div className="summary-card paid-card">
+
+            <div className="summary-card-icon">
+              🟢
+            </div>
+
+            <div className="summary-card-content">
+
+              <span>Paid</span>
+
+              <strong>
+                ₹{paidAmount.toFixed(2)}
+              </strong>
+
+              <small>
+                Successfully paid
+              </small>
+
+            </div>
+
+          </div>
 
         </div>
-      )}
+
+        {/* =====================================
+            BILLS SECTION
+        ===================================== */}
+
+        <div className="bills-section">
+
+          <div className="section-heading">
+
+            <div>
+              <h2>Hospital Bills</h2>
+
+              <p>
+                Your billing history and payment
+                information.
+              </p>
+            </div>
+
+            <span className="bill-count">
+              {bills.length} Bill
+              {bills.length !== 1 ? "s" : ""}
+            </span>
+
+          </div>
+
+          {/* ===================================
+              NO BILLS
+          =================================== */}
+
+          {bills.length === 0 ? (
+
+            <div className="empty-bills">
+
+              <div className="empty-bills-icon">
+                💰
+              </div>
+
+              <h3>No Bills Found</h3>
+
+              <p>
+                You currently have no hospital
+                bills.
+              </p>
+
+              <button
+                className="dashboard-button"
+                onClick={() =>
+                  navigate("/patient/dashboard")
+                }
+              >
+                ← Back to Dashboard
+              </button>
+
+            </div>
+
+          ) : (
+
+            <div className="bills-list">
+
+              {bills.map((bill) => {
+
+                const isPaid =
+                  bill.status?.toLowerCase() ===
+                  "paid";
+
+                return (
+
+                  <div
+                    className={`bill-card ${
+                      isPaid
+                        ? "bill-paid"
+                        : "bill-pending"
+                    }`}
+                    key={bill.billId}
+                  >
+
+                    {/* =========================
+                        CARD HEADER
+                    ========================= */}
+
+                    <div className="bill-card-top">
+
+                      <div className="bill-number-area">
+
+                        <div className="bill-icon-box">
+                          💰
+                        </div>
+
+                        <div>
+                          <span>
+                            Hospital Bill
+                          </span>
+
+                          <h3>
+                            Bill #{bill.billId}
+                          </h3>
+                        </div>
+
+                      </div>
+
+                      <div
+                        className={`bill-status ${
+                          isPaid
+                            ? "status-paid"
+                            : "status-pending"
+                        }`}
+                      >
+                        <span>
+                          {isPaid ? "✓" : "●"}
+                        </span>
+
+                        {isPaid
+                          ? "Paid"
+                          : "Pending"}
+                      </div>
+
+                    </div>
+
+                    {/* =========================
+                        DATE
+                    ========================= */}
+
+                    <div className="bill-date-row">
+
+                      <span>
+                        📅 Bill Date
+                      </span>
+
+                      <strong>
+                        {bill.billDate}
+                      </strong>
+
+                    </div>
+
+                    {/* =========================
+                        DETAILS GRID
+                    ========================= */}
+
+                    <div className="bill-details-grid">
+
+                      <div className="bill-info-box">
+
+                        <span className="info-label">
+                          👨‍⚕️ Doctor
+                        </span>
+
+                        <strong>
+                          Doctor #
+                          {bill.doctorId || "-"}
+                        </strong>
+
+                      </div>
+
+                      <div className="bill-info-box">
+
+                        <span className="info-label">
+                          👤 Patient
+                        </span>
+
+                        <strong>
+                          Patient #
+                          {bill.patientId}
+                        </strong>
+
+                      </div>
+
+                      <div className="bill-info-box description-box">
+
+                        <span className="info-label">
+                          📝 Description
+                        </span>
+
+                        <strong>
+                          {bill.description ||
+                            "Hospital Service"}
+                        </strong>
+
+                      </div>
+
+                      <div className="bill-info-box amount-box">
+
+                        <span className="info-label">
+                          💵 Amount
+                        </span>
+
+                        <strong>
+                          ₹
+                          {Number(
+                            bill.amount || 0
+                          ).toFixed(2)}
+                        </strong>
+
+                      </div>
+
+                    </div>
+
+                    {/* =========================
+                        PAYMENT FOOTER
+                    ========================= */}
+
+                    <div className="bill-card-footer">
+
+                      {!isPaid ? (
+
+                        <>
+                          <div className="payment-note">
+                            <span>🔒</span>
+
+                            <p>
+                              Secure payment
+                              available
+                            </p>
+                          </div>
+
+                          <button
+                            className="pay-button"
+                            onClick={() =>
+                              handlePayBill(
+                                bill.billId
+                              )
+                            }
+                          >
+                            💳 Pay ₹
+                            {Number(
+                              bill.amount || 0
+                            ).toFixed(2)}
+                          </button>
+                        </>
+
+                      ) : (
+
+                        <div className="paid-footer">
+
+                          <div className="paid-check">
+                            ✓
+                          </div>
+
+                          <div>
+                            <strong>
+                              Payment Completed
+                            </strong>
+
+                            <span>
+                              This bill has been
+                              successfully paid.
+                            </span>
+                          </div>
+
+                        </div>
+
+                      )}
+
+                    </div>
+
+                  </div>
+
+                );
+              })}
+
+            </div>
+
+          )}
+
+        </div>
+
+      </div>
 
     </div>
   );

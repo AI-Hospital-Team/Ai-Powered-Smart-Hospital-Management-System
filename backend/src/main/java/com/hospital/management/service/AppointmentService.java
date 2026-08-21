@@ -18,9 +18,9 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    // ==========================================
-    // CREATE
-    // ==========================================
+    // =====================================================
+    // CREATE APPOINTMENT
+    // =====================================================
 
     public Appointment createAppointment(
             Appointment appointment) {
@@ -34,18 +34,18 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
-    // ==========================================
-    // GET ALL
-    // ==========================================
+    // =====================================================
+    // GET ALL APPOINTMENTS
+    // =====================================================
 
     public List<Appointment> getAllAppointments() {
 
         return appointmentRepository.findAll();
     }
 
-    // ==========================================
+    // =====================================================
     // GET BY DOCTOR
-    // ==========================================
+    // =====================================================
 
     public List<Appointment> getAppointmentsByDoctor(
             Integer doctorId) {
@@ -54,9 +54,9 @@ public class AppointmentService {
                 .findByDoctorId(doctorId);
     }
 
-    // ==========================================
+    // =====================================================
     // GET BY PATIENT
-    // ==========================================
+    // =====================================================
 
     public List<Appointment> getAppointmentsByPatient(
             Integer patientId) {
@@ -65,9 +65,9 @@ public class AppointmentService {
                 .findByPatientId(patientId);
     }
 
-    // ==========================================
+    // =====================================================
     // UPDATE STATUS
-    // ==========================================
+    // =====================================================
 
     public Appointment updateAppointmentStatus(
             Integer appointmentId,
@@ -84,6 +84,46 @@ public class AppointmentService {
                         );
 
         appointment.setStatus(status);
+
+        return appointmentRepository.save(appointment);
+    }
+
+    // =====================================================
+    // CANCEL APPOINTMENT
+    // =====================================================
+
+    public Appointment cancelAppointment(
+            Integer appointmentId) {
+
+        Appointment appointment =
+                appointmentRepository
+                        .findById(appointmentId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Appointment not found with ID: "
+                                                + appointmentId
+                                )
+                        );
+
+        // Prevent cancelling an already completed appointment
+        if ("Completed".equalsIgnoreCase(
+                appointment.getStatus())) {
+
+            throw new RuntimeException(
+                    "Completed appointment cannot be cancelled."
+            );
+        }
+
+        // Prevent cancelling an already cancelled appointment
+        if ("Cancelled".equalsIgnoreCase(
+                appointment.getStatus())) {
+
+            throw new RuntimeException(
+                    "Appointment is already cancelled."
+            );
+        }
+
+        appointment.setStatus("Cancelled");
 
         return appointmentRepository.save(appointment);
     }

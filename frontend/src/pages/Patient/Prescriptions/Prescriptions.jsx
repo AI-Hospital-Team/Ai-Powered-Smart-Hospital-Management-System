@@ -5,350 +5,384 @@ import "./Prescriptions.css";
 function Prescriptions() {
   const navigate = useNavigate();
 
+  const [user, setUser] = useState(null);
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // =====================================================
+  // GET LOGGED-IN USER
+  // =====================================================
+
   useEffect(() => {
-    fetchPrescriptions();
-  }, []);
-
-  const fetchPrescriptions = async () => {
     try {
-      setLoading(true);
-      setError("");
+      const storedUser = localStorage.getItem("user");
 
-      const userData = localStorage.getItem("user");
-
-      if (!userData) {
-        setError("Patient information not found. Please login again.");
+      if (!storedUser) {
+        setError("User information not found. Please login again.");
         setLoading(false);
         return;
       }
 
-      const user = JSON.parse(userData);
+      const parsedUser = JSON.parse(storedUser);
 
-      if (!user.patientId) {
-        setError("Patient ID not found. Please login again.");
-        setLoading(false);
-        return;
-      }
+      console.log("Logged-in patient:", parsedUser);
 
-      const response = await fetch(
-        `http://localhost:8080/api/prescriptions/patient/${user.patientId}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch prescriptions");
-      }
-
-      const data = await response.json();
-
-      setPrescriptions(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error("Prescriptions fetch error:", err);
-      setError("Unable to load prescriptions.");
-    } finally {
+      setUser(parsedUser);
+    } catch (error) {
+      console.error("Error reading user:", error);
+      setError("Unable to read user information.");
       setLoading(false);
     }
-  };
+  }, []);
+
+  // =====================================================
+  // FETCH PRESCRIPTIONS
+  // =====================================================
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    const patientId = user.patientId;
+
+    if (!patientId) {
+      setError("Patient ID is missing.");
+      setLoading(false);
+      return;
+    }
+
+    const fetchPrescriptions = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await fetch(
+          `http://localhost:8080/api/prescriptions/patient/${patientId}`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `API failed with status ${response.status}`
+          );
+        }
+
+        const data = await response.json();
+
+        console.log("Patient prescriptions:", data);
+
+        setPrescriptions(
+          Array.isArray(data) ? data : []
+        );
+      } catch (error) {
+        console.error(
+          "Error fetching prescriptions:",
+          error
+        );
+
+        setError("Failed to load prescriptions.");
+        setPrescriptions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrescriptions();
+  }, [user]);
+
+  // =====================================================
+  // FORMAT DATE
+  // =====================================================
 
   const formatDate = (date) => {
     if (!date) {
-      return "Date not available";
+      return "-";
     }
 
-    const parsedDate = new Date(date);
+    const formattedDate = new Date(
+      `${date}T00:00:00`
+    );
 
-    if (Number.isNaN(parsedDate.getTime())) {
-      return date;
-    }
-
-    return parsedDate.toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  };
-
-  const getMedicineName = (medicine) => {
-    return (
-      medicine.medicineName ||
-      medicine.medicationName ||
-      medicine.name ||
-      medicine.medicine ||
-      "Medicine"
+    return formattedDate.toLocaleDateString(
+      "en-IN",
+      {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }
     );
   };
 
-  const getDosage = (medicine) => {
-    return (
-      medicine.dosage ||
-      medicine.dose ||
-      "Not specified"
-    );
+  // =====================================================
+  // BACK TO DASHBOARD
+  // =====================================================
+
+  const goToDashboard = () => {
+    navigate("/patient/dashboard");
   };
 
-  const getFrequency = (medicine) => {
-    return (
-      medicine.frequency ||
-      medicine.timing ||
-      medicine.schedule ||
-      "Not specified"
-    );
-  };
+  // =====================================================
+  // LOADING
+  // =====================================================
 
-  const getDuration = (medicine) => {
+  if (loading) {
     return (
-      medicine.duration ||
-      medicine.days ||
-      "Not specified"
+      <div className="prescriptions-page">
+        <div className="prescriptions-container">
+          <h1>My Prescriptions</h1>
+          <p>Loading prescriptions...</p>
+        </div>
+      </div>
     );
-  };
+  }
+
+  // =====================================================
+  // ERROR
+  // =====================================================
+
+  if (error) {
+    return (
+      <div className="prescriptions-page">
+        <div className="prescriptions-container">
+
+          <div className="prescriptions-header">
+            <div>
+              <h1>My Prescriptions</h1>
+              <p>
+                View medicines prescribed by your doctors.
+              </p>
+            </div>
+
+            <button
+              className="dashboard-button"
+              onClick={goToDashboard}
+            >
+              ← Dashboard
+            </button>
+          </div>
+
+          <div className="error-box">
+            {error}
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+
+  // =====================================================
+  // MAIN PAGE
+  // =====================================================
 
   return (
     <div className="prescriptions-page">
 
-      {/* HEADER */}
-      <div className="prescriptions-header">
+      <div className="prescriptions-container">
 
-        <div>
-          <h1>My Prescriptions</h1>
+        {/* =================================================
+            PAGE HEADER
+        ================================================= */}
 
-          <p>
-            View medicines prescribed by your doctors.
-          </p>
-        </div>
+        <div className="prescriptions-header">
 
-        <button
-          className="prescriptions-back-btn"
-          onClick={() => navigate("/patient/dashboard")}
-        >
-          ← Dashboard
-        </button>
+          <div>
+            <h1>My Prescriptions</h1>
 
-      </div>
-
-      {/* LOADING */}
-      {loading && (
-        <div className="prescriptions-message">
-
-          <div className="prescription-loader"></div>
-
-          <p>
-            Loading prescriptions...
-          </p>
-
-        </div>
-      )}
-
-      {/* ERROR */}
-      {!loading && error && (
-        <div className="prescriptions-error">
-
-          <div className="prescription-error-icon">
-            ⚠️
+            <p>
+              View medicines prescribed by your doctors.
+            </p>
           </div>
 
-          <p>{error}</p>
-
-          <button onClick={fetchPrescriptions}>
-            Try Again
+          <button
+            className="dashboard-button"
+            onClick={goToDashboard}
+          >
+            ← Dashboard
           </button>
 
         </div>
-      )}
 
-      {/* NO PRESCRIPTIONS */}
-      {!loading && !error && prescriptions.length === 0 && (
-        <div className="no-prescriptions">
+        {/* =================================================
+            NO PRESCRIPTIONS
+        ================================================= */}
 
-          <div className="no-prescriptions-icon">
-            💊
+        {prescriptions.length === 0 && (
+          <div className="empty-box">
+
+            <div className="empty-icon">
+              💊
+            </div>
+
+            <h2>No Prescriptions Found</h2>
+
+            <p>
+              You do not have any prescriptions yet.
+            </p>
+
           </div>
+        )}
 
-          <h2>No Prescriptions Found</h2>
+        {/* =================================================
+            PRESCRIPTION LIST
+        ================================================= */}
 
-          <p>
-            You currently don't have any prescriptions.
-          </p>
+        <div className="prescription-list">
 
-        </div>
-      )}
+          {prescriptions.map((prescription) => (
 
-      {/* PRESCRIPTIONS */}
-      {!loading && !error && prescriptions.length > 0 && (
-        <div className="prescriptions-container">
+            <div
+              className="prescription-card"
+              key={prescription.prescriptionId}
+            >
 
-          {prescriptions.map((prescription, index) => {
+              {/* ===========================================
+                  CARD HEADER
+              =========================================== */}
 
-            const prescriptionId =
-              prescription.prescriptionId ||
-              prescription.id ||
-              index + 1;
+              <div className="prescription-card-header">
 
-            const medicines =
-              prescription.medicines ||
-              prescription.medications ||
-              prescription.items ||
-              [];
+                <div className="prescription-title">
 
-            return (
-              <div
-                className="prescription-card"
-                key={prescriptionId}
-              >
-
-                {/* PRESCRIPTION HEADER */}
-                <div className="prescription-card-header">
-
-                  <div className="prescription-title">
-
-                    <div className="prescription-icon">
-                      💊
-                    </div>
-
-                    <div>
-                      <h2>
-                        Prescription #{prescriptionId}
-                      </h2>
-
-                      <p>
-                        {formatDate(
-                          prescription.prescriptionDate ||
-                          prescription.date ||
-                          prescription.createdAt
-                        )}
-                      </p>
-                    </div>
-
-                  </div>
-
-                  <span className="prescription-status">
-                    {prescription.status || "Active"}
-                  </span>
-
-                </div>
-
-                {/* DOCTOR INFORMATION */}
-                <div className="prescription-doctor">
-
-                  <div className="doctor-icon">
-                    👨‍⚕️
+                  <div className="medicine-icon">
+                    💊
                   </div>
 
                   <div>
-                    <small>Prescribed By</small>
-
-                    <strong>
-                      {prescription.doctorName ||
-                        prescription.doctor?.name ||
-                        "Doctor"}
-                    </strong>
-
-                    {(prescription.specialization ||
-                      prescription.doctor?.specialization) && (
-                      <span>
-                        {prescription.specialization ||
-                          prescription.doctor?.specialization}
-                      </span>
-                    )}
-                  </div>
-
-                </div>
-
-                {/* MEDICINES */}
-                <div className="medicines-section">
-
-                  <h3>
-                    Medicines
-                  </h3>
-
-                  {medicines.length > 0 ? (
-                    <div className="medicine-list">
-
-                      {medicines.map((medicine, medicineIndex) => (
-                        <div
-                          className="medicine-item"
-                          key={
-                            medicine.medicineId ||
-                            medicine.id ||
-                            medicineIndex
-                          }
-                        >
-
-                          <div className="medicine-number">
-                            {medicineIndex + 1}
-                          </div>
-
-                          <div className="medicine-info">
-
-                            <h4>
-                              {getMedicineName(medicine)}
-                            </h4>
-
-                            <div className="medicine-details">
-
-                              <div>
-                                <small>Dosage</small>
-                                <strong>
-                                  {getDosage(medicine)}
-                                </strong>
-                              </div>
-
-                              <div>
-                                <small>Frequency</small>
-                                <strong>
-                                  {getFrequency(medicine)}
-                                </strong>
-                              </div>
-
-                              <div>
-                                <small>Duration</small>
-                                <strong>
-                                  {getDuration(medicine)}
-                                </strong>
-                              </div>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-                      ))}
-
-                    </div>
-                  ) : (
-                    <div className="no-medicines">
-                      Medicine details are not available.
-                    </div>
-                  )}
-
-                </div>
-
-                {/* INSTRUCTIONS */}
-                {(prescription.instructions ||
-                  prescription.notes) && (
-                  <div className="prescription-instructions">
-
-                    <h3>
-                      Instructions
-                    </h3>
+                    <h2>
+                      Prescription #
+                      {prescription.prescriptionId}
+                    </h2>
 
                     <p>
-                      {prescription.instructions ||
-                        prescription.notes}
+                      {formatDate(
+                        prescription.prescriptionDate
+                      )}
                     </p>
-
                   </div>
-                )}
+
+                </div>
+
+                <span className="active-badge">
+                  Active
+                </span>
 
               </div>
-            );
-          })}
+
+              {/* ===========================================
+                  DOCTOR
+              =========================================== */}
+
+              <div className="doctor-info">
+
+                <div className="doctor-icon">
+                  👨‍⚕️
+                </div>
+
+                <div>
+                  <span>
+                    Prescribed By
+                  </span>
+
+                  <strong>
+                    Doctor #{prescription.doctorId}
+                  </strong>
+                </div>
+
+              </div>
+
+              {/* ===========================================
+                  MEDICINE DETAILS
+              =========================================== */}
+
+              <div className="medicine-section">
+
+                <h3>
+                  Medicines
+                </h3>
+
+                <div className="medicine-details">
+
+                  <div className="medicine-detail">
+
+                    <span>
+                      Medicine
+                    </span>
+
+                    <strong>
+                      {prescription.medicineName ||
+                        "Not specified"}
+                    </strong>
+
+                  </div>
+
+                  <div className="medicine-detail">
+
+                    <span>
+                      Dosage
+                    </span>
+
+                    <strong>
+                      {prescription.dosage ||
+                        "Not specified"}
+                    </strong>
+
+                  </div>
+
+                  <div className="medicine-detail">
+
+                    <span>
+                      Frequency
+                    </span>
+
+                    <strong>
+                      {prescription.frequency ||
+                        "Not specified"}
+                    </strong>
+
+                  </div>
+
+                  <div className="medicine-detail">
+
+                    <span>
+                      Duration
+                    </span>
+
+                    <strong>
+                      {prescription.duration ||
+                        "Not specified"}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* ===========================================
+                  INSTRUCTIONS
+              =========================================== */}
+
+              <div className="instructions-section">
+
+                <h3>
+                  Instructions
+                </h3>
+
+                <p>
+                  {prescription.instructions ||
+                    "No instructions provided."}
+                </p>
+
+              </div>
+
+            </div>
+
+          ))}
 
         </div>
-      )}
+
+      </div>
 
     </div>
   );

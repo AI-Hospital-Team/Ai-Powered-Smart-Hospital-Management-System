@@ -9,4 +9,6 @@ import com.hospital.management.entity.Bill;
 public interface BillRepository extends JpaRepository<Bill, Integer> {
 
     List<Bill> findByPatientId(Integer patientId);
+
+    List<Bill> findByDoctorId(Integer doctorId);
 }
