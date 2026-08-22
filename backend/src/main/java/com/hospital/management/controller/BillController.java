@@ -28,29 +28,22 @@ public class BillController {
         this.billService = billService;
     }
 
-    // CREATE BILL
     @PostMapping
-    public ResponseEntity<Bill> createBill(
-            @RequestBody Bill bill) {
-
-        Bill savedBill =
-                billService.createBill(bill);
+    public ResponseEntity<Bill> createBill(@RequestBody Bill bill) {
+        Bill savedBill = billService.createBill(bill);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(savedBill);
     }
 
-    // GET ALL BILLS
     @GetMapping
     public ResponseEntity<List<Bill>> getAllBills() {
-
         return ResponseEntity.ok(
                 billService.getAllBills()
         );
     }
 
-    // GET BILLS BY PATIENT
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<List<Bill>> getBillsByPatient(
             @PathVariable Integer patientId) {
@@ -60,7 +53,6 @@ public class BillController {
         );
     }
 
-    // GET BILLS BY DOCTOR
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<List<Bill>> getBillsByDoctor(
             @PathVariable Integer doctorId) {
@@ -70,7 +62,6 @@ public class BillController {
         );
     }
 
-    // GET BILL BY ID
     @GetMapping("/{billId}")
     public ResponseEntity<Bill> getBillById(
             @PathVariable Integer billId) {
@@ -80,7 +71,6 @@ public class BillController {
         );
     }
 
-    // UPDATE BILL STATUS
     @PutMapping("/{billId}/status")
     public ResponseEntity<Bill> updateBillStatus(
             @PathVariable Integer billId,

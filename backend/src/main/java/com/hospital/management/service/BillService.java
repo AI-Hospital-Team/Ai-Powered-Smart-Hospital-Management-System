@@ -16,7 +16,6 @@ public class BillService {
         this.billRepository = billRepository;
     }
 
-    // CREATE BILL
     public Bill createBill(Bill bill) {
 
         if (bill.getStatus() == null ||
@@ -28,25 +27,18 @@ public class BillService {
         return billRepository.save(bill);
     }
 
-    // GET ALL BILLS
     public List<Bill> getAllBills() {
-
         return billRepository.findAll();
     }
 
-    // GET BILLS BY PATIENT
     public List<Bill> getBillsByPatient(Integer patientId) {
-
         return billRepository.findByPatientId(patientId);
     }
 
-    // GET BILLS BY DOCTOR
     public List<Bill> getBillsByDoctor(Integer doctorId) {
-
         return billRepository.findByDoctorId(doctorId);
     }
 
-    // GET BILL BY ID
     public Bill getBillById(Integer billId) {
 
         return billRepository.findById(billId)
@@ -57,7 +49,6 @@ public class BillService {
                 );
     }
 
-    // UPDATE BILL STATUS
     public Bill updateBillStatus(
             Integer billId,
             String status) {

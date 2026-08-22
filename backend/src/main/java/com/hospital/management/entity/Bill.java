@@ -3,6 +3,7 @@ package com.hospital.management.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,19 +16,32 @@ public class Bill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bill_id")
     private Integer billId;
 
+    @Column(name = "patient_id", nullable = false)
     private Integer patientId;
 
+    @Column(name = "doctor_id")
     private Integer doctorId;
 
+    @Column(name = "bill_date", nullable = false)
     private LocalDate billDate;
 
+    @Column(name = "amount")
     private BigDecimal amount;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "status")
     private String status;
+
+    @Column(name = "bill_type")
+    private String billType;
+
+    @Column(name = "patient_name")
+    private String patientName;
 
     public Bill() {
     }
@@ -86,5 +100,21 @@ public class Bill {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getBillType() {
+        return billType;
+    }
+
+    public void setBillType(String billType) {
+        this.billType = billType;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 }

@@ -2546,11 +2546,11 @@ const clearChat = () => {
 
     <span>Created by</span>
 
-    <strong>Radheshyam Wayal</strong>
+    <strong>Prathmesh Panmand</strong>
 
     <span>&</span>
 
-    <strong>Prathmesh Panmand</strong>
+    <strong>Radheshyam Wayal</strong>
 
   </div>
 
