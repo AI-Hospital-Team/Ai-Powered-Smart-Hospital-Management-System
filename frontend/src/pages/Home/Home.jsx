@@ -478,8 +478,7 @@ const clearChat = () => {
 
   const [loginRole, setLoginRole] = useState("Patient");
 
-  const [ayushmanInfo, setAyushmanInfo] = useState("coverage");
-  const [showAyushmanDetails, setShowAyushmanDetails] = useState(false);
+
 
   
 
@@ -504,46 +503,6 @@ const clearChat = () => {
     setLoginMenuOpen(false);
   };
 
-  /* =====================================================
-     AYUSHMAN INTERACTIVE INFO
-  ===================================================== */
-
-  const ayushmanContent = {
-    coverage: {
-      icon: "💰",
-      title: "₹5 Lakh Coverage",
-      text: "Eligible families can receive health coverage of up to ₹5 lakh per family per year for eligible secondary and tertiary hospitalization.",
-      points: [
-        "Up to ₹5 lakh annual coverage",
-        "Family-based health protection",
-        "Applicable to eligible hospitalization expenses",
-      ],
-    },
-
-    eligibility: {
-      icon: "👨‍👩‍👧‍👦",
-      title: "Eligibility",
-      text: "Eligibility is based on government-defined beneficiary criteria and applicable PM-JAY rules.",
-      points: [
-        "Eligibility depends on beneficiary criteria",
-        "Family members may be covered",
-        "Government rules determine eligibility",
-      ],
-    },
-
-    benefits: {
-      icon: "🏥",
-      title: "Key Benefits",
-      text: "PM-JAY provides financial protection for eligible beneficiaries receiving treatment at empanelled hospitals.",
-      points: [
-        "Cashless hospitalization",
-        "Access to eligible hospital treatment",
-        "Reduced financial burden",
-      ],
-    },
-  };
-
-  const activeAyushman = ayushmanContent[ayushmanInfo];
 
   return (
     <div className={`home-page ${darkMode ? "dark-mode" : ""}`}>
@@ -1172,154 +1131,118 @@ const clearChat = () => {
 
       </section>
 
+<section className="insurance-section" id="insurance">
 
-{/* =====================================================
-    AYUSHMAN BHARAT
-===================================================== */}
-
-<section
-  className="insurance-section"
-  id="ayushman"
-  
->
-
-  
   <div className="insurance-layout">
 
-    {/* LEFT CONTENT */}
-
+    {/* ================= LEFT ================= */}
     <div className="insurance-content">
 
-      <div className="insurance-icon">
-        🏥
+      <div className="insurance-title-row">
+
+        <div>
+          <div className="section-label">
+            AYUSHMAN BHARAT • HEALTHCARE SUPPORT
+          </div>
+
+          <h2>
+            Get Free Healthcare
+            <br />
+            Treatment Up To ₹5 Lakh
+          </h2>
+        </div>
+
       </div>
 
-      <div className="insurance-text">
 
-        <p className="section-label">
-          AYUSHMAN BHARAT • HEALTHCARE SUPPORT
-        </p>
-
-        <h2>
-          Get Free Healthcare Treatment
-          <span> Up To ₹5 Lakh</span>
-        </h2>
-
-        <p className="insurance-description">
-          Ayushman Bharat Pradhan Mantri Jan Arogya Yojana
-          (PM-JAY) provides eligible families with health
-          coverage of up to ₹5 lakh per family per year for
-          eligible secondary and tertiary hospitalization.
-        </p>
+      <p className="insurance-description">
+        Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY)
+        provides eligible families with health coverage of up to ₹5 lakh
+        per family per year for eligible secondary and tertiary
+        hospitalization.
+      </p>
 
 
-        {/* FEATURES */}
+      <div className="insurance-features">
 
-        <div className="insurance-features">
+        <div>
+          <span>✓</span>
+          Up to ₹5 Lakh Coverage
+        </div>
 
-          <div>
-            <span>✓</span>
-            <strong>Up to ₹5 Lakh Coverage</strong>
-          </div>
+        <div>
+          <span>✓</span>
+          Cashless Hospitalization
+        </div>
 
-          <div>
-            <span>✓</span>
-            <strong>Cashless Hospitalization</strong>
-          </div>
+        <div>
+          <span>✓</span>
+          Eligible Family Members
+        </div>
 
-          <div>
-            <span>✓</span>
-            <strong>Eligible Family Members</strong>
-          </div>
+        <div>
+          <span>✓</span>
+          Hospital Treatment Support
+        </div>
 
-          <div>
-            <span>✓</span>
-            <strong>Hospital Treatment Support</strong>
-          </div>
+      </div>
+    </div>
+
+
+    {/* ================= RIGHT ================= */}
+    <div className="ayushman-right">
+
+      <div className="ayushman-image-wrap">
+
+        <img
+          src="/ayushman.png"
+          alt="Ayushman Bharat"
+          className="ayushman-main-image"
+        />
+
+      </div>
+
+
+      {/* CARD BELOW IMAGE */}
+      <div className="ayushman-info-card">
+
+        <div className="ayushman-info-content">
+
+          <span className="ayushman-mini-label">
+            GOVERNMENT HEALTHCARE SCHEME
+          </span>
+
+          <h3>
+            Ayushman Bharat
+          </h3>
+
+          <p>
+             Benefits and eligibility depend on applicable government
+        scheme rules and beneficiary eligibility. * The Official Government Portal.
+          </p>
+
+        
 
         </div>
 
-
-        {/* OFFICIAL PORTAL */}
 
         <a
           href="https://beneficiary.nha.gov.in/"
           target="_blank"
           rel="noopener noreferrer"
-          className="insurance-btn"
+          className="insurance-btn card-btn"
         >
-          🪪 Check Ayushman Details →
+          🪪 Check Details →
         </a>
-
-
-        <small className="insurance-note">
-          * Benefits and eligibility depend on applicable
-          government scheme rules and beneficiary eligibility.
-        </small>
 
       </div>
 
     </div>
-{/* RIGHT AYUSHMAN CARD */}
-<div className="ayushman-visual-card">
 
-  <div className="ayushman-card-header">
-    <div className="ayushman-card-icon">
-      🏥
-    </div>
-
-    <div>
-      <span>GOVERNMENT HEALTHCARE SCHEME</span>
-      <h3>Ayushman Bharat</h3>
-    </div>
-  </div>
-
-  <p className="ayushman-card-description">
-    Health protection for eligible families under
-    Pradhan Mantri Jan Arogya Yojana (PM-JAY).
-  </p>
-
-  <div className="ayushman-card-coverage">
-    <span>Annual Coverage</span>
-    <strong>₹5 Lakh</strong>
-    <small>Per eligible family per year</small>
-  </div>
-
-  <div className="ayushman-card-points">
-    <div>
-      <span>✓</span>
-      Cashless hospitalization
-    </div>
-
-    <div>
-      <span>✓</span>
-      Eligible family members
-    </div>
-
-    <div>
-      <span>✓</span>
-      Treatment at empanelled hospitals
-    </div>
-  </div>
-
-  <a
-    href="https://beneficiary.nha.gov.in/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="ayushman-card-button"
-  >
-    Check Eligibility
-    <span>→</span>
-  </a>
-
-  <small className="ayushman-card-note">
-    Official beneficiary portal
-  </small>
-
-</div>
   </div>
 
 </section>
+
       {/* =====================================================
           DEPARTMENTS
       ===================================================== */}

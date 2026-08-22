@@ -1,19 +1,37 @@
 import { useEffect, useState } from "react";
 
+const API_URL = "http://localhost:8080/api";
+
 function PatientDashboard() {
   const [user, setUser] = useState(null);
+
+  // ==========================================
+  // APPOINTMENTS
+  // ==========================================
 
   const [appointments, setAppointments] = useState([]);
   const [appointmentsLoading, setAppointmentsLoading] = useState(true);
   const [appointmentsError, setAppointmentsError] = useState("");
 
+  // ==========================================
+  // MEDICAL RECORDS
+  // ==========================================
+
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [recordsLoading, setRecordsLoading] = useState(true);
   const [recordsError, setRecordsError] = useState("");
 
+  // ==========================================
+  // PRESCRIPTIONS
+  // ==========================================
+
   const [prescriptions, setPrescriptions] = useState([]);
   const [prescriptionsLoading, setPrescriptionsLoading] = useState(true);
   const [prescriptionsError, setPrescriptionsError] = useState("");
+
+  // ==========================================
+  // LOAD LOGGED-IN USER
+  // ==========================================
 
   useEffect(() => {
     try {
@@ -22,25 +40,20 @@ function PatientDashboard() {
       if (!storedUser) {
         console.error("No user found in localStorage");
 
-        setAppointmentsError("Patient login information was not found.");
-        setRecordsError("Patient login information was not found.");
-        setPrescriptionsError("Patient login information was not found.");
-
         setAppointmentsLoading(false);
         setRecordsLoading(false);
         setPrescriptionsLoading(false);
+
         return;
       }
 
       const parsedUser = JSON.parse(storedUser);
+
       console.log("Logged-in user:", parsedUser);
+
       setUser(parsedUser);
     } catch (error) {
       console.error("Error reading user:", error);
-
-      setAppointmentsError("Invalid patient login information.");
-      setRecordsError("Invalid patient login information.");
-      setPrescriptionsError("Invalid patient login information.");
 
       setAppointmentsLoading(false);
       setRecordsLoading(false);
@@ -48,21 +61,12 @@ function PatientDashboard() {
     }
   }, []);
 
+  // ==========================================
+  // FETCH PATIENT DATA
+  // ==========================================
+
   useEffect(() => {
-    if (!user) {
-      return;
-    }
-
-    if (!user.patientId) {
-      console.error("No patientId found for logged-in user:", user);
-
-      setAppointmentsError("Your account is not linked to a patient record.");
-      setRecordsError("Your account is not linked to a patient record.");
-      setPrescriptionsError("Your account is not linked to a patient record.");
-
-      setAppointmentsLoading(false);
-      setRecordsLoading(false);
-      setPrescriptionsLoading(false);
+    if (!user?.patientId) {
       return;
     }
 
@@ -70,22 +74,36 @@ function PatientDashboard() {
 
     console.log("Fetching data for Patient ID:", patientId);
 
+    // ========================================
+    // FETCH APPOINTMENTS
+    // ========================================
+
     setAppointmentsLoading(true);
     setAppointmentsError("");
 
-    fetch(`http://localhost:8080/api/appointments/patient/${patientId}`)
+    fetch(
+      `http://localhost:8080/api/appointments/patient/${patientId}`
+    )
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Appointments API failed: ${response.status}`);
+          throw new Error(
+            `Appointments API failed: ${response.status}`
+          );
         }
         return response.json();
       })
       .then((data) => {
         console.log("Patient appointments:", data);
-        setAppointments(Array.isArray(data) ? data : []);
+
+        if (Array.isArray(data)) {
+          setAppointments(data);
+        } else {
+          setAppointments([]);
+        }
       })
       .catch((error) => {
         console.error("Appointments error:", error);
+
         setAppointmentsError("Failed to load appointments.");
         setAppointments([]);
       })
@@ -93,22 +111,37 @@ function PatientDashboard() {
         setAppointmentsLoading(false);
       });
 
+    // ========================================
+    // FETCH MEDICAL RECORDS
+    // ========================================
+
     setRecordsLoading(true);
     setRecordsError("");
 
-    fetch(`http://localhost:8080/api/medical-records/patient/${patientId}`)
+    fetch(
+      `http://localhost:8080/api/medical-records/patient/${patientId}`
+    )
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Medical records API failed: ${response.status}`);
+          throw new Error(
+            `Medical records API failed: ${response.status}`
+          );
         }
+
         return response.json();
       })
       .then((data) => {
         console.log("Patient medical records:", data);
-        setMedicalRecords(Array.isArray(data) ? data : []);
+
+        if (Array.isArray(data)) {
+          setMedicalRecords(data);
+        } else {
+          setMedicalRecords([]);
+        }
       })
       .catch((error) => {
         console.error("Medical records error:", error);
+
         setRecordsError("Failed to load medical records.");
         setMedicalRecords([]);
       })
@@ -116,46 +149,90 @@ function PatientDashboard() {
         setRecordsLoading(false);
       });
 
+    // ========================================
+    // FETCH PRESCRIPTIONS
+    // ========================================
+
     setPrescriptionsLoading(true);
     setPrescriptionsError("");
 
-    fetch(`http://localhost:8080/api/prescriptions/patient/${patientId}`)
+    fetch(
+      `http://localhost:8080/api/prescriptions/patient/${patientId}`
+    )
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Prescriptions API failed: ${response.status}`);
+          throw new Error(
+            `Prescriptions API failed: ${response.status}`
+          );
         }
+
         return response.json();
       })
       .then((data) => {
         console.log("Patient prescriptions:", data);
-        setPrescriptions(Array.isArray(data) ? data : []);
+
+        if (Array.isArray(data)) {
+          setPrescriptions(data);
+        } else {
+          setPrescriptions([]);
+        }
       })
       .catch((error) => {
         console.error("Prescriptions error:", error);
+
         setPrescriptionsError("Failed to load prescriptions.");
         setPrescriptions([]);
       })
       .finally(() => {
-        setPrescriptionsLoading(false);
+        setLoading(false);
       });
   }, [user]);
 
+  // ==========================================
+  // RETURN
+  // ==========================================
+
   return (
     <div className="patient-dashboard">
+
+      {/* ======================================
+          PAGE HEADER
+      ====================================== */}
+
       <div className="page-header">
         <div>
           <h1>Patient Dashboard</h1>
-          <p>Welcome, {user?.name || "Patient"}</p>
-          {user?.patientId && <small>Patient ID: {user.patientId}</small>}
+
+          <p>
+            Welcome, {user?.name || "Patient"}
+          </p>
+
+          {user?.patientId && (
+            <small>
+              Patient ID: {user.patientId}
+            </small>
+          )}
         </div>
       </div>
 
+      {/* ======================================
+          DASHBOARD CARDS
+      ====================================== */}
+
       <div className="dashboard-cards">
+
+        {/* APPOINTMENTS */}
+
         <div className="dashboard-card">
           <div className="card-icon">📅</div>
           <div>
             <h3>Appointments</h3>
-            <p>{appointmentsLoading ? "..." : appointments.length}</p>
+
+            <p>
+              {appointmentsLoading
+                ? "..."
+                : appointments.length}
+            </p>
           </div>
         </div>
 
@@ -163,7 +240,12 @@ function PatientDashboard() {
           <div className="card-icon">📋</div>
           <div>
             <h3>Medical Records</h3>
-            <p>{recordsLoading ? "..." : medicalRecords.length}</p>
+
+            <p>
+              {recordsLoading
+                ? "..."
+                : medicalRecords.length}
+            </p>
           </div>
         </div>
 
@@ -171,21 +253,39 @@ function PatientDashboard() {
           <div className="card-icon">💊</div>
           <div>
             <h3>Prescriptions</h3>
-            <p>{prescriptionsLoading ? "..." : prescriptions.length}</p>
+
+            <p>
+              {prescriptionsLoading
+                ? "..."
+                : prescriptions.length}
+            </p>
           </div>
         </div>
       </div>
 
+      {/* ======================================
+          MY APPOINTMENTS
+      ====================================== */}
+
       <div className="dashboard-section">
         <h2>My Appointments</h2>
+
         <div className="table-container">
+
           {appointmentsLoading ? (
+
             <p>Loading appointments...</p>
+
           ) : appointmentsError ? (
+
             <p>{appointmentsError}</p>
+
           ) : appointments.length === 0 ? (
+
             <p>No appointments found.</p>
+
           ) : (
+
             <table>
               <thead>
                 <tr>
@@ -197,31 +297,69 @@ function PatientDashboard() {
                 </tr>
               </thead>
               <tbody>
+
                 {appointments.map((appointment) => (
-                  <tr key={appointment.appointmentId}>
-                    <td>{appointment.appointmentDate}</td>
-                    <td>Doctor #{appointment.doctorId}</td>
-                    <td>{appointment.appointmentTime}</td>
-                    <td>{appointment.reason || "-"}</td>
-                    <td>{appointment.status || "-"}</td>
+
+                  <tr
+                    key={appointment.appointmentId}
+                  >
+
+                    <td>
+                      {appointment.appointmentDate}
+                    </td>
+
+                    <td>
+                      Doctor #{appointment.doctorId}
+                    </td>
+
+                    <td>
+                      {appointment.appointmentTime}
+                    </td>
+
+                    <td>
+                      {appointment.reason || "-"}
+                    </td>
+
+                    <td>
+                      {appointment.status || "-"}
+                    </td>
+
                   </tr>
+
                 ))}
+
               </tbody>
             </table>
+
           )}
+
         </div>
+
       </div>
+
+      {/* ======================================
+          MY MEDICAL RECORDS
+      ====================================== */}
 
       <div className="dashboard-section">
         <h2>My Medical Records</h2>
+
         <div className="table-container">
+
           {recordsLoading ? (
+
             <p>Loading medical records...</p>
+
           ) : recordsError ? (
+
             <p>{recordsError}</p>
+
           ) : medicalRecords.length === 0 ? (
+
             <p>No medical records found.</p>
+
           ) : (
+
             <table>
               <thead>
                 <tr>
@@ -234,32 +372,73 @@ function PatientDashboard() {
                 </tr>
               </thead>
               <tbody>
+
                 {medicalRecords.map((record) => (
-                  <tr key={record.recordId}>
-                    <td>{record.recordDate}</td>
-                    <td>Doctor #{record.doctorId}</td>
-                    <td>{record.diagnosis || "-"}</td>
-                    <td>{record.symptoms || "-"}</td>
-                    <td>{record.treatment || "-"}</td>
-                    <td>{record.notes || "-"}</td>
+
+                  <tr
+                    key={record.recordId}
+                  >
+
+                    <td>
+                      {record.recordDate}
+                    </td>
+
+                    <td>
+                      Doctor #{record.doctorId}
+                    </td>
+
+                    <td>
+                      {record.diagnosis || "-"}
+                    </td>
+
+                    <td>
+                      {record.symptoms || "-"}
+                    </td>
+
+                    <td>
+                      {record.treatment || "-"}
+                    </td>
+
+                    <td>
+                      {record.notes || "-"}
+                    </td>
+
                   </tr>
+
                 ))}
+
               </tbody>
             </table>
+
           )}
+
         </div>
+
       </div>
+
+      {/* ======================================
+          MY PRESCRIPTIONS
+      ====================================== */}
 
       <div className="dashboard-section">
         <h2>My Prescriptions</h2>
+
         <div className="table-container">
+
           {prescriptionsLoading ? (
+
             <p>Loading prescriptions...</p>
+
           ) : prescriptionsError ? (
+
             <p>{prescriptionsError}</p>
+
           ) : prescriptions.length === 0 ? (
+
             <p>No prescriptions found.</p>
+
           ) : (
+
             <table>
               <thead>
                 <tr>
@@ -273,21 +452,52 @@ function PatientDashboard() {
                 </tr>
               </thead>
               <tbody>
+
                 {prescriptions.map((prescription) => (
-                  <tr key={prescription.prescriptionId}>
-                    <td>{prescription.prescriptionDate}</td>
-                    <td>Doctor #{prescription.doctorId}</td>
-                    <td>{prescription.medicineName || "-"}</td>
-                    <td>{prescription.dosage || "-"}</td>
-                    <td>{prescription.frequency || "-"}</td>
-                    <td>{prescription.duration || "-"}</td>
-                    <td>{prescription.instructions || "-"}</td>
+
+                  <tr
+                    key={prescription.prescriptionId}
+                  >
+
+                    <td>
+                      {prescription.prescriptionDate}
+                    </td>
+
+                    <td>
+                      Doctor #{prescription.doctorId}
+                    </td>
+
+                    <td>
+                      {prescription.medicineName || "-"}
+                    </td>
+
+                    <td>
+                      {prescription.dosage || "-"}
+                    </td>
+
+                    <td>
+                      {prescription.frequency || "-"}
+                    </td>
+
+                    <td>
+                      {prescription.duration || "-"}
+                    </td>
+
+                    <td>
+                      {prescription.instructions || "-"}
+                    </td>
+
                   </tr>
+
                 ))}
+
               </tbody>
             </table>
+
           )}
+
         </div>
+
       </div>
     </div>
   );
