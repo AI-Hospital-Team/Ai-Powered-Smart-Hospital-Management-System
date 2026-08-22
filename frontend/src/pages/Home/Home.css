@@ -32,6 +32,7 @@ body {
   position: sticky;
   top: 0;
   left: 0;
+  overflow: hidden;
 
   width: 100%;
   height: 78px;
@@ -862,12 +863,6 @@ body {
 /* =====================================================
    AI MEDICAL HEADER TEXTURE
 ===================================================== */
-
-.main-header {
-  position: sticky;
-  top: 0;
-  overflow: hidden;
-}
 
 /* Soft medical-tech background */
 .main-header::before {
@@ -1906,6 +1901,7 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 35px;
+  width: 100%;
 }
 
 .insurance-icon {
@@ -1931,6 +1927,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 15px 35px;
   margin-bottom: 28px;
+  margin-top: 28px;
 }
 
 .insurance-features div {
@@ -2016,10 +2013,6 @@ body {
    LEFT CONTENT
 ===================================================== */
 
-.insurance-content {
-  width: 100%;
-}
-
 .insurance-text {
   max-width: 650px;
 }
@@ -2034,10 +2027,6 @@ body {
   font-size: 15px;
   line-height: 1.8;
   max-width: 620px;
-}
-
-.insurance-features {
-  margin-top: 28px;
 }
 
 .ayushman-visual-card {
