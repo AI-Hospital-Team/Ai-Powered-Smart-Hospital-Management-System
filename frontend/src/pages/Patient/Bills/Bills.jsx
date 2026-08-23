@@ -1,79 +1,259 @@
 import { useEffect, useState } from "react";
-import "./Bills.css";
-
-const API_BASE_URL = "http://localhost:8080/api";
 
 function Bills() {
   const [bills, setBills] = useState([]);
+  const [patientId, setPatientId] = useState(null);
+
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [user, setUser] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  // =========================================================
+  // PAYMENT STATE
+  // =========================================================
+
   const [payingBillId, setPayingBillId] = useState(null);
 
-  // ==========================================
-  // LOAD PATIENT + BILLS
-  // ==========================================
+  const [error, setError] = useState("");
+  const [paymentMessage, setPaymentMessage] = useState("");
 
-  const loadBills = async () => {
+  // =========================================================
+  // GET PATIENT ID
+  // =========================================================
+
+  const getPatientId = () => {
+    // -----------------------------------------
+    // 1. Direct patientId
+    // -----------------------------------------
+
+    const directPatientIdKeys = [
+      "patientId",
+      "patientID",
+      "patient_id",
+    ];
+
+    for (const key of directPatientIdKeys) {
+      const value = localStorage.getItem(key);
+
+      if (
+        value &&
+        value.trim() !== "" &&
+        !isNaN(Number(value)) &&
+        Number(value) > 0
+      ) {
+        return Number(value);
+      }
+    }
+
+    // -----------------------------------------
+    // 2. Check stored patient object
+    // -----------------------------------------
+
+    const patientObjectKeys = [
+      "patient",
+      "patientData",
+      "patientInfo",
+      "loggedInPatient",
+    ];
+
+    for (const key of patientObjectKeys) {
+      try {
+        const storedValue = localStorage.getItem(key);
+
+        if (!storedValue) {
+          continue;
+        }
+
+        const parsed = JSON.parse(storedValue);
+
+        const possiblePatientId =
+          parsed?.patientId ??
+          parsed?.patientID ??
+          parsed?.patient_id ??
+          parsed?.id;
+
+        if (
+          possiblePatientId !== undefined &&
+          possiblePatientId !== null &&
+          !isNaN(Number(possiblePatientId)) &&
+          Number(possiblePatientId) > 0
+        ) {
+          return Number(possiblePatientId);
+        }
+      } catch (error) {
+        console.warn(
+          `Unable to parse localStorage key: ${key}`,
+          error
+        );
+      }
+    }
+
+    // -----------------------------------------
+    // 3. Check stored user object
+    // -----------------------------------------
+
+    const userObjectKeys = [
+      "user",
+      "userData",
+      "currentUser",
+      "loggedInUser",
+    ];
+
+    for (const key of userObjectKeys) {
+      try {
+        const storedValue = localStorage.getItem(key);
+
+        if (!storedValue) {
+          continue;
+        }
+
+        const parsed = JSON.parse(storedValue);
+
+        const possiblePatientId =
+          parsed?.patientId ??
+          parsed?.patientID ??
+          parsed?.patient_id ??
+          parsed?.patient?.patientId ??
+          parsed?.patient?.id;
+
+        if (
+          possiblePatientId !== undefined &&
+          possiblePatientId !== null &&
+          !isNaN(Number(possiblePatientId)) &&
+          Number(possiblePatientId) > 0
+        ) {
+          return Number(possiblePatientId);
+        }
+      } catch (error) {
+        console.warn(
+          `Unable to parse localStorage key: ${key}`,
+          error
+        );
+      }
+    }
+
+    return null;
+  };
+
+  // =========================================================
+  // FETCH PATIENT BILLS
+  // =========================================================
+
+  const fetchPatientBills = async () => {
     try {
-      setLoading(true);
       setError("");
 
-      const storedUser = localStorage.getItem("user");
+      const currentPatientId = getPatientId();
 
-      if (!storedUser) {
-        setError("Patient information not found.");
+      console.log(
+        "Patient ID used for Bills:",
+        currentPatientId
+      );
+
+      if (!currentPatientId) {
+        setPatientId(null);
+        setBills([]);
+
+        setError(
+          "Patient information not found. Please logout and login again."
+        );
+
         return;
       }
 
-      const parsedUser = JSON.parse(storedUser);
-
-      setUser(parsedUser);
-
-      if (!parsedUser.patientId) {
-        setError("Patient ID is missing.");
-        return;
-      }
+      setPatientId(currentPatientId);
 
       const response = await fetch(
-        `${API_BASE_URL}/bills/patient/${parsedUser.patientId}`
+        `http://localhost:8080/api/bills/patient/${currentPatientId}`
       );
 
       if (!response.ok) {
+        if (response.status === 404) {
+          setBills([]);
+          return;
+        }
+
         throw new Error(
-          `Bills API failed: ${response.status}`
+          `Failed to fetch bills (${response.status})`
         );
       }
 
       const data = await response.json();
 
-      console.log("Patient bills:", data);
+      console.log(
+        "Patient bills response:",
+        data
+      );
 
-      setBills(Array.isArray(data) ? data : []);
+      if (Array.isArray(data)) {
+        setBills(data);
+      } else {
+        setBills([]);
+      }
     } catch (err) {
-      console.error("Error loading bills:", err);
+      console.error(
+        "Patient bills error:",
+        err
+      );
 
-      setError("Failed to load bills.");
       setBills([]);
+
+      setError(
+        "Unable to load bills. Please make sure Spring Boot backend is running."
+      );
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
+  // =========================================================
+  // INITIAL LOAD
+  // =========================================================
+
   useEffect(() => {
-    loadBills();
+    fetchPatientBills();
   }, []);
 
-  // ==========================================
-  // PAY BILL
-  // ==========================================
+  // =========================================================
+  // REFRESH
+  // =========================================================
 
-  const handlePayBill = async (billId) => {
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    setPaymentMessage("");
+    await fetchPatientBills();
+  };
+
+  // =========================================================
+  // PAY BILL
+  // =========================================================
+
+  const handlePayBill = async (billId, amount) => {
+    if (!billId) {
+      setError("Invalid bill ID.");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Pay ${formatAmount(amount)} for Bill #${billId}?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
     try {
+      setError("");
+      setPaymentMessage("");
       setPayingBillId(billId);
 
+      console.log(
+        "Processing payment for Bill ID:",
+        billId
+      );
+
       const response = await fetch(
-        `${API_BASE_URL}/bills/${billId}/status`,
+        `http://localhost:8080/api/bills/${billId}/status`,
         {
           method: "PUT",
           headers: {
@@ -86,609 +266,1391 @@ function Bills() {
       );
 
       if (!response.ok) {
+        let backendMessage = "";
+
+        try {
+          backendMessage = await response.text();
+        } catch {
+          backendMessage = "";
+        }
+
         throw new Error(
-          `Payment API failed: ${response.status}`
+          backendMessage ||
+            `Payment failed (${response.status})`
         );
       }
 
       const updatedBill = await response.json();
 
-      setBills((previousBills) =>
-        previousBills.map((bill) =>
-          bill.billId === billId
-            ? updatedBill
-            : bill
-        )
+      console.log(
+        "Payment successful:",
+        updatedBill
       );
 
-      alert("Bill paid successfully.");
-    } catch (err) {
-      console.error("Error paying bill:", err);
+      // -----------------------------------------
+      // Update UI immediately
+      // -----------------------------------------
 
-      alert("Failed to update bill status.");
+      setBills((previousBills) =>
+        previousBills.map((bill) => {
+          const currentBillId =
+            bill?.billId ?? bill?.id;
+
+          if (
+            Number(currentBillId) ===
+            Number(billId)
+          ) {
+            return {
+              ...bill,
+              status:
+                updatedBill?.status || "Paid",
+            };
+          }
+
+          return bill;
+        })
+      );
+
+      setPaymentMessage(
+        `Payment successful for Bill #${billId}.`
+      );
+
+      // -----------------------------------------
+      // Fetch latest database data
+      // -----------------------------------------
+
+      setTimeout(() => {
+        fetchPatientBills();
+      }, 500);
+    } catch (err) {
+      console.error(
+        "Payment error:",
+        err
+      );
+
+      setError(
+        err?.message ||
+          "Payment failed. Please try again."
+      );
     } finally {
       setPayingBillId(null);
     }
   };
 
-  // ==========================================
-  // LOADING
-  // ==========================================
+  // =========================================================
+  // STATUS CLASS
+  // =========================================================
 
-  if (loading) {
-    return (
-      <div className="bills-page">
-        <div className="bills-container">
+  const getStatusClass = (status) => {
+    const value = String(
+      status || "Pending"
+    ).toLowerCase();
 
-          <div className="bills-loading">
-            <div className="loading-icon">
-              💰
-            </div>
+    if (value === "paid") {
+      return "paid";
+    }
 
-            <h2>Loading Bills...</h2>
+    if (value === "cancelled") {
+      return "cancelled";
+    }
 
-            <p>
-              Please wait while we fetch your bills.
-            </p>
-          </div>
+    return "pending";
+  };
 
-        </div>
-      </div>
+  // =========================================================
+  // STATUS TEXT
+  // =========================================================
+
+  const getStatusText = (status) => {
+    const value = String(
+      status || "Pending"
+    ).toLowerCase();
+
+    if (value === "paid") {
+      return "Paid";
+    }
+
+    if (value === "cancelled") {
+      return "Cancelled";
+    }
+
+    return "Pending";
+  };
+
+  // =========================================================
+  // FORMAT DATE
+  // =========================================================
+
+  const formatDate = (date) => {
+    if (!date) {
+      return "—";
+    }
+
+    try {
+      const parsedDate = new Date(date);
+
+      if (isNaN(parsedDate.getTime())) {
+        return String(date);
+      }
+
+      return parsedDate.toLocaleDateString(
+        "en-IN",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }
+      );
+    } catch {
+      return String(date);
+    }
+  };
+
+  // =========================================================
+  // FORMAT AMOUNT
+  // =========================================================
+
+  const formatAmount = (amount) => {
+    const value = Number(amount);
+
+    if (isNaN(value)) {
+      return "₹0.00";
+    }
+
+    return value.toLocaleString(
+      "en-IN",
+      {
+        style: "currency",
+        currency: "INR",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }
     );
-  }
+  };
 
-  // ==========================================
-  // ERROR
-  // ==========================================
-
-  if (error) {
-    return (
-      <div className="bills-page">
-        <div className="bills-container">
-
-          <div className="bills-error">
-
-            <div className="error-icon">
-              ⚠️
-            </div>
-
-            <h2>Unable to Load Bills</h2>
-
-            <p>{error}</p>
-
-            <button
-              className="dashboard-button"
-              onClick={loadBills}
-            >
-              🔄 Try Again
-            </button>
-
-          </div>
-
-        </div>
-      </div>
-    );
-  }
-
-  // ==========================================
-  // CALCULATIONS
-  // ==========================================
+  // =========================================================
+  // TOTAL AMOUNT
+  // =========================================================
 
   const totalAmount = bills.reduce(
-    (total, bill) =>
-      total + Number(bill.amount || 0),
+    (total, bill) => {
+      return (
+        total +
+        (Number(bill?.amount) || 0)
+      );
+    },
     0
   );
+
+  // =========================================================
+  // PENDING AMOUNT
+  // =========================================================
 
   const pendingAmount = bills
     .filter(
       (bill) =>
-        String(bill.status).toLowerCase() ===
-        "pending"
+        String(
+          bill?.status || ""
+        ).toLowerCase() === "pending"
     )
     .reduce(
-      (total, bill) =>
-        total + Number(bill.amount || 0),
+      (total, bill) => {
+        return (
+          total +
+          (Number(bill?.amount) || 0)
+        );
+      },
       0
     );
+
+  // =========================================================
+  // PAID AMOUNT
+  // =========================================================
 
   const paidAmount = bills
     .filter(
       (bill) =>
-        String(bill.status).toLowerCase() ===
-        "paid"
+        String(
+          bill?.status || ""
+        ).toLowerCase() === "paid"
     )
     .reduce(
-      (total, bill) =>
-        total + Number(bill.amount || 0),
+      (total, bill) => {
+        return (
+          total +
+          (Number(bill?.amount) || 0)
+        );
+      },
       0
     );
 
-  // ==========================================
-  // RETURN
-  // ==========================================
+  // =========================================================
+  // CANCELLED AMOUNT
+  // =========================================================
+
+  const cancelledAmount = bills
+    .filter(
+      (bill) =>
+        String(
+          bill?.status || ""
+        ).toLowerCase() === "cancelled"
+    )
+    .reduce(
+      (total, bill) => {
+        return (
+          total +
+          (Number(bill?.amount) || 0)
+        );
+      },
+      0
+    );
+
+  // =========================================================
+  // RENDER
+  // =========================================================
 
   return (
-    <div className="bills-page">
+    <div
+      style={{
+        width: "100%",
+        padding: "10px 0 30px",
+        color: "#18324b",
+      }}
+    >
 
-      <div className="bills-container">
+      {/* =====================================================
+          PAGE HEADER
+      ===================================================== */}
 
-        {/* =====================================
-            PAGE HEADER
-        ====================================== */}
+      <div
+        style={{
+          background: "#ffffff",
+          borderRadius: "18px",
+          padding: "24px 28px",
+          marginBottom: "22px",
+          boxShadow:
+            "0 8px 30px rgba(15, 23, 42, 0.07)",
+          border:
+            "1px solid #e6edf5",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "20px",
+          flexWrap: "wrap",
+        }}
+      >
 
-        <div className="bills-page-header">
+        <div>
 
-          <div className="bills-title-area">
+          <h1
+            style={{
+              margin: 0,
+              fontSize: "32px",
+              fontWeight: "700",
+              color: "#18324b",
+            }}
+          >
+            💰 My Bills
+          </h1>
 
-            <div className="bills-title-icon">
-              💰
-            </div>
+          <p
+            style={{
+              margin:
+                "7px 0 0",
+              color: "#718096",
+              fontSize: "15px",
+            }}
+          >
+            View your hospital billing
+            records and payment status.
+          </p>
 
-            <div>
-
-              <h1>My Bills</h1>
-
-              <p>
-                View and manage your hospital bills
-                securely.
-              </p>
-
-              {user?.patientId && (
-                <span className="patient-id-badge">
-                  Patient ID: {user.patientId}
-                </span>
-              )}
-
-            </div>
-
-          </div>
-
-          {/* ONLY REFRESH BUTTON
-              DASHBOARD BUTTON REMOVED */}
-
-          <div className="bills-header-actions">
-
-            <button
-              className="refresh-bills-button"
-              onClick={loadBills}
+          {patientId && (
+            <div
+              style={{
+                marginTop: "8px",
+                fontSize: "13px",
+                color: "#64748b",
+              }}
             >
-              🔄 Refresh
-            </button>
-
-          </div>
-
-        </div>
-
-        {/* =====================================
-            SUMMARY CARDS
-        ====================================== */}
-
-        <div className="bill-summary">
-
-          <div className="summary-card total-card">
-
-            <div className="summary-card-icon">
-              📄
-            </div>
-
-            <div className="summary-card-content">
-
-              <span>Total Bills</span>
-
+              Patient ID:{" "}
               <strong>
-                {bills.length}
+                #{patientId}
               </strong>
-
-              <small>
-                Hospital bills
-              </small>
-
-            </div>
-
-          </div>
-
-          <div className="summary-card amount-card">
-
-            <div className="summary-card-icon">
-              💵
-            </div>
-
-            <div className="summary-card-content">
-
-              <span>Total Amount</span>
-
-              <strong>
-                ₹{totalAmount.toFixed(2)}
-              </strong>
-
-              <small>
-                Overall amount
-              </small>
-
-            </div>
-
-          </div>
-
-          <div className="summary-card pending-card">
-
-            <div className="summary-card-icon">
-              🟡
-            </div>
-
-            <div className="summary-card-content">
-
-              <span>Pending</span>
-
-              <strong>
-                ₹{pendingAmount.toFixed(2)}
-              </strong>
-
-              <small>
-                Amount due
-              </small>
-
-            </div>
-
-          </div>
-
-          <div className="summary-card paid-card">
-
-            <div className="summary-card-icon">
-              🟢
-            </div>
-
-            <div className="summary-card-content">
-
-              <span>Paid</span>
-
-              <strong>
-                ₹{paidAmount.toFixed(2)}
-              </strong>
-
-              <small>
-                Successfully paid
-              </small>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* =====================================
-            BILLS SECTION
-        ====================================== */}
-
-        <div className="bills-section">
-
-          <div className="section-heading">
-
-            <div>
-
-              <h2>Hospital Bills</h2>
-
-              <p>
-                Your billing history and payment
-                information.
-              </p>
-
-            </div>
-
-            <span className="bill-count">
-              {bills.length} Bill
-              {bills.length !== 1 ? "s" : ""}
-            </span>
-
-          </div>
-
-          {/* ===================================
-              NO BILLS
-          ==================================== */}
-
-          {bills.length === 0 ? (
-
-            <div className="empty-bills">
-
-              <div className="empty-bills-icon">
-                💰
-              </div>
-
-              <h3>No Bills Found</h3>
-
-              <p>
-                You currently have no hospital
-                bills.
-              </p>
-
-            </div>
-
-          ) : (
-
-            <div className="bills-list">
-
-              {bills.map((bill) => {
-
-                const status =
-                  String(
-                    bill.status || "Pending"
-                  ).toLowerCase();
-
-                const isPaid =
-                  status === "paid";
-
-                const isCancelled =
-                  status === "cancelled";
-
-                const isPaying =
-                  payingBillId === bill.billId;
-
-                return (
-
-                  <div
-                    className={`bill-card ${
-                      isPaid
-                        ? "bill-paid"
-                        : isCancelled
-                        ? "bill-cancelled"
-                        : "bill-pending"
-                    }`}
-                    key={bill.billId}
-                  >
-
-                    {/* CARD HEADER */}
-
-                    <div className="bill-card-top">
-
-                      <div className="bill-number-area">
-
-                        <div className="bill-icon-box">
-                          💰
-                        </div>
-
-                        <div>
-
-                          <span>
-                            Hospital Bill
-                          </span>
-
-                          <h3>
-                            Bill #{bill.billId}
-                          </h3>
-
-                        </div>
-
-                      </div>
-
-                      <div
-                        className={`bill-status ${
-                          isPaid
-                            ? "status-paid"
-                            : isCancelled
-                            ? "status-cancelled"
-                            : "status-pending"
-                        }`}
-                      >
-
-                        <span>
-                          {isPaid
-                            ? "✓"
-                            : isCancelled
-                            ? "×"
-                            : "●"}
-                        </span>
-
-                        {isPaid
-                          ? "Paid"
-                          : isCancelled
-                          ? "Cancelled"
-                          : "Pending"}
-
-                      </div>
-
-                    </div>
-
-                    {/* DATE */}
-
-                    <div className="bill-date-row">
-
-                      <span>
-                        📅 Bill Date
-                      </span>
-
-                      <strong>
-                        {bill.billDate || "-"}
-                      </strong>
-
-                    </div>
-
-                    {/* DETAILS */}
-
-                    <div className="bill-details-grid">
-
-                      <div className="bill-info-box">
-
-                        <span className="info-label">
-                          👨‍⚕️ Doctor
-                        </span>
-
-                        <strong>
-                          Doctor #
-                          {bill.doctorId || "-"}
-                        </strong>
-
-                      </div>
-
-                      <div className="bill-info-box">
-
-                        <span className="info-label">
-                          👤 Patient
-                        </span>
-
-                        <strong>
-                          Patient #
-                          {bill.patientId}
-                        </strong>
-
-                      </div>
-
-                      <div className="bill-info-box">
-
-                        <span className="info-label">
-                          🏥 Bill Type
-                        </span>
-
-                        <strong>
-                          {bill.billType ||
-                            "Hospital Service"}
-                        </strong>
-
-                      </div>
-
-                      <div className="bill-info-box">
-
-                        <span className="info-label">
-                          💵 Amount
-                        </span>
-
-                        <strong>
-                          ₹
-                          {Number(
-                            bill.amount || 0
-                          ).toFixed(2)}
-                        </strong>
-
-                      </div>
-
-                      <div className="bill-info-box description-box">
-
-                        <span className="info-label">
-                          📝 Description
-                        </span>
-
-                        <strong>
-                          {bill.description ||
-                            "Hospital Service"}
-                        </strong>
-
-                      </div>
-
-                      <div className="bill-info-box">
-
-                        <span className="info-label">
-                          👤 Patient Name
-                        </span>
-
-                        <strong>
-                          {bill.patientName ||
-                            "Patient"}
-                        </strong>
-
-                      </div>
-
-                    </div>
-
-                    {/* PAYMENT FOOTER */}
-
-                    <div className="bill-card-footer">
-
-                      {!isPaid &&
-                      !isCancelled ? (
-
-                        <>
-                          <div className="payment-note">
-
-                            <span>
-                              🔒
-                            </span>
-
-                            <p>
-                              Secure payment
-                              available
-                            </p>
-
-                          </div>
-
-                          <button
-                            className="pay-button"
-                            disabled={isPaying}
-                            onClick={() =>
-                              handlePayBill(
-                                bill.billId
-                              )
-                            }
-                          >
-                            {isPaying
-                              ? "⏳ Processing..."
-                              : `💳 Pay ₹${Number(
-                                  bill.amount || 0
-                                ).toFixed(2)}`}
-                          </button>
-                        </>
-
-                      ) : isPaid ? (
-
-                        <div className="paid-footer">
-
-                          <div className="paid-check">
-                            ✓
-                          </div>
-
-                          <div>
-
-                            <strong>
-                              Payment Completed
-                            </strong>
-
-                            <span>
-                              This bill has been
-                              successfully paid.
-                            </span>
-
-                          </div>
-
-                        </div>
-
-                      ) : (
-
-                        <div className="paid-footer">
-
-                          <div className="paid-check">
-                            ×
-                          </div>
-
-                          <div>
-
-                            <strong>
-                              Bill Cancelled
-                            </strong>
-
-                            <span>
-                              This bill is no longer
-                              payable.
-                            </span>
-
-                          </div>
-
-                        </div>
-
-                      )}
-
-                    </div>
-
-                  </div>
-                );
-              })}
-
             </div>
           )}
 
         </div>
 
+        <button
+          type="button"
+          onClick={handleRefresh}
+          disabled={refreshing}
+          style={{
+            border:
+              "1px solid #dbe5f0",
+            borderRadius: "10px",
+            padding: "11px 18px",
+            background:
+              refreshing
+                ? "#f1f5f9"
+                : "#ffffff",
+            color: "#18324b",
+            fontWeight: "600",
+            fontSize: "14px",
+            cursor:
+              refreshing
+                ? "not-allowed"
+                : "pointer",
+          }}
+        >
+          {refreshing
+            ? "⏳ Refreshing..."
+            : "🔄 Refresh"}
+        </button>
+
       </div>
+
+      {/* =====================================================
+          ERROR
+      ===================================================== */}
+
+      {error && (
+        <div
+          style={{
+            background: "#fff7ed",
+            border:
+              "1px solid #fed7aa",
+            color: "#c2410c",
+            borderRadius: "12px",
+            padding: "14px 16px",
+            marginBottom: "22px",
+            fontSize: "14px",
+            fontWeight: "600",
+          }}
+        >
+          ⚠️ {error}
+        </div>
+      )}
+
+      {/* =====================================================
+          PAYMENT SUCCESS
+      ===================================================== */}
+
+      {paymentMessage && (
+        <div
+          style={{
+            background: "#ecfdf5",
+            border:
+              "1px solid #bbf7d0",
+            color: "#15803d",
+            borderRadius: "12px",
+            padding: "14px 16px",
+            marginBottom: "22px",
+            fontSize: "14px",
+            fontWeight: "600",
+          }}
+        >
+          ✅ {paymentMessage}
+        </div>
+      )}
+
+      {/* =====================================================
+          SUMMARY CARDS
+      ===================================================== */}
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(210px, 1fr))",
+          gap: "16px",
+          marginBottom: "22px",
+        }}
+      >
+
+        {/* TOTAL BILLS */}
+
+        <div
+          style={{
+            background: "#ffffff",
+            borderRadius: "15px",
+            padding: "20px",
+            border:
+              "1px solid #e6edf5",
+            boxShadow:
+              "0 6px 20px rgba(15, 23, 42, 0.05)",
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+          }}
+        >
+
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "12px",
+              background: "#eff6ff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "23px",
+            }}
+          >
+            📄
+          </div>
+
+          <div>
+            <div
+              style={{
+                fontSize: "13px",
+                color: "#64748b",
+                marginBottom: "5px",
+              }}
+            >
+              Total Bills
+            </div>
+
+            <strong
+              style={{
+                fontSize: "24px",
+                color: "#18324b",
+              }}
+            >
+              {bills.length}
+            </strong>
+          </div>
+
+        </div>
+
+        {/* TOTAL AMOUNT */}
+
+        <div
+          style={{
+            background: "#ffffff",
+            borderRadius: "15px",
+            padding: "20px",
+            border:
+              "1px solid #e6edf5",
+            boxShadow:
+              "0 6px 20px rgba(15, 23, 42, 0.05)",
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+          }}
+        >
+
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "12px",
+              background: "#ecfdf5",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "23px",
+            }}
+          >
+            💵
+          </div>
+
+          <div>
+            <div
+              style={{
+                fontSize: "13px",
+                color: "#64748b",
+                marginBottom: "5px",
+              }}
+            >
+              Total Amount
+            </div>
+
+            <strong
+              style={{
+                fontSize: "21px",
+                color: "#15803d",
+              }}
+            >
+              {formatAmount(
+                totalAmount
+              )}
+            </strong>
+          </div>
+
+        </div>
+
+        {/* PENDING */}
+
+        <div
+          style={{
+            background: "#ffffff",
+            borderRadius: "15px",
+            padding: "20px",
+            border:
+              "1px solid #e6edf5",
+            boxShadow:
+              "0 6px 20px rgba(15, 23, 42, 0.05)",
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+          }}
+        >
+
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "12px",
+              background: "#fff7ed",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "23px",
+            }}
+          >
+            ⏳
+          </div>
+
+          <div>
+            <div
+              style={{
+                fontSize: "13px",
+                color: "#64748b",
+                marginBottom: "5px",
+              }}
+            >
+              Pending Amount
+            </div>
+
+            <strong
+              style={{
+                fontSize: "21px",
+                color: "#ea580c",
+              }}
+            >
+              {formatAmount(
+                pendingAmount
+              )}
+            </strong>
+          </div>
+
+        </div>
+
+        {/* PAID */}
+
+        <div
+          style={{
+            background: "#ffffff",
+            borderRadius: "15px",
+            padding: "20px",
+            border:
+              "1px solid #e6edf5",
+            boxShadow:
+              "0 6px 20px rgba(15, 23, 42, 0.05)",
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+          }}
+        >
+
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "12px",
+              background: "#f5f3ff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "23px",
+            }}
+          >
+            ✅
+          </div>
+
+          <div>
+            <div
+              style={{
+                fontSize: "13px",
+                color: "#64748b",
+                marginBottom: "5px",
+              }}
+            >
+              Paid Amount
+            </div>
+
+            <strong
+              style={{
+                fontSize: "21px",
+                color: "#7c3aed",
+              }}
+            >
+              {formatAmount(
+                paidAmount
+              )}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* =====================================================
+          BILLING HISTORY
+      ===================================================== */}
+
+      <div
+        style={{
+          background: "#ffffff",
+          borderRadius: "18px",
+          border:
+            "1px solid #e6edf5",
+          boxShadow:
+            "0 8px 30px rgba(15, 23, 42, 0.06)",
+          overflow: "hidden",
+        }}
+      >
+
+        {/* CARD HEADER */}
+
+        <div
+          style={{
+            padding: "22px 25px",
+            borderBottom:
+              "1px solid #e8eef5",
+            display: "flex",
+            justifyContent:
+              "space-between",
+            alignItems: "center",
+            gap: "15px",
+            flexWrap: "wrap",
+          }}
+        >
+
+          <div>
+
+            <h2
+              style={{
+                margin: 0,
+                fontSize: "22px",
+                color: "#18324b",
+              }}
+            >
+              Billing History
+            </h2>
+
+            <p
+              style={{
+                margin:
+                  "6px 0 0",
+                color: "#718096",
+                fontSize: "14px",
+              }}
+            >
+              Bills generated by the
+              hospital administration.
+            </p>
+
+          </div>
+
+          <span
+            style={{
+              background: "#eff6ff",
+              color: "#2563eb",
+              padding: "7px 13px",
+              borderRadius: "20px",
+              fontSize: "13px",
+              fontWeight: "700",
+            }}
+          >
+            {bills.length}{" "}
+            {bills.length === 1
+              ? "Bill"
+              : "Bills"}
+          </span>
+
+        </div>
+
+        {/* ===================================================
+            LOADING
+        =================================================== */}
+
+        {loading ? (
+          <div
+            style={{
+              padding: "60px 20px",
+              textAlign: "center",
+              color: "#64748b",
+            }}
+          >
+
+            <div
+              style={{
+                width: "42px",
+                height: "42px",
+                border:
+                  "4px solid #e2e8f0",
+                borderTop:
+                  "4px solid #2563eb",
+                borderRadius: "50%",
+                margin:
+                  "0 auto 15px",
+                animation:
+                  "patientBillsSpin 1s linear infinite",
+              }}
+            ></div>
+
+            <p
+              style={{
+                margin: 0,
+                fontSize: "14px",
+              }}
+            >
+              Loading your bills...
+            </p>
+
+          </div>
+        ) : bills.length === 0 ? (
+
+          /* =================================================
+             NO BILLS
+          ================================================= */
+
+          <div
+            style={{
+              padding: "60px 20px",
+              textAlign: "center",
+            }}
+          >
+
+            <div
+              style={{
+                width: "70px",
+                height: "70px",
+                margin:
+                  "0 auto 18px",
+                borderRadius: "50%",
+                background: "#f1f5f9",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "32px",
+              }}
+            >
+              🧾
+            </div>
+
+            <h3
+              style={{
+                margin:
+                  "0 0 8px",
+                color: "#18324b",
+                fontSize: "21px",
+              }}
+            >
+              No Bills Found
+            </h3>
+
+            <p
+              style={{
+                margin:
+                  "0 0 18px",
+                color: "#718096",
+                fontSize: "14px",
+              }}
+            >
+              You currently have no
+              billing records.
+            </p>
+
+            <button
+              type="button"
+              onClick={handleRefresh}
+              disabled={refreshing}
+              style={{
+                border: "none",
+                borderRadius: "9px",
+                padding:
+                  "10px 18px",
+                background:
+                  "#2563eb",
+                color: "#ffffff",
+                fontWeight: "600",
+                cursor:
+                  refreshing
+                    ? "not-allowed"
+                    : "pointer",
+                opacity:
+                  refreshing
+                    ? 0.7
+                    : 1,
+              }}
+            >
+              {refreshing
+                ? "⏳ Checking..."
+                : "🔄 Check Again"}
+            </button>
+
+          </div>
+
+        ) : (
+
+          /* =================================================
+             BILLS TABLE
+          ================================================= */
+
+          <div
+            style={{
+              width: "100%",
+              overflowX: "auto",
+            }}
+          >
+
+            <table
+              style={{
+                width: "100%",
+                borderCollapse:
+                  "collapse",
+                minWidth: "1020px",
+              }}
+            >
+
+              <thead>
+
+                <tr
+                  style={{
+                    background:
+                      "#f8fafc",
+                  }}
+                >
+
+                  <th style={tableHeaderStyle}>
+                    Bill ID
+                  </th>
+
+                  <th style={tableHeaderStyle}>
+                    Bill Type
+                  </th>
+
+                  <th style={tableHeaderStyle}>
+                    Doctor ID
+                  </th>
+
+                  <th style={tableHeaderStyle}>
+                    Amount
+                  </th>
+
+                  <th style={tableHeaderStyle}>
+                    Description
+                  </th>
+
+                  <th style={tableHeaderStyle}>
+                    Bill Date
+                  </th>
+
+                  <th style={tableHeaderStyle}>
+                    Status
+                  </th>
+
+                  <th style={tableHeaderStyle}>
+                    Payment
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {bills.map(
+                  (bill, index) => {
+
+                    const billId =
+                      bill?.billId ??
+                      bill?.id ??
+                      index + 1;
+
+                    const statusClass =
+                      getStatusClass(
+                        bill?.status
+                      );
+
+                    const normalizedStatus =
+                      String(
+                        bill?.status ||
+                          "Pending"
+                      ).toLowerCase();
+
+                    const isPending =
+                      normalizedStatus ===
+                      "pending";
+
+                    const isPaid =
+                      normalizedStatus ===
+                      "paid";
+
+                    const isCancelled =
+                      normalizedStatus ===
+                      "cancelled";
+
+                    const isPaying =
+                      Number(
+                        payingBillId
+                      ) ===
+                      Number(billId);
+
+                    return (
+                      <tr
+                        key={billId}
+                        style={{
+                          borderBottom:
+                            "1px solid #edf2f7",
+                        }}
+                      >
+
+                        {/* BILL ID */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+                          <span
+                            style={{
+                              fontWeight:
+                                "700",
+                              color:
+                                "#2563eb",
+                            }}
+                          >
+                            #{billId}
+                          </span>
+                        </td>
+
+                        {/* BILL TYPE */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+
+                          <div
+                            style={{
+                              display:
+                                "flex",
+                              alignItems:
+                                "center",
+                              gap: "8px",
+                              fontWeight:
+                                "600",
+                            }}
+                          >
+                            <span>
+                              🧾
+                            </span>
+
+                            <span>
+                              {bill?.billType ||
+                                "Hospital Service"}
+                            </span>
+                          </div>
+
+                        </td>
+
+                        {/* DOCTOR ID */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+
+                          {bill?.doctorId ? (
+                            <span
+                              style={{
+                                background:
+                                  "#f1f5f9",
+                                color:
+                                  "#475569",
+                                padding:
+                                  "5px 9px",
+                                borderRadius:
+                                  "7px",
+                                fontSize:
+                                  "13px",
+                                fontWeight:
+                                  "600",
+                              }}
+                            >
+                              Dr. #
+                              {
+                                bill.doctorId
+                              }
+                            </span>
+                          ) : (
+                            "—"
+                          )}
+
+                        </td>
+
+                        {/* AMOUNT */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+
+                          <strong
+                            style={{
+                              color:
+                                "#15803d",
+                              fontSize:
+                                "15px",
+                            }}
+                          >
+                            {formatAmount(
+                              bill?.amount
+                            )}
+                          </strong>
+
+                        </td>
+
+                        {/* DESCRIPTION */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+
+                          <span
+                            style={{
+                              color:
+                                "#64748b",
+                            }}
+                          >
+                            {bill?.description ||
+                              "No description"}
+                          </span>
+
+                        </td>
+
+                        {/* DATE */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+                          {formatDate(
+                            bill?.billDate
+                          )}
+                        </td>
+
+                        {/* STATUS */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+
+                          <span
+                            style={{
+                              display:
+                                "inline-flex",
+                              alignItems:
+                                "center",
+                              padding:
+                                "6px 11px",
+                              borderRadius:
+                                "20px",
+                              fontSize:
+                                "12px",
+                              fontWeight:
+                                "700",
+
+                              background:
+                                statusClass ===
+                                "paid"
+                                  ? "#dcfce7"
+                                  : statusClass ===
+                                    "cancelled"
+                                  ? "#fee2e2"
+                                  : "#fef3c7",
+
+                              color:
+                                statusClass ===
+                                "paid"
+                                  ? "#15803d"
+                                  : statusClass ===
+                                    "cancelled"
+                                  ? "#dc2626"
+                                  : "#b45309",
+                            }}
+                          >
+
+                            {statusClass ===
+                            "paid"
+                              ? "✓"
+                              : statusClass ===
+                                "cancelled"
+                              ? "✕"
+                              : "⏳"}
+
+                            &nbsp;
+
+                            {getStatusText(
+                              bill?.status
+                            )}
+
+                          </span>
+
+                        </td>
+
+                        {/* PAYMENT */}
+
+                        <td
+                          style={
+                            tableCellStyle
+                          }
+                        >
+
+                          {isPending && (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handlePayBill(
+                                  billId,
+                                  bill?.amount
+                                )
+                              }
+                              disabled={
+                                payingBillId !==
+                                  null
+                              }
+                              style={{
+                                border:
+                                  "none",
+                                borderRadius:
+                                  "9px",
+                                padding:
+                                  "9px 15px",
+                                background:
+                                  isPaying
+                                    ? "#94a3b8"
+                                    : "#16a34a",
+                                color:
+                                  "#ffffff",
+                                fontWeight:
+                                  "700",
+                                fontSize:
+                                  "13px",
+                                cursor:
+                                  payingBillId !==
+                                  null
+                                    ? "not-allowed"
+                                    : "pointer",
+                                whiteSpace:
+                                  "nowrap",
+                                boxShadow:
+                                  "0 4px 12px rgba(22, 163, 74, 0.20)",
+                              }}
+                            >
+                              {isPaying
+                                ? "⏳ Paying..."
+                                : "💳 Pay Now"}
+                            </button>
+                          )}
+
+                          {isPaid && (
+                            <span
+                              style={{
+                                display:
+                                  "inline-flex",
+                                alignItems:
+                                  "center",
+                                gap: "5px",
+                                padding:
+                                  "8px 13px",
+                                borderRadius:
+                                  "9px",
+                                background:
+                                  "#ecfdf5",
+                                color:
+                                  "#15803d",
+                                fontWeight:
+                                  "700",
+                                fontSize:
+                                  "13px",
+                                whiteSpace:
+                                  "nowrap",
+                              }}
+                            >
+                              ✓ Paid
+                            </span>
+                          )}
+
+                          {isCancelled && (
+                            <span
+                              style={{
+                                display:
+                                  "inline-flex",
+                                alignItems:
+                                  "center",
+                                gap: "5px",
+                                padding:
+                                  "8px 13px",
+                                borderRadius:
+                                  "9px",
+                                background:
+                                  "#fef2f2",
+                                color:
+                                  "#dc2626",
+                                fontWeight:
+                                  "700",
+                                fontSize:
+                                  "13px",
+                                whiteSpace:
+                                  "nowrap",
+                              }}
+                            >
+                              ✕ Not Available
+                            </span>
+                          )}
+
+                        </td>
+
+                      </tr>
+                    );
+                  }
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        )}
+
+      </div>
+
+      {/* =====================================================
+          BILLING INFORMATION
+      ===================================================== */}
+
+      <div
+        style={{
+          marginTop: "20px",
+          background: "#eff6ff",
+          border:
+            "1px solid #bfdbfe",
+          borderRadius: "15px",
+          padding: "18px 20px",
+          display: "flex",
+          gap: "14px",
+          alignItems: "flex-start",
+        }}
+      >
+
+        <div
+          style={{
+            width: "38px",
+            height: "38px",
+            flexShrink: 0,
+            borderRadius: "10px",
+            background: "#dbeafe",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "20px",
+          }}
+        >
+          ℹ️
+        </div>
+
+        <div>
+
+          <strong
+            style={{
+              display:
+                "block",
+              color: "#1e40af",
+              marginBottom:
+                "5px",
+            }}
+          >
+            Billing Information
+          </strong>
+
+          <p
+            style={{
+              margin: 0,
+              color: "#475569",
+              fontSize: "14px",
+              lineHeight: "1.6",
+            }}
+          >
+            Your bills are generated
+            and managed by the hospital
+            administration. Pending bills
+            can be paid using the Pay Now
+            button. If you have any
+            questions about a bill,
+            please contact the hospital
+            administration.
+          </p>
+
+        </div>
+
+      </div>
+
+      {/* =====================================================
+          ANIMATION
+      ===================================================== */}
+
+      <style>
+        {`
+          @keyframes patientBillsSpin {
+            from {
+              transform: rotate(0deg);
+            }
+
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        `}
+      </style>
 
     </div>
   );
 }
+
+// =========================================================
+// TABLE STYLES
+// =========================================================
+
+const tableHeaderStyle = {
+  padding: "14px 16px",
+  textAlign: "left",
+  fontSize: "12px",
+  fontWeight: "700",
+  color: "#64748b",
+  textTransform: "uppercase",
+  letterSpacing: "0.4px",
+  whiteSpace: "nowrap",
+};
+
+const tableCellStyle = {
+  padding: "16px",
+  fontSize: "14px",
+  color: "#334155",
+  verticalAlign: "middle",
+};
 
 export default Bills;

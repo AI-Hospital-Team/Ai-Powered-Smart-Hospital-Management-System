@@ -8,6 +8,7 @@ function AdminTable({
   fetchData,
   statusType,
   onStatusUpdate,
+  onEdit,
 }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,20 +63,24 @@ function AdminTable({
   // ==========================================
 
   const formatValue = (value, column) => {
-    if (value === null || value === undefined || value === "") {
+    if (
+      value === null ||
+      value === undefined ||
+      value === ""
+    ) {
       return "-";
     }
 
-    // Date formatting
     if (
       typeof value === "string" &&
-      (column?.toLowerCase().includes("date") ||
-        column?.toLowerCase().includes("time"))
+      (
+        column?.toLowerCase().includes("date") ||
+        column?.toLowerCase().includes("time")
+      )
     ) {
       return value;
     }
 
-    // Object / array
     if (typeof value === "object") {
       return JSON.stringify(value);
     }
@@ -171,7 +176,10 @@ function AdminTable({
   // UPDATE STATUS
   // ==========================================
 
-  const handleStatusChange = async (item, newStatus) => {
+  const handleStatusChange = async (
+    item,
+    newStatus
+  ) => {
     if (!onStatusUpdate) {
       return;
     }
@@ -186,7 +194,10 @@ function AdminTable({
     try {
       setUpdatingId(id);
 
-      const updated = await onStatusUpdate(id, newStatus);
+      const updated = await onStatusUpdate(
+        id,
+        newStatus
+      );
 
       setData((previousData) =>
         previousData.map((currentItem) => {
@@ -200,7 +211,10 @@ function AdminTable({
         })
       );
     } catch (err) {
-      console.error("Status update error:", err);
+      console.error(
+        "Status update error:",
+        err
+      );
 
       alert("Failed to update status.");
     } finally {
@@ -216,10 +230,21 @@ function AdminTable({
     if (statusType === "appointment") {
       return (
         <>
-          <option value="PENDING">Pending</option>
-          <option value="CONFIRMED">Confirmed</option>
-          <option value="COMPLETED">Completed</option>
-          <option value="CANCELLED">Cancelled</option>
+          <option value="PENDING">
+            Pending
+          </option>
+
+          <option value="CONFIRMED">
+            Confirmed
+          </option>
+
+          <option value="COMPLETED">
+            Completed
+          </option>
+
+          <option value="CANCELLED">
+            Cancelled
+          </option>
         </>
       );
     }
@@ -227,9 +252,17 @@ function AdminTable({
     if (statusType === "bill") {
       return (
         <>
-          <option value="PENDING">Pending</option>
-          <option value="PAID">Paid</option>
-          <option value="CANCELLED">Cancelled</option>
+          <option value="PENDING">
+            Pending
+          </option>
+
+          <option value="PAID">
+            Paid
+          </option>
+
+          <option value="CANCELLED">
+            Cancelled
+          </option>
         </>
       );
     }
@@ -268,7 +301,9 @@ function AdminTable({
           onClick={loadData}
           disabled={loading}
         >
-          {loading ? "⏳ Loading..." : "🔄 Refresh"}
+          {loading
+            ? "⏳ Loading..."
+            : "🔄 Refresh"}
         </button>
 
       </div>
@@ -279,16 +314,21 @@ function AdminTable({
 
       {error && (
         <div className="admin-error">
+
           <span>⚠️</span>
 
           <div>
-            <strong>Something went wrong</strong>
+            <strong>
+              Something went wrong
+            </strong>
+
             <p>{error}</p>
           </div>
 
           <button onClick={loadData}>
             Try Again
           </button>
+
         </div>
       )}
 
@@ -302,9 +342,13 @@ function AdminTable({
 
           <div className="loading-spinner"></div>
 
-          <h3>Loading {title.toLowerCase()}...</h3>
+          <h3>
+            Loading {title.toLowerCase()}...
+          </h3>
 
-          <p>Please wait while we fetch the data.</p>
+          <p>
+            Please wait while we fetch the data.
+          </p>
 
         </div>
 
@@ -320,10 +364,13 @@ function AdminTable({
             📭
           </div>
 
-          <h3>No {title} Found</h3>
+          <h3>
+            No {title} Found
+          </h3>
 
           <p>
-            There is no data available at the moment.
+            There is no data available at the
+            moment.
           </p>
 
           <button
@@ -338,7 +385,7 @@ function AdminTable({
       ) : (
 
         /* ======================================
-           TABLE CARD
+           TABLE
         ====================================== */
 
         <div className="admin-table-card">
@@ -356,7 +403,9 @@ function AdminTable({
               <span>
                 Showing {filteredData.length} of{" "}
                 {data.length} record
-                {data.length !== 1 ? "s" : ""}
+                {data.length !== 1
+                  ? "s"
+                  : ""}
               </span>
 
             </div>
@@ -374,14 +423,18 @@ function AdminTable({
                 placeholder={`Search ${title.toLowerCase()}...`}
                 value={searchTerm}
                 onChange={(event) =>
-                  setSearchTerm(event.target.value)
+                  setSearchTerm(
+                    event.target.value
+                  )
                 }
               />
 
               {searchTerm && (
                 <button
                   className="clear-search"
-                  onClick={() => setSearchTerm("")}
+                  onClick={() =>
+                    setSearchTerm("")
+                  }
                   title="Clear search"
                 >
                   ✕
@@ -400,20 +453,21 @@ function AdminTable({
 
             <div className="admin-no-results">
 
-              <div>
-                🔎
-              </div>
+              <div>🔎</div>
 
               <h3>
                 No matching records
               </h3>
 
               <p>
-                Try searching with a different keyword.
+                Try searching with a different
+                keyword.
               </p>
 
               <button
-                onClick={() => setSearchTerm("")}
+                onClick={() =>
+                  setSearchTerm("")
+                }
               >
                 Clear Search
               </button>
@@ -440,7 +494,7 @@ function AdminTable({
                       </th>
                     ))}
 
-                    {statusType && (
+                    {(statusType || onEdit) && (
                       <th>
                         Action
                       </th>
@@ -452,106 +506,166 @@ function AdminTable({
 
                 <tbody>
 
-                  {filteredData.map((item, index) => {
+                  {filteredData.map(
+                    (item, index) => {
 
-                    const id = getId(item);
+                      const id = getId(item);
 
-                    const status =
-                      getStatusValue(item);
+                      const status =
+                        getStatusValue(item);
 
-                    const isUpdating =
-                      updatingId === id;
+                      const isUpdating =
+                        updatingId === id;
 
-                    return (
+                      return (
 
-                      <tr key={id ?? index}>
+                        <tr
+                          key={
+                            id ?? index
+                          }
+                        >
 
-                        {columns.map((column) => {
+                          {columns.map(
+                            (column) => {
 
-                          const value =
-                            item?.[column];
+                              const value =
+                                item?.[column];
 
-                          const isStatusColumn =
-                            column
-                              .toLowerCase()
-                              .includes("status");
+                              const isStatusColumn =
+                                column
+                                  .toLowerCase()
+                                  .includes(
+                                    "status"
+                                  );
 
-                          return (
+                              return (
 
-                            <td key={column}>
-
-                              {isStatusColumn ? (
-
-                                <span
-                                  className={`status-badge ${getStatusClass(
-                                    value
-                                  )}`}
+                                <td
+                                  key={column}
                                 >
-                                  {String(value ?? "-")}
-                                </span>
 
-                              ) : (
+                                  {isStatusColumn ? (
 
-                                <span
-                                  title={formatValue(
-                                    value,
-                                    column
+                                    <span
+                                      className={`status-badge ${getStatusClass(
+                                        value
+                                      )}`}
+                                    >
+                                      {String(
+                                        value ??
+                                          "-"
+                                      )}
+                                    </span>
+
+                                  ) : (
+
+                                    <span
+                                      title={formatValue(
+                                        value,
+                                        column
+                                      )}
+                                    >
+                                      {formatValue(
+                                        value,
+                                        column
+                                      )}
+                                    </span>
+
                                   )}
+
+                                </td>
+
+                              );
+                            }
+                          )}
+
+                          {/* =================================
+                              ACTION
+                          ================================= */}
+
+                          {(statusType ||
+                            onEdit) && (
+
+                            <td>
+
+                              {/* EDIT BUTTON */}
+
+                              {onEdit && (
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    onEdit(item)
+                                  }
+                                  style={{
+                                    border:
+                                      "none",
+                                    borderRadius:
+                                      "8px",
+                                    padding:
+                                      "8px 12px",
+                                    background:
+                                      "#2563eb",
+                                    color:
+                                      "#ffffff",
+                                    fontWeight:
+                                      "600",
+                                    cursor:
+                                      "pointer",
+                                    marginRight:
+                                      "8px",
+                                  }}
                                 >
-                                  {formatValue(
-                                    value,
-                                    column
-                                  )}
-                                </span>
+                                  ✏️ Edit
+                                </button>
+                              )}
 
+                              {/* STATUS */}
+
+                              {statusType && (
+                                <select
+                                  className="status-select"
+                                  value={
+                                    status ||
+                                    ""
+                                  }
+                                  disabled={
+                                    isUpdating
+                                  }
+                                  onChange={(
+                                    event
+                                  ) =>
+                                    handleStatusChange(
+                                      item,
+                                      event
+                                        .target
+                                        .value
+                                    )
+                                  }
+                                >
+
+                                  <option
+                                    value=""
+                                    disabled
+                                  >
+                                    {isUpdating
+                                      ? "Updating..."
+                                      : "Change Status"}
+                                  </option>
+
+                                  {renderStatusOptions()}
+
+                                </select>
                               )}
 
                             </td>
 
-                          );
+                          )}
 
-                        })}
+                        </tr>
 
-                        {/* STATUS ACTION */}
-
-                        {statusType && (
-
-                          <td>
-
-                            <select
-                              className="status-select"
-                              value={status || ""}
-                              disabled={isUpdating}
-                              onChange={(event) =>
-                                handleStatusChange(
-                                  item,
-                                  event.target.value
-                                )
-                              }
-                            >
-
-                              <option
-                                value=""
-                                disabled
-                              >
-                                {isUpdating
-                                  ? "Updating..."
-                                  : "Change Status"}
-                              </option>
-
-                              {renderStatusOptions()}
-
-                            </select>
-
-                          </td>
-
-                        )}
-
-                      </tr>
-
-                    );
-
-                  })}
+                      );
+                    }
+                  )}
 
                 </tbody>
 
