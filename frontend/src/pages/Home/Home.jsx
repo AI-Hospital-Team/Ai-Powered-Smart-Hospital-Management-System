@@ -4,468 +4,352 @@ import "./Home.css";
 
 function Home() {
   const [activeSection, setActiveSection] = useState("home");
+
   useEffect(() => {
-  const sections = [
-    "home",
-    "services",
-    "departments",
-    "doctors",
-    "about",
-    "contact",
-  ];
+    const sections = [
+      "home",
+      "services",
+      "departments",
+      "doctors",
+      "about",
+      "contact",
+    ];
 
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY + 140;
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 140;
 
-    let currentSection = "home";
+      let currentSection = "home";
 
-    sections.forEach((sectionId) => {
-      const section = document.getElementById(sectionId);
+      sections.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
 
-      if (section && section.offsetTop <= scrollPosition) {
-        currentSection = sectionId;
-      }
-    });
+        if (section && section.offsetTop <= scrollPosition) {
+          currentSection = sectionId;
+        }
+      });
 
-    setActiveSection(currentSection);
-  };
+      setActiveSection(currentSection);
+    };
 
-  window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-  handleScroll();
+    handleScroll();
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
-
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const navigate = useNavigate();
+
   /* =====================================================
-   AI HEALTHCARE CHATBOT
-===================================================== */
-const [darkMode, setDarkMode] = useState(false);
+     AI HEALTHCARE CHATBOT
+  ===================================================== */
 
-const toggleTheme = () => {
-  setDarkMode((prev) => !prev);
-  document.body.classList.toggle("dark-mode");
-};
+  const [darkMode, setDarkMode] = useState(false);
 
-const [showAboutChat, setShowAboutChat] = useState(false);
-
-const [chatMessages, setChatMessages] = useState([
-  {
-    sender: "bot",
-    text:
-      "Hello! I’m the AI Healthcare Assistant for AI Smart Hospital. How can I help you?"
-  }
-]);
-
-const [chatInput, setChatInput] = useState("");
-
-const getChatbotResponse = (question) => {
-
-  const q = question.toLowerCase().trim();
-
-
-  /* ================= GREETING ================= */
-
-  if (
-    q === "hi" ||
-    q === "hii" ||
-    q === "hello" ||
-    q === "hey" ||
-    q.includes("good morning") ||
-    q.includes("good evening")
-  ) {
-
-    return (
-      "Hello! Welcome to AI Smart Hospital. I can tell you about our hospital, services, doctors, departments, appointments, Ayushman Bharat, timings, location and project."
-    );
-
-  }
-
-
-  /* ================= WEBSITE ================= */
-
-  if (
-    q.includes("what is your web") ||
-    q.includes("what is this website") ||
-    q.includes("what is your website") ||
-    q.includes("website") ||
-    q.includes("what is ai smart hospital")
-  ) {
-
-    return (
-      "AI Smart Hospital is an AI-powered hospital management system designed to connect patients, doctors and hospital administration through one digital platform. It supports appointments, medical records, doctor management, healthcare services and AI-assisted healthcare information."
-    );
-
-  }
-
-
-  /* ================= ABOUT ================= */
-
-  if (
-    q.includes("about you") ||
-    q.includes("about hospital") ||
-    q.includes("tell me about") ||
-    q.includes("about your hospital")
-  ) {
-
-    return (
-      "AI Smart Hospital is a modern healthcare management platform focused on making healthcare more organized, accessible and technology-driven. The platform connects patients, doctors and hospital administration in one system."
-    );
-
-  }
-
-
-  /* ================= SERVICES ================= */
-
-  if (
-    q.includes("service") ||
-    q.includes("services") ||
-    q.includes("what can you do")
-  ) {
-
-    return (
-      "Our main services include online appointments, doctor consultation, secure medical records, pharmacy support, diagnostic services and AI healthcare assistance."
-    );
-
-  }
-
-
-  /* ================= APPOINTMENT ================= */
-
-  if (
-    q.includes("appointment") ||
-    q.includes("book doctor") ||
-    q.includes("book an appointment")
-  ) {
-
-    return (
-      "You can book a patient appointment through the Login section. Select Patient Login and continue to your patient dashboard. Our website is designed to make appointment management simple and digital."
-    );
-
-  }
-
-
-  /* ================= DOCTORS ================= */
-
-  if (
-    q.includes("doctor") ||
-    q.includes("doctors") ||
-    q.includes("medical experts")
-  ) {
-
-    return (
-      "Our website currently presents 4 medical experts: Dr. Rajesh Sharma – Cardiologist, Dr. Priya Mehta – Neurologist, Dr. Amit Patil – Orthopedic Surgeon, and Dr. Sneha Kulkarni – Pediatrician."
-    );
-
-  }
-
-
-  /* ================= DEPARTMENTS ================= */
-
-  if (
-    q.includes("department") ||
-    q.includes("departments") ||
-    q.includes("specialist")
-  ) {
-
-    return (
-      "Our departments include Cardiology, Neurology, Orthopedics, Pediatrics, Gynecology, Pulmonology, Dermatology and General Medicine."
-    );
-
-  }
-
-
-  /* ================= AYUSHMAN ================= */
-
-  if (
-    q.includes("ayushman") ||
-    q.includes("pm-jay") ||
-    q.includes("pmjay") ||
-    q.includes("5 lakh") ||
-    q.includes("insurance")
-  ) {
-
-    return (
-      "Ayushman Bharat PM-JAY provides eligible families with health coverage of up to ₹5 lakh per family per year for eligible secondary and tertiary hospitalization. Eligibility and benefits depend on applicable government rules."
-    );
-
-  }
-
-
-  /* ================= HOSPITAL TIMING ================= */
-
-  if (
-    q.includes("timing") ||
-    q.includes("time") ||
-    q.includes("open") ||
-    q.includes("hours") ||
-    q.includes("24/7")
-  ) {
-
-    return (
-      "AI Smart Hospital provides 24-hour hospital support. Emergency services are available 24/7."
-    );
-
-  }
-
-
-  /* ================= LOCATION ================= */
-
-  if (
-    q.includes("location") ||
-    q.includes("where") ||
-    q.includes("address") ||
-    q.includes("pune")
-  ) {
-
-    return (
-      "AI Smart Hospital is located in Pune, Maharashtra, India."
-    );
-
-  }
-
-
-  /* ================= CONTACT ================= */
-
-  if (
-    q.includes("contact") ||
-    q.includes("phone") ||
-    q.includes("email") ||
-    q.includes("support")
-  ) {
-
-    return (
-      "You can contact AI Smart Hospital at +91 99999 99999 or email support@aismarthospital.com. Emergency support is available through 108."
-    );
-
-  }
-
-
-  /* ================= EMERGENCY ================= */
-
-  if (
-    q.includes("emergency") ||
-    q.includes("ambulance") ||
-    q.includes("108")
-  ) {
-
-    return (
-      "For an emergency, please call 108 immediately. Our website also provides information about 24/7 emergency support."
-    );
-
-  }
-
-
-  /* ================= MEDICAL RECORDS ================= */
-
-  if (
-    q.includes("medical record") ||
-    q.includes("medical records") ||
-    q.includes("reports") ||
-    q.includes("prescription")
-  ) {
-
-    return (
-      "The platform is designed to help patients securely manage medical records, prescriptions and reports through the digital healthcare system."
-    );
-
-  }
-
-
-  /* ================= PHARMACY ================= */
-
-  if (
-    q.includes("pharmacy") ||
-    q.includes("medicine") ||
-    q.includes("medicines")
-  ) {
-
-    return (
-      "Our platform includes pharmacy support for managing prescriptions and providing information about required medicines."
-    );
-
-  }
-
-
-  /* ================= DIAGNOSTIC ================= */
-
-  if (
-    q.includes("diagnostic") ||
-    q.includes("laboratory") ||
-    q.includes("lab") ||
-    q.includes("test")
-  ) {
-
-    return (
-      "Our platform provides information about diagnostic services and laboratory testing through the hospital network."
-    );
-
-  }
-
-
-  /* ================= AI ================= */
-
-  if (
-    q.includes("ai") ||
-    q.includes("artificial intelligence") ||
-    q.includes("smart healthcare")
-  ) {
-
-    return (
-      "AI is an important part of our project. The system is designed to support intelligent healthcare tools, healthcare information, risk alerts and better digital healthcare management."
-    );
-
-  }
-
-
-  /* ================= PROJECT ================= */
-
-  if (
-    q.includes("project") ||
-    q.includes("academic") ||
-    q.includes("technology")
-  ) {
-
-    return (
-      "AI-Powered Smart Hospital Management System is an academic project focused on creating a smarter, organized and technology-driven healthcare platform. It connects patients, doctors and hospital administration."
-    );
-
-  }
-
-
-  /* ================= PATIENT ================= */
-
-  if (
-    q.includes("patient") ||
-    q.includes("patients")
-  ) {
-
-    return (
-      "Patients can use the platform to manage appointments, access healthcare services, manage medical information and connect with doctors digitally."
-    );
-
-  }
-
-
-  /* ================= THANK YOU ================= */
-
-  if (
-    q.includes("thank") ||
-    q.includes("thanks")
-  ) {
-
-    return (
-      "You’re welcome! I’m always here to help you learn more about AI Smart Hospital."
-    );
-
-  }
-
-
-  /* ================= BYE ================= */
-
-  if (
-    q === "bye" ||
-    q.includes("goodbye")
-  ) {
-
-    return (
-      "Goodbye! Thank you for visiting AI Smart Hospital. Take care!"
-    );
-
-  }
-
-
-  /* ================= DEFAULT ================= */
-
-  return (
-    "I’m still learning about that. You can ask me about our hospital, services, doctors, departments, appointments, Ayushman Bharat, timings, location, contact information or our project."
-  );
-};
-
-
-/* =====================================================
-   SEND CHAT MESSAGE
-===================================================== */
-
-const sendChatMessage = () => {
-
-  const message = chatInput.trim();
-
-  if (!message) {
-    return;
-  }
-
-
-  const userMessage = {
-    sender: "user",
-    text: message
+  const toggleTheme = () => {
+    setDarkMode((prev) => !prev);
+    document.body.classList.toggle("dark-mode");
   };
 
+  const [showAboutChat, setShowAboutChat] = useState(false);
 
-  const botMessage = {
-    sender: "bot",
-    text: getChatbotResponse(message)
-  };
-
-
-  setChatMessages((previousMessages) => [
-    ...previousMessages,
-    userMessage,
-    botMessage
-  ]);
-
-
-  setChatInput("");
-
-};
-
-
-/* =====================================================
-   QUICK CHAT QUESTION
-===================================================== */
-
-const askChatQuestion = (question) => {
-
-  const userMessage = {
-    sender: "user",
-    text: question
-  };
-
-
-  const botMessage = {
-    sender: "bot",
-    text: getChatbotResponse(question)
-  };
-
-
-  setChatMessages((previousMessages) => [
-    ...previousMessages,
-    userMessage,
-    botMessage
-  ]);
-
-};
-
-
-/* =====================================================
-   CLEAR CHAT
-===================================================== */
-
-const clearChat = () => {
-
-  setChatMessages([
+  const [chatMessages, setChatMessages] = useState([
     {
       sender: "bot",
       text:
-        "Hello! I’m the AI Healthcare Assistant for AI Smart Hospital. How can I help you?"
-    }
+        "Hello! I’m the AI Healthcare Assistant for AI Smart Hospital. How can I help you?",
+    },
   ]);
 
-};
+  const [chatInput, setChatInput] = useState("");
+
+  const getChatbotResponse = (question) => {
+    const q = question.toLowerCase().trim();
+
+    /* ================= GREETING ================= */
+
+    if (
+      q === "hi" ||
+      q === "hii" ||
+      q === "hello" ||
+      q === "hey" ||
+      q.includes("good morning") ||
+      q.includes("good evening")
+    ) {
+      return "Hello! Welcome to AI Smart Hospital. I can tell you about our hospital, services, doctors, departments, appointments, Ayushman Bharat, timings, location and project.";
+    }
+
+    /* ================= WEBSITE ================= */
+
+    if (
+      q.includes("what is your web") ||
+      q.includes("what is this website") ||
+      q.includes("what is your website") ||
+      q.includes("website") ||
+      q.includes("what is ai smart hospital")
+    ) {
+      return "AI Smart Hospital is an AI-powered hospital management system designed to connect patients, doctors and hospital administration through one digital platform. It supports appointments, medical records, doctor management, healthcare services and AI-assisted healthcare information.";
+    }
+
+    /* ================= ABOUT ================= */
+
+    if (
+      q.includes("about you") ||
+      q.includes("about hospital") ||
+      q.includes("tell me about") ||
+      q.includes("about your hospital")
+    ) {
+      return "AI Smart Hospital is a modern healthcare management platform focused on making healthcare more organized, accessible and technology-driven. The platform connects patients, doctors and hospital administration in one system.";
+    }
+
+    /* ================= SERVICES ================= */
+
+    if (
+      q.includes("service") ||
+      q.includes("services") ||
+      q.includes("what can you do")
+    ) {
+      return "Our main services include online appointments, doctor consultation, secure medical records, pharmacy support, diagnostic services and AI healthcare assistance.";
+    }
+
+    /* ================= APPOINTMENT ================= */
+
+    if (
+      q.includes("appointment") ||
+      q.includes("book doctor") ||
+      q.includes("book an appointment")
+    ) {
+      return "You can book a patient appointment through the Login section. Select Patient Login and continue to your patient dashboard. Our website is designed to make appointment management simple and digital.";
+    }
+
+    /* ================= DOCTORS ================= */
+
+    if (
+      q.includes("doctor") ||
+      q.includes("doctors") ||
+      q.includes("medical experts")
+    ) {
+      return "Our website currently presents 4 medical experts: Dr. Rajesh Sharma – Cardiologist, Dr. Priya Mehta – Neurologist, Dr. Amit Patil – Orthopedic Surgeon, and Dr. Sneha Kulkarni – Pediatrician.";
+    }
+
+    /* ================= DEPARTMENTS ================= */
+
+    if (
+      q.includes("department") ||
+      q.includes("departments") ||
+      q.includes("specialist")
+    ) {
+      return "Our departments include Cardiology, Neurology, Orthopedics, Pediatrics, Gynecology, Pulmonology, Dermatology and General Medicine.";
+    }
+
+    /* ================= AYUSHMAN ================= */
+
+    if (
+      q.includes("ayushman") ||
+      q.includes("pm-jay") ||
+      q.includes("pmjay") ||
+      q.includes("5 lakh") ||
+      q.includes("insurance")
+    ) {
+      return "Ayushman Bharat PM-JAY provides eligible families with health coverage of up to ₹5 lakh per family per year for eligible secondary and tertiary hospitalization. Eligibility and benefits depend on applicable government rules.";
+    }
+
+    /* ================= HOSPITAL TIMING ================= */
+
+    if (
+      q.includes("timing") ||
+      q.includes("time") ||
+      q.includes("open") ||
+      q.includes("hours") ||
+      q.includes("24/7")
+    ) {
+      return "AI Smart Hospital provides 24-hour hospital support. Emergency services are available 24/7.";
+    }
+
+    /* ================= LOCATION ================= */
+
+    if (
+      q.includes("location") ||
+      q.includes("where") ||
+      q.includes("address") ||
+      q.includes("pune")
+    ) {
+      return "AI Smart Hospital is located in Pune, Maharashtra, India.";
+    }
+
+    /* ================= CONTACT ================= */
+
+    if (
+      q.includes("contact") ||
+      q.includes("phone") ||
+      q.includes("email") ||
+      q.includes("support")
+    ) {
+      return "You can contact AI Smart Hospital at +91 99999 99999 or email support@aismarthospital.com. Emergency support is available through 108.";
+    }
+
+    /* ================= EMERGENCY ================= */
+
+    if (
+      q.includes("emergency") ||
+      q.includes("ambulance") ||
+      q.includes("108")
+    ) {
+      return "For an emergency, please call 108 immediately. Our website also provides information about 24/7 emergency support.";
+    }
+
+    /* ================= MEDICAL RECORDS ================= */
+
+    if (
+      q.includes("medical record") ||
+      q.includes("medical records") ||
+      q.includes("reports") ||
+      q.includes("prescription")
+    ) {
+      return "The platform is designed to help patients securely manage medical records, prescriptions and reports through the digital healthcare system.";
+    }
+
+    /* ================= PHARMACY ================= */
+
+    if (
+      q.includes("pharmacy") ||
+      q.includes("medicine") ||
+      q.includes("medicines")
+    ) {
+      return "Our platform includes pharmacy support for managing prescriptions and providing information about required medicines.";
+    }
+
+    /* ================= DIAGNOSTIC ================= */
+
+    if (
+      q.includes("diagnostic") ||
+      q.includes("laboratory") ||
+      q.includes("lab") ||
+      q.includes("test")
+    ) {
+      return "Our platform provides information about diagnostic services and laboratory testing through the hospital network.";
+    }
+
+    /* ================= AI ================= */
+
+    if (
+      q.includes("ai") ||
+      q.includes("artificial intelligence") ||
+      q.includes("smart healthcare")
+    ) {
+      return "AI is an important part of our project. The system is designed to support intelligent healthcare tools, healthcare information, risk alerts and better digital healthcare management.";
+    }
+
+    /* ================= PROJECT ================= */
+
+    if (
+      q.includes("project") ||
+      q.includes("academic") ||
+      q.includes("technology")
+    ) {
+      return "AI-Powered Smart Hospital Management System is an academic project focused on creating a smarter, organized and technology-driven healthcare platform. It connects patients, doctors and hospital administration.";
+    }
+
+    /* ================= PATIENT ================= */
+
+    if (
+      q.includes("patient") ||
+      q.includes("patients")
+    ) {
+      return "Patients can use the platform to manage appointments, access healthcare services, manage medical information and connect with doctors digitally.";
+    }
+
+    /* ================= THANK YOU ================= */
+
+    if (
+      q.includes("thank") ||
+      q.includes("thanks")
+    ) {
+      return "You’re welcome! I’m always here to help you learn more about AI Smart Hospital.";
+    }
+
+    /* ================= BYE ================= */
+
+    if (
+      q === "bye" ||
+      q.includes("goodbye")
+    ) {
+      return "Goodbye! Thank you for visiting AI Smart Hospital. Take care!";
+    }
+
+    /* ================= DEFAULT ================= */
+
+    return "I’m still learning about that. You can ask me about our hospital, services, doctors, departments, appointments, Ayushman Bharat, timings, location, contact information or our project.";
+  };
+
+  /* =====================================================
+     SEND CHAT MESSAGE
+  ===================================================== */
+
+  const sendChatMessage = () => {
+    const message = chatInput.trim();
+
+    if (!message) {
+      return;
+    }
+
+    const userMessage = {
+      sender: "user",
+      text: message,
+    };
+
+    const botMessage = {
+      sender: "bot",
+      text: getChatbotResponse(message),
+    };
+
+    setChatMessages((previousMessages) => [
+      ...previousMessages,
+      userMessage,
+      botMessage,
+    ]);
+
+    setChatInput("");
+  };
+
+  /* =====================================================
+     QUICK CHAT QUESTION
+  ===================================================== */
+
+  const askChatQuestion = (question) => {
+    const userMessage = {
+      sender: "user",
+      text: question,
+    };
+
+    const botMessage = {
+      sender: "bot",
+      text: getChatbotResponse(question),
+    };
+
+    setChatMessages((previousMessages) => [
+      ...previousMessages,
+      userMessage,
+      botMessage,
+    ]);
+  };
+
+  /* =====================================================
+     CLEAR CHAT
+  ===================================================== */
+
+  const clearChat = () => {
+    setChatMessages([
+      {
+        sender: "bot",
+        text:
+          "Hello! I’m the AI Healthcare Assistant for AI Smart Hospital. How can I help you?",
+      },
+    ]);
+  };
+
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
@@ -478,9 +362,8 @@ const clearChat = () => {
 
   const [loginRole, setLoginRole] = useState("Patient");
 
-
-
-  
+  const [ayushmanInfo, setAyushmanInfo] = useState("coverage");
+  const [showAyushmanDetails, setShowAyushmanDetails] = useState(false);
 
   /* =====================================================
      LOGIN
@@ -503,189 +386,190 @@ const clearChat = () => {
     setLoginMenuOpen(false);
   };
 
+  /* =====================================================
+     AYUSHMAN INTERACTIVE INFO
+  ===================================================== */
+
+  const ayushmanContent = {
+    coverage: {
+      icon: "💰",
+      title: "₹5 Lakh Coverage",
+      text:
+        "Eligible families can receive health coverage of up to ₹5 lakh per family per year for eligible secondary and tertiary hospitalization.",
+      points: [
+        "Up to ₹5 lakh annual coverage",
+        "Family-based health protection",
+        "Applicable to eligible hospitalization expenses",
+      ],
+    },
+
+    eligibility: {
+      icon: "👨‍👩‍👧‍👦",
+      title: "Eligibility",
+      text:
+        "Eligibility is based on government-defined beneficiary criteria and applicable PM-JAY rules.",
+      points: [
+        "Eligibility depends on beneficiary criteria",
+        "Family members may be covered",
+        "Government rules determine eligibility",
+      ],
+    },
+
+    benefits: {
+      icon: "🏥",
+      title: "Key Benefits",
+      text:
+        "PM-JAY provides financial protection for eligible beneficiaries receiving treatment at empanelled hospitals.",
+      points: [
+        "Cashless hospitalization",
+        "Access to eligible hospital treatment",
+        "Reduced financial burden",
+      ],
+    },
+  };
+
+  const activeAyushman = ayushmanContent[ayushmanInfo];
 
   return (
     <div className={`home-page ${darkMode ? "dark-mode" : ""}`}>
 
-{/* =====================================================
-    MAIN HEADER
-===================================================== */}
+      {/* =====================================================
+          MAIN HEADER
+      ===================================================== */}
 
-<header className="main-header">
+      <header className="main-header">
 
-  <div className="header-container">
+        <div className="header-container">
 
-    {/* =================================================
-        LEFT — BRAND
-    ================================================= */}
+          <a
+            href="#home"
+            className="brand"
+            onClick={() => setActiveSection("home")}
+          >
+            <div className="brand-logo">
+              <img
+                src="/github-logo.jpeg"
+                alt="AI Smart Hospital"
+              />
+            </div>
 
-    <a
-      href="#home"
-      className="brand"
-      onClick={() => setActiveSection("home")}
-    >
+            <div className="brand-text">
+              <h2>AI Smart Hospital</h2>
 
-      <div className="brand-logo">
+              <span>
+                Intelligent Healthcare Management
+              </span>
+            </div>
+          </a>
 
-        <img
-          src="/github-logo.jpeg"
-          alt="AI Smart Hospital"
-        />
+          <nav className="main-nav">
 
-      </div>
+            <a
+              href="#home"
+              className={`nav-link ${
+                activeSection === "home" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("home")}
+            >
+              Home
+            </a>
 
+            <a
+              href="#services"
+              className={`nav-link ${
+                activeSection === "services" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("services")}
+            >
+              Services
+            </a>
 
-      <div className="brand-text">
+            <a
+              href="#departments"
+              className={`nav-link ${
+                activeSection === "departments" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("departments")}
+            >
+              Departments
+            </a>
 
-        <h2>
-          AI Smart Hospital
-        </h2>
+            <a
+              href="#doctors"
+              className={`nav-link ${
+                activeSection === "doctors" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("doctors")}
+            >
+              Doctors
+            </a>
 
-        <span>
-          Intelligent Healthcare Management
-        </span>
+            <a
+              href="#about"
+              className={`nav-link ${
+                activeSection === "about" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("about")}
+            >
+              About
+            </a>
 
-      </div>
+            <a
+              href="#contact"
+              className={`nav-link ${
+                activeSection === "contact" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("contact")}
+            >
+              Contact
+            </a>
 
-    </a>
+          </nav>
 
+          <div className="header-actions">
 
-    {/* =================================================
-        CENTER — NAVIGATION
-    ================================================= */}
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label={
+                darkMode
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+              title={
+                darkMode
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+            >
+              <span className="theme-icon">
+                {darkMode ? "☀️" : "🌙"}
+              </span>
+            </button>
 
-    <nav className="main-nav">
+            <button
+              type="button"
+              className="login-btn"
+              onClick={() => openLogin("Patient")}
+            >
+              Login
+            </button>
 
-      <a
-        href="#home"
-        className={`nav-link ${
-          activeSection === "home" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("home")}
-      >
-        Home
-      </a>
+            <button
+              type="button"
+              className="register-btn"
+              onClick={openRegister}
+            >
+              Register
+            </button>
 
+          </div>
 
-      <a
-        href="#services"
-        className={`nav-link ${
-          activeSection === "services" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("services")}
-      >
-        Services
-      </a>
+        </div>
 
+      </header>
 
-      <a
-        href="#departments"
-        className={`nav-link ${
-          activeSection === "departments" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("departments")}
-      >
-        Departments
-      </a>
-
-
-      <a
-        href="#doctors"
-        className={`nav-link ${
-          activeSection === "doctors" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("doctors")}
-      >
-        Doctors
-      </a>
-
-
-      <a
-        href="#about"
-        className={`nav-link ${
-          activeSection === "about" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("about")}
-      >
-        About
-      </a>
-
-
-      <a
-        href="#contact"
-        className={`nav-link ${
-          activeSection === "contact" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("contact")}
-      >
-        Contact
-      </a>
-
-    </nav>
-
-
-    {/* =================================================
-        RIGHT — ACTIONS
-    ================================================= */}
-
-    <div className="header-actions">
-
-
-      {/* THEME */}
-
-      <button
-        type="button"
-        className="theme-toggle"
-        onClick={toggleTheme}
-        aria-label={
-          darkMode
-            ? "Switch to light mode"
-            : "Switch to dark mode"
-        }
-        title={
-          darkMode
-            ? "Switch to light mode"
-            : "Switch to dark mode"
-        }
-      >
-
-        <span className="theme-icon">
-
-          {darkMode ? "☀️" : "🌙"}
-
-        </span>
-
-      </button>
-
-
-      {/* LOGIN */}
-
-      <button
-        type="button"
-        className="login-btn"
-        onClick={() => openLogin("Patient")}
-      >
-        Login
-      </button>
-
-
-      {/* REGISTER */}
-
-      <button
-        type="button"
-        className="register-btn"
-        onClick={openRegister}
-      >
-        Register
-      </button>
-
-    </div>
-
-  </div>
-
-</header>
-
-     
       {/* =====================================================
           ANNOUNCEMENT
       ===================================================== */}
@@ -700,7 +584,6 @@ const clearChat = () => {
         </span>
 
       </div>
-
 
       {/* =====================================================
           HERO
@@ -761,9 +644,6 @@ const clearChat = () => {
 
         </div>
 
-
-        {/* HERO CARD */}
-
         <div className="hero-card">
 
           <div className="hero-card-top">
@@ -815,7 +695,6 @@ const clearChat = () => {
 
       </section>
 
-
       {/* =====================================================
           STATS
       ===================================================== */}
@@ -848,7 +727,6 @@ const clearChat = () => {
 
       </section>
 
-
       {/* =====================================================
           SERVICES
       ===================================================== */}
@@ -871,7 +749,6 @@ const clearChat = () => {
           </span>
 
         </div>
-
 
         <div className="services-grid">
 
@@ -900,7 +777,6 @@ const clearChat = () => {
 
           </div>
 
-
           <div className="service-card">
 
             <div className="service-icon">
@@ -919,7 +795,6 @@ const clearChat = () => {
             </a>
 
           </div>
-
 
           <div className="service-card">
 
@@ -946,7 +821,6 @@ const clearChat = () => {
 
           </div>
 
-
           <div className="service-card">
 
             <div className="service-icon">
@@ -966,7 +840,6 @@ const clearChat = () => {
 
           </div>
 
-
           <div className="service-card">
 
             <div className="service-icon">
@@ -985,7 +858,6 @@ const clearChat = () => {
             </a>
 
           </div>
-
 
           <div className="service-card ai-card">
 
@@ -1010,7 +882,6 @@ const clearChat = () => {
 
       </section>
 
-
       {/* =====================================================
           HEALTHCARE GALLERY
       ===================================================== */}
@@ -1032,7 +903,6 @@ const clearChat = () => {
           </span>
 
         </div>
-
 
         <div className="healthcare-gallery-grid">
 
@@ -1060,7 +930,6 @@ const clearChat = () => {
 
           </div>
 
-
           <div className="gallery-small">
 
             <img
@@ -1074,7 +943,6 @@ const clearChat = () => {
             </div>
 
           </div>
-
 
           <div className="gallery-small">
 
@@ -1091,7 +959,6 @@ const clearChat = () => {
           </div>
 
         </div>
-
 
         <div className="gallery-features">
 
@@ -1131,117 +998,93 @@ const clearChat = () => {
 
       </section>
 
-<section className="insurance-section" id="insurance">
+      {/* =====================================================
+          AYUSHMAN BHARAT
+      ===================================================== */}
 
-  <div className="insurance-layout">
+      <section
+        className="insurance-section"
+        id="ayushman"
+      >
+        <div className="insurance-layout">
 
-    {/* ================= LEFT ================= */}
-    <div className="insurance-content">
+          <div className="insurance-content">
 
-      <div className="insurance-title-row">
+            <div className="insurance-icon">
+              🏥
+            </div>
 
-        <div>
-          <div className="section-label">
-            AYUSHMAN BHARAT • HEALTHCARE SUPPORT
+            <div className="insurance-text">
+
+              <p className="section-label">
+                AYUSHMAN BHARAT • HEALTHCARE SUPPORT
+              </p>
+
+              <h2>
+                Get Free Healthcare Treatment
+                <span> Up To ₹5 Lakh</span>
+              </h2>
+
+              <p className="insurance-description">
+                Ayushman Bharat Pradhan Mantri Jan Arogya Yojana
+                (PM-JAY) provides eligible families with health
+                coverage of up to ₹5 lakh per family per year for
+                eligible secondary and tertiary hospitalization.
+              </p>
+
+              <div className="insurance-features">
+
+                <div>
+                  <span>✓</span>
+                  <strong>Up to ₹5 Lakh Coverage</strong>
+                </div>
+
+                <div>
+                  <span>✓</span>
+                  <strong>Cashless Hospitalization</strong>
+                </div>
+
+                <div>
+                  <span>✓</span>
+                  <strong>Eligible Family Members</strong>
+                </div>
+
+                <div>
+                  <span>✓</span>
+                  <strong>Hospital Treatment Support</strong>
+                </div>
+
+              </div>
+
+              <a
+                href="https://beneficiary.nha.gov.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="insurance-btn"
+              >
+                🪪 Check Ayushman Details →
+              </a>
+
+              <small className="insurance-note">
+                * Benefits and eligibility depend on applicable
+                government scheme rules and beneficiary eligibility.
+              </small>
+
+            </div>
+
           </div>
 
-          <h2>
-            Get Free Healthcare
-            <br />
-            Treatment Up To ₹5 Lakh
-          </h2>
-        </div>
+          <div className="ayushman-image-card">
 
-      </div>
+            <img
+              src="/ayushman-bg.png"
+              alt="Ayushman Bharat - Get Free Healthcare Treatment Up To ₹5 Lakh"
+            />
 
-
-      <p className="insurance-description">
-        Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY)
-        provides eligible families with health coverage of up to ₹5 lakh
-        per family per year for eligible secondary and tertiary
-        hospitalization.
-      </p>
-
-
-      <div className="insurance-features">
-
-        <div>
-          <span>✓</span>
-          Up to ₹5 Lakh Coverage
-        </div>
-
-        <div>
-          <span>✓</span>
-          Cashless Hospitalization
-        </div>
-
-        <div>
-          <span>✓</span>
-          Eligible Family Members
-        </div>
-
-        <div>
-          <span>✓</span>
-          Hospital Treatment Support
-        </div>
-
-      </div>
-    </div>
-
-
-    {/* ================= RIGHT ================= */}
-    <div className="ayushman-right">
-
-      <div className="ayushman-image-wrap">
-
-        <img
-          src="/ayushman.png"
-          alt="Ayushman Bharat"
-          className="ayushman-main-image"
-        />
-
-      </div>
-
-
-      {/* CARD BELOW IMAGE */}
-      <div className="ayushman-info-card">
-
-        <div className="ayushman-info-content">
-
-          <span className="ayushman-mini-label">
-            GOVERNMENT HEALTHCARE SCHEME
-          </span>
-
-          <h3>
-            Ayushman Bharat
-          </h3>
-
-          <p>
-             Benefits and eligibility depend on applicable government
-        scheme rules and beneficiary eligibility. * The Official Government Portal.
-          </p>
-
-        
+          </div>
 
         </div>
-
-
-        <a
-          href="https://beneficiary.nha.gov.in/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="insurance-btn card-btn"
-        >
-          🪪 Check Details →
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
+      </section>
 
       {/* =====================================================
           DEPARTMENTS
@@ -1262,7 +1105,6 @@ const clearChat = () => {
           </span>
 
         </div>
-
 
         <div className="departments-grid">
 
@@ -1342,7 +1184,6 @@ const clearChat = () => {
 
       </section>
 
-
       {/* =====================================================
           DOCTORS
       ===================================================== */}
@@ -1363,7 +1204,6 @@ const clearChat = () => {
           </span>
 
         </div>
-
 
         <div className="doctors-grid">
 
@@ -1400,7 +1240,6 @@ const clearChat = () => {
 
           </div>
 
-
           <div className="doctor-card">
 
             <div className="doctor-photo">
@@ -1434,7 +1273,6 @@ const clearChat = () => {
 
           </div>
 
-
           <div className="doctor-card">
 
             <div className="doctor-photo">
@@ -1467,7 +1305,6 @@ const clearChat = () => {
             </div>
 
           </div>
-
 
           <div className="doctor-card">
 
@@ -1506,990 +1343,939 @@ const clearChat = () => {
 
       </section>
 
-{/* =====================================================
-    ABOUT AI SMART HOSPITAL
-===================================================== */}
+      {/* =====================================================
+          ABOUT AI SMART HOSPITAL
+      ===================================================== */}
 
-<section className="about-section" id="about">
+      <section className="about-section" id="about">
 
-  <div className="about-container">
+        <div className="about-container">
 
+          <div className="about-heading">
 
-    {/* =================================================
-        SECTION HEADING
-    ================================================= */}
-
-    <div className="about-heading">
-
-      <span className="about-badge">
-        AI POWERED HEALTHCARE
-      </span>
-
-      <h2>
-        About <span>AI Smart Hospital</span>
-      </h2>
-
-      <p>
-        A smarter digital healthcare platform connecting
-        patients, doctors and hospital administration.
-      </p>
-
-    </div>
-
-
-    {/* =================================================
-        MAIN ABOUT CONTENT
-    ================================================= */}
-
-    <div className="about-main">
-
-
-      {/* =================================================
-          LEFT INFORMATION
-      ================================================= */}
-
-      <div className="about-information">
-
-        <p className="about-small-title">
-          OUR VISION
-        </p>
-
-        <h3>
-          Building a smarter
-          <span> future of healthcare.</span>
-        </h3>
-
-        <p className="about-text">
-
-          AI Smart Hospital is a modern hospital management
-          platform designed to connect patients, doctors and
-          hospital administrators through one intelligent
-          digital system.
-
-        </p>
-
-        <p className="about-text">
-
-          Our goal is to simplify healthcare management,
-          improve accessibility and use technology to support
-          better medical decisions.
-
-        </p>
-
-
-        {/* FEATURES */}
-
-        <div className="about-feature-list">
-
-          <div className="about-feature-item">
-
-            <span className="feature-check">
-              ✓
+            <span className="about-badge">
+              AI POWERED HEALTHCARE
             </span>
 
-            <div>
-              <strong>
-                Digital Appointment Management
-              </strong>
+            <h2>
+              About <span>AI Smart Hospital</span>
+            </h2>
 
-              <small>
-                Easy and organized appointment booking
-              </small>
-            </div>
-
-          </div>
-
-
-          <div className="about-feature-item">
-
-            <span className="feature-check">
-              ✓
-            </span>
-
-            <div>
-              <strong>
-                Secure Medical Records
-              </strong>
-
-              <small>
-                Manage important healthcare information
-              </small>
-            </div>
+            <p>
+              A smarter digital healthcare platform connecting
+              patients, doctors and hospital administration.
+            </p>
 
           </div>
 
+          <div className="about-main">
 
-          <div className="about-feature-item">
+            <div className="about-information">
 
-            <span className="feature-check">
-              ✓
-            </span>
+              <p className="about-small-title">
+                OUR VISION
+              </p>
 
-            <div>
-              <strong>
-                Doctor Management
-              </strong>
+              <h3>
+                Building a smarter
+                <span> future of healthcare.</span>
+              </h3>
 
-              <small>
-                Connect patients with medical professionals
-              </small>
-            </div>
+              <p className="about-text">
+                AI Smart Hospital is a modern hospital management
+                platform designed to connect patients, doctors and
+                hospital administrators through one intelligent
+                digital system.
+              </p>
 
-          </div>
+              <p className="about-text">
+                Our goal is to simplify healthcare management,
+                improve accessibility and use technology to support
+                better medical decisions.
+              </p>
 
+              <div className="about-feature-list">
 
-          <div className="about-feature-item">
+                <div className="about-feature-item">
 
-            <span className="feature-check">
-              ✓
-            </span>
+                  <span className="feature-check">
+                    ✓
+                  </span>
 
-            <div>
-              <strong>
-                AI Healthcare Assistance
-              </strong>
+                  <div>
+                    <strong>
+                      Digital Appointment Management
+                    </strong>
 
-              <small>
-                Intelligent healthcare information support
-              </small>
-            </div>
+                    <small>
+                      Easy and organized appointment booking
+                    </small>
+                  </div>
 
-          </div>
+                </div>
 
-        </div>
+                <div className="about-feature-item">
 
-      </div>
+                  <span className="feature-check">
+                    ✓
+                  </span>
 
+                  <div>
+                    <strong>
+                      Secure Medical Records
+                    </strong>
 
-      {/* =================================================
-          RIGHT PLATFORM CARD
-      ================================================= */}
+                    <small>
+                      Manage important healthcare information
+                    </small>
+                  </div>
 
-      <div className="about-platform-card">
+                </div>
 
+                <div className="about-feature-item">
 
-        <div className="platform-top">
+                  <span className="feature-check">
+                    ✓
+                  </span>
 
-          <div className="ai-symbol">
-            AI
-          </div>
+                  <div>
+                    <strong>
+                      Doctor Management
+                    </strong>
 
-          <div>
+                    <small>
+                      Connect patients with medical professionals
+                    </small>
+                  </div>
 
-            <span>
-              INTELLIGENT PLATFORM
-            </span>
+                </div>
 
-            <h3>
-              Smart Healthcare
-            </h3>
+                <div className="about-feature-item">
 
-          </div>
+                  <span className="feature-check">
+                    ✓
+                  </span>
 
-        </div>
+                  <div>
+                    <strong>
+                      AI Healthcare Assistance
+                    </strong>
 
+                    <small>
+                      Intelligent healthcare information support
+                    </small>
+                  </div>
 
-        <p className="platform-description">
+                </div>
 
-          One connected platform for patients, doctors and
-          hospital administration.
-
-        </p>
-
-
-        <div className="platform-divider"></div>
-
-
-        <div className="platform-stat">
-
-          <strong>
-            50+
-          </strong>
-
-          <span>
-            Medical Professionals
-          </span>
-
-        </div>
-
-
-        <div className="platform-stat">
-
-          <strong>
-            15+
-          </strong>
-
-          <span>
-            Medical Departments
-          </span>
-
-        </div>
-
-
-        <div className="platform-stat">
-
-          <strong>
-            10K+
-          </strong>
-
-          <span>
-            Patients
-          </span>
-
-        </div>
-
-
-        <div className="platform-stat">
-
-          <strong>
-            24/7
-          </strong>
-
-          <span>
-            Emergency Support
-          </span>
-
-        </div>
-
-
-        <div className="platform-status">
-
-          <span></span>
-
-          Healthcare Platform Online
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    {/* =================================================
-        AI CHATBOT AREA
-    ================================================= */}
-
-    <div className="about-chat-area">
-
-
-      {/* =================================================
-          CHATBOT INTRO
-      ================================================= */}
-
-      <div className="chat-intro">
-
-        <div className="chat-ai-icon">
-          AI
-        </div>
-
-        <div>
-
-          <span>
-            AI HEALTHCARE ASSISTANT
-          </span>
-
-          <h3>
-            Have a question?
-          </h3>
-
-          <p>
-            Ask our assistant about AI Smart Hospital,
-            services, doctors, departments and more.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      {/* =================================================
-          CHATBOT
-      ================================================= */}
-
-      <div className="ai-chatbot">
-
-
-        {/* CHAT HEADER */}
-
-        <div className="ai-chat-header">
-
-          <div className="ai-chat-profile">
-
-            <div className="chat-ai-logo">
-              AI
-            </div>
-
-            <div>
-
-              <strong>
-                AI Healthcare Assistant
-              </strong>
-
-              <span>
-                Online • Smart Hospital Support
-              </span>
+              </div>
 
             </div>
 
-          </div>
+            <div className="about-platform-card">
 
+              <div className="platform-top">
 
-          <button
-            type="button"
-            className="chat-clear-button"
-            onClick={clearChat}
-            title="Clear chat"
-          >
-            Clear
-          </button>
-
-        </div>
-
-
-        {/* =================================================
-            CHAT BODY
-        ================================================= */}
-
-        <div className="ai-chat-body">
-
-          {chatMessages.map((message, index) => (
-
-            <div
-              key={index}
-              className={
-                message.sender === "user"
-                  ? "chat-message user-message"
-                  : "chat-message bot-message"
-              }
-            >
-
-              {message.sender === "bot" && (
-                <div className="message-ai-icon">
+                <div className="ai-symbol">
                   AI
                 </div>
-              )}
 
-              <div className="message-content">
+                <div>
+                  <span>
+                    INTELLIGENT PLATFORM
+                  </span>
 
-                <span className="message-sender">
+                  <h3>
+                    Smart Healthcare
+                  </h3>
+                </div>
 
-                  {message.sender === "user"
-                    ? "You"
-                    : "AI Assistant"}
+              </div>
 
+              <p className="platform-description">
+                One connected platform for patients, doctors and
+                hospital administration.
+              </p>
+
+              <div className="platform-divider"></div>
+
+              <div className="platform-stat">
+                <strong>50+</strong>
+                <span>Medical Professionals</span>
+              </div>
+
+              <div className="platform-stat">
+                <strong>15+</strong>
+                <span>Medical Departments</span>
+              </div>
+
+              <div className="platform-stat">
+                <strong>10K+</strong>
+                <span>Patients</span>
+              </div>
+
+              <div className="platform-stat">
+                <strong>24/7</strong>
+                <span>Emergency Support</span>
+              </div>
+
+              <div className="platform-status">
+                <span></span>
+                Healthcare Platform Online
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className="about-chat-area">
+
+            <div className="chat-intro">
+
+              <div className="chat-ai-icon">
+                AI
+              </div>
+
+              <div>
+
+                <span>
+                  AI HEALTHCARE ASSISTANT
                 </span>
 
+                <h3>
+                  Have a question?
+                </h3>
+
                 <p>
-                  {message.text}
+                  Ask our assistant about AI Smart Hospital,
+                  services, doctors, departments and more.
                 </p>
 
               </div>
 
             </div>
 
-          ))}
+            <div className="ai-chatbot">
 
-        </div>
+              <div className="ai-chat-header">
 
+                <div className="ai-chat-profile">
 
-        {/* =================================================
-            QUICK QUESTIONS
-        ================================================= */}
+                  <div className="chat-ai-logo">
+                    AI
+                  </div>
 
-        <div className="chat-quick-section">
+                  <div>
 
-          <span>
-            Try asking
-          </span>
+                    <strong>
+                      AI Healthcare Assistant
+                    </strong>
 
-          <div className="chat-quick-buttons">
+                    <span>
+                      Online • Smart Hospital Support
+                    </span>
 
-            <button
-              type="button"
-              onClick={() =>
-                askChatQuestion("What is your website?")
-              }
-            >
-              What is your website?
-            </button>
+                  </div>
 
-            <button
-              type="button"
-              onClick={() =>
-                askChatQuestion("What services do you provide?")
-              }
-            >
-              Our services
-            </button>
+                </div>
 
-            <button
-              type="button"
-              onClick={() =>
-                askChatQuestion("Who are your doctors?")
-              }
-            >
-              Doctors
-            </button>
+                <button
+                  type="button"
+                  className="chat-clear-button"
+                  onClick={clearChat}
+                  title="Clear chat"
+                >
+                  Clear
+                </button>
 
-            <button
-              type="button"
-              onClick={() =>
-                askChatQuestion("Tell me about Ayushman Bharat")
-              }
-            >
-              Ayushman Bharat
-            </button>
+              </div>
+
+              <div className="ai-chat-body">
+
+                {chatMessages.map((message, index) => (
+
+                  <div
+                    key={index}
+                    className={
+                      message.sender === "user"
+                        ? "chat-message user-message"
+                        : "chat-message bot-message"
+                    }
+                  >
+
+                    {message.sender === "bot" && (
+                      <div className="message-ai-icon">
+                        AI
+                      </div>
+                    )}
+
+                    <div className="message-content">
+
+                      <span className="message-sender">
+                        {message.sender === "user"
+                          ? "You"
+                          : "AI Assistant"}
+                      </span>
+
+                      <p>
+                        {message.text}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                ))}
+
+              </div>
+
+              <div className="chat-quick-section">
+
+                <span>
+                  Try asking
+                </span>
+
+                <div className="chat-quick-buttons">
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      askChatQuestion("What is your website?")
+                    }
+                  >
+                    What is your website?
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      askChatQuestion("What services do you provide?")
+                    }
+                  >
+                    Our services
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      askChatQuestion("Who are your doctors?")
+                    }
+                  >
+                    Doctors
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      askChatQuestion("Tell me about Ayushman Bharat")
+                    }
+                  >
+                    Ayushman Bharat
+                  </button>
+
+                </div>
+
+              </div>
+
+              <div className="ai-chat-input-area">
+
+                <input
+                  type="text"
+                  value={chatInput}
+                  placeholder="Type your question..."
+                  onChange={(e) =>
+                    setChatInput(e.target.value)
+                  }
+                  onKeyDown={(e) => {
+
+                    if (e.key === "Enter") {
+                      sendChatMessage();
+                    }
+
+                  }}
+                />
+
+                <button
+                  type="button"
+                  onClick={sendChatMessage}
+                  disabled={!chatInput.trim()}
+                >
+                  Send
+                </button>
+
+              </div>
+
+              <div className="ai-chat-footer">
+                AI Smart Hospital • Healthcare Information Assistant
+              </div>
+
+            </div>
 
           </div>
 
         </div>
 
+      </section>
 
-        {/* =================================================
-            CHAT INPUT
-        ================================================= */}
+      {/* =====================================================
+          HOSPITAL INFO
+      ===================================================== */}
 
-        <div className="ai-chat-input-area">
+      <section className="hospital-info-section">
 
-          <input
-            type="text"
-            value={chatInput}
-            placeholder="Type your question..."
-            onChange={(e) =>
-              setChatInput(e.target.value)
-            }
-            onKeyDown={(e) => {
+        <div className="hospital-info-container">
 
-              if (e.key === "Enter") {
-                sendChatMessage();
-              }
+          <div className="hospital-info-card hours-card">
 
-            }}
-          />
+            <div className="info-card-top">
 
-          <button
-            type="button"
-            onClick={sendChatMessage}
-            disabled={!chatInput.trim()}
-          >
-            Send
-          </button>
+              <div className="info-icon">
+                ◷
+              </div>
+
+              <div>
+                <span className="info-label">
+                  HOSPITAL AVAILABILITY
+                </span>
+
+                <h2>
+                  Hospital Hours
+                </h2>
+              </div>
+
+            </div>
+
+            <p className="info-description">
+              Our hospital is available around the clock to provide
+              reliable healthcare support whenever you need it.
+            </p>
+
+            <div className="hours-list">
+
+              <div className="hours-row">
+                <span>Monday – Friday</span>
+                <strong>24 Hours</strong>
+              </div>
+
+              <div className="hours-row">
+                <span>Saturday</span>
+                <strong>24 Hours</strong>
+              </div>
+
+              <div className="hours-row">
+                <span>Sunday</span>
+                <strong>24 Hours</strong>
+              </div>
+
+              <div className="hours-row emergency-row">
+
+                <span>
+                  <i></i>
+                  Emergency Care
+                </span>
+
+                <strong>24 / 7</strong>
+
+              </div>
+
+            </div>
+
+            <div className="availability-status">
+              <span className="status-dot"></span>
+              Hospital currently available
+            </div>
+
+          </div>
+
+          <div className="hospital-info-card location-card">
+
+            <div className="info-card-top">
+
+              <div className="info-icon location-icon">
+                +
+              </div>
+
+              <div>
+                <span className="info-label">
+                  FIND OUR HOSPITAL
+                </span>
+
+                <h2>
+                  Hospital Location
+                </h2>
+              </div>
+
+            </div>
+
+            <div className="location-content">
+
+              <div className="location-pin">
+                +
+              </div>
+
+              <div>
+
+                <h3>
+                  AI Smart Hospital
+                </h3>
+
+                <p>
+                  Pune, Maharashtra, India
+                </p>
+
+                <span>
+                  Easily accessible healthcare services for
+                  patients, families and visitors.
+                </span>
+
+              </div>
+
+            </div>
+
+            <div className="location-actions">
+
+              <button
+                className="map-button"
+                onClick={() =>
+                  window.open(
+                    "https://www.google.com/maps/search/?api=1&query=Pune,Maharashtra,India",
+                    "_blank"
+                  )
+                }
+              >
+                Open Google Maps →
+              </button>
+
+              <span className="distance-text"></span>
+
+            </div>
+
+          </div>
 
         </div>
 
+      </section>
 
-        {/* FOOTER */}
+      {/* =====================================================
+          CONTACT / SUPPORT CTA
+      ===================================================== */}
 
-        <div className="ai-chat-footer">
+      <section className="support-section" id="contact">
 
-          AI Smart Hospital • Healthcare Information Assistant
+        <div className="support-container">
 
-        </div>
+          <div className="support-heading">
 
-      </div>
+            <span className="support-label">
+              PATIENT SUPPORT
+            </span>
 
-    </div>
+            <h2>
+              We're Here <span>To Help</span>
+            </h2>
 
-  </div>
+            <p>
+              Have questions about appointments, doctors, or healthcare
+              services? Our support team is ready to assist you.
+            </p>
 
-</section>
+          </div>
 
-     {/* =====================================================
-    HOSPITAL INFO
-===================================================== */}
+          <div className="support-options">
 
-<section className="hospital-info-section">
+            <div className="support-card">
 
-  <div className="hospital-info-container">
+              <div className="support-icon phone-icon">
+                ☎
+              </div>
 
-    {/* Hospital Hours */}
-    <div className="hospital-info-card hours-card">
+              <div className="support-card-content">
 
-      <div className="info-card-top">
-        <div className="info-icon">◷</div>
+                <span className="support-small">
+                  TALK TO US
+                </span>
 
-        <div>
-          <span className="info-label">HOSPITAL AVAILABILITY</span>
-          <h2>Hospital Hours</h2>
-        </div>
-      </div>
+                <h3>
+                  Call Hospital
+                </h3>
 
-      <p className="info-description">
-        Our hospital is available around the clock to provide
-        reliable healthcare support whenever you need it.
-      </p>
+                <p>
+                  Speak directly with our hospital support team.
+                </p>
 
-      <div className="hours-list">
+                <a
+                  href="tel:+91999999999"
+                  className="support-button"
+                >
+                  Call Hospital →
+                </a>
 
-        <div className="hours-row">
-          <span>Monday – Friday</span>
-          <strong>24 Hours</strong>
-        </div>
+              </div>
 
-        <div className="hours-row">
-          <span>Saturday</span>
-          <strong>24 Hours</strong>
-        </div>
+            </div>
 
-        <div className="hours-row">
-          <span>Sunday</span>
-          <strong>24 Hours</strong>
-        </div>
+            <div className="support-card">
 
-        <div className="hours-row emergency-row">
-          <span>
-            <i></i>
-            Emergency Care
-          </span>
+              <div className="support-icon email-icon">
+                ✉
+              </div>
 
-          <strong>24 / 7</strong>
-        </div>
+              <div className="support-card-content">
 
-      </div>
+                <span className="support-small">
+                  GET IN TOUCH
+                </span>
 
-      <div className="availability-status">
-        <span className="status-dot"></span>
-        Hospital currently available
-      </div>
+                <h3>
+                  Email Support
+                </h3>
 
-    </div>
+                <p>
+                  Send us your questions and we'll get back to you.
+                </p>
 
+                <a
+                  href="mailto:support@aihospital.com"
+                  className="support-button"
+                >
+                  Email Support →
+                </a>
 
-    {/* Hospital Location */}
-    <div className="hospital-info-card location-card">
+              </div>
 
-      <div className="info-card-top">
+            </div>
 
-        <div className="info-icon location-icon">
-          +
-        </div>
+            <div className="support-card emergency-card">
 
-        <div>
-          <span className="info-label">FIND OUR HOSPITAL</span>
-          <h2>Hospital Location</h2>
-        </div>
+              <div className="emergency-glow"></div>
 
-      </div>
+              <div className="support-icon emergency-icon">
+                !
+              </div>
 
-      <div className="location-content">
+              <div className="support-card-content">
 
-        <div className="location-pin">
-          +
-        </div>
+                <span className="support-small">
+                  EMERGENCY SERVICES
+                </span>
 
-        <div>
-          <h3>AI Smart Hospital</h3>
+                <h3>
+                  Emergency 108
+                </h3>
 
-          <p>
-            Pune, Maharashtra, India
-          </p>
+                <p>
+                  For urgent medical emergencies, get immediate
+                  assistance.
+                </p>
 
-          <span>
-            Easily accessible healthcare services for
-            patients, families and visitors.
-          </span>
-        </div>
+                <a
+                  href="tel:108"
+                  className="emergency-button"
+                >
+                  Call 108 →
+                </a>
 
-      </div>
+              </div>
 
-      <div className="location-actions">
+            </div>
 
-        <button
-          className="map-button"
-          onClick={() =>
-            window.open(
-              "https://www.google.com/maps/search/?api=1&query=Pune,Maharashtra,India",
-              "_blank"
-            )
-          }
-        >
-          Open Google Maps →
-        </button>
+          </div>
 
-        <span className="distance-text">
-          
-        </span>
+          <div className="support-footer">
 
-      </div>
+            <span className="online-dot"></span>
 
-    </div>
+            <span>
+              AI Smart Hospital Support is available 24/7
+            </span>
 
-  </div>
-
-</section>
-
-{/* =====================================================
-    CONTACT / SUPPORT CTA
-===================================================== */}
-
-<section className="support-section" id="contact">
-
-  <div className="support-container">
-
-    <div className="support-heading">
-
-      <span className="support-label">
-        PATIENT SUPPORT
-      </span>
-
-      <h2>
-        We're Here <span>To Help</span>
-      </h2>
-
-      <p>
-        Have questions about appointments, doctors, or healthcare
-        services? Our support team is ready to assist you.
-      </p>
-
-    </div>
-
-
-    <div className="support-options">
-
-      {/* CALL */}
-      <div className="support-card">
-
-        <div className="support-icon phone-icon">
-          ☎
-        </div>
-
-        <div className="support-card-content">
-
-          <span className="support-small">
-            TALK TO US
-          </span>
-
-          <h3>Call Hospital</h3>
-
-          <p>
-            Speak directly with our hospital support team.
-          </p>
-
-          <a
-            href="tel:+91999999999"
-            className="support-button"
-          >
-            Call Hospital →
-          </a>
+          </div>
 
         </div>
 
-      </div>
+      </section>
 
+      {/* =====================================================
+          FOOTER
+      ===================================================== */}
 
-      {/* EMAIL */}
-      <div className="support-card">
+      <footer className="home-footer">
 
-        <div className="support-icon email-icon">
-          ✉
+        <div className="footer-main">
+
+          <div className="footer-brand">
+
+            <div className="footer-logo">
+
+              <div className="logo-symbol">
+                +
+              </div>
+
+              <div>
+                <h3>
+                  AI Smart Hospital
+                </h3>
+
+                <p>
+                  Intelligent Healthcare Management
+                </p>
+              </div>
+
+            </div>
+
+            <p className="footer-description">
+              A modern healthcare management platform connecting
+              patients, doctors and hospital services through one
+              intelligent digital system.
+            </p>
+
+            <div className="footer-status">
+              <span></span>
+              AI Healthcare System Online
+            </div>
+
+            <div className="footer-social">
+
+              <a href="#home" aria-label="Facebook">
+                f
+              </a>
+
+              <a href="#home" aria-label="LinkedIn">
+                in
+              </a>
+
+              <a href="#home" aria-label="X">
+                X
+              </a>
+
+              <a href="#home" aria-label="YouTube">
+                ▶
+              </a>
+
+            </div>
+
+          </div>
+
+          <div className="footer-column">
+
+            <h4>
+              Explore
+            </h4>
+
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#departments">Departments</a>
+            <a href="#doctors">Doctors</a>
+            <a href="#about">About Us</a>
+
+          </div>
+
+          <div className="footer-column">
+
+            <h4>
+              Patient Care
+            </h4>
+
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                openLogin("Patient");
+              }}
+            >
+              Book Appointment
+            </a>
+
+            <a href="#services">
+              Medical Records
+            </a>
+
+            <a href="#ayushman">
+              Ayushman Bharat
+            </a>
+
+            <a href="#contact">
+              Contact Support
+            </a>
+
+          </div>
+
+          <div className="footer-contact">
+
+            <h4>
+              Get In Touch
+            </h4>
+
+            <div className="footer-contact-item">
+
+              <span>⌖</span>
+
+              <p>
+                Pune, Maharashtra,
+                <br />
+                India
+              </p>
+
+            </div>
+
+            <div className="footer-contact-item">
+
+              <span>☎</span>
+
+              <a href="tel:+919999999999">
+                +91 99999 99999
+              </a>
+
+            </div>
+
+            <div className="footer-contact-item">
+
+              <span>✉</span>
+
+              <a href="mailto:support@aismarthospital.com">
+                support@aismarthospital.com
+              </a>
+
+            </div>
+
+            <a
+              href="tel:108"
+              className="footer-emergency"
+            >
+
+              <div className="emergency-icon">
+                !
+              </div>
+
+              <div>
+
+                <strong>
+                  Emergency Support
+                </strong>
+
+                <span>
+                  Call 108 • Available 24/7
+                </span>
+
+              </div>
+
+              <b>
+                →
+              </b>
+
+            </a>
+
+          </div>
+
         </div>
 
-        <div className="support-card-content">
+        {/* =====================================================
+            OUR PROJECT
+        ===================================================== */}
 
-          <span className="support-small">
-            GET IN TOUCH
-          </span>
+        <div className="footer-project">
 
-          <h3>Email Support</h3>
+          <div className="project-left">
 
-          <p>
-            Send us your questions and we'll get back to you.
-          </p>
+            <span className="project-badge">
+              OUR PROJECT
+            </span>
 
-          <a
-            href="mailto:support@aihospital.com"
-            className="support-button"
-          >
-            Email Support →
-          </a>
+            <h3>
+              AI-Powered Smart Hospital
+              <span> Management System</span>
+            </h3>
 
-        </div>
+            <p>
+              A modern academic project focused on smarter,
+              organized and technology-driven healthcare.
+            </p>
 
-      </div>
+          </div>
 
+          <div className="project-actions">
 
-      {/* EMERGENCY */}
-      <div className="support-card emergency-card">
+            <a href="/about">
+              <span>
+                About Us
+              </span>
 
-        <div className="emergency-glow"></div>
+              <b>
+                →
+              </b>
+            </a>
 
-        <div className="support-icon emergency-icon">
-          !
-        </div>
+            <a href="/project">
+              <span>
+                Project Details
+              </span>
 
-        <div className="support-card-content">
+              <b>
+                →
+              </b>
+            </a>
 
-          <span className="support-small">
-            EMERGENCY SERVICES
-          </span>
-
-          <h3>Emergency 108</h3>
-
-          <p>
-            For urgent medical emergencies, get immediate
-            assistance.
-          </p>
-
-          <a
-            href="tel:108"
-            className="emergency-button"
-          >
-            Call 108 →
-          </a>
+          </div>
 
         </div>
 
-      </div>
+        {/* =====================================================
+            FOOTER BOTTOM
+        ===================================================== */}
 
-    </div>
+        <div className="footer-bottom">
 
+          <div className="footer-credit">
 
-    <div className="support-footer">
+            <p>
+              © 2026 <strong>AI Smart Hospital</strong>
+            </p>
 
-      <span className="online-dot"></span>
+            <span>
+              Academic Project • TY BCA • Healthcare Technology
+            </span>
 
-      <span>
-        AI Smart Hospital Support is available 24/7
-      </span>
+          </div>
 
-    </div>
+          <div className="footer-creators">
 
-  </div>
+            <span>
+              Created by
+            </span>
 
-</section>
-     
-    {/* =====================================================
-    FOOTER
-===================================================== */}
+            <strong>
+              Prathmesh Panmand
+            </strong>
 
-<footer className="home-footer">
+            <span>
+              &
+            </span>
 
-  <div className="footer-main">
+            <strong>
+              Radheshyam Wayal
+            </strong>
 
-    {/* BRAND */}
-    <div className="footer-brand">
+          </div>
 
-      <div className="footer-logo">
+          <div className="footer-legal">
 
-        <div className="logo-symbol">
-          +
+            <a href="#home">
+              Privacy
+            </a>
+
+            <a href="#home">
+              Terms
+            </a>
+
+            <a href="#home">
+              Security
+            </a>
+
+          </div>
+
         </div>
 
-        <div>
-          <h3>AI Smart Hospital</h3>
-          <p>Intelligent Healthcare Management</p>
-        </div>
-
-      </div>
-
-      <p className="footer-description">
-        A modern healthcare management platform connecting
-        patients, doctors and hospital services through one
-        intelligent digital system.
-      </p>
-
-      <div className="footer-status">
-        <span></span>
-        AI Healthcare System Online
-      </div>
-
-      <div className="footer-social">
-
-        <a href="#home" aria-label="Facebook">f</a>
-        <a href="#home" aria-label="LinkedIn">in</a>
-        <a href="#home" aria-label="X">X</a>
-        <a href="#home" aria-label="YouTube">▶</a>
-
-      </div>
-
-    </div>
-
-
-    {/* QUICK LINKS */}
-    <div className="footer-column">
-
-      <h4>Explore</h4>
-
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#departments">Departments</a>
-      <a href="#doctors">Doctors</a>
-      <a href="#about">About Us</a>
-
-    </div>
-
-
-    {/* PATIENT SERVICES */}
-    <div className="footer-column">
-
-      <h4>Patient Care</h4>
-
-      <a
-        href="#contact"
-        onClick={(e) => {
-          e.preventDefault();
-          openLogin("Patient");
-        }}
-      >
-        Book Appointment
-      </a>
-
-      <a href="#services">
-        Medical Records
-      </a>
-
-      <a href="#ayushman">
-        Ayushman Bharat
-      </a>
-
-      <a href="#contact">
-        Contact Support
-      </a>
-
-    </div>
-
-
-    {/* CONTACT */}
-    <div className="footer-contact">
-
-      <h4>Get In Touch</h4>
-
-      <div className="footer-contact-item">
-        <span>⌖</span>
-        <p>
-          Pune, Maharashtra,<br />
-          India
-        </p>
-      </div>
-
-      <div className="footer-contact-item">
-        <span>☎</span>
-        <a href="tel:+919999999999">
-          +91 99999 99999
-        </a>
-      </div>
-
-      <div className="footer-contact-item">
-        <span>✉</span>
-        <a href="mailto:support@aismarthospital.com">
-          support@aismarthospital.com
-        </a>
-      </div>
-
-
-      <a
-        href="tel:108"
-        className="footer-emergency"
-      >
-
-        <div className="emergency-icon">
-          !
-        </div>
-
-        <div>
-          <strong>Emergency Support</strong>
-
-          <span>
-            Call 108 • Available 24/7
-          </span>
-        </div>
-
-        <b>→</b>
-
-      </a>
-
-    </div>
-
-  </div>
-
-
-  {/* =====================================================
-    OUR PROJECT
-===================================================== */}
-
-<div className="footer-project">
-
-  <div className="project-left">
-
-    <span className="project-badge">
-      OUR PROJECT
-    </span>
-
-    <h3>
-      AI-Powered Smart Hospital
-      <span> Management System</span>
-    </h3>
-
-    <p>
-      A modern academic project focused on smarter,
-      organized and technology-driven healthcare.
-    </p>
-
-  </div>
-
-
-  <div className="project-actions">
-
-    {/* Change these URLs if your page routes have different names */}
-
-    <a href="/about">
-      <span>About Us</span>
-      <b>→</b>
-    </a>
-
-    <a href="/project">
-      <span>Project Details</span>
-      <b>→</b>
-    </a>
-
-  </div>
-
-</div>
-
-  {/* =====================================================
-    FOOTER BOTTOM
-===================================================== */}
-
-<div className="footer-bottom">
-
-  <div className="footer-credit">
-
-    <p>
-      © 2026 <strong>AI Smart Hospital</strong>
-    </p>
-
-    <span>
-      Academic Project • TY BCA • Healthcare Technology
-    </span>
-
-  </div>
-
-
-  <div className="footer-creators">
-
-    <span>Created by</span>
-
-    <strong>Prathmesh Panmand</strong>
-
-    <span>&</span>
-
-    <strong>Radheshyam Wayal</strong>
-
-  </div>
-
-
-  <div className="footer-legal">
-
-    <a href="#home">Privacy</a>
-    <a href="#home">Terms</a>
-    <a href="#home">Security</a>
-
-  </div>
-
-</div>
-
-</footer>
-
+      </footer>
 
       {/* =====================================================
           LOGIN MODAL
@@ -2514,7 +2300,6 @@ const clearChat = () => {
               ×
             </button>
 
-
             <div className="hospital-login-logo">
 
               <div className="large-logo">
@@ -2522,7 +2307,6 @@ const clearChat = () => {
               </div>
 
             </div>
-
 
             <h1>
               {loginRole} Login
@@ -2532,134 +2316,196 @@ const clearChat = () => {
               Login to AI Smart Hospital
             </p>
 
-
             <div className="role-tabs">
 
               <button
-                className={loginRole === "Patient" ? "active" : ""}
+                className={
+                  loginRole === "Patient"
+                    ? "active"
+                    : ""
+                }
                 onClick={() => setLoginRole("Patient")}
               >
                 Patient
               </button>
 
               <button
-                className={loginRole === "Doctor" ? "active" : ""}
+                className={
+                  loginRole === "Doctor"
+                    ? "active"
+                    : ""
+                }
                 onClick={() => setLoginRole("Doctor")}
               >
                 Doctor
               </button>
 
               <button
-                className={loginRole === "Admin" ? "active" : ""}
+                className={
+                  loginRole === "Admin"
+                    ? "active"
+                    : ""
+                }
                 onClick={() => setLoginRole("Admin")}
               >
                 Admin
               </button>
 
             </div>
-            
-<form
 
-  onSubmit={async (e) => {
-  e.preventDefault();
-  setErrorMessage("");
+            <form
+              onSubmit={async (e) => {
 
-    const formData = new FormData(e.currentTarget);
+                e.preventDefault();
 
-    const email = formData.get("email");
-    const password = formData.get("password");
+                setErrorMessage("");
 
-    if (!email || !password) {
-      setErrorMessage("Please enter email and password.");
-      return;
-    }
+                const formData = new FormData(
+                  e.currentTarget
+                );
 
-    try {
-      const response = await fetch(
-        "http://localhost:8080/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email.trim(),
-            password: password,
-            role: loginRole,
-          }),
-        }
-      );
+                const email = formData.get("email");
+                const password = formData.get("password");
 
-      if (!response.ok) {
-        const message = await response.text();
-        setErrorMessage("Invalid email or password.");
-        return;
-      }
+                if (!email || !password) {
+                  setErrorMessage(
+                    "Please enter email and password."
+                  );
+                  return;
+                }
 
-      const user = await response.json();
+                try {
 
-      localStorage.clear();
+                  const response = await fetch(
+                    "http://localhost:8080/api/auth/login",
+                    {
+                      method: "POST",
 
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("role", user.role);
+                      headers: {
+                        "Content-Type":
+                          "application/json",
+                      },
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(user)
-      );
+                      body: JSON.stringify({
+                        email: email.trim(),
+                        password: password,
+                        role: loginRole,
+                      }),
+                    }
+                  );
 
-      setLoginOpen(false);
+                  if (!response.ok) {
 
-      if (user.role === "Admin") {
-        navigate("/dashboard", { replace: true });
-      } else if (user.role === "Doctor") {
-        navigate("/doctor", { replace: true });
-      } else if (user.role === "Patient") {
-        navigate("/patient", { replace: true });
-      }
+                    setErrorMessage(
+                      "Invalid email or password."
+                    );
 
-    } catch (error) {
-      console.error("Login error:", error);
-      setErrorMessage("Unable to connect to the hospital server.");
-    }
-  }}
->
-  <label>
-    Email / Username
-  </label>
+                    return;
+                  }
 
-  <input
-    type="email"
-    name="email"
-    placeholder="Enter email or username"
-    required
-  />
+                  const user =
+                    await response.json();
 
-  <label>
-    Password
-  </label>
+                  localStorage.clear();
 
-  <input
-    type="password"
-    name="password"
-    placeholder="Enter password"
-    required
-  />
+                  localStorage.setItem(
+                    "isLoggedIn",
+                    "true"
+                  );
 
-  <button
-    type="submit"
-    className="hospital-login-button"
-  >
-    Login as {loginRole}
-  </button>
-</form>
-          {errorMessage && (
-            <div className="login-error">
-              ⚠️ {errorMessage}
-            </div>
-          )}
+                  localStorage.setItem(
+                    "role",
+                    user.role
+                  );
 
-      <div className="register-text">
+                  localStorage.setItem(
+                    "user",
+                    JSON.stringify(user)
+                  );
+
+                  setLoginOpen(false);
+
+                  if (user.role === "Admin") {
+
+                    navigate("/dashboard", {
+                      replace: true,
+                    });
+
+                  } else if (
+                    user.role === "Doctor"
+                  ) {
+
+                    navigate("/doctor", {
+                      replace: true,
+                    });
+
+                  } else if (
+                    user.role === "Patient"
+                  ) {
+
+                    navigate("/patient", {
+                      replace: true,
+                    });
+
+                  }
+
+                } catch (error) {
+
+                  console.error(
+                    "Login error:",
+                    error
+                  );
+
+                  setErrorMessage(
+                    "Unable to connect to the hospital server."
+                  );
+
+                }
+
+              }}
+            >
+
+              <label>
+                Email / Username
+              </label>
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter email or username"
+                required
+              />
+
+              <label>
+                Password
+              </label>
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+              />
+
+              <button
+                type="submit"
+                className="hospital-login-button"
+              >
+                Login as {loginRole}
+              </button>
+
+            </form>
+
+            {errorMessage && (
+
+              <div className="login-error">
+                ⚠️ {errorMessage}
+              </div>
+
+            )}
+
+            <div className="register-text">
+
               Don't have an account?
 
               <button onClick={openRegister}>
@@ -2668,16 +2514,17 @@ const clearChat = () => {
 
             </div>
 
-
             <button
-                type="button"
-                className="forgot-password"
-                onClick={() =>
-                  setErrorMessage("Password recovery will be available soon.")
-                }
-              >
-                Forgot Password?
-              </button>
+              type="button"
+              className="forgot-password"
+              onClick={() =>
+                setErrorMessage(
+                  "Password recovery will be available soon."
+                )
+              }
+            >
+              Forgot Password?
+            </button>
 
           </div>
 
@@ -2685,395 +2532,412 @@ const clearChat = () => {
 
       )}
 
-
-    {/* =====================================================
-    REGISTER MODAL
-===================================================== */}
-
-{registerOpen && (
-  <div
-    className="login-overlay"
-    onClick={() => setRegisterOpen(false)}
-  >
-
-    <div
-      className="register-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-
-      {/* CLOSE */}
-      <button
-        className="close-login"
-        onClick={() => setRegisterOpen(false)}
-      >
-        ×
-      </button>
-
-
-      {/* HEADER */}
-      <div className="register-top">
-
-        <div className="large-logo">
-          🏥
-        </div>
-
-        <div>
-          <h1>Create Account</h1>
-          <p>Join AI Smart Hospital</p>
-        </div>
-
-      </div>
-
-
-          {/* REGISTER FORM */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          setRegisterError("");
-          setRegisterSuccess("");
-
-          const formData = new FormData(e.currentTarget);
-
-          const fullName = formData.get("fullName").trim();
-          const email = formData.get("email").trim();
-          const mobile = formData.get("mobile").trim();
-          const dob = formData.get("dob");
-          const gender = formData.get("gender");
-
-
-          /* ================= FULL NAME ================= */
-
-          if (!/^[A-Za-z ]{2,50}$/.test(fullName)) {
-            setRegisterError(
-              "Please enter a valid full name using letters only."
-            );
-            return;
-          }
-
-
-          /* ================= EMAIL ================= */
-
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setRegisterError(
-              "Please enter a valid email address."
-            );
-            return;
-          }
-
-
-          /* ================= MOBILE ================= */
-
-          if (!/^[6-9][0-9]{9}$/.test(mobile)) {
-            setRegisterError(
-              "Mobile number must be exactly 10 digits and start with 6-9."
-            );
-            return;
-          }
-
-
-          /* ================= DATE OF BIRTH ================= */
-
-          if (!dob) {
-            setRegisterError(
-              "Please select your date of birth."
-            );
-            return;
-          }
-
-          const selectedDate = new Date(dob);
-          const today = new Date();
-
-          if (selectedDate > today) {
-            setRegisterError(
-              "Date of birth cannot be in the future."
-            );
-            return;
-          }
-
-
-          /* ================= GENDER ================= */
-
-          if (!gender) {
-            setRegisterError(
-              "Please select your gender."
-            );
-            return;
-          }
-
-
-          /* ================= PASSWORD ================= */
-
-          if (
-            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(
-              registerPassword
-            )
-          ) {
-            setRegisterError(
-              "Password must contain 8+ characters, uppercase, lowercase and a number."
-            );
-            return;
-          }
-
-
-          /* ================= CONFIRM PASSWORD ================= */
-
-          if (registerPassword !== confirmPassword) {
-            setRegisterError(
-              "Passwords do not match."
-            );
-            return;
-          }
-
-
-          /* ================= SUCCESS ================= */
-
-          setRegisterSuccess(
-            "Account created successfully. Please login."
-          );
-
-          e.currentTarget.reset();
-
-          setRegisterPassword("");
-          setConfirmPassword("");
-
-
-          /* ================= OPEN LOGIN ================= */
-
-          setTimeout(() => {
-
-            setRegisterSuccess("");
-
-            setRegisterOpen(false);
-
-            openLogin("Patient");
-
-          }, 1500);
-        }}
-      >
-
-
-        {/* ================= FULL NAME ================= */}
-
-        <div className="register-field">
-
-          <label>
-            Full Name
-          </label>
-
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Enter your full name"
-            maxLength="50"
-            required
-          />
-
-        </div>
-
-
-        {/* ================= EMAIL ================= */}
-
-        <div className="register-field">
-
-          <label>
-            Email
-          </label>
-
-          <input
-            type="email"
-            name="email"
-            placeholder="example@gmail.com"
-            required
-          />
-
-        </div>
-
-
-        {/* ================= MOBILE ================= */}
-
-        <div className="register-field">
-
-          <label>
-            Mobile Number
-          </label>
-
-          <div className="mobile-input">
-
-            <span>
-              +91
-            </span>
-
-            <input
-              type="tel"
-              name="mobile"
-              placeholder="10-digit mobile number"
-              inputMode="numeric"
-              maxLength="10"
-              pattern="[6-9][0-9]{9}"
-              onInput={(e) => {
-                e.target.value =
-                  e.target.value.replace(/\D/g, "");
-              }}
-              required
-            />
-
-          </div>
-
-        </div>
-
-
-        {/* ================= DATE OF BIRTH ================= */}
-
-        <div className="register-field">
-
-          <label>
-            Date of Birth
-          </label>
-
-          <input
-            type="date"
-            name="dob"
-            max={new Date().toISOString().split("T")[0]}
-            required
-          />
-
-        </div>
-
-
-        {/* ================= GENDER ================= */}
-
-        <div className="register-field">
-
-          <label>
-            Gender
-          </label>
-
-          <select
-            name="gender"
-            required
+      {/* =====================================================
+          REGISTER MODAL
+      ===================================================== */}
+
+      {registerOpen && (
+
+        <div
+          className="login-overlay"
+          onClick={() => setRegisterOpen(false)}
+        >
+
+          <div
+            className="register-modal"
+            onClick={(e) => e.stopPropagation()}
           >
 
-            <option value="">
-              Select Gender
-            </option>
+            <button
+              className="close-login"
+              onClick={() => setRegisterOpen(false)}
+            >
+              ×
+            </button>
 
-            <option value="male">
-              Male
-            </option>
+            <div className="register-top">
 
-            <option value="female">
-              Female
-            </option>
+              <div className="large-logo">
+                🏥
+              </div>
 
-            <option value="other">
-              Other
-            </option>
+              <div>
 
-          </select>
+                <h1>
+                  Create Account
+                </h1>
 
-        </div>
+                <p>
+                  Join AI Smart Hospital
+                </p>
 
+              </div>
 
-        {/* ================= PASSWORD ================= */}
+            </div>
 
-        <div className="register-field">
+            <form
+              onSubmit={(e) => {
 
-          <label>
-            Password
-          </label>
+                e.preventDefault();
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Create a strong password"
-            value={registerPassword}
-            onChange={(e) =>
-              setRegisterPassword(e.target.value)
-            }
-            required
-          />
+                setRegisterError("");
+                setRegisterSuccess("");
 
-          <small className="password-hint">
-            8+ characters • Uppercase • Lowercase • Number
-          </small>
+                const formData =
+                  new FormData(
+                    e.currentTarget
+                  );
 
-        </div>
+                const fullName =
+                  formData
+                    .get("fullName")
+                    .trim();
 
+                const email =
+                  formData
+                    .get("email")
+                    .trim();
 
-        {/* ================= CONFIRM PASSWORD ================= */}
+                const mobile =
+                  formData
+                    .get("mobile")
+                    .trim();
 
-        <div className="register-field">
+                const dob =
+                  formData.get("dob");
 
-          <label>
-            Confirm Password
-          </label>
+                const gender =
+                  formData.get("gender");
 
-          <input
-            type="password"
-            placeholder="Re-enter your password"
-            value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(e.target.value)
-            }
-            required
-          />
+                if (
+                  !/^[A-Za-z ]{2,50}$/.test(
+                    fullName
+                  )
+                ) {
 
-        </div>
+                  setRegisterError(
+                    "Please enter a valid full name using letters only."
+                  );
 
+                  return;
+                }
 
-        {/* ================= ERROR ================= */}
+                if (
+                  !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                    email
+                  )
+                ) {
 
-        {registerError && (
-          <div className="register-error">
-            ⚠️ {registerError}
+                  setRegisterError(
+                    "Please enter a valid email address."
+                  );
+
+                  return;
+                }
+
+                if (
+                  !/^[6-9][0-9]{9}$/.test(
+                    mobile
+                  )
+                ) {
+
+                  setRegisterError(
+                    "Mobile number must be exactly 10 digits and start with 6-9."
+                  );
+
+                  return;
+                }
+
+                if (!dob) {
+
+                  setRegisterError(
+                    "Please select your date of birth."
+                  );
+
+                  return;
+                }
+
+                const selectedDate =
+                  new Date(dob);
+
+                const today =
+                  new Date();
+
+                if (
+                  selectedDate > today
+                ) {
+
+                  setRegisterError(
+                    "Date of birth cannot be in the future."
+                  );
+
+                  return;
+                }
+
+                if (!gender) {
+
+                  setRegisterError(
+                    "Please select your gender."
+                  );
+
+                  return;
+                }
+
+                if (
+                  !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(
+                    registerPassword
+                  )
+                ) {
+
+                  setRegisterError(
+                    "Password must contain 8+ characters, uppercase, lowercase and a number."
+                  );
+
+                  return;
+                }
+
+                if (
+                  registerPassword !==
+                  confirmPassword
+                ) {
+
+                  setRegisterError(
+                    "Passwords do not match."
+                  );
+
+                  return;
+                }
+
+                setRegisterSuccess(
+                  "Account created successfully. Please login."
+                );
+
+                e.currentTarget.reset();
+
+                setRegisterPassword("");
+                setConfirmPassword("");
+
+                setTimeout(() => {
+
+                  setRegisterSuccess("");
+
+                  setRegisterOpen(false);
+
+                  openLogin("Patient");
+
+                }, 1500);
+
+              }}
+            >
+
+              <div className="register-field">
+
+                <label>
+                  Full Name
+                </label>
+
+                <input
+                  type="text"
+                  name="fullName"
+                  placeholder="Enter your full name"
+                  maxLength="50"
+                  required
+                />
+
+              </div>
+
+              <div className="register-field">
+
+                <label>
+                  Email
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="example@gmail.com"
+                  required
+                />
+
+              </div>
+
+              <div className="register-field">
+
+                <label>
+                  Mobile Number
+                </label>
+
+                <div className="mobile-input">
+
+                  <span>
+                    +91
+                  </span>
+
+                  <input
+                    type="tel"
+                    name="mobile"
+                    placeholder="10-digit mobile number"
+                    inputMode="numeric"
+                    maxLength="10"
+                    pattern="[6-9][0-9]{9}"
+                    onInput={(e) => {
+                      e.target.value =
+                        e.target.value.replace(
+                          /\D/g,
+                          ""
+                        );
+                    }}
+                    required
+                  />
+
+                </div>
+
+              </div>
+
+              <div className="register-field">
+
+                <label>
+                  Date of Birth
+                </label>
+
+                <input
+                  type="date"
+                  name="dob"
+                  max={
+                    new Date()
+                      .toISOString()
+                      .split("T")[0]
+                  }
+                  required
+                />
+
+              </div>
+
+              <div className="register-field">
+
+                <label>
+                  Gender
+                </label>
+
+                <select
+                  name="gender"
+                  required
+                >
+
+                  <option value="">
+                    Select Gender
+                  </option>
+
+                  <option value="male">
+                    Male
+                  </option>
+
+                  <option value="female">
+                    Female
+                  </option>
+
+                  <option value="other">
+                    Other
+                  </option>
+
+                </select>
+
+              </div>
+
+              <div className="register-field">
+
+                <label>
+                  Password
+                </label>
+
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Create a strong password"
+                  value={registerPassword}
+                  onChange={(e) =>
+                    setRegisterPassword(
+                      e.target.value
+                    )
+                  }
+                  required
+                />
+
+                <small className="password-hint">
+                  8+ characters • Uppercase • Lowercase • Number
+                </small>
+
+              </div>
+
+              <div className="register-field">
+
+                <label>
+                  Confirm Password
+                </label>
+
+                <input
+                  type="password"
+                  placeholder="Re-enter your password"
+                  value={confirmPassword}
+                  onChange={(e) =>
+                    setConfirmPassword(
+                      e.target.value
+                    )
+                  }
+                  required
+                />
+
+              </div>
+
+              {registerError && (
+
+                <div className="register-error">
+                  ⚠️ {registerError}
+                </div>
+
+              )}
+
+              {registerSuccess && (
+
+                <div className="login-success">
+                  ✅ {registerSuccess}
+                </div>
+
+              )}
+
+              <button
+                type="submit"
+                className="register-submit"
+              >
+                Create Account
+              </button>
+
+            </form>
+
+            <p className="already-account">
+
+              Already have an account?
+
+              <button
+                type="button"
+                onClick={() => {
+
+                  setRegisterOpen(false);
+
+                  openLogin("Patient");
+
+                }}
+              >
+                Login
+              </button>
+
+            </p>
+
           </div>
-        )}
 
+        </div>
 
-        {/* ================= SUCCESS ================= */}
-
-        {registerSuccess && (
-          <div className="login-success">
-            ✅ {registerSuccess}
-          </div>
-        )}
-
-
-        {/* ================= CREATE ACCOUNT ================= */}
-
-        <button
-          type="submit"
-          className="register-submit"
-        >
-          Create Account
-        </button>
-
-      </form>
-
-
-      {/* ================= LOGIN ================= */}
-
-      <p className="already-account">
-
-        Already have an account?
-
-        <button
-          type="button"
-          onClick={() => {
-            setRegisterOpen(false);
-            openLogin("Patient");
-          }}
-        >
-          Login
-        </button>
-
-      </p>
-
-
-    </div>
-       </div>
-    )}
+      )}
 
     </div>
   );

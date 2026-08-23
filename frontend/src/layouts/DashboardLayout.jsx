@@ -6,10 +6,7 @@ function DashboardLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Get role and convert it to lowercase
-  // Example: "Patient" -> "patient"
   const role = localStorage.getItem("role")?.toLowerCase();
-
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   const [darkMode, setDarkMode] = useState(
@@ -17,93 +14,70 @@ function DashboardLayout() {
   );
 
   // ==========================================
-  // SAVE DARK MODE
+  // DARK MODE
   // ==========================================
 
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
+
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+
+    return () => {
+      document.body.classList.remove("dark-mode");
+    };
   }, [darkMode]);
 
   // ==========================================
-  // LOGIN CHECK
+  // LOGIN PROTECTION
   // ==========================================
 
-  if (!role || isLoggedIn !== "true") {
+  if (!isLoggedIn) {
     return <Navigate to="/login" replace />;
   }
 
   // ==========================================
-  // ACCOUNT PATH
+  // ADMIN MENU
   // ==========================================
 
-  const getAccountPath = () => {
-    switch (role) {
-      case "patient":
-        return "/patient/account";
-
-      case "doctor":
-        return "/doctor/account";
-
-      case "admin":
-        return "/admin/account";
-
-      default:
-        return "/";
-    }
-  };
-
-  // ==========================================
-  // LOGOUT
-  // ==========================================
-
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("role");
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-
-    navigate("/", { replace: true });
-  };
-
-  // ==========================================
-  // PATIENT MENU
-  // ==========================================
-
-  const patientMenu = [
+  const adminMenu = [
     {
       name: "Dashboard",
-      path: "/patient",
+      path: "/dashboard",
       icon: "🏠",
     },
     {
+      name: "Patients",
+      path: "/dashboard/patients",
+      icon: "👥",
+    },
+    {
+      name: "Doctors",
+      path: "/dashboard/doctors",
+      icon: "👨‍⚕️",
+    },
+    {
       name: "Appointments",
-      path: "/patient/appointments",
+      path: "/dashboard/appointments",
       icon: "📅",
     },
     {
-      name: "Book Appointment",
-      path: "/patient/book-appointment",
-      icon: "➕",
-    },
-    {
       name: "Medical Records",
-      path: "/patient/medical-records",
+      path: "/dashboard/medical-records",
       icon: "📋",
     },
     {
       name: "Prescriptions",
-      path: "/patient/prescriptions",
+      path: "/dashboard/prescriptions",
       icon: "💊",
     },
     {
       name: "Bills",
-      path: "/patient/bills",
+      path: "/dashboard/bills",
       icon: "💰",
-    },
-    {
-      name: "Profile",
-      path: "/patient/profile",
-      icon: "👤",
     },
   ];
 
@@ -120,57 +94,86 @@ function DashboardLayout() {
   ];
 
   // ==========================================
-  // ADMIN MENU
+  // PATIENT MENU
+  // Dashboard button REMOVED
   // ==========================================
 
-  const adminMenu = [
+  const patientMenu = [
     {
-      name: "Dashboard",
-      path: "/dashboard",
-      icon: "🏠",
+      name: "Appointments",
+      path: "/patient/appointments",
+      icon: "📅",
+    },
+    {
+      name: "Book Appointment",
+      path: "/patient/book-appointment",
+      icon: "🩺",
+    },
+    {
+      name: "Medical Records",
+      path: "/patient/medical-records",
+      icon: "📋",
+    },
+    {
+      name: "Prescriptions",
+      path: "/patient/prescriptions",
+      icon: "💊",
+    },
+    {
+      name: "Profile",
+      path: "/patient/profile",
+      icon: "👤",
+    },
+    {
+      name: "Bills",
+      path: "/patient/bills",
+      icon: "💰",
     },
   ];
 
   // ==========================================
-  // SELECT MENU BASED ON ROLE
+  // SELECT MENU ACCORDING TO ROLE
   // ==========================================
 
-  const getMenu = () => {
-    switch (role) {
-      case "patient":
-        return patientMenu;
+  let menuItems = [];
+  let dashboardTitle = "Dashboard";
+  let dashboardSubtitle = "AI Hospital Management System";
 
-      case "doctor":
-        return doctorMenu;
+  if (role === "admin") {
+    menuItems = adminMenu;
+    dashboardTitle = "Admin Panel";
+    dashboardSubtitle = "AI Hospital Management System";
+  } else if (role === "doctor") {
+    menuItems = doctorMenu;
+    dashboardTitle = "Doctor Panel";
+    dashboardSubtitle = "AI Hospital Management System";
+  } else if (role === "patient") {
+    menuItems = patientMenu;
+    dashboardTitle = "Patient Panel";
+    dashboardSubtitle = "AI Hospital Management System";
+  } else {
+    return <Navigate to="/login" replace />;
+  }
 
-      case "admin":
-        return adminMenu;
+  // ==========================================
+  // NAVIGATION
+  // ==========================================
 
-      default:
-        return [];
-    }
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
-  const menu = getMenu();
-
   // ==========================================
-  // MENU TITLE
+  // LOGOUT
   // ==========================================
 
-  const getMenuTitle = () => {
-    switch (role) {
-      case "patient":
-        return "Patient Menu";
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("role");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
 
-      case "doctor":
-        return "Doctor Menu";
-
-      case "admin":
-        return "Admin Menu";
-
-      default:
-        return "Menu";
-    }
+    navigate("/", { replace: true });
   };
 
   // ==========================================
@@ -178,163 +181,301 @@ function DashboardLayout() {
   // ==========================================
 
   const isActive = (path) => {
-    // Dashboard exact match
-    if (
-      path === "/patient" ||
-      path === "/doctor" ||
-      path === "/dashboard"
-    ) {
-      return location.pathname === path;
+    if (path === "/dashboard") {
+      return location.pathname === "/dashboard";
+    }
+
+    if (path === "/doctor") {
+      return location.pathname === "/doctor";
+    }
+
+    if (path === "/patient") {
+      return location.pathname === "/patient";
     }
 
     return location.pathname === path;
   };
 
   // ==========================================
-  // RENDER
+  // ACCOUNT NAVIGATION
+  // ==========================================
+
+  const handleAccount = () => {
+    if (role === "patient") {
+      navigate("/patient/profile");
+    } else if (role === "doctor") {
+      navigate("/doctor");
+    } else if (role === "admin") {
+      navigate("/dashboard");
+    }
+  };
+
+  // ==========================================
+  // LOGO ERROR HANDLER
+  // ==========================================
+
+  const handleLogoError = (event) => {
+    event.currentTarget.style.display = "none";
+
+    const fallback = event.currentTarget.nextElementSibling;
+
+    if (fallback) {
+      fallback.style.display = "flex";
+    }
+  };
+
+  // ==========================================
+  // UI
   // ==========================================
 
   return (
-    <div
-      className={`dashboard-page ${
-        darkMode ? "dark-mode" : ""
-      }`}
-    >
+    <div className={`dashboard-layout ${darkMode ? "dark" : ""}`}>
 
-      {/* ========================================
-          HEADER
-      ======================================== */}
+      {/* =====================================
+          SIDEBAR
+      ===================================== */}
 
-      <header className="dashboard-header">
+      <aside className="dashboard-sidebar">
 
-        {/* Hospital Logo + Name */}
-        <div className="hospital-brand">
+        {/* =====================================
+            LOGO
+        ===================================== */}
 
-          <button
-            className="logo-symbol"
-            onClick={() => navigate("/")}
-            title="Home"
-          >
-            🏥
-          </button>
+        <div className="sidebar-logo">
 
-          <div className="hospital-brand-text">
-            <h2>AI Smart Hospital</h2>
+          {/* Same Hospital Logo For All Roles */}
 
-            <p>
-              Intelligent Healthcare Management
-            </p>
+          <div className="patient-logo-wrapper">
+
+            <img
+              src="/ai-smart-hospital-logo.jpeg"
+              alt="AI Smart Hospital"
+              className="patient-hospital-logo"
+              onError={handleLogoError}
+            />
+
+            {/* Fallback if image is missing */}
+
+            <div
+              className="logo-icon patient-logo-fallback"
+              style={{ display: "none" }}
+            >
+              🏥
+            </div>
+
+          </div>
+
+          {/* Logo Text */}
+
+          <div className="logo-text">
+
+            <h2>
+              AI Smart Hospital
+            </h2>
+
+            <span>
+              Healthcare Management
+            </span>
+
           </div>
 
         </div>
 
-        {/* Header Actions */}
-        <div className="dashboard-header-actions">
+        {/* =====================================
+            USER ROLE CARD
+        ===================================== */}
 
-          {/* Home */}
-          <button
-            className="header-link"
-            onClick={() => navigate("/")}
-          >
-            🏠 Home
-          </button>
+        <div className="user-role-card">
 
-          {/* Dark / Light Mode */}
-          <button
-            className="theme-btn"
-            onClick={() =>
-              setDarkMode((prev) => !prev)
-            }
-            title={
-              darkMode
-                ? "Light Mode"
-                : "Dark Mode"
-            }
-          >
-            {darkMode ? "☀️" : "🌙"}
-          </button>
+          <div className="role-icon">
 
-          {/* Account */}
-          <button
-            className="header-link"
-            onClick={() =>
-              navigate(getAccountPath())
-            }
-          >
-            👤 Account
-          </button>
+            {role === "admin" && "👨‍💼"}
 
-          {/* Logout */}
-          <button
-            className="logout-btn"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
+            {role === "doctor" && "👨‍⚕️"}
+
+            {role === "patient" && "🧑‍🦱"}
+
+          </div>
+
+          <div>
+
+            <small>
+              Logged in as
+            </small>
+
+            <strong>
+              {role
+                ? role.charAt(0).toUpperCase() + role.slice(1)
+                : "User"}
+            </strong>
+
+          </div>
 
         </div>
 
-      </header>
+        {/* =====================================
+            NAVIGATION
+        ===================================== */}
 
-      {/* ========================================
-          DASHBOARD BODY
-      ======================================== */}
+        <nav className="sidebar-navigation">
 
-      <div className="dashboard-body">
-
-        {/* ======================================
-            SIDEBAR
-        ====================================== */}
-
-        <aside className="dashboard-sidebar">
-
-          {/* Sidebar Title */}
-          <div className="sidebar-title">
-            {getMenuTitle()}
+          <div className="menu-heading">
+            MAIN MENU
           </div>
 
-          {/* Sidebar Navigation */}
-          <nav className="sidebar-nav">
+          {menuItems.map((item) => (
 
-            {menu.map((item) => (
-              <button
-                key={item.path}
-                className={`sidebar-link ${
-                  isActive(item.path)
-                    ? "active"
-                    : ""
-                }`}
-                onClick={() =>
-                  navigate(item.path)
-                }
-              >
+            <button
+              key={item.path}
+              className={`sidebar-menu-item ${
+                isActive(item.path) ? "active" : ""
+              }`}
+              onClick={() => handleNavigation(item.path)}
+            >
 
-                <span className="sidebar-icon">
-                  {item.icon}
-                </span>
+              <span className="menu-icon">
+                {item.icon}
+              </span>
 
-                <span className="sidebar-text">
-                  {item.name}
-                </span>
+              <span className="menu-name">
+                {item.name}
+              </span>
 
-              </button>
-            ))}
+            </button>
 
-          </nav>
+          ))}
 
-        </aside>
+        </nav>
 
-        {/* ======================================
-            MAIN CONTENT
-        ====================================== */}
+        {/* =====================================
+            SIDEBAR BOTTOM
+        ===================================== */}
 
-        <main className="dashboard-main">
+        <div className="sidebar-bottom">
+
+          <div className="hospital-status">
+
+            <span className="status-dot"></span>
+
+            <div>
+
+              <strong>
+                System Online
+              </strong>
+
+              <small>
+                All services running
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+      {/* =====================================
+          MAIN AREA
+      ===================================== */}
+
+      <main className="dashboard-main">
+
+        {/* ===================================
+            TOP HEADER
+        =================================== */}
+
+        <header className="dashboard-header">
+
+          <div className="header-left">
+
+            <div>
+
+              <h1>
+                {dashboardTitle}
+              </h1>
+
+              <p>
+                {dashboardSubtitle}
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="header-right">
+
+            {/* =================================
+                DARK MODE
+            ================================= */}
+
+            <button
+              className="header-button"
+              onClick={() => setDarkMode((prev) => !prev)}
+              title={
+                darkMode
+                  ? "Switch to Light Mode"
+                  : "Switch to Dark Mode"
+              }
+            >
+              {darkMode ? "☀️" : "🌙"}
+            </button>
+
+            {/* =================================
+                ACCOUNT
+            ================================= */}
+
+            <button
+              className="account-button"
+              onClick={handleAccount}
+              title="Account"
+            >
+
+              <span className="account-icon">
+                👤
+              </span>
+
+              <span>
+                Account
+              </span>
+
+            </button>
+
+            {/* =================================
+                LOGOUT
+            ================================= */}
+
+            <button
+              className="logout-button"
+              onClick={handleLogout}
+              title="Logout"
+            >
+
+              <span className="logout-icon">
+                🚪
+              </span>
+
+              <span>
+                Logout
+              </span>
+
+            </button>
+
+          </div>
+
+        </header>
+
+        {/* ===================================
+            PAGE CONTENT
+        =================================== */}
+
+        <section className="dashboard-content">
 
           <Outlet />
 
-        </main>
+        </section>
 
-      </div>
+      </main>
 
     </div>
   );

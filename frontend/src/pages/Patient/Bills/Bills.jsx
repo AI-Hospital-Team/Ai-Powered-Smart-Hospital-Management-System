@@ -1,65 +1,66 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Bills.css";
 
-function Bills() {
-  const navigate = useNavigate();
+const API_BASE_URL = "http://localhost:8080/api";
 
+function Bills() {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
+  const [payingBillId, setPayingBillId] = useState(null);
 
   // ==========================================
   // LOAD PATIENT + BILLS
   // ==========================================
 
-  useEffect(() => {
-    const loadBills = async () => {
-      try {
-        const storedUser = localStorage.getItem("user");
+  const loadBills = async () => {
+    try {
+      setLoading(true);
+      setError("");
 
-        if (!storedUser) {
-          setError("Patient information not found.");
-          setLoading(false);
-          return;
-        }
+      const storedUser = localStorage.getItem("user");
 
-        const parsedUser = JSON.parse(storedUser);
-
-        setUser(parsedUser);
-
-        if (!parsedUser.patientId) {
-          setError("Patient ID is missing.");
-          setLoading(false);
-          return;
-        }
-
-        const response = await fetch(
-          `http://localhost:8080/api/bills/patient/${parsedUser.patientId}`
-        );
-
-        if (!response.ok) {
-          throw new Error(
-            `Bills API failed: ${response.status}`
-          );
-        }
-
-        const data = await response.json();
-
-        console.log("Patient bills:", data);
-
-        setBills(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error("Error loading bills:", error);
-
-        setError("Failed to load bills.");
-        setBills([]);
-      } finally {
-        setLoading(false);
+      if (!storedUser) {
+        setError("Patient information not found.");
+        return;
       }
-    };
 
+      const parsedUser = JSON.parse(storedUser);
+
+      setUser(parsedUser);
+
+      if (!parsedUser.patientId) {
+        setError("Patient ID is missing.");
+        return;
+      }
+
+      const response = await fetch(
+        `${API_BASE_URL}/bills/patient/${parsedUser.patientId}`
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Bills API failed: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      console.log("Patient bills:", data);
+
+      setBills(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Error loading bills:", err);
+
+      setError("Failed to load bills.");
+      setBills([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     loadBills();
   }, []);
 
@@ -69,8 +70,10 @@ function Bills() {
 
   const handlePayBill = async (billId) => {
     try {
+      setPayingBillId(billId);
+
       const response = await fetch(
-        `http://localhost:8080/api/bills/${billId}/status`,
+        `${API_BASE_URL}/bills/${billId}/status`,
         {
           method: "PUT",
           headers: {
@@ -99,10 +102,12 @@ function Bills() {
       );
 
       alert("Bill paid successfully.");
-    } catch (error) {
-      console.error("Error paying bill:", error);
+    } catch (err) {
+      console.error("Error paying bill:", err);
 
       alert("Failed to update bill status.");
+    } finally {
+      setPayingBillId(null);
     }
   };
 
@@ -114,11 +119,19 @@ function Bills() {
     return (
       <div className="bills-page">
         <div className="bills-container">
+
           <div className="bills-loading">
-            <div className="loading-icon">💰</div>
+            <div className="loading-icon">
+              💰
+            </div>
+
             <h2>Loading Bills...</h2>
-            <p>Please wait while we fetch your bills.</p>
+
+            <p>
+              Please wait while we fetch your bills.
+            </p>
           </div>
+
         </div>
       </div>
     );
@@ -134,7 +147,10 @@ function Bills() {
         <div className="bills-container">
 
           <div className="bills-error">
-            <div className="error-icon">⚠️</div>
+
+            <div className="error-icon">
+              ⚠️
+            </div>
 
             <h2>Unable to Load Bills</h2>
 
@@ -142,12 +158,11 @@ function Bills() {
 
             <button
               className="dashboard-button"
-              onClick={() =>
-                navigate("/patient/dashboard")
-              }
+              onClick={loadBills}
             >
-              ← Back to Dashboard
+              🔄 Try Again
             </button>
+
           </div>
 
         </div>
@@ -168,7 +183,8 @@ function Bills() {
   const pendingAmount = bills
     .filter(
       (bill) =>
-        bill.status?.toLowerCase() === "pending"
+        String(bill.status).toLowerCase() ===
+        "pending"
     )
     .reduce(
       (total, bill) =>
@@ -179,7 +195,8 @@ function Bills() {
   const paidAmount = bills
     .filter(
       (bill) =>
-        bill.status?.toLowerCase() === "paid"
+        String(bill.status).toLowerCase() ===
+        "paid"
     )
     .reduce(
       (total, bill) =>
@@ -198,7 +215,7 @@ function Bills() {
 
         {/* =====================================
             PAGE HEADER
-        ===================================== */}
+        ====================================== */}
 
         <div className="bills-page-header">
 
@@ -209,6 +226,7 @@ function Bills() {
             </div>
 
             <div>
+
               <h1>My Bills</h1>
 
               <p>
@@ -221,28 +239,32 @@ function Bills() {
                   Patient ID: {user.patientId}
                 </span>
               )}
+
             </div>
 
           </div>
 
-          <button
-            className="dashboard-button"
-            onClick={() =>
-              navigate("/patient/dashboard")
-            }
-          >
-            ← Dashboard
-          </button>
+          {/* ONLY REFRESH BUTTON
+              DASHBOARD BUTTON REMOVED */}
+
+          <div className="bills-header-actions">
+
+            <button
+              className="refresh-bills-button"
+              onClick={loadBills}
+            >
+              🔄 Refresh
+            </button>
+
+          </div>
 
         </div>
 
         {/* =====================================
             SUMMARY CARDS
-        ===================================== */}
+        ====================================== */}
 
         <div className="bill-summary">
-
-          {/* TOTAL BILLS */}
 
           <div className="summary-card total-card">
 
@@ -266,8 +288,6 @@ function Bills() {
 
           </div>
 
-          {/* TOTAL AMOUNT */}
-
           <div className="summary-card amount-card">
 
             <div className="summary-card-icon">
@@ -290,8 +310,6 @@ function Bills() {
 
           </div>
 
-          {/* PENDING */}
-
           <div className="summary-card pending-card">
 
             <div className="summary-card-icon">
@@ -313,8 +331,6 @@ function Bills() {
             </div>
 
           </div>
-
-          {/* PAID */}
 
           <div className="summary-card paid-card">
 
@@ -342,19 +358,21 @@ function Bills() {
 
         {/* =====================================
             BILLS SECTION
-        ===================================== */}
+        ====================================== */}
 
         <div className="bills-section">
 
           <div className="section-heading">
 
             <div>
+
               <h2>Hospital Bills</h2>
 
               <p>
                 Your billing history and payment
                 information.
               </p>
+
             </div>
 
             <span className="bill-count">
@@ -366,7 +384,7 @@ function Bills() {
 
           {/* ===================================
               NO BILLS
-          =================================== */}
+          ==================================== */}
 
           {bills.length === 0 ? (
 
@@ -383,15 +401,6 @@ function Bills() {
                 bills.
               </p>
 
-              <button
-                className="dashboard-button"
-                onClick={() =>
-                  navigate("/patient/dashboard")
-                }
-              >
-                ← Back to Dashboard
-              </button>
-
             </div>
 
           ) : (
@@ -400,9 +409,19 @@ function Bills() {
 
               {bills.map((bill) => {
 
+                const status =
+                  String(
+                    bill.status || "Pending"
+                  ).toLowerCase();
+
                 const isPaid =
-                  bill.status?.toLowerCase() ===
-                  "paid";
+                  status === "paid";
+
+                const isCancelled =
+                  status === "cancelled";
+
+                const isPaying =
+                  payingBillId === bill.billId;
 
                 return (
 
@@ -410,14 +429,14 @@ function Bills() {
                     className={`bill-card ${
                       isPaid
                         ? "bill-paid"
+                        : isCancelled
+                        ? "bill-cancelled"
                         : "bill-pending"
                     }`}
                     key={bill.billId}
                   >
 
-                    {/* =========================
-                        CARD HEADER
-                    ========================= */}
+                    {/* CARD HEADER */}
 
                     <div className="bill-card-top">
 
@@ -428,6 +447,7 @@ function Bills() {
                         </div>
 
                         <div>
+
                           <span>
                             Hospital Bill
                           </span>
@@ -435,6 +455,7 @@ function Bills() {
                           <h3>
                             Bill #{bill.billId}
                           </h3>
+
                         </div>
 
                       </div>
@@ -443,23 +464,31 @@ function Bills() {
                         className={`bill-status ${
                           isPaid
                             ? "status-paid"
+                            : isCancelled
+                            ? "status-cancelled"
                             : "status-pending"
                         }`}
                       >
+
                         <span>
-                          {isPaid ? "✓" : "●"}
+                          {isPaid
+                            ? "✓"
+                            : isCancelled
+                            ? "×"
+                            : "●"}
                         </span>
 
                         {isPaid
                           ? "Paid"
+                          : isCancelled
+                          ? "Cancelled"
                           : "Pending"}
+
                       </div>
 
                     </div>
 
-                    {/* =========================
-                        DATE
-                    ========================= */}
+                    {/* DATE */}
 
                     <div className="bill-date-row">
 
@@ -468,14 +497,12 @@ function Bills() {
                       </span>
 
                       <strong>
-                        {bill.billDate}
+                        {bill.billDate || "-"}
                       </strong>
 
                     </div>
 
-                    {/* =========================
-                        DETAILS GRID
-                    ========================= */}
+                    {/* DETAILS */}
 
                     <div className="bill-details-grid">
 
@@ -505,20 +532,20 @@ function Bills() {
 
                       </div>
 
-                      <div className="bill-info-box description-box">
+                      <div className="bill-info-box">
 
                         <span className="info-label">
-                          📝 Description
+                          🏥 Bill Type
                         </span>
 
                         <strong>
-                          {bill.description ||
+                          {bill.billType ||
                             "Hospital Service"}
                         </strong>
 
                       </div>
 
-                      <div className="bill-info-box amount-box">
+                      <div className="bill-info-box">
 
                         <span className="info-label">
                           💵 Amount
@@ -533,42 +560,73 @@ function Bills() {
 
                       </div>
 
+                      <div className="bill-info-box description-box">
+
+                        <span className="info-label">
+                          📝 Description
+                        </span>
+
+                        <strong>
+                          {bill.description ||
+                            "Hospital Service"}
+                        </strong>
+
+                      </div>
+
+                      <div className="bill-info-box">
+
+                        <span className="info-label">
+                          👤 Patient Name
+                        </span>
+
+                        <strong>
+                          {bill.patientName ||
+                            "Patient"}
+                        </strong>
+
+                      </div>
+
                     </div>
 
-                    {/* =========================
-                        PAYMENT FOOTER
-                    ========================= */}
+                    {/* PAYMENT FOOTER */}
 
                     <div className="bill-card-footer">
 
-                      {!isPaid ? (
+                      {!isPaid &&
+                      !isCancelled ? (
 
                         <>
                           <div className="payment-note">
-                            <span>🔒</span>
+
+                            <span>
+                              🔒
+                            </span>
 
                             <p>
                               Secure payment
                               available
                             </p>
+
                           </div>
 
                           <button
                             className="pay-button"
+                            disabled={isPaying}
                             onClick={() =>
                               handlePayBill(
                                 bill.billId
                               )
                             }
                           >
-                            💳 Pay ₹
-                            {Number(
-                              bill.amount || 0
-                            ).toFixed(2)}
+                            {isPaying
+                              ? "⏳ Processing..."
+                              : `💳 Pay ₹${Number(
+                                  bill.amount || 0
+                                ).toFixed(2)}`}
                           </button>
                         </>
 
-                      ) : (
+                      ) : isPaid ? (
 
                         <div className="paid-footer">
 
@@ -577,6 +635,7 @@ function Bills() {
                           </div>
 
                           <div>
+
                             <strong>
                               Payment Completed
                             </strong>
@@ -585,6 +644,30 @@ function Bills() {
                               This bill has been
                               successfully paid.
                             </span>
+
+                          </div>
+
+                        </div>
+
+                      ) : (
+
+                        <div className="paid-footer">
+
+                          <div className="paid-check">
+                            ×
+                          </div>
+
+                          <div>
+
+                            <strong>
+                              Bill Cancelled
+                            </strong>
+
+                            <span>
+                              This bill is no longer
+                              payable.
+                            </span>
+
                           </div>
 
                         </div>
@@ -594,12 +677,10 @@ function Bills() {
                     </div>
 
                   </div>
-
                 );
               })}
 
             </div>
-
           )}
 
         </div>
