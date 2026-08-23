@@ -23,12 +23,10 @@ public class BillService {
 
     public Bill createBill(Bill bill) {
 
-        // Set today's date if admin does not provide a date
         if (bill.getBillDate() == null) {
             bill.setBillDate(LocalDate.now());
         }
 
-        // Default status
         if (bill.getStatus() == null ||
                 bill.getStatus().isBlank()) {
 
@@ -50,30 +48,96 @@ public class BillService {
     // GET BILLS BY PATIENT
     // ==========================================
 
-    public List<Bill> getBillsByPatient(Integer patientId) {
-        return billRepository.findByPatientId(patientId);
+    public List<Bill> getBillsByPatient(
+            Integer patientId) {
+
+        return billRepository.findByPatientId(
+                patientId
+        );
     }
 
     // ==========================================
     // GET BILLS BY DOCTOR
     // ==========================================
 
-    public List<Bill> getBillsByDoctor(Integer doctorId) {
-        return billRepository.findByDoctorId(doctorId);
+    public List<Bill> getBillsByDoctor(
+            Integer doctorId) {
+
+        return billRepository.findByDoctorId(
+                doctorId
+        );
     }
 
     // ==========================================
     // GET BILL BY ID
     // ==========================================
 
-    public Bill getBillById(Integer billId) {
+    public Bill getBillById(
+            Integer billId) {
 
-        return billRepository.findById(billId)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Bill not found with ID: " + billId
-                        )
-                );
+        return billRepository.findById(
+                billId
+        ).orElseThrow(
+                () -> new RuntimeException(
+                        "Bill not found with ID: "
+                                + billId
+                )
+        );
+    }
+
+    // ==========================================
+    // UPDATE BILL
+    // ==========================================
+
+    public Bill updateBill(
+            Integer billId,
+            Bill updatedBill) {
+
+        Bill existingBill =
+                getBillById(billId);
+
+        existingBill.setPatientId(
+                updatedBill.getPatientId()
+        );
+
+        existingBill.setPatientName(
+                updatedBill.getPatientName()
+        );
+
+        existingBill.setDoctorId(
+                updatedBill.getDoctorId()
+        );
+
+        existingBill.setBillType(
+                updatedBill.getBillType()
+        );
+
+        existingBill.setAmount(
+                updatedBill.getAmount()
+        );
+
+        existingBill.setDescription(
+                updatedBill.getDescription()
+        );
+
+        if (updatedBill.getStatus() != null &&
+                !updatedBill.getStatus().isBlank()) {
+
+            existingBill.setStatus(
+                    updatedBill.getStatus()
+            );
+        }
+
+        if (updatedBill.getBillDate() != null) {
+
+            existingBill.setBillDate(
+                    updatedBill.getBillDate()
+            );
+        }
+
+        return billRepository.save(
+                existingBill
+        );
     }
 
     // ==========================================
@@ -84,7 +148,8 @@ public class BillService {
             Integer billId,
             String status) {
 
-        Bill bill = getBillById(billId);
+        Bill bill =
+                getBillById(billId);
 
         bill.setStatus(status);
 

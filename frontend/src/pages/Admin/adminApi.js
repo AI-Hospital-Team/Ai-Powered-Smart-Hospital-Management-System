@@ -1,14 +1,19 @@
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL =
+  "http://localhost:8080/api";
 
 // ==========================================
 // PATIENTS
 // ==========================================
 
 export const fetchPatients = async () => {
-  const response = await fetch(`${API_BASE_URL}/patients`);
+  const response = await fetch(
+    `${API_BASE_URL}/patients`
+  );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch patients");
+    throw new Error(
+      "Failed to fetch patients"
+    );
   }
 
   return response.json();
@@ -19,10 +24,14 @@ export const fetchPatients = async () => {
 // ==========================================
 
 export const fetchDoctors = async () => {
-  const response = await fetch(`${API_BASE_URL}/doctors`);
+  const response = await fetch(
+    `${API_BASE_URL}/doctors`
+  );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch doctors");
+    throw new Error(
+      "Failed to fetch doctors"
+    );
   }
 
   return response.json();
@@ -33,10 +42,14 @@ export const fetchDoctors = async () => {
 // ==========================================
 
 export const fetchAppointments = async () => {
-  const response = await fetch(`${API_BASE_URL}/appointments`);
+  const response = await fetch(
+    `${API_BASE_URL}/appointments`
+  );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch appointments");
+    throw new Error(
+      "Failed to fetch appointments"
+    );
   }
 
   return response.json();
@@ -52,7 +65,9 @@ export const fetchMedicalRecords = async () => {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch medical records");
+    throw new Error(
+      "Failed to fetch medical records"
+    );
   }
 
   return response.json();
@@ -68,7 +83,9 @@ export const fetchPrescriptions = async () => {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch prescriptions");
+    throw new Error(
+      "Failed to fetch prescriptions"
+    );
   }
 
   return response.json();
@@ -84,7 +101,9 @@ export const fetchBills = async () => {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch bills");
+    throw new Error(
+      "Failed to fetch bills"
+    );
   }
 
   return response.json();
@@ -94,20 +113,54 @@ export const fetchBills = async () => {
 // CREATE BILL
 // ==========================================
 
-export const createBill = async (billData) => {
+export const createBill = async (
+  billData
+) => {
   const response = await fetch(
     `${API_BASE_URL}/bills`,
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":
+          "application/json",
       },
       body: JSON.stringify(billData),
     }
   );
 
   if (!response.ok) {
-    throw new Error("Failed to create bill");
+    throw new Error(
+      "Failed to create bill"
+    );
+  }
+
+  return response.json();
+};
+
+// ==========================================
+// UPDATE BILL
+// ==========================================
+
+export const updateBill = async (
+  billId,
+  billData
+) => {
+  const response = await fetch(
+    `${API_BASE_URL}/bills/${billId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
+      body: JSON.stringify(billData),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to update bill"
+    );
   }
 
   return response.json();
@@ -117,31 +170,33 @@ export const createBill = async (billData) => {
 // UPDATE APPOINTMENT STATUS
 // ==========================================
 
-export const updateAppointmentStatus = async (
-  appointmentId,
-  status
-) => {
-  const response = await fetch(
-    `${API_BASE_URL}/appointments/${appointmentId}/status`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        status,
-      }),
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      "Failed to update appointment status"
+export const updateAppointmentStatus =
+  async (
+    appointmentId,
+    status
+  ) => {
+    const response = await fetch(
+      `${API_BASE_URL}/appointments/${appointmentId}/status`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          status,
+        }),
+      }
     );
-  }
 
-  return response.json();
-};
+    if (!response.ok) {
+      throw new Error(
+        "Failed to update appointment status"
+      );
+    }
+
+    return response.json();
+  };
 
 // ==========================================
 // UPDATE BILL STATUS
@@ -156,7 +211,8 @@ export const updateBillStatus = async (
     {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":
+          "application/json",
       },
       body: JSON.stringify({
         status,

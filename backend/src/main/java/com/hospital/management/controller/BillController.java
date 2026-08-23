@@ -24,62 +24,123 @@ public class BillController {
 
     private final BillService billService;
 
-    public BillController(BillService billService) {
+    public BillController(
+            BillService billService) {
+
         this.billService = billService;
     }
 
+    // ==========================================
+    // CREATE BILL
+    // ==========================================
+
     @PostMapping
-    public ResponseEntity<Bill> createBill(@RequestBody Bill bill) {
-        Bill savedBill = billService.createBill(bill);
+    public ResponseEntity<Bill> createBill(
+            @RequestBody Bill bill) {
+
+        Bill savedBill =
+                billService.createBill(bill);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(savedBill);
     }
 
+    // ==========================================
+    // GET ALL BILLS
+    // ==========================================
+
     @GetMapping
     public ResponseEntity<List<Bill>> getAllBills() {
+
         return ResponseEntity.ok(
                 billService.getAllBills()
         );
     }
 
+    // ==========================================
+    // GET BILLS BY PATIENT
+    // ==========================================
+
     @GetMapping("/patient/{patientId}")
-    public ResponseEntity<List<Bill>> getBillsByPatient(
+    public ResponseEntity<List<Bill>>
+    getBillsByPatient(
             @PathVariable Integer patientId) {
 
         return ResponseEntity.ok(
-                billService.getBillsByPatient(patientId)
+                billService.getBillsByPatient(
+                        patientId
+                )
         );
     }
 
+    // ==========================================
+    // GET BILLS BY DOCTOR
+    // ==========================================
+
     @GetMapping("/doctor/{doctorId}")
-    public ResponseEntity<List<Bill>> getBillsByDoctor(
+    public ResponseEntity<List<Bill>>
+    getBillsByDoctor(
             @PathVariable Integer doctorId) {
 
         return ResponseEntity.ok(
-                billService.getBillsByDoctor(doctorId)
+                billService.getBillsByDoctor(
+                        doctorId
+                )
         );
     }
+
+    // ==========================================
+    // GET BILL BY ID
+    // ==========================================
 
     @GetMapping("/{billId}")
     public ResponseEntity<Bill> getBillById(
             @PathVariable Integer billId) {
 
         return ResponseEntity.ok(
-                billService.getBillById(billId)
+                billService.getBillById(
+                        billId
+                )
         );
     }
 
+    // ==========================================
+    // UPDATE COMPLETE BILL
+    // ==========================================
+
+    @PutMapping("/{billId}")
+    public ResponseEntity<Bill> updateBill(
+            @PathVariable Integer billId,
+            @RequestBody Bill bill) {
+
+        return ResponseEntity.ok(
+                billService.updateBill(
+                        billId,
+                        bill
+                )
+        );
+    }
+
+    // ==========================================
+    // UPDATE BILL STATUS
+    // ==========================================
+
     @PutMapping("/{billId}/status")
-    public ResponseEntity<Bill> updateBillStatus(
+    public ResponseEntity<Bill>
+    updateBillStatus(
             @PathVariable Integer billId,
             @RequestBody Map<String, String> request) {
 
-        String status = request.get("status");
+        String status =
+                request.get("status");
 
-        if (status == null || status.isBlank()) {
-            return ResponseEntity.badRequest().build();
+        if (status == null ||
+                status.isBlank()) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .build();
         }
 
         return ResponseEntity.ok(
