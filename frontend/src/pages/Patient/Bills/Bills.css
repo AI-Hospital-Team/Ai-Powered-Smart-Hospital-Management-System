@@ -651,3 +651,77 @@
   }
 
 }
+/* ==========================================
+   REFRESH BILLS BUTTON
+========================================== */
+
+.refresh-bills-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 11px 18px;
+
+  border: 1px solid #d7dee8;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #2563eb;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Hover */
+
+.refresh-bills-button:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 12px rgba(37, 99, 235, 0.12);
+}
+
+/* Click */
+
+.refresh-bills-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Focus */
+
+.refresh-bills-button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.2);
+  outline-offset: 2px;
+}
+
+/* Disabled */
+
+.refresh-bills-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .refresh-bills-button {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+}

@@ -1,5 +1,6 @@
 package com.hospital.management.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,8 +17,18 @@ public class BillService {
         this.billRepository = billRepository;
     }
 
+    // ==========================================
+    // CREATE BILL
+    // ==========================================
+
     public Bill createBill(Bill bill) {
 
+        // Set today's date if admin does not provide a date
+        if (bill.getBillDate() == null) {
+            bill.setBillDate(LocalDate.now());
+        }
+
+        // Default status
         if (bill.getStatus() == null ||
                 bill.getStatus().isBlank()) {
 
@@ -27,17 +38,33 @@ public class BillService {
         return billRepository.save(bill);
     }
 
+    // ==========================================
+    // GET ALL BILLS
+    // ==========================================
+
     public List<Bill> getAllBills() {
         return billRepository.findAll();
     }
+
+    // ==========================================
+    // GET BILLS BY PATIENT
+    // ==========================================
 
     public List<Bill> getBillsByPatient(Integer patientId) {
         return billRepository.findByPatientId(patientId);
     }
 
+    // ==========================================
+    // GET BILLS BY DOCTOR
+    // ==========================================
+
     public List<Bill> getBillsByDoctor(Integer doctorId) {
         return billRepository.findByDoctorId(doctorId);
     }
+
+    // ==========================================
+    // GET BILL BY ID
+    // ==========================================
 
     public Bill getBillById(Integer billId) {
 
@@ -48,6 +75,10 @@ public class BillService {
                         )
                 );
     }
+
+    // ==========================================
+    // UPDATE BILL STATUS
+    // ==========================================
 
     public Bill updateBillStatus(
             Integer billId,

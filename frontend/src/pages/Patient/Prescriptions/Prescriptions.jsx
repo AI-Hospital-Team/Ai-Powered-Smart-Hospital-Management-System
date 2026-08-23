@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Prescriptions.css";
 
 function Prescriptions() {
-  const navigate = useNavigate();
-
   const [user, setUser] = useState(null);
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -115,14 +112,6 @@ function Prescriptions() {
   };
 
   // =====================================================
-  // BACK TO DASHBOARD
-  // =====================================================
-
-  const goToDashboard = () => {
-    navigate("/patient/dashboard");
-  };
-
-  // =====================================================
   // LOADING
   // =====================================================
 
@@ -149,17 +138,11 @@ function Prescriptions() {
           <div className="prescriptions-header">
             <div>
               <h1>My Prescriptions</h1>
+
               <p>
                 View medicines prescribed by your doctors.
               </p>
             </div>
-
-            <button
-              className="dashboard-button"
-              onClick={goToDashboard}
-            >
-              ← Dashboard
-            </button>
           </div>
 
           <div className="error-box">
@@ -193,13 +176,6 @@ function Prescriptions() {
               View medicines prescribed by your doctors.
             </p>
           </div>
-
-          <button
-            className="dashboard-button"
-            onClick={goToDashboard}
-          >
-            ← Dashboard
-          </button>
 
         </div>
 

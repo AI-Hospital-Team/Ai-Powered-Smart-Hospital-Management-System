@@ -1,5 +1,9 @@
 const API_BASE_URL = "http://localhost:8080/api";
 
+// ==========================================
+// PATIENTS
+// ==========================================
+
 export const fetchPatients = async () => {
   const response = await fetch(`${API_BASE_URL}/patients`);
 
@@ -9,6 +13,10 @@ export const fetchPatients = async () => {
 
   return response.json();
 };
+
+// ==========================================
+// DOCTORS
+// ==========================================
 
 export const fetchDoctors = async () => {
   const response = await fetch(`${API_BASE_URL}/doctors`);
@@ -20,6 +28,10 @@ export const fetchDoctors = async () => {
   return response.json();
 };
 
+// ==========================================
+// APPOINTMENTS
+// ==========================================
+
 export const fetchAppointments = async () => {
   const response = await fetch(`${API_BASE_URL}/appointments`);
 
@@ -30,8 +42,14 @@ export const fetchAppointments = async () => {
   return response.json();
 };
 
+// ==========================================
+// MEDICAL RECORDS
+// ==========================================
+
 export const fetchMedicalRecords = async () => {
-  const response = await fetch(`${API_BASE_URL}/medical-records`);
+  const response = await fetch(
+    `${API_BASE_URL}/medical-records`
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch medical records");
@@ -40,8 +58,14 @@ export const fetchMedicalRecords = async () => {
   return response.json();
 };
 
+// ==========================================
+// PRESCRIPTIONS
+// ==========================================
+
 export const fetchPrescriptions = async () => {
-  const response = await fetch(`${API_BASE_URL}/prescriptions`);
+  const response = await fetch(
+    `${API_BASE_URL}/prescriptions`
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch prescriptions");
@@ -50,8 +74,14 @@ export const fetchPrescriptions = async () => {
   return response.json();
 };
 
+// ==========================================
+// BILLS
+// ==========================================
+
 export const fetchBills = async () => {
-  const response = await fetch(`${API_BASE_URL}/bills`);
+  const response = await fetch(
+    `${API_BASE_URL}/bills`
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch bills");
@@ -60,6 +90,28 @@ export const fetchBills = async () => {
   return response.json();
 };
 
+// ==========================================
+// CREATE BILL
+// ==========================================
+
+export const createBill = async (billData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/bills`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(billData),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to create bill");
+  }
+
+  return response.json();
+};
 
 // ==========================================
 // UPDATE APPOINTMENT STATUS
@@ -83,12 +135,13 @@ export const updateAppointmentStatus = async (
   );
 
   if (!response.ok) {
-    throw new Error("Failed to update appointment status");
+    throw new Error(
+      "Failed to update appointment status"
+    );
   }
 
   return response.json();
 };
-
 
 // ==========================================
 // UPDATE BILL STATUS
@@ -112,7 +165,9 @@ export const updateBillStatus = async (
   );
 
   if (!response.ok) {
-    throw new Error("Failed to update bill status");
+    throw new Error(
+      "Failed to update bill status"
+    );
   }
 
   return response.json();

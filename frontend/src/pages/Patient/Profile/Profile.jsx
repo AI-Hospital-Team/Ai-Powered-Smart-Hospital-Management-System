@@ -31,6 +31,10 @@ function Profile() {
     }
   };
 
+  // ==========================================
+  // LOADING
+  // ==========================================
+
   if (loading) {
     return (
       <div className="profile-loading">
@@ -40,36 +44,47 @@ function Profile() {
     );
   }
 
+  // ==========================================
+  // NO USER
+  // ==========================================
+
   if (!user) {
     return null;
   }
 
+  // ==========================================
+  // PROFILE PAGE
+  // ==========================================
+
   return (
     <div className="profile-page">
 
-      {/* HEADER */}
+      {/* ======================================
+          HEADER
+      ====================================== */}
+
       <div className="profile-header">
 
         <div>
           <h1>My Profile</h1>
+
           <p>
             View and manage your personal information.
           </p>
         </div>
 
-        <button
-          className="profile-back-btn"
-          onClick={() => navigate("/patient/dashboard")}
-        >
-          ← Dashboard
-        </button>
-
       </div>
 
-      {/* PROFILE CARD */}
+      {/* ======================================
+          PROFILE CARD
+      ====================================== */}
+
       <div className="profile-container">
 
-        {/* PROFILE TOP */}
+        {/* ====================================
+            PROFILE TOP
+        ==================================== */}
+
         <div className="profile-top">
 
           <div className="profile-avatar">
@@ -93,7 +108,10 @@ function Profile() {
 
         </div>
 
-        {/* PERSONAL INFORMATION */}
+        {/* ====================================
+            PERSONAL INFORMATION
+        ==================================== */}
+
         <div className="profile-section">
 
           <h3>
@@ -104,6 +122,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Full Name</span>
+
               <strong>
                 {user.name || "Not available"}
               </strong>
@@ -111,6 +130,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Email</span>
+
               <strong>
                 {user.email || "Not available"}
               </strong>
@@ -118,6 +138,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Phone</span>
+
               <strong>
                 {user.phone || "Not available"}
               </strong>
@@ -125,6 +146,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Gender</span>
+
               <strong>
                 {user.gender || "Not available"}
               </strong>
@@ -132,6 +154,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Date of Birth</span>
+
               <strong>
                 {user.dateOfBirth || "Not available"}
               </strong>
@@ -139,6 +162,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Age</span>
+
               <strong>
                 {user.age
                   ? `${user.age} years`
@@ -148,6 +172,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Blood Group</span>
+
               <strong className="blood-group">
                 {user.bloodGroup || "Not available"}
               </strong>
@@ -155,6 +180,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Patient ID</span>
+
               <strong>
                 {user.patientId || "Not available"}
               </strong>
@@ -164,7 +190,10 @@ function Profile() {
 
         </div>
 
-        {/* ADDRESS */}
+        {/* ====================================
+            ADDRESS
+        ==================================== */}
+
         <div className="profile-section">
 
           <h3>
@@ -185,7 +214,10 @@ function Profile() {
 
         </div>
 
-        {/* ACCOUNT INFORMATION */}
+        {/* ====================================
+            ACCOUNT INFORMATION
+        ==================================== */}
+
         <div className="profile-section">
 
           <h3>
@@ -196,6 +228,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>Role</span>
+
               <strong>
                 {localStorage.getItem("role") ||
                   "Patient"}
@@ -204,6 +237,7 @@ function Profile() {
 
             <div className="profile-field">
               <span>User ID</span>
+
               <strong>
                 {user.userId || "Not available"}
               </strong>

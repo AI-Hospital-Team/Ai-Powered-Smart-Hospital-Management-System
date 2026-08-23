@@ -7134,3 +7134,188 @@ body {
   }
 
 }
+
+
+/* =========================================================
+   AYUSHMAN — FINAL LAYOUT (IMAGE CARD VERSION)
+   This block is appended last on purpose so that it wins the
+   cascade over the older/duplicate .insurance-section rules
+   above, without deleting any of the original code.
+========================================================= */
+
+.insurance-section {
+  position: relative;
+  width: 100%;
+  padding: 100px 7%;
+  margin: 0;
+
+  background: linear-gradient(135deg, #eefbfc, #ffffff);
+}
+
+.insurance-layout {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+
+  align-items: center;
+}
+
+.insurance-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+
+  color: inherit;
+}
+
+.insurance-icon {
+  min-width: 75px;
+  height: 75px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+  border: 1px solid #d9edf1;
+
+  font-size: 34px;
+
+  box-shadow: 0 10px 25px rgba(8, 127, 140, 0.12);
+}
+
+.insurance-text {
+  max-width: 640px;
+}
+
+.insurance-text .section-label,
+.insurance-section .section-label {
+  color: #087f8c;
+}
+
+.insurance-text h2 {
+  color: #123d56;
+}
+
+.insurance-text h2 span {
+  color: #087f8c;
+}
+
+.insurance-description {
+  margin: 0 0 26px;
+
+  max-width: 620px;
+
+  color: #5a7887;
+
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.insurance-features div {
+  color: #173f56;
+}
+
+.insurance-note {
+  color: #718895;
+}
+
+/* =====================================================
+   AYUSHMAN IMAGE CARD (right side, full image)
+===================================================== */
+
+.ayushman-image-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 480px;
+
+  margin: 0 auto;
+
+  border-radius: 24px;
+  overflow: hidden;
+
+  min-height: auto;
+
+  box-shadow: 0 30px 65px rgba(0, 60, 80, 0.20);
+
+  border: 1px solid rgba(0, 140, 155, 0.14);
+}
+
+.ayushman-image-card img {
+  position: static;
+
+  width: 100%;
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+/* Dark mode: keep the card visible on a dark page background */
+
+.dark-mode .ayushman-image-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 30px 65px rgba(0, 0, 0, 0.45);
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+  .insurance-section {
+    padding: 70px 5%;
+  }
+
+  .insurance-layout {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .insurance-content {
+    flex-direction: column;
+  }
+
+  .ayushman-image-card {
+    max-width: 520px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .insurance-section {
+    padding: 55px 5%;
+  }
+
+  .insurance-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+
+  .insurance-text h2 {
+    font-size: 30px;
+  }
+
+  .insurance-description {
+    font-size: 14px;
+  }
+
+  .insurance-btn {
+    width: 100%;
+  }
+
+}
