@@ -2,6 +2,7 @@ package com.hospital.management.service;
 
 import java.time.LocalDate;
 
+import com.hospital.management.dto.LoginResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,10 +29,10 @@ public class AuthService {
     // LOGIN
     // =====================================================
 
-    public User login(
-            String email,
-            String password,
-            String role) {
+    public LoginResponse login(
+        String email,
+        String password,
+        String role) {
 
         if (email == null || email.trim().isEmpty()) {
             throw new RuntimeException("Email is required");
@@ -92,15 +93,33 @@ public class AuthService {
                     .findByEmail(cleanEmail)
                     .orElse(null);
 
+            Integer patientId = null;
+            String patientName = null;
+
             if (patient != null) {
 
-                user.setPatientId(
-                        patient.getPatientId()
-                );
+                patientId = patient.getPatientId();
+                patientName = patient.getName();
             }
+
+            return new LoginResponse(
+                    user.getUserId(),
+                    user.getEmail(),
+                    user.getRole(),
+                    patientId,
+                    user.getDoctorId(),
+                    patientName
+            );
         }
 
-        return user;
+        return new LoginResponse(
+                user.getUserId(),
+                user.getEmail(),
+                user.getRole(),
+                user.getPatientId(),
+                user.getDoctorId(),
+                null
+        );
     }
 
     // =====================================================

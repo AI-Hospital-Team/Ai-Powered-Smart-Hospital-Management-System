@@ -276,7 +276,7 @@ function DashboardLayout() {
             </h2>
 
             <span>
-              Healthcare Management
+             Intelligent Healthcare Management
             </span>
 
           </div>

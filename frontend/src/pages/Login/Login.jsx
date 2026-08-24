@@ -191,9 +191,11 @@ function Login() {
           null,
 
         name:
-          user.name ??
-          user.fullName ??
-          null,
+        user.name ??
+        user.fullName ??
+        user.patientName ??
+        user.patient?.name ??
+        null,
       };
 
       console.log(
