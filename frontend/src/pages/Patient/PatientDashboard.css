@@ -1,287 +1,675 @@
-/* ================= PATIENT DASHBOARD ================= */
+/* =========================================================
+   AI SMART HOSPITAL
+   PATIENT DASHBOARD
+   Modern Navy + Teal UI
+========================================================= */
 
 .patient-dashboard {
   width: 100%;
+  color: #17324d;
 }
 
 
-/* ================= PAGE HEADER ================= */
+/* =========================================================
+   PAGE HEADER
+========================================================= */
 
 .page-header {
+  position: relative;
+
   margin-bottom: 28px;
+  padding: 28px 30px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #062c3b 0%,
+      #083f4d 55%,
+      #075866 100%
+    );
+
+  border: 1px solid rgba(65, 210, 220, 0.20);
+
+  box-shadow:
+    0 15px 35px rgba(0, 50, 70, 0.14);
+
+  overflow: hidden;
 }
+
+
+/* decorative glow */
+
+.page-header::before {
+  content: "";
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  right: -70px;
+  top: -100px;
+
+  border-radius: 50%;
+
+  background: rgba(65, 210, 220, 0.10);
+
+  pointer-events: none;
+}
+
+.page-header::after {
+  content: "";
+
+  position: absolute;
+
+  width: 140px;
+  height: 140px;
+
+  right: 180px;
+  bottom: -100px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  pointer-events: none;
+}
+
+
+.page-header > div {
+  position: relative;
+  z-index: 1;
+}
+
 
 .page-header h1 {
   margin: 0;
-  color: #17324d;
-  font-size: 34px;
+
+  color: #ffffff;
+
+  font-size: 32px;
   font-weight: 800;
+
+  letter-spacing: -0.5px;
 }
 
+
 .page-header p {
-  margin: 7px 0 0;
-  color: #718797;
+  margin: 7px 0 3px;
+
+  color: #a9d8df;
+
   font-size: 14px;
 }
 
 
-/* ================= SUMMARY CARDS ================= */
+.page-header small {
+  color: #6fd3dc;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
 
 .dashboard-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
   gap: 18px;
-  margin-bottom: 22px;
+
+  margin-bottom: 25px;
 }
 
+
 .dashboard-card {
-  min-height: 115px;
+  position: relative;
+
+  min-height: 125px;
 
   display: flex;
   align-items: center;
-  gap: 15px;
 
-  padding: 20px;
+  gap: 17px;
+
+  padding: 23px;
 
   background: #ffffff;
+
   border: 1px solid #dcecf1;
-  border-radius: 16px;
 
-  box-shadow: 0 8px 25px rgba(0, 70, 100, 0.06);
+  border-radius: 18px;
 
-  transition: 0.2s ease;
+  box-shadow:
+    0 8px 28px rgba(0, 70, 100, 0.07);
+
+  overflow: hidden;
+
+  cursor: default;
+
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
 }
+
+
+/* top accent */
+
+.dashboard-card::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0794a3,
+      #42d6df
+    );
+
+  transform: scaleX(0);
+
+  transform-origin: left;
+
+  transition: transform 0.3s ease;
+}
+
 
 .dashboard-card:hover {
-  transform: translateY(-3px);
-  border-color: #b9e7eb;
-  box-shadow: 0 12px 28px rgba(0, 100, 120, 0.10);
+  transform: translateY(-6px);
+
+  border-color: #9edce3;
+
+  box-shadow:
+    0 18px 38px rgba(0, 100, 120, 0.13);
 }
 
 
-/* Card icon */
+.dashboard-card:hover::before {
+  transform: scaleX(1);
+}
+
+
+/* =========================================================
+   CARD ICON
+========================================================= */
 
 .card-icon {
-  width: 48px;
-  height: 48px;
+  width: 55px;
+  height: 55px;
 
   flex-shrink: 0;
 
   display: grid;
   place-items: center;
 
-  border-radius: 13px;
-  background: #e8f8fa;
+  border-radius: 16px;
 
-  font-size: 23px;
+  background:
+    linear-gradient(
+      135deg,
+      #e4f8fa,
+      #d4f1f4
+    );
+
+  border: 1px solid #c8e9ed;
+
+  font-size: 25px;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 
-/* Card text */
+.dashboard-card:hover .card-icon {
+  transform: scale(1.08) rotate(-3deg);
 
-.dashboard-card small {
-  display: block;
-
-  color: #718797;
-  font-size: 12px;
-  font-weight: 600;
+  box-shadow:
+    0 8px 20px rgba(0, 140, 155, 0.14);
 }
 
-.dashboard-card strong {
-  display: block;
 
-  margin: 3px 0;
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.dashboard-card h3 {
+  margin: 0 0 4px;
+
+  color: #607b8c;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+.dashboard-card p {
+  margin: 0;
 
   color: #087f8c;
-  font-size: 25px;
+
+  font-size: 28px;
   font-weight: 800;
-}
 
-.dashboard-card em {
-  display: block;
-
-  color: #8aa0ad;
-  font-size: 10px;
-  font-style: normal;
+  line-height: 1;
 }
 
 
-/* ================= SECTIONS ================= */
+/* =========================================================
+   DASHBOARD SECTIONS
+========================================================= */
 
 .dashboard-section {
   margin-bottom: 22px;
-  padding: 25px;
+
+  padding: 26px;
 
   background: #ffffff;
+
   border: 1px solid #dcecf1;
-  border-radius: 16px;
 
-  box-shadow: 0 8px 25px rgba(0, 70, 100, 0.05);
+  border-radius: 18px;
+
+  box-shadow:
+    0 8px 28px rgba(0, 70, 100, 0.05);
+
+  overflow: hidden;
+
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 
-/* ================= SECTION HEADING ================= */
+.dashboard-section:hover {
+  border-color: #c6e6eb;
 
-.section-heading {
-  margin-bottom: 19px;
+  box-shadow:
+    0 12px 32px rgba(0, 70, 100, 0.075);
 }
 
-.section-heading h2 {
-  margin: 0;
 
-  color: #17324d;
-  font-size: 20px;
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.dashboard-section h2 {
+  margin: 0 0 20px;
+
+  color: #123a57;
+
+  font-size: 21px;
   font-weight: 800;
-}
 
-.section-heading p {
-  margin: 5px 0 0;
-
-  color: #718797;
-  font-size: 12px;
+  letter-spacing: -0.2px;
 }
 
 
-/* ================= QUICK ACTIONS ================= */
+/* =========================================================
+   TABLE CONTAINER
+========================================================= */
 
-.quick-actions {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+.table-container {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border-radius: 13px;
+
+  border: 1px solid #e0edf1;
 }
 
-.quick-card {
-  min-height: 82px;
 
-  display: flex;
-  align-items: center;
-  gap: 14px;
+/* =========================================================
+   TABLE
+========================================================= */
 
-  padding: 14px 16px;
+.table-container table {
+  width: 100%;
 
-  border: 1px solid #c8e9ed;
-  border-radius: 14px;
+  border-collapse: collapse;
 
-  background: #f7fcfd;
+  min-width: 700px;
+
+  background: #ffffff;
+}
+
+
+.table-container thead {
+  background:
+    linear-gradient(
+      90deg,
+      #f0f8fa,
+      #f7fbfc
+    );
+}
+
+
+.table-container th {
+  padding: 15px 16px;
+
+  color: #557183;
+
+  font-size: 11px;
+
+  font-weight: 800;
 
   text-align: left;
 
-  cursor: pointer;
+  text-transform: uppercase;
 
-  transition: 0.2s ease;
+  letter-spacing: 0.5px;
+
+  border-bottom: 1px solid #dcecf1;
+
+  white-space: nowrap;
 }
 
-.quick-card:hover {
+
+.table-container td {
+  padding: 16px;
+
+  color: #294c62;
+
+  font-size: 13px;
+
+  border-bottom: 1px solid #edf3f5;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease;
+}
+
+
+.table-container tbody tr {
+  transition:
+    background 0.2s ease;
+}
+
+
+.table-container tbody tr:hover {
+  background: #f4fbfc;
+}
+
+
+.table-container tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.table-container td:last-child {
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY STATES
+========================================================= */
+
+.table-container > p {
+  margin: 0;
+
+  padding: 28px;
+
+  color: #78909c;
+
+  font-size: 13px;
+
+  text-align: center;
+
+  background: #f8fcfd;
+}
+
+
+/* =========================================================
+   PATIENT INFORMATION
+========================================================= */
+
+.patient-info-section {
+  margin-bottom: 24px;
+
+  padding: 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #dcecf1;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 8px 28px rgba(0, 70, 100, 0.06);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.patient-info-section:hover {
   transform: translateY(-2px);
 
-  background: #eaf9fa;
-  border-color: #35cbd1;
-
-  box-shadow: 0 8px 20px rgba(0, 120, 140, 0.10);
+  box-shadow:
+    0 14px 32px rgba(0, 70, 100, 0.09);
 }
 
 
-/* Quick icon */
+.patient-info-header {
+  display: flex;
 
-.quick-icon {
-  width: 45px;
-  height: 45px;
+  align-items: center;
+
+  gap: 16px;
+
+  margin-bottom: 22px;
+}
+
+
+.patient-avatar {
+  width: 60px;
+  height: 60px;
 
   flex-shrink: 0;
 
-  display: grid;
-  place-items: center;
+  display: flex;
 
-  border-radius: 12px;
-  background: #e5f7f9;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e3f8fa,
+      #cceff3
+    );
+
+  border: 1px solid #bde3e8;
+
+  font-size: 28px;
+
+  transition:
+    transform 0.25s ease;
+}
+
+
+.patient-info-section:hover .patient-avatar {
+  transform: scale(1.05);
+}
+
+
+.patient-info-header h2 {
+  margin: 0;
+
+  color: #123a57;
 
   font-size: 21px;
 }
 
 
-/* Quick text */
+.patient-info-header p {
+  margin: 5px 0 0;
 
-.quick-card div {
-  flex: 1;
-}
+  color: #78909c;
 
-.quick-card strong {
-  display: block;
-
-  color: #087f8c;
   font-size: 13px;
-  font-weight: 800;
-}
-
-.quick-card small {
-  display: block;
-
-  margin-top: 4px;
-
-  color: #718797;
-  font-size: 11px;
 }
 
 
-/* Arrow */
-
-.quick-arrow {
-  color: #20b8c5;
-  font-size: 20px;
-  font-weight: 700;
-
-  transition: 0.2s ease;
-}
-
-.quick-card:hover .quick-arrow {
-  transform: translateX(4px);
-}
-
-
-/* ================= APPOINTMENT ================= */
-
-.appointment-box {
+.patient-info-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 15px;
 
-  padding: 18px;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
 
-  background: #f7fbfd;
-  border-radius: 12px;
+  gap: 14px;
 }
 
-.appointment-box small {
+
+.patient-info-grid > div {
+  padding: 15px;
+
+  background: #f7fcfd;
+
+  border: 1px solid #e0f0f4;
+
+  border-radius: 13px;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.patient-info-grid > div:hover {
+  transform: translateY(-2px);
+
+  background: #f0fafb;
+
+  border-color: #a9dce2;
+}
+
+
+.patient-info-grid small {
   display: block;
 
   margin-bottom: 6px;
 
-  color: #718797;
-  font-size: 11px;
-}
+  color: #78909c;
 
-.appointment-box strong {
-  color: #17324d;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.empty-message {
-  margin: 13px 0 0;
-
-  color: #8aa0ad;
   font-size: 11px;
 }
 
 
-/* ================= DARK MODE ================= */
+.patient-info-grid strong {
+  display: block;
 
-.dashboard-page.dark-mode .page-header h1 {
+  color: #123a57;
+
+  font-size: 14px;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.dashboard-loading {
+  padding: 35px;
+
+  background: #ffffff;
+
+  border: 1px solid #dcecf1;
+
+  border-radius: 18px;
+
+  text-align: center;
+
+  color: #547384;
+
+  box-shadow:
+    0 8px 25px rgba(0, 70, 100, 0.05);
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.dashboard-error {
+  padding: 22px;
+
+  background: #fff7f7;
+
+  border: 1px solid #ffd4d4;
+
+  border-radius: 14px;
+
+  text-align: center;
+
+  color: #c62828;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dashboard-page.dark-mode .patient-dashboard {
   color: #e6f5f7;
 }
 
+
+/* Header */
+
+.dashboard-page.dark-mode .page-header {
+  background:
+    linear-gradient(
+      135deg,
+      #061b25,
+      #092f3b,
+      #073f4a
+    );
+
+  border-color: #1c5360;
+}
+
+
+.dashboard-page.dark-mode .page-header h1 {
+  color: #f0fbfc;
+}
+
+
 .dashboard-page.dark-mode .page-header p {
-  color: #9ab6c0;
+  color: #9bc3ca;
+}
+
+
+.dashboard-page.dark-mode .page-header small {
+  color: #4ed4df;
 }
 
 
@@ -289,242 +677,275 @@
 
 .dashboard-page.dark-mode .dashboard-card {
   background: #0b2632;
+
   border-color: #164554;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.24);
 }
+
 
 .dashboard-page.dark-mode .dashboard-card:hover {
+  background: #0e2d39;
+
   border-color: #287485;
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.34);
 }
 
-.dashboard-page.dark-mode .card-icon {
-  background: #103845;
-}
 
-.dashboard-page.dark-mode .dashboard-card small {
+.dashboard-page.dark-mode .dashboard-card h3 {
   color: #9ab6c0;
 }
 
-.dashboard-page.dark-mode .dashboard-card strong {
-  color: #35cbd1;
+
+.dashboard-page.dark-mode .dashboard-card p {
+  color: #45d5df;
 }
 
-.dashboard-page.dark-mode .dashboard-card em {
-  color: #829fa9;
+
+.dashboard-page.dark-mode .card-icon {
+  background: #103845;
+
+  border-color: #1d5664;
 }
 
 
 /* Sections */
 
-.dashboard-page.dark-mode .dashboard-section {
+.dashboard-page.dark-mode .dashboard-section,
+.dashboard-page.dark-mode .patient-info-section {
   background: #0b2632;
+
   border-color: #164554;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.22);
 }
 
-.dashboard-page.dark-mode .section-heading h2 {
+
+.dashboard-page.dark-mode .dashboard-section:hover,
+.dashboard-page.dark-mode .patient-info-section:hover {
+  border-color: #287485;
+}
+
+
+.dashboard-page.dark-mode .dashboard-section h2,
+.dashboard-page.dark-mode .patient-info-header h2 {
   color: #e6f5f7;
 }
 
-.dashboard-page.dark-mode .section-heading p {
+
+/* Tables */
+
+.dashboard-page.dark-mode .table-container {
+  border-color: #194957;
+}
+
+
+.dashboard-page.dark-mode .table-container table {
+  background: #0b2632;
+}
+
+
+.dashboard-page.dark-mode .table-container thead {
+  background:
+    linear-gradient(
+      90deg,
+      #102f3a,
+      #123844
+    );
+}
+
+
+.dashboard-page.dark-mode .table-container th {
+  color: #9fc1c9;
+
+  border-color: #1b4a58;
+}
+
+
+.dashboard-page.dark-mode .table-container td {
+  color: #c5dce1;
+
+  border-color: #163e4b;
+}
+
+
+.dashboard-page.dark-mode .table-container tbody tr:hover {
+  background: #103845;
+}
+
+
+.dashboard-page.dark-mode .table-container > p {
+  background: #071c27;
+
+  color: #91afb8;
+}
+
+
+/* Patient info */
+
+.dashboard-page.dark-mode .patient-avatar {
+  background: #103845;
+
+  border-color: #1d5664;
+}
+
+
+.dashboard-page.dark-mode .patient-info-header p {
   color: #9ab6c0;
 }
 
 
-/* Quick cards */
-
-.dashboard-page.dark-mode .quick-card {
+.dashboard-page.dark-mode .patient-info-grid > div {
   background: #103845;
+
   border-color: #1c5968;
 }
 
-.dashboard-page.dark-mode .quick-card:hover {
+
+.dashboard-page.dark-mode .patient-info-grid > div:hover {
   background: #124653;
+
   border-color: #35cbd1;
 }
 
-.dashboard-page.dark-mode .quick-icon {
-  background: #164653;
-}
 
-.dashboard-page.dark-mode .quick-card strong {
-  color: #35cbd1;
-}
-
-.dashboard-page.dark-mode .quick-card small {
+.dashboard-page.dark-mode .patient-info-grid small {
   color: #9ab6c0;
 }
 
-.dashboard-page.dark-mode .quick-arrow {
-  color: #35cbd1;
-}
 
-
-/* Appointment */
-
-.dashboard-page.dark-mode .appointment-box {
-  background: #071c27;
-}
-
-.dashboard-page.dark-mode .appointment-box small {
-  color: #9ab6c0;
-}
-
-.dashboard-page.dark-mode .appointment-box strong {
+.dashboard-page.dark-mode .patient-info-grid strong {
   color: #e6f5f7;
 }
 
-.dashboard-page.dark-mode .empty-message {
-  color: #829fa9;
+
+/* Loading */
+
+.dashboard-page.dark-mode .dashboard-loading {
+  background: #0b2632;
+
+  border-color: #164554;
+
+  color: #9ab6c0;
 }
 
 
-/* ================= RESPONSIVE ================= */
+/* Error */
 
-@media (max-width: 950px) {
+.dashboard-page.dark-mode .dashboard-error {
+  background: #321c21;
+
+  border-color: #633038;
+
+  color: #ff9f9f;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
 
   .dashboard-cards {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
   }
 
-  .quick-actions {
-    grid-template-columns: 1fr;
+  .patient-info-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
 
   .dashboard-cards {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
   .dashboard-section {
-    padding: 20px;
+    padding: 22px;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .page-header {
+    padding: 23px;
+
+    border-radius: 17px;
   }
 
   .page-header h1 {
     font-size: 27px;
   }
 
-  .appointment-box {
-    grid-template-columns: 1fr 1fr;
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .dashboard-card {
+    min-height: 105px;
+
+    padding: 19px;
+  }
+
+  .dashboard-section {
+    padding: 18px;
+
+    border-radius: 15px;
+  }
+
+  .dashboard-section h2 {
+    font-size: 19px;
+  }
+
+  .patient-info-section {
+    padding: 19px;
+  }
+
+  .patient-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-info-header {
+    align-items: flex-start;
   }
 }
 
 
 @media (max-width: 450px) {
 
-  .appointment-box {
-    grid-template-columns: 1fr;
-  }
-}
-/* ================================
-   PATIENT INFORMATION
-   ================================ */
-
-.patient-info-section {
-  background: #ffffff;
-  border: 1px solid #d8eaf0;
-  border-radius: 18px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 8px 25px rgba(0, 100, 140, 0.06);
-}
-
-.patient-info-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 22px;
-}
-
-.patient-avatar {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: #e5f7fb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-}
-
-.patient-info-header h2 {
-  margin: 0;
-  color: #073b5c;
-  font-size: 22px;
-}
-
-.patient-info-header p {
-  margin: 5px 0 0;
-  color: #70889a;
-  font-size: 14px;
-}
-
-.patient-info-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.patient-info-grid > div {
-  background: #f7fcfd;
-  border: 1px solid #e0f0f4;
-  border-radius: 12px;
-  padding: 14px 16px;
-}
-
-.patient-info-grid small {
-  display: block;
-  color: #78909c;
-  margin-bottom: 6px;
-  font-size: 12px;
-}
-
-.patient-info-grid strong {
-  display: block;
-  color: #073b5c;
-  font-size: 15px;
-  word-break: break-word;
-}
-
-/* ================================
-   LOADING / ERROR
-   ================================ */
-
-.dashboard-loading,
-.dashboard-error {
-  background: #ffffff;
-  border: 1px solid #d8eaf0;
-  border-radius: 16px;
-  padding: 30px;
-  text-align: center;
-  color: #073b5c;
-  margin-top: 30px;
-}
-
-.dashboard-error {
-  color: #c62828;
-  border-color: #ffcdd2;
-}
-
-/* ================================
-   RESPONSIVE
-   ================================ */
-
-@media (max-width: 900px) {
-  .patient-info-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .patient-info-grid {
-    grid-template-columns: 1fr;
+  .page-header {
+    padding: 20px;
   }
 
-  .patient-info-section {
-    padding: 18px;
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .dashboard-card {
+    gap: 13px;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+
+    font-size: 21px;
+  }
+
+  .dashboard-card p {
+    font-size: 24px;
   }
 }
