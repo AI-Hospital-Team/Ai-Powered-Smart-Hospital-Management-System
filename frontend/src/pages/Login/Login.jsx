@@ -16,7 +16,9 @@ function Login() {
 
     setErrorMessage("");
 
-    if (!email.trim() || !password.trim()) {
+    const cleanEmail = email.trim();
+
+    if (!cleanEmail || !password.trim()) {
       setErrorMessage("Please enter email and password.");
       return;
     }
@@ -24,6 +26,10 @@ function Login() {
     setLoading(true);
 
     try {
+      // =====================================================
+      // LOGIN API
+      // =====================================================
+
       const response = await fetch(
         "http://localhost:8080/api/auth/login",
         {
@@ -32,108 +38,222 @@ function Login() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email.trim(),
+            email: cleanEmail,
             password: password,
             role: role,
           }),
         }
       );
 
+      // =====================================================
+      // READ BACKEND RESPONSE
+      // =====================================================
+
       const contentType = response.headers.get("content-type");
 
       let data;
 
-      if (contentType && contentType.includes("application/json")) {
+      if (
+        contentType &&
+        contentType.toLowerCase().includes("application/json")
+      ) {
         data = await response.json();
       } else {
         data = await response.text();
       }
 
-      // Login failed
+      console.log("LOGIN STATUS:", response.status);
+      console.log("LOGIN RESPONSE FROM BACKEND:", data);
+
+      // =====================================================
+      // LOGIN FAILED
+      // =====================================================
+
       if (!response.ok) {
         console.error("Login failed:", data);
 
-        if (typeof data === "object" && data?.message) {
-          setErrorMessage(data.message);
+        if (typeof data === "object" && data !== null) {
+          if (data.message) {
+            setErrorMessage(data.message);
+          } else if (data.error) {
+            setErrorMessage(data.error);
+          } else {
+            setErrorMessage(
+              "Invalid email, password or role."
+            );
+          }
+        } else if (typeof data === "string" && data.trim()) {
+          setErrorMessage(data);
         } else {
-          setErrorMessage("Invalid email, password or role.");
+          setErrorMessage(
+            "Invalid email, password or role."
+          );
         }
 
         return;
       }
 
-      // Backend response
+      // =====================================================
+      // CHECK BACKEND RESPONSE
+      // =====================================================
+
+      if (
+        !data ||
+        typeof data !== "object"
+      ) {
+        console.error(
+          "Invalid login response:",
+          data
+        );
+
+        setErrorMessage(
+          "Invalid response received from server."
+        );
+
+        return;
+      }
+
+      // =====================================================
+      // BACKEND USER DATA
+      // =====================================================
+
       const user = data;
 
-      console.log("LOGIN RESPONSE FROM BACKEND:", user);
-      console.log("PASSWORD FROM BACKEND:", user.password);
+      console.log(
+        "USER RECEIVED FROM BACKEND:",
+        user
+      );
 
-      /*
-       * Clear old login data.
-       * This is important because your browser previously
-       * had an old user object containing password.
-       */
+      // =====================================================
+      // GET ROLE
+      // =====================================================
+
+      const backendRole =
+        user.role || role;
+
+      const userRole =
+        backendRole.toString().toLowerCase();
+
+      console.log(
+        "USER ROLE:",
+        userRole
+      );
+
+      // =====================================================
+      // VERIFY ROLE
+      // =====================================================
+
+      if (
+        userRole !== "admin" &&
+        userRole !== "doctor" &&
+        userRole !== "patient"
+      ) {
+        setErrorMessage(
+          "Invalid user role received from server."
+        );
+
+        return;
+      }
+
+      // =====================================================
+      // CLEAR OLD LOGIN DATA
+      // =====================================================
+
       localStorage.removeItem("isLoggedIn");
       localStorage.removeItem("role");
       localStorage.removeItem("user");
 
-      /*
-       * Create a SAFE user object.
-       *
-       * IMPORTANT:
-       * password is intentionally NOT included.
-       */
+      // =====================================================
+      // SAFE USER OBJECT
+      //
+      // IMPORTANT:
+      // PASSWORD IS NOT STORED
+      // =====================================================
+
       const safeUser = {
-        userId: user.userId,
-        email: user.email,
-        role: user.role,
-        patientId: user.patientId ?? null,
-        doctorId: user.doctorId ?? null,
+        userId:
+          user.userId ??
+          user.id ??
+          null,
+
+        email:
+          user.email ??
+          cleanEmail,
+
+        role: backendRole,
+
+        patientId:
+          user.patientId ??
+          null,
+
+        doctorId:
+          user.doctorId ??
+          null,
+
+        name:
+          user.name ??
+          user.fullName ??
+          null,
       };
 
-      console.log("USER BEFORE LOCALSTORAGE:", safeUser);
+      console.log(
+        "SAFE USER:",
+        safeUser
+      );
 
-      /*
-       * Save login state
-       */
-      localStorage.setItem("isLoggedIn", "true");
+      // =====================================================
+      // SAVE LOGIN STATE
+      // =====================================================
 
-      localStorage.setItem("role", user.role);
+      localStorage.setItem(
+        "isLoggedIn",
+        "true"
+      );
 
-      /*
-       * Save ONLY safe user information.
-       * Password is NOT stored.
-       */
+      localStorage.setItem(
+        "role",
+        backendRole
+      );
+
       localStorage.setItem(
         "user",
         JSON.stringify(safeUser)
       );
 
-      /*
-       * Verify what was actually stored.
-       */
+      // =====================================================
+      // VERIFY LOCAL STORAGE
+      // =====================================================
+
       console.log(
         "USER STORED IN LOCALSTORAGE:",
-        JSON.parse(localStorage.getItem("user"))
+        JSON.parse(
+          localStorage.getItem("user")
+        )
       );
 
-      const userRole = user.role?.toLowerCase();
+      // =====================================================
+      // REDIRECT BASED ON ROLE
+      // =====================================================
 
-      /*
-       * Redirect based on role
-       */
       if (userRole === "admin") {
-        navigate("/dashboard", { replace: true });
+        navigate("/dashboard", {
+          replace: true,
+        });
       } else if (userRole === "doctor") {
-        navigate("/doctor", { replace: true });
+        navigate("/doctor", {
+          replace: true,
+        });
       } else if (userRole === "patient") {
-        navigate("/patient", { replace: true });
-      } else {
-        setErrorMessage("Invalid user role received from server.");
+        navigate("/patient", {
+          replace: true,
+        });
       }
 
     } catch (error) {
-      console.error("Login error:", error);
+      console.error(
+        "LOGIN ERROR:",
+        error
+      );
 
       setErrorMessage(
         "Cannot connect to the hospital server. Make sure Spring Boot is running on port 8080."
@@ -155,9 +275,13 @@ function Login() {
             🏥
           </div>
 
-          <h1>AI Hospital</h1>
+          <h1>
+            AI Hospital
+          </h1>
 
-          <p>Hospital Management System</p>
+          <p>
+            Hospital Management System
+          </p>
 
         </div>
 
@@ -170,12 +294,17 @@ function Login() {
           {/* Email */}
           <div className="form-group">
 
-            <label>Email</label>
+            <label htmlFor="email">
+              Email
+            </label>
 
             <input
+              id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
               placeholder="Enter your email"
               autoComplete="email"
               required
@@ -186,12 +315,17 @@ function Login() {
           {/* Password */}
           <div className="form-group">
 
-            <label>Password</label>
+            <label htmlFor="password">
+              Password
+            </label>
 
             <input
+              id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               placeholder="Enter your password"
               autoComplete="current-password"
               required
@@ -202,11 +336,16 @@ function Login() {
           {/* Role */}
           <div className="form-group">
 
-            <label>Login As</label>
+            <label htmlFor="role">
+              Login As
+            </label>
 
             <select
+              id="role"
               value={role}
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(e) =>
+                setRole(e.target.value)
+              }
             >
 
               <option value="Patient">
@@ -225,7 +364,7 @@ function Login() {
 
           </div>
 
-          {/* Error */}
+          {/* Error Message */}
           {errorMessage && (
             <div className="login-error">
               {errorMessage}
