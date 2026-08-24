@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 
 function Home() {
+  const [loginDarkMode, setLoginDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   useEffect(() => {
   const sections = [
@@ -13,7 +14,6 @@ function Home() {
     "about",
     "contact",
   ];
-
   const handleScroll = () => {
     const scrollPosition = window.scrollY + 140;
 
@@ -2490,202 +2490,276 @@ const clearChat = () => {
 
 </footer>
 
+{/* =====================================================
+    LOGIN MODAL
+===================================================== */}
 
-      {/* =====================================================
-          LOGIN MODAL
-      ===================================================== */}
+{loginOpen && (
 
-      {loginOpen && (
-
-        <div
-          className="login-overlay"
-          onClick={() => setLoginOpen(false)}
-        >
-
-          <div
-            className="hospital-login"
-            onClick={(e) => e.stopPropagation()}
-          >
-
-            <button
-              className="close-login"
-              onClick={() => setLoginOpen(false)}
-            >
-              ×
-            </button>
-
-
-            <div className="hospital-login-logo">
-
-              <div className="large-logo">
-                🏥
-              </div>
-
-            </div>
-
-
-            <h1>
-              {loginRole} Login
-            </h1>
-
-            <p className="login-subtitle">
-              Login to AI Smart Hospital
-            </p>
-
-
-            <div className="role-tabs">
-
-              <button
-                className={loginRole === "Patient" ? "active" : ""}
-                onClick={() => setLoginRole("Patient")}
-              >
-                Patient
-              </button>
-
-              <button
-                className={loginRole === "Doctor" ? "active" : ""}
-                onClick={() => setLoginRole("Doctor")}
-              >
-                Doctor
-              </button>
-
-              <button
-                className={loginRole === "Admin" ? "active" : ""}
-                onClick={() => setLoginRole("Admin")}
-              >
-                Admin
-              </button>
-
-            </div>
-            
-<form
-
-  onSubmit={async (e) => {
-  e.preventDefault();
-  setErrorMessage("");
-
-    const formData = new FormData(e.currentTarget);
-
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    if (!email || !password) {
-      setErrorMessage("Please enter email and password.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "http://localhost:8080/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email.trim(),
-            password: password,
-            role: loginRole,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const message = await response.text();
-        setErrorMessage("Invalid email or password.");
-        return;
-      }
-
-      const user = await response.json();
-
-      localStorage.clear();
-
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("role", user.role);
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(user)
-      );
-
-      setLoginOpen(false);
-
-      if (user.role === "Admin") {
-        navigate("/dashboard", { replace: true });
-      } else if (user.role === "Doctor") {
-        navigate("/doctor", { replace: true });
-      } else if (user.role === "Patient") {
-        navigate("/patient", { replace: true });
-      }
-
-    } catch (error) {
-      console.error("Login error:", error);
-      setErrorMessage("Unable to connect to the hospital server.");
-    }
-  }}
->
-  <label>
-    Email / Username
-  </label>
-
-  <input
-    type="email"
-    name="email"
-    placeholder="Enter email or username"
-    required
-  />
-
-  <label>
-    Password
-  </label>
-
-  <input
-    type="password"
-    name="password"
-    placeholder="Enter password"
-    required
-  />
-
-  <button
-    type="submit"
-    className="hospital-login-button"
+  <div
+    className="login-overlay"
+    onClick={() => setLoginOpen(false)}
   >
-    Login as {loginRole}
-  </button>
-</form>
-          {errorMessage && (
-            <div className="login-error">
-              ⚠️ {errorMessage}
-            </div>
-          )}
 
-      <div className="register-text">
-              Don't have an account?
+    <div
+      className={`hospital-login ${
+        loginDarkMode ? "login-dark-mode" : ""
+      }`}
+      onClick={(e) => e.stopPropagation()}
+    >
 
-              <button onClick={openRegister}>
-                Register
-              </button>
+      {/* LOGIN-ONLY THEME BUTTON */}
+      <button
+        type="button"
+        className="login-theme-toggle"
+        onClick={() =>
+          setLoginDarkMode((prev) => !prev)
+        }
+        aria-label={
+          loginDarkMode
+            ? "Switch login to light mode"
+            : "Switch login to dark mode"
+        }
+      >
+        {loginDarkMode ? "☀️" : "🌙"}
+      </button>
 
-            </div>
+      {/* CLOSE */}
+      <button
+        type="button"
+        className="close-login"
+        onClick={() => setLoginOpen(false)}
+      >
+        ×
+      </button>
 
+      {/* LOGO */}
+      <div className="hospital-login-logo">
+        <img
+          src="/github-logo.jpeg"
+          alt="AI Smart Hospital"
+          className="login-hospital-logo"
+        />
+      </div>
 
-            <button
-                type="button"
-                className="forgot-password"
-                onClick={() =>
-                  setErrorMessage("Password recovery will be available soon.")
+      {/* TITLE */}
+      <h1>
+        {loginRole} Login
+      </h1>
+
+      <p className="login-subtitle">
+        Login to AI Smart Hospital
+      </p>
+
+      {/* ROLE TABS */}
+      <div className="role-tabs">
+
+        <button
+          type="button"
+          className={
+            loginRole === "Patient"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setLoginRole("Patient")
+          }
+        >
+          Patient
+        </button>
+
+        <button
+          type="button"
+          className={
+            loginRole === "Doctor"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setLoginRole("Doctor")
+          }
+        >
+          Doctor
+        </button>
+
+        <button
+          type="button"
+          className={
+            loginRole === "Admin"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setLoginRole("Admin")
+          }
+        >
+          Admin
+        </button>
+
+      </div>
+
+      {/* LOGIN FORM */}
+      <form
+        onSubmit={async (e) => {
+
+          e.preventDefault();
+
+          setErrorMessage("");
+
+          const formData =
+            new FormData(e.currentTarget);
+
+          const email =
+            formData.get("email");
+
+          const password =
+            formData.get("password");
+
+          if (!email || !password) {
+            setErrorMessage(
+              "Please enter email and password."
+            );
+            return;
+          }
+
+          try {
+
+            const response =
+              await fetch(
+                "http://localhost:8080/api/auth/login",
+                {
+                  method: "POST",
+
+                  headers: {
+                    "Content-Type":
+                      "application/json",
+                  },
+
+                  body: JSON.stringify({
+                    email: email.trim(),
+                    password: password,
+                    role: loginRole,
+                  }),
                 }
-              >
-                Forgot Password?
-              </button>
+              );
 
-          </div>
+            if (!response.ok) {
 
+              await response.text();
+
+              setErrorMessage(
+                "Invalid email or password."
+              );
+
+              return;
+            }
+
+            const user =
+              await response.json();
+
+            localStorage.clear();
+
+            localStorage.setItem(
+              "isLoggedIn",
+              "true"
+            );
+
+            localStorage.setItem(
+              "role",
+              user.role
+            );
+
+            localStorage.setItem(
+              "user",
+              JSON.stringify(user)
+            );
+
+            setLoginOpen(false);
+
+            if (user.role === "Admin") {
+
+              navigate("/dashboard", {
+                replace: true,
+              });
+
+            } else if (
+              user.role === "Doctor"
+            ) {
+
+              navigate("/doctor", {
+                replace: true,
+              });
+
+            } else if (
+              user.role === "Patient"
+            ) {
+
+              navigate("/patient", {
+                replace: true,
+              });
+
+            }
+
+          } catch (error) {
+
+            console.error(
+              "Login error:",
+              error
+            );
+
+            setErrorMessage(
+              "Unable to connect to the hospital server."
+            );
+          }
+        }}
+      >
+
+        <label htmlFor="login-email">
+          Email / Username
+        </label>
+
+        <input
+          id="login-email"
+          type="email"
+          name="email"
+          placeholder="Enter email or username"
+          required
+        />
+
+        <label htmlFor="login-password">
+          Password
+        </label>
+
+        <input
+          id="login-password"
+          type="password"
+          name="password"
+          placeholder="Enter password"
+          required
+        />
+
+        <button
+          type="submit"
+          className="hospital-login-button"
+        >
+          Login as {loginRole}
+        </button>
+
+      </form>
+
+      {/* ERROR */}
+      {errorMessage && (
+        <div className="login-error">
+          ⚠️ {errorMessage}
         </div>
-
       )}
 
+    </div>
 
+  </div>
+
+)}
+      
     {/* =====================================================
     REGISTER MODAL
 ===================================================== */}
