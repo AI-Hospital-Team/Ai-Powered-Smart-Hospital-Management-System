@@ -93,43 +93,45 @@ function DashboardLayout() {
     },
   ];
 
-  // ==========================================
   // PATIENT MENU
-  // Dashboard button REMOVED
-  // ==========================================
 
-  const patientMenu = [
-    {
-      name: "Appointments",
-      path: "/patient/appointments",
-      icon: "📅",
-    },
-    {
-      name: "Book Appointment",
-      path: "/patient/book-appointment",
-      icon: "🩺",
-    },
-    {
-      name: "Medical Records",
-      path: "/patient/medical-records",
-      icon: "📋",
-    },
-    {
-      name: "Prescriptions",
-      path: "/patient/prescriptions",
-      icon: "💊",
-    },
-    {
-      name: "Profile",
-      path: "/patient/profile",
-      icon: "👤",
-    },
-    {
-      name: "Bills",
-      path: "/patient/bills",
-      icon: "💰",
-    },
-  ];
+ const patientMenu = [
+  {
+    name: "Dashboard",
+    path: "/patient",
+    icon: "⌂",
+  },
+  {
+    name: "Appointments",
+    path: "/patient/appointments",
+    icon: "▦",
+  },
+  {
+    name: "Book Appointment",
+    path: "/patient/book-appointment",
+    icon: "✚",
+  },
+  {
+    name: "Medical Records",
+    path: "/patient/medical-records",
+    icon: "▤",
+  },
+  {
+    name: "Prescriptions",
+    path: "/patient/prescriptions",
+    icon: "◈",
+  },
+  {
+    name: "Profile",
+    path: "/patient/profile",
+    icon: "●",
+  },
+  {
+    name: "Bills",
+    path: "/patient/bills",
+    icon: "₹",
+  },
+];
 
   // ==========================================
   // SELECT MENU ACCORDING TO ROLE
@@ -403,7 +405,23 @@ function DashboardLayout() {
 
           </div>
 
+
           <div className="header-right">
+
+            {/* =================================
+                HOME
+            ================================= */}
+
+            <button
+              type="button"
+              className="home-header-button"
+              onClick={() => navigate("/")}
+              title="Go to Home"
+            >
+              <span className="home-header-icon">⌂</span>
+              <span>Home</span>
+            </button>
+
 
             {/* =================================
                 DARK MODE
@@ -421,46 +439,29 @@ function DashboardLayout() {
               {darkMode ? "☀️" : "🌙"}
             </button>
 
-            {/* =================================
-                ACCOUNT
-            ================================= */}
-
+            {/* ACCOUNT */}
             <button
+              type="button"
               className="account-button"
               onClick={handleAccount}
-              title="Account"
+              title="My Account"
             >
-
-              <span className="account-icon">
-                👤
-              </span>
-
-              <span>
-                Account
-              </span>
-
+              <span className="account-icon">👤</span>
+              <span>Account</span>
             </button>
 
-            {/* =================================
-                LOGOUT
-            ================================= */}
 
+            {/* LOGOUT */}
             <button
+              type="button"
               className="logout-button"
               onClick={handleLogout}
               title="Logout"
             >
-
-              <span className="logout-icon">
-                🚪
-              </span>
-
-              <span>
-                Logout
-              </span>
-
+              <span className="logout-icon">↪</span>
+              <span>Logout</span>
             </button>
-
+            
           </div>
 
         </header>
