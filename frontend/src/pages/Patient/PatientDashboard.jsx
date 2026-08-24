@@ -224,7 +224,7 @@ function PatientDashboard() {
         {/* APPOINTMENTS */}
 
         <div className="dashboard-card">
-          <div className="card-icon">📅</div>
+          <div className="card-icon"></div>
           <div>
             <h3>Appointments</h3>
 
@@ -237,7 +237,7 @@ function PatientDashboard() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">📋</div>
+          <div className="card-icon"></div>
           <div>
             <h3>Medical Records</h3>
 
@@ -250,7 +250,7 @@ function PatientDashboard() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">💊</div>
+          <div className="card-icon"></div>
           <div>
             <h3>Prescriptions</h3>
 
