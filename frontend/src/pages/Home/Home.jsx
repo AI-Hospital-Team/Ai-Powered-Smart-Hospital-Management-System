@@ -2725,9 +2725,9 @@ const clearChat = () => {
       </div>
 
 
-          {/* REGISTER FORM */}
+          {/* REGISTER FORM — now calls the backend register API */}
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
 
           setRegisterError("");
@@ -2735,15 +2735,13 @@ const clearChat = () => {
 
           const formData = new FormData(e.currentTarget);
 
-          const fullName = formData.get("fullName").trim();
-          const email = formData.get("email").trim();
-          const mobile = formData.get("mobile").trim();
+          const fullName = formData.get("fullName")?.trim();
+          const email = formData.get("email")?.trim();
+          const mobile = formData.get("mobile")?.trim();
           const dob = formData.get("dob");
           const gender = formData.get("gender");
 
-
-          /* ================= FULL NAME ================= */
-
+          // Full Name
           if (!/^[A-Za-z ]{2,50}$/.test(fullName)) {
             setRegisterError(
               "Please enter a valid full name using letters only."
@@ -2751,19 +2749,13 @@ const clearChat = () => {
             return;
           }
 
-
-          /* ================= EMAIL ================= */
-
+          // Email
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setRegisterError(
-              "Please enter a valid email address."
-            );
+            setRegisterError("Please enter a valid email address.");
             return;
           }
 
-
-          /* ================= MOBILE ================= */
-
+          // Mobile
           if (!/^[6-9][0-9]{9}$/.test(mobile)) {
             setRegisterError(
               "Mobile number must be exactly 10 digits and start with 6-9."
@@ -2771,13 +2763,9 @@ const clearChat = () => {
             return;
           }
 
-
-          /* ================= DATE OF BIRTH ================= */
-
+          // DOB
           if (!dob) {
-            setRegisterError(
-              "Please select your date of birth."
-            );
+            setRegisterError("Please select your date of birth.");
             return;
           }
 
@@ -2785,25 +2773,17 @@ const clearChat = () => {
           const today = new Date();
 
           if (selectedDate > today) {
-            setRegisterError(
-              "Date of birth cannot be in the future."
-            );
+            setRegisterError("Date of birth cannot be in the future.");
             return;
           }
 
-
-          /* ================= GENDER ================= */
-
+          // Gender
           if (!gender) {
-            setRegisterError(
-              "Please select your gender."
-            );
+            setRegisterError("Please select your gender.");
             return;
           }
 
-
-          /* ================= PASSWORD ================= */
-
+          // Password
           if (
             !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(
               registerPassword
@@ -2815,40 +2795,64 @@ const clearChat = () => {
             return;
           }
 
-
-          /* ================= CONFIRM PASSWORD ================= */
-
+          // Confirm Password
           if (registerPassword !== confirmPassword) {
-            setRegisterError(
-              "Passwords do not match."
-            );
+            setRegisterError("Passwords do not match.");
             return;
           }
 
+          try {
+            const response = await fetch(
+              "http://localhost:8080/api/auth/register",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  fullName: fullName,
+                  email: email,
+                  mobile: mobile,
+                  dob: dob,
+                  gender: gender,
+                  password: registerPassword,
+                  role: "Patient",
+                }),
+              }
+            );
 
-          /* ================= SUCCESS ================= */
+            if (!response.ok) {
+              const message = await response.text();
 
-          setRegisterSuccess(
-            "Account created successfully. Please login."
-          );
+              setRegisterError(
+                message || "Registration failed."
+              );
 
-          e.currentTarget.reset();
+              return;
+            }
 
-          setRegisterPassword("");
-          setConfirmPassword("");
+            setRegisterSuccess(
+              "Account created successfully. Please login."
+            );
 
+            e.currentTarget.reset();
 
-          /* ================= OPEN LOGIN ================= */
+            setRegisterPassword("");
+            setConfirmPassword("");
 
-          setTimeout(() => {
+            setTimeout(() => {
+              setRegisterSuccess("");
+              setRegisterOpen(false);
+              openLogin("Patient");
+            }, 1500);
 
-            setRegisterSuccess("");
+          } catch (error) {
+            console.error("Registration error:", error);
 
-            setRegisterOpen(false);
-
-            openLogin("Patient");
-
-          }, 1500);
+            setRegisterError(
+              "Unable to connect to the hospital server."
+            );
+          }
         }}
       >
 
