@@ -184,7 +184,7 @@ function PatientDashboard() {
         setPrescriptions([]);
       })
       .finally(() => {
-        setLoading(false);
+        setPrescriptionsLoading(false);
       });
   }, [user]);
 

@@ -1,254 +1,319 @@
 /* =========================================================
-   AI SMART HOSPITAL - DASHBOARD LAYOUT
-   ========================================================= */
-
-* {
-  box-sizing: border-box;
-}
+   AI SMART HOSPITAL
+   DASHBOARD LAYOUT
+   NAVY + TEAL DESIGN
+========================================================= */
 
 .dashboard-layout {
   min-height: 100vh;
   width: 100%;
+
   display: flex;
-  background: #f4f7fb;
-  color: #18324b;
-  font-family: "Segoe UI", Arial, sans-serif;
+
+  background: #f2f8fa;
+
+  color: #17324d;
 }
+
 
 /* =========================================================
    SIDEBAR
-   ========================================================= */
+========================================================= */
 
 .dashboard-sidebar {
-  width: 260px;
-  min-width: 260px;
-  min-height: 100vh;
-  position: fixed;
-  left: 0;
+  width: 265px;
+  min-width: 265px;
+  height: 100vh;
+
+  position: sticky;
   top: 0;
-  bottom: 0;
 
   display: flex;
   flex-direction: column;
 
-  background: #ffffff;
-  border-right: 1px solid #e5ebf2;
+  padding: 22px 16px;
 
-  box-shadow: 4px 0 20px rgba(30, 70, 100, 0.06);
+  background:
+    linear-gradient(
+      180deg,
+      #062b39 0%,
+      #073b4a 55%,
+      #062f3c 100%
+    );
 
-  z-index: 1000;
+  border-right: 1px solid rgba(93, 210, 220, 0.12);
+
+  box-shadow:
+    8px 0 30px rgba(0, 35, 50, 0.12);
+
+  overflow-y: auto;
+
+  z-index: 100;
 }
+
 
 /* =========================================================
    LOGO
-   ========================================================= */
+========================================================= */
 
 .sidebar-logo {
-  height: 78px;
-  padding: 14px 18px;
-
   display: flex;
+
   align-items: center;
-  gap: 10px;
 
-  border-bottom: 1px solid #edf1f5;
+  gap: 12px;
+
+  padding: 6px 8px 22px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Logo container */
-
-.logo-icon {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 10px;
-
-  overflow: hidden;
-  flex-shrink: 0;
-
-  background: linear-gradient(135deg, #0d6efd, #13b8a6);
-
-  box-shadow: 0 6px 14px rgba(13, 110, 253, 0.16);
-}
-
-/* Actual logo image */
-
-.logo-icon img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;
-
-  display: block;
-}
-
-/* =========================================================
-   PATIENT LOGO (image logo for patient role)
-   ========================================================= */
 
 .patient-logo-wrapper {
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 50%;
-
   overflow: hidden;
-  flex-shrink: 0;
 
-  box-shadow: 0 6px 14px rgba(13, 110, 253, 0.16);
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.sidebar-logo:hover
+.patient-logo-wrapper {
+  transform: scale(1.06);
+
+  box-shadow:
+    0 9px 25px rgba(53, 203, 209, 0.20);
 }
 
 .patient-hospital-logo {
-  width: 100%;
-  height: 100%;
-
+  width: 58px;
+  height: 58px;
   object-fit: cover;
-
-  transform: scale(1.5);
-
-  display: block;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  filter: contrast(1.05) saturate(1.05);
 }
 
-.patient-logo-fallback {
-  width: 38px;
-  height: 38px;
+/* =========================================================
+   HOSPITAL LOGO
+   ========================================================= */
 
+.patient-logo-wrapper {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
   align-items: center;
   justify-content: center;
 
+  background: #ffffff;
   border-radius: 50%;
 
-  background: linear-gradient(135deg, #0d6efd, #13b8a6);
-
-  box-shadow: 0 6px 14px rgba(13, 110, 253, 0.16);
-
-  font-size: 19px;
+  overflow: hidden;
 }
 
-/* Logo text */
+.patient-hospital-logo {
+  width: 54px;
+  height: 54px;
+
+  object-fit: contain;
+  border-radius: 50%;
+
+  /* IMPORTANT: do not use mix-blend-mode */
+  mix-blend-mode: normal;
+}
+
+.logo-text {
+  min-width: 0;
+}
+
 
 .logo-text h2 {
   margin: 0;
 
-  font-size: 17px;
-  font-weight: 700;
+  color: #ffffff;
 
-  color: #173b5b;
+  font-size: 16px;
+
+  font-weight: 800;
+
+  white-space: nowrap;
 }
+
 
 .logo-text span {
   display: block;
 
   margin-top: 3px;
 
-  font-size: 11px;
+  color: #8ec5cd;
 
-  color: #8191a5;
+  font-size: 9px;
+
+  white-space: nowrap;
 }
+
 
 /* =========================================================
    USER ROLE CARD
-   ========================================================= */
+========================================================= */
 
 .user-role-card {
-  margin: 18px 16px 12px;
-  padding: 12px;
-
   display: flex;
+
   align-items: center;
-  gap: 10px;
 
-  border-radius: 13px;
+  gap: 12px;
 
-  background: #f5f9ff;
-  border: 1px solid #e5eef9;
+  margin: 20px 2px;
+
+  padding: 13px;
+
+  border:
+    1px solid rgba(100, 210, 220, 0.13);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
-.role-icon {
+
+.user-role-card:hover {
+  transform: translateY(-2px);
+
+  background:
+    rgba(255, 255, 255, 0.085);
+
+  border-color:
+    rgba(100, 210, 220, 0.25);
+}
+
+
+.user-role-card .role-icon {
   width: 40px;
   height: 40px;
+
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
-  background: #e7f0ff;
+  background:
+    linear-gradient(
+      135deg,
+      #0d7583,
+      #0b9aa7
+    );
 
-  font-size: 19px;
+  color: white;
+
+  font-size: 20px;
 }
+
 
 .user-role-card small {
   display: block;
 
-  margin-bottom: 3px;
+  color: #8eb5bd;
 
   font-size: 10px;
-
-  color: #8b9bad;
 }
+
 
 .user-role-card strong {
   display: block;
 
+  margin-top: 3px;
+
+  color: #ffffff;
+
   font-size: 14px;
 
-  color: #21435f;
+  font-weight: 800;
 }
+
 
 /* =========================================================
-   NAVIGATION
-   ========================================================= */
+   MENU
+========================================================= */
 
 .sidebar-navigation {
-  flex: 1;
+  display: flex;
 
-  padding: 8px 14px;
+  flex-direction: column;
 
-  overflow-y: auto;
+  gap: 5px;
 }
+
 
 .menu-heading {
-  margin: 12px 10px 10px;
+  padding: 8px 11px 10px;
 
-  font-size: 10px;
-  font-weight: 700;
+  color: #6faeb8;
 
-  letter-spacing: 1px;
+  font-size: 9px;
 
-  color: #9aa9b8;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
 }
 
-.sidebar-menu-item {
-  width: 100%;
-  height: 46px;
 
-  margin-bottom: 6px;
-  padding: 0 13px;
+/* =========================================================
+   MENU ITEM
+========================================================= */
+
+.sidebar-menu-item {
+  position: relative;
+
+  width: 100%;
 
   display: flex;
+
   align-items: center;
 
-  gap: 13px;
+  gap: 12px;
 
-  border: none;
-  border-radius: 11px;
+  padding: 12px 13px;
+
+  border: 1px solid transparent;
+
+  border-radius: 12px;
 
   background: transparent;
 
-  color: #5f7184;
+  color: #a9c8ce;
 
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+
+  font-weight: 650;
 
   text-align: left;
 
@@ -257,67 +322,152 @@
   transition:
     background 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
+
+
+.sidebar-menu-item::before {
+  content: "";
+
+  position: absolute;
+
+  left: -1px;
+
+  top: 50%;
+
+  width: 3px;
+  height: 0;
+
+  border-radius: 4px;
+
+  background: #43d5df;
+
+  transform: translateY(-50%);
+
+  transition:
+    height 0.2s ease;
+}
+
 
 .sidebar-menu-item:hover {
-  background: #f1f7ff;
+  transform: translateX(3px);
 
-  color: #0d6efd;
-
-  transform: translateX(2px);
-}
-
-.sidebar-menu-item.active {
-  background: linear-gradient(
-    135deg,
-    #0d6efd,
-    #1677e8
-  );
+  background:
+    rgba(255, 255, 255, 0.07);
 
   color: #ffffff;
 
-  box-shadow: 0 7px 16px rgba(13, 110, 253, 0.20);
+  border-color:
+    rgba(255, 255, 255, 0.06);
 }
 
+
+.sidebar-menu-item:hover::before {
+  height: 20px;
+}
+
+
+.sidebar-menu-item.active {
+  transform: translateX(3px);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(31, 179, 191, 0.22),
+      rgba(31, 179, 191, 0.07)
+    );
+
+  border-color:
+    rgba(57, 203, 212, 0.16);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+.sidebar-menu-item.active::before {
+  height: 27px;
+}
+
+
 .menu-icon {
-  width: 25px;
+  width: 30px;
+  height: 30px;
+
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  border-radius: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
   font-size: 17px;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
+
+.sidebar-menu-item:hover
+.menu-icon {
+  transform: scale(1.08);
+
+  background:
+    rgba(53, 203, 209, 0.12);
+}
+
+
+.sidebar-menu-item.active
+.menu-icon {
+  background:
+    rgba(53, 203, 209, 0.16);
+}
+
+
 .menu-name {
+  flex: 1;
+
   white-space: nowrap;
 }
 
+
 /* =========================================================
    SIDEBAR BOTTOM
-   ========================================================= */
+========================================================= */
 
 .sidebar-bottom {
-  padding: 15px;
+  margin-top: auto;
 
-  border-top: 1px solid #edf1f5;
+  padding-top: 18px;
 }
 
-.hospital-status {
-  padding: 12px;
 
+.hospital-status {
   display: flex;
+
   align-items: center;
 
   gap: 10px;
 
-  border-radius: 11px;
+  padding: 12px;
 
-  background: #f5fbf9;
+  border:
+    1px solid rgba(255, 255, 255, 0.08);
 
-  border: 1px solid #e2f3ed;
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.04);
 }
+
 
 .status-dot {
   width: 9px;
@@ -327,417 +477,482 @@
 
   border-radius: 50%;
 
-  background: #16b879;
+  background: #32d583;
 
-  box-shadow: 0 0 0 4px rgba(22, 184, 121, 0.12);
+  box-shadow:
+    0 0 10px rgba(50, 213, 131, 0.75);
+
+  animation: statusPulse 2s infinite;
 }
+
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 5px rgba(50, 213, 131, 0.5);
+  }
+
+  50% {
+    box-shadow:
+      0 0 14px rgba(50, 213, 131, 0.85);
+  }
+}
+
 
 .hospital-status strong {
   display: block;
 
-  font-size: 12px;
+  color: #dff7f9;
 
-  color: #28624d;
+  font-size: 11px;
 }
+
 
 .hospital-status small {
   display: block;
 
   margin-top: 2px;
 
-  font-size: 10px;
+  color: #719da6;
 
-  color: #8aa095;
+  font-size: 9px;
 }
 
+
 /* =========================================================
-   MAIN
-   ========================================================= */
+   MAIN AREA
+========================================================= */
 
 .dashboard-main {
-  width: calc(100% - 260px);
+  min-width: 0;
 
-  min-height: 100vh;
-
-  margin-left: 260px;
-
-  background: #f4f7fb;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.dashboard-header {
-  height: 82px;
-
-  margin: 18px 22px 0;
-
-  padding: 0 24px;
+  flex: 1;
 
   display: flex;
+  flex-direction: column;
+
+  background:
+    #f2f8fa;
+}
+
+
+/* =========================================================
+   TOP HEADER
+========================================================= */
+
+.dashboard-header {
+  min-height: 78px;
+
+  display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
-  background: rgba(255, 255, 255, 0.96);
+  padding: 0 30px;
 
-  border: 1px solid #e7edf3;
+  background:
+    rgba(255, 255, 255, 0.94);
 
-  border-radius: 15px;
+  border-bottom:
+    1px solid #dcebef;
 
-  box-shadow: 0 5px 20px rgba(25, 60, 90, 0.06);
+  box-shadow:
+    0 4px 18px rgba(0, 50, 70, 0.045);
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 50;
+
+  backdrop-filter: blur(12px);
 }
+
 
 .header-left h1 {
   margin: 0;
 
-  font-size: 24px;
+  color: #173b54;
 
-  font-weight: 700;
+  font-size: 20px;
 
-  color: #173b5b;
+  font-weight: 800;
 }
+
 
 .header-left p {
-  margin: 4px 0 0;
+  margin: 3px 0 0;
 
-  font-size: 12px;
+  color: #78909c;
 
-  color: #8999aa;
+  font-size: 11px;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-
-  gap: 10px;
-}
 
 /* =========================================================
    HEADER BUTTONS
-   ========================================================= */
+========================================================= */
 
-.header-button,
-.account-button {
-  border: 1px solid #e2e9f0;
+.header-right {
+  display: flex;
 
-  background: #ffffff;
+  align-items: center;
 
-  color: #40566c;
-
-  cursor: pointer;
-
-  transition: all 0.2s ease;
+  gap: 9px;
 }
 
-.header-button {
-  width: 42px;
-  height: 42px;
+
+.header-button,
+.account-button,
+.logout-button {
+  height: 40px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
+  gap: 7px;
+
+  padding: 0 13px;
+
   border-radius: 11px;
 
-  font-size: 18px;
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+
+.header-button {
+  width: 40px;
+
+  padding: 0;
+
+  border: 1px solid #d7e7eb;
+
+  background: #f4fafb;
+
+  font-size: 17px;
+}
+
 
 .header-button:hover {
-  background: #f1f7ff;
+  transform: translateY(-2px) rotate(8deg);
 
-  border-color: #cbdff7;
+  background: #e7f6f8;
 
-  transform: translateY(-1px);
+  border-color: #9ed6dd;
+
+  box-shadow:
+    0 7px 18px rgba(0, 100, 120, 0.12);
 }
+
 
 .account-button {
-  height: 42px;
+  border:
+    1px solid #d7e7eb;
 
-  padding: 0 15px;
+  background: #ffffff;
 
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-
-  border-radius: 11px;
-
-  font-family: inherit;
-
-  font-size: 13px;
-
-  font-weight: 600;
+  color: #426474;
 }
+
 
 .account-button:hover {
-  background: #f1f7ff;
+  transform: translateY(-2px);
 
-  border-color: #cbdff7;
+  background: #eff9fa;
+
+  border-color: #a8dbe1;
+
+  color: #087f8c;
+
+  box-shadow:
+    0 7px 18px rgba(0, 100, 120, 0.10);
 }
 
-.account-icon {
-  font-size: 16px;
+
+.logout-button {
+  border:
+    1px solid #f0d4d4;
+
+  background: #fff8f8;
+
+  color: #b54444;
 }
+
+
+.logout-button:hover {
+  transform: translateY(-2px);
+
+  background: #fff0f0;
+
+  border-color: #e6aaaa;
+
+  color: #c62828;
+
+  box-shadow:
+    0 7px 18px rgba(190, 60, 60, 0.10);
+}
+
+
+.account-icon,
+.logout-icon {
+  font-size: 15px;
+}
+
 
 /* =========================================================
    CONTENT
-   ========================================================= */
+========================================================= */
 
 .dashboard-content {
-  padding: 22px;
+  flex: 1;
 
-  min-height: calc(100vh - 100px);
+  width: 100%;
+
+  max-width: 1500px;
+
+  margin: 0 auto;
+
+  padding: 30px;
+
+  box-sizing: border-box;
 }
+
 
 /* =========================================================
    DARK MODE
-   ========================================================= */
+========================================================= */
 
 .dashboard-layout.dark {
-  background: #111c2b;
-
-  color: #e8eef5;
+  background: #061a22;
 }
 
-.dashboard-layout.dark .dashboard-main {
-  background: #111c2b;
+
+.dashboard-layout.dark
+.dashboard-main {
+  background:
+    #061a22;
 }
 
-.dashboard-layout.dark .dashboard-sidebar {
-  background: #172536;
 
-  border-right-color: #26384b;
+/* Sidebar remains dark naturally */
+
+
+/* Header */
+
+.dashboard-layout.dark
+.dashboard-header {
+  background:
+    rgba(8, 31, 40, 0.95);
+
+  border-color: #163f4b;
+
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.25);
 }
 
-.dashboard-layout.dark .sidebar-logo {
-  border-bottom-color: #26384b;
+
+.dashboard-layout.dark
+.header-left h1 {
+  color: #e7f6f8;
 }
 
-.dashboard-layout.dark .logo-text h2 {
-  color: #f1f6fb;
+
+.dashboard-layout.dark
+.header-left p {
+  color: #8eafb7;
 }
 
-.dashboard-layout.dark .logo-text span {
-  color: #94a6b9;
+
+/* Header buttons */
+
+.dashboard-layout.dark
+.header-button {
+  background: #12313a;
+
+  border-color: #28515b;
+
+  color: #e5f7f9;
 }
 
-.dashboard-layout.dark .user-role-card {
-  background: #1d3044;
 
-  border-color: #2b4258;
+.dashboard-layout.dark
+.header-button:hover {
+  background: #1b424c;
+
+  border-color: #3b7a85;
 }
 
-.dashboard-layout.dark .role-icon {
-  background: #243b53;
+
+.dashboard-layout.dark
+.account-button {
+  background: #102c35;
+
+  border-color: #28515b;
+
+  color: #c3dce1;
 }
 
-.dashboard-layout.dark .user-role-card strong {
-  color: #e7eef6;
+
+.dashboard-layout.dark
+.account-button:hover {
+  background: #183d47;
+
+  border-color: #3a7580;
+
+  color: #61d5df;
 }
 
-.dashboard-layout.dark .menu-heading {
-  color: #8295a8;
+
+.dashboard-layout.dark
+.logout-button {
+  background: #321e22;
+
+  border-color: #60343a;
+
+  color: #ff9d9d;
 }
 
-.dashboard-layout.dark .sidebar-menu-item {
-  color: #aab8c6;
+
+.dashboard-layout.dark
+.logout-button:hover {
+  background: #43252a;
+
+  border-color: #82434b;
 }
 
-.dashboard-layout.dark .sidebar-menu-item:hover {
-  background: #20354a;
-
-  color: #61a4ff;
-}
-
-.dashboard-layout.dark .sidebar-menu-item.active {
-  color: #ffffff;
-}
-
-.dashboard-layout.dark .sidebar-bottom {
-  border-top-color: #26384b;
-}
-
-.dashboard-layout.dark .hospital-status {
-  background: #1b342e;
-
-  border-color: #285044;
-}
-
-.dashboard-layout.dark .hospital-status strong {
-  color: #73c5a5;
-}
-
-.dashboard-layout.dark .hospital-status small {
-  color: #819e93;
-}
-
-.dashboard-layout.dark .dashboard-header {
-  background: #172536;
-
-  border-color: #26384b;
-}
-
-.dashboard-layout.dark .header-left h1 {
-  color: #f1f6fb;
-}
-
-.dashboard-layout.dark .header-left p {
-  color: #91a3b6;
-}
-
-.dashboard-layout.dark .header-button,
-.dashboard-layout.dark .account-button {
-  background: #1d3044;
-
-  border-color: #30465b;
-
-  color: #d6e1eb;
-}
 
 /* =========================================================
-   SCROLLBAR
-   ========================================================= */
+   SCROLLBARS
+========================================================= */
 
-.sidebar-navigation::-webkit-scrollbar {
+.dashboard-sidebar::-webkit-scrollbar {
   width: 5px;
 }
 
-.sidebar-navigation::-webkit-scrollbar-track {
+.dashboard-sidebar::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.sidebar-navigation::-webkit-scrollbar-thumb {
-  background: #d5dee8;
+.dashboard-sidebar::-webkit-scrollbar-thumb {
+  background: #185464;
 
   border-radius: 10px;
 }
 
+
 /* =========================================================
    RESPONSIVE
-   ========================================================= */
+========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
 
   .dashboard-sidebar {
     width: 225px;
-
     min-width: 225px;
   }
 
-  .dashboard-main {
-    width: calc(100% - 225px);
-
-    margin-left: 225px;
+  .dashboard-header {
+    padding: 0 20px;
   }
 
-  .logo-text h2 {
-    font-size: 15px;
+  .dashboard-content {
+    padding: 22px;
   }
 
-  .sidebar-menu-item {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .dashboard-sidebar {
-    width: 72px;
-
-    min-width: 72px;
-  }
-
-  .dashboard-main {
-    width: calc(100% - 72px);
-
-    margin-left: 72px;
-  }
-
-  .sidebar-logo {
-    height: 70px;
-
-    padding: 10px;
-
-    justify-content: center;
-  }
-
-  .logo-icon {
-    width: 38px;
-    height: 38px;
-  }
-
-  .patient-logo-wrapper {
-    width: 38px;
-    height: 38px;
-  }
-
-  .patient-logo-fallback {
-    width: 38px;
-    height: 38px;
-  }
-
-  .logo-text {
+  .account-button span:last-child,
+  .logout-button span:last-child {
     display: none;
   }
 
-  .user-role-card {
-    margin: 15px 8px;
-
-    padding: 8px;
-
-    justify-content: center;
-  }
-
-  .user-role-card > div:last-child {
-    display: none;
-  }
-
-  .role-icon {
-    width: 38px;
-    height: 38px;
-  }
-
-  .menu-heading {
-    display: none;
-  }
-
-  .sidebar-navigation {
-    padding: 10px 8px;
-  }
-
-  .sidebar-menu-item {
-    justify-content: center;
+  .account-button,
+  .logout-button {
+    width: 40px;
 
     padding: 0;
   }
+}
 
-  .menu-name {
-    display: none;
+
+@media (max-width: 700px) {
+
+  .dashboard-sidebar {
+    width: 72px;
+    min-width: 72px;
+
+    padding: 15px 9px;
   }
 
-  .sidebar-bottom {
-    padding: 8px;
-  }
-
-  .hospital-status {
+  .sidebar-logo {
     justify-content: center;
 
-    padding: 12px 5px;
+    padding: 5px 0 18px;
   }
 
+  .logo-text,
+  .user-role-card > div:last-child,
+  .menu-heading,
+  .menu-name,
   .hospital-status > div {
     display: none;
   }
 
+  .user-role-card {
+    justify-content: center;
+
+    padding: 8px;
+
+    margin: 15px 0;
+  }
+
+  .user-role-card .role-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sidebar-menu-item {
+    justify-content: center;
+
+    padding: 10px;
+  }
+
+  .menu-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .sidebar-bottom {
+    display: flex;
+
+    justify-content: center;
+  }
+
+  .hospital-status {
+    padding: 10px;
+  }
+
   .dashboard-header {
-    margin: 12px;
+    min-height: 68px;
 
     padding: 0 15px;
   }
 
   .header-left h1 {
-    font-size: 19px;
+    font-size: 17px;
   }
 
   .header-left p {
@@ -745,145 +960,145 @@
   }
 
   .dashboard-content {
-    padding: 12px;
+    padding: 18px 15px;
   }
 }
 
-@media (max-width: 500px) {
+
+@media (max-width: 450px) {
 
   .dashboard-sidebar {
-    width: 60px;
-
-    min-width: 60px;
-  }
-
-  .dashboard-main {
-    width: calc(100% - 60px);
-
-    margin-left: 60px;
-  }
-
-  .sidebar-logo {
-    height: 65px;
-
-    padding: 8px;
-  }
-
-  .logo-icon {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 9px;
+    width: 62px;
+    min-width: 62px;
   }
 
   .patient-logo-wrapper {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 50%;
-  }
-
-  .patient-logo-fallback {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 50%;
-  }
-
-  .dashboard-header {
-    height: 70px;
-  }
-
-  .account-button {
     width: 42px;
-
-    padding: 0;
-
-    justify-content: center;
+    height: 42px;
   }
 
-  .account-button span:last-child {
-    display: none;
+  .header-right {
+    gap: 5px;
   }
 
-  .header-left h1 {
-    font-size: 17px;
+  .header-button,
+  .account-button,
+  .logout-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dashboard-content {
+    padding: 14px 10px;
   }
 }
 
-/* ==========================================
-   LOGOUT BUTTON
-========================================== */
+/* =========================================================
+   LIGHT SIDEBAR - AI SMART HOSPITAL
+   ========================================================= */
 
-.logout-button {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  height: 42px;
-
-  padding: 0 16px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: var(--card-bg, #ffffff);
-
-  color: var(--text-color, #333);
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.25s ease;
+.dashboard-sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #e4edf2 !important;
+  box-shadow: 4px 0 24px rgba(0, 70, 90, 0.06) !important;
 }
 
-.logout-button:hover {
-  transform: translateY(-1px);
-
-  background: #ffe9e9;
-
-  color: #d32f2f;
-
-  box-shadow: 0 5px 14px rgba(211, 47, 47, 0.15);
+/* Logo area */
+.dashboard-sidebar .sidebar-logo {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e8f0f3 !important;
 }
 
-.logout-button:active {
-  transform: scale(0.97);
+.dashboard-sidebar .logo-text h2 {
+  color: #173b5b !important;
 }
 
-.logout-icon {
-  font-size: 17px;
-
-  line-height: 1;
+.dashboard-sidebar .logo-text span {
+  color: #8195a3 !important;
 }
 
-/* ==========================================
-   DARK MODE - LOGOUT
-========================================== */
-
-.dark .logout-button {
-  background: #1f2937;
-
-  color: #f3f4f6;
-
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+/* Logged-in role card */
+.dashboard-sidebar .user-role-card {
+  background: #f4f9fb !important;
+  border: 1px solid #dcecf1 !important;
 }
 
-.dark .logout-button:hover {
-  background: #3a2020;
+.dashboard-sidebar .role-icon {
+  background: #e7f8fa !important;
+}
 
-  color: #ff6b6b;
+.dashboard-sidebar .user-role-card small {
+  color: #8295a3 !important;
+}
+
+.dashboard-sidebar .user-role-card strong {
+  color: #173b5b !important;
+}
+
+/* Main menu title */
+.dashboard-sidebar .menu-heading {
+  color: #91a5b2 !important;
+}
+
+/* Navigation */
+.dashboard-sidebar .sidebar-menu-item {
+  color: #60788a !important;
+  background: transparent !important;
+}
+
+.dashboard-sidebar .sidebar-menu-item:hover {
+  background: #eaf8fa !important;
+  color: #078895 !important;
+  transform: translateX(3px);
+}
+
+/* Active navigation item */
+.dashboard-sidebar .sidebar-menu-item.active {
+  background: linear-gradient(
+    135deg,
+    #078c99,
+    #10a7b3
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow: 0 7px 18px rgba(7, 140, 153, 0.22) !important;
+}
+
+.dashboard-sidebar .sidebar-menu-item.active:hover {
+  background: linear-gradient(
+    135deg,
+    #067e8a,
+    #0b9ca8
+  ) !important;
+
+  color: #ffffff !important;
+}
+
+/* Icons */
+.dashboard-sidebar .menu-icon {
+  color: inherit !important;
+}
+
+/* Bottom system status */
+.dashboard-sidebar .sidebar-bottom {
+  background: #ffffff !important;
+  border-top: 1px solid #e8f0f3 !important;
+}
+
+.dashboard-sidebar .hospital-status {
+  background: #f2fbf8 !important;
+  border: 1px solid #d9f0e8 !important;
+}
+
+.dashboard-sidebar .hospital-status strong {
+  color: #28634f !important;
+}
+
+.dashboard-sidebar .hospital-status small {
+  color: #8aa095 !important;
+}
+
+.dashboard-sidebar .status-dot {
+  background: #16b879 !important;
 }
