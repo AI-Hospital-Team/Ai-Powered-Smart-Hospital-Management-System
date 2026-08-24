@@ -32,6 +32,7 @@ body {
   position: sticky;
   top: 0;
   left: 0;
+  overflow: hidden;
 
   width: 100%;
   height: 78px;
@@ -454,6 +455,267 @@ body {
     scale(0.94);
 }
 
+/* =========================================================
+   AI SMART HOSPITAL
+   HEADER — PROFESSIONAL DARK MODE
+========================================================= */
+
+.dark-mode .main-header {
+  background: #0d1b24;
+  border-bottom: 1px solid #263b44;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.dark-mode .brand-text h2 {
+  color: #f1f7f8;
+  transition: color 0.25s ease;
+}
+
+.dark-mode .brand-text span {
+  color: #8fa8b1;
+}
+
+.dark-mode .brand:hover .brand-text h2 {
+  color: #69cbd2;
+}
+
+
+/* Logo */
+
+.dark-mode .brand-logo {
+  background: #ffffff;
+  border-color: #344e58;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.dark-mode .brand:hover .brand-logo {
+  border-color: #4f7d85;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.dark-mode .nav-link {
+  position: relative;
+
+  color: #b7c8cd;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  border-radius: 7px;
+
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* Hover */
+
+.dark-mode .nav-link:hover {
+  color: #6bcbd2;
+
+  background: rgba(80, 180, 190, 0.06);
+
+  box-shadow: none;
+
+  transform: translateY(-1px);
+}
+
+
+/* Active */
+
+.dark-mode .nav-link.active {
+  color: #6bcbd2;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  font-weight: 800;
+}
+
+
+/* Underline */
+
+.dark-mode .nav-link::after {
+  height: 2px;
+
+  background: #58bec7;
+
+  box-shadow: none;
+
+  border-radius: 5px;
+
+  transition:
+    width 0.3s ease;
+}
+
+
+/* Hover underline */
+
+.dark-mode .nav-link:hover::after {
+  width: 45%;
+}
+
+
+/* Active underline */
+
+.dark-mode .nav-link.active::after {
+  width: 65%;
+}
+
+
+/* =========================================================
+   THEME BUTTON
+========================================================= */
+
+.dark-mode .theme-toggle {
+  background: #142a34;
+
+  border: 1px solid #304b55;
+
+  color: #d4e6e9;
+
+  box-shadow: none;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.dark-mode .theme-toggle:hover {
+  background: #19333e;
+
+  border-color: #4c7780;
+
+  color: #71ccd3;
+
+  transform: translateY(-2px);
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.dark-mode .login-btn {
+  background: transparent;
+
+  border: 1px solid #3a555f;
+
+  color: #d2e2e5;
+
+  box-shadow: none;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.dark-mode .login-btn:hover {
+  background: #142d38;
+
+  border-color: #4c7881;
+
+  color: #70cbd2;
+
+  transform: translateY(-2px);
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+.dark-mode .register-btn {
+  background: #168895;
+
+  border: 1px solid #168895;
+
+  color: #ffffff;
+
+  box-shadow: none;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.dark-mode .register-btn:hover {
+  background: #1a9aa7;
+
+  border-color: #1a9aa7;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 16px rgba(22, 136, 149, 0.20);
+}
+
+
+/* =========================================================
+   LOGIN DROPDOWN
+========================================================= */
+
+.dark-mode .login-menu {
+  background: #102630;
+
+  border: 1px solid #2c4853;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.30);
+}
+
+.dark-mode .login-menu button {
+  color: #c4d7dc;
+
+  background: transparent;
+}
+
+.dark-mode .login-menu button:hover {
+  color: #69cbd2;
+
+  background: #173640;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .dark-mode .main-header {
+    background: #0d1b24;
+
+    box-shadow:
+      0 3px 14px rgba(0, 0, 0, 0.25);
+  }
+
+}
 
 /* =====================================================
    LOGIN
@@ -573,301 +835,8 @@ body {
 
 
 /* =====================================================
-   DARK MODE
-===================================================== */
-
-.dark-mode .main-header {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(5, 24, 35, 0.97),
-      rgba(7, 35, 48, 0.97)
-    );
-
-  border-bottom:
-    1px solid rgba(75, 207, 220, 0.13);
-
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.30);
-}
-
-
-.dark-mode .brand-logo {
-  background:
-    linear-gradient(
-      135deg,
-      #173d4b,
-      #0d2c38
-    );
-
-  border-color:
-    rgba(83, 214, 225, 0.25);
-
-  box-shadow:
-    0 7px 20px rgba(0, 0, 0, 0.30);
-}
-
-
-.dark-mode .brand-text h2 {
-  color:
-    #ecfcff;
-}
-
-
-.dark-mode .brand-text span {
-  color:
-    #89aab7;
-}
-
-
-.dark-mode .nav-link {
-  color:
-    #abc3cd;
-}
-
-
-.dark-mode .nav-link:hover,
-.dark-mode .nav-link.active {
-  color:
-    #54d3df;
-}
-
-
-.dark-mode .nav-link::after {
-  background:
-    linear-gradient(
-      90deg,
-      #4dd5df,
-      #209ab4
-    );
-
-  box-shadow:
-    0 0 10px rgba(74, 211, 224, 0.30);
-}
-
-
-.dark-mode .theme-toggle {
-  background:
-    #102f3c;
-
-  border-color:
-    rgba(80, 210, 223, 0.22);
-
-  color:
-    #ffe37a;
-}
-
-
-.dark-mode .theme-toggle:hover {
-  background:
-    #163d4c;
-}
-
-
-.dark-mode .login-btn {
-  background:
-    #102f3c;
-
-  border-color:
-    rgba(80, 210, 223, 0.20);
-
-  color:
-    #d6f5f8;
-}
-
-
-.dark-mode .login-btn:hover {
-  background:
-    #173f4d;
-
-  color:
-    #67dce5;
-}
-
-
-.dark-mode .register-btn {
-  background:
-    linear-gradient(
-      135deg,
-      #078fa3,
-      #0879a4
-    );
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 1150px) {
-
-  .header-container {
-    padding:
-      0 22px;
-
-    gap: 18px;
-  }
-
-
-  .brand {
-    min-width: 235px;
-  }
-
-
-  .header-actions {
-    min-width: 235px;
-  }
-
-
-  .nav-link {
-    padding:
-      0 9px;
-
-    font-size: 12px;
-  }
-
-}
-
-
-@media (max-width: 900px) {
-
-  .main-header {
-    height: 70px;
-  }
-
-
-  .header-container {
-    padding:
-      0 16px;
-  }
-
-
-  .brand {
-    min-width: auto;
-  }
-
-
-  .brand-text h2 {
-    font-size: 18px;
-  }
-
-
-  .brand-text span {
-    font-size: 8px;
-  }
-
-
-  .brand-logo {
-    width: 43px;
-    height: 43px;
-  }
-
-
-  .main-nav {
-    display: none;
-  }
-
-
-  .header-actions {
-    min-width: auto;
-
-    margin-left: auto;
-  }
-
-}
-
-
-@media (max-width: 600px) {
-
-  .header-container {
-    padding:
-      0 12px;
-  }
-
-
-  .brand {
-    gap: 8px;
-  }
-
-
-  .brand-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-
-  .brand-text h2 {
-    font-size: 16px;
-  }
-
-
-  .brand-text span {
-    display: none;
-  }
-
-
-  .header-actions {
-    gap: 6px;
-  }
-
-
-  .theme-toggle {
-    width: 38px;
-    height: 38px;
-
-    border-radius: 11px;
-  }
-
-
-  .login-btn {
-    height: 38px;
-
-    padding:
-      0 12px;
-
-    border-radius: 10px;
-
-    font-size: 12px;
-  }
-
-
-  .register-btn {
-    height: 38px;
-
-    padding:
-      0 12px;
-
-    border-radius: 10px;
-
-    font-size: 12px;
-  }
-
-}
-
-
-@media (max-width: 430px) {
-
-  .brand-text {
-    display: none;
-  }
-
-
-  .register-btn {
-    padding:
-      0 10px;
-  }
-
-}
-
-/* =====================================================
    AI MEDICAL HEADER TEXTURE
 ===================================================== */
-
-.main-header {
-  position: sticky;
-  top: 0;
-  overflow: hidden;
-}
 
 /* Soft medical-tech background */
 .main-header::before {
@@ -1008,6 +977,70 @@ body {
   color: #087f8c;
 }
 
+/* =========================================================
+   ANNOUNCEMENT BAR — DARK MODE
+========================================================= */
+
+.dark-mode .announcement {
+  background: #102a34;
+
+  border-bottom: 1px solid #294750;
+
+  color: #c5d8dc;
+
+  box-shadow: none;
+}
+
+
+/* Announcement text */
+
+.dark-mode .announcement span,
+.dark-mode .announcement p {
+  color: #c5d8dc;
+}
+
+
+/* Highlight / strong text */
+
+.dark-mode .announcement strong {
+  color: #69cbd2;
+}
+
+
+/* Links */
+
+.dark-mode .announcement a {
+  color: #69cbd2;
+
+  text-decoration: none;
+}
+
+.dark-mode .announcement a:hover {
+  color: #8be0e5;
+}
+
+
+/* Icon */
+
+.dark-mode .announcement svg,
+.dark-mode .announcement .announcement-icon {
+  color: #69cbd2;
+}
+
+
+/* Close button, if present */
+
+.dark-mode .announcement button {
+  color: #a9c1c6;
+
+  background: transparent;
+
+  border: none;
+}
+
+.dark-mode .announcement button:hover {
+  color: #ffffff;
+}
 
 /* =========================================================
    HERO
@@ -1181,6 +1214,56 @@ body {
   font-weight: 700;
 }
 
+/* =========================================================
+   HERO SMART CARE CARD — DARK MODE
+========================================================= */
+
+.dark-mode .hero-medical-image {
+  background: #f1fafb !important;
+
+  border: 1px solid #d2edf1 !important;
+
+  box-shadow: none;
+
+  color: #16475f;
+}
+
+
+/* Doctor circle */
+
+.dark-mode .hero-medical-image .doctor-circle {
+  background: #ffffff;
+
+  border-color: rgba(255, 255, 255, 0.9);
+
+  color: #16475f;
+
+  box-shadow:
+    0 8px 20px rgba(0, 90, 120, 0.12);
+}
+
+
+/* Expert Doctors */
+
+.dark-mode .hero-medical-image strong {
+  color: #16475f !important;
+
+  text-shadow: none;
+}
+
+
+/* Technology + Human Care */
+
+.dark-mode .hero-medical-image small {
+  color: #718696 !important;
+}
+
+
+/* Decorative circle */
+
+.dark-mode .hero-medical-image::before {
+  background: rgba(8, 127, 140, 0.08);
+}
 
 /* =========================================================
    SMART CARE HERO CARD
@@ -1422,38 +1505,184 @@ body {
 }
 
 /* =========================================================
-   SMART CARE - DARK MODE
+   HERO — PROFESSIONAL DARK MODE
 ========================================================= */
 
-.dark-mode .hero-medical-image {
-  background: linear-gradient(
-    135deg,
-    #123f4d,
-    #0c3441
-  );
+.dark-mode .hero-section {
+  background:
+    linear-gradient(
+      135deg,
+      #0d202a 0%,
+      #102b36 55%,
+      #0d202a 100%
+    );
 
-  border-color: #245766;
+  color: #f0f7f8;
 }
 
-.dark-mode .hero-medical-image strong {
-  color: #e8f8fa;
+
+/* Hero heading */
+
+.dark-mode .hero-section h1,
+.dark-mode .hero-section h2 {
+  color: #f2f8f9;
+
+  text-shadow: none;
 }
 
-.dark-mode .hero-medical-image small {
-  color: #9ccbd1;
+
+/* Highlighted text */
+
+.dark-mode .hero-section .highlight,
+.dark-mode .hero-section .highlight-text {
+  color: #69cbd2;
 }
 
-.dark-mode .hero-stats div {
-  background: #123b48;
-  border-color: #245766;
+
+/* Hero description */
+
+.dark-mode .hero-section p {
+  color: #afc4ca;
 }
 
-.dark-mode .hero-stats div:hover {
-  background: #174b59;
+
+/* Small label / badge */
+
+.dark-mode .hero-section .hero-badge,
+.dark-mode .hero-section .section-label {
+  color: #69cbd2;
+
+  background: rgba(75, 180, 190, 0.08);
+
+  border-color: rgba(75, 180, 190, 0.22);
+
+  box-shadow: none;
 }
 
-.dark-mode .hero-stats span {
-  color: #9ccbd1;
+
+/* Primary button */
+
+.dark-mode .hero-section .primary-btn,
+.dark-mode .hero-section .hero-btn {
+  background: #168895;
+
+  color: #ffffff;
+
+  border-color: #168895;
+
+  box-shadow: none;
+}
+
+.dark-mode .hero-section .primary-btn:hover,
+.dark-mode .hero-section .hero-btn:hover {
+  background: #1a9aa7;
+
+  border-color: #1a9aa7;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 18px rgba(22, 136, 149, 0.22);
+}
+
+
+/* Secondary button */
+
+.dark-mode .hero-section .secondary-btn {
+  background: transparent;
+
+  color: #c7d9dd;
+
+  border-color: #45616a;
+
+  box-shadow: none;
+}
+
+.dark-mode .hero-section .secondary-btn:hover {
+  background: #142f3a;
+
+  color: #70cbd2;
+
+  border-color: #5b858d;
+
+  transform: translateY(-2px);
+
+  box-shadow: none;
+}
+
+
+/* Hero image / visual */
+
+.dark-mode .hero-section .hero-image,
+.dark-mode .hero-section .hero-visual,
+.dark-mode .hero-section .hero-card {
+  background: #122d38;
+
+  border-color: #294953;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Image */
+
+.dark-mode .hero-section img {
+  filter: brightness(0.96);
+}
+
+
+/* Small floating cards */
+
+.dark-mode .hero-section .floating-card,
+.dark-mode .hero-section .hero-info-card {
+  background: #142f3a;
+
+  border-color: #34545e;
+
+  color: #dcecef;
+
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.25);
+}
+
+.dark-mode .hero-section .floating-card strong,
+.dark-mode .hero-section .hero-info-card strong {
+  color: #f0f7f8;
+}
+
+.dark-mode .hero-section .floating-card span,
+.dark-mode .hero-section .hero-info-card span {
+  color: #9eb8bf;
+}
+
+
+/* Icons */
+
+.dark-mode .hero-section .hero-icon {
+  color: #69cbd2;
+
+  background: #193943;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   HERO RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .dark-mode .hero-section {
+    background:
+      linear-gradient(
+        180deg,
+        #0d202a,
+        #102b36
+      );
+  }
+
 }
 
 /* =========================================================
@@ -1895,404 +2124,6 @@ body {
   line-height: 1.4;
 }
 
-/* =====================================================
-   AYUSHMAN BHARAT SECTION
-===================================================== */
-
-.insurance-section {
-  padding: 90px 8%;
-  background: linear-gradient(135deg, #f1fbfd, #ffffff);
-}
-
-.insurance-layout {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  align-items: center;
-  gap: 70px;
-}
-
-/* LEFT SIDE */
-
-.insurance-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 35px;
-}
-
-.insurance-icon {
-  min-width: 85px;
-  height: 85px;
-
-  display: grid;
-  place-items: center;
-
-  background: #ffffff;
-  border-radius: 22px;
-
-  font-size: 38px;
-
-  box-shadow: 0 10px 25px rgba(8, 127, 140, 0.12);
-}
-
-.insurance-text {
-  max-width: 700px;
-}
-
-.insurance-text .section-label {
-  margin-bottom: 15px;
-
-  color: #087f8c;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.insurance-text h2 {
-  margin: 0 0 20px;
-
-  color: #123d56;
-  font-size: 42px;
-  line-height: 1.15;
-  font-weight: 900;
-}
-
-.insurance-text h2 span {
-  color: #087f8c;
-}
-
-.insurance-text > p:not(.section-label) {
-  margin-bottom: 25px;
-
-  color: #607887;
-  font-size: 15px;
-  line-height: 1.8;
-}
-
-/* FEATURES */
-
-.insurance-features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px 35px;
-  margin-bottom: 28px;
-}
-
-.insurance-features div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.insurance-features span {
-  width: 30px;
-  height: 30px;
-
-  display: grid;
-  place-items: center;
-
-  background: #d9f7f0;
-  color: #087f8c;
-
-  border-radius: 50%;
-  font-weight: 900;
-}
-
-.insurance-features strong {
-  color: #173f56;
-  font-size: 14px;
-}
-
-/* BUTTON */
-
-.insurance-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 14px 24px;
-
-  background: #087f8c;
-  color: white;
-
-  text-decoration: none;
-  border-radius: 9px;
-
-  font-weight: 800;
-  font-size: 14px;
-
-  transition: 0.25s ease;
-}
-
-.insurance-btn:hover {
-  background: #056d78;
-  transform: translateY(-2px);
-}
-
-.insurance-note {
-  display: block;
-  margin-top: 12px;
-
-  color: #718895;
-  font-size: 11px;
-}
-
-/* =====================================================
-   AYUSHMAN SECTION
-===================================================== */
-
-.insurance-section {
-  padding: 100px 7%;
-  background: linear-gradient(135deg, #eefbfc, #ffffff);
-}
-
-.insurance-layout {
-  max-width: 1250px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 70px;
-}
-
-
-/* =====================================================
-   LEFT CONTENT
-===================================================== */
-
-.insurance-content {
-  width: 100%;
-}
-
-.insurance-text {
-  max-width: 650px;
-}
-
-.insurance-text h2 {
-  font-size: 44px;
-  line-height: 1.15;
-  margin: 15px 0 22px;
-}
-
-.insurance-text > p {
-  font-size: 15px;
-  line-height: 1.8;
-  max-width: 620px;
-}
-
-.insurance-features {
-  margin-top: 28px;
-}
-
-.ayushman-visual-card {
-  width: 100%;
-  max-width: 420px;
-  padding: 30px;
-  background: #ffffff;
-  border: 1px solid #d9e9ed;
-  border-radius: 22px;
-  box-shadow: 0 15px 40px rgba(18, 76, 95, 0.10);
-}
-
-.ayushman-card-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 18px;
-}
-
-.ayushman-card-icon {
-  width: 56px;
-  height: 56px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  background: #e7f8fa;
-  border-radius: 15px;
-  font-size: 26px;
-}
-
-.ayushman-card-header span {
-  display: block;
-  margin-bottom: 5px;
-  color: #087f8c;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.1px;
-}
-
-.ayushman-card-header h3 {
-  margin: 0;
-  color: #123f5c;
-  font-size: 24px;
-  font-weight: 800;
-}
-
-.ayushman-card-description {
-  margin: 0 0 20px;
-  color: #607887;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.ayushman-card-coverage {
-  padding: 20px;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #eefafb, #f8fcfd);
-  border: 1px solid #d8ecef;
-  border-radius: 16px;
-}
-
-.ayushman-card-coverage span {
-  display: block;
-  color: #607887;
-  font-size: 11px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.ayushman-card-coverage strong {
-  display: block;
-  color: #087f8c;
-  font-size: 32px;
-  line-height: 1.1;
-  margin-bottom: 5px;
-}
-
-.ayushman-card-coverage small {
-  color: #718895;
-  font-size: 10px;
-}
-
-.ayushman-card-points {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 22px;
-}
-
-.ayushman-card-points div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #36556d;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.ayushman-card-points span {
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #d9f6ef;
-  color: #087f8c;
-  font-size: 11px;
-  font-weight: 900;
-}
-
-.ayushman-card-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  background: #087f8c;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 800;
-  transition: all 0.2s ease;
-}
-
-.ayushman-card-button:hover {
-  background: #066d78;
-  transform: translateY(-1px);
-}
-
-.ayushman-card-note {
-  display: block;
-  margin-top: 10px;
-  text-align: center;
-  color: #8a9ba4;
-  font-size: 9px;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 900px) {
-
-  .insurance-layout {
-    grid-template-columns: 1fr;
-
-    gap: 45px;
-  }
-
-  .ayushman-image-card {
-    height: 380px;
-  }
-
-}
-
-@media (max-width: 600px) {
-
-  .insurance-section {
-    padding: 70px 5%;
-  }
-
-  .insurance-text h2 {
-    font-size: 34px;
-  }
-
-  .ayushman-image-card {
-    height: 320px;
-  }
-
-  .ayushman-image-overlay {
-    padding: 20px;
-  }
-
-  .ayushman-image-overlay h3 {
-    font-size: 22px;
-  }
-
-}
-.ayushman-image-card {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  min-height: 350px;
-}
-
-.ayushman-image-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.ayushman-image-overlay {
-  position: relative;
-  z-index: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1));
-}
 
 /* =========================================================
    DEPARTMENTS
@@ -2697,24 +2528,6 @@ body {
   line-height: 1.7;
 
   margin-bottom: 9px;
-}
-
-.map-button {
-  display: inline-block;
-
-  margin-top: 10px;
-
-  padding: 10px 14px;
-
-  border-radius: 8px;
-
-  background: #087f8c;
-
-  color: white;
-
-  font-size: 12px;
-
-  font-weight: 700;
 }
 
 /* =====================================================
@@ -4497,967 +4310,6 @@ body {
 
 
 /* =========================================================
-   DARK MODE
-========================================================= */
-
-.dark-mode {
-  background: #071c27;
-
-  color: #d7edf2;
-}
-
-.dark-mode .home-header {
-  background: rgba(6, 30, 42, 0.97);
-
-  border-color: #173c4c;
-}
-
-.dark-mode .hospital-logo h2 {
-  color: #70e2e7;
-}
-
-.dark-mode .hospital-logo p,
-.dark-mode .home-header nav a {
-  color: #9bbac3;
-}
-
-.dark-mode .home-header nav a:hover {
-  color: #72e1e6;
-}
-
-.dark-mode .theme-btn {
-  background: #123b4b;
-
-  color: #81e7ea;
-}
-
-.dark-mode .login-menu {
-  background: #0d2c3a;
-
-  border-color: #234c5b;
-}
-
-.dark-mode .login-menu button {
-  color: #c4e1e6;
-}
-
-.dark-mode .login-menu button:hover {
-  background: #143d4d;
-}
-
-.dark-mode .announcement {
-  background: #103440;
-
-  color: #b9d8df;
-}
-
-.dark-mode .announcement strong {
-  color: #6fe0e5;
-}
-
-.dark-mode .stats-section {
-  background: #092633;
-}
-
-.dark-mode .stat-box {
-  border-color: #1a414f;
-}
-
-.dark-mode .stat-box strong {
-  color: #6ee0e5;
-}
-
-.dark-mode .stat-box p {
-  color: #93b1bb;
-}
-
-.dark-mode .trust-bar {
-  background: #0b2b38;
-
-  border-color: #194453;
-}
-
-.dark-mode .trust-bar strong {
-  color: #c4e1e6;
-}
-
-.dark-mode .trust-bar small {
-  color: #91afb9;
-}
-
-.dark-mode .services-section,
-.dark-mode .departments-section,
-.dark-mode .doctors-section,
-.dark-mode .facilities-section,
-.dark-mode .testimonials-section,
-.dark-mode .partners-section,
-.dark-mode .ayushman-details-section {
-  background: #071c27;
-}
-
-.dark-mode .healthcare-gallery,
-.dark-mode .why-section,
-.dark-mode .information-section {
-  background: #0a2835;
-}
-
-.dark-mode .section-heading h2,
-.dark-mode .service-card h3,
-.dark-mode .department-card h3,
-.dark-mode .doctor-info h3,
-.dark-mode .facility-card h3,
-.dark-mode .why-card h3,
-.dark-mode .about-content h2,
-.dark-mode .about-card h3,
-.dark-mode .information-card h2,
-.dark-mode .testimonial-user strong,
-.dark-mode .ayushman-benefit-card h3 {
-  color: #d9f1f4;
-}
-
-.dark-mode .section-heading span,
-.dark-mode .service-card p,
-.dark-mode .department-card p,
-.dark-mode .facility-card p,
-.dark-mode .why-card p,
-.dark-mode .about-content > p:not(.section-label),
-.dark-mode .about-card > p,
-.dark-mode .location-text,
-.dark-mode .testimonial-card > p,
-.dark-mode .ayushman-benefit-card p {
-  color: #91adb7;
-}
-
-.dark-mode .service-card,
-.dark-mode .department-card,
-.dark-mode .doctor-card,
-.dark-mode .facility-card,
-.dark-mode .why-card,
-.dark-mode .information-card,
-.dark-mode .testimonial-card,
-.dark-mode .partners-grid div,
-.dark-mode .ayushman-benefit-card {
-  background: #0b2a37;
-
-  border-color: #1c4655;
-}
-
-.dark-mode .service-card:hover,
-.dark-mode .department-card:hover {
-  background: #0d3442;
-}
-
-.dark-mode .doctor-photo,
-.dark-mode .hero-medical-image {
-  background: #123b49;
-}
-
-.dark-mode .doctor-info small,
-.dark-mode .doctor-bottom {
-  color: #8faab4;
-}
-
-.dark-mode .about-section {
-  background: #071c27;
-}
-
-.dark-mode .about-card {
-  background: #0c3441;
-
-  border-color: #205362;
-}
-
-.dark-mode .about-stat {
-  border-color: #285563;
-}
-
-.dark-mode .about-stat span {
-  color: #99b5be;
-}
-
-.dark-mode .partners-grid div {
-  color: #b3d0d7;
-}
-
-
-/* =========================================================
-   DARK AYUSHMAN
-========================================================= */
-
-.dark-mode .insurance-section {
-  background:
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(38, 182, 194, 0.08),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #081e2a,
-      #0a2835
-    );
-}
-
-.dark-mode .insurance-icon,
-.dark-mode .ayushman-info-card {
-  background: #0d2c39;
-
-  border-color: #214957;
-}
-
-.dark-mode .insurance-text h2 {
-  color: #e1f3f5;
-}
-
-.dark-mode .insurance-text > p:not(.section-label) {
-  color: #9ab4bd;
-}
-
-.dark-mode .insurance-features div {
-  color: #d6e8ec;
-}
-
-.dark-mode .insurance-note {
-  color: #8da8b2;
-}
-
-.dark-mode .ayushman-info-header strong {
-  color: #70e1e5;
-}
-
-.dark-mode .ayushman-info-header span {
-  color: #94adb6;
-}
-
-.dark-mode .ayushman-info-icon {
-  background: #123846;
-
-  border-color: #28515e;
-}
-
-.dark-mode .ayushman-highlight {
-  background:
-    linear-gradient(
-      135deg,
-      #103744,
-      #12303d
-    );
-
-  border-color: #285461;
-}
-
-.dark-mode .ayushman-highlight strong {
-  color: #d9eef2;
-}
-
-.dark-mode .ayushman-highlight h3 {
-  color: #70e1e5;
-}
-
-.dark-mode .ayushman-highlight p {
-  color: #91abb4;
-}
-
-.dark-mode .ayushman-tabs button {
-  background: #102f3b;
-
-  color: #9db9c2;
-
-  border-color: #254a58;
-}
-
-.dark-mode .ayushman-tabs button:hover {
-  background: #143b48;
-
-  color: #70e1e5;
-}
-
-.dark-mode .ayushman-tabs button.active {
-  background: #087f8c;
-
-  color: white;
-
-  border-color: #087f8c;
-}
-
-.dark-mode .ayushman-tab-content {
-  background: #102f3b;
-
-  border-color: #254a58;
-}
-
-.dark-mode .ayushman-tab-content h3 {
-  color: #d9eef2;
-}
-
-.dark-mode .ayushman-tab-content p {
-  color: #91abb4;
-}
-
-.dark-mode .ayushman-tab-list div {
-  color: #bdd6dc;
-}
-
-.dark-mode .ayushman-tab-list span {
-  background: #16434c;
-
-  color: #70e1e5;
-}
-
-.dark-mode .ayushman-info-footer {
-  border-color: #254a58;
-}
-
-.dark-mode .ayushman-info-footer span {
-  color: #8da8b2;
-}
-
-.dark-mode .ayushman-official-btn {
-  background: #123b49;
-
-  color: #70e1e5;
-}
-
-.dark-mode .ayushman-official-btn:hover {
-  background: #087f8c;
-
-  color: white;
-}
-
-.dark-mode .ayushman-quick-stat {
-  background: #123846;
-
-  border-color: #28515e;
-}
-
-.dark-mode .ayushman-quick-stat strong {
-  color: #70e1e5;
-}
-
-.dark-mode .ayushman-quick-stat span {
-  color: #91aab3;
-}
-
-
-/* =========================================================
-   RESPONSIVE 1150
-========================================================= */
-
-@media (max-width: 1150px) {
-
-  .home-header nav {
-    gap: 14px;
-  }
-
-  .hero-section {
-    padding: 70px 5%;
-  }
-
-  .hero-card {
-    width: 320px;
-  }
-
-  .departments-grid,
-  .doctors-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .footer-main {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE 1000
-========================================================= */
-
-@media (max-width: 1000px) {
-
-  .insurance-content {
-    grid-template-columns: 70px 1fr;
-  }
-
-  .ayushman-info-card {
-    grid-column: 1 / -1;
-
-    max-width: 650px;
-
-    width: 100%;
-
-    margin: 15px auto 0;
-  }
-
-  .ayushman-benefits-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE 900
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .home-header {
-    flex-wrap: wrap;
-
-    gap: 12px;
-  }
-
-  .home-header nav {
-    order: 3;
-
-    width: 100%;
-
-    justify-content: center;
-
-    overflow-x: auto;
-
-    padding-bottom: 5px;
-  }
-
-  .hero-section {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    min-height: auto;
-  }
-
-  .hero-content {
-    width: 100%;
-  }
-
-  .hero-card {
-    width: 100%;
-
-    max-width: 450px;
-
-    margin: auto;
-  }
-
-  .stats-section,
-  .trust-bar {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .services-grid,
-  .facilities-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .about-section {
-    grid-template-columns: 1fr;
-  }
-
-  .information-section {
-    grid-template-columns: 1fr;
-  }
-
-  .testimonial-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .healthcare-gallery-grid {
-    grid-template-columns: 1fr 1fr;
-
-    grid-template-rows: 300px 220px;
-  }
-
-  .gallery-large {
-    grid-column: 1 / -1;
-
-    grid-row: auto;
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE 650
-========================================================= */
-
-@media (max-width: 650px) {
-
-  .home-header {
-    padding: 10px 4%;
-  }
-
-  .hospital-logo h2 {
-    font-size: 18px;
-  }
-
-  .hospital-logo p {
-    font-size: 9px;
-  }
-
-  .logo-symbol {
-    width: 44px;
-    height: 44px;
-
-    font-size: 24px;
-  }
-
-  .header-actions {
-    width: 100%;
-
-    justify-content: center;
-  }
-
-  .theme-btn,
-  .login-btn,
-  .register-btn {
-    padding: 9px 11px;
-
-    font-size: 11px;
-  }
-
-  .home-header nav {
-    justify-content: flex-start;
-
-    gap: 18px;
-  }
-
-  .emergency-bar {
-    flex-direction: column;
-
-    gap: 7px;
-
-    text-align: center;
-  }
-
-  .announcement {
-    flex-direction: column;
-
-    text-align: center;
-
-    gap: 4px;
-  }
-
-  .hero-section {
-    padding: 60px 5%;
-  }
-
-  .hero-content h1 {
-    font-size: 43px;
-  }
-
-  .hero-description {
-    font-size: 14px;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
-  .hero-features {
-    gap: 10px;
-
-    font-size: 11px;
-  }
-
-  .stats-section,
-  .trust-bar,
-  .services-grid,
-  .departments-grid,
-  .doctors-grid,
-  .facilities-grid,
-  .why-grid,
-  .partners-grid,
-  .ayushman-benefits-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stat-box {
-    border-right: none;
-
-    border-bottom: 1px solid #e3edf0;
-  }
-
-  .trust-bar > div {
-    border-bottom: 1px solid #dcecf1;
-  }
-
-  .services-section,
-  .departments-section,
-  .doctors-section,
-  .facilities-section,
-  .why-section,
-  .testimonials-section,
-  .partners-section {
-    padding: 65px 5%;
-  }
-
-  .healthcare-gallery {
-    padding: 65px 5%;
-  }
-
-  .healthcare-gallery-grid {
-    grid-template-columns: 1fr;
-
-    grid-template-rows:
-      280px
-      220px
-      220px;
-  }
-
-  .gallery-large {
-    grid-column: auto;
-
-    grid-row: auto;
-  }
-
-  .gallery-overlay {
-    left: 18px;
-
-    right: 18px;
-
-    bottom: 18px;
-  }
-
-  .gallery-overlay h3 {
-    font-size: 17px;
-  }
-
-  .gallery-features {
-    grid-template-columns: 1fr;
-  }
-
-
-  /* =======================================================
-     MOBILE AYUSHMAN
-  ======================================================= */
-
-  .insurance-section {
-    padding: 65px 5%;
-  }
-
-  .insurance-content {
-    grid-template-columns: 1fr;
-
-    gap: 20px;
-  }
-
-  .insurance-icon {
-    width: 65px;
-
-    height: 65px;
-  }
-
-  .insurance-text h2 {
-    font-size: 29px;
-  }
-
-  .insurance-text > p:not(.section-label) {
-    font-size: 14px;
-  }
-
-  .insurance-features {
-    grid-template-columns: 1fr;
-
-    gap: 12px;
-  }
-
-  .insurance-btn {
-    width: 100%;
-  }
-
-  .ayushman-info-card {
-    grid-column: auto;
-
-    width: 100%;
-
-    padding: 18px;
-
-    margin-top: 10px;
-  }
-
-  .ayushman-tabs {
-    gap: 5px;
-  }
-
-  .ayushman-tabs button {
-    padding: 9px 3px;
-
-    font-size: 9px;
-  }
-
-  .ayushman-tab-content {
-    min-height: auto;
-  }
-
-  .ayushman-quick-stats {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .ayushman-details-section {
-    padding: 65px 5%;
-  }
-
-
-  /* =======================================================
-     REST MOBILE
-  ======================================================= */
-
-  .about-section {
-    padding: 65px 5%;
-
-    gap: 35px;
-  }
-
-  .about-points {
-    grid-template-columns: 1fr;
-  }
-
-  .ai-content {
-    flex-direction: column;
-
-    align-items: flex-start;
-  }
-
-  .ai-section h2 {
-    font-size: 28px;
-  }
-
-  .information-section {
-    padding: 60px 5%;
-  }
-
-  .information-card {
-    padding: 25px;
-
-    flex-direction: column;
-  }
-
-  .footer-main {
-    grid-template-columns: 1fr;
-
-    gap: 35px;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-
-    justify-content: center;
-
-    padding: 20px 0;
-
-    text-align: center;
-  }
-
-  .register-modal form {
-    grid-template-columns: 1fr;
-  }
-
-  .register-field:nth-child(1),
-  .register-field:nth-child(2),
-  .register-submit {
-    grid-column: auto;
-  }
-
-  .hospital-login,
-  .register-modal {
-    padding: 28px 20px;
-  }
-
-}
-
-
-/* =========================================================
-   EXTRA SMALL DEVICES
-========================================================= */
-
-@media (max-width: 420px) {
-
-  .hero-content h1 {
-    font-size: 38px;
-  }
-
-  .insurance-text h2 {
-    font-size: 26px;
-  }
-
-  .ayushman-info-header strong {
-    font-size: 14px;
-  }
-
-  .ayushman-highlight h3 {
-    font-size: 24px;
-  }
-
-  .ayushman-info-footer {
-    flex-direction: column;
-
-    align-items: flex-start;
-  }
-
-  .ayushman-official-btn {
-    width: 100%;
-
-    text-align: center;
-  }
-
-  .ayushman-quick-stats strong {
-    font-size: 12px;
-  }
-
-  .ayushman-quick-stats span {
-    font-size: 7px;
-  }
-
-}
-
-/* =========================================================
-   RESPONSIVE HEADER
-========================================================= */
-
-/* TABLET */
-@media (max-width: 1000px) {
-
-  .home-header {
-    padding: 14px 24px;
-    gap: 20px;
-  }
-
-  .hospital-brand {
-    gap: 10px;
-  }
-
-  .logo-symbol {
-    width: 52px;
-    height: 52px;
-    font-size: 27px;
-  }
-
-  .hospital-brand-text h2 {
-    font-size: 21px;
-  }
-
-  .hospital-brand-text p {
-    font-size: 10px;
-  }
-
-  .home-header nav {
-    gap: 16px;
-  }
-
-  .home-header nav a {
-    font-size: 13px;
-  }
-
-  .header-actions {
-    gap: 8px;
-  }
-
-  .login-btn,
-  .register-btn {
-    padding: 10px 14px;
-  }
-}
-
-
-/* MOBILE */
-@media (max-width: 700px) {
-
-  .home-header {
-    padding: 12px 16px;
-    min-height: 70px;
-    flex-wrap: wrap;
-  }
-
-  .hospital-brand {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .logo-symbol {
-    width: 46px;
-    height: 46px;
-    border-radius: 13px;
-    font-size: 24px;
-  }
-
-  .hospital-brand-text h2 {
-    font-size: 18px;
-    white-space: nowrap;
-  }
-
-  .hospital-brand-text p {
-    font-size: 9px;
-    white-space: nowrap;
-  }
-
-  /* Hide desktop navigation on mobile */
-  .home-header nav {
-    display: none;
-  }
-
-  .header-actions {
-    gap: 6px;
-  }
-
-  .theme-btn {
-    width: 38px;
-    height: 38px;
-    padding: 0;
-  }
-
-  .login-btn,
-  .register-btn {
-    min-height: 38px;
-    padding: 9px 12px;
-    font-size: 12px;
-  }
-}
-
-
-/* SMALL PHONES */
-@media (max-width: 450px) {
-
-  .home-header {
-    padding: 10px 12px;
-  }
-
-  .logo-symbol {
-    width: 42px;
-    height: 42px;
-    font-size: 21px;
-  }
-
-  .hospital-brand-text h2 {
-    font-size: 16px;
-  }
-
-  .hospital-brand-text p {
-    font-size: 8px;
-  }
-
-  .theme-btn {
-    display: none;
-  }
-
-  .login-btn,
-  .register-btn {
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-}
-
-/* =========================================================
    FOOTER PROJECT INFO
 ========================================================= */
 
@@ -5563,17 +4415,6 @@ body {
 
 }
 
-.login-error {
-  margin: 12px 0;
-  padding: 10px 14px;
-  background: #fff1f1;
-  border: 1px solid #f5b5b5;
-  border-radius: 8px;
-  color: #d32f2f;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-}
 
 .login-error {
   display: flex;
@@ -6812,38 +5653,6 @@ body {
 }
 
 
-/* =====================================================
-   HOURS
-===================================================== */
-
-.hours-list {
-  margin-top: 20px;
-}
-
-
-.hours-row {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  padding: 17px 4px;
-
-  border-bottom: 1px solid rgba(0, 120, 150, 0.12);
-
-  color: #62809a;
-
-  font-size: 15px;
-}
-
-
-.hours-row strong {
-  color: #008b9d;
-
-  font-weight: 800;
-}
-
 
 .emergency-row {
   border-bottom: none;
@@ -7135,187 +5944,1702 @@ body {
 
 }
 
+/* =====================================================
+   FINAL FIX - SERVICES HEADING LAYOUT
+===================================================== */
+
+.services-section .section-heading {
+  display: block !important;
+  width: 100% !important;
+  max-width: 900px !important;
+  margin: 0 auto 45px !important;
+  padding: 0 !important;
+
+  text-align: center !important;
+}
+
+.services-section .section-heading p {
+  display: block !important;
+  width: 100% !important;
+
+  margin: 0 0 12px !important;
+
+  text-align: center !important;
+
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  letter-spacing: 3px !important;
+  white-space: nowrap !important;
+}
+
+.services-section .section-heading h2 {
+  display: block !important;
+  width: 100% !important;
+
+  margin: 0 0 12px !important;
+
+  text-align: center !important;
+
+  font-size: 42px !important;
+  line-height: 1.15 !important;
+}
+
+.services-section .section-heading span {
+  display: block !important;
+  width: 100% !important;
+
+  margin: 0 auto !important;
+
+  text-align: center !important;
+
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+/* =====================================================
+   PREMIUM SERVICES HEADING
+===================================================== */
+
+.services-section .section-heading {
+  display: block !important;
+  width: 100% !important;
+  max-width: 900px !important;
+  margin: 0 auto 55px !important;
+  text-align: center !important;
+}
+
+/* Small label */
+.services-section .section-heading > p {
+  position: relative;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  width: auto !important;
+
+  margin: 0 0 18px !important;
+  padding: 7px 16px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(
+    135deg,
+    #e1f8fa,
+    #f0fbfc
+  );
+
+  border: 1px solid #c7ebee;
+
+  color: #07899c;
+
+  font-size: 11px !important;
+  font-weight: 900 !important;
+
+  letter-spacing: 3px !important;
+  line-height: 1 !important;
+
+  white-space: nowrap !important;
+
+  box-shadow:
+    0 6px 18px rgba(0, 130, 150, 0.08);
+}
+
+/* Decorative lines around label */
+.services-section .section-heading > p::before,
+.services-section .section-heading > p::after {
+  content: "";
+
+  width: 32px;
+  height: 1px;
+
+  margin: 0 10px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #55cbd4
+  );
+}
+
+.services-section .section-heading > p::after {
+  background: linear-gradient(
+    90deg,
+    #55cbd4,
+    transparent
+  );
+}
+
+
+/* Main heading */
+.services-section .section-heading > h2 {
+  display: block !important;
+
+  width: 100% !important;
+
+  margin: 0 auto 16px !important;
+
+  color: #123c57;
+
+  font-size: clamp(34px, 4vw, 48px) !important;
+
+  font-weight: 850 !important;
+
+  line-height: 1.12 !important;
+
+  letter-spacing: -1.2px;
+
+  text-align: center !important;
+}
+
+/* Gradient emphasis */
+.services-section .section-heading > h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 4px;
+
+  margin: 17px auto 0;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #08a8b8,
+      #0879a4
+    );
+
+  box-shadow:
+    0 4px 12px rgba(8, 150, 170, 0.22);
+}
+
+
+/* Description */
+.services-section .section-heading > span {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 650px !important;
+
+  margin: 18px auto 0 !important;
+
+  color: #718898;
+
+  font-size: 15px !important;
+
+  line-height: 1.75 !important;
+
+  text-align: center !important;
+}
+
+
 
 /* =========================================================
-   AYUSHMAN — FINAL LAYOUT (IMAGE CARD VERSION)
-   This block is appended last on purpose so that it wins the
-   cascade over the older/duplicate .insurance-section rules
-   above, without deleting any of the original code.
+   PREMIUM MODERN HEALTHCARE HEADING
+========================================================= */
+
+.healthcare-gallery .section-heading {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 0 auto 55px !important;
+  padding: 0;
+
+  display: block !important;
+
+  text-align: center !important;
+}
+
+
+/* MODERN HEALTHCARE LABEL */
+
+.healthcare-gallery .section-heading > p {
+  display: inline-flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  width: auto !important;
+
+  margin: 0 auto 18px !important;
+  padding: 8px 17px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(
+    135deg,
+    #e1f8fa,
+    #f2fbfc
+  );
+
+  border: 1px solid #c7ebee;
+
+  color: #07899c;
+
+  font-size: 11px !important;
+  font-weight: 900 !important;
+
+  letter-spacing: 3px !important;
+
+  line-height: 1 !important;
+
+  white-space: nowrap !important;
+
+  box-shadow:
+    0 6px 18px rgba(0, 130, 150, 0.08);
+}
+
+
+/* DECORATIVE LINES */
+
+.healthcare-gallery .section-heading > p::before,
+.healthcare-gallery .section-heading > p::after {
+  content: "";
+
+  width: 35px;
+  height: 1px;
+
+  margin: 0 11px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #55cbd4
+  );
+}
+
+.healthcare-gallery .section-heading > p::after {
+  background: linear-gradient(
+    90deg,
+    #55cbd4,
+    transparent
+  );
+}
+
+
+/* MAIN HEADING */
+
+.healthcare-gallery .section-heading > h2 {
+  display: block !important;
+
+  width: 100% !important;
+
+  margin: 0 auto !important;
+
+  color: #123c57;
+
+  font-size: clamp(34px, 4vw, 48px) !important;
+
+  font-weight: 850 !important;
+
+  line-height: 1.12 !important;
+
+  letter-spacing: -1.2px;
+
+  text-align: center !important;
+}
+
+
+/* COLORED PART */
+
+.healthcare-gallery .section-heading > h2 span {
+  color: #087f8c !important;
+}
+
+
+/* SMALL ACCENT LINE */
+
+.healthcare-gallery .section-heading > h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 4px;
+
+  margin: 17px auto 0;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #08a8b8,
+    #0879a4
+  );
+
+  box-shadow:
+    0 4px 12px rgba(8, 150, 170, 0.22);
+}
+
+
+/* DESCRIPTION */
+
+.healthcare-gallery .section-heading > span {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 650px !important;
+
+  margin: 18px auto 0 !important;
+
+  color: #718898;
+
+  font-size: 15px !important;
+
+  line-height: 1.75 !important;
+
+  text-align: center !important;
+}
+
+
+/* =========================================================
+   AYUSHMAN BHARAT SECTION
 ========================================================= */
 
 .insurance-section {
-  position: relative;
   width: 100%;
-  padding: 100px 7%;
-  margin: 0;
+  padding: 70px 5%;
+  box-sizing: border-box;
 
-  background: linear-gradient(135deg, #eefbfc, #ffffff);
+  background:
+    radial-gradient(
+      circle at 8% 50%,
+      rgba(0, 170, 190, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 92% 50%,
+      rgba(0, 170, 190, 0.08),
+      transparent 30%
+    ),
+    #f3fbfc;
 }
 
-.insurance-layout {
-  position: relative;
-  z-index: 2;
 
+/* =========================================================
+   TWO COLUMNS
+========================================================= */
+
+.insurance-layout {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1250px;
+
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  gap: 55px;
 
   align-items: center;
 }
 
-.insurance-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 30px;
 
-  color: inherit;
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.insurance-content {
+  width: 100%;
+  max-width: 650px;
 }
 
-.insurance-icon {
-  min-width: 75px;
-  height: 75px;
+
+/* Logo + heading */
+
+.insurance-title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 22px;
+}
+
+
+/* Hospital logo */
+
+.insurance-logo {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  object-fit: contain;
+
+  border-radius: 14px;
+
+  background: white;
+
+  padding: 5px;
+
+  box-shadow:
+    0 8px 22px rgba(0, 80, 100, 0.14);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.insurance-logo:hover {
+  transform: scale(1.08) rotate(-2deg);
+
+  box-shadow:
+    0 14px 30px rgba(0, 100, 120, 0.22);
+}
+
+
+/* Label */
+
+.section-label {
+  margin-bottom: 9px;
+
+  color: #078c9d;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+
+  white-space: nowrap;
+}
+
+
+/* Heading */
+
+.insurance-title-row h2 {
+  margin: 0;
+
+  color: #103e56;
+
+  font-size: clamp(38px, 4vw, 55px);
+
+  line-height: 1.08;
+
+  letter-spacing: -1.7px;
+
+  font-weight: 800;
+}
+
+
+/* Description */
+
+.insurance-description {
+  max-width: 650px;
+
+  margin: 0 0 27px;
+
+  color: #5f7b89;
+
+  font-size: 15px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.insurance-features {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 11px 30px;
+
+  margin-bottom: 25px;
+}
+
+.insurance-features div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 7px 9px;
+
+  border-radius: 10px;
+
+  color: #173f51;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.insurance-features div:hover {
+  transform: translateX(5px);
+
+  background: rgba(211, 244, 243, 0.7);
+
+  box-shadow:
+    0 7px 18px rgba(0, 120, 140, 0.08);
+}
+
+.insurance-features span {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #d8f5f3;
+
+  color: #078e9e;
+
+  font-size: 14px;
+
+  font-weight: 900;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.insurance-features div:hover span {
+  transform: scale(1.12) rotate(5deg);
+
+  background: #c4eeec;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.insurance-btn {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  padding: 12px 19px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0798a8,
+      #087d98
+    );
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  box-shadow:
+    0 8px 20px rgba(0, 125, 145, 0.22);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+
+/* Button shine */
+
+.insurance-btn::before {
+  content: "";
+
+  position: absolute;
+
+  left: -120%;
+  top: 0;
+
+  width: 80%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.4),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.55s ease;
+}
+
+.insurance-btn:hover::before {
+  left: 140%;
+}
+
+.insurance-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 14px 30px rgba(0, 125, 145, 0.32);
+}
+
+.insurance-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* Note */
+
+.insurance-note {
+  display: block;
+
+  margin-top: 10px;
+
+  color: #718995;
+
+  font-size: 10px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.ayushman-right {
+  width: 100%;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  transition: transform 0.4s ease;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.ayushman-image-wrap {
+  width: 100%;
+
+  overflow: hidden;
+
+  line-height: 0;
+
+  border-radius: 24px 24px 0 0;
+
+  background: #e0f3f6;
+
+  box-shadow:
+    0 15px 35px rgba(0, 70, 90, 0.16);
+
+  transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+
+/*
+ IMPORTANT:
+ DO NOT use object-fit: cover.
+ This keeps the complete image visible.
+*/
+
+.ayushman-main-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  max-width: 100%;
+
+  object-fit: contain;
+
+  transition:
+    transform 0.6s ease,
+    filter 0.4s ease;
+}
+
+
+/* Image hover */
+
+.ayushman-right:hover .ayushman-image-wrap {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 25px 55px rgba(0, 90, 110, 0.24);
+}
+
+.ayushman-right:hover .ayushman-main-image {
+  transform: scale(1.025);
+
+  filter: brightness(1.03);
+}
+
+
+/* =========================================================
+   CARD BELOW IMAGE
+========================================================= */
+
+.ayushman-info-card {
+  width: 100%;
+
+  min-height: 125px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 25px;
+
+  padding: 20px 24px;
+
+  background: rgba(255, 255, 255, 0.98);
+
+  border: 1px solid #d7ecef;
+
+  border-top: none;
+
+  border-radius: 0 0 24px 24px;
+
+  box-shadow:
+    0 14px 32px rgba(0, 70, 90, 0.12);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.3s ease;
+}
+
+.ayushman-info-card:hover {
+  transform: translateY(-5px);
+
+  border-color: #a7dfe5;
+
+  box-shadow:
+    0 22px 45px rgba(0, 90, 110, 0.19);
+}
+
+
+/* Card content */
+
+.ayushman-info-content {
+  min-width: 0;
+}
+
+.ayushman-mini-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #078c9c;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+.ayushman-info-card h3 {
+  margin: 0 0 5px;
+
+  color: #123e50;
+
+  font-size: 22px;
+
+  line-height: 1.2;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.ayushman-info-card:hover h3 {
+  color: #078c9c;
+
+  transform: translateX(3px);
+}
+
+.ayushman-info-card p {
+  margin: 0;
+
+  color: #68818d;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.official-text {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #8499a2;
+
+  font-size: 9px;
+}
+
+
+/* Card button */
+
+.card-btn {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .insurance-layout {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .insurance-content {
+    max-width: 750px;
+
+    margin: 0 auto;
+  }
+
+  .ayushman-right {
+    max-width: 750px;
+
+    margin: 0 auto;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .insurance-section {
+    padding: 50px 5%;
+  }
+
+  .insurance-title-row {
+    gap: 11px;
+  }
+
+  .insurance-logo {
+    width: 45px;
+    height: 45px;
+  }
+
+  .section-label {
+    font-size: 8px;
+
+    letter-spacing: 1px;
+  }
+
+  .insurance-title-row h2 {
+    font-size: 33px;
+
+    letter-spacing: -1px;
+  }
+
+  .insurance-description {
+    font-size: 14px;
+
+    line-height: 1.7;
+  }
+
+  .insurance-features {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+  .ayushman-info-card {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 18px;
+  }
+
+  .card-btn {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+
+}
+
+/* =========================================================
+   DEPARTMENTS SECTION - FINAL DESIGN
+========================================================= */
+
+.departments-section {
+  width: 100%;
+  padding: 90px 6% 100px;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DEPARTMENT HEADING
+========================================================= */
+
+.departments-section .section-heading {
+  width: 100%;
+  max-width: 760px;
+
+  margin: 0 auto 48px;
+
+  display: block !important;
+
+  text-align: center;
+}
+
+
+/* Small label */
+
+.departments-section .section-heading p {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 0 12px;
+  padding: 7px 14px;
+
+  border-radius: 30px;
+
+  background: #e9f9fa;
+  border: 1px solid #cceef0;
+
+  color: #078795;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.8px;
+}
+
+
+/* Heading */
+
+.departments-section .section-heading h2 {
+  margin: 0 0 14px;
+
+  color: #123f57;
+
+  font-size: clamp(34px, 3.5vw, 46px);
+
+  line-height: 1.1;
+
+  font-weight: 850;
+
+  letter-spacing: -1.4px;
+
+  text-align: center;
+}
+
+
+/* Description */
+
+.departments-section .section-heading > span {
+  display: block;
+
+  max-width: 600px;
+
+  margin: 0 auto;
+
+  color: #718896;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   DEPARTMENT GRID
+========================================================= */
+
+.departments-grid {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 16px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DEPARTMENT CARD
+========================================================= */
+
+.department-card {
+  position: relative;
+
+  min-height: 155px;
+
+  padding: 21px;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #dcebef;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #f8fcfd 100%
+    );
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+
+/* subtle top accent */
+
+.department-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    #08a8b8,
+    #087fa4
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.department-card:hover {
+  transform: translateY(-6px);
+
+  border-color: #9bdde2;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 16px 35px rgba(0, 100, 125, 0.11);
+}
+
+.department-card:hover::before {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.department-card > div {
+  width: 42px;
+  height: 42px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 20px;
+  margin-bottom: 14px;
 
-  background: #ffffff;
-  border: 1px solid #d9edf1;
+  border-radius: 12px;
 
-  font-size: 34px;
+  background: #e9f8fa;
 
-  box-shadow: 0 10px 25px rgba(8, 127, 140, 0.12);
+  font-size: 21px;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 150, 170, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 
-.insurance-text {
-  max-width: 640px;
+
+.department-card:hover > div {
+  transform: scale(1.08) rotate(-3deg);
+
+  background: #d9f4f6;
 }
 
-.insurance-text .section-label,
-.insurance-section .section-label {
-  color: #087f8c;
-}
 
-.insurance-text h2 {
-  color: #123d56;
-}
+/* =========================================================
+   TITLE
+========================================================= */
 
-.insurance-text h2 span {
-  color: #087f8c;
-}
+.department-card h3 {
+  margin: 0 0 7px;
 
-.insurance-description {
-  margin: 0 0 26px;
-
-  max-width: 620px;
-
-  color: #5a7887;
+  color: #153f57;
 
   font-size: 15px;
-  line-height: 1.8;
+
+  font-weight: 800;
+
+  line-height: 1.2;
 }
 
-.insurance-features div {
-  color: #173f56;
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.department-card p {
+  margin: 0 0 13px;
+
+  color: #718793;
+
+  font-size: 11px;
+
+  line-height: 1.55;
+
+  flex: 1;
 }
 
-.insurance-note {
-  color: #718895;
+
+/* =========================================================
+   VIEW LINK
+========================================================= */
+
+.department-card span {
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+
+  color: #078b9a;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
-/* =====================================================
-   AYUSHMAN IMAGE CARD (right side, full image)
-===================================================== */
 
-.ayushman-image-card {
-  position: relative;
+.department-card:hover span {
+  color: #056f80;
 
-  width: 100%;
-  max-width: 480px;
-
-  margin: 0 auto;
-
-  border-radius: 24px;
-  overflow: hidden;
-
-  min-height: auto;
-
-  box-shadow: 0 30px 65px rgba(0, 60, 80, 0.20);
-
-  border: 1px solid rgba(0, 140, 155, 0.14);
+  transform: translateX(4px);
 }
 
-.ayushman-image-card img {
-  position: static;
 
-  width: 100%;
-  height: auto;
-
-  display: block;
-
-  object-fit: contain;
-}
-
-/* Dark mode: keep the card visible on a dark page background */
-
-.dark-mode .ayushman-image-card {
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 30px 65px rgba(0, 0, 0, 0.45);
-}
-
-/* =====================================================
+/* =========================================================
    RESPONSIVE
-===================================================== */
+========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
 
-  .insurance-section {
-    padding: 70px 5%;
-  }
+  .departments-grid {
+    grid-template-columns: repeat(2, 1fr);
 
-  .insurance-layout {
-    grid-template-columns: 1fr;
-    gap: 45px;
-  }
-
-  .insurance-content {
-    flex-direction: column;
-  }
-
-  .ayushman-image-card {
-    max-width: 520px;
+    max-width: 850px;
   }
 
 }
+
 
 @media (max-width: 600px) {
 
-  .insurance-section {
-    padding: 55px 5%;
+  .departments-section {
+    padding: 65px 5% 75px;
   }
 
-  .insurance-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 28px;
+  .departments-section .section-heading {
+    margin-bottom: 35px;
   }
 
-  .insurance-text h2 {
-    font-size: 30px;
+  .departments-section .section-heading h2 {
+    font-size: 32px;
   }
 
-  .insurance-description {
-    font-size: 14px;
+  .departments-section .section-heading > span {
+    font-size: 13px;
   }
 
-  .insurance-btn {
-    width: 100%;
+  .departments-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .department-card {
+    min-height: 145px;
+
+    padding: 20px;
+  }
+
+}
+
+/* =========================================================
+   DOCTORS SECTION
+========================================================= */
+
+.doctors-section {
+  width: 100%;
+  padding: 90px 6% 100px;
+  background: #f4fbfd;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DOCTORS HEADING
+========================================================= */
+
+.doctors-section .section-heading {
+  width: 100%;
+  max-width: 780px;
+
+  margin: 0 auto 52px;
+
+  display: block !important;
+
+  text-align: center;
+}
+
+
+/* Small label */
+
+.doctors-section .section-heading p {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 0 12px;
+  padding: 7px 15px;
+
+  border-radius: 30px;
+
+  background: #e7f8fa;
+  border: 1px solid #c7ecef;
+
+  color: #078795;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+
+/* Main heading */
+
+.doctors-section .section-heading h2 {
+  margin: 0 0 14px;
+
+  color: #123f57;
+
+  font-size: clamp(34px, 3.5vw, 46px);
+
+  line-height: 1.1;
+
+  font-weight: 850;
+
+  letter-spacing: -1.3px;
+
+  text-align: center;
+}
+
+
+/* Description */
+
+.doctors-section .section-heading > span {
+  display: block;
+
+  max-width: 620px;
+
+  margin: 0 auto;
+
+  color: #718896;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   DOCTOR GRID
+========================================================= */
+
+.doctors-grid {
+  width: 100%;
+  max-width: 1250px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+
+/* =========================================================
+   DOCTOR CARD
+========================================================= */
+
+.doctor-card {
+  position: relative;
+
+  overflow: hidden;
+
+  border: 1px solid #d8ebef;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(0, 90, 115, 0.06);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+
+/* Hover */
+
+.doctor-card:hover {
+  transform: translateY(-9px);
+
+  border-color: #8fd7de;
+
+  box-shadow:
+    0 20px 42px rgba(0, 105, 130, 0.15);
+}
+
+
+/* =========================================================
+   DOCTOR IMAGE AREA
+========================================================= */
+
+.doctor-card .doctor-image {
+  height: 205px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #ffffff 0%,
+      #e4f7fa 45%,
+      #d5f0f4 100%
+    );
+
+  overflow: hidden;
+
+  transition:
+    background 0.35s ease;
+}
+
+
+.doctor-card:hover .doctor-image {
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #ffffff 0%,
+      #d8f5f7 45%,
+      #c9ebf0 100%
+    );
+}
+
+
+/* Doctor emoji/image */
+
+.doctor-card .doctor-image img {
+  max-width: 115px;
+  max-height: 145px;
+
+  object-fit: contain;
+
+  transition:
+    transform 0.4s ease;
+}
+
+
+.doctor-card:hover .doctor-image img {
+  transform: scale(1.08) translateY(-4px);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.doctor-card .doctor-info {
+  padding: 23px 22px 22px;
+}
+
+
+/* Availability */
+
+.doctor-card .availability {
+  margin-bottom: 18px;
+
+  color: #48b6ad;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+}
+
+
+/* Doctor name */
+
+.doctor-card h3 {
+  margin: 0 0 8px;
+
+  color: #123f57;
+
+  font-size: 18px;
+
+  font-weight: 850;
+
+  line-height: 1.25;
+}
+
+
+/* Specialization */
+
+.doctor-card .specialization {
+  margin: 0 0 16px;
+
+  color: #6c6c6c;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+
+/* Description */
+
+.doctor-card p {
+  margin: 0;
+
+  min-height: 42px;
+
+  color: #718896;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   RATING / EXPERIENCE
+========================================================= */
+
+.doctor-card .doctor-meta {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 20px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #e4eef0;
+}
+
+
+.doctor-card .rating {
+  color: #f4bd55;
+
+  font-size: 13px;
+
+  letter-spacing: 1px;
+}
+
+
+.doctor-card .experience {
+  color: #7d96a0;
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   BOOK BUTTON
+========================================================= */
+
+.doctor-card .book-btn {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 12px 16px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #078b9a;
+
+  color: #ffffff;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.doctor-card .book-btn:hover {
+  background: #056f7e;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 18px rgba(0, 139, 154, 0.25);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .doctors-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    max-width: 850px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .doctors-section {
+    padding: 65px 5% 75px;
+  }
+
+  .doctors-section .section-heading {
+    margin-bottom: 35px;
+  }
+
+  .doctors-section .section-heading h2 {
+    font-size: 32px;
+  }
+
+  .doctors-grid {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .doctor-card .doctor-image {
+    height: 190px;
   }
 
 }
