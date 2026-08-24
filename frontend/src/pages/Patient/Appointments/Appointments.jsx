@@ -1,14 +1,34 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Stethoscope,
+  CalendarDays,
+  Clock3,
+  Building2,
+  BadgeInfo,
+  CheckCircle2,
+  Trash2,
+  Plus,
+} from "lucide-react";
 import "./Appointments.css";
 
 function Appointments() {
   const navigate = useNavigate();
 
+  // =====================================================
+  // STATE
+  // =====================================================
+
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
   const [cancellingId, setCancellingId] = useState(null);
+
+  // Cancel confirmation modal
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [selectedAppointmentId, setSelectedAppointmentId] =
+    useState(null);
 
   // =====================================================
   // GET LOGGED-IN PATIENT
@@ -46,11 +66,15 @@ function Appointments() {
         setError(
           "Patient information not found. Please login again."
         );
+
         setAppointments([]);
         return;
       }
 
-      console.log("Fetching appointments for patient:", patientId);
+      console.log(
+        "Fetching appointments for patient:",
+        patientId
+      );
 
       const response = await fetch(
         `http://localhost:8080/api/appointments/patient/${patientId}`
@@ -94,22 +118,40 @@ function Appointments() {
   }, []);
 
   // =====================================================
-  // CANCEL APPOINTMENT
+  // OPEN CANCEL CONFIRMATION
   // =====================================================
 
-  const handleCancelAppointment = async (
-    appointmentId
-  ) => {
+  const handleCancelAppointment = (appointmentId) => {
     if (!appointmentId) {
-      alert("Appointment ID not found.");
+      setError("Appointment ID not found.");
       return;
     }
 
-    const confirmCancel = window.confirm(
-      "Are you sure you want to cancel this appointment?"
-    );
+    setSelectedAppointmentId(appointmentId);
+    setShowCancelModal(true);
+  };
 
-    if (!confirmCancel) {
+  // =====================================================
+  // CLOSE CANCEL MODAL
+  // =====================================================
+
+  const closeCancelModal = () => {
+    if (cancellingId) {
+      return;
+    }
+
+    setShowCancelModal(false);
+    setSelectedAppointmentId(null);
+  };
+
+  // =====================================================
+  // CONFIRM CANCEL APPOINTMENT
+  // =====================================================
+
+  const confirmCancelAppointment = async () => {
+    const appointmentId = selectedAppointmentId;
+
+    if (!appointmentId) {
       return;
     }
 
@@ -136,26 +178,9 @@ function Appointments() {
       );
 
       if (!response.ok) {
-        let errorMessage =
-          "Unable to cancel appointment.";
-
-        try {
-          const errorText = await response.text();
-
-          if (errorText) {
-            console.error(
-              "Cancel API error:",
-              errorText
-            );
-          }
-        } catch (error) {
-          console.error(
-            "Error reading cancel response:",
-            error
-          );
-        }
-
-        throw new Error(errorMessage);
+        throw new Error(
+          `Unable to cancel appointment: ${response.status}`
+        );
       }
 
       const updatedAppointment =
@@ -171,20 +196,21 @@ function Appointments() {
       // =================================================
 
       setAppointments((previousAppointments) =>
-        previousAppointments.map(
-          (appointment) =>
-            appointment.appointmentId ===
-            appointmentId
-              ? {
-                  ...appointment,
-                  ...updatedAppointment,
-                  status: "Cancelled",
-                }
-              : appointment
+        previousAppointments.map((appointment) =>
+          appointment.appointmentId === appointmentId
+            ? {
+                ...appointment,
+                ...updatedAppointment,
+                status: "Cancelled",
+              }
+            : appointment
         )
       );
 
-      alert("Appointment cancelled successfully.");
+      // Close modal
+      setShowCancelModal(false);
+      setSelectedAppointmentId(null);
+
     } catch (error) {
       console.error(
         "Cancel appointment error:",
@@ -192,10 +218,6 @@ function Appointments() {
       );
 
       setError(
-        "Unable to cancel appointment. Please try again."
-      );
-
-      alert(
         "Unable to cancel appointment. Please try again."
       );
     } finally {
@@ -221,6 +243,9 @@ function Appointments() {
     }
 
     switch (status.toLowerCase()) {
+      case "confirmed":
+        return "status-confirmed";
+
       case "completed":
         return "status-completed";
 
@@ -256,6 +281,7 @@ function Appointments() {
       <div className="appointments-page">
 
         <div className="appointments-header">
+
           <div>
             <h1>My Appointments</h1>
 
@@ -270,16 +296,23 @@ function Appointments() {
             className="book-appointment-btn"
             onClick={handleBookAppointment}
           >
-            + Book Appointment
+            <Plus size={18} />
+            Book Appointment
           </button>
+
         </div>
 
         <div className="appointments-loading">
-          <div className="loading-spinner">
-            ⏳
+
+          <div
+            className="loading-spinner"
+            aria-hidden="true"
+          >
+            <span className="spinner-ring"></span>
           </div>
 
           <p>Loading appointments...</p>
+
         </div>
 
       </div>
@@ -313,7 +346,8 @@ function Appointments() {
           className="book-appointment-btn"
           onClick={handleBookAppointment}
         >
-          + Book Appointment
+          <Plus size={18} />
+          Book Appointment
         </button>
 
       </div>
@@ -335,8 +369,11 @@ function Appointments() {
       {!error && appointments.length === 0 && (
         <div className="no-appointments">
 
-          <div className="no-appointments-icon">
-            📅
+          <div
+            className="no-appointments-icon"
+            aria-hidden="true"
+          >
+            <CalendarDays size={30} />
           </div>
 
           <h2>No Appointments Found</h2>
@@ -350,7 +387,8 @@ function Appointments() {
             className="book-appointment-btn"
             onClick={handleBookAppointment}
           >
-            + Book Your First Appointment
+            <Plus size={18} />
+            Book Your First Appointment
           </button>
 
         </div>
@@ -370,17 +408,19 @@ function Appointments() {
           const status =
             appointment.status || "Pending";
 
-          const isPending =
-            status.toLowerCase() ===
-            "pending";
+          const statusLower =
+            status.toLowerCase();
+
+          // Pending AND Confirmed can be cancelled
+          const canCancel =
+            statusLower === "pending" ||
+            statusLower === "confirmed";
 
           const isCompleted =
-            status.toLowerCase() ===
-            "completed";
+            statusLower === "completed";
 
           const isCancelled =
-            status.toLowerCase() ===
-            "cancelled";
+            statusLower === "cancelled";
 
           const isCancelling =
             cancellingId === appointmentId;
@@ -399,11 +439,18 @@ function Appointments() {
 
                 <div className="doctor-info">
 
-                  <div className="doctor-icon">
-                    👨‍⚕️
+                  <div
+                    className="doctor-icon"
+                    aria-hidden="true"
+                  >
+                    <Stethoscope
+                      size={32}
+                      strokeWidth={2}
+                    />
                   </div>
 
-                  <div>
+                  <div className="doctor-text">
+
                     <h2>
                       {appointment.doctorName ||
                         `Doctor #${
@@ -416,6 +463,13 @@ function Appointments() {
                       {appointment.specialization ||
                         "Medical Specialist"}
                     </p>
+
+                    <span className="doctor-id">
+                      Doctor #
+                      {appointment.doctorId ||
+                        "N/A"}
+                    </span>
+
                   </div>
 
                 </div>
@@ -425,7 +479,18 @@ function Appointments() {
                     status
                   )}`}
                 >
-                  {status}
+
+                  {statusLower === "confirmed" && (
+                    <CheckCircle2
+                      size={16}
+                      strokeWidth={2.4}
+                    />
+                  )}
+
+                  <span>
+                    {status}
+                  </span>
+
                 </span>
 
               </div>
@@ -440,11 +505,15 @@ function Appointments() {
 
                 <div className="appointment-detail">
 
-                  <span className="detail-icon">
-                    📅
+                  <span
+                    className="detail-icon"
+                    aria-hidden="true"
+                  >
+                    <CalendarDays size={21} />
                   </span>
 
                   <div>
+
                     <span className="detail-label">
                       Date
                     </span>
@@ -453,6 +522,7 @@ function Appointments() {
                       {appointment.appointmentDate ||
                         "-"}
                     </strong>
+
                   </div>
 
                 </div>
@@ -461,11 +531,15 @@ function Appointments() {
 
                 <div className="appointment-detail">
 
-                  <span className="detail-icon">
-                    ⏰
+                  <span
+                    className="detail-icon"
+                    aria-hidden="true"
+                  >
+                    <Clock3 size={21} />
                   </span>
 
                   <div>
+
                     <span className="detail-label">
                       Time
                     </span>
@@ -475,6 +549,7 @@ function Appointments() {
                         appointment.appointmentTime
                       )}
                     </strong>
+
                   </div>
 
                 </div>
@@ -483,11 +558,15 @@ function Appointments() {
 
                 <div className="appointment-detail">
 
-                  <span className="detail-icon">
-                    🏥
+                  <span
+                    className="detail-icon"
+                    aria-hidden="true"
+                  >
+                    <Building2 size={21} />
                   </span>
 
                   <div>
+
                     <span className="detail-label">
                       Department
                     </span>
@@ -496,6 +575,7 @@ function Appointments() {
                       {appointment.department ||
                         "General"}
                     </strong>
+
                   </div>
 
                 </div>
@@ -504,11 +584,15 @@ function Appointments() {
 
                 <div className="appointment-detail">
 
-                  <span className="detail-icon">
-                    🆔
+                  <span
+                    className="detail-icon"
+                    aria-hidden="true"
+                  >
+                    <BadgeInfo size={21} />
                   </span>
 
                   <div>
+
                     <span className="detail-label">
                       Appointment ID
                     </span>
@@ -516,6 +600,7 @@ function Appointments() {
                     <strong>
                       #{appointmentId}
                     </strong>
+
                   </div>
 
                 </div>
@@ -528,7 +613,9 @@ function Appointments() {
 
               <div className="appointment-reason">
 
-                <strong>Reason:</strong>
+                <strong>
+                  Reason
+                </strong>
 
                 <p>
                   {appointment.reason ||
@@ -543,7 +630,9 @@ function Appointments() {
 
               <div className="appointment-actions">
 
-                {isPending && (
+                {/* CANCEL */}
+
+                {canCancel && (
                   <button
                     type="button"
                     className="cancel-appointment-btn"
@@ -554,11 +643,15 @@ function Appointments() {
                     }
                     disabled={isCancelling}
                   >
+                    <Trash2 size={17} />
+
                     {isCancelling
                       ? "Cancelling..."
                       : "Cancel Appointment"}
                   </button>
                 )}
+
+                {/* COMPLETED */}
 
                 {isCompleted && (
                   <div className="appointment-info completed-info">
@@ -566,6 +659,8 @@ function Appointments() {
                     completed.
                   </div>
                 )}
+
+                {/* CANCELLED */}
 
                 {isCancelled && (
                   <div className="appointment-info cancelled-info">
@@ -581,6 +676,87 @@ function Appointments() {
         })}
 
       </div>
+
+      {/* =================================================
+          CANCEL CONFIRMATION MODAL
+      ================================================= */}
+
+      {showCancelModal && (
+        <div
+          className="cancel-modal-overlay"
+          onClick={closeCancelModal}
+        >
+
+          <div
+            className="cancel-modal"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
+
+            {/* WARNING ICON */}
+
+            <div className="cancel-modal-icon">
+
+              <Trash2
+                size={26}
+                strokeWidth={2.2}
+              />
+
+            </div>
+
+            {/* TITLE */}
+
+            <h2>
+              Cancel Appointment?
+            </h2>
+
+            {/* MESSAGE */}
+
+            <p>
+              Are you sure you want to cancel
+              this appointment?
+            </p>
+
+            <span className="cancel-modal-note">
+              This will change the appointment
+              status to Cancelled.
+            </span>
+
+            {/* ACTIONS */}
+
+            <div className="cancel-modal-actions">
+
+              <button
+                type="button"
+                className="cancel-modal-back"
+                onClick={closeCancelModal}
+                disabled={!!cancellingId}
+              >
+                Keep Appointment
+              </button>
+
+              <button
+                type="button"
+                className="cancel-modal-confirm"
+                onClick={confirmCancelAppointment}
+                disabled={!!cancellingId}
+              >
+
+                <Trash2 size={17} />
+
+                {cancellingId
+                  ? "Cancelling..."
+                  : "Yes, Cancel"}
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );

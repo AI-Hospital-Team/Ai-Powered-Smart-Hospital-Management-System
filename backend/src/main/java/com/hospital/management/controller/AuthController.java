@@ -1,6 +1,7 @@
 package com.hospital.management.controller;
 
 import com.hospital.management.entity.User;
+import com.hospital.management.dto.LoginResponse;
 import com.hospital.management.service.AuthService;
 
 import org.springframework.http.HttpStatus;
@@ -28,13 +29,13 @@ public class AuthController {
 
         try {
 
-            User user = authService.login(
+            LoginResponse user = authService.login(
                     request.email(),
                     request.password(),
                     request.role()
             );
 
-            return ResponseEntity.ok(user);
+        return ResponseEntity.ok(user);
 
         } catch (RuntimeException e) {
 

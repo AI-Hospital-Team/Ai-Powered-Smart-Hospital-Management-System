@@ -1,267 +1,938 @@
+/* =========================================================
+   PATIENT APPOINTMENTS
+   ========================================================= */
+
 .appointments-page {
   width: 100%;
-  min-height: 100vh;
-  padding: 30px;
+  min-height: 100%;
+  padding: 32px 48px;
   box-sizing: border-box;
 }
 
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
 .appointments-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 26px;
 }
 
 .appointments-header h1 {
   margin: 0;
-  font-size: 32px;
+  color: #123f63;
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .appointments-header p {
-  margin-top: 8px;
-  color: #777;
+  margin: 7px 0 0;
+  color: #6d879b;
+  font-size: 15px;
 }
 
+/* =========================================================
+   BOOK APPOINTMENT BUTTON
+   ========================================================= */
+
 .book-appointment-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
   border: none;
-  background: #2563eb;
-  color: white;
+
   padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #0b9caf,
+    #087f9b
+  );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
   cursor: pointer;
+  white-space: nowrap;
+
+  box-shadow:
+    0 6px 16px rgba(11, 156, 175, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
 .book-appointment-btn:hover {
-  background: #1d4ed8;
+  transform: translateY(-2px);
+
+  filter: brightness(1.03);
+
+  box-shadow:
+    0 9px 22px rgba(11, 156, 175, 0.3);
 }
 
-.appointments-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 20px;
+.book-appointment-btn:active {
+  transform: translateY(0);
 }
+
+/* =========================================================
+   APPOINTMENTS LIST
+   ========================================================= */
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* =========================================================
+   APPOINTMENT CARD
+   ========================================================= */
 
 .appointment-card {
-  background: white;
-  border-radius: 14px;
+  background: #ffffff;
+
+  border: 1px solid #dceaf0;
+  border-radius: 17px;
+
   padding: 22px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e5e7eb;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 7px 22px rgba(31, 76, 103, 0.07);
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
+
+.appointment-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #cce2e9;
+
+  box-shadow:
+    0 12px 30px rgba(31, 76, 103, 0.1);
+}
+
+/* =========================================================
+   DOCTOR HEADER
+   ========================================================= */
 
 .appointment-card-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 15px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #eee;
+
+  gap: 18px;
+
+  min-height: 94px;
+
+  padding: 16px 18px;
+
+  background: #f5f9fb;
+
+  border-radius: 13px;
+
+  transition:
+    background 0.2s ease;
 }
+
+.appointment-card:hover
+.appointment-card-header {
+  background: #f2f8fa;
+}
+
+/* =========================================================
+   DOCTOR INFO
+   ========================================================= */
 
 .doctor-info {
   display: flex;
   align-items: center;
   gap: 14px;
+
+  min-width: 0;
 }
 
-.doctor-avatar {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  background: #eff6ff;
+.doctor-icon {
+  width: 58px;
+  height: 58px;
+
+  flex: 0 0 58px;
+
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 28px;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #e4f7fa;
+
+  color: #078c99;
+
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.appointment-card:hover .doctor-icon {
+  transform: translateY(-2px) scale(1.04);
+
+  background: #d9f3f6;
+
+  box-shadow:
+    0 7px 16px rgba(7, 140, 153, 0.12);
+}
+
+.doctor-text {
+  min-width: 0;
 }
 
 .doctor-info h2 {
   margin: 0;
+
+  color: #123f63;
+
   font-size: 19px;
+  line-height: 1.2;
+
+  font-weight: 800;
 }
 
 .doctor-info p {
-  margin: 5px 0 0;
-  color: #777;
+  margin: 4px 0 0;
+
+  color: #71889a;
+
+  font-size: 13px;
 }
 
-.appointment-status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: capitalize;
-}
+.doctor-id {
+  display: inline-block;
 
-.status-confirmed {
-  background: #dcfce7;
-  color: #15803d;
-}
+  margin-top: 5px;
 
-.status-pending {
-  background: #fef3c7;
-  color: #b45309;
-}
+  color: #8aa0ad;
 
-.status-cancelled {
-  background: #fee2e2;
-  color: #dc2626;
-}
-
-.status-completed {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.status-default {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.appointment-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 22px 0;
-}
-
-.detail-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.detail-icon {
-  font-size: 21px;
-}
-
-.detail-item small {
-  display: block;
-  color: #888;
-  margin-bottom: 4px;
-}
-
-.detail-item strong {
-  display: block;
-  color: #222;
-}
-
-.appointment-reason {
-  background: #f8fafc;
-  padding: 14px;
-  border-radius: 8px;
-  margin-bottom: 18px;
-}
-
-.appointment-reason p {
-  margin: 7px 0 0;
-  color: #555;
-}
-
-.appointment-actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.cancel-btn {
-  border: 1px solid #dc2626;
-  background: white;
-  color: #dc2626;
-  padding: 9px 16px;
-  border-radius: 7px;
-  cursor: pointer;
+  font-size: 11px;
   font-weight: 600;
 }
 
-.cancel-btn:hover {
-  background: #dc2626;
-  color: white;
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.appointment-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 7px 13px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+
+  white-space: nowrap;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+.appointment-status:hover {
+  transform: translateY(-1px);
+}
+
+.status-confirmed {
+  background: #e2f7ea;
+  color: #16834d;
+
+  box-shadow:
+    0 4px 12px rgba(22, 131, 77, 0.08);
+}
+
+.status-pending {
+  background: #fff3d2;
+  color: #a66a00;
+}
+
+.status-cancelled {
+  background: #fee9e9;
+  color: #c73535;
+}
+
+.status-completed {
+  background: #e7f0ff;
+  color: #3269c8;
+}
+
+.status-default {
+  background: #edf2f5;
+  color: #526a79;
+}
+
+/* =========================================================
+   APPOINTMENT DETAILS
+   ========================================================= */
+
+.appointment-details {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 14px 50px;
+
+  padding: 20px 4px 16px;
+}
+
+.appointment-detail {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  min-width: 0;
+}
+
+.detail-icon {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #eef8fa;
+
+  color: #0b9caf;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.appointment-detail:hover .detail-icon {
+  transform: scale(1.06);
+
+  background: #dff4f6;
+}
+
+.detail-label {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #8196a5;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.appointment-detail strong {
+  display: block;
+
+  color: #173f60;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  line-height: 1.3;
+}
+
+/* =========================================================
+   REASON
+   ========================================================= */
+
+.appointment-reason {
+  margin: 4px 0 14px;
+
+  padding: 13px 16px;
+
+  border: 1px solid #e3edf1;
+  border-radius: 10px;
+
+  background: #f5f9fb;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.appointment-card:hover .appointment-reason {
+  border-color: #d7e7ec;
+
+  background: #f3f8fa;
+}
+
+.appointment-reason strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #174363;
+
+  font-size: 13px;
+}
+
+.appointment-reason p {
+  margin: 0;
+
+  color: #60798b;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.appointment-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  padding-top: 2px;
+}
+
+.cancel-appointment-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border: 1px solid #df5757;
+
+  background: #ffffff;
+
+  color: #d43f3f;
+
+  padding: 9px 16px;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cancel-appointment-btn:hover:not(:disabled) {
+  background: #d43f3f;
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 17px rgba(212, 63, 63, 0.2);
+}
+
+.cancel-appointment-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.cancel-appointment-btn:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   COMPLETED / CANCELLED INFO
+   ========================================================= */
+
+.appointment-info {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 10px 13px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.completed-info {
+  background: #eef5ff;
+  color: #3269c8;
+}
+
+.cancelled-info {
+  background: #fff0f0;
+  color: #c73535;
+}
+
+/* =========================================================
+   NO APPOINTMENTS
+   ========================================================= */
 
 .no-appointments {
-  background: white;
-  border-radius: 14px;
-  padding: 60px 20px;
+  padding: 50px 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #dceaf0;
+  border-radius: 17px;
+
   text-align: center;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+
+  box-shadow:
+    0 7px 22px rgba(31, 76, 103, 0.06);
 }
 
-.no-appointment-icon {
-  font-size: 60px;
-  margin-bottom: 15px;
+.no-appointments-icon {
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #e8f8fa;
+
+  color: #0b9caf;
 }
 
 .no-appointments h2 {
-  margin-bottom: 8px;
+  margin: 0 0 7px;
+
+  color: #123f63;
+
+  font-size: 21px;
 }
 
 .no-appointments p {
-  color: #777;
-  margin-bottom: 25px;
+  margin: 0 0 20px;
+
+  color: #71889a;
+
+  font-size: 14px;
 }
 
-.appointment-message {
-  background: white;
-  border-radius: 14px;
-  padding: 50px;
-  text-align: center;
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.appointments-loading {
+  min-height: 240px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+
+  border: 1px solid #dceaf0;
+  border-radius: 17px;
 }
 
-.loader {
-  width: 35px;
-  height: 35px;
-  border: 4px solid #ddd;
-  border-top: 4px solid #2563eb;
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+
+  margin-bottom: 12px;
+
+  border: 4px solid #dceff2;
+
+  border-top-color: #0b9caf;
+
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: auto;
+
+  animation:
+    appointmentSpin 0.8s linear infinite;
 }
 
-@keyframes spin {
+.appointments-loading p {
+  margin: 0;
+
+  color: #6d879b;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@keyframes appointmentSpin {
   to {
     transform: rotate(360deg);
   }
 }
 
-.appointment-error {
-  background: #fee2e2;
-  color: #b91c1c;
-  padding: 20px;
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.appointments-error {
+  margin-bottom: 18px;
+
+  padding: 13px 16px;
+
+  border: 1px solid #f3caca;
   border-radius: 10px;
+
+  background: #fff2f2;
+
+  color: #c73535;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   CANCEL CONFIRMATION MODAL
+   ========================================================= */
+
+.cancel-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 42, 58, 0.48);
+
+  backdrop-filter: blur(5px);
+
+  animation:
+    cancelOverlayIn 0.2s ease;
+}
+
+.cancel-modal {
+  width: min(430px, 100%);
+
+  box-sizing: border-box;
+
+  padding: 28px;
+
+  background: #ffffff;
+
+  border: 1px solid #dceaf0;
+
+  border-radius: 20px;
+
   text-align: center;
+
+  box-shadow:
+    0 24px 70px rgba(20, 63, 88, 0.25);
+
+  animation:
+    cancelModalIn 0.22s ease;
 }
 
-.appointment-error button {
-  border: none;
-  background: #dc2626;
-  color: white;
-  padding: 9px 18px;
-  border-radius: 6px;
+/* =========================================================
+   MODAL ICON
+   ========================================================= */
+
+.cancel-modal-icon {
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 17px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background: #fff0f0;
+
+  color: #d84242;
+
+  box-shadow:
+    0 8px 20px rgba(216, 66, 66, 0.12);
+}
+
+/* =========================================================
+   MODAL TEXT
+   ========================================================= */
+
+.cancel-modal h2 {
+  margin: 0;
+
+  color: #123f63;
+
+  font-size: 22px;
+
+  font-weight: 800;
+}
+
+.cancel-modal p {
+  margin: 9px 0 6px;
+
+  color: #526f82;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.cancel-modal-note {
+  display: block;
+
+  color: #8a9eaa;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   MODAL ACTIONS
+   ========================================================= */
+
+.cancel-modal-actions {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 24px;
+}
+
+.cancel-modal-actions button {
+  flex: 1;
+
+  min-height: 44px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border-radius: 10px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-@media (max-width: 700px) {
+.cancel-modal-actions button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* KEEP APPOINTMENT */
+
+.cancel-modal-back {
+  border: 1px solid #d6e5eb;
+
+  background: #f7fafb;
+
+  color: #315a72;
+}
+
+.cancel-modal-back:hover:not(:disabled) {
+  background: #edf5f7;
+
+  transform: translateY(-1px);
+}
+
+/* CONFIRM CANCEL */
+
+.cancel-modal-confirm {
+  border: 1px solid #d84242;
+
+  background: #d84242;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 6px 16px rgba(216, 66, 66, 0.18);
+}
+
+.cancel-modal-confirm:hover:not(:disabled) {
+  background: #c73535;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 9px 22px rgba(216, 66, 66, 0.25);
+}
+
+/* =========================================================
+   MODAL ANIMATIONS
+   ========================================================= */
+
+@keyframes cancelOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cancelModalIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(12px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
   .appointments-page {
-    padding: 20px;
+    padding: 30px;
+  }
+
+  .appointment-details {
+    gap: 14px 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  .appointments-page {
+    padding: 25px 20px;
   }
 
   .appointments-header {
-    flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
-  }
-
-  .appointments-container {
-    grid-template-columns: 1fr;
   }
 
   .appointment-details {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 600px) {
+  .appointments-page {
+    padding: 20px 15px;
+  }
+
+  .appointments-header {
+    flex-direction: column;
+  }
+
+  .appointments-header h1 {
+    font-size: 28px;
+  }
+
+  .book-appointment-btn {
+    width: 100%;
+  }
+
+  .appointment-card {
+    padding: 15px;
+  }
 
   .appointment-card-header {
+    min-height: auto;
+
     flex-direction: column;
+
+    align-items: flex-start;
+
+    padding: 15px;
+  }
+
+  .appointment-status {
+    align-self: flex-start;
+  }
+
+  .appointment-details {
+    padding: 16px 2px 12px;
+  }
+
+  .appointment-actions {
+    justify-content: stretch;
+  }
+
+  .cancel-appointment-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .cancel-modal {
+    padding: 24px 18px;
+  }
+
+  .cancel-modal-actions {
+    flex-direction: column-reverse;
   }
 }
