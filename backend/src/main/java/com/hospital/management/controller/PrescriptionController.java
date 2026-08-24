@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,18 +29,27 @@ public class PrescriptionController {
         this.prescriptionService = prescriptionService;
     }
 
+    // =====================================================
+    // CREATE PRESCRIPTION
+    // =====================================================
+
     @PostMapping
     public ResponseEntity<Prescription> createPrescription(
             @RequestBody Prescription prescription) {
 
         Prescription savedPrescription =
                 prescriptionService.createPrescription(
-                        prescription);
+                        prescription
+                );
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(savedPrescription);
     }
+
+    // =====================================================
+    // GET ALL PRESCRIPTIONS
+    // =====================================================
 
     @GetMapping
     public ResponseEntity<List<Prescription>>
@@ -49,6 +59,10 @@ public class PrescriptionController {
                 prescriptionService.getAllPrescriptions()
         );
     }
+
+    // =====================================================
+    // GET PRESCRIPTIONS BY DOCTOR
+    // =====================================================
 
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<List<Prescription>>
@@ -61,6 +75,10 @@ public class PrescriptionController {
         );
     }
 
+    // =====================================================
+    // GET PRESCRIPTIONS BY PATIENT
+    // =====================================================
+
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<List<Prescription>>
             getPrescriptionsByPatient(
@@ -72,6 +90,10 @@ public class PrescriptionController {
         );
     }
 
+    // =====================================================
+    // GET PRESCRIPTION BY ID
+    // =====================================================
+
     @GetMapping("/{prescriptionId}")
     public ResponseEntity<Prescription>
             getPrescriptionById(
@@ -80,6 +102,27 @@ public class PrescriptionController {
         return ResponseEntity.ok(
                 prescriptionService
                         .getPrescriptionById(prescriptionId)
+        );
+    }
+
+    // =====================================================
+    // UPDATE PRESCRIPTION
+    // =====================================================
+
+    @PutMapping("/{prescriptionId}")
+    public ResponseEntity<Prescription>
+            updatePrescription(
+                    @PathVariable Integer prescriptionId,
+                    @RequestBody Prescription prescription) {
+
+        Prescription updatedPrescription =
+                prescriptionService.updatePrescription(
+                        prescriptionId,
+                        prescription
+                );
+
+        return ResponseEntity.ok(
+                updatedPrescription
         );
     }
 }

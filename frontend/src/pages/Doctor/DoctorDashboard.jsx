@@ -26,6 +26,7 @@ function DoctorDashboard() {
   // =====================================================
 
   const [showRecordForm, setShowRecordForm] = useState(false);
+  const [editingRecordId, setEditingRecordId] = useState(null);
   const [recordMessage, setRecordMessage] = useState("");
 
   const [recordForm, setRecordForm] = useState({
@@ -34,6 +35,7 @@ function DoctorDashboard() {
     symptoms: "",
     treatment: "",
     notes: "",
+    recordDate: "",
   });
 
   // =====================================================
@@ -42,6 +44,9 @@ function DoctorDashboard() {
 
   const [showPrescriptionForm, setShowPrescriptionForm] =
     useState(false);
+
+  const [editingPrescriptionId, setEditingPrescriptionId] =
+    useState(null);
 
   const [prescriptionMessage, setPrescriptionMessage] =
     useState("");
@@ -53,6 +58,7 @@ function DoctorDashboard() {
     frequency: "",
     duration: "",
     instructions: "",
+    prescriptionDate: "",
   });
 
   // =====================================================
@@ -83,6 +89,14 @@ function DoctorDashboard() {
   // =====================================================
 
   const doctorId = user?.doctorId;
+
+  // =====================================================
+  // TODAY
+  // =====================================================
+
+  const today = new Date()
+    .toISOString()
+    .split("T")[0];
 
   // =====================================================
   // FETCH APPOINTMENTS
@@ -238,14 +252,6 @@ function DoctorDashboard() {
   }, [doctorId]);
 
   // =====================================================
-  // TODAY
-  // =====================================================
-
-  const today = new Date()
-    .toISOString()
-    .split("T")[0];
-
-  // =====================================================
   // TODAY'S APPOINTMENTS
   // =====================================================
 
@@ -320,12 +326,6 @@ function DoctorDashboard() {
       const updatedAppointment =
         await response.json();
 
-      console.log(
-        "Updated appointment:",
-        updatedAppointment
-      );
-
-      // Update UI immediately
       setAppointments((previous) =>
         previous.map((appointment) =>
           appointment.appointmentId ===
@@ -360,7 +360,72 @@ function DoctorDashboard() {
   };
 
   // =====================================================
-  // ADD MEDICAL RECORD
+  // OPEN ADD MEDICAL RECORD
+  // =====================================================
+
+  const openAddRecordForm = () => {
+    setEditingRecordId(null);
+
+    setRecordForm({
+      patientId: "",
+      diagnosis: "",
+      symptoms: "",
+      treatment: "",
+      notes: "",
+      recordDate: today,
+    });
+
+    setRecordMessage("");
+    setShowRecordForm(true);
+  };
+
+  // =====================================================
+  // OPEN EDIT MEDICAL RECORD
+  // =====================================================
+
+  const openEditRecordForm = (record) => {
+    setEditingRecordId(record.recordId);
+
+    setRecordForm({
+      patientId: record.patientId || "",
+      diagnosis: record.diagnosis || "",
+      symptoms: record.symptoms || "",
+      treatment: record.treatment || "",
+      notes: record.notes || "",
+      recordDate:
+        record.recordDate || today,
+    });
+
+    setRecordMessage("");
+    setShowRecordForm(true);
+
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  // =====================================================
+  // CANCEL MEDICAL RECORD FORM
+  // =====================================================
+
+  const cancelRecordForm = () => {
+    setShowRecordForm(false);
+    setEditingRecordId(null);
+    setRecordMessage("");
+
+    setRecordForm({
+      patientId: "",
+      diagnosis: "",
+      symptoms: "",
+      treatment: "",
+      notes: "",
+      recordDate: "",
+    });
+  };
+
+  // =====================================================
+  // ADD / UPDATE MEDICAL RECORD
   // =====================================================
 
   const handleRecordSubmit = async (event) => {
@@ -383,26 +448,40 @@ function DoctorDashboard() {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/medical-records",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            patientId: Number(
-              recordForm.patientId
-            ),
-            doctorId: Number(doctorId),
-            diagnosis: recordForm.diagnosis,
-            symptoms: recordForm.symptoms,
-            treatment: recordForm.treatment,
-            notes: recordForm.notes,
-            recordDate: today,
-          }),
-        }
-      );
+      const isEditing =
+        editingRecordId !== null;
+
+      const url = isEditing
+        ? `http://localhost:8080/api/medical-records/${editingRecordId}`
+        : "http://localhost:8080/api/medical-records";
+
+      const method = isEditing
+        ? "PUT"
+        : "POST";
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patientId: Number(
+            recordForm.patientId
+          ),
+          doctorId: Number(doctorId),
+          diagnosis:
+            recordForm.diagnosis,
+          symptoms:
+            recordForm.symptoms,
+          treatment:
+            recordForm.treatment,
+          notes:
+            recordForm.notes,
+          recordDate:
+            recordForm.recordDate ||
+            today,
+        }),
+      });
 
       if (!response.ok) {
         const errorText =
@@ -414,22 +493,36 @@ function DoctorDashboard() {
         );
 
         throw new Error(
-          `Failed to create medical record: ${response.status}`
+          `Medical record API failed: ${response.status}`
         );
       }
 
-      const newRecord =
+      const savedRecord =
         await response.json();
 
-      console.log(
-        "Medical record created:",
-        newRecord
-      );
+      if (isEditing) {
+        setMedicalRecords((previous) =>
+          previous.map((record) =>
+            record.recordId ===
+            editingRecordId
+              ? savedRecord
+              : record
+          )
+        );
 
-      setMedicalRecords((previous) => [
-        ...previous,
-        newRecord,
-      ]);
+        setRecordMessage(
+          "Medical record updated successfully."
+        );
+      } else {
+        setMedicalRecords((previous) => [
+          ...previous,
+          savedRecord,
+        ]);
+
+        setRecordMessage(
+          "Medical record added successfully."
+        );
+      }
 
       setRecordForm({
         patientId: "",
@@ -437,21 +530,21 @@ function DoctorDashboard() {
         symptoms: "",
         treatment: "",
         notes: "",
+        recordDate: "",
       });
 
-      setRecordMessage(
-        "Medical record added successfully."
-      );
-
+      setEditingRecordId(null);
       setShowRecordForm(false);
     } catch (error) {
       console.error(
-        "Error creating medical record:",
+        "Error saving medical record:",
         error
       );
 
       setRecordMessage(
-        "Failed to add medical record."
+        isEditing
+          ? "Failed to update medical record."
+          : "Failed to add medical record."
       );
     }
   };
@@ -460,7 +553,9 @@ function DoctorDashboard() {
   // PRESCRIPTION FORM CHANGE
   // =====================================================
 
-  const handlePrescriptionChange = (event) => {
+  const handlePrescriptionChange = (
+    event
+  ) => {
     const { name, value } = event.target;
 
     setPrescriptionForm((previous) => ({
@@ -470,7 +565,86 @@ function DoctorDashboard() {
   };
 
   // =====================================================
-  // ADD PRESCRIPTION
+  // OPEN ADD PRESCRIPTION
+  // =====================================================
+
+  const openAddPrescriptionForm = () => {
+    setEditingPrescriptionId(null);
+
+    setPrescriptionForm({
+      patientId: "",
+      medicineName: "",
+      dosage: "",
+      frequency: "",
+      duration: "",
+      instructions: "",
+      prescriptionDate: today,
+    });
+
+    setPrescriptionMessage("");
+    setShowPrescriptionForm(true);
+  };
+
+  // =====================================================
+  // OPEN EDIT PRESCRIPTION
+  // =====================================================
+
+  const openEditPrescriptionForm = (
+    prescription
+  ) => {
+    setEditingPrescriptionId(
+      prescription.prescriptionId
+    );
+
+    setPrescriptionForm({
+      patientId:
+        prescription.patientId || "",
+      medicineName:
+        prescription.medicineName || "",
+      dosage:
+        prescription.dosage || "",
+      frequency:
+        prescription.frequency || "",
+      duration:
+        prescription.duration || "",
+      instructions:
+        prescription.instructions || "",
+      prescriptionDate:
+        prescription.prescriptionDate ||
+        today,
+    });
+
+    setPrescriptionMessage("");
+    setShowPrescriptionForm(true);
+
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  // =====================================================
+  // CANCEL PRESCRIPTION FORM
+  // =====================================================
+
+  const cancelPrescriptionForm = () => {
+    setShowPrescriptionForm(false);
+    setEditingPrescriptionId(null);
+    setPrescriptionMessage("");
+
+    setPrescriptionForm({
+      patientId: "",
+      medicineName: "",
+      dosage: "",
+      frequency: "",
+      duration: "",
+      instructions: "",
+      prescriptionDate: "",
+    });
+  };
+
+  // =====================================================
+  // ADD / UPDATE PRESCRIPTION
   // =====================================================
 
   const handlePrescriptionSubmit = async (
@@ -497,32 +671,42 @@ function DoctorDashboard() {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/prescriptions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            patientId: Number(
-              prescriptionForm.patientId
-            ),
-            doctorId: Number(doctorId),
-            medicineName:
-              prescriptionForm.medicineName,
-            dosage:
-              prescriptionForm.dosage,
-            frequency:
-              prescriptionForm.frequency,
-            duration:
-              prescriptionForm.duration,
-            instructions:
-              prescriptionForm.instructions,
-            prescriptionDate: today,
-          }),
-        }
-      );
+      const isEditing =
+        editingPrescriptionId !== null;
+
+      const url = isEditing
+        ? `http://localhost:8080/api/prescriptions/${editingPrescriptionId}`
+        : "http://localhost:8080/api/prescriptions";
+
+      const method = isEditing
+        ? "PUT"
+        : "POST";
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patientId: Number(
+            prescriptionForm.patientId
+          ),
+          doctorId: Number(doctorId),
+          medicineName:
+            prescriptionForm.medicineName,
+          dosage:
+            prescriptionForm.dosage,
+          frequency:
+            prescriptionForm.frequency,
+          duration:
+            prescriptionForm.duration,
+          instructions:
+            prescriptionForm.instructions,
+          prescriptionDate:
+            prescriptionForm.prescriptionDate ||
+            today,
+        }),
+      });
 
       if (!response.ok) {
         const errorText =
@@ -534,22 +718,36 @@ function DoctorDashboard() {
         );
 
         throw new Error(
-          `Failed to create prescription: ${response.status}`
+          `Prescription API failed: ${response.status}`
         );
       }
 
-      const newPrescription =
+      const savedPrescription =
         await response.json();
 
-      console.log(
-        "Prescription created:",
-        newPrescription
-      );
+      if (isEditing) {
+        setPrescriptions((previous) =>
+          previous.map((prescription) =>
+            prescription.prescriptionId ===
+            editingPrescriptionId
+              ? savedPrescription
+              : prescription
+          )
+        );
 
-      setPrescriptions((previous) => [
-        ...previous,
-        newPrescription,
-      ]);
+        setPrescriptionMessage(
+          "Prescription updated successfully."
+        );
+      } else {
+        setPrescriptions((previous) => [
+          ...previous,
+          savedPrescription,
+        ]);
+
+        setPrescriptionMessage(
+          "Prescription added successfully."
+        );
+      }
 
       setPrescriptionForm({
         patientId: "",
@@ -558,27 +756,27 @@ function DoctorDashboard() {
         frequency: "",
         duration: "",
         instructions: "",
+        prescriptionDate: "",
       });
 
-      setPrescriptionMessage(
-        "Prescription added successfully."
-      );
-
+      setEditingPrescriptionId(null);
       setShowPrescriptionForm(false);
     } catch (error) {
       console.error(
-        "Error creating prescription:",
+        "Error saving prescription:",
         error
       );
 
       setPrescriptionMessage(
-        "Failed to add prescription."
+        isEditing
+          ? "Failed to update prescription."
+          : "Failed to add prescription."
       );
     }
   };
 
   // =====================================================
-  // IF USER NOT FOUND
+  // USER NOT FOUND
   // =====================================================
 
   if (!user) {
@@ -597,7 +795,7 @@ function DoctorDashboard() {
   }
 
   // =====================================================
-  // IF DOCTOR ID NOT FOUND
+  // DOCTOR ID NOT FOUND
   // =====================================================
 
   if (!doctorId) {
@@ -642,8 +840,6 @@ function DoctorDashboard() {
 
       <div className="dashboard-cards">
 
-        {/* TODAY APPOINTMENTS */}
-
         <div className="dashboard-card">
           <div className="card-icon">
             📅
@@ -662,8 +858,6 @@ function DoctorDashboard() {
           </div>
         </div>
 
-        {/* PATIENTS */}
-
         <div className="dashboard-card">
           <div className="card-icon">
             👥
@@ -680,8 +874,6 @@ function DoctorDashboard() {
           </div>
         </div>
 
-        {/* MEDICAL RECORDS */}
-
         <div className="dashboard-card">
           <div className="card-icon">
             📋
@@ -697,8 +889,6 @@ function DoctorDashboard() {
             </p>
           </div>
         </div>
-
-        {/* PRESCRIPTIONS */}
 
         <div className="dashboard-card">
           <div className="card-icon">
@@ -734,13 +924,13 @@ function DoctorDashboard() {
             </p>
           ) : appointmentsError ? (
             <p>{appointmentsError}</p>
-          ) : todayAppointments.length ===
-            0 ? (
+          ) : todayAppointments.length === 0 ? (
             <p>
               No appointments today.
             </p>
           ) : (
             <table>
+
               <thead>
                 <tr>
                   <th>Patient</th>
@@ -751,18 +941,19 @@ function DoctorDashboard() {
               </thead>
 
               <tbody>
+
                 {todayAppointments.map(
                   (appointment) => (
+
                     <tr
                       key={
                         appointment.appointmentId
                       }
                     >
+
                       <td>
                         Patient #
-                        {
-                          appointment.patientId
-                        }
+                        {appointment.patientId}
                       </td>
 
                       <td>
@@ -777,6 +968,7 @@ function DoctorDashboard() {
                       </td>
 
                       <td>
+
                         <div
                           style={{
                             display: "flex",
@@ -786,6 +978,7 @@ function DoctorDashboard() {
                             flexWrap: "wrap",
                           }}
                         >
+
                           <span>
                             {
                               appointment.status ||
@@ -823,16 +1016,23 @@ function DoctorDashboard() {
                                 </button>
                               </>
                             )}
+
                         </div>
+
                       </td>
+
                     </tr>
+
                   )
                 )}
+
               </tbody>
+
             </table>
           )}
 
         </div>
+
       </div>
 
       {/* =================================================
@@ -858,6 +1058,7 @@ function DoctorDashboard() {
             </p>
           ) : (
             <table>
+
               <thead>
                 <tr>
                   <th>Date</th>
@@ -869,13 +1070,16 @@ function DoctorDashboard() {
               </thead>
 
               <tbody>
+
                 {upcomingAppointments.map(
                   (appointment) => (
+
                     <tr
                       key={
                         appointment.appointmentId
                       }
                     >
+
                       <td>
                         {
                           appointment.appointmentDate
@@ -884,9 +1088,7 @@ function DoctorDashboard() {
 
                       <td>
                         Patient #
-                        {
-                          appointment.patientId
-                        }
+                        {appointment.patientId}
                       </td>
 
                       <td>
@@ -901,6 +1103,7 @@ function DoctorDashboard() {
                       </td>
 
                       <td>
+
                         <div
                           style={{
                             display: "flex",
@@ -910,6 +1113,7 @@ function DoctorDashboard() {
                             flexWrap: "wrap",
                           }}
                         >
+
                           <span>
                             {
                               appointment.status ||
@@ -947,16 +1151,23 @@ function DoctorDashboard() {
                                 </button>
                               </>
                             )}
+
                         </div>
+
                       </td>
+
                     </tr>
+
                   )
                 )}
+
               </tbody>
+
             </table>
           )}
 
         </div>
+
       </div>
 
       {/* =================================================
@@ -973,29 +1184,33 @@ function DoctorDashboard() {
             marginBottom: "15px",
           }}
         >
+
           <h2>Medical Records</h2>
 
           <button
             type="button"
             onClick={() => {
-              setShowRecordForm(
-                (previous) => !previous
-              );
-
-              setRecordMessage("");
+              if (showRecordForm) {
+                cancelRecordForm();
+              } else {
+                openAddRecordForm();
+              }
             }}
           >
             {showRecordForm
               ? "Cancel"
               : "+ Add Medical Record"}
           </button>
+
         </div>
 
         {recordMessage && (
           <p>{recordMessage}</p>
         )}
 
-        {/* ADD MEDICAL RECORD FORM */}
+        {/* =================================================
+            MEDICAL RECORD FORM
+        ================================================= */}
 
         {showRecordForm && (
           <form
@@ -1008,16 +1223,24 @@ function DoctorDashboard() {
               background: "#fafafa",
             }}
           >
+
             <h3>
-              Add Medical Record
+              {editingRecordId
+                ? "Edit Medical Record"
+                : "Add Medical Record"}
             </h3>
+
+            {/* PATIENT ID */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Patient ID</label>
+
+              <label>
+                Patient ID
+              </label>
 
               <input
                 type="number"
@@ -1030,6 +1253,9 @@ function DoctorDashboard() {
                 }
                 placeholder="Enter patient ID"
                 required
+                disabled={
+                  editingRecordId !== null
+                }
                 style={{
                   display: "block",
                   width: "100%",
@@ -1039,14 +1265,20 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* DIAGNOSIS */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Diagnosis</label>
+
+              <label>
+                Diagnosis
+              </label>
 
               <input
                 type="text"
@@ -1068,14 +1300,20 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* SYMPTOMS */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Symptoms</label>
+
+              <label>
+                Symptoms
+              </label>
 
               <textarea
                 name="symptoms"
@@ -1096,14 +1334,20 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* TREATMENT */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Treatment</label>
+
+              <label>
+                Treatment
+              </label>
 
               <textarea
                 name="treatment"
@@ -1124,18 +1368,26 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* NOTES */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Notes</label>
+
+              <label>
+                Notes
+              </label>
 
               <textarea
                 name="notes"
-                value={recordForm.notes}
+                value={
+                  recordForm.notes
+                }
                 onChange={
                   handleRecordChange
                 }
@@ -1150,15 +1402,68 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
+            </div>
+
+            {/* DATE */}
+
+            <div
+              style={{
+                marginBottom: "15px",
+              }}
+            >
+
+              <label>
+                Record Date
+              </label>
+
+              <input
+                type="date"
+                name="recordDate"
+                value={
+                  recordForm.recordDate
+                }
+                onChange={
+                  handleRecordChange
+                }
+                style={{
+                  display: "block",
+                  width: "100%",
+                  padding: "10px",
+                  marginTop: "5px",
+                  boxSizing:
+                    "border-box",
+                }}
+              />
+
             </div>
 
             <button type="submit">
-              Save Medical Record
+              {editingRecordId
+                ? "Save Changes"
+                : "Save Medical Record"}
             </button>
+
+            {editingRecordId && (
+              <button
+                type="button"
+                onClick={
+                  cancelRecordForm
+                }
+                style={{
+                  marginLeft: "10px",
+                }}
+              >
+                Cancel
+              </button>
+            )}
+
           </form>
         )}
 
-        {/* MEDICAL RECORD TABLE */}
+        {/* =================================================
+            MEDICAL RECORD TABLE
+        ================================================= */}
 
         <div className="table-container">
 
@@ -1168,13 +1473,13 @@ function DoctorDashboard() {
             </p>
           ) : recordsError ? (
             <p>{recordsError}</p>
-          ) : medicalRecords.length ===
-            0 ? (
+          ) : medicalRecords.length === 0 ? (
             <p>
               No medical records found.
             </p>
           ) : (
             <table>
+
               <thead>
                 <tr>
                   <th>Date</th>
@@ -1183,15 +1488,21 @@ function DoctorDashboard() {
                   <th>Symptoms</th>
                   <th>Treatment</th>
                   <th>Notes</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
+
                 {medicalRecords.map(
                   (record) => (
+
                     <tr
-                      key={record.recordId}
+                      key={
+                        record.recordId
+                      }
                     >
+
                       <td>
                         {
                           record.recordDate
@@ -1200,9 +1511,7 @@ function DoctorDashboard() {
 
                       <td>
                         Patient #
-                        {
-                          record.patientId
-                        }
+                        {record.patientId}
                       </td>
 
                       <td>
@@ -1224,14 +1533,34 @@ function DoctorDashboard() {
                         {record.notes ||
                           "-"}
                       </td>
+
+                      <td>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openEditRecordForm(
+                              record
+                            )
+                          }
+                        >
+                          ✏️ Edit
+                        </button>
+
+                      </td>
+
                     </tr>
+
                   )
                 )}
+
               </tbody>
+
             </table>
           )}
 
         </div>
+
       </div>
 
       {/* =================================================
@@ -1248,29 +1577,33 @@ function DoctorDashboard() {
             marginBottom: "15px",
           }}
         >
+
           <h2>Prescriptions</h2>
 
           <button
             type="button"
             onClick={() => {
-              setShowPrescriptionForm(
-                (previous) => !previous
-              );
-
-              setPrescriptionMessage("");
+              if (showPrescriptionForm) {
+                cancelPrescriptionForm();
+              } else {
+                openAddPrescriptionForm();
+              }
             }}
           >
             {showPrescriptionForm
               ? "Cancel"
               : "+ Add Prescription"}
           </button>
+
         </div>
 
         {prescriptionMessage && (
           <p>{prescriptionMessage}</p>
         )}
 
-        {/* ADD PRESCRIPTION FORM */}
+        {/* =================================================
+            PRESCRIPTION FORM
+        ================================================= */}
 
         {showPrescriptionForm && (
           <form
@@ -1285,16 +1618,24 @@ function DoctorDashboard() {
               background: "#fafafa",
             }}
           >
+
             <h3>
-              Add Prescription
+              {editingPrescriptionId
+                ? "Edit Prescription"
+                : "Add Prescription"}
             </h3>
+
+            {/* PATIENT ID */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Patient ID</label>
+
+              <label>
+                Patient ID
+              </label>
 
               <input
                 type="number"
@@ -1307,6 +1648,10 @@ function DoctorDashboard() {
                 }
                 placeholder="Enter patient ID"
                 required
+                disabled={
+                  editingPrescriptionId !==
+                  null
+                }
                 style={{
                   display: "block",
                   width: "100%",
@@ -1316,13 +1661,17 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* MEDICINE */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
+
               <label>
                 Medicine Name
               </label>
@@ -1347,14 +1696,20 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* DOSAGE */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Dosage</label>
+
+              <label>
+                Dosage
+              </label>
 
               <input
                 type="text"
@@ -1375,14 +1730,20 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* FREQUENCY */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Frequency</label>
+
+              <label>
+                Frequency
+              </label>
 
               <input
                 type="text"
@@ -1403,14 +1764,20 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* DURATION */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
-              <label>Duration</label>
+
+              <label>
+                Duration
+              </label>
 
               <input
                 type="text"
@@ -1431,13 +1798,17 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
             </div>
+
+            {/* INSTRUCTIONS */}
 
             <div
               style={{
                 marginBottom: "15px",
               }}
             >
+
               <label>
                 Instructions
               </label>
@@ -1461,15 +1832,68 @@ function DoctorDashboard() {
                     "border-box",
                 }}
               />
+
+            </div>
+
+            {/* DATE */}
+
+            <div
+              style={{
+                marginBottom: "15px",
+              }}
+            >
+
+              <label>
+                Prescription Date
+              </label>
+
+              <input
+                type="date"
+                name="prescriptionDate"
+                value={
+                  prescriptionForm.prescriptionDate
+                }
+                onChange={
+                  handlePrescriptionChange
+                }
+                style={{
+                  display: "block",
+                  width: "100%",
+                  padding: "10px",
+                  marginTop: "5px",
+                  boxSizing:
+                    "border-box",
+                }}
+              />
+
             </div>
 
             <button type="submit">
-              Save Prescription
+              {editingPrescriptionId
+                ? "Save Changes"
+                : "Save Prescription"}
             </button>
+
+            {editingPrescriptionId && (
+              <button
+                type="button"
+                onClick={
+                  cancelPrescriptionForm
+                }
+                style={{
+                  marginLeft: "10px",
+                }}
+              >
+                Cancel
+              </button>
+            )}
+
           </form>
         )}
 
-        {/* PRESCRIPTION TABLE */}
+        {/* =================================================
+            PRESCRIPTION TABLE
+        ================================================= */}
 
         <div className="table-container">
 
@@ -1479,13 +1903,13 @@ function DoctorDashboard() {
             </p>
           ) : prescriptionsError ? (
             <p>{prescriptionsError}</p>
-          ) : prescriptions.length ===
-            0 ? (
+          ) : prescriptions.length === 0 ? (
             <p>
               No prescriptions found.
             </p>
           ) : (
             <table>
+
               <thead>
                 <tr>
                   <th>Date</th>
@@ -1495,17 +1919,21 @@ function DoctorDashboard() {
                   <th>Frequency</th>
                   <th>Duration</th>
                   <th>Instructions</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
+
                 {prescriptions.map(
                   (prescription) => (
+
                     <tr
                       key={
                         prescription.prescriptionId
                       }
                     >
+
                       <td>
                         {
                           prescription.prescriptionDate
@@ -1514,9 +1942,7 @@ function DoctorDashboard() {
 
                       <td>
                         Patient #
-                        {
-                          prescription.patientId
-                        }
+                        {prescription.patientId}
                       </td>
 
                       <td>
@@ -1552,14 +1978,34 @@ function DoctorDashboard() {
                           "-"
                         }
                       </td>
+
+                      <td>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openEditPrescriptionForm(
+                              prescription
+                            )
+                          }
+                        >
+                          ✏️ Edit
+                        </button>
+
+                      </td>
+
                     </tr>
+
                   )
                 )}
+
               </tbody>
+
             </table>
           )}
 
         </div>
+
       </div>
 
     </div>
