@@ -152,51 +152,88 @@ function DashboardLayout() {
   // ==========================================
 
   const patientMenu = [
+  {
+    name: "Dashboard",
+    path: "/patient",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M3 10.5 12 3l9 7.5" />
+        <path d="M5 9.5V21h14V9.5" />
+        <path d="M9 21v-6h6v6" />
+      </svg>
+    ),
+  },
 
-    {
-      name: "Dashboard",
-      path: "/patient",
-      icon: "⌂",
-    },
+  {
+    name: "Appointments",
+    path: "/patient/appointments",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="4" y="5" width="16" height="15" rx="2" />
+        <path d="M8 3v4M16 3v4M4 9h16" />
+        <path d="M8 13h2M14 13h2M8 16h2" />
+      </svg>
+    ),
+  },
 
-    {
-      name: "Appointments",
-      path: "/patient/appointments",
-      icon: "▦",
-    },
+  {
+    name: "Book Appointment",
+    path: "/patient/book-appointment",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="4" y="5" width="16" height="15" rx="2" />
+        <path d="M8 3v4M16 3v4M4 9h16" />
+        <path d="M12 12v6M9 15h6" />
+      </svg>
+    ),
+  },
 
-    {
-      name: "Book Appointment",
-      path: "/patient/book-appointment",
-      icon: "✚",
-    },
+  {
+    name: "Medical Records",
+    path: "/patient/medical-records",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="5" y="3" width="14" height="18" rx="2" />
+        <path d="M8 8h8M8 12h6M8 16h5" />
+      </svg>
+    ),
+  },
 
-    {
-      name: "Medical Records",
-      path: "/patient/medical-records",
-      icon: "▤",
-    },
+  {
+    name: "Prescriptions",
+    path: "/patient/prescriptions",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1-5.7 5.7l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
+        <path d="m10 6 8 8" />
+        <path d="M6.5 15.5 4 18" />
+        <path d="M4 18h3" />
+      </svg>
+    ),
+  },
 
-    {
-      name: "Prescriptions",
-      path: "/patient/prescriptions",
-      icon: "◈",
-    },
+  {
+    name: "Profile",
+    path: "/patient/profile",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="8" r="3" />
+        <path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6" />
+      </svg>
+    ),
+  },
 
-    {
-      name: "Profile",
-      path: "/patient/profile",
-      icon: "●",
-    },
-
-    {
-      name: "Bills",
-      path: "/patient/bills",
-      icon: "₹",
-    },
-
-  ];
-
+  {
+    name: "Bills & Payment",
+    path: "/patient/bills",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="4" y="3" width="16" height="18" rx="2" />
+        <path d="M8 8h8M8 12h5M8 16h6" />
+      </svg>
+    ),
+  },
+];
 
   // ==========================================
   // SELECT MENU ACCORDING TO ROLE
@@ -484,46 +521,76 @@ function DashboardLayout() {
 
 
         {/* =====================================
-            USER ROLE CARD
-        ===================================== */}
+    USER ROLE CARD
+===================================== */}
 
-        <div className="user-role-card">
+<div className="user-role-card">
 
-          <div className="role-icon">
+  <div className="role-icon">
 
-            {role === "admin" &&
-              "👨‍💼"}
+    {role === "admin" && (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 3l7 3v5c0 4.5-2.8 7.8-7 10-4.2-2.2-7-5.5-7-10V6l7-3Z" />
+        <circle cx="12" cy="9" r="2.2" />
+        <path d="M8.5 16c.5-2 1.7-3 3.5-3s3 .9 3.5 3" />
+      </svg>
+    )}
 
-            {role === "doctor" &&
-              "👨‍⚕️"}
+    {role === "doctor" && (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="7" r="3" />
+        <path d="M6 20c.6-3.6 2.7-5.5 6-5.5s5.4 1.9 6 5.5" />
+        <path d="M18 3v5" />
+        <path d="M15.5 5.5h5" />
+      </svg>
+    )}
 
-            {role === "patient" &&
-              "🧑‍🦱"}
+    {role === "patient" && (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="8" r="3.5" />
+        <path d="M5 20c.7-3.7 3-5.5 7-5.5s6.3 1.8 7 5.5" />
+      </svg>
+    )}
 
-          </div>
+  </div>
 
+  <div className="role-info">
 
-          <div>
+    <small>
+      Logged in as
+    </small>
 
-            <small>
-              Logged in as
-            </small>
+    <strong>
+      {role
+        ? role.charAt(0).toUpperCase() +
+          role.slice(1)
+        : "User"}
+    </strong>
 
-            <strong>
+  </div>
 
-              {role
-                ? role
-                    .charAt(0)
-                    .toUpperCase() +
-                  role.slice(1)
-                : "User"}
-
-            </strong>
-
-          </div>
-
-        </div>
-
+</div>
 
         {/* =====================================
             NAVIGATION
@@ -571,6 +638,70 @@ function DashboardLayout() {
 
         </nav>
 
+
+        {/* =====================================
+            PATIENT SUPPORT
+        ===================================== */}
+
+        {role === "patient" && (
+          <div className="sidebar-support">
+
+            <button
+              type="button"
+              className="sidebar-support-item"
+              onClick={() => {
+                window.location.href = "/#contact";
+              }}
+            >
+              <span className="support-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-.9.7-1.7 1.2-1.7 2.7" />
+                  <path d="M12 17h.01" />
+                </svg>
+              </span>
+
+              <span className="support-name">
+                Need Help?
+              </span>
+            </button>
+
+            <button
+              type="button"
+              className="sidebar-support-item"
+              onClick={() => {
+                window.location.href = "/#contact";
+              }}
+            >
+              <span className="support-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7A2.5 2.5 0 0 1 17.5 16H11l-4.5 4v-4A2.5 2.5 0 0 1 4 13.5v-7Z" />
+                  <path d="M8 8h8" />
+                  <path d="M8 11h5" />
+                </svg>
+              </span>
+
+              <span className="support-name">
+                Contact Us
+              </span>
+            </button>
+
+          </div>
+        )}
 
         {/* =====================================
             SIDEBAR BOTTOM

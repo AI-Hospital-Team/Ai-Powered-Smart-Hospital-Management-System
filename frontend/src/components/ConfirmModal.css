@@ -1,0 +1,314 @@
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.confirm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: rgba(31, 52, 68, 0.48);
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.confirm-modal {
+  width: 100%;
+  max-width: 460px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 24px 26px 22px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 25px 70px rgba(18, 59, 93, 0.22);
+
+  animation: confirmModalIn 0.2s ease;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes confirmModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.confirm-modal-icon {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 16px;
+}
+
+.confirm-modal-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+
+/* =========================================================
+   DANGER ICON
+========================================================= */
+
+.confirm-modal-danger {
+  background: #fff0f0;
+  color: #ef4444;
+}
+
+
+/* =========================================================
+   NORMAL ICON
+========================================================= */
+
+.confirm-modal-normal {
+  background: #eef8ff;
+  color: #1268e8;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.confirm-modal-content h2 {
+  margin: 0 0 5px;
+
+  font-size: 24px;
+  line-height: 1.25;
+
+  color: #1d3955;
+
+  font-weight: 800;
+}
+
+.confirm-modal-message {
+  margin: 0;
+
+  color: #688198;
+
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.confirm-modal-warning {
+  margin: 3px 0 0;
+
+  color: #29445d;
+
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.confirm-modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: 20px;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.confirm-modal .confirm-modal-cancel {
+  appearance: none;
+  -webkit-appearance: none;
+
+  border: 1px solid #d8e1e7;
+
+  background: #ffffff;
+
+  color: #344f66;
+
+  border-radius: 8px;
+
+  padding: 9px 15px;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: none;
+
+  transition: 0.2s ease;
+}
+
+.confirm-modal .confirm-modal-cancel:hover {
+  background: #f5f8fa;
+  border-color: #cbd7df;
+}
+
+.confirm-modal .confirm-modal-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   CONFIRM BUTTON
+========================================================= */
+
+.confirm-modal .confirm-modal-confirm {
+  appearance: none;
+  -webkit-appearance: none;
+
+  border: none;
+
+  border-radius: 8px;
+
+  padding: 9px 15px;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: none;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  transition: 0.2s ease;
+}
+
+
+/* =========================================================
+   NORMAL
+========================================================= */
+
+.confirm-modal .normal-button {
+  background: #1268e8;
+}
+
+.confirm-modal .normal-button:hover {
+  background: #0d56c4;
+}
+
+
+/* =========================================================
+   DANGER
+========================================================= */
+
+.confirm-modal .danger-button {
+  background: #ef4444;
+}
+
+.confirm-modal .danger-button:hover {
+  background: #dc2626;
+}
+
+
+/* =========================================================
+   ACTIVE
+========================================================= */
+
+.confirm-modal .confirm-modal-confirm:active {
+  transform: translateY(1px);
+}
+
+
+/* =========================================================
+   DISABLED
+========================================================= */
+
+.confirm-modal .confirm-modal-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .confirm-modal {
+    max-width: 100%;
+    padding: 22px 20px 20px;
+    border-radius: 16px;
+  }
+
+  .confirm-modal-content h2 {
+    font-size: 22px;
+  }
+
+  .confirm-modal-message {
+    font-size: 14px;
+  }
+
+  .confirm-modal-warning {
+    font-size: 14px;
+  }
+
+  .confirm-modal-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    margin-top: 18px;
+  }
+
+  .confirm-modal .confirm-modal-cancel,
+  .confirm-modal .confirm-modal-confirm {
+    width: 100%;
+  }
+}

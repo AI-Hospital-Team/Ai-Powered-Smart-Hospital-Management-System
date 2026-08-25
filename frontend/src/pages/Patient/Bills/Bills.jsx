@@ -1,37 +1,38 @@
 import { useEffect, useState } from "react";
+import "./Bills.css";
 
 function Bills() {
   const [bills, setBills] = useState([]);
   const [patientId, setPatientId] = useState(null);
 
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-
-  // =========================================================
-  // PAYMENT STATE
-  // =========================================================
-
   const [payingBillId, setPayingBillId] = useState(null);
 
   const [error, setError] = useState("");
   const [paymentMessage, setPaymentMessage] = useState("");
 
   // =========================================================
+  // PAYMENT MODAL
+  // =========================================================
+
+  const [paymentModal, setPaymentModal] = useState({
+    open: false,
+    billId: null,
+    amount: 0,
+  });
+
+  // =========================================================
   // GET PATIENT ID
   // =========================================================
 
   const getPatientId = () => {
-    // -----------------------------------------
-    // 1. Direct patientId
-    // -----------------------------------------
-
-    const directPatientIdKeys = [
+    const directKeys = [
       "patientId",
       "patientID",
       "patient_id",
     ];
 
-    for (const key of directPatientIdKeys) {
+    for (const key of directKeys) {
       const value = localStorage.getItem(key);
 
       if (
@@ -44,61 +45,18 @@ function Bills() {
       }
     }
 
-    // -----------------------------------------
-    // 2. Check stored patient object
-    // -----------------------------------------
-
-    const patientObjectKeys = [
+    const objectKeys = [
       "patient",
       "patientData",
       "patientInfo",
       "loggedInPatient",
-    ];
-
-    for (const key of patientObjectKeys) {
-      try {
-        const storedValue = localStorage.getItem(key);
-
-        if (!storedValue) {
-          continue;
-        }
-
-        const parsed = JSON.parse(storedValue);
-
-        const possiblePatientId =
-          parsed?.patientId ??
-          parsed?.patientID ??
-          parsed?.patient_id ??
-          parsed?.id;
-
-        if (
-          possiblePatientId !== undefined &&
-          possiblePatientId !== null &&
-          !isNaN(Number(possiblePatientId)) &&
-          Number(possiblePatientId) > 0
-        ) {
-          return Number(possiblePatientId);
-        }
-      } catch (error) {
-        console.warn(
-          `Unable to parse localStorage key: ${key}`,
-          error
-        );
-      }
-    }
-
-    // -----------------------------------------
-    // 3. Check stored user object
-    // -----------------------------------------
-
-    const userObjectKeys = [
       "user",
       "userData",
       "currentUser",
       "loggedInUser",
     ];
 
-    for (const key of userObjectKeys) {
+    for (const key of objectKeys) {
       try {
         const storedValue = localStorage.getItem(key);
 
@@ -108,25 +66,26 @@ function Bills() {
 
         const parsed = JSON.parse(storedValue);
 
-        const possiblePatientId =
+        const id =
           parsed?.patientId ??
           parsed?.patientID ??
           parsed?.patient_id ??
           parsed?.patient?.patientId ??
-          parsed?.patient?.id;
+          parsed?.patient?.id ??
+          parsed?.id;
 
         if (
-          possiblePatientId !== undefined &&
-          possiblePatientId !== null &&
-          !isNaN(Number(possiblePatientId)) &&
-          Number(possiblePatientId) > 0
+          id !== undefined &&
+          id !== null &&
+          !isNaN(Number(id)) &&
+          Number(id) > 0
         ) {
-          return Number(possiblePatientId);
+          return Number(id);
         }
-      } catch (error) {
+      } catch (err) {
         console.warn(
           `Unable to parse localStorage key: ${key}`,
-          error
+          err
         );
       }
     }
@@ -135,7 +94,7 @@ function Bills() {
   };
 
   // =========================================================
-  // FETCH PATIENT BILLS
+  // FETCH BILLS
   // =========================================================
 
   const fetchPatientBills = async () => {
@@ -143,11 +102,6 @@ function Bills() {
       setError("");
 
       const currentPatientId = getPatientId();
-
-      console.log(
-        "Patient ID used for Bills:",
-        currentPatientId
-      );
 
       if (!currentPatientId) {
         setPatientId(null);
@@ -179,16 +133,9 @@ function Bills() {
 
       const data = await response.json();
 
-      console.log(
-        "Patient bills response:",
-        data
+      setBills(
+        Array.isArray(data) ? data : []
       );
-
-      if (Array.isArray(data)) {
-        setBills(data);
-      } else {
-        setBills([]);
-      }
     } catch (err) {
       console.error(
         "Patient bills error:",
@@ -202,7 +149,6 @@ function Bills() {
       );
     } finally {
       setLoading(false);
-      setRefreshing(false);
     }
   };
 
@@ -215,30 +161,49 @@ function Bills() {
   }, []);
 
   // =========================================================
-  // REFRESH
+  // OPEN PAYMENT MODAL
   // =========================================================
 
-  const handleRefresh = async () => {
-    setRefreshing(true);
+  const openPaymentModal = (
+    billId,
+    amount
+  ) => {
+    setError("");
     setPaymentMessage("");
-    await fetchPatientBills();
+
+    setPaymentModal({
+      open: true,
+      billId,
+      amount,
+    });
   };
 
   // =========================================================
-  // PAY BILL
+  // CLOSE PAYMENT MODAL
   // =========================================================
 
-  const handlePayBill = async (billId, amount) => {
-    if (!billId) {
-      setError("Invalid bill ID.");
+  const closePaymentModal = () => {
+    if (payingBillId !== null) {
       return;
     }
 
-    const confirmed = window.confirm(
-      `Pay ${formatAmount(amount)} for Bill #${billId}?`
-    );
+    setPaymentModal({
+      open: false,
+      billId: null,
+      amount: 0,
+    });
+  };
 
-    if (!confirmed) {
+  // =========================================================
+  // CONFIRM PAYMENT
+  // =========================================================
+
+  const confirmPayment = async () => {
+    const billId = paymentModal.billId;
+    const amount = paymentModal.amount;
+
+    if (!billId) {
+      setError("Invalid bill ID.");
       return;
     }
 
@@ -246,11 +211,6 @@ function Bills() {
       setError("");
       setPaymentMessage("");
       setPayingBillId(billId);
-
-      console.log(
-        "Processing payment for Bill ID:",
-        billId
-      );
 
       const response = await fetch(
         `http://localhost:8080/api/bills/${billId}/status`,
@@ -269,7 +229,8 @@ function Bills() {
         let backendMessage = "";
 
         try {
-          backendMessage = await response.text();
+          backendMessage =
+            await response.text();
         } catch {
           backendMessage = "";
         }
@@ -280,21 +241,14 @@ function Bills() {
         );
       }
 
-      const updatedBill = await response.json();
-
-      console.log(
-        "Payment successful:",
-        updatedBill
-      );
-
-      // -----------------------------------------
-      // Update UI immediately
-      // -----------------------------------------
+      const updatedBill =
+        await response.json();
 
       setBills((previousBills) =>
         previousBills.map((bill) => {
           const currentBillId =
-            bill?.billId ?? bill?.id;
+            bill?.billId ??
+            bill?.id;
 
           if (
             Number(currentBillId) ===
@@ -303,7 +257,8 @@ function Bills() {
             return {
               ...bill,
               status:
-                updatedBill?.status || "Paid",
+                updatedBill?.status ||
+                "Paid",
             };
           }
 
@@ -311,17 +266,18 @@ function Bills() {
         })
       );
 
+      setPaymentModal({
+        open: false,
+        billId: null,
+        amount: 0,
+      });
+
       setPaymentMessage(
-        `Payment successful for Bill #${billId}.`
+        `Payment marked as successful for Bill #${billId}.`
       );
 
-      // -----------------------------------------
-      // Fetch latest database data
-      // -----------------------------------------
-
-      setTimeout(() => {
-        fetchPatientBills();
-      }, 500);
+      // Refresh data automatically after payment
+      await fetchPatientBills();
     } catch (err) {
       console.error(
         "Payment error:",
@@ -338,10 +294,12 @@ function Bills() {
   };
 
   // =========================================================
-  // STATUS CLASS
+  // STATUS
   // =========================================================
 
-  const getStatusClass = (status) => {
+  const getStatusClass = (
+    status
+  ) => {
     const value = String(
       status || "Pending"
     ).toLowerCase();
@@ -357,11 +315,9 @@ function Bills() {
     return "pending";
   };
 
-  // =========================================================
-  // STATUS TEXT
-  // =========================================================
-
-  const getStatusText = (status) => {
+  const getStatusText = (
+    status
+  ) => {
     const value = String(
       status || "Pending"
     ).toLowerCase();
@@ -387,9 +343,14 @@ function Bills() {
     }
 
     try {
-      const parsedDate = new Date(date);
+      const parsedDate =
+        new Date(date);
 
-      if (isNaN(parsedDate.getTime())) {
+      if (
+        isNaN(
+          parsedDate.getTime()
+        )
+      ) {
         return String(date);
       }
 
@@ -410,8 +371,11 @@ function Bills() {
   // FORMAT AMOUNT
   // =========================================================
 
-  const formatAmount = (amount) => {
-    const value = Number(amount);
+  const formatAmount = (
+    amount
+  ) => {
+    const value =
+      Number(amount);
 
     if (isNaN(value)) {
       return "₹0.00";
@@ -429,185 +393,112 @@ function Bills() {
   };
 
   // =========================================================
-  // TOTAL AMOUNT
+  // SUMMARY
   // =========================================================
 
-  const totalAmount = bills.reduce(
-    (total, bill) => {
-      return (
+  const totalAmount =
+    bills.reduce(
+      (total, bill) =>
         total +
-        (Number(bill?.amount) || 0)
+        (Number(
+          bill?.amount
+        ) || 0),
+      0
+    );
+
+  const pendingAmount =
+    bills
+      .filter(
+        (bill) =>
+          String(
+            bill?.status || ""
+          ).toLowerCase() ===
+          "pending"
+      )
+      .reduce(
+        (total, bill) =>
+          total +
+          (Number(
+            bill?.amount
+          ) || 0),
+        0
       );
-    },
-    0
-  );
 
-  // =========================================================
-  // PENDING AMOUNT
-  // =========================================================
-
-  const pendingAmount = bills
-    .filter(
-      (bill) =>
-        String(
-          bill?.status || ""
-        ).toLowerCase() === "pending"
-    )
-    .reduce(
-      (total, bill) => {
-        return (
+  const paidAmount =
+    bills
+      .filter(
+        (bill) =>
+          String(
+            bill?.status || ""
+          ).toLowerCase() ===
+          "paid"
+      )
+      .reduce(
+        (total, bill) =>
           total +
-          (Number(bill?.amount) || 0)
-        );
-      },
-      0
-    );
+          (Number(
+            bill?.amount
+          ) || 0),
+        0
+      );
 
   // =========================================================
-  // PAID AMOUNT
-  // =========================================================
-
-  const paidAmount = bills
-    .filter(
-      (bill) =>
-        String(
-          bill?.status || ""
-        ).toLowerCase() === "paid"
-    )
-    .reduce(
-      (total, bill) => {
-        return (
-          total +
-          (Number(bill?.amount) || 0)
-        );
-      },
-      0
-    );
-
-  // =========================================================
-  // CANCELLED AMOUNT
-  // =========================================================
-
-  const cancelledAmount = bills
-    .filter(
-      (bill) =>
-        String(
-          bill?.status || ""
-        ).toLowerCase() === "cancelled"
-    )
-    .reduce(
-      (total, bill) => {
-        return (
-          total +
-          (Number(bill?.amount) || 0)
-        );
-      },
-      0
-    );
-
-  // =========================================================
-  // RENDER
+  // PAGE
   // =========================================================
 
   return (
-    <div
-      style={{
-        width: "100%",
-        padding: "10px 0 30px",
-        color: "#18324b",
-      }}
-    >
+    <div className="patient-bills-page">
 
       {/* =====================================================
-          PAGE HEADER
+          HEADER
       ===================================================== */}
 
-      <div
-        style={{
-          background: "#ffffff",
-          borderRadius: "18px",
-          padding: "24px 28px",
-          marginBottom: "22px",
-          boxShadow:
-            "0 8px 30px rgba(15, 23, 42, 0.07)",
-          border:
-            "1px solid #e6edf5",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "20px",
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="bills-page-header">
 
-        <div>
+        <div className="bills-title-wrap">
 
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "32px",
-              fontWeight: "700",
-              color: "#18324b",
-            }}
-          >
-            💰 My Bills
-          </h1>
-
-          <p
-            style={{
-              margin:
-                "7px 0 0",
-              color: "#718096",
-              fontSize: "15px",
-            }}
-          >
-            View your hospital billing
-            records and payment status.
-          </p>
-
-          {patientId && (
-            <div
-              style={{
-                marginTop: "8px",
-                fontSize: "13px",
-                color: "#64748b",
-              }}
+          <div className="bills-title-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
             >
-              Patient ID:{" "}
-              <strong>
-                #{patientId}
-              </strong>
-            </div>
-          )}
+              <rect
+                x="4"
+                y="3"
+                width="16"
+                height="18"
+                rx="2"
+              />
+
+              <path d="M8 8h8M8 12h5M8 16h7" />
+            </svg>
+          </div>
+
+          <div>
+
+            <h1>
+              Bills &amp; Payment
+            </h1>
+
+            <p>
+              Manage your hospital bills
+              and payment status.
+            </p>
+
+            {patientId && (
+              <span className="patient-id-label">
+                Patient ID:{" "}
+                <strong>
+                  #{patientId}
+                </strong>
+              </span>
+            )}
+
+          </div>
 
         </div>
-
-        <button
-          type="button"
-          onClick={handleRefresh}
-          disabled={refreshing}
-          style={{
-            border:
-              "1px solid #dbe5f0",
-            borderRadius: "10px",
-            padding: "11px 18px",
-            background:
-              refreshing
-                ? "#f1f5f9"
-                : "#ffffff",
-            color: "#18324b",
-            fontWeight: "600",
-            fontSize: "14px",
-            cursor:
-              refreshing
-                ? "not-allowed"
-                : "pointer",
-          }}
-        >
-          {refreshing
-            ? "⏳ Refreshing..."
-            : "🔄 Refresh"}
-        </button>
 
       </div>
 
@@ -616,163 +507,97 @@ function Bills() {
       ===================================================== */}
 
       {error && (
-        <div
-          style={{
-            background: "#fff7ed",
-            border:
-              "1px solid #fed7aa",
-            color: "#c2410c",
-            borderRadius: "12px",
-            padding: "14px 16px",
-            marginBottom: "22px",
-            fontSize: "14px",
-            fontWeight: "600",
-          }}
-        >
-          ⚠️ {error}
+        <div className="bill-message bill-error">
+
+          <span>!</span>
+
+          <div>
+            {error}
+          </div>
+
         </div>
       )}
 
       {/* =====================================================
-          PAYMENT SUCCESS
+          SUCCESS
       ===================================================== */}
 
       {paymentMessage && (
-        <div
-          style={{
-            background: "#ecfdf5",
-            border:
-              "1px solid #bbf7d0",
-            color: "#15803d",
-            borderRadius: "12px",
-            padding: "14px 16px",
-            marginBottom: "22px",
-            fontSize: "14px",
-            fontWeight: "600",
-          }}
-        >
-          ✅ {paymentMessage}
+        <div className="bill-message bill-success">
+
+          <span>✓</span>
+
+          <div>
+            {paymentMessage}
+          </div>
+
         </div>
       )}
 
       {/* =====================================================
-          SUMMARY CARDS
+          SUMMARY
       ===================================================== */}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(210px, 1fr))",
-          gap: "16px",
-          marginBottom: "22px",
-        }}
-      >
+      <div className="bill-summary-grid">
 
-        {/* TOTAL BILLS */}
+        <div className="bill-summary-card summary-blue">
 
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: "15px",
-            padding: "20px",
-            border:
-              "1px solid #e6edf5",
-            boxShadow:
-              "0 6px 20px rgba(15, 23, 42, 0.05)",
-            display: "flex",
-            alignItems: "center",
-            gap: "15px",
-          }}
-        >
+          <div className="summary-icon">
 
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "12px",
-              background: "#eff6ff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "23px",
-            }}
-          >
-            📄
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <rect
+                x="4"
+                y="3"
+                width="16"
+                height="18"
+                rx="2"
+              />
+
+              <path d="M8 8h8M8 12h5M8 16h6" />
+            </svg>
+
           </div>
 
           <div>
-            <div
-              style={{
-                fontSize: "13px",
-                color: "#64748b",
-                marginBottom: "5px",
-              }}
-            >
-              Total Bills
-            </div>
+            <span>Total Bills</span>
 
-            <strong
-              style={{
-                fontSize: "24px",
-                color: "#18324b",
-              }}
-            >
+            <strong>
               {bills.length}
             </strong>
           </div>
 
         </div>
 
-        {/* TOTAL AMOUNT */}
+        <div className="bill-summary-card summary-teal">
 
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: "15px",
-            padding: "20px",
-            border:
-              "1px solid #e6edf5",
-            boxShadow:
-              "0 6px 20px rgba(15, 23, 42, 0.05)",
-            display: "flex",
-            alignItems: "center",
-            gap: "15px",
-          }}
-        >
+          <div className="summary-icon">
 
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "12px",
-              background: "#ecfdf5",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "23px",
-            }}
-          >
-            💵
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+              />
+
+              <path d="M9 9.5c0-1 1.1-1.8 2.8-1.8 1.5 0 2.6.7 2.8 1.8M9 14.5c.2 1.1 1.3 1.8 2.8 1.8 1.7 0 2.8-.8 2.8-1.8M12 6v12" />
+            </svg>
+
           </div>
 
           <div>
-            <div
-              style={{
-                fontSize: "13px",
-                color: "#64748b",
-                marginBottom: "5px",
-              }}
-            >
-              Total Amount
-            </div>
+            <span>Total Amount</span>
 
-            <strong
-              style={{
-                fontSize: "21px",
-                color: "#15803d",
-              }}
-            >
+            <strong>
               {formatAmount(
                 totalAmount
               )}
@@ -781,55 +606,31 @@ function Bills() {
 
         </div>
 
-        {/* PENDING */}
+        <div className="bill-summary-card summary-orange">
 
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: "15px",
-            padding: "20px",
-            border:
-              "1px solid #e6edf5",
-            boxShadow:
-              "0 6px 20px rgba(15, 23, 42, 0.05)",
-            display: "flex",
-            alignItems: "center",
-            gap: "15px",
-          }}
-        >
+          <div className="summary-icon">
 
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "12px",
-              background: "#fff7ed",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "23px",
-            }}
-          >
-            ⏳
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+              />
+
+              <path d="M12 7v5l3 2" />
+            </svg>
+
           </div>
 
           <div>
-            <div
-              style={{
-                fontSize: "13px",
-                color: "#64748b",
-                marginBottom: "5px",
-              }}
-            >
-              Pending Amount
-            </div>
+            <span>Pending Amount</span>
 
-            <strong
-              style={{
-                fontSize: "21px",
-                color: "#ea580c",
-              }}
-            >
+            <strong>
               {formatAmount(
                 pendingAmount
               )}
@@ -838,55 +639,31 @@ function Bills() {
 
         </div>
 
-        {/* PAID */}
+        <div className="bill-summary-card summary-green">
 
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: "15px",
-            padding: "20px",
-            border:
-              "1px solid #e6edf5",
-            boxShadow:
-              "0 6px 20px rgba(15, 23, 42, 0.05)",
-            display: "flex",
-            alignItems: "center",
-            gap: "15px",
-          }}
-        >
+          <div className="summary-icon">
 
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "12px",
-              background: "#f5f3ff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "23px",
-            }}
-          >
-            ✅
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+              />
+
+              <path d="m8 12 2.5 2.5L16 9" />
+            </svg>
+
           </div>
 
           <div>
-            <div
-              style={{
-                fontSize: "13px",
-                color: "#64748b",
-                marginBottom: "5px",
-              }}
-            >
-              Paid Amount
-            </div>
+            <span>Paid Amount</span>
 
-            <strong
-              style={{
-                fontSize: "21px",
-                color: "#7c3aed",
-              }}
-            >
+            <strong>
               {formatAmount(
                 paidAmount
               )}
@@ -901,70 +678,24 @@ function Bills() {
           BILLING HISTORY
       ===================================================== */}
 
-      <div
-        style={{
-          background: "#ffffff",
-          borderRadius: "18px",
-          border:
-            "1px solid #e6edf5",
-          boxShadow:
-            "0 8px 30px rgba(15, 23, 42, 0.06)",
-          overflow: "hidden",
-        }}
-      >
+      <div className="bills-card">
 
-        {/* CARD HEADER */}
-
-        <div
-          style={{
-            padding: "22px 25px",
-            borderBottom:
-              "1px solid #e8eef5",
-            display: "flex",
-            justifyContent:
-              "space-between",
-            alignItems: "center",
-            gap: "15px",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="bills-card-header">
 
           <div>
 
-            <h2
-              style={{
-                margin: 0,
-                fontSize: "22px",
-                color: "#18324b",
-              }}
-            >
+            <h2>
               Billing History
             </h2>
 
-            <p
-              style={{
-                margin:
-                  "6px 0 0",
-                color: "#718096",
-                fontSize: "14px",
-              }}
-            >
-              Bills generated by the
-              hospital administration.
+            <p>
+              Review your hospital
+              bills and payment status.
             </p>
 
           </div>
 
-          <span
-            style={{
-              background: "#eff6ff",
-              color: "#2563eb",
-              padding: "7px 13px",
-              borderRadius: "20px",
-              fontSize: "13px",
-              fontWeight: "700",
-            }}
-          >
+          <span className="bill-count">
             {bills.length}{" "}
             {bills.length === 1
               ? "Bill"
@@ -978,185 +709,86 @@ function Bills() {
         =================================================== */}
 
         {loading ? (
-          <div
-            style={{
-              padding: "60px 20px",
-              textAlign: "center",
-              color: "#64748b",
-            }}
-          >
 
-            <div
-              style={{
-                width: "42px",
-                height: "42px",
-                border:
-                  "4px solid #e2e8f0",
-                borderTop:
-                  "4px solid #2563eb",
-                borderRadius: "50%",
-                margin:
-                  "0 auto 15px",
-                animation:
-                  "patientBillsSpin 1s linear infinite",
-              }}
-            ></div>
+          <div className="bill-loading">
 
-            <p
-              style={{
-                margin: 0,
-                fontSize: "14px",
-              }}
-            >
+            <div className="loading-spinner"></div>
+
+            <p>
               Loading your bills...
             </p>
 
           </div>
+
         ) : bills.length === 0 ? (
 
           /* =================================================
-             NO BILLS
+             EMPTY
           ================================================= */
 
-          <div
-            style={{
-              padding: "60px 20px",
-              textAlign: "center",
-            }}
-          >
+          <div className="no-bills">
 
-            <div
-              style={{
-                width: "70px",
-                height: "70px",
-                margin:
-                  "0 auto 18px",
-                borderRadius: "50%",
-                background: "#f1f5f9",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "32px",
-              }}
-            >
-              🧾
+            <div className="no-bills-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+              >
+                <rect
+                  x="5"
+                  y="3"
+                  width="14"
+                  height="18"
+                  rx="2"
+                />
+
+                <path d="M8 8h8M8 12h5M8 16h4" />
+              </svg>
+
             </div>
 
-            <h3
-              style={{
-                margin:
-                  "0 0 8px",
-                color: "#18324b",
-                fontSize: "21px",
-              }}
-            >
+            <h3>
               No Bills Found
             </h3>
 
-            <p
-              style={{
-                margin:
-                  "0 0 18px",
-                color: "#718096",
-                fontSize: "14px",
-              }}
-            >
+            <p>
               You currently have no
               billing records.
             </p>
-
-            <button
-              type="button"
-              onClick={handleRefresh}
-              disabled={refreshing}
-              style={{
-                border: "none",
-                borderRadius: "9px",
-                padding:
-                  "10px 18px",
-                background:
-                  "#2563eb",
-                color: "#ffffff",
-                fontWeight: "600",
-                cursor:
-                  refreshing
-                    ? "not-allowed"
-                    : "pointer",
-                opacity:
-                  refreshing
-                    ? 0.7
-                    : 1,
-              }}
-            >
-              {refreshing
-                ? "⏳ Checking..."
-                : "🔄 Check Again"}
-            </button>
 
           </div>
 
         ) : (
 
           /* =================================================
-             BILLS TABLE
+             TABLE
           ================================================= */
 
-          <div
-            style={{
-              width: "100%",
-              overflowX: "auto",
-            }}
-          >
+          <div className="table-wrapper">
 
-            <table
-              style={{
-                width: "100%",
-                borderCollapse:
-                  "collapse",
-                minWidth: "1020px",
-              }}
-            >
+            <table className="bills-table">
 
               <thead>
 
-                <tr
-                  style={{
-                    background:
-                      "#f8fafc",
-                  }}
-                >
+                <tr>
 
-                  <th style={tableHeaderStyle}>
-                    Bill ID
-                  </th>
+                  <th>Bill</th>
 
-                  <th style={tableHeaderStyle}>
-                    Bill Type
-                  </th>
+                  <th>Bill Type</th>
 
-                  <th style={tableHeaderStyle}>
-                    Doctor ID
-                  </th>
+                  <th>Doctor</th>
 
-                  <th style={tableHeaderStyle}>
-                    Amount
-                  </th>
+                  <th>Amount</th>
 
-                  <th style={tableHeaderStyle}>
-                    Description
-                  </th>
+                  <th>Description</th>
 
-                  <th style={tableHeaderStyle}>
-                    Bill Date
-                  </th>
+                  <th>Date</th>
 
-                  <th style={tableHeaderStyle}>
-                    Status
-                  </th>
+                  <th>Status</th>
 
-                  <th style={tableHeaderStyle}>
-                    Payment
-                  </th>
+                  <th>Payment</th>
 
                 </tr>
 
@@ -1199,119 +831,49 @@ function Bills() {
                       Number(
                         payingBillId
                       ) ===
-                      Number(billId);
+                      Number(
+                        billId
+                      );
 
                     return (
                       <tr
                         key={billId}
-                        style={{
-                          borderBottom:
-                            "1px solid #edf2f7",
-                        }}
                       >
 
-                        {/* BILL ID */}
-
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
-                          <span
-                            style={{
-                              fontWeight:
-                                "700",
-                              color:
-                                "#2563eb",
-                            }}
-                          >
+                        <td>
+                          <span className="bill-number">
                             #{billId}
                           </span>
                         </td>
 
-                        {/* BILL TYPE */}
-
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
-
-                          <div
-                            style={{
-                              display:
-                                "flex",
-                              alignItems:
-                                "center",
-                              gap: "8px",
-                              fontWeight:
-                                "600",
-                            }}
-                          >
-                            <span>
-                              🧾
-                            </span>
-
-                            <span>
-                              {bill?.billType ||
-                                "Hospital Service"}
-                            </span>
-                          </div>
-
+                        <td>
+                          <span className="bill-type">
+                            {bill?.billType ||
+                              "Hospital Service"}
+                          </span>
                         </td>
 
-                        {/* DOCTOR ID */}
+                        {/* DOCTOR */}
 
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
+                        <td>
 
-                          {bill?.doctorId ? (
-                            <span
-                              style={{
-                                background:
-                                  "#f1f5f9",
-                                color:
-                                  "#475569",
-                                padding:
-                                  "5px 9px",
-                                borderRadius:
-                                  "7px",
-                                fontSize:
-                                  "13px",
-                                fontWeight:
-                                  "600",
-                              }}
-                            >
-                              Dr. #
-                              {
-                                bill.doctorId
-                              }
-                            </span>
-                          ) : (
-                            "—"
-                          )}
+                          <span className="doctor-chip">
+
+                            {bill?.doctorName
+                              ? bill.doctorName
+                              : bill?.doctorId
+                              ? `Dr. ID #${bill.doctorId}`
+                              : "—"}
+
+                          </span>
 
                         </td>
 
                         {/* AMOUNT */}
 
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
+                        <td>
 
-                          <strong
-                            style={{
-                              color:
-                                "#15803d",
-                              fontSize:
-                                "15px",
-                            }}
-                          >
+                          <strong className="amount">
                             {formatAmount(
                               bill?.amount
                             )}
@@ -1321,18 +883,9 @@ function Bills() {
 
                         {/* DESCRIPTION */}
 
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
+                        <td>
 
-                          <span
-                            style={{
-                              color:
-                                "#64748b",
-                            }}
-                          >
+                          <span className="description">
                             {bill?.description ||
                               "No description"}
                           </span>
@@ -1341,11 +894,7 @@ function Bills() {
 
                         {/* DATE */}
 
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
+                        <td>
                           {formatDate(
                             bill?.billDate
                           )}
@@ -1353,56 +902,13 @@ function Bills() {
 
                         {/* STATUS */}
 
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
+                        <td>
 
                           <span
-                            style={{
-                              display:
-                                "inline-flex",
-                              alignItems:
-                                "center",
-                              padding:
-                                "6px 11px",
-                              borderRadius:
-                                "20px",
-                              fontSize:
-                                "12px",
-                              fontWeight:
-                                "700",
-
-                              background:
-                                statusClass ===
-                                "paid"
-                                  ? "#dcfce7"
-                                  : statusClass ===
-                                    "cancelled"
-                                  ? "#fee2e2"
-                                  : "#fef3c7",
-
-                              color:
-                                statusClass ===
-                                "paid"
-                                  ? "#15803d"
-                                  : statusClass ===
-                                    "cancelled"
-                                  ? "#dc2626"
-                                  : "#b45309",
-                            }}
+                            className={`status-badge ${statusClass}`}
                           >
 
-                            {statusClass ===
-                            "paid"
-                              ? "✓"
-                              : statusClass ===
-                                "cancelled"
-                              ? "✕"
-                              : "⏳"}
-
-                            &nbsp;
+                            <span className="status-dot"></span>
 
                             {getStatusText(
                               bill?.status
@@ -1414,112 +920,52 @@ function Bills() {
 
                         {/* PAYMENT */}
 
-                        <td
-                          style={
-                            tableCellStyle
-                          }
-                        >
+                        <td>
 
                           {isPending && (
-                            <button
-                              type="button"
-                              onClick={() =>
-                                handlePayBill(
-                                  billId,
-                                  bill?.amount
-                                )
-                              }
-                              disabled={
-                                payingBillId !==
-                                  null
-                              }
-                              style={{
-                                border:
-                                  "none",
-                                borderRadius:
-                                  "9px",
-                                padding:
-                                  "9px 15px",
-                                background:
+
+                            <div className="payment-cell">
+
+                              <button
+                                className={`pay-button ${
                                   isPaying
-                                    ? "#94a3b8"
-                                    : "#16a34a",
-                                color:
-                                  "#ffffff",
-                                fontWeight:
-                                  "700",
-                                fontSize:
-                                  "13px",
-                                cursor:
+                                    ? "paying"
+                                    : ""
+                                }`}
+                                type="button"
+                                onClick={() =>
+                                  openPaymentModal(
+                                    billId,
+                                    bill?.amount
+                                  )
+                                }
+                                disabled={
                                   payingBillId !==
                                   null
-                                    ? "not-allowed"
-                                    : "pointer",
-                                whiteSpace:
-                                  "nowrap",
-                                boxShadow:
-                                  "0 4px 12px rgba(22, 163, 74, 0.20)",
-                              }}
-                            >
-                              {isPaying
-                                ? "⏳ Paying..."
-                                : "💳 Pay Now"}
-                            </button>
+                                }
+                              >
+                                {isPaying
+                                  ? "Processing..."
+                                  : "Pay Now"}
+                              </button>
+
+                              <small>
+                                Demo payment
+                              </small>
+
+                            </div>
+
                           )}
 
                           {isPaid && (
-                            <span
-                              style={{
-                                display:
-                                  "inline-flex",
-                                alignItems:
-                                  "center",
-                                gap: "5px",
-                                padding:
-                                  "8px 13px",
-                                borderRadius:
-                                  "9px",
-                                background:
-                                  "#ecfdf5",
-                                color:
-                                  "#15803d",
-                                fontWeight:
-                                  "700",
-                                fontSize:
-                                  "13px",
-                                whiteSpace:
-                                  "nowrap",
-                              }}
-                            >
-                              ✓ Paid
+                            <span className="paid-label">
+                              Paid
                             </span>
                           )}
 
                           {isCancelled && (
-                            <span
-                              style={{
-                                display:
-                                  "inline-flex",
-                                alignItems:
-                                  "center",
-                                gap: "5px",
-                                padding:
-                                  "8px 13px",
-                                borderRadius:
-                                  "9px",
-                                background:
-                                  "#fef2f2",
-                                color:
-                                  "#dc2626",
-                                fontWeight:
-                                  "700",
-                                fontSize:
-                                  "13px",
-                                whiteSpace:
-                                  "nowrap",
-                              }}
-                            >
-                              ✕ Not Available
+                            <span className="cancelled-label">
+                              Not Available
                             </span>
                           )}
 
@@ -1535,74 +981,51 @@ function Bills() {
             </table>
 
           </div>
+
         )}
 
       </div>
 
       {/* =====================================================
-          BILLING INFORMATION
+          EDUCATIONAL NOTE
       ===================================================== */}
 
-      <div
-        style={{
-          marginTop: "20px",
-          background: "#eff6ff",
-          border:
-            "1px solid #bfdbfe",
-          borderRadius: "15px",
-          padding: "18px 20px",
-          display: "flex",
-          gap: "14px",
-          alignItems: "flex-start",
-        }}
-      >
+      <div className="payment-note">
 
-        <div
-          style={{
-            width: "38px",
-            height: "38px",
-            flexShrink: 0,
-            borderRadius: "10px",
-            background: "#dbeafe",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "20px",
-          }}
-        >
-          ℹ️
+        <div className="payment-note-icon">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+            />
+
+            <path d="M12 10v6M12 7.5v.5" />
+          </svg>
+
         </div>
 
         <div>
 
-          <strong
-            style={{
-              display:
-                "block",
-              color: "#1e40af",
-              marginBottom:
-                "5px",
-            }}
-          >
-            Billing Information
+          <strong>
+            Educational Demonstration Only
           </strong>
 
-          <p
-            style={{
-              margin: 0,
-              color: "#475569",
-              fontSize: "14px",
-              lineHeight: "1.6",
-            }}
-          >
-            Your bills are generated
-            and managed by the hospital
-            administration. Pending bills
-            can be paid using the Pay Now
-            button. If you have any
-            questions about a bill,
-            please contact the hospital
-            administration.
+          <p>
+            This payment feature is part
+            of an academic project and is
+            provided for demonstration
+            purposes only. No real money
+            or financial transactions are
+            processed. Payment status is
+            simulated within the hospital
+            management system.
           </p>
 
         </div>
@@ -1610,47 +1033,197 @@ function Bills() {
       </div>
 
       {/* =====================================================
-          ANIMATION
+          HELP
       ===================================================== */}
 
-      <style>
-        {`
-          @keyframes patientBillsSpin {
-            from {
-              transform: rotate(0deg);
-            }
+      <div className="billing-help">
 
-            to {
-              transform: rotate(360deg);
+        <div className="billing-help-icon">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+          >
+            <path d="M12 3 20 6v5c0 5-3.4 8.3-8 10-4.6-1.7-8-5-8-10V6l8-3Z" />
+
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+
+        </div>
+
+        <div>
+
+          <strong>
+            Need help with a bill?
+          </strong>
+
+          <p>
+            Bills are generated and
+            managed by the hospital
+            administration. For questions
+            about charges or billing
+            details, please contact the
+            hospital administration.
+          </p>
+
+        </div>
+
+      </div>
+
+      {/* =====================================================
+          PAYMENT CONFIRMATION MODAL
+      ===================================================== */}
+
+      {paymentModal.open && (
+
+        <div
+          className="payment-modal-overlay"
+          onClick={closePaymentModal}
+        >
+
+          <div
+            className="payment-modal"
+            onClick={(event) =>
+              event.stopPropagation()
             }
-          }
-        `}
-      </style>
+          >
+
+            <div className="payment-modal-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="3"
+                  y="6"
+                  width="18"
+                  height="13"
+                  rx="2"
+                />
+
+                <path d="M3 10h18M7 15h3" />
+              </svg>
+
+            </div>
+
+            <div className="payment-modal-content">
+
+              <h2>
+                Confirm Payment
+              </h2>
+
+              <p>
+                Are you sure you want to
+                mark this bill as paid?
+              </p>
+
+              <div className="payment-modal-details">
+
+                <div>
+                  <span>
+                    Bill
+                  </span>
+
+                  <strong>
+                    #{paymentModal.billId}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>
+                    Amount
+                  </span>
+
+                  <strong>
+                    {formatAmount(
+                      paymentModal.amount
+                    )}
+                  </strong>
+                </div>
+
+              </div>
+
+              <div className="payment-demo-warning">
+
+                <div className="warning-icon">
+
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9"
+                    />
+
+                    <path d="M12 10v6M12 7.5v.5" />
+                  </svg>
+
+                </div>
+
+                <div>
+
+                  <strong>
+                    Demo Payment
+                  </strong>
+
+                  <p>
+                    This is an educational
+                    demonstration only.
+                    No real money will be
+                    charged.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="payment-modal-actions">
+
+              <button
+                type="button"
+                className="modal-cancel-btn"
+                onClick={closePaymentModal}
+                disabled={
+                  payingBillId !== null
+                }
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="modal-confirm-btn"
+                onClick={confirmPayment}
+                disabled={
+                  payingBillId !== null
+                }
+              >
+                {payingBillId !== null
+                  ? "Processing..."
+                  : "Confirm Payment"}
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
 
     </div>
   );
 }
-
-// =========================================================
-// TABLE STYLES
-// =========================================================
-
-const tableHeaderStyle = {
-  padding: "14px 16px",
-  textAlign: "left",
-  fontSize: "12px",
-  fontWeight: "700",
-  color: "#64748b",
-  textTransform: "uppercase",
-  letterSpacing: "0.4px",
-  whiteSpace: "nowrap",
-};
-
-const tableCellStyle = {
-  padding: "16px",
-  fontSize: "14px",
-  color: "#334155",
-  verticalAlign: "middle",
-};
 
 export default Bills;
