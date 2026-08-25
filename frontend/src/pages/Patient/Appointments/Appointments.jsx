@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ConfirmModal from "../../../components/ConfirmModal";
 import {
   Stethoscope,
   CalendarDays,
@@ -677,86 +678,19 @@ function Appointments() {
 
       </div>
 
-      {/* =================================================
-          CANCEL CONFIRMATION MODAL
-      ================================================= */}
-
-      {showCancelModal && (
-        <div
-          className="cancel-modal-overlay"
-          onClick={closeCancelModal}
-        >
-
-          <div
-            className="cancel-modal"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
-          >
-
-            {/* WARNING ICON */}
-
-            <div className="cancel-modal-icon">
-
-              <Trash2
-                size={26}
-                strokeWidth={2.2}
-              />
-
-            </div>
-
-            {/* TITLE */}
-
-            <h2>
-              Cancel Appointment?
-            </h2>
-
-            {/* MESSAGE */}
-
-            <p>
-              Are you sure you want to cancel
-              this appointment?
-            </p>
-
-            <span className="cancel-modal-note">
-              This will change the appointment
-              status to Cancelled.
-            </span>
-
-            {/* ACTIONS */}
-
-            <div className="cancel-modal-actions">
-
-              <button
-                type="button"
-                className="cancel-modal-back"
-                onClick={closeCancelModal}
-                disabled={!!cancellingId}
-              >
-                Keep Appointment
-              </button>
-
-              <button
-                type="button"
-                className="cancel-modal-confirm"
-                onClick={confirmCancelAppointment}
-                disabled={!!cancellingId}
-              >
-
-                <Trash2 size={17} />
-
-                {cancellingId
-                  ? "Cancelling..."
-                  : "Yes, Cancel"}
-
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-      )}
+      <ConfirmModal
+      isOpen={showCancelModal}
+      variant="danger"
+      title="Cancel Appointment?"
+      message="Are you sure you want to cancel this appointment?"
+      warning="This will change the appointment status to Cancelled."
+      confirmText="Yes, Cancel"
+      cancelText="Keep Appointment"
+      onConfirm={confirmCancelAppointment}
+      onCancel={closeCancelModal}
+      loading={!!cancellingId}
+      />
+      
 
     </div>
   );

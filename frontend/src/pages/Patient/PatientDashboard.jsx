@@ -1,49 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./PatientDashboard.css";
 
 const API_URL = "http://localhost:8080/api";
 
 function PatientDashboard() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
 
-  // ==========================================
-  // APPOINTMENTS
-  // ==========================================
-
   const [appointments, setAppointments] = useState([]);
-  const [appointmentsLoading, setAppointmentsLoading] = useState(true);
-  const [appointmentsError, setAppointmentsError] = useState("");
-
-  // ==========================================
-  // MEDICAL RECORDS
-  // ==========================================
-
   const [medicalRecords, setMedicalRecords] = useState([]);
-  const [recordsLoading, setRecordsLoading] = useState(true);
-  const [recordsError, setRecordsError] = useState("");
-
-  // ==========================================
-  // PRESCRIPTIONS
-  // ==========================================
-
   const [prescriptions, setPrescriptions] = useState([]);
-  const [prescriptionsLoading, setPrescriptionsLoading] = useState(true);
-  const [prescriptionsError, setPrescriptionsError] = useState("");
+  const [bills, setBills] = useState([]);
 
-  // ==========================================
-  // LOAD LOGGED-IN USER
-  // ==========================================
+  const [loading, setLoading] = useState(true);
+
+  // =========================================================
+  // LOAD USER
+  // =========================================================
 
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem("user");
 
       if (!storedUser) {
-        console.error("No user found in localStorage");
-
-        setAppointmentsLoading(false);
-        setRecordsLoading(false);
-        setPrescriptionsLoading(false);
-
+        console.error("No user found in localStorage.");
+        setLoading(false);
         return;
       }
 
@@ -53,17 +36,14 @@ function PatientDashboard() {
 
       setUser(parsedUser);
     } catch (error) {
-      console.error("Error reading user:", error);
-
-      setAppointmentsLoading(false);
-      setRecordsLoading(false);
-      setPrescriptionsLoading(false);
+      console.error("Error reading logged-in user:", error);
+      setLoading(false);
     }
   }, []);
 
-  // ==========================================
+  // =========================================================
   // FETCH PATIENT DATA
-  // ==========================================
+  // =========================================================
 
   useEffect(() => {
     if (!user?.patientId) {
@@ -72,433 +52,1135 @@ function PatientDashboard() {
 
     const patientId = user.patientId;
 
-    console.log("Fetching data for Patient ID:", patientId);
+    setLoading(true);
 
-    // ========================================
-    // FETCH APPOINTMENTS
-    // ========================================
+    const fetchData = async () => {
+      try {
+        const [
+          appointmentsResponse,
+          recordsResponse,
+          prescriptionsResponse,
+          billsResponse,
+        ] = await Promise.allSettled([
+          fetch(
+            `${API_URL}/appointments/patient/${patientId}`
+          ),
 
-    setAppointmentsLoading(true);
-    setAppointmentsError("");
+          fetch(
+            `${API_URL}/medical-records/patient/${patientId}`
+          ),
 
-    fetch(
-      `http://localhost:8080/api/appointments/patient/${patientId}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Appointments API failed: ${response.status}`
+          fetch(
+            `${API_URL}/prescriptions/patient/${patientId}`
+          ),
+
+          fetch(
+            `${API_URL}/bills/patient/${patientId}`
+          ),
+        ]);
+
+        // =====================================================
+        // APPOINTMENTS
+        // =====================================================
+
+        if (
+          appointmentsResponse.status === "fulfilled" &&
+          appointmentsResponse.value.ok
+        ) {
+          const data =
+            await appointmentsResponse.value.json();
+
+          setAppointments(
+            Array.isArray(data) ? data : []
           );
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Patient appointments:", data);
-
-        if (Array.isArray(data)) {
-          setAppointments(data);
         } else {
           setAppointments([]);
         }
-      })
-      .catch((error) => {
-        console.error("Appointments error:", error);
 
-        setAppointmentsError("Failed to load appointments.");
-        setAppointments([]);
-      })
-      .finally(() => {
-        setAppointmentsLoading(false);
-      });
+        // =====================================================
+        // MEDICAL RECORDS
+        // =====================================================
 
-    // ========================================
-    // FETCH MEDICAL RECORDS
-    // ========================================
+        if (
+          recordsResponse.status === "fulfilled" &&
+          recordsResponse.value.ok
+        ) {
+          const data =
+            await recordsResponse.value.json();
 
-    setRecordsLoading(true);
-    setRecordsError("");
-
-    fetch(
-      `http://localhost:8080/api/medical-records/patient/${patientId}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Medical records API failed: ${response.status}`
+          setMedicalRecords(
+            Array.isArray(data) ? data : []
           );
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Patient medical records:", data);
-
-        if (Array.isArray(data)) {
-          setMedicalRecords(data);
         } else {
           setMedicalRecords([]);
         }
-      })
-      .catch((error) => {
-        console.error("Medical records error:", error);
 
-        setRecordsError("Failed to load medical records.");
-        setMedicalRecords([]);
-      })
-      .finally(() => {
-        setRecordsLoading(false);
-      });
+        // =====================================================
+        // PRESCRIPTIONS
+        // =====================================================
 
-    // ========================================
-    // FETCH PRESCRIPTIONS
-    // ========================================
+        if (
+          prescriptionsResponse.status === "fulfilled" &&
+          prescriptionsResponse.value.ok
+        ) {
+          const data =
+            await prescriptionsResponse.value.json();
 
-    setPrescriptionsLoading(true);
-    setPrescriptionsError("");
-
-    fetch(
-      `http://localhost:8080/api/prescriptions/patient/${patientId}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Prescriptions API failed: ${response.status}`
+          setPrescriptions(
+            Array.isArray(data) ? data : []
           );
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Patient prescriptions:", data);
-
-        if (Array.isArray(data)) {
-          setPrescriptions(data);
         } else {
           setPrescriptions([]);
         }
-      })
-      .catch((error) => {
-        console.error("Prescriptions error:", error);
 
-        setPrescriptionsError("Failed to load prescriptions.");
-        setPrescriptions([]);
-      })
-      .finally(() => {
-        setPrescriptionsLoading(false);
-      });
+        // =====================================================
+        // BILLS
+        // =====================================================
+
+        if (
+          billsResponse.status === "fulfilled" &&
+          billsResponse.value.ok
+        ) {
+          const data =
+            await billsResponse.value.json();
+
+          setBills(
+            Array.isArray(data) ? data : []
+          );
+        } else {
+          setBills([]);
+        }
+      } catch (error) {
+        console.error(
+          "Patient dashboard data error:",
+          error
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [user]);
 
-  // ==========================================
-  // RETURN
-  // ==========================================
+  // =========================================================
+  // UPCOMING APPOINTMENT
+  // =========================================================
+
+  const upcomingAppointment = useMemo(() => {
+    if (!appointments.length) {
+      return null;
+    }
+
+    const validAppointments = appointments.filter(
+      (appointment) => {
+        const status = String(
+          appointment?.status || ""
+        ).toLowerCase();
+
+        return (
+          status !== "cancelled" &&
+          status !== "canceled" &&
+          status !== "completed"
+        );
+      }
+    );
+
+    if (!validAppointments.length) {
+      return null;
+    }
+
+    return [...validAppointments].sort((a, b) => {
+      const dateA = new Date(
+        `${a.appointmentDate || ""} ${
+          a.appointmentTime || ""
+        }`
+      );
+
+      const dateB = new Date(
+        `${b.appointmentDate || ""} ${
+          b.appointmentTime || ""
+        }`
+      );
+
+      return dateA - dateB;
+    })[0];
+  }, [appointments]);
+
+  // =========================================================
+  // PATIENT NAME
+  // =========================================================
+
+  const patientName =
+    user?.name ||
+    user?.fullName ||
+    user?.patientName ||
+    "Patient";
+
+  // =========================================================
+  // DATE FORMAT
+  // =========================================================
+
+  const formatDate = (date) => {
+    if (!date) {
+      return "Date not available";
+    }
+
+    try {
+      const parsed = new Date(date);
+
+      if (Number.isNaN(parsed.getTime())) {
+        return date;
+      }
+
+      return parsed.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    } catch {
+      return date;
+    }
+  };
+
+  // =========================================================
+  // TIME FORMAT
+  // =========================================================
+
+  const formatTime = (time) => {
+    if (!time) {
+      return "Time not available";
+    }
+
+    return String(time).slice(0, 5);
+  };
+
+  // =========================================================
+  // GREETING
+  // =========================================================
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+
+    if (hour < 12) {
+      return "Good morning";
+    }
+
+    if (hour < 17) {
+      return "Good afternoon";
+    }
+
+    return "Good evening";
+  };
+
+  // =========================================================
+  // PAGE
+  // =========================================================
 
   return (
     <div className="patient-dashboard">
 
-      {/* ======================================
-          PAGE HEADER
-      ====================================== */}
+      {/* =====================================================
+          WELCOME HEADER
+      ===================================================== */}
 
-      <div className="page-header">
-        <div>
-          <h1>Patient Dashboard</h1>
+      <section className="dashboard-welcome">
+
+        <div className="welcome-content">
+
+          <span className="welcome-label">
+            AI SMART HOSPITAL
+          </span>
+
+          <h1>
+            {getGreeting()}, {patientName}
+          </h1>
 
           <p>
-            Welcome, {user?.name || "Patient"}
+            Welcome to your patient dashboard.
+            Manage your appointments, medical records,
+            prescriptions, and billing all in one place.
           </p>
 
           {user?.patientId && (
-            <small>
-              Patient ID: {user.patientId}
-            </small>
+            <span className="welcome-patient-id">
+              Patient ID: #{user.patientId}
+            </span>
           )}
-        </div>
-      </div>
 
-      {/* ======================================
-          DASHBOARD CARDS
-      ====================================== */}
+          <div className="welcome-actions">
 
-      <div className="dashboard-cards">
+            <button
+              type="button"
+              className="primary-dashboard-button"
+              onClick={() =>
+                navigate("/patient/book-appointment")
+              }
+            >
+              <span className="button-icon">
+                +
+              </span>
 
-        {/* APPOINTMENTS */}
+              Book Appointment
+            </button>
 
-        <div className="dashboard-card">
-          <div className="card-icon"></div>
-          <div>
-            <h3>Appointments</h3>
+            <button
+              type="button"
+              className="secondary-dashboard-button"
+              onClick={() =>
+                navigate("/patient/appointments")
+              }
+            >
+              View Appointments
+            </button>
 
-            <p>
-              {appointmentsLoading
-                ? "..."
-                : appointments.length}
-            </p>
           </div>
+
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-icon"></div>
-          <div>
-            <h3>Medical Records</h3>
+        <div className="welcome-visual">
 
-            <p>
-              {recordsLoading
-                ? "..."
-                : medicalRecords.length}
-            </p>
+          <div className="welcome-heart">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+            >
+              <path d="M20.8 8.8c0 5.5-8.8 10.4-8.8 10.4S3.2 14.3 3.2 8.8A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.4Z" />
+              <path d="M7 11h2l1.2-2.2L12 14l1.5-3h2.5" />
+            </svg>
+
           </div>
+
+          <strong>
+            Your Health,
+            <br />
+            Our Priority
+          </strong>
+
+          <span>
+            Stay informed. Stay healthy.
+          </span>
+
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-icon"></div>
+      </section>
+
+
+      {/* =====================================================
+          QUICK OVERVIEW
+      ===================================================== */}
+
+      <section className="dashboard-overview">
+
+        <div className="dashboard-section-heading">
+
           <div>
-            <h3>Prescriptions</h3>
+            <span>OVERVIEW</span>
 
-            <p>
-              {prescriptionsLoading
-                ? "..."
-                : prescriptions.length}
-            </p>
+            <h2>
+              Your Healthcare Summary
+            </h2>
           </div>
+
+          <p>
+            A quick look at your hospital information.
+          </p>
+
         </div>
-      </div>
 
-      {/* ======================================
-          MY APPOINTMENTS
-      ====================================== */}
 
-      <div className="dashboard-section">
-        <h2>My Appointments</h2>
+        <div className="dashboard-cards">
 
-        <div className="table-container">
+          {/* APPOINTMENTS */}
 
-          {appointmentsLoading ? (
+          <button
+            type="button"
+            className="dashboard-card card-appointments"
+            onClick={() =>
+              navigate("/patient/appointments")
+            }
+          >
 
-            <p>Loading appointments...</p>
+            <div className="dashboard-card-icon">
 
-          ) : appointmentsError ? (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="3"
+                  y="5"
+                  width="18"
+                  height="16"
+                  rx="2"
+                />
 
-            <p>{appointmentsError}</p>
+                <path d="M8 3v4M16 3v4M3 10h18" />
+              </svg>
 
-          ) : appointments.length === 0 ? (
+            </div>
 
-            <p>No appointments found.</p>
+            <div className="dashboard-card-content">
+
+              <span>
+                Appointments
+              </span>
+
+              <strong>
+                {loading ? "..." : appointments.length}
+              </strong>
+
+              <small>
+                {appointments.length === 0
+                  ? "No appointments yet"
+                  : "View your appointments"}
+              </small>
+
+            </div>
+
+            <span className="dashboard-card-arrow">
+              →
+            </span>
+
+          </button>
+
+
+          {/* MEDICAL RECORDS */}
+
+          <button
+            type="button"
+            className="dashboard-card card-records"
+            onClick={() =>
+              navigate("/patient/medical-records")
+            }
+          >
+
+            <div className="dashboard-card-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="4"
+                  y="3"
+                  width="16"
+                  height="18"
+                  rx="2"
+                />
+
+                <path d="M8 8h8M8 12h5M8 16h6" />
+              </svg>
+
+            </div>
+
+            <div className="dashboard-card-content">
+
+              <span>
+                Medical Records
+              </span>
+
+              <strong>
+                {loading
+                  ? "..."
+                  : medicalRecords.length}
+              </strong>
+
+              <small>
+                {medicalRecords.length === 0
+                  ? "No records yet"
+                  : "View your records"}
+              </small>
+
+            </div>
+
+            <span className="dashboard-card-arrow">
+              →
+            </span>
+
+          </button>
+
+
+          {/* PRESCRIPTIONS */}
+
+          <button
+            type="button"
+            className="dashboard-card card-prescriptions"
+            onClick={() =>
+              navigate("/patient/prescriptions")
+            }
+          >
+
+            <div className="dashboard-card-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="m8 8 8 8" />
+                <path d="m16 8-8 8" />
+
+                <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" />
+              </svg>
+
+            </div>
+
+            <div className="dashboard-card-content">
+
+              <span>
+                Prescriptions
+              </span>
+
+              <strong>
+                {loading
+                  ? "..."
+                  : prescriptions.length}
+              </strong>
+
+              <small>
+                {prescriptions.length === 0
+                  ? "No prescriptions yet"
+                  : "View your medicines"}
+              </small>
+
+            </div>
+
+            <span className="dashboard-card-arrow">
+              →
+            </span>
+
+          </button>
+
+
+          {/* BILLS */}
+
+          <button
+            type="button"
+            className="dashboard-card card-bills"
+            onClick={() =>
+              navigate("/patient/bills")
+            }
+          >
+
+            <div className="dashboard-card-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="4"
+                  y="3"
+                  width="16"
+                  height="18"
+                  rx="2"
+                />
+
+                <path d="M8 8h8M8 12h8M8 16h5" />
+              </svg>
+
+            </div>
+
+            <div className="dashboard-card-content">
+
+              <span>
+                Bills &amp; Payment
+              </span>
+
+              <strong>
+                {loading ? "..." : bills.length}
+              </strong>
+
+              <small>
+                {bills.length === 0
+                  ? "No bills yet"
+                  : "View billing information"}
+              </small>
+
+            </div>
+
+            <span className="dashboard-card-arrow">
+              →
+            </span>
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          UPCOMING APPOINTMENT
+      ===================================================== */}
+
+      <section className="dashboard-main-grid">
+
+        <div className="upcoming-card">
+
+          <div className="content-card-header">
+
+            <div>
+              <span className="section-label">
+                APPOINTMENT
+              </span>
+
+              <h2>
+                Upcoming Appointment
+              </h2>
+            </div>
+
+            <button
+              type="button"
+              className="text-link-button"
+              onClick={() =>
+                navigate("/patient/appointments")
+              }
+            >
+              View All →
+            </button>
+
+          </div>
+
+
+          {loading ? (
+
+            <div className="dashboard-empty-state">
+              <div className="empty-state-loader"></div>
+
+              <p>
+                Checking your appointments...
+              </p>
+            </div>
+
+          ) : upcomingAppointment ? (
+
+            <div className="upcoming-appointment">
+
+              <div className="appointment-date-box">
+
+                <span>
+                  {formatDate(
+                    upcomingAppointment.appointmentDate
+                  ).split(" ")[0]}
+                </span>
+
+                <strong>
+                  {formatDate(
+                    upcomingAppointment.appointmentDate
+                  ).split(" ")[1]}
+                </strong>
+
+              </div>
+
+
+              <div className="appointment-details">
+
+                <h3>
+                  Doctor #
+                  {upcomingAppointment.doctorId ||
+                    "—"}
+                </h3>
+
+                <p>
+                  {upcomingAppointment.reason ||
+                    "General consultation"}
+                </p>
+
+                <div className="appointment-meta">
+
+                  <span>
+                    {formatDate(
+                      upcomingAppointment.appointmentDate
+                    )}
+                  </span>
+
+                  <span>
+                    {formatTime(
+                      upcomingAppointment.appointmentTime
+                    )}
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <span className="appointment-status">
+                {upcomingAppointment.status ||
+                  "Confirmed"}
+              </span>
+
+            </div>
 
           ) : (
 
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Doctor</th>
-                  <th>Time</th>
-                  <th>Reason</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
+            <div className="dashboard-empty-state">
 
-                {appointments.map((appointment) => (
+              <div className="empty-state-icon">
 
-                  <tr
-                    key={appointment.appointmentId}
-                  >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                >
+                  <rect
+                    x="3"
+                    y="5"
+                    width="18"
+                    height="16"
+                    rx="2"
+                  />
 
-                    <td>
-                      {appointment.appointmentDate}
-                    </td>
+                  <path d="M8 3v4M16 3v4M3 10h18" />
+                </svg>
 
-                    <td>
-                      Doctor #{appointment.doctorId}
-                    </td>
+              </div>
 
-                    <td>
-                      {appointment.appointmentTime}
-                    </td>
+              <h3>
+                No upcoming appointments
+              </h3>
 
-                    <td>
-                      {appointment.reason || "-"}
-                    </td>
+              <p>
+                Ready to see a doctor?
+                Book your first appointment in
+                just a few steps.
+              </p>
 
-                    <td>
-                      {appointment.status || "-"}
-                    </td>
+              <button
+                type="button"
+                className="empty-state-button"
+                onClick={() =>
+                  navigate("/patient/book-appointment")
+                }
+              >
+                + Book Appointment
+              </button>
 
-                  </tr>
-
-                ))}
-
-              </tbody>
-            </table>
-
-          )}
-
-        </div>
-
-      </div>
-
-      {/* ======================================
-          MY MEDICAL RECORDS
-      ====================================== */}
-
-      <div className="dashboard-section">
-        <h2>My Medical Records</h2>
-
-        <div className="table-container">
-
-          {recordsLoading ? (
-
-            <p>Loading medical records...</p>
-
-          ) : recordsError ? (
-
-            <p>{recordsError}</p>
-
-          ) : medicalRecords.length === 0 ? (
-
-            <p>No medical records found.</p>
-
-          ) : (
-
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Doctor</th>
-                  <th>Diagnosis</th>
-                  <th>Symptoms</th>
-                  <th>Treatment</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-
-                {medicalRecords.map((record) => (
-
-                  <tr
-                    key={record.recordId}
-                  >
-
-                    <td>
-                      {record.recordDate}
-                    </td>
-
-                    <td>
-                      Doctor #{record.doctorId}
-                    </td>
-
-                    <td>
-                      {record.diagnosis || "-"}
-                    </td>
-
-                    <td>
-                      {record.symptoms || "-"}
-                    </td>
-
-                    <td>
-                      {record.treatment || "-"}
-                    </td>
-
-                    <td>
-                      {record.notes || "-"}
-                    </td>
-
-                  </tr>
-
-                ))}
-
-              </tbody>
-            </table>
+            </div>
 
           )}
 
         </div>
 
-      </div>
 
-      {/* ======================================
-          MY PRESCRIPTIONS
-      ====================================== */}
+        {/* ===================================================
+            HEALTH MESSAGE
+        =================================================== */}
 
-      <div className="dashboard-section">
-        <h2>My Prescriptions</h2>
+        <div className="health-message-card">
 
-        <div className="table-container">
+          <div className="health-message-icon">
 
-          {prescriptionsLoading ? (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+            >
+              <path d="M12 21s-7-4.4-9-9.2C1.5 8.2 3.5 5 7 5c2 0 3.5 1 5 3 1.5-2 3-3 5-3 3.5 0 5.5 3.2 4 6.8C19 16.6 12 21 12 21Z" />
+            </svg>
 
-            <p>Loading prescriptions...</p>
+          </div>
 
-          ) : prescriptionsError ? (
+          <span className="section-label">
+            YOUR HEALTH MATTERS
+          </span>
 
-            <p>{prescriptionsError}</p>
+          <h2>
+            Your Health,
+            <br />
+            Our Priority
+          </h2>
 
-          ) : prescriptions.length === 0 ? (
+          <p>
+            Keep your healthcare information
+            organized and stay informed about
+            your appointments, records and
+            prescriptions.
+          </p>
 
-            <p>No prescriptions found.</p>
-
-          ) : (
-
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Doctor</th>
-                  <th>Medicine</th>
-                  <th>Dosage</th>
-                  <th>Frequency</th>
-                  <th>Duration</th>
-                  <th>Instructions</th>
-                </tr>
-              </thead>
-              <tbody>
-
-                {prescriptions.map((prescription) => (
-
-                  <tr
-                    key={prescription.prescriptionId}
-                  >
-
-                    <td>
-                      {prescription.prescriptionDate}
-                    </td>
-
-                    <td>
-                      Doctor #{prescription.doctorId}
-                    </td>
-
-                    <td>
-                      {prescription.medicineName || "-"}
-                    </td>
-
-                    <td>
-                      {prescription.dosage || "-"}
-                    </td>
-
-                    <td>
-                      {prescription.frequency || "-"}
-                    </td>
-
-                    <td>
-                      {prescription.duration || "-"}
-                    </td>
-
-                    <td>
-                      {prescription.instructions || "-"}
-                    </td>
-
-                  </tr>
-
-                ))}
-
-              </tbody>
-            </table>
-
-          )}
+          <div className="health-message-line">
+            Stay healthy. Stay informed.
+          </div>
 
         </div>
 
-      </div>
+      </section>
+
+
+      {/* =====================================================
+          PATIENT SERVICES
+      ===================================================== */}
+
+      <section className="services-section">
+
+        <div className="dashboard-section-heading">
+
+          <div>
+            <span>
+              PATIENT SERVICES
+            </span>
+
+            <h2>
+              Everything You Need in One Place
+            </h2>
+          </div>
+
+          <p>
+            Explore the different sections of your
+            hospital account.
+          </p>
+
+        </div>
+
+
+        <div className="service-grid">
+
+          {/* APPOINTMENTS */}
+
+          <div className="service-card">
+
+            <div className="service-icon appointment-service">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="3"
+                  y="5"
+                  width="18"
+                  height="16"
+                  rx="2"
+                />
+
+                <path d="M8 3v4M16 3v4M3 10h18" />
+              </svg>
+
+            </div>
+
+            <h3>
+              Appointments
+            </h3>
+
+            <p>
+              View upcoming and previous
+              appointments with your doctors.
+            </p>
+
+            <button
+              type="button"
+              onClick={() =>
+                navigate("/patient/appointments")
+              }
+            >
+              View Appointments →
+            </button>
+
+          </div>
+
+
+          {/* BOOK APPOINTMENT */}
+
+          <div className="service-card featured-service">
+
+            <div className="service-icon book-service">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="3"
+                  y="4"
+                  width="18"
+                  height="17"
+                  rx="2"
+                />
+
+                <path d="M8 2v4M16 2v4M3 9h18M12 12v5M9.5 14.5h5" />
+              </svg>
+
+            </div>
+
+            <h3>
+              Book Appointment
+            </h3>
+
+            <p>
+              Choose a doctor, date and time
+              for your next consultation.
+            </p>
+
+            <button
+              type="button"
+              onClick={() =>
+                navigate("/patient/book-appointment")
+              }
+            >
+              Book Now →
+            </button>
+
+          </div>
+
+
+          {/* MEDICAL RECORDS */}
+
+          <div className="service-card">
+
+            <div className="service-icon records-service">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="4"
+                  y="3"
+                  width="16"
+                  height="18"
+                  rx="2"
+                />
+
+                <path d="M8 8h8M8 12h5M8 16h6" />
+              </svg>
+
+            </div>
+
+            <h3>
+              Medical Records
+            </h3>
+
+            <p>
+              Access your diagnosis, symptoms,
+              treatment and medical notes.
+            </p>
+
+            <button
+              type="button"
+              onClick={() =>
+                navigate("/patient/medical-records")
+              }
+            >
+              View Records →
+            </button>
+
+          </div>
+
+
+          {/* PRESCRIPTIONS */}
+
+          <div className="service-card">
+
+            <div className="service-icon prescription-service">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="m8 8 8 8M16 8l-8 8" />
+
+                <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" />
+              </svg>
+
+            </div>
+
+            <h3>
+              Prescriptions
+            </h3>
+
+            <p>
+              View your medicines, dosage,
+              frequency and instructions.
+            </p>
+
+            <button
+              type="button"
+              onClick={() =>
+                navigate("/patient/prescriptions")
+              }
+            >
+              View Prescriptions →
+            </button>
+
+          </div>
+
+
+          {/* PROFILE */}
+
+          <div className="service-card">
+
+            <div className="service-icon profile-service">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <circle
+                  cx="12"
+                  cy="8"
+                  r="3"
+                />
+
+                <path d="M5 20c.8-3.5 3-5 7-5s6.2 1.5 7 5" />
+              </svg>
+
+            </div>
+
+            <h3>
+              My Profile
+            </h3>
+
+            <p>
+              View your personal information
+              and registered account details.
+            </p>
+
+            <button
+              type="button"
+              onClick={() =>
+                navigate("/patient/profile")
+              }
+            >
+              View Profile →
+            </button>
+
+          </div>
+
+
+          {/* BILLS */}
+
+          <div className="service-card">
+
+            <div className="service-icon bills-service">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="4"
+                  y="3"
+                  width="16"
+                  height="18"
+                  rx="2"
+                />
+
+                <path d="M8 8h8M8 12h8M8 16h5" />
+              </svg>
+
+            </div>
+
+            <h3>
+              Bills &amp; Payment
+            </h3>
+
+            <p>
+              Review your hospital bills and
+              simulated payment status.
+            </p>
+
+            <button
+              type="button"
+              onClick={() =>
+                navigate("/patient/bills")
+              }
+            >
+              View Bills →
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          NEW PATIENT MESSAGE
+      ===================================================== */}
+
+      {!loading &&
+        appointments.length === 0 &&
+        medicalRecords.length === 0 &&
+        prescriptions.length === 0 &&
+        bills.length === 0 && (
+
+          <section className="new-patient-card">
+
+            <div className="new-patient-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+              >
+                <path d="M12 3v18M3 12h18" />
+              </svg>
+
+            </div>
+
+            <div>
+
+              <span className="section-label">
+                GET STARTED
+              </span>
+
+              <h2>
+                Welcome to AI Smart Hospital
+              </h2>
+
+              <p>
+                Your account is ready. Start by
+                booking an appointment with one
+                of our doctors. Your appointments,
+                medical records, prescriptions and
+                billing information will appear here
+                as you use the system.
+              </p>
+
+            </div>
+
+            <button
+              type="button"
+              className="primary-dashboard-button"
+              onClick={() =>
+                navigate("/patient/book-appointment")
+              }
+            >
+              + Book Your First Appointment
+            </button>
+
+          </section>
+
+        )}
+
     </div>
   );
 }

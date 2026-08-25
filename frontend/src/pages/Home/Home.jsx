@@ -3,6 +3,28 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 
 function Home() {
+  useEffect(() => {
+  if (window.location.hash !== "#contact") {
+    return;
+  }
+
+  const timer = setTimeout(() => {
+    const contactSection =
+      document.getElementById("contact");
+
+    if (contactSection) {
+      contactSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, 300);
+
+  return () => {
+    clearTimeout(timer);
+  };
+  
+}, []);
   const [loginDarkMode, setLoginDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   useEffect(() => {
