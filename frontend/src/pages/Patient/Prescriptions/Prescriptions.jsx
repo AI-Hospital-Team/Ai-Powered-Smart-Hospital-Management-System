@@ -1,4 +1,14 @@
 import { useEffect, useState } from "react";
+import {
+  Pill,
+  UserRound,
+  ClipboardList,
+  Clock3,
+  CalendarDays,
+  Activity,
+  AlertCircle,
+  FileText,
+} from "lucide-react";
 import "./Prescriptions.css";
 
 function Prescriptions() {
@@ -16,7 +26,9 @@ function Prescriptions() {
       const storedUser = localStorage.getItem("user");
 
       if (!storedUser) {
-        setError("User information not found. Please login again.");
+        setError(
+          "User information not found. Please login again."
+        );
         setLoading(false);
         return;
       }
@@ -28,7 +40,11 @@ function Prescriptions() {
       setUser(parsedUser);
     } catch (error) {
       console.error("Error reading user:", error);
-      setError("Unable to read user information.");
+
+      setError(
+        "Unable to read user information."
+      );
+
       setLoading(false);
     }
   }, []);
@@ -67,7 +83,10 @@ function Prescriptions() {
 
         const data = await response.json();
 
-        console.log("Patient prescriptions:", data);
+        console.log(
+          "Patient prescriptions:",
+          data
+        );
 
         setPrescriptions(
           Array.isArray(data) ? data : []
@@ -78,7 +97,10 @@ function Prescriptions() {
           error
         );
 
-        setError("Failed to load prescriptions.");
+        setError(
+          "Failed to load prescriptions."
+        );
+
         setPrescriptions([]);
       } finally {
         setLoading(false);
@@ -119,8 +141,26 @@ function Prescriptions() {
     return (
       <div className="prescriptions-page">
         <div className="prescriptions-container">
-          <h1>My Prescriptions</h1>
-          <p>Loading prescriptions...</p>
+
+          <div className="prescriptions-header">
+            <div>
+              <h1>My Prescriptions</h1>
+
+              <p>
+                View medicines prescribed by your
+                doctors.
+              </p>
+            </div>
+          </div>
+
+          <div className="prescriptions-loading">
+            <div className="prescription-spinner"></div>
+
+            <p>
+              Loading prescriptions...
+            </p>
+          </div>
+
         </div>
       </div>
     );
@@ -140,13 +180,32 @@ function Prescriptions() {
               <h1>My Prescriptions</h1>
 
               <p>
-                View medicines prescribed by your doctors.
+                View medicines prescribed by your
+                doctors.
               </p>
             </div>
           </div>
 
-          <div className="error-box">
-            {error}
+          <div className="prescription-error">
+
+            <div
+              className="prescription-error-icon"
+              aria-hidden="true"
+            >
+              <AlertCircle
+                size={21}
+                strokeWidth={2}
+              />
+            </div>
+
+            <div>
+              <strong>
+                Unable to load prescriptions
+              </strong>
+
+              <p>{error}</p>
+            </div>
+
           </div>
 
         </div>
@@ -169,12 +228,29 @@ function Prescriptions() {
 
         <div className="prescriptions-header">
 
-          <div>
-            <h1>My Prescriptions</h1>
+          <div className="prescriptions-heading">
 
-            <p>
-              View medicines prescribed by your doctors.
-            </p>
+            <div
+              className="prescriptions-heading-icon"
+              aria-hidden="true"
+            >
+              <ClipboardList
+                size={27}
+                strokeWidth={2}
+              />
+            </div>
+
+            <div>
+              <h1>
+                My Prescriptions
+              </h1>
+
+              <p>
+                View medicines prescribed by your
+                doctors.
+              </p>
+            </div>
+
           </div>
 
         </div>
@@ -186,11 +262,19 @@ function Prescriptions() {
         {prescriptions.length === 0 && (
           <div className="empty-box">
 
-            <div className="empty-icon">
-              💊
+            <div
+              className="empty-icon"
+              aria-hidden="true"
+            >
+              <Pill
+                size={34}
+                strokeWidth={2}
+              />
             </div>
 
-            <h2>No Prescriptions Found</h2>
+            <h2>
+              No Prescriptions Found
+            </h2>
 
             <p>
               You do not have any prescriptions yet.
@@ -212,16 +296,22 @@ function Prescriptions() {
               key={prescription.prescriptionId}
             >
 
-              {/* ===========================================
+              {/* =========================================
                   CARD HEADER
-              =========================================== */}
+              ========================================= */}
 
               <div className="prescription-card-header">
 
                 <div className="prescription-title">
 
-                  <div className="medicine-icon">
-                    💊
+                  <div
+                    className="medicine-icon"
+                    aria-hidden="true"
+                  >
+                    <Pill
+                      size={23}
+                      strokeWidth={2}
+                    />
                   </div>
 
                   <div>
@@ -231,6 +321,11 @@ function Prescriptions() {
                     </h2>
 
                     <p>
+                      <CalendarDays
+                        size={13}
+                        strokeWidth={2}
+                      />
+
                       {formatDate(
                         prescription.prescriptionDate
                       )}
@@ -240,44 +335,97 @@ function Prescriptions() {
                 </div>
 
                 <span className="active-badge">
+
+                  <Activity
+                    size={14}
+                    strokeWidth={2.3}
+                  />
+
                   Active
+
                 </span>
 
               </div>
 
-              {/* ===========================================
+         {/* =========================================
                   DOCTOR
-              =========================================== */}
+          ========================================= */}
 
-              <div className="doctor-info">
+           <div className="prescription-info-row">
 
-                <div className="doctor-icon">
-                  👨‍⚕️
-                </div>
+            {/* DISEASE / DIAGNOSIS */}
 
-                <div>
-                  <span>
-                    Prescribed By
-                  </span>
+            <div className="prescription-info-box">
 
-                  <strong>
-                    Doctor #{prescription.doctorId}
-                  </strong>
-                </div>
-
+              <div className="prescription-info-icon">
+                <Activity
+                  size={20}
+                  strokeWidth={2}
+                />
               </div>
 
-              {/* ===========================================
-                  MEDICINE DETAILS
-              =========================================== */}
+              <div>
+                <span>
+                  Disease / Diagnosis
+                </span>
+
+                <strong>
+                  {prescription.diagnosis ||
+                    prescription.disease ||
+                    "Not specified"}
+                </strong>
+              </div>
+
+            </div>
+
+
+            {/* DOCTOR */}
+
+            <div className="prescription-info-box">
+
+              <div className="prescription-info-icon">
+                <UserRound
+                  size={20}
+                  strokeWidth={2}
+                />
+              </div>
+
+              <div>
+                <span>
+                  Prescribed By
+                </span>
+
+                <strong>
+                  {prescription.doctorName ||
+                    `Doctor #${prescription.doctorId}`}
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+              {/* =========================================
+                  MEDICINES
+              ========================================= */}
 
               <div className="medicine-section">
 
-                <h3>
-                  Medicines
-                </h3>
+                <div className="section-heading">
+
+                  <Pill
+                    size={17}
+                    strokeWidth={2}
+                  />
+
+                  <h3>
+                    Medicines
+                  </h3>
+
+                </div>
 
                 <div className="medicine-details">
+
+                  {/* MEDICINE */}
 
                   <div className="medicine-detail">
 
@@ -292,6 +440,8 @@ function Prescriptions() {
 
                   </div>
 
+                  {/* DOSAGE */}
+
                   <div className="medicine-detail">
 
                     <span>
@@ -305,6 +455,8 @@ function Prescriptions() {
 
                   </div>
 
+                  {/* FREQUENCY */}
+
                   <div className="medicine-detail">
 
                     <span>
@@ -317,6 +469,8 @@ function Prescriptions() {
                     </strong>
 
                   </div>
+
+                  {/* DURATION */}
 
                   <div className="medicine-detail">
 
@@ -335,15 +489,24 @@ function Prescriptions() {
 
               </div>
 
-              {/* ===========================================
+              {/* =========================================
                   INSTRUCTIONS
-              =========================================== */}
+              ========================================= */}
 
               <div className="instructions-section">
 
-                <h3>
-                  Instructions
-                </h3>
+                <div className="instructions-heading">
+
+                  <FileText
+                    size={17}
+                    strokeWidth={2}
+                  />
+
+                  <h3>
+                    Instructions
+                  </h3>
+
+                </div>
 
                 <p>
                   {prescription.instructions ||

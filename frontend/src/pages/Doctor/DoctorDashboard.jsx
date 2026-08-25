@@ -52,13 +52,14 @@ function DoctorDashboard() {
     useState("");
 
   const [prescriptionForm, setPrescriptionForm] = useState({
-    patientId: "",
-    medicineName: "",
-    dosage: "",
-    frequency: "",
-    duration: "",
-    instructions: "",
-    prescriptionDate: "",
+      patientId: "",
+      diagnosis: "",
+      medicineName: "",
+      dosage: "",
+      frequency: "",
+      duration: "",
+      instructions: "",
+      prescriptionDate: "",
   });
 
   // =====================================================
@@ -571,15 +572,16 @@ function DoctorDashboard() {
   const openAddPrescriptionForm = () => {
     setEditingPrescriptionId(null);
 
-    setPrescriptionForm({
-      patientId: "",
-      medicineName: "",
-      dosage: "",
-      frequency: "",
-      duration: "",
-      instructions: "",
-      prescriptionDate: today,
-    });
+  setPrescriptionForm({
+  patientId: "",
+  diagnosis: "",
+  medicineName: "",
+  dosage: "",
+  frequency: "",
+  duration: "",
+  instructions: "",
+  prescriptionDate: today,
+});
 
     setPrescriptionMessage("");
     setShowPrescriptionForm(true);
@@ -588,7 +590,6 @@ function DoctorDashboard() {
   // =====================================================
   // OPEN EDIT PRESCRIPTION
   // =====================================================
-
   const openEditPrescriptionForm = (
     prescription
   ) => {
@@ -599,6 +600,8 @@ function DoctorDashboard() {
     setPrescriptionForm({
       patientId:
         prescription.patientId || "",
+      diagnosis:
+        prescription.diagnosis || "",
       medicineName:
         prescription.medicineName || "",
       dosage:
@@ -688,24 +691,26 @@ function DoctorDashboard() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          patientId: Number(
-            prescriptionForm.patientId
-          ),
-          doctorId: Number(doctorId),
-          medicineName:
-            prescriptionForm.medicineName,
-          dosage:
-            prescriptionForm.dosage,
-          frequency:
-            prescriptionForm.frequency,
-          duration:
-            prescriptionForm.duration,
-          instructions:
-            prescriptionForm.instructions,
-          prescriptionDate:
-            prescriptionForm.prescriptionDate ||
-            today,
-        }),
+        patientId: Number(
+          prescriptionForm.patientId
+        ),
+        doctorId: Number(doctorId),
+        diagnosis:
+          prescriptionForm.diagnosis,
+        medicineName:
+          prescriptionForm.medicineName,
+        dosage:
+          prescriptionForm.dosage,
+        frequency:
+          prescriptionForm.frequency,
+        duration:
+          prescriptionForm.duration,
+        instructions:
+          prescriptionForm.instructions,
+        prescriptionDate:
+          prescriptionForm.prescriptionDate ||
+          today,
+      }),
       });
 
       if (!response.ok) {
@@ -751,6 +756,7 @@ function DoctorDashboard() {
 
       setPrescriptionForm({
         patientId: "",
+        diagnosis: "",
         medicineName: "",
         dosage: "",
         frequency: "",
@@ -1664,6 +1670,34 @@ function DoctorDashboard() {
 
             </div>
 
+              {/* DIAGNOSIS */}
+
+              <div
+                style={{
+                  marginBottom: "15px",
+                }}
+              >
+                <label>
+                  Diagnosis
+                </label>
+
+                <input
+                  type="text"
+                  name="diagnosis"
+                  value={prescriptionForm.diagnosis}
+                  onChange={handlePrescriptionChange}
+                  placeholder="e.g. Hairfall Issue"
+                  required
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    padding: "10px",
+                    marginTop: "5px",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
+
             {/* MEDICINE */}
 
             <div
@@ -1914,6 +1948,7 @@ function DoctorDashboard() {
                 <tr>
                   <th>Date</th>
                   <th>Patient</th>
+                  <th>Diagnosis</th>
                   <th>Medicine</th>
                   <th>Dosage</th>
                   <th>Frequency</th>
@@ -1943,6 +1978,10 @@ function DoctorDashboard() {
                       <td>
                         Patient #
                         {prescription.patientId}
+                      </td>
+
+                      <td>
+                        {prescription.diagnosis || "-"}
                       </td>
 
                       <td>

@@ -1,4 +1,12 @@
 import { useEffect, useState } from "react";
+import {
+  Stethoscope,
+  UserRound,
+  Building2,
+  CalendarDays,
+  ClipboardList,
+  AlertCircle,
+} from "lucide-react";
 import "./MedicalRecords.css";
 
 function MedicalRecords() {
@@ -56,10 +64,7 @@ function MedicalRecords() {
 
       const data = await response.json();
 
-      console.log(
-        "Patient medical records:",
-        data
-      );
+      console.log("Patient medical records:", data);
 
       setRecords(
         Array.isArray(data) ? data : []
@@ -115,9 +120,7 @@ function MedicalRecords() {
       <div className="medical-records-header">
 
         <div>
-          <h1>
-            Medical Records
-          </h1>
+          <h1>Medical Records</h1>
 
           <p>
             View your medical history, diagnosis
@@ -134,7 +137,10 @@ function MedicalRecords() {
       {loading && (
         <div className="records-message">
 
-          <div className="records-loader"></div>
+          <div
+            className="records-loader"
+            aria-hidden="true"
+          ></div>
 
           <p>
             Loading medical records...
@@ -150,13 +156,17 @@ function MedicalRecords() {
       {!loading && error && (
         <div className="records-error">
 
-          <div className="error-icon">
-            ⚠️
+          <div
+            className="error-icon"
+            aria-hidden="true"
+          >
+            <AlertCircle
+              size={20}
+              strokeWidth={2}
+            />
           </div>
 
-          <p>
-            {error}
-          </p>
+          <p>{error}</p>
 
           <button
             type="button"
@@ -177,8 +187,14 @@ function MedicalRecords() {
         records.length === 0 && (
           <div className="no-records">
 
-            <div className="no-records-icon">
-              📋
+            <div
+              className="no-records-icon"
+              aria-hidden="true"
+            >
+              <ClipboardList
+                size={27}
+                strokeWidth={2}
+              />
             </div>
 
             <h2>
@@ -221,8 +237,14 @@ function MedicalRecords() {
 
                   <div className="record-title">
 
-                    <div className="record-icon">
-                      🩺
+                    <div
+                      className="record-icon"
+                      aria-hidden="true"
+                    >
+                      <Stethoscope
+                        size={23}
+                        strokeWidth={2}
+                      />
                     </div>
 
                     <div>
@@ -263,8 +285,14 @@ function MedicalRecords() {
 
                   <div className="record-detail-item">
 
-                    <span className="record-detail-icon">
-                      👨‍⚕️
+                    <span
+                      className="record-detail-icon"
+                      aria-hidden="true"
+                    >
+                      <UserRound
+                        size={18}
+                        strokeWidth={2}
+                      />
                     </span>
 
                     <div>
@@ -287,8 +315,14 @@ function MedicalRecords() {
 
                   <div className="record-detail-item">
 
-                    <span className="record-detail-icon">
-                      🏥
+                    <span
+                      className="record-detail-icon"
+                      aria-hidden="true"
+                    >
+                      <Building2
+                        size={18}
+                        strokeWidth={2}
+                      />
                     </span>
 
                     <div>
@@ -311,8 +345,14 @@ function MedicalRecords() {
 
                   <div className="record-detail-item">
 
-                    <span className="record-detail-icon">
-                      📅
+                    <span
+                      className="record-detail-icon"
+                      aria-hidden="true"
+                    >
+                      <CalendarDays
+                        size={18}
+                        strokeWidth={2}
+                      />
                     </span>
 
                     <div>
