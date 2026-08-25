@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hospital.management.dto.AppointmentResponse;
 import com.hospital.management.entity.Appointment;
 import com.hospital.management.service.AppointmentService;
 
@@ -35,11 +36,13 @@ public class AppointmentController {
     // =====================================================
 
     @PostMapping
-    public ResponseEntity<Appointment> createAppointment(
+    public ResponseEntity<AppointmentResponse> createAppointment(
             @RequestBody Appointment appointment) {
 
-        Appointment savedAppointment =
-                appointmentService.createAppointment(appointment);
+        AppointmentResponse savedAppointment =
+                appointmentService.createAppointment(
+                        appointment
+                );
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -51,7 +54,8 @@ public class AppointmentController {
     // =====================================================
 
     @GetMapping
-    public ResponseEntity<List<Appointment>> getAllAppointments() {
+    public ResponseEntity<List<AppointmentResponse>>
+    getAllAppointments() {
 
         return ResponseEntity.ok(
                 appointmentService.getAllAppointments()
@@ -63,11 +67,13 @@ public class AppointmentController {
     // =====================================================
 
     @GetMapping("/doctor/{doctorId}")
-    public ResponseEntity<List<Appointment>> getAppointmentsByDoctor(
+    public ResponseEntity<List<AppointmentResponse>>
+    getAppointmentsByDoctor(
             @PathVariable Integer doctorId) {
 
         return ResponseEntity.ok(
-                appointmentService.getAppointmentsByDoctor(doctorId)
+                appointmentService
+                        .getAppointmentsByDoctor(doctorId)
         );
     }
 
@@ -76,11 +82,13 @@ public class AppointmentController {
     // =====================================================
 
     @GetMapping("/patient/{patientId}")
-    public ResponseEntity<List<Appointment>> getAppointmentsByPatient(
+    public ResponseEntity<List<AppointmentResponse>>
+    getAppointmentsByPatient(
             @PathVariable Integer patientId) {
 
         return ResponseEntity.ok(
-                appointmentService.getAppointmentsByPatient(patientId)
+                appointmentService
+                        .getAppointmentsByPatient(patientId)
         );
     }
 
@@ -96,6 +104,7 @@ public class AppointmentController {
         String status = request.get("status");
 
         if (status == null || status.isBlank()) {
+
             return ResponseEntity
                     .badRequest()
                     .body("Status is required.");
@@ -103,13 +112,15 @@ public class AppointmentController {
 
         try {
 
-            Appointment updatedAppointment =
+            AppointmentResponse updatedAppointment =
                     appointmentService.updateAppointmentStatus(
                             appointmentId,
                             status
                     );
 
-            return ResponseEntity.ok(updatedAppointment);
+            return ResponseEntity.ok(
+                    updatedAppointment
+            );
 
         } catch (RuntimeException e) {
 
@@ -122,11 +133,6 @@ public class AppointmentController {
     // =====================================================
     // CANCEL APPOINTMENT
     // =====================================================
-    // This endpoint is for Patient cancellation.
-    //
-    // Example:
-    // PUT http://localhost:8080/api/appointments/3/cancel
-    // =====================================================
 
     @PutMapping("/{appointmentId}/cancel")
     public ResponseEntity<?> cancelAppointment(
@@ -134,12 +140,14 @@ public class AppointmentController {
 
         try {
 
-            Appointment cancelledAppointment =
+            AppointmentResponse cancelledAppointment =
                     appointmentService.cancelAppointment(
                             appointmentId
                     );
 
-            return ResponseEntity.ok(cancelledAppointment);
+            return ResponseEntity.ok(
+                    cancelledAppointment
+            );
 
         } catch (RuntimeException e) {
 

@@ -4,83 +4,137 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.hospital.management.entity.Doctor;
 import com.hospital.management.entity.Prescription;
+import com.hospital.management.repository.DoctorRepository;
 import com.hospital.management.repository.PrescriptionRepository;
 
 @Service
 public class PrescriptionService {
 
     private final PrescriptionRepository prescriptionRepository;
+    private final DoctorRepository doctorRepository;
 
     public PrescriptionService(
-            PrescriptionRepository prescriptionRepository) {
+            PrescriptionRepository prescriptionRepository,
+            DoctorRepository doctorRepository) {
 
         this.prescriptionRepository = prescriptionRepository;
+        this.doctorRepository = doctorRepository;
     }
 
     // =====================================================
-    // CREATE PRESCRIPTION
+    // ADD DOCTOR NAME
+    // =====================================================
+
+    private Prescription addDoctorName(
+            Prescription prescription) {
+
+        if (prescription.getDoctorId() != null) {
+
+            Doctor doctor =
+                    doctorRepository
+                            .findById(prescription.getDoctorId())
+                            .orElse(null);
+
+            if (doctor != null) {
+                prescription.setDoctorName(
+                        doctor.getName()
+                );
+            }
+        }
+
+        return prescription;
+    }
+
+    private List<Prescription> addDoctorNames(
+            List<Prescription> prescriptions) {
+
+        prescriptions.forEach(this::addDoctorName);
+
+        return prescriptions;
+    }
+
+    // =====================================================
+    // CREATE
     // =====================================================
 
     public Prescription createPrescription(
             Prescription prescription) {
 
-        return prescriptionRepository.save(prescription);
+        Prescription saved =
+                prescriptionRepository.save(
+                        prescription
+                );
+
+        return addDoctorName(saved);
     }
 
     // =====================================================
-    // GET ALL PRESCRIPTIONS
+    // GET ALL
     // =====================================================
 
     public List<Prescription> getAllPrescriptions() {
 
-        return prescriptionRepository.findAll();
+        return addDoctorNames(
+                prescriptionRepository.findAll()
+        );
     }
 
     // =====================================================
-    // GET PRESCRIPTIONS BY DOCTOR
+    // GET BY DOCTOR
     // =====================================================
 
     public List<Prescription> getPrescriptionsByDoctor(
             Integer doctorId) {
 
-        return prescriptionRepository.findByDoctorId(doctorId);
+        return addDoctorNames(
+                prescriptionRepository
+                        .findByDoctorId(doctorId)
+        );
     }
 
     // =====================================================
-    // GET PRESCRIPTIONS BY PATIENT
+    // GET BY PATIENT
     // =====================================================
 
     public List<Prescription> getPrescriptionsByPatient(
             Integer patientId) {
 
-        return prescriptionRepository.findByPatientId(patientId);
+        return addDoctorNames(
+                prescriptionRepository
+                        .findByPatientId(patientId)
+        );
     }
 
     // =====================================================
-    // GET PRESCRIPTION BY ID
+    // GET BY ID
     // =====================================================
 
     public Prescription getPrescriptionById(
             Integer prescriptionId) {
 
-        return prescriptionRepository.findById(prescriptionId)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Prescription not found"
-                        )
-                );
+        Prescription prescription =
+                prescriptionRepository
+                        .findById(prescriptionId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Prescription not found"
+                                )
+                        );
+
+        return addDoctorName(prescription);
     }
 
     // =====================================================
-    // UPDATE PRESCRIPTION
+    // UPDATE
     // =====================================================
 
     public Prescription updatePrescription(
             Integer prescriptionId,
             Prescription updatedPrescription) {
 
-        Prescription existingPrescription =
+        Prescription existing =
                 prescriptionRepository
                         .findById(prescriptionId)
                         .orElseThrow(() ->
@@ -90,33 +144,33 @@ public class PrescriptionService {
                                 )
                         );
 
-        // Update medicine name
-        existingPrescription.setMedicineName(
+        existing.setDiagnosis(
+                updatedPrescription.getDiagnosis()
+        );
+
+        existing.setMedicineName(
                 updatedPrescription.getMedicineName()
         );
 
-        // Update dosage
-        existingPrescription.setDosage(
+        existing.setDosage(
                 updatedPrescription.getDosage()
         );
 
-        // Update frequency
-        existingPrescription.setFrequency(
+        existing.setFrequency(
                 updatedPrescription.getFrequency()
         );
 
-        // Update duration
-        existingPrescription.setDuration(
+        existing.setDuration(
                 updatedPrescription.getDuration()
         );
 
-        // Update instructions
-        existingPrescription.setInstructions(
+        existing.setInstructions(
                 updatedPrescription.getInstructions()
         );
 
-        return prescriptionRepository.save(
-                existingPrescription
-        );
+        Prescription saved =
+                prescriptionRepository.save(existing);
+
+        return addDoctorName(saved);
     }
 }

@@ -1,156 +1,791 @@
-.book-appointment-page {
+/* =========================================================
+   BOOK APPOINTMENT PAGE
+   ========================================================= */
+
+.book-page {
   width: 100%;
-  min-height: 100vh;
-  padding: 30px;
+  min-height: 100%;
+  padding: 38px 70px 55px;
   box-sizing: border-box;
 }
 
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 .book-page-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 30px;
   margin-bottom: 30px;
 }
 
-.book-page-header h1 {
+.book-title-section {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.book-title-icon {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e7f8fa;
+  color: #079bad;
+
+  box-shadow:
+    0 8px 22px rgba(8, 151, 170, 0.10);
+}
+
+.book-title-section h1 {
   margin: 0;
-  font-size: 32px;
+
+  color: #123f63;
+
+  font-size: 36px;
+  line-height: 1.1;
+
+  font-weight: 800;
+  letter-spacing: -0.7px;
 }
 
-.book-page-header p {
-  margin-top: 8px;
-  color: #777;
+.book-title-section p {
+  margin: 8px 0 0;
+
+  color: #6e879b;
+
+  font-size: 15px;
 }
 
-.back-btn {
-  border: 1px solid #2563eb;
-  background: white;
-  color: #2563eb;
-  padding: 11px 18px;
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.appointments-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  padding: 10px 17px;
+
+  border: 1px solid #477bff;
   border-radius: 8px;
+
+  background: #ffffff;
+  color: #2361e8;
+
+  font-size: 13px;
+  font-weight: 700;
+
   cursor: pointer;
-  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.back-btn:hover {
-  background: #2563eb;
-  color: white;
+.appointments-back-btn:hover {
+  background: #2361e8;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(35, 97, 232, 0.18);
 }
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.book-content {
+  display: grid;
+
+  grid-template-columns:
+    260px minmax(0, 1fr);
+
+  gap: 26px;
+
+  align-items: stretch;
+}
+
+/* =========================================================
+   HEALTH INFORMATION CARD
+   ========================================================= */
+
+.health-card {
+  position: relative;
+
+  min-height: 570px;
+
+  overflow: hidden;
+
+  padding: 28px 27px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e0edf2;
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fbfdfe 100%
+    );
+
+  box-shadow:
+    0 8px 25px rgba(29, 77, 104, 0.07);
+}
+
+.health-icon {
+  width: 62px;
+  height: 62px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e3f7fa;
+  color: #09a0b2;
+}
+
+.health-card h2 {
+  margin: 0;
+
+  color: #153e60;
+
+  font-size: 18px;
+  line-height: 1.35;
+
+  text-align: center;
+
+  font-weight: 800;
+}
+
+.health-description {
+  margin: 10px auto 30px;
+
+  max-width: 190px;
+
+  color: #617b8f;
+
+  font-size: 13px;
+  line-height: 1.65;
+
+  text-align: center;
+}
+
+/* =========================================================
+   HEALTH FEATURES
+   ========================================================= */
+
+.health-feature {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+.health-feature-icon {
+  width: 39px;
+  height: 39px;
+
+  flex: 0 0 39px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #e7f8fa;
+  color: #079cad;
+}
+
+.health-feature div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 1px;
+}
+
+.health-feature strong {
+  color: #173f60;
+
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.health-feature span {
+  margin-top: 4px;
+
+  color: #6c8496;
+
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   DECORATION
+   ========================================================= */
+
+.health-decoration {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 22px;
+
+  height: 105px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  color: #9edfe5;
+
+  opacity: 0.75;
+}
+
+.health-decoration svg:first-child {
+  transform: translateX(9px);
+}
+
+.health-decoration svg:last-child {
+  transform: translate(
+    -18px,
+    -5px
+  );
+}
+
+/* =========================================================
+   BOOKING CARD
+   ========================================================= */
 
 .booking-card {
-  max-width: 800px;
-  margin: 0 auto;
-  background: white;
-  padding: 30px;
+  min-width: 0;
+
+  padding: 34px 34px 28px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e0eaf0;
   border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 25px rgba(29, 77, 104, 0.07);
 }
 
+.booking-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 23px;
+}
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
 .form-group {
-  margin-bottom: 22px;
+  min-width: 0;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #333;
+
+  margin-bottom: 9px;
+
+  color: #183d5b;
+
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
+/* =========================================================
+   FORM ROW
+   ========================================================= */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 30px;
+}
+
+/* =========================================================
+   INPUT WRAPPERS
+   ========================================================= */
+
+.input-wrapper,
+.select-wrapper {
+  position: relative;
+}
+
+.field-icon {
+  position: absolute;
+
+  left: 15px;
+  top: 50%;
+
+  z-index: 2;
+
+  transform: translateY(-50%);
+
+  color: #0799aa;
+
+  pointer-events: none;
+}
+
+.input-wrapper input,
+.select-wrapper select {
   width: 100%;
+  height: 48px;
+
   box-sizing: border-box;
-  padding: 12px 14px;
-  border: 1px solid #d1d5db;
+
+  padding:
+    0 15px 0 44px;
+
+  border: 1px solid #d4dfe6;
   border-radius: 8px;
-  font-size: 15px;
+
   outline: none;
+
+  background: #ffffff;
+
+  color: #193e5d;
+
   font-family: inherit;
+
+  font-size: 13px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: #2563eb;
+.select-wrapper select {
+  appearance: auto;
+  padding-left: 44px;
+
+  cursor: pointer;
 }
 
-.form-group textarea {
+.input-wrapper input:focus,
+.select-wrapper select:focus,
+.booking-form textarea:focus {
+  border-color: #0a9daf;
+
+  box-shadow:
+    0 0 0 3px rgba(
+      10,
+      157,
+      175,
+      0.10
+    );
+}
+
+.input-wrapper input:hover,
+.select-wrapper select:hover,
+.booking-form textarea:hover {
+  border-color: #a9c6d2;
+}
+
+.input-wrapper input:disabled,
+.select-wrapper select:disabled {
+  background: #f7fafb;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   REASON
+   ========================================================= */
+
+.reason-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 9px;
+}
+
+.reason-label-row label {
+  margin: 0;
+}
+
+.reason-label-row span {
+  color: #71899a;
+
+  font-size: 11px;
+}
+
+.booking-form textarea {
+  width: 100%;
+  min-height: 140px;
+
+  box-sizing: border-box;
+
   resize: vertical;
+
+  padding: 14px 15px;
+
+  border: 1px solid #d4dfe6;
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #193e5d;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  line-height: 1.55;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.booking-form textarea::placeholder {
+  color: #91a2ae;
+}
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.appointment-note {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-height: 50px;
+
+  padding: 0 16px;
+
+  box-sizing: border-box;
+
+  border-radius: 8px;
+
+  background: #eaf3ff;
+  color: #315d89;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.appointment-note svg {
+  flex: 0 0 auto;
+
+  color: #2872df;
+}
+
+.appointment-note strong {
+  color: #173e62;
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.booking-message {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 11px 14px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .booking-error {
-  background: #fee2e2;
-  color: #b91c1c;
-  padding: 13px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  border: 1px solid #f0c9c9;
+
+  background: #fff2f2;
+  color: #c73535;
 }
 
 .booking-success {
-  background: #dcfce7;
-  color: #15803d;
-  padding: 13px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  border: 1px solid #bfe7d0;
+
+  background: #effaf3;
+  color: #18824d;
 }
 
-.form-actions {
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.booking-actions {
   display: flex;
+
+  align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 25px;
+
+  gap: 11px;
+
+  margin-top: 1px;
 }
 
-.cancel-form-btn {
-  padding: 12px 20px;
-  border: 1px solid #d1d5db;
-  background: white;
-  color: #444;
+.cancel-booking-btn,
+.submit-booking-btn {
+  height: 43px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 0 19px;
+
   border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 700;
+
   cursor: pointer;
-  font-weight: 600;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
-.cancel-form-btn:hover {
-  background: #f3f4f6;
+.cancel-booking-btn {
+  border: 1px solid #d8e0e5;
+
+  background: #ffffff;
+  color: #344e60;
+}
+
+.cancel-booking-btn:hover {
+  background: #f5f8fa;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 13px rgba(
+      31,
+      76,
+      103,
+      0.08
+    );
 }
 
 .submit-booking-btn {
-  padding: 12px 22px;
-  border: none;
-  background: #2563eb;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
+  min-width: 185px;
+
+  border: 1px solid #2563eb;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #2f65df
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 6px 16px rgba(
+      37,
+      99,
+      235,
+      0.20
+    );
 }
 
 .submit-booking-btn:hover {
-  background: #1d4ed8;
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 9px 21px rgba(
+      37,
+      99,
+      235,
+      0.27
+    );
 }
 
-@media (max-width: 700px) {
-  .book-appointment-page {
-    padding: 20px;
+.cancel-booking-btn:disabled,
+.submit-booking-btn:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  transform: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   BUTTON SPINNER
+   ========================================================= */
+
+.button-spinner {
+  width: 15px;
+  height: 15px;
+
+  border: 2px solid rgba(
+    255,
+    255,
+    255,
+    0.35
+  );
+
+  border-top-color: #ffffff;
+
+  border-radius: 50%;
+
+  animation:
+    bookButtonSpin
+    0.7s
+    linear
+    infinite;
+}
+
+@keyframes bookButtonSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .book-page {
+    padding: 32px 40px 45px;
   }
 
-  .book-page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+  .book-content {
+    grid-template-columns:
+      230px minmax(0, 1fr);
+
+    gap: 20px;
   }
 
   .booking-card {
-    padding: 20px;
+    padding: 28px;
+  }
+}
+
+@media (max-width: 950px) {
+  .book-page {
+    padding: 28px 25px 40px;
   }
 
-  .form-actions {
+  .book-content {
+    grid-template-columns: 1fr;
+  }
+
+  .health-card {
+    min-height: auto;
+  }
+
+  .health-decoration {
+    display: none;
+  }
+
+  .health-feature {
+    display: inline-flex;
+
+    width: 32%;
+
+    vertical-align: top;
+
+    margin-right: 1%;
+  }
+}
+
+@media (max-width: 700px) {
+  .book-page {
+    padding: 24px 17px 35px;
+  }
+
+  .book-page-header {
+    align-items: flex-start;
+
     flex-direction: column;
   }
 
-  .cancel-form-btn,
+  .book-title-section {
+    align-items: flex-start;
+  }
+
+  .book-title-icon {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+  }
+
+  .book-title-section h1 {
+    font-size: 29px;
+  }
+
+  .appointments-back-btn {
+    width: 100%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+
+  .health-feature {
+    display: flex;
+    width: auto;
+
+    margin-right: 0;
+  }
+
+  .booking-card {
+    padding: 23px 18px;
+  }
+
+  .booking-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .cancel-booking-btn,
   .submit-booking-btn {
     width: 100%;
   }

@@ -1,166 +1,286 @@
+/* =========================================================
+   PATIENT MEDICAL RECORDS
+   ========================================================= */
+
 .medical-records-page {
   width: 100%;
-  min-height: 100vh;
-  padding: 30px;
+  min-height: 100%;
+  padding: 32px 48px;
   box-sizing: border-box;
 }
 
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
 .medical-records-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  justify-content: space-between;
+  margin-bottom: 26px;
 }
 
 .medical-records-header h1 {
   margin: 0;
-  font-size: 32px;
+  color: #123f63;
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .medical-records-header p {
-  margin-top: 8px;
-  color: #777;
+  margin: 7px 0 0;
+  color: #6d879b;
+  font-size: 15px;
 }
 
-.records-back-btn {
-  border: 1px solid #2563eb;
-  background: white;
-  color: #2563eb;
-  padding: 11px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.records-back-btn:hover {
-  background: #2563eb;
-  color: white;
-}
+/* =========================================================
+   RECORDS CONTAINER
+   ========================================================= */
 
 .records-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(500px, 1fr)
-  );
-  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
 }
 
+/* =========================================================
+   RECORD CARD
+   ========================================================= */
+
 .record-card {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 22px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #dceaf0;
+  border-radius: 16px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 7px 22px rgba(31, 76, 103, 0.07);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
+
+.record-card:hover {
+  transform: translateY(-3px);
+  border-color: #b9dfe8;
+  box-shadow: 0 12px 28px rgba(31, 76, 103, 0.11);
+}
+
+/* =========================================================
+   RECORD HEADER
+   ========================================================= */
 
 .record-card-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
   gap: 15px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e7eef2;
 }
 
 .record-title {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 13px;
+  min-width: 0;
 }
 
 .record-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 10px;
-  background: #eff6ff;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 27px;
+
+  border-radius: 12px;
+  background: #e6f7fa;
+  color: #079aad;
+
+  font-size: 24px;
+  box-shadow: inset 0 0 0 1px #d5eef2;
 }
 
 .record-title h2 {
   margin: 0;
-  font-size: 19px;
+  color: #123f63;
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 800;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .record-title p {
-  margin: 5px 0 0;
-  color: #777;
+  margin: 4px 0 0;
+  color: #7890a0;
+  font-size: 12px;
 }
 
 .record-id {
-  background: #f3f4f6;
-  color: #374151;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 34px;
+  height: 27px;
+  padding: 0 8px;
+
+  border-radius: 7px;
+  background: #f1f5f7;
+  color: #607888;
+
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
 }
+
+/* =========================================================
+   RECORD INFORMATION
+   ========================================================= */
 
 .record-details {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  padding: 22px 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+
+  padding: 15px 0;
 }
 
 .record-detail-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
+  min-width: 0;
 }
 
 .record-detail-icon {
-  font-size: 21px;
+  width: 35px;
+  height: 35px;
+  flex: 0 0 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+  background: #eef8fa;
+
+  font-size: 17px;
+}
+
+.record-detail-item div {
+  min-width: 0;
 }
 
 .record-detail-item small {
   display: block;
-  color: #888;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
+
+  color: #8a9daa;
+  font-size: 10px;
+  font-weight: 600;
 }
 
 .record-detail-item strong {
   display: block;
-  color: #222;
+
+  color: #173f60;
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* =========================================================
+   RECORD SECTIONS
+   ========================================================= */
+
 .record-section {
-  background: #f8fafc;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 12px;
+  margin-top: 9px;
+  padding: 12px 14px;
+
+  border: 1px solid #e3edf1;
+  border-radius: 10px;
+
+  background: #f6f9fb;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.record-section:hover {
+  background: #f1f8fa;
+  border-color: #d5e9ee;
 }
 
 .record-section h3 {
-  margin: 0 0 7px;
-  font-size: 15px;
-  color: #374151;
+  margin: 0 0 5px;
+
+  color: #174363;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .record-section p {
   margin: 0;
-  color: #555;
-  line-height: 1.6;
+
+  color: #60798b;
+  font-size: 12px;
+  line-height: 1.55;
+
+  word-break: break-word;
 }
 
+/* =========================================================
+   LOADING
+   ========================================================= */
+
 .records-message {
-  background: white;
-  border-radius: 14px;
-  padding: 50px;
-  text-align: center;
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  border: 1px solid #dceaf0;
+  border-radius: 16px;
+
+  box-shadow: 0 7px 22px rgba(31, 76, 103, 0.06);
 }
 
 .records-loader {
-  width: 35px;
-  height: 35px;
-  border: 4px solid #ddd;
-  border-top: 4px solid #2563eb;
+  width: 34px;
+  height: 34px;
+
+  margin-bottom: 12px;
+
+  border: 4px solid #dceff2;
+  border-top-color: #0b9caf;
   border-radius: 50%;
+
   animation: recordsSpin 0.8s linear infinite;
-  margin: auto;
+}
+
+.records-message p {
+  margin: 0;
+
+  color: #6d879b;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 @keyframes recordsSpin {
@@ -169,59 +289,142 @@
   }
 }
 
+/* =========================================================
+   ERROR
+   ========================================================= */
+
 .records-error {
-  background: #fee2e2;
-  color: #b91c1c;
-  padding: 25px;
-  border-radius: 10px;
-  text-align: center;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  background: #fff4f4;
+  border: 1px solid #f1cccc;
+  border-radius: 13px;
+
+  color: #c73535;
+  box-shadow: 0 6px 18px rgba(199, 53, 53, 0.05);
 }
 
 .error-icon {
-  font-size: 35px;
-  margin-bottom: 8px;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  background: #ffe5e5;
+
+  font-size: 18px;
+}
+
+.records-error p {
+  flex: 1;
+  margin: 0;
+
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .records-error button {
   border: none;
-  background: #dc2626;
-  color: white;
-  padding: 9px 18px;
-  border-radius: 6px;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  background: #d94343;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
   cursor: pointer;
-  font-weight: 600;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
+.records-error button:hover {
+  background: #c53535;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   NO RECORDS
+   ========================================================= */
+
 .no-records {
-  background: white;
-  border-radius: 14px;
-  padding: 60px 20px;
+  padding: 45px 25px;
+
+  background: #ffffff;
+  border: 1px solid #dceaf0;
+  border-radius: 16px;
+
   text-align: center;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+
+  box-shadow: 0 7px 22px rgba(31, 76, 103, 0.06);
 }
 
 .no-records-icon {
-  font-size: 60px;
-  margin-bottom: 15px;
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #e8f8fa;
+
+  font-size: 27px;
 }
 
 .no-records h2 {
-  margin-bottom: 8px;
+  margin: 0 0 7px;
+
+  color: #123f63;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .no-records p {
-  color: #777;
+  margin: 0;
+
+  color: #71889a;
+  font-size: 13px;
 }
 
-@media (max-width: 800px) {
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
   .medical-records-page {
-    padding: 20px;
+    padding: 30px;
   }
 
-  .medical-records-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+  .records-container {
+    gap: 18px;
+  }
+
+  .record-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .medical-records-page {
+    padding: 25px 20px;
   }
 
   .records-container {
@@ -229,10 +432,68 @@
   }
 
   .record-details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .medical-records-page {
+    padding: 20px 15px;
+  }
+
+  .medical-records-header h1 {
+    font-size: 28px;
+  }
+
+  .medical-records-header p {
+    font-size: 13px;
+  }
+
+  .records-container {
     grid-template-columns: 1fr;
   }
 
+  .record-card {
+    padding: 16px;
+  }
+
   .record-card-header {
-    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .record-title {
+    gap: 10px;
+  }
+
+  .record-icon {
+    width: 43px;
+    height: 43px;
+    flex-basis: 43px;
+    font-size: 21px;
+  }
+
+  .record-title h2 {
+    font-size: 15px;
+  }
+
+  .record-details {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .record-detail-item {
+    padding: 5px 0;
+  }
+
+  .records-error {
+    flex-wrap: wrap;
+  }
+
+  .records-error p {
+    min-width: 180px;
+  }
+
+  .records-error button {
+    width: 100%;
   }
 }
