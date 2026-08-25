@@ -1,531 +1,523 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 function Profile() {
-  const navigate = useNavigate();
-
   const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [editUser, setEditUser] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [editing, setEditing] = useState(false);
 
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  // ==========================================
-  // LOAD PROFILE
-  // ==========================================
+  // =====================================================
+  // GET LOGGED-IN USER
+  // =====================================================
 
   useEffect(() => {
-    loadProfile();
-  }, []);
-
-  const loadProfile = async () => {
     try {
-      const userData = localStorage.getItem("user");
+      const storedUser = localStorage.getItem("user");
 
-      if (!userData) {
-        navigate("/login");
+      if (!storedUser) {
+        setLoading(false);
         return;
       }
 
-      const parsedUser = JSON.parse(userData);
+      const parsedUser = JSON.parse(storedUser);
 
-      let patientId =
-        parsedUser.patientId ||
-        parsedUser.patientID ||
-        parsedUser.id;
-
-      /*
-       * If patientId is not available in localStorage,
-       * try to find patient using email.
-       */
-      if (!patientId && parsedUser.email) {
-        try {
-          const response = await fetch(
-            `http://localhost:8080/api/patients/email/${encodeURIComponent(
-              parsedUser.email
-            )}`
-          );
-
-          if (response.ok) {
-            const patientData = await response.json();
-
-            const completeUser = {
-              ...parsedUser,
-              ...patientData,
-              patientId: patientData.patientId,
-            };
-
-            setUser(completeUser);
-            setFormData(createFormData(completeUser));
-
-            localStorage.setItem(
-              "user",
-              JSON.stringify(completeUser)
-            );
-
-            return;
-          }
-        } catch (error) {
-          console.error("Patient lookup error:", error);
-        }
-      }
-
-      /*
-       * If patientId exists, load latest data from database.
-       */
-      if (patientId) {
-        try {
-          const response = await fetch(
-            `http://localhost:8080/api/patients/${patientId}`
-          );
-
-          if (response.ok) {
-            const patientData = await response.json();
-
-            const completeUser = {
-              ...parsedUser,
-              ...patientData,
-              patientId: patientData.patientId,
-            };
-
-            setUser(completeUser);
-            setFormData(createFormData(completeUser));
-
-            localStorage.setItem(
-              "user",
-              JSON.stringify(completeUser)
-            );
-
-            return;
-          }
-        } catch (error) {
-          console.error("Database profile loading error:", error);
-        }
-      }
-
-      /*
-       * Fallback to localStorage user.
-       */
       setUser(parsedUser);
-      setFormData(createFormData(parsedUser));
+      setEditUser(parsedUser);
     } catch (error) {
-      console.error("Profile loading error:", error);
-
-      setErrorMessage(
-        "Unable to load profile. Please login again."
-      );
+      console.error("Error loading profile:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  // ==========================================
-  // FORM DATA
-  // ==========================================
-
-  const createFormData = (data) => ({
-    name: data?.name || "",
-    email: data?.email || "",
-    phone: data?.phone || "",
-    gender: data?.gender || "",
-    dateOfBirth: data?.dateOfBirth || "",
-    age: data?.age ?? "",
-    bloodGroup: data?.bloodGroup || "",
-    address: data?.address || "",
-  });
-
-  // ==========================================
-  // HANDLE INPUT
-  // ==========================================
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormData((previous) => ({
-      ...previous,
-      [name]: value,
-    }));
-
-    setSuccessMessage("");
-    setErrorMessage("");
-  };
-
-  // ==========================================
-  // START EDIT
-  // ==========================================
+  // =====================================================
+  // EDIT PROFILE
+  // =====================================================
 
   const handleEdit = () => {
-    setFormData(createFormData(user));
-
-    setEditing(true);
-    setSuccessMessage("");
-    setErrorMessage("");
+    setEditUser({ ...user });
+    setIsEditing(true);
   };
 
-  // ==========================================
+  // =====================================================
   // CANCEL EDIT
-  // ==========================================
+  // =====================================================
 
   const handleCancel = () => {
-    setFormData(createFormData(user));
-
-    setEditing(false);
-    setSuccessMessage("");
-    setErrorMessage("");
+    setEditUser({ ...user });
+    setIsEditing(false);
   };
 
-  // ==========================================
+  // =====================================================
+  // HANDLE CHANGE
+  // =====================================================
+
+  const handleChange = (field, value) => {
+    setEditUser((previous) => ({
+      ...previous,
+      [field]: value,
+    }));
+  };
+
+  // =====================================================
   // SAVE PROFILE
-  // ==========================================
+  // =====================================================
 
-  const handleSave = async (event) => {
-    event.preventDefault();
+  const handleSave = () => {
+    const updatedUser = {
+      ...user,
+      phone: editUser.phone,
+      gender: editUser.gender,
+      dateOfBirth: editUser.dateOfBirth,
+      age: editUser.age,
+      bloodGroup: editUser.bloodGroup,
+      address: editUser.address,
+    };
 
-    if (!user?.patientId) {
-      setErrorMessage(
-        "Patient ID not found. Please login again."
-      );
-      return;
-    }
+    setUser(updatedUser);
+    setEditUser(updatedUser);
 
-    // Basic validation
-    if (!formData.name.trim()) {
-      setErrorMessage("Please enter your full name.");
-      return;
-    }
+    localStorage.setItem(
+      "user",
+      JSON.stringify(updatedUser)
+    );
 
-    if (!formData.email.trim()) {
-      setErrorMessage("Please enter your email.");
-      return;
-    }
-
-    if (
-      formData.phone &&
-      !/^[0-9]{10}$/.test(formData.phone.trim())
-    ) {
-      setErrorMessage(
-        "Please enter a valid 10-digit phone number."
-      );
-      return;
-    }
-
-    try {
-      setSaving(true);
-      setSuccessMessage("");
-      setErrorMessage("");
-
-      const updatedPatient = {
-        name: formData.name.trim(),
-        age:
-          formData.age === ""
-            ? null
-            : Number(formData.age),
-        gender: formData.gender,
-        phone: formData.phone.trim(),
-        email: formData.email.trim(),
-        address: formData.address.trim(),
-        bloodGroup: formData.bloodGroup,
-        dateOfBirth:
-          formData.dateOfBirth || null,
-      };
-
-      const response = await fetch(
-        `http://localhost:8080/api/patients/${user.patientId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedPatient),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `Update failed: ${response.status}`
-        );
-      }
-
-      const savedPatient = await response.json();
-
-      /*
-       * Keep login/user information while
-       * replacing patient information.
-       */
-      const updatedUser = {
-        ...user,
-        ...savedPatient,
-        patientId:
-          savedPatient.patientId || user.patientId,
-      };
-
-      setUser(updatedUser);
-      setFormData(createFormData(updatedUser));
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(updatedUser)
-      );
-
-      setEditing(false);
-
-      setSuccessMessage(
-        "Profile updated successfully."
-      );
-
-      // Remove message after 4 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 4000);
-    } catch (error) {
-      console.error(
-        "Profile update error:",
-        error
-      );
-
-      setErrorMessage(
-        "Unable to update profile. Please check that the backend is running."
-      );
-    } finally {
-      setSaving(false);
-    }
+    setIsEditing(false);
   };
 
-  // ==========================================
+  // =====================================================
   // LOADING
-  // ==========================================
+  // =====================================================
 
   if (loading) {
     return (
-      <div className="profile-loading">
-        <div className="profile-loader"></div>
-        <p>Loading profile...</p>
-      </div>
-    );
-  }
-
-  // ==========================================
-  // NO USER
-  // ==========================================
-
-  if (!user) {
-    return (
-      <div className="profile-error-page">
-        <div className="profile-error-card">
-          <div className="error-icon">⚠️</div>
-
-          <h2>Profile Not Found</h2>
-
-          <p>
-            We could not find your patient profile.
-          </p>
-
-          <button
-            onClick={() => navigate("/login")}
-          >
-            Go to Login
-          </button>
+      <div className="profile-page">
+        <div className="profile-loading">
+          Loading profile...
         </div>
       </div>
     );
   }
 
-  // ==========================================
-  // PROFILE PAGE
-  // ==========================================
+  // =====================================================
+  // NO USER
+  // =====================================================
+
+  if (!user) {
+    return (
+      <div className="profile-page">
+        <div className="profile-error">
+          Patient information not found.
+          Please login again.
+        </div>
+      </div>
+    );
+  }
+
+  const displayUser = isEditing ? editUser : user;
+
+  const fullName =
+    user.name ||
+    user.fullName ||
+    "Patient";
+
+  const initial =
+    fullName.charAt(0).toUpperCase();
 
   return (
     <div className="profile-page">
 
-      {/* ======================================
-          HEADER
-      ====================================== */}
+      {/* =================================================
+          PAGE HEADER
+      ================================================= */}
 
-      <div className="profile-header">
+      <div className="profile-page-header">
 
-        <div>
-          <span className="profile-header-badge">
-            PATIENT ACCOUNT
-          </span>
+        <div className="profile-page-title">
 
-          <h1>My Profile</h1>
+          <div className="profile-title-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <path d="M20 21a8 8 0 0 0-16 0" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
 
-          <p>
-            View and manage your personal information.
-          </p>
+          <div>
+            <h1>My Profile</h1>
+
+            <p>
+              View your personal and account information.
+            </p>
+          </div>
+
         </div>
 
-        {!editing && (
+        {!isEditing && (
           <button
+            type="button"
             className="edit-profile-button"
             onClick={handleEdit}
           >
-            ✏️ Edit Profile
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" />
+            </svg>
+
+            Edit Profile
           </button>
         )}
 
       </div>
 
-      {/* ======================================
-          MESSAGES
-      ====================================== */}
+      {/* =================================================
+          MAIN LAYOUT
+      ================================================= */}
 
-      {successMessage && (
-        <div className="profile-message success-message">
-          <span>✓</span>
-          <p>{successMessage}</p>
-        </div>
-      )}
+      <div className="profile-layout">
 
-      {errorMessage && (
-        <div className="profile-message error-message">
-          <span>!</span>
-          <p>{errorMessage}</p>
-        </div>
-      )}
+        {/* =================================================
+            LEFT HEALTH CARD
+        ================================================= */}
 
-      {/* ======================================
-          PROFILE CARD
-      ====================================== */}
+        <aside className="profile-health-card">
 
-      <div className="profile-container">
+          <div className="health-main-icon">
 
-        {/* ====================================
-            PROFILE TOP
-        ==================================== */}
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+            >
+              <path d="M20.8 8.8c0 5.3-8.8 10.2-8.8 10.2S3.2 14.1 3.2 8.8A4.8 4.8 0 0 1 8 4c1.6 0 3.1.8 4 2.1A4.8 4.8 0 0 1 20.8 8.8Z" />
+              <path d="M7 9h2l1.2-2.2L12 13l1.4-3H17" />
+            </svg>
 
-        <div className="profile-top">
-
-          <div className="profile-avatar">
-            {user.name
-              ? user.name.charAt(0).toUpperCase()
-              : "P"}
           </div>
 
-          <div className="profile-name">
+          <h2>
+            Your Health,
+            <br />
+            Our Priority
+          </h2>
 
-            <h2>
-              {user.name || "Patient"}
-            </h2>
+          <p className="health-intro">
+            Take care of your health today
+            for a healthier tomorrow.
+          </p>
+
+          {/* EXPERT CARE */}
+
+          <div className="health-feature">
+
+            <div className="health-feature-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="M12 2v4" />
+                <path d="M8 6h8" />
+                <path d="M6 10h12" />
+                <path d="M8 10v5a4 4 0 0 0 8 0v-5" />
+                <path d="M4 10h4" />
+                <path d="M16 10h4" />
+              </svg>
+
+            </div>
+
+            <div>
+              <strong>Expert Care</strong>
+
+              <p>
+                Keep your medical information
+                updated for better care.
+              </p>
+            </div>
+
+          </div>
+
+          {/* STAY INFORMED */}
+
+          <div className="health-feature">
+
+            <div className="health-feature-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <rect
+                  x="4"
+                  y="3"
+                  width="16"
+                  height="18"
+                  rx="2"
+                />
+                <path d="M8 8h8" />
+                <path d="M8 12h5" />
+                <path d="M8 16h6" />
+              </svg>
+
+            </div>
+
+            <div>
+              <strong>Stay Informed</strong>
+
+              <p>
+                Keep track of appointments,
+                records and prescriptions.
+              </p>
+            </div>
+
+          </div>
+
+          {/* BETTER CARE */}
+
+          <div className="health-feature">
+
+            <div className="health-feature-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="M12 3 20 6v5c0 5-3.4 8.3-8 10-4.6-1.7-8-5-8-10V6l8-3Z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+
+            </div>
+
+            <div>
+              <strong>Better Care</strong>
+
+              <p>
+                Your health journey starts
+                with good information.
+              </p>
+            </div>
+
+          </div>
+
+          {/* MOTIVATIONAL MESSAGE */}
+
+          <div className="health-message">
+
+            <span>✦</span>
 
             <p>
-              Patient ID:{" "}
-              <strong>
-                {user.patientId || "N/A"}
-              </strong>
+              Stay healthy. Stay informed.
+              <br />
+              Take care of yourself.
             </p>
 
           </div>
 
-          <div className="profile-status">
-            <span></span>
-            Active Patient
+          {/* DECORATION */}
+
+          <div className="health-decoration">
+
+            <svg
+              viewBox="0 0 180 100"
+              fill="none"
+            >
+              <rect
+                x="35"
+                y="15"
+                width="85"
+                height="65"
+                rx="8"
+                stroke="currentColor"
+                strokeWidth="7"
+              />
+
+              <path
+                d="M55 15V8"
+                stroke="currentColor"
+                strokeWidth="7"
+                strokeLinecap="round"
+              />
+
+              <path
+                d="M100 15V8"
+                stroke="currentColor"
+                strokeWidth="7"
+                strokeLinecap="round"
+              />
+
+              <circle
+                cx="125"
+                cy="65"
+                r="22"
+                stroke="currentColor"
+                strokeWidth="6"
+              />
+
+              <path
+                d="M125 53v13l8 5"
+                stroke="currentColor"
+                strokeWidth="5"
+                strokeLinecap="round"
+              />
+            </svg>
+
           </div>
 
-        </div>
+        </aside>
 
-        {/* ====================================
-            EDIT FORM
-        ==================================== */}
+        {/* =================================================
+            RIGHT PROFILE CARD
+        ================================================= */}
 
-        {editing ? (
+        <section className="profile-card">
 
-          <form
-            className="profile-edit-form"
-            onSubmit={handleSave}
-          >
+          {/* PROFILE HEADER */}
 
-            {/* PERSONAL INFORMATION */}
+          <div className="profile-card-top">
 
-            <div className="profile-section">
+            <div className="profile-avatar">
+              {initial}
+            </div>
 
-              <div className="section-title-row">
-                <div>
-                  <h3>Personal Information</h3>
-                  <p>
-                    Update your personal details below.
-                  </p>
-                </div>
+            <div className="profile-user-name">
+
+              <h2>
+                {fullName}
+              </h2>
+
+              <p>
+                Patient ID: {user.patientId || "-"}
+              </p>
+
+            </div>
+
+            <div className="active-patient">
+
+              <span></span>
+
+              Active Patient
+
+            </div>
+
+          </div>
+
+          {/* =================================================
+              PERSONAL INFORMATION
+          ================================================= */}
+
+          <div className="profile-section">
+
+            <div className="section-heading">
+
+              <h3>
+                Personal Information
+              </h3>
+
+              <p>
+                Your registered personal details.
+              </p>
+
+            </div>
+
+            <div className="profile-grid">
+
+              {/* NAME */}
+
+              <div className="profile-field disabled-field">
+
+                <span>
+                  Full Name
+                </span>
+
+                <strong>
+                  {user.name ||
+                    user.fullName ||
+                    "-"}
+                </strong>
+
               </div>
 
-              <div className="profile-form-grid">
+              {/* EMAIL */}
 
-                {/* NAME */}
+              <div className="profile-field disabled-field">
 
-                <div className="profile-input-group">
+                <span>
+                  Email
+                </span>
 
-                  <label htmlFor="name">
-                    Full Name
-                  </label>
+                <strong>
+                  {user.email || "-"}
+                </strong>
 
+              </div>
+
+              {/* PHONE */}
+
+              <div className="profile-field">
+
+                <span>
+                  Phone
+                </span>
+
+                {isEditing ? (
                   <input
-                    id="name"
-                    name="name"
                     type="text"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Enter full name"
+                    value={
+                      displayUser.phone || ""
+                    }
+                    onChange={(e) =>
+                      handleChange(
+                        "phone",
+                        e.target.value
+                      )
+                    }
                   />
+                ) : (
+                  <strong>
+                    {user.phone || "-"}
+                  </strong>
+                )}
 
-                </div>
+              </div>
 
-                {/* EMAIL */}
+              {/* GENDER */}
 
-                <div className="profile-input-group">
+              <div className="profile-field">
 
-                  <label htmlFor="email">
-                    Email
-                  </label>
+                <span>
+                  Gender
+                </span>
 
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Enter email"
-                  />
-
-                </div>
-
-                {/* PHONE */}
-
-                <div className="profile-input-group">
-
-                  <label htmlFor="phone">
-                    Phone
-                  </label>
-
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    maxLength="10"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Enter 10-digit phone"
-                  />
-
-                </div>
-
-                {/* GENDER */}
-
-                <div className="profile-input-group">
-
-                  <label htmlFor="gender">
-                    Gender
-                  </label>
-
+                {isEditing ? (
                   <select
-                    id="gender"
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
+                    value={
+                      displayUser.gender || ""
+                    }
+                    onChange={(e) =>
+                      handleChange(
+                        "gender",
+                        e.target.value
+                      )
+                    }
                   >
+
                     <option value="">
                       Select Gender
                     </option>
@@ -541,67 +533,101 @@ function Profile() {
                     <option value="Other">
                       Other
                     </option>
+
                   </select>
+                ) : (
+                  <strong>
+                    {user.gender || "-"}
+                  </strong>
+                )}
 
-                </div>
+              </div>
 
-                {/* DATE OF BIRTH */}
+              {/* DATE OF BIRTH */}
 
-                <div className="profile-input-group">
+              <div className="profile-field">
 
-                  <label htmlFor="dateOfBirth">
-                    Date of Birth
-                  </label>
+                <span>
+                  Date of Birth
+                </span>
 
+                {isEditing ? (
                   <input
-                    id="dateOfBirth"
-                    name="dateOfBirth"
                     type="date"
                     value={
-                      formData.dateOfBirth || ""
+                      displayUser.dateOfBirth || ""
                     }
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(
+                        "dateOfBirth",
+                        e.target.value
+                      )
+                    }
                   />
+                ) : (
+                  <strong>
+                    {user.dateOfBirth || "-"}
+                  </strong>
+                )}
 
-                </div>
+              </div>
 
-                {/* AGE */}
+              {/* AGE */}
 
-                <div className="profile-input-group">
+              <div className="profile-field">
 
-                  <label htmlFor="age">
-                    Age
-                  </label>
+                <span>
+                  Age
+                </span>
 
+                {isEditing ? (
                   <input
-                    id="age"
-                    name="age"
                     type="number"
-                    min="0"
-                    max="150"
-                    value={formData.age}
-                    onChange={handleChange}
-                    placeholder="Enter age"
+                    min="1"
+                    max="120"
+                    value={
+                      displayUser.age || ""
+                    }
+                    onChange={(e) =>
+                      handleChange(
+                        "age",
+                        e.target.value
+                      )
+                    }
                   />
+                ) : (
+                  <strong>
+                    {user.age
+                      ? `${user.age} years`
+                      : "-"}
+                  </strong>
+                )}
 
-                </div>
+              </div>
 
-                {/* BLOOD GROUP */}
+              {/* BLOOD GROUP */}
 
-                <div className="profile-input-group">
+              <div className="profile-field">
 
-                  <label htmlFor="bloodGroup">
-                    Blood Group
-                  </label>
+                <span>
+                  Blood Group
+                </span>
 
+                {isEditing ? (
                   <select
-                    id="bloodGroup"
-                    name="bloodGroup"
-                    value={formData.bloodGroup}
-                    onChange={handleChange}
+                    value={
+                      displayUser.bloodGroup || ""
+                    }
+                    onChange={(e) =>
+                      handleChange(
+                        "bloodGroup",
+                        e.target.value
+                      )
+                    }
                   >
+
                     <option value="">
-                      Select Blood Group
+                      Select
                     </option>
 
                     <option value="A+">
@@ -635,290 +661,210 @@ function Profile() {
                     <option value="O-">
                       O-
                     </option>
+
                   </select>
+                ) : (
+                  <strong className="blood-value">
+                    {user.bloodGroup || "-"}
+                  </strong>
+                )}
 
-                </div>
+              </div>
+
+              {/* PATIENT ID */}
+
+              <div className="profile-field disabled-field">
+
+                <span>
+                  Patient ID
+                </span>
+
+                <strong>
+                  {user.patientId || "-"}
+                </strong>
 
               </div>
 
             </div>
 
-            {/* ADDRESS */}
+          </div>
 
-            <div className="profile-section">
+          {/* =================================================
+              ADDRESS
+          ================================================= */}
 
-              <div className="section-title-row">
-                <div>
-                  <h3>Address</h3>
-                  <p>
-                    Update your current address.
-                  </p>
-                </div>
+          <div className="profile-section">
+
+            <div className="section-heading">
+
+              <h3>
+                Address
+              </h3>
+
+              <p>
+                Your registered residential address.
+              </p>
+
+            </div>
+
+            <div className="address-field">
+
+              <div className="address-icon">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                >
+                  <path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" />
+                  <circle
+                    cx="12"
+                    cy="9"
+                    r="2.5"
+                  />
+                </svg>
+
               </div>
 
-              <div className="profile-input-group">
+              <div>
 
-                <label htmlFor="address">
-                  Full Address
-                </label>
+                <span>
+                  Residential Address
+                </span>
 
-                <textarea
-                  id="address"
-                  name="address"
-                  rows="4"
-                  value={formData.address}
-                  onChange={handleChange}
-                  placeholder="Enter your full address"
-                />
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={
+                      displayUser.address || ""
+                    }
+                    onChange={(e) =>
+                      handleChange(
+                        "address",
+                        e.target.value
+                      )
+                    }
+                  />
+                ) : (
+                  <strong>
+                    {user.address || "-"}
+                  </strong>
+                )}
 
               </div>
 
             </div>
 
-            {/* ACCOUNT INFORMATION */}
+          </div>
 
-            <div className="profile-section">
+          {/* =================================================
+              ACCOUNT INFORMATION
+          ================================================= */}
+
+          <div className="profile-section account-section">
+
+            <div className="section-heading">
 
               <h3>
                 Account Information
               </h3>
 
-              <div className="profile-grid">
+              <p>
+                Basic information about your hospital account.
+              </p>
 
-                <div className="profile-field readonly-field">
+            </div>
 
-                  <span>Role</span>
+            <div className="account-grid">
 
-                  <strong>
-                    {localStorage.getItem("role") ||
-                      "Patient"}
-                  </strong>
+              {/* ROLE */}
 
-                </div>
+              <div className="account-item">
 
-                <div className="profile-field readonly-field">
+                <span>
+                  Role
+                </span>
 
-                  <span>Patient ID</span>
+                <strong>
+                  {user.role || "Patient"}
+                </strong>
 
-                  <strong>
-                    {user.patientId || "N/A"}
-                  </strong>
+              </div>
 
-                </div>
+              {/* PATIENT ID */}
 
-                <div className="profile-field readonly-field">
+              <div className="account-item">
 
-                  <span>User ID</span>
+                <span>
+                  Patient ID
+                </span>
 
-                  <strong>
-                    {user.userId || "N/A"}
-                  </strong>
+                <strong>
+                  {user.patientId || "-"}
+                </strong>
 
-                </div>
+              </div>
+
+              {/* USER ID */}
+
+              <div className="account-item">
+
+                <span>
+                  User ID
+                </span>
+
+                <strong>
+                  {user.userId || "-"}
+                </strong>
+
+              </div>
+
+              {/* STATUS */}
+
+              <div className="account-item account-active">
+
+                <span>
+                  Account Status
+                </span>
+
+                <strong>
+                  Active
+                </strong>
 
               </div>
 
             </div>
 
-            {/* ACTION BUTTONS */}
+          </div>
 
-            <div className="profile-form-actions">
+          {/* =================================================
+              EDIT ACTIONS
+          ================================================= */}
+
+          {isEditing && (
+            <div className="profile-actions">
 
               <button
                 type="button"
-                className="cancel-profile-button"
+                className="cancel-button"
                 onClick={handleCancel}
-                disabled={saving}
               >
                 Cancel
               </button>
 
               <button
-                type="submit"
-                className="save-profile-button"
-                disabled={saving}
+                type="button"
+                className="save-button"
+                onClick={handleSave}
               >
-                {saving ? (
-                  <>
-                    <span className="button-spinner"></span>
-                    Saving...
-                  </>
-                ) : (
-                  <>
-                    ✓ Save Changes
-                  </>
-                )}
+                Save Changes
               </button>
 
             </div>
+          )}
 
-          </form>
-
-        ) : (
-
-          <>
-            {/* ====================================
-                PERSONAL INFORMATION VIEW
-            ==================================== */}
-
-            <div className="profile-section">
-
-              <div className="section-title-row">
-
-                <div>
-                  <h3>
-                    Personal Information
-                  </h3>
-
-                  <p>
-                    Your registered personal details.
-                  </p>
-                </div>
-
-              </div>
-
-              <div className="profile-grid">
-
-                <div className="profile-field">
-                  <span>Full Name</span>
-                  <strong>
-                    {user.name ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>Email</span>
-                  <strong>
-                    {user.email ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>Phone</span>
-                  <strong>
-                    {user.phone ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>Gender</span>
-                  <strong>
-                    {user.gender ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>Date of Birth</span>
-                  <strong>
-                    {user.dateOfBirth ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>Age</span>
-                  <strong>
-                    {user.age !== null &&
-                    user.age !== undefined &&
-                    user.age !== ""
-                      ? `${user.age} years`
-                      : "Not available"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>Blood Group</span>
-                  <strong className="blood-group">
-                    {user.bloodGroup ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>Patient ID</span>
-                  <strong>
-                    {user.patientId ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* ====================================
-                ADDRESS
-            ==================================== */}
-
-            <div className="profile-section">
-
-              <div className="section-title-row">
-
-                <div>
-                  <h3>Address</h3>
-
-                  <p>
-                    Your registered residential
-                    address.
-                  </p>
-                </div>
-
-              </div>
-
-              <div className="address-box">
-
-                <span className="address-icon">
-                  📍
-                </span>
-
-                <p>
-                  {user.address ||
-                    "Address not available"}
-                </p>
-
-              </div>
-
-            </div>
-
-            {/* ====================================
-                ACCOUNT INFORMATION
-            ==================================== */}
-
-            <div className="profile-section">
-
-              <h3>
-                Account Information
-              </h3>
-
-              <div className="profile-grid">
-
-                <div className="profile-field">
-                  <span>Role</span>
-
-                  <strong>
-                    {localStorage.getItem("role") ||
-                      "Patient"}
-                  </strong>
-                </div>
-
-                <div className="profile-field">
-                  <span>User ID</span>
-
-                  <strong>
-                    {user.userId ||
-                      "Not available"}
-                  </strong>
-                </div>
-
-              </div>
-
-            </div>
-          </>
-        )}
+        </section>
 
       </div>
 
