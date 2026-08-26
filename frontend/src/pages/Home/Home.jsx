@@ -1022,7 +1022,13 @@ const clearChat = () => {
               analysis, risk alerts and medical information.
             </p>
 
-            <a href="#ai">
+            <a
+              href="#ai-healthcare"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/ai-health-assistant");
+              }}
+            >
               Explore AI →
             </a>
 
@@ -2013,6 +2019,85 @@ const clearChat = () => {
     </div>
 
   </div>
+
+</section>
+
+{/* =====================================================
+    AI HEALTH ASSISTANT — REDIRECT CARD
+===================================================== */}
+
+<section className="home-ai-section" id="ai-healthcare">
+
+  <div className="home-ai-content">
+
+    <span className="home-ai-label">
+      🤖 AI HEALTHCARE
+    </span>
+
+    <h2>
+      Smart Healthcare,
+      <br />
+      Powered by AI
+    </h2>
+
+    <p>
+      Get general health guidance from our AI Health
+      Assistant. Describe your symptoms and receive
+      helpful information instantly.
+    </p>
+
+    <button
+      type="button"
+      className="home-ai-button"
+      onClick={() => navigate("/ai-health-assistant")}
+    >
+      🤖 Open AI Health Assistant →
+    </button>
+
+  </div>
+
+
+  <button
+    type="button"
+    className="home-ai-card"
+    onClick={() => navigate("/ai-health-assistant")}
+  >
+
+    <div className="home-ai-image">
+
+      <div className="ai-glow-circle">
+        🤖
+      </div>
+
+      <div className="ai-floating-card">
+        <span>AI Assistant</span>
+        <strong>Online</strong>
+      </div>
+
+    </div>
+
+    <div className="home-ai-card-content">
+
+      <span>
+        AI HEALTH ASSISTANT
+      </span>
+
+      <h3>
+        Your Smart Healthcare Helper
+      </h3>
+
+      <p>
+        Click here to describe your symptoms
+        and get AI-powered general health guidance.
+      </p>
+
+      <strong>
+        Try AI Assistant →
+      </strong>
+
+    </div>
+
+  </button>
 
 </section>
 
