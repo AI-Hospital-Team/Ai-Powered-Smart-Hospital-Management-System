@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
+import { useDarkMode } from "../../theme/DarkMode";
 
 function Home() {
   useEffect(() => {
@@ -25,7 +26,6 @@ function Home() {
   };
   
 }, []);
-  const [loginDarkMode, setLoginDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   useEffect(() => {
   const sections = [
@@ -63,16 +63,10 @@ function Home() {
 
 
   const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useDarkMode();
   /* =====================================================
    AI HEALTHCARE CHATBOT
 ===================================================== */
-const [darkMode, setDarkMode] = useState(false);
-
-const toggleTheme = () => {
-  setDarkMode((prev) => !prev);
-  document.body.classList.toggle("dark-mode");
-};
-
 const [showAboutChat, setShowAboutChat] = useState(false);
 
 const [chatMessages, setChatMessages] = useState([
@@ -527,7 +521,7 @@ const clearChat = () => {
 
 
   return (
-    <div className={`home-page ${darkMode ? "dark-mode" : ""}`}>
+    <div className="home-page">
 
 {/* =====================================================
     MAIN HEADER
@@ -658,7 +652,7 @@ const clearChat = () => {
       <button
         type="button"
         className="theme-toggle"
-        onClick={toggleTheme}
+        onClick={() => setDarkMode((current) => !current)}
         aria-label={
           darkMode
             ? "Switch to light mode"
@@ -709,12 +703,236 @@ const clearChat = () => {
 
      
       {/* =====================================================
+          PROJECT INTRODUCTION
+          Academic / Educational Project
+      ===================================================== */}
+
+      <section className="project-intro-section" id="project">
+
+        <div className="project-intro-glow project-glow-one"></div>
+        <div className="project-intro-glow project-glow-two"></div>
+
+        <div className="project-intro-container">
+
+          {/* TOP BAR */}
+
+          <div className="project-intro-top">
+
+            <div className="project-intro-badge">
+
+              <span className="project-intro-badge-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 8.5 12 4l9 4.5L12 13 3 8.5Z" />
+                  <path d="M6 11.5v4.2c3.7 2.5 8.3 2.5 12 0v-4.2" />
+                  <path d="M21 9v5" />
+                </svg>
+              </span>
+
+              <span>
+                EDUCATIONAL COLLEGE PROJECT
+              </span>
+
+            </div>
+
+
+            <div className="project-team">
+
+              <span className="project-team-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="9" cy="8" r="3" />
+                  <path d="M3.5 20a5.5 5.5 0 0 1 11 0" />
+                  <circle cx="17.5" cy="9" r="2.5" />
+                  <path d="M15.5 20a4.5 4.5 0 0 1 5-4.4" />
+                </svg>
+              </span>
+
+              <div>
+                <span>PROJECT TEAM</span>
+
+                <strong>
+                  Prathmesh Panmand &amp; Radheshyam Wayal
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* MAIN PROJECT CONTENT */}
+
+          <div className="project-intro-main">
+
+            <div className="project-intro-heading">
+
+              <span className="project-intro-kicker">
+                SMART HEALTHCARE&nbsp; • &nbsp;AI&nbsp; • &nbsp;WEB TECHNOLOGY
+              </span>
+
+              <h2>
+                Welcome to
+                <span> AI Smart Hospital</span>
+              </h2>
+
+              <p className="project-intro-lead">
+                A college project created for educational and learning
+                purposes, exploring how Artificial Intelligence and
+                modern web technologies can be applied to build a
+                smarter digital healthcare management environment.
+              </p>
+
+            </div>
+
+
+            <div className="project-intro-description">
+
+              <p>
+                The project brings patients, doctors and hospital
+                administrators together through one connected platform
+                for appointments, medical records, prescriptions and
+                essential healthcare services.
+              </p>
+
+              <p>
+                It demonstrates how technology can help organize
+                healthcare workflows, improve digital accessibility
+                and provide a foundation for intelligent healthcare
+                solutions.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {/* PROJECT HIGHLIGHTS */}
+
+          <div className="project-highlights">
+
+            <div className="project-highlight-card">
+
+              <div className="project-highlight-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8.5 4.5a3.5 3.5 0 0 0-6 2.5v1a3.5 3.5 0 0 0 0 6v1a3.5 3.5 0 0 0 6 2.5" />
+                  <path d="M15.5 4.5a3.5 3.5 0 0 1 6 2.5v1a3.5 3.5 0 0 1 0 6v1a3.5 3.5 0 0 1-6 2.5" />
+                  <path d="M8.5 4.5v15M15.5 4.5v15M8.5 9h7M8.5 15h7" />
+                </svg>
+              </div>
+
+              <div>
+                <strong>AI &amp; Technology</strong>
+
+                <small>
+                  Exploring intelligent technology and its role
+                  in modern healthcare.
+                </small>
+              </div>
+
+            </div>
+
+
+            <div className="project-highlight-card">
+
+              <div className="project-highlight-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 21V6.5L12 3l8 3.5V21" />
+                  <path d="M9 21v-5h6v5M12 7v5M9 9h6" />
+                </svg>
+              </div>
+
+              <div>
+                <strong>Digital Healthcare</strong>
+
+                <small>
+                  Connecting patients, doctors and hospital
+                  services through one platform.
+                </small>
+              </div>
+
+            </div>
+
+
+            <div className="project-highlight-card">
+
+              <div className="project-highlight-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3a6 6 0 0 1 3.5 10.9c-.9.7-1.5 1.7-1.5 3.1h-4c0-1.4-.6-2.4-1.5-3.1A6 6 0 0 1 12 3Z" />
+                  <path d="M9.5 20h5M10 17h4" />
+                </svg>
+              </div>
+
+              <div>
+                <strong>Learning &amp; Innovation</strong>
+
+                <small>
+                  Built as a college project to develop practical
+                  technical skills and experimentation.
+                </small>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* PROJECT FOOTER */}
+
+          <div className="project-intro-footer">
+
+            <div className="project-purpose">
+
+              <span className="project-purpose-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3a6 6 0 0 1 3.5 10.9c-.9.7-1.5 1.7-1.5 3.1h-4c0-1.4-.6-2.4-1.5-3.1A6 6 0 0 1 12 3Z" />
+                  <path d="M9.5 20h5M10 17h4" />
+                </svg>
+              </span>
+
+              <div>
+                <span>PROJECT PURPOSE</span>
+
+                <strong>
+                  Learning • Experimentation • Innovation
+                </strong>
+              </div>
+
+            </div>
+
+
+            <div className="project-academic-note">
+
+              <span className="project-academic-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 8.5 12 4l9 4.5L12 13 3 8.5Z" />
+                  <path d="M6 11.5v4.2c3.7 2.5 8.3 2.5 12 0v-4.2" />
+                </svg>
+              </span>
+
+              <span>
+                Created for educational and academic purposes
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
           ANNOUNCEMENT
       ===================================================== */}
 
       <div className="announcement">
 
-        <span>🔔</span>
+        <span className="announcement-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+            <path d="M10 21h4" />
+          </svg>
+        </span>
 
         <span>
           <strong>Smart Healthcare:</strong> Book appointments,
@@ -2609,27 +2827,9 @@ const clearChat = () => {
   >
 
     <div
-      className={`hospital-login ${
-        loginDarkMode ? "login-dark-mode" : ""
-      }`}
+      className="hospital-login"
       onClick={(e) => e.stopPropagation()}
     >
-
-      {/* LOGIN-ONLY THEME BUTTON */}
-      <button
-        type="button"
-        className="login-theme-toggle"
-        onClick={() =>
-          setLoginDarkMode((prev) => !prev)
-        }
-        aria-label={
-          loginDarkMode
-            ? "Switch login to light mode"
-            : "Switch login to dark mode"
-        }
-      >
-        {loginDarkMode ? "☀️" : "🌙"}
-      </button>
 
       {/* CLOSE */}
       <button
