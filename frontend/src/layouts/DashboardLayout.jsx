@@ -765,9 +765,8 @@ function DashboardLayout() {
               type="button"
               className="header-button"
               onClick={() =>
-                setDarkMode(
-                  (prev) => !prev
-                )
+                
+                   setDarkMode((current) => !current)
               }
               title={
                 darkMode
