@@ -1,4 +1,4 @@
-# AI-Powered Smart Hospital Management System.
+# AI-Powered Smart Hospital Management System
 
 ## 👨‍💻 Author
 
