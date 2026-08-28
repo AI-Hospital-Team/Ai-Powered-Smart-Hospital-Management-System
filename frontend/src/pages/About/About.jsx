@@ -53,10 +53,10 @@ function About() {
             <h2>Prathmesh Panmand</h2>
 
             <p>
-              Working on Java-based application development,
-              AI integration, REST APIs and database management
-              while contributing to the overall system design
-              and intelligent healthcare features.
+             Working on Java backend development,
+             Spring Boot, database management and 
+             AI integration while contributing to 
+             REST API development and intelligent hospital management features.
             </p>
 
             <div className="team-skills">
@@ -120,10 +120,10 @@ function About() {
             <h2>Radheshyam Wayal</h2>
 
             <p>
-              Working on Java backend development, Spring Boot,
-              database management and AI integration while
-              contributing to REST API development and
-              intelligent hospital management features.
+              Working on Java-based application development,
+              AI integration, REST APIs and database management
+              while contributing to the overall system design
+              and intelligent healthcare features.
             </p>
 
             <div className="team-skills">
