@@ -53,10 +53,10 @@ function About() {
             <h2>Prathmesh Panmand</h2>
 
             <p>
-              Working on Java-based application development,
-              AI integration, REST APIs and database management
-              while contributing to the overall system design
-              and intelligent healthcare features.
+             Working on Java development,
+             Spring Boot, database management and 
+             AI integration while contributing to 
+             REST API development and intelligent hospital management features.
             </p>
 
             <div className="team-skills">
@@ -66,6 +66,10 @@ function About() {
               <span>REST API</span>
               <span>MySQL</span>
               <span>Git & GitHub</span>
+              <span>React.js</span>
+              <span>Ollama</span>
+              <span>Vite</span>
+              <span>LLM</span>
             </div>
 
             <div className="team-links">
@@ -120,10 +124,10 @@ function About() {
             <h2>Radheshyam Wayal</h2>
 
             <p>
-              Working on Java backend development, Spring Boot,
-              database management and AI integration while
-              contributing to REST API development and
-              intelligent hospital management features.
+              Working on Java-based application development,
+              AI integration, REST APIs and database management
+              while contributing to the overall system design
+              and intelligent healthcare features.
             </p>
 
             <div className="team-skills">
@@ -133,8 +137,11 @@ function About() {
               <span>REST API</span>
               <span>MySQL</span>
               <span>Git & GitHub</span>
+              <span>React.js</span>
+              <span>Ollama</span>
+              <span>Vite</span>
+              <span>LLM</span>
             </div>
-
             <div className="team-links">
 
               <a
@@ -190,14 +197,14 @@ function About() {
             <div>
               <strong>College</strong>
               <span>
-                Samarth College Of Computer Sci, Belhe
+                Samarth College Of Computer Science, Belhe
               </span>
             </div>
 
             <div>
               <strong>Course</strong>
               <span>
-                BCA — Third Year
+                BCA-(Science) Third Year
               </span>
             </div>
 
