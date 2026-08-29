@@ -1,6 +1,219 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
+import { useDarkMode } from "../../theme/DarkMode";
+
+/* =====================================================
+   REUSABLE SVG ICON
+===================================================== */
+
+const Icon = ({ name, size = 24, strokeWidth = 1.8 }) => {
+
+  const icons = {
+
+    healthcare: (
+      <>
+        <path d="M12 21s-7-4.35-9.2-8.3C1.1 9.65 3.1 5 7.2 5c2.1 0 3.7 1.2 4.8 2.7C13.1 6.2 14.7 5 16.8 5c4.1 0 6.1 4.65 4.4 7.7C19 16.65 12 21 12 21Z" />
+        <path d="M12 9v6M9 12h6" />
+      </>
+    ),
+
+    appointment: (
+      <>
+        <rect x="3" y="4" width="18" height="17" rx="3" />
+        <path d="M7 2v4M17 2v4M3 9h18" />
+        <path d="M8 13h2M14 13h2M8 17h2M14 17h2" />
+      </>
+    ),
+
+    doctor: (
+      <>
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c.8-4.2 3.4-6.5 8-6.5s7.2 2.3 8 6.5" />
+        <path d="M17 5h4M19 3v4" />
+      </>
+    ),
+
+    records: (
+      <>
+        <path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+        <path d="M14 3v5h5" />
+        <path d="M8 12h8M8 16h6" />
+      </>
+    ),
+
+    pharmacy: (
+      <>
+        <path d="m7 4 13 13" />
+        <path d="m17 4-13 13" />
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <path d="M9 12h6M12 9v6" />
+      </>
+    ),
+
+    diagnostic: (
+      <>
+        <path d="M8 3h8v5c0 3-2 4-4 5s-4 2-4 5v3h8" />
+        <path d="M6 21h12" />
+        <path d="M9 7h6" />
+      </>
+    ),
+
+    ai: (
+      <>
+        <rect x="5" y="6" width="14" height="13" rx="3" />
+        <path d="M9 3v3M15 3v3M9 19v2M15 19v2" />
+        <circle cx="9.5" cy="12" r="1" />
+        <circle cx="14.5" cy="12" r="1" />
+        <path d="M9 15c2 1.2 4 1.2 6 0" />
+      </>
+    ),
+
+    bot: (
+  <>
+    <rect x="5" y="6" width="14" height="13" rx="3" />
+    <path d="M9 3v3M15 3v3" />
+    <circle cx="9" cy="12" r="1" />
+    <circle cx="15" cy="12" r="1" />
+    <path d="M9 16h6" />
+  </>
+),
+
+    hospital: (
+      <>
+        <path d="M4 21V7l8-4 8 4v14" />
+        <path d="M9 21v-5h6v5" />
+        <path d="M12 7v5M9.5 9.5h5" />
+      </>
+    ),
+
+    heart: (
+      <>
+        <path d="M20.8 8.8c0 5.4-8.8 10.5-8.8 10.5S3.2 14.2 3.2 8.8A5 5 0 0 1 12 6.2a5 5 0 0 1 8.8 2.6Z" />
+      </>
+    ),
+
+    brain: (
+      <>
+        <path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3" />
+        <path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3" />
+        <path d="M9 4v16M15 4v16M9 9h6M9 15h6" />
+      </>
+    ),
+
+    bone: (
+      <>
+        <path d="M7 5a3 3 0 1 0-4 4l12 12a3 3 0 1 0 4-4L7 5Z" />
+        <path d="m5 7 2-2M17 19l2-2" />
+      </>
+    ),
+
+    child: (
+      <>
+        <circle cx="12" cy="7" r="3" />
+        <path d="M6 21c.5-4.3 2.5-7 6-7s5.5 2.7 6 7" />
+        <path d="M9 17h6" />
+      </>
+    ),
+
+    lungs: (
+      <>
+        <path d="M12 5v14" />
+        <path d="M11 9C7 7 4 8 4 13c0 4 2 7 6 7 1 0 2-1 2-3V9Z" />
+        <path d="M13 9c4-2 7-1 7 4 0 4-2 7-6 7-1 0-2-1-2-3V9Z" />
+      </>
+    ),
+
+    skin: (
+      <>
+        <path d="M12 3c-3 3-7 6-7 10a7 7 0 0 0 14 0c0-4-4-7-7-10Z" />
+        <path d="M9 15c1 1 2 1.5 3 1.5s2-.5 3-1.5" />
+      </>
+    ),
+
+    shield: (
+      <>
+        <path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z" />
+        <path d="m8.5 12 2.3 2.3 4.8-5" />
+      </>
+    ),
+
+    star: (
+      <>
+        <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" />
+      </>
+    ),
+
+    clock: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </>
+    ),
+
+    location: (
+      <>
+        <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+        <circle cx="12" cy="10" r="2.5" />
+      </>
+    ),
+
+    phone: (
+      <>
+        <path d="M5 4h4l2 5-2.5 2c1.2 2.5 2.8 4.1 5.3 5.3l2-2.5 5 2v4c0 1-1 2-2 2C10 21 3 14 3 6c0-1 1-2 2-2Z" />
+      </>
+    ),
+
+    mail: (
+      <>
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="m4 7 8 6 8-6" />
+      </>
+    ),
+
+    emergency: (
+      <>
+        <path d="M12 3 21 20H3L12 3Z" />
+        <path d="M12 9v5M12 17v.5" />
+      </>
+    ),
+
+    arrow: (
+      <>
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </>
+    ),
+
+    github: (
+      <>
+        <path d="M9 19c-4 1-4-2-5-2m10 5v-3.9c0-1.1.1-1.5-.5-2.1 3.4-.4 7-1.7 7-7.5a5.8 5.8 0 0 0-1.5-4C19.4 3.1 19.5 2 19.5 2s-1.1-.3-3.6 1.5a12.3 12.3 0 0 0-7.8 0C5.6 1.7 4.5 2 4.5 2s.1 1.1.5 2.5a5.8 5.8 0 0 0-1.5 4c0 5.8 3.6 7.1 7 7.5-.6.5-.6 1.1-.6 2.1V22" />
+      </>
+    ),
+
+    sparkle: (
+      <>
+        <path d="m12 2 1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2Z" />
+        <path d="m19 16 .6 2.4L22 19l-2.4.6L19 22l-.6-2.4L16 19l2.4-.6L19 16Z" />
+      </>
+    )
+  };
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {icons[name]}
+    </svg>
+  );
+};
 
 function Home() {
   useEffect(() => {
@@ -25,7 +238,6 @@ function Home() {
   };
   
 }, []);
-  const [loginDarkMode, setLoginDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   useEffect(() => {
   const sections = [
@@ -63,16 +275,10 @@ function Home() {
 
 
   const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useDarkMode();
   /* =====================================================
    AI HEALTHCARE CHATBOT
 ===================================================== */
-const [darkMode, setDarkMode] = useState(false);
-
-const toggleTheme = () => {
-  setDarkMode((prev) => !prev);
-  document.body.classList.toggle("dark-mode");
-};
-
 const [showAboutChat, setShowAboutChat] = useState(false);
 
 const [chatMessages, setChatMessages] = useState([
@@ -527,7 +733,7 @@ const clearChat = () => {
 
 
   return (
-    <div className={`home-page ${darkMode ? "dark-mode" : ""}`}>
+    <div className="home-page">
 
 {/* =====================================================
     MAIN HEADER
@@ -658,7 +864,7 @@ const clearChat = () => {
       <button
         type="button"
         className="theme-toggle"
-        onClick={toggleTheme}
+        onClick={() => setDarkMode((current) => !current)}
         aria-label={
           darkMode
             ? "Switch to light mode"
@@ -709,12 +915,267 @@ const clearChat = () => {
 
      
       {/* =====================================================
+          PROJECT INTRODUCTION
+          Academic / Educational Project
+      ===================================================== */}
+
+      <section className="project-intro-section" id="project">
+
+        <div className="project-intro-glow project-glow-one"></div>
+        <div className="project-intro-glow project-glow-two"></div>
+
+        <div className="project-intro-container">
+
+          {/* TOP BAR */}
+
+          <div className="project-intro-top">
+
+            <div className="project-intro-badge">
+
+              <span className="project-intro-badge-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 8.5 12 4l9 4.5L12 13 3 8.5Z" />
+                  <path d="M6 11.5v4.2c3.7 2.5 8.3 2.5 12 0v-4.2" />
+                  <path d="M21 9v5" />
+                </svg>
+              </span>
+
+              <span>
+                EDUCATIONAL COLLEGE PROJECT
+              </span>
+
+            </div>
+
+
+            <div className="project-team">
+
+              <span className="project-team-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="9" cy="8" r="3" />
+                  <path d="M3.5 20a5.5 5.5 0 0 1 11 0" />
+                  <circle cx="17.5" cy="9" r="2.5" />
+                  <path d="M15.5 20a4.5 4.5 0 0 1 5-4.4" />
+                </svg>
+              </span>
+
+              <div>
+                <span>PROJECT TEAM</span>
+
+                <strong>
+                  Prathmesh Panmand &amp; Radheshyam Wayal
+                </strong>
+                
+              </div>
+              
+
+            </div>
+        
+        {/* ================= GITHUB ================= */}
+
+        <a
+          href="https://github.com/AI-Hospital-Team/Ai-Powered-Smart-Hospital-Management-System"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hero-github-link"
+        >
+
+          <span className="github-mark">
+
+            <Icon
+              name="github"
+              size={17}
+            />
+
+          </span>
+
+          <span>
+            View project on GitHub
+          </span>
+
+          <Icon
+            name="arrow"
+            size={15}
+          />
+
+        </a>
+          </div>
+
+
+          {/* MAIN PROJECT CONTENT */}
+
+          <div className="project-intro-main">
+
+            <div className="project-intro-heading">
+
+              <span className="project-intro-kicker">
+                SMART HEALTHCARE&nbsp; • &nbsp;AI&nbsp; • &nbsp;WEB TECHNOLOGY
+              </span>
+
+              <h2>
+                Welcome to
+                <span> AI Smart Hospital</span>
+              </h2>
+
+              <p className="project-intro-lead">
+                A college project created for educational and learning
+                purposes, exploring how Artificial Intelligence and
+                modern web technologies can be applied to build a
+                smarter digital healthcare management environment.
+              </p>
+
+            </div>
+
+
+            <div className="project-intro-description">
+
+              <p>
+                The project brings patients, doctors and hospital
+                administrators together through one connected platform
+                for appointments, medical records, prescriptions and
+                essential healthcare services.
+              </p>
+
+              <p>
+                It demonstrates how technology can help organize
+                healthcare workflows, improve digital accessibility
+                and provide a foundation for intelligent healthcare
+                solutions.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {/* PROJECT HIGHLIGHTS */}
+
+          <div className="project-highlights">
+
+            <div className="project-highlight-card">
+
+              <div className="project-highlight-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8.5 4.5a3.5 3.5 0 0 0-6 2.5v1a3.5 3.5 0 0 0 0 6v1a3.5 3.5 0 0 0 6 2.5" />
+                  <path d="M15.5 4.5a3.5 3.5 0 0 1 6 2.5v1a3.5 3.5 0 0 1 0 6v1a3.5 3.5 0 0 1-6 2.5" />
+                  <path d="M8.5 4.5v15M15.5 4.5v15M8.5 9h7M8.5 15h7" />
+                </svg>
+              </div>
+
+              <div>
+                <strong>AI &amp; Technology</strong>
+
+                <small>
+                  Exploring intelligent technology and its role
+                  in modern healthcare.
+                </small>
+              </div>
+
+            </div>
+
+
+            <div className="project-highlight-card">
+
+              <div className="project-highlight-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 21V6.5L12 3l8 3.5V21" />
+                  <path d="M9 21v-5h6v5M12 7v5M9 9h6" />
+                </svg>
+              </div>
+
+              <div>
+                <strong>Digital Healthcare</strong>
+
+                <small>
+                  Connecting patients, doctors and hospital
+                  services through one platform.
+                </small>
+              </div>
+
+            </div>
+
+
+            <div className="project-highlight-card">
+
+              <div className="project-highlight-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3a6 6 0 0 1 3.5 10.9c-.9.7-1.5 1.7-1.5 3.1h-4c0-1.4-.6-2.4-1.5-3.1A6 6 0 0 1 12 3Z" />
+                  <path d="M9.5 20h5M10 17h4" />
+                </svg>
+              </div>
+
+              <div>
+                <strong>Learning &amp; Innovation</strong>
+
+                <small>
+                  Built as a college project to develop practical
+                  technical skills and experimentation.
+                </small>
+              </div>
+
+            </div>
+            
+
+          </div>
+
+
+          {/* PROJECT FOOTER */}
+
+          <div className="project-intro-footer">
+
+            <div className="project-purpose">
+
+              <span className="project-purpose-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3a6 6 0 0 1 3.5 10.9c-.9.7-1.5 1.7-1.5 3.1h-4c0-1.4-.6-2.4-1.5-3.1A6 6 0 0 1 12 3Z" />
+                  <path d="M9.5 20h5M10 17h4" />
+                </svg>
+              </span>
+
+              <div>
+                <span>PROJECT PURPOSE</span>
+
+                <strong>
+                  Learning • Experimentation • Innovation
+                </strong>
+              </div>
+
+            </div>
+
+
+            <div className="project-academic-note">
+
+              <span className="project-academic-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 8.5 12 4l9 4.5L12 13 3 8.5Z" />
+                  <path d="M6 11.5v4.2c3.7 2.5 8.3 2.5 12 0v-4.2" />
+                </svg>
+              </span>
+
+              <span>
+                Created for educational and academic purposes
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
           ANNOUNCEMENT
       ===================================================== */}
 
       <div className="announcement">
 
-        <span>🔔</span>
+        <span className="announcement-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+            <path d="M10 21h4" />
+          </svg>
+        </span>
 
         <span>
           <strong>Smart Healthcare:</strong> Book appointments,
@@ -724,153 +1185,299 @@ const clearChat = () => {
       </div>
 
 
+    {/* ================= Hero ================= */}
+
+<section className="hero-section">
+
+  <div className="hero-background-overlay"></div>
+
+  <div className="hero-container">
+
+    {/* ================= LEFT CONTENT ================= */}
+
+    <div className="hero-content">
+
+      <div className="hero-badge">
+        <span className="hero-badge-dot"></span>
+        <span>AI-POWERED SMART HEALTHCARE</span>
+      </div>
+
+      <h1 className="hero-title">
+        Better Healthcare.
+        <span className="highlight">
+          Smarter Future.
+        </span>
+      </h1>
+
+      <p className="hero-description">
+        Experience modern healthcare powered by technology,
+        intelligent medical systems and compassionate doctors.
+        Manage appointments, medical records and healthcare
+        services from one secure platform.
+      </p>
+
+      <div className="hero-actions">
+
+        <a
+          href="#contact"
+          className="hero-primary"
+          onClick={(e) => {
+            e.preventDefault();
+            openLogin("Patient");
+          }}
+        >
+          <Icon name="appointment" size={17} />
+          <span>Book Appointment</span>
+        </a>
+
+        <a
+          href="#services"
+          className="hero-secondary"
+        >
+          <span>Explore Services</span>
+          <Icon name="arrow" size={17} />
+        </a>
+
+      </div>
+
+      <div className="hero-features">
+
+        <span className="hero-feature">
+          <Icon name="shield" size={15} />
+          AI Assisted Healthcare
+        </span>
+
+        <span className="hero-feature">
+          <Icon name="records" size={15} />
+          Secure Medical Records
+        </span>
+
+        <span className="hero-feature">
+          <Icon name="clock" size={15} />
+          24/7 Emergency Support
+        </span>
+
+      </div>
+
+    </div>
+
+    {/* RIGHT — YOUR EXISTING SMART CARE CARD */}
+    <div className="hero-card-wrapper">
+
+      {/* keep your existing Smart Care card here */}
+
+    </div>
+
+  </div>
+
+
+<div className="hero-card compact-hero-card">
+
+  {/* Decorative texture */}
+  <div className="hero-card-texture"></div>
+
+  {/* HEADER */}
+  <div className="hero-card-brand">
+
+    <div className="hero-card-logo">
+      <img
+        src="/github-logo.jpeg"
+        alt="AI Smart Hospital"
+      />
+    </div>
+
+    <div className="hero-card-heading">
+      <span className="hero-card-label">
+        AI SMART HOSPITAL
+      </span>
+
+      <h2>Smart Care</h2>
+
+      <p>Intelligent healthcare management</p>
+    </div>
+
+  </div>
+
+
+  {/* PLATFORM */}
+  <div className="hero-card-message">
+
+    <div className="hero-card-message-icon">
+      <Icon
+        name="healthcare"
+        size={22}
+        strokeWidth={1.8}
+      />
+    </div>
+
+    <div className="hero-card-message-content">
+      <strong>Your Healthcare Platform</strong>
+
+      <p>
+        Appointments, records, doctors & services.
+      </p>
+    </div>
+
+  </div>
+
+
+  {/* ASSISTANTS */}
+  <div className="hero-assistants">
+
+    {/* HOSPITAL ASSISTANT */}
+    <button
+      type="button"
+      className="hero-assistant-card hospital-assistant"
+      onClick={() => {
+        document
+          .getElementById("about")
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+      }}
+    >
+
+      <span className="assistant-icon hospital-icon">
+        <Icon
+          name="bot"
+          size={22}
+          strokeWidth={1.8}
+        />
+      </span>
+
+      <span className="assistant-content">
+        <strong>Hospital Assistant</strong>
+      </span>
+
+      <span className="assistant-arrow">
+        <Icon
+          name="arrow"
+          size={17}
+        />
+      </span>
+
+    </button>
+
+
+    {/* =====================================================
+    HEALTH ASSISTANT
+===================================================== */}
+
+<button
+  type="button"
+  className="hero-assistant-card health-assistant"
+  onClick={() => navigate("/ai-health-assistant")}
+>
+  <span className="assistant-icon health-icon">
+    <Icon
+      name="ai"
+      size={24}
+      strokeWidth={1.8}
+    />
+  </span>
+
+  <span className="assistant-content">
+    <strong>Health Assistant</strong>
+  </span>
+
+  <span className="assistant-arrow">
+    <Icon
+      name="arrow"
+      size={17}
+    />
+  </span>
+</button>
+
+  </div>
+
+
+<div className="hero-card-footer">
+  <div className="footer-status">
+    <span className="status-dot"></span>
+
+    <strong>2 AI Assistants</strong>
+  </div>
+
+  <span className="footer-separator"></span>
+
+  <span className="footer-text">
+    One connected healthcare experience
+  </span>
+</div>
+
+</div>
+  
+</section>
+
+
       {/* =====================================================
-          HERO
+          HEALTHCARE STATISTICS
       ===================================================== */}
 
-      <section className="hero-section" id="home">
+      <section className="home-stats-section">
 
-        <div className="hero-overlay"></div>
+        <div className="home-stat-card">
 
-        <div className="hero-content">
+          <div className="home-stat-icon">
+            <Icon name="doctor" size={27} />
+          </div>
 
-          <span className="hero-badge">
-            ✨ AI-POWERED SMART HEALTHCARE
+          <strong>50+</strong>
+
+          <span>
+            Expert Doctors
           </span>
 
-          <p className="welcome-text">
-            WELCOME TO AI SMART HOSPITAL
-          </p>
-
-          <h1>
-            Better Healthcare.
-            <br />
-            <span>Smarter Future.</span>
-          </h1>
-
-          <p className="hero-description">
-            Experience modern healthcare powered by technology,
-            intelligent medical systems and compassionate doctors.
-            Manage appointments, medical records and healthcare
-            services from one secure platform.
-          </p>
-
-          <div className="hero-buttons">
-
-            <button
-              className="primary-btn"
-              onClick={() => openLogin("Patient")}
-            >
-              📅 Book Appointment
-            </button>
-
-            <a
-              href="#services"
-              className="secondary-btn"
-            >
-              Explore Services →
-            </a>
-
-          </div>
-
-          <div className="hero-features">
-
-            <span>✓ AI Assisted Healthcare</span>
-            <span>✓ Secure Medical Records</span>
-            <span>✓ 24/7 Emergency Support</span>
-
-          </div>
-
         </div>
 
 
-        {/* HERO CARD */}
+        <div className="home-stat-card">
 
-        <div className="hero-card">
-
-          <div className="hero-card-top">
-
-            <div className="hospital-round-icon">
-              🏥
-            </div>
-
-            <div>
-              <h2>Smart Care</h2>
-              <p>Technology + Human Care</p>
-            </div>
-
+          <div className="home-stat-icon">
+            <Icon name="hospital" size={27} />
           </div>
 
-          <div className="hero-medical-image">
-
-            <div className="doctor-circle">
-              👨‍⚕️
-            </div>
-
-            <div>
-              <strong>Expert Doctors</strong>
-              <small>Available for you</small>
-            </div>
-
-          </div>
-
-          <div className="hero-stats">
-
-            <div>
-              <strong>24/7</strong>
-              <span>Emergency</span>
-            </div>
-
-            <div>
-              <strong>50+</strong>
-              <span>Doctors</span>
-            </div>
-
-            <div>
-              <strong>10K+</strong>
-              <span>Patients</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          STATS
-      ===================================================== */}
-
-      <section className="stats-section">
-
-        <div className="stat-box">
-          <span>👨‍⚕️</span>
-          <strong>50+</strong>
-          <p>Expert Doctors</p>
-        </div>
-
-        <div className="stat-box">
-          <span>🏥</span>
           <strong>15+</strong>
-          <p>Departments</p>
+
+          <span>
+            Departments
+          </span>
+
         </div>
 
-        <div className="stat-box">
-          <span>❤️</span>
+
+        <div className="home-stat-card">
+
+          <div className="home-stat-icon">
+            <Icon name="heart" size={27} />
+          </div>
+
           <strong>10K+</strong>
-          <p>Happy Patients</p>
+
+          <span>
+            Happy Patients
+          </span>
+
         </div>
 
-        <div className="stat-box">
-          <span>⭐</span>
+
+        <div className="home-stat-card">
+
+          <div className="home-stat-icon">
+            <Icon name="star" size={27} />
+          </div>
+
           <strong>4.9/5</strong>
-          <p>Patient Rating</p>
+
+          <span>
+            Patient Rating
+          </span>
+
         </div>
 
       </section>
-
-
+      
       {/* =====================================================
           SERVICES
       ===================================================== */}
@@ -2384,7 +2991,7 @@ const clearChat = () => {
 
         <div>
           <h3>AI Smart Hospital</h3>
-          <p>Intelligent Healthcare Management</p>
+          <p>Smart Hospital Management System</p>
         </div>
 
       </div>
@@ -2609,27 +3216,9 @@ const clearChat = () => {
   >
 
     <div
-      className={`hospital-login ${
-        loginDarkMode ? "login-dark-mode" : ""
-      }`}
+      className="hospital-login"
       onClick={(e) => e.stopPropagation()}
     >
-
-      {/* LOGIN-ONLY THEME BUTTON */}
-      <button
-        type="button"
-        className="login-theme-toggle"
-        onClick={() =>
-          setLoginDarkMode((prev) => !prev)
-        }
-        aria-label={
-          loginDarkMode
-            ? "Switch login to light mode"
-            : "Switch login to dark mode"
-        }
-      >
-        {loginDarkMode ? "☀️" : "🌙"}
-      </button>
 
       {/* CLOSE */}
       <button

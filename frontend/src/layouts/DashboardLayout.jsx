@@ -5,7 +5,8 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDarkMode } from "../theme/DarkMode";
 
 import "./DashboardLayout.css";
 
@@ -30,39 +31,7 @@ function DashboardLayout() {
   // DARK MODE
   // ==========================================
 
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
-
-
-  useEffect(() => {
-
-    localStorage.setItem(
-      "darkMode",
-      darkMode
-    );
-
-    if (darkMode) {
-
-      document.body.classList.add("dark-mode");
-
-    } else {
-
-      document.body.classList.remove("dark-mode");
-
-    }
-
-
-    return () => {
-
-      document.body.classList.remove(
-        "dark-mode"
-      );
-
-    };
-
-  }, [darkMode]);
-
+  const [darkMode, setDarkMode] = useDarkMode();
 
   // ==========================================
   // LOGIN PROTECTION
@@ -458,9 +427,7 @@ function DashboardLayout() {
   return (
 
     <div
-      className={`dashboard-layout ${
-        darkMode ? "dark" : ""
-      }`}
+      className="dashboard-layout"
     >
 
 
@@ -798,9 +765,8 @@ function DashboardLayout() {
               type="button"
               className="header-button"
               onClick={() =>
-                setDarkMode(
-                  (prev) => !prev
-                )
+                
+                   setDarkMode((current) => !current)
               }
               title={
                 darkMode
