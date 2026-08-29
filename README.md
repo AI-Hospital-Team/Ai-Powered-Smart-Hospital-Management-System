@@ -119,7 +119,7 @@ The AI Health Assistant allows patients to enter symptoms and receive **general 
 ```text
 Fever, cough and weakness
 
-🧠 AI Architecture
+**🧠 AI Architecture**
 
 The AI feature uses:
 
@@ -140,7 +140,7 @@ AI Response
 Spring Boot
       ↓
 React Frontend
-🤖 AI Technology
+**🤖 AI Technology**
 Local AI
 Ollama
 Llama 3.2
@@ -151,7 +151,7 @@ llama3.2
 
 The model runs locally through Ollama instead of requiring a cloud AI API.
 
-🏗️ System Architecture
+**🏗️ System Architecture**
                     ┌──────────────────────────┐
                     │      React Frontend      │
                     │                          │
@@ -186,7 +186,7 @@ The model runs locally through Ollama instead of requiring a cloud AI API.
    │ prescriptions       │
    │ bills               │
    └─────────────────────┘
-💻 Technology Stack
+**💻 Technology Stack**
 Frontend
 React
 Vite
@@ -220,7 +220,7 @@ Node.js
 npm
 Java JDK
 Maven
-📂 Project Structure
+**📂 Project Structure**
 Ai-Powered-Smart-Hospital-Management-System/
 │
 ├── backend/
@@ -282,7 +282,7 @@ Ai-Powered-Smart-Hospital-Management-System/
 │
 ├── README.md
 └── .gitignore
-🗄️ Database
+**🗄️ Database**
 
 The project uses MySQL as the primary database.
 
@@ -296,7 +296,7 @@ appointments
 medical_records
 prescriptions
 bills
-👤 Users
+**👤 Users**
 
 The users table manages application login information and user roles.
 
@@ -308,7 +308,7 @@ PATIENT
 
 Role-based navigation ensures that users are redirected to the appropriate dashboard.
 
-📅 Appointment Management
+**📅 Appointment Management**
 
 The appointment system allows patients to book appointments with doctors.
 
@@ -330,7 +330,7 @@ Completed
 Appointments can also be:
 
 Cancelled
-📋 Medical Records
+**📋 Medical Records**
 
 Medical records allow the hospital system to maintain patient healthcare information.
 
@@ -342,8 +342,8 @@ Symptoms
 Treatment
 Notes
 Date
-💊 Prescription Management
-
+**💊 Prescription Management
+**
 The prescription module allows authorized users to manage patient prescriptions.
 
 Information may include:
@@ -355,7 +355,7 @@ Dosage
 Frequency
 Instructions
 Prescription date
-💰 Billing Management
+**💰 Billing Management**
 
 The billing module allows administrators to create and manage patient bills.
 
@@ -378,7 +378,7 @@ PAID
 
 Patients can view their billing information from the Patient Dashboard.
 
-👤 Patient Profile
+**👤 Patient Profile**
 
 Patients can access their profile information through:
 
@@ -388,8 +388,8 @@ Profile
 
 The profile module is designed to allow patients to manage their account information and keep their details updated.
 
-🔐 Authentication & Role Protection
-
+**🔐 Authentication & Role Protection
+**
 The application implements login and role-based navigation.
 
 Login Flow
@@ -402,7 +402,7 @@ Identify Role
 Admin / Doctor / Patient
   ↓
 Open Appropriate Dashboard
-🛡️ Protected Routes
+**🛡️ Protected Routes**
 
 The frontend contains:
 
@@ -423,7 +423,7 @@ A doctor should not directly access:
 An unauthenticated user is redirected to:
 
 /login
-🚪 Logout Protection
+**🚪 Logout Protection**
 
 When the user logs out, authentication-related local storage values are cleared.
 
@@ -433,8 +433,8 @@ The user is then redirected to:
 
 After logout, protected dashboard pages should not remain accessible through normal navigation.
 
-🏠 Home Page
-
+**🏠 Home Page
+**
 The Home page provides the public landing page of the hospital system.
 
 It includes sections such as:
@@ -452,7 +452,7 @@ Contact/footer information
 
 The Home page also provides navigation to the login and healthcare features.
 
-🤖 AI Healthcare Section on Home Page
+**🤖 AI Healthcare Section on Home Page**
 
 The Home page can showcase the AI Health Assistant.
 
@@ -460,7 +460,7 @@ Users can select the AI healthcare section and navigate to the AI assistant func
 
 The AI assistant is integrated with the patient healthcare workflow.
 
-🌙 Dark / Light Mode
+**🌙 Dark / Light Mode**
 
 The dashboard supports dark and light mode.
 
@@ -470,7 +470,7 @@ darkMode
 
 The application applies the theme dynamically without requiring the user to reload the page.
 
-🔄 Frontend ↔ Backend Communication
+**🔄 Frontend ↔ Backend Communication**
 
 The frontend communicates with the Spring Boot backend through REST APIs.
 
@@ -487,7 +487,7 @@ Service
 Repository
   ↓
 MySQL
-🤖 AI API Request Example
+**🤖 AI API Request Example**
 
 The frontend sends:
 
@@ -510,7 +510,7 @@ The backend returns:
 {
   "response": "AI generated health guidance..."
 }
-⚙️ Installation & Setup
+**⚙️ Installation & Setup**
 1. Clone Repository
 git clone https://github.com/AI-Hospital-Team/Ai-Powered-Smart-Hospital-Management-System.git
 
@@ -658,7 +658,7 @@ React / Vite	5173
 Spring Boot	8080
 Ollama	11434
 MySQL	3306
-🧪 Testing
+**🧪 Testing**
 
 The system should be tested for:
 
@@ -701,7 +701,7 @@ AI API working
 Symptoms validation
 AI response displayed correctly
 AI error handling
-🧪 AI Test Examples
+**🧪 AI Test Examples**
 Example 1
 fever, cough and weakness
 Example 2
@@ -719,7 +719,7 @@ chest discomfort and shortness of breath
 
 For serious symptoms, the application should clearly advise the user to seek appropriate professional medical attention.
 
-⚠️ AI Medical Disclaimer
+**⚠️ AI Medical Disclaimer**
 
 The AI Health Assistant is intended only for general educational health information.
 
@@ -734,8 +734,8 @@ Users should consult a qualified healthcare professional for medical concerns.
 
 If a user experiences severe or emergency symptoms, they should seek immediate professional medical assistance.
 
-🔒 Security Considerations
-
+**🔒 Security Considerations
+**
 The project includes frontend role protection and logout protection.
 
 Important security improvements for production include:
@@ -754,7 +754,7 @@ HTTPS
 
 Frontend local storage should not be treated as a secure authentication mechanism for a production healthcare application.
 
-🌐 API Endpoints
+**🌐 API Endpoints**
 Authentication
 POST /api/auth/login
 Patients
@@ -801,7 +801,7 @@ Response:
 {
   "response": "AI generated health guidance..."
 }
-🔄 Git & GitHub Workflow
+**🔄 Git & GitHub Workflow**
 
 The project uses Git for version control.
 
@@ -829,7 +829,7 @@ git merge main
 To push:
 
 git push origin prathmesh
-👨‍💻 Development Workflow
+**👨‍💻 Development Workflow**
 1. Start MySQL
         ↓
 2. Start Ollama
@@ -849,8 +849,8 @@ git push origin prathmesh
 9. Test AI Assistant
         ↓
 10. Run Production Build
-📱 Responsive Design
-
+**📱 Responsive Design
+**
 The frontend is designed to support different screen sizes, including:
 
 Desktop
@@ -860,7 +860,7 @@ Mobile
 
 Responsive testing should be performed before final deployment.
 
-🎨 UI Features
+**🎨 UI Features**
 
 The system includes:
 
@@ -875,8 +875,8 @@ Confirmation modal
 AI response formatting
 Healthcare-focused visual design
 User-friendly navigation
-🧩 Major Modules
-Authentication
+**🧩 Major Modules
+Authentication**
       │
       ├── Admin
       │
@@ -890,8 +890,8 @@ Authentication
              ├── Bills
              ├── Profile
              └── AI Health Assistant
-🚀 Future Enhancements
-
+**🚀 Future Enhancements
+**
 Possible future improvements include:
 
 JWT authentication
@@ -915,7 +915,7 @@ Docker support
 Automated testing
 Audit logs
 Advanced security
-🎓 Academic Project
+**🎓 Academic Project**
 
 This project can be used as a final-year BCA / Computer Application project demonstrating practical implementation of:
 
@@ -933,7 +933,7 @@ Local AI integration
 Ollama
 Llama 3.2
 Responsive UI design
-🧠 Skills Demonstrated
+**🧠 Skills Demonstrated**
 Programming
 Java
 JavaScript
@@ -977,7 +977,7 @@ MySQL Workbench
 PowerShell
 Maven
 npm
-📊 Project Highlights
+**📊 Project Highlights**
 Full Stack
 React + Spring Boot + MySQL
 AI Integration
@@ -996,7 +996,7 @@ Prescriptions
 Bills
 Profiles
 AI Health Assistant
-👥 Team
+**👥 Team**
 AI Hospital Team
 
 This project is developed as a collaborative full-stack hospital management project.
@@ -1004,7 +1004,7 @@ This project is developed as a collaborative full-stack hospital management proj
 Contributors
 Prathmesh
 AI Hospital Team members
-📌 Project Status
+**📌 Project Status**
 Frontend             ✅
 Backend              ✅
 MySQL Integration    ✅
@@ -1024,7 +1024,7 @@ Ollama Integration   ✅
 Llama 3.2            ✅
 Dark/Light Mode      ✅
 Production Build     ✅
-🏁 Final Run Checklist
+**🏁 Final Run Checklist**
 
 Before demonstrating the project:
 
@@ -1049,11 +1049,11 @@ Before demonstrating the project:
 [ ] Home page navigation works
 [ ] Responsive UI tested
 [ ] npm run build succeeds
-📜 License
+**📜 License**
 
 This project is developed for educational and academic purposes.
 
-⭐ Conclusion
+**⭐ Conclusion**
 
 The AI-Powered Smart Hospital Management System combines traditional hospital management functionality with modern web technologies and local AI capabilities.
 
@@ -1079,7 +1079,7 @@ AI-Powered Smart Hospital Management System
 
 The project demonstrates how a modern full-stack application can integrate React, Spring Boot, MySQL, Ollama, and Llama 3.2 into a single healthcare management platform.
 
-🏥 AI Smart Hospital
+**🏥 AI Smart Hospital**
 Intelligent Healthcare Management
 
 Manage Healthcare. Simplify Operations. Empower Patients.
