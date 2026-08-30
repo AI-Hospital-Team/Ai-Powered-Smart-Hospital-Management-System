@@ -1,0 +1,471 @@
+/* =========================================================
+   HOME RESPONSIVE + NAVIGATION FIXES
+   Import this AFTER Home.css
+========================================================= */
+
+/* ---------- GLOBAL SECTION OFFSET ---------- */
+#home,
+#project-intro,
+#services,
+#insurance,
+#departments,
+#doctors,
+#about,
+#contact {
+  scroll-margin-top: 90px;
+}
+
+/* ---------- HEADER ---------- */
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  position: relative;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+  border: 1px solid rgba(20, 157, 190, 0.25);
+  border-radius: 12px;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile-menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mobile-menu-toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-nav-actions {
+  display: none;
+}
+
+/* ---------- HERO DESKTOP ---------- */
+.hero-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.85fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 90px);
+}
+
+.hero-card-wrapper {
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.compact-hero-card {
+  width: min(100%, 520px);
+  box-sizing: border-box;
+}
+
+/* Prevent flex/grid children from forcing horizontal overflow. */
+.hero-content,
+.hero-card-wrapper,
+.project-intro-container,
+.about-container,
+.insurance-layout,
+.support-container,
+.hospital-info-container {
+  min-width: 0;
+}
+
+.hero-title,
+.hero-description {
+  max-width: 760px;
+}
+
+/* ---------- TABLET ---------- */
+@media (max-width: 1024px) {
+  .header-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .main-nav {
+    gap: 18px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .hero-container {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
+    gap: 32px;
+  }
+
+  .hero-title {
+    font-size: clamp(48px, 6vw, 72px);
+    line-height: 0.98;
+  }
+
+  .hero-description {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+}
+
+/* ---------- MOBILE NAV ---------- */
+@media (max-width: 768px) {
+  #home,
+  #project-intro,
+  #services,
+  #insurance,
+  #departments,
+  #doctors,
+  #about,
+  #contact {
+    scroll-margin-top: 76px;
+  }
+
+  .main-header {
+    position: sticky;
+    top: 0;
+  }
+
+  .header-container {
+    min-height: 70px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brand {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .brand-logo {
+    flex: 0 0 auto;
+  }
+
+  .brand-text {
+    min-width: 0;
+  }
+
+  .brand-text h2 {
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .brand-text span {
+    font-size: 9px;
+    white-space: nowrap;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 70px;
+    left: 12px;
+    right: 12px;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px;
+    border: 1px solid rgba(20, 157, 190, 0.2);
+    border-radius: 18px;
+    background: var(--header-bg, rgba(8, 36, 47, 0.98));
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  }
+
+  .main-nav.mobile-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .main-nav .nav-link {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border-radius: 10px;
+  }
+
+  .main-nav .nav-link.active {
+    background: rgba(20, 157, 190, 0.1);
+  }
+
+  .mobile-nav-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(20, 157, 190, 0.16);
+  }
+
+  .mobile-nav-actions .login-btn,
+  .mobile-nav-actions .register-btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+    flex: 0 0 auto;
+  }
+
+  /* Keep only the theme button visible in the compact header. */
+  .header-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0;
+  }
+
+  .header-actions .login-btn,
+  .header-actions .register-btn {
+    display: none;
+  }
+
+  .theme-toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .hero-content {
+    width: 100%;
+    text-align: left;
+  }
+
+  .hero-title {
+    max-width: 680px;
+    font-size: clamp(44px, 12vw, 64px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-description {
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .hero-primary,
+  .hero-secondary {
+    min-height: 52px;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .hero-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hero-card-wrapper {
+    width: 100%;
+  }
+
+  .compact-hero-card {
+    width: min(100%, 560px);
+    margin: 0 auto;
+  }
+
+  /* ---------- PROJECT INTRO ---------- */
+  .project-intro-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .project-intro-main {
+    grid-template-columns: 1fr;
+  }
+
+  .project-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .project-intro-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* ---------- COMMON GRIDS ---------- */
+  .services-grid,
+  .departments-grid,
+  .doctors-grid,
+  .healthcare-gallery-grid,
+  .support-options,
+  .hospital-info-container,
+  .insurance-layout,
+  .about-main {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-large,
+  .gallery-small {
+    min-height: 300px;
+  }
+
+  /* ---------- CHAT ---------- */
+  .chat-quick-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ai-chat-input-area {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+/* ---------- SMALL MOBILE ---------- */
+@media (max-width: 480px) {
+  .header-container {
+    padding: 8px 12px;
+  }
+
+  .brand-logo img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-text h2 {
+    font-size: 14px;
+  }
+
+  .brand-text span {
+    display: none;
+  }
+
+  .mobile-menu-toggle,
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .main-nav {
+    top: 62px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .hero-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 13vw, 56px);
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .hero-features {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-feature {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .compact-hero-card {
+    border-radius: 20px;
+  }
+
+  .hero-card-brand,
+  .hero-card-message,
+  .hero-assistant-card {
+    min-width: 0;
+  }
+
+  .hero-card-footer {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+
+  .footer-text {
+    width: 100%;
+  }
+
+  .chat-quick-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .project-intro-top,
+  .project-team,
+  .hero-card-brand,
+  .hero-card-message {
+    align-items: flex-start;
+  }
+}
+
+/* ---------- EXTRA SMALL ---------- */
+@media (max-width: 375px) {
+  .brand-text h2 {
+    font-size: 13px;
+  }
+
+  .hero-title {
+    font-size: 38px;
+  }
+
+  .hero-card-message-content p {
+    font-size: 12px;
+  }
+
+  .assistant-content strong {
+    font-size: 14px;
+  }
+}

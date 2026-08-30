@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
+import "./Home.responsive.css";
 import { useDarkMode } from "../../theme/DarkMode";
 
 /* =====================================================
@@ -216,71 +217,93 @@ const Icon = ({ name, size = 24, strokeWidth = 1.8 }) => {
 };
 
 function Home() {
-  useEffect(() => {
-  if (window.location.hash !== "#contact") {
-    return;
-  }
-
-  const timer = setTimeout(() => {
-    const contactSection =
-      document.getElementById("contact");
-
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, 300);
-
-  return () => {
-    clearTimeout(timer);
-  };
-  
-}, []);
   const [activeSection, setActiveSection] = useState("home");
-  useEffect(() => {
-  const sections = [
-    "home",
-    "services",
-    "departments",
-    "doctors",
-    "about",
-    "contact",
-  ];
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY + 140;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    let currentSection = "home";
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
 
-    sections.forEach((sectionId) => {
-      const section = document.getElementById(sectionId);
+    if (!section) {
+      console.warn(`Section #${sectionId} not found`);
+      setMobileMenuOpen(false);
+      return;
+    }
 
-      if (section && section.offsetTop <= scrollPosition) {
-        currentSection = sectionId;
-      }
+    const headerOffset = window.innerWidth <= 768 ? 76 : 90;
+    const elementPosition =
+      section.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: Math.max(0, elementPosition - headerOffset),
+      behavior: "smooth",
     });
 
-    setActiveSection(currentSection);
+    setActiveSection(sectionId);
+    setMobileMenuOpen(false);
+
+    window.history.replaceState(null, "", `#${sectionId}`);
   };
 
-  window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const sections = [
+      "home",
+      "services",
+      "departments",
+      "doctors",
+      "about",
+      "contact",
+    ];
 
-  handleScroll();
+    const handleScroll = () => {
+      const marker = window.scrollY + (window.innerWidth <= 768 ? 110 : 140);
+      let currentSection = "home";
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
+      sections.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
 
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        if (sectionTop <= marker) {
+          currentSection = sectionId;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+
+    const timer = setTimeout(() => {
+      scrollToSection(hash);
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useDarkMode();
   /* =====================================================
    AI HEALTHCARE CHATBOT
 ===================================================== */
-const [showAboutChat, setShowAboutChat] = useState(false);
-
 const [chatMessages, setChatMessages] = useState([
   {
     sender: "bot",
@@ -750,7 +773,10 @@ const clearChat = () => {
     <a
       href="#home"
       className="brand"
-      onClick={() => setActiveSection("home")}
+      onClick={(e) => {
+        e.preventDefault();
+        scrollToSection("home");
+      }}
     >
 
       <div className="brand-logo">
@@ -782,75 +808,105 @@ const clearChat = () => {
         CENTER — NAVIGATION
     ================================================= */}
 
-    <nav className="main-nav">
+<nav className={`main-nav ${mobileMenuOpen ? "mobile-open" : ""}`}>
 
-      <a
-        href="#home"
-        className={`nav-link ${
-          activeSection === "home" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("home")}
-      >
-        Home
-      </a>
+  <a
+    href="#home"
+    className={`nav-link ${
+      activeSection === "home" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("home");
+    }}
+  >
+    Home
+  </a>
+
+  <a
+    href="#services"
+    className={`nav-link ${
+      activeSection === "services" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("services");
+    }}
+  >
+    Services
+  </a>
+
+  <a
+    href="#departments"
+    className={`nav-link ${
+      activeSection === "departments" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("departments");
+    }}
+  >
+    Departments
+  </a>
+
+  <a
+    href="#doctors"
+    className={`nav-link ${
+      activeSection === "doctors" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("doctors");
+    }}
+  >
+    Doctors
+  </a>
+
+  <a
+    href="#about"
+    className={`nav-link ${
+      activeSection === "about" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("about");
+    }}
+  >
+    About
+  </a>
+
+  <a
+    href="#contact"
+    className={`nav-link ${
+      activeSection === "contact" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("contact");
+    }}
+  >
+    Contact
+  </a>
 
 
-      <a
-        href="#services"
-        className={`nav-link ${
-          activeSection === "services" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("services")}
-      >
-        Services
-      </a>
+  <div className="mobile-nav-actions">
+    <button type="button" className="login-btn" onClick={() => openLogin("Patient")}>Login</button>
+    <button type="button" className="register-btn" onClick={openRegister}>Register</button>
+  </div>
 
+</nav>
 
-      <a
-        href="#departments"
-        className={`nav-link ${
-          activeSection === "departments" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("departments")}
-      >
-        Departments
-      </a>
-
-
-      <a
-        href="#doctors"
-        className={`nav-link ${
-          activeSection === "doctors" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("doctors")}
-      >
-        Doctors
-      </a>
-
-
-      <a
-        href="#about"
-        className={`nav-link ${
-          activeSection === "about" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("about")}
-      >
-        About
-      </a>
-
-
-      <a
-        href="#contact"
-        className={`nav-link ${
-          activeSection === "contact" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("contact")}
-      >
-        Contact
-      </a>
-
-    </nav>
-
+    <button
+      type="button"
+      className={`mobile-menu-toggle ${mobileMenuOpen ? "open" : ""}`}
+      onClick={() => setMobileMenuOpen((open) => !open)}
+      aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+      aria-expanded={mobileMenuOpen}
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
     {/* =================================================
         RIGHT — ACTIONS
@@ -919,7 +975,7 @@ const clearChat = () => {
           Academic / Educational Project
       ===================================================== */}
 
-      <section className="project-intro-section" id="project">
+      <section className="project-intro-section" id="project-intro">
 
         <div className="project-intro-glow project-glow-one"></div>
         <div className="project-intro-glow project-glow-two"></div>
@@ -1187,7 +1243,7 @@ const clearChat = () => {
 
     {/* ================= Hero ================= */}
 
-<section className="hero-section">
+<section className="hero-section" id="home">
 
   <div className="hero-background-overlay"></div>
 
@@ -1233,6 +1289,10 @@ const clearChat = () => {
         <a
           href="#services"
           className="hero-secondary"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection("services");
+          }}
         >
           <span>Explore Services</span>
           <Icon name="arrow" size={17} />
@@ -1264,14 +1324,7 @@ const clearChat = () => {
     {/* RIGHT — YOUR EXISTING SMART CARE CARD */}
     <div className="hero-card-wrapper">
 
-      {/* keep your existing Smart Care card here */}
-
-    </div>
-
-  </div>
-
-
-<div className="hero-card compact-hero-card">
+      <div className="hero-card compact-hero-card">
 
   {/* Decorative texture */}
   <div className="hero-card-texture"></div>
@@ -1347,7 +1400,7 @@ const clearChat = () => {
       </span>
 
       <span className="assistant-content">
-        <strong>Hospital Assistant</strong>
+        <strong>AI Hospital Management System</strong>
       </span>
 
       <span className="assistant-arrow">
@@ -1378,7 +1431,7 @@ const clearChat = () => {
   </span>
 
   <span className="assistant-content">
-    <strong>Health Assistant</strong>
+    <strong>AI Healthcare Assistant</strong>
   </span>
 
   <span className="assistant-arrow">
@@ -1396,7 +1449,7 @@ const clearChat = () => {
   <div className="footer-status">
     <span className="status-dot"></span>
 
-    <strong>2 AI Assistants</strong>
+    <strong>2 Smart Healthcare Tools</strong>
   </div>
 
   <span className="footer-separator"></span>
@@ -1406,8 +1459,12 @@ const clearChat = () => {
   </span>
 </div>
 
-</div>
-  
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
 
@@ -1543,7 +1600,13 @@ const clearChat = () => {
               professional medical guidance.
             </p>
 
-            <a href="#doctors">
+            <a
+              href="#doctors"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("doctors");
+              }}
+            >
               Find Doctor →
             </a>
 
@@ -2880,7 +2943,7 @@ const clearChat = () => {
           </p>
 
           <a
-            href="tel:+91999999999"
+            href="tel:+919999999999"
             className="support-button"
           >
             Call Hospital →
@@ -2911,7 +2974,7 @@ const clearChat = () => {
           </p>
 
           <a
-            href="mailto:support@aihospital.com"
+            href="mailto:support@aismarthospital.com"
             className="support-button"
           >
             Email Support →
@@ -3052,7 +3115,7 @@ const clearChat = () => {
         Medical Records
       </a>
 
-      <a href="#ayushman">
+      <a href="#insurance">
         Ayushman Bharat
       </a>
 
@@ -3146,12 +3209,12 @@ const clearChat = () => {
 
     {/* Change these URLs if your page routes have different names */}
 
-    <a href="/about">
+    <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>
       <span>About Us</span>
       <b>→</b>
     </a>
 
-    <a href="/project">
+    <a href="#project-intro" onClick={(e) => { e.preventDefault(); scrollToSection("project-intro"); }}>
       <span>Project Details</span>
       <b>→</b>
     </a>
