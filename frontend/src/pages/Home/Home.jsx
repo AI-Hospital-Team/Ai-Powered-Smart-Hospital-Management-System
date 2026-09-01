@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "./Home.responsive.css";
+import { Link, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
 /* =====================================================
@@ -3207,17 +3207,15 @@ const clearChat = () => {
 
   <div className="project-actions">
 
-    {/* Change these URLs if your page routes have different names */}
+   <Link to="/about" className="project-action-link">
+  <span>About Us</span>
+  <b>→</b>
+</Link>
 
-    <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>
-      <span>About Us</span>
-      <b>→</b>
-    </a>
-
-    <a href="#project-intro" onClick={(e) => { e.preventDefault(); scrollToSection("project-intro"); }}>
-      <span>Project Details</span>
-      <b>→</b>
-    </a>
+<Link to="/project" className="project-action-link">
+  <span>Project Details</span>
+  <b>→</b>
+</Link>
 
   </div>
 
