@@ -12661,3 +12661,3519 @@ body.dark .footer-separator {
 
   font-size: 17px !important;
 }
+
+/* =========================================================
+   HOME PROJECT INTRO — FINAL COMPACT DESKTOP LAYOUT
+   Add at the VERY BOTTOM of Home.responsive.css
+========================================================= */
+
+.project-intro-section {
+  padding: 38px 0 32px;
+}
+
+.project-intro-container {
+  width: min(1060px, calc(100% - 80px));
+  margin: 0 auto;
+}
+
+/* =========================================================
+   TOP INFO ROW
+========================================================= */
+
+.project-intro-top {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr 0.95fr;
+  align-items: center;
+  gap: 26px;
+  margin-bottom: 38px;
+}
+
+/* Prevent the boxes from becoming unnecessarily tall */
+.project-intro-top .project-team,
+.project-intro-top .github-project-link,
+.project-intro-top > * {
+  min-width: 0;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+/* Educational project badge */
+.project-intro-top > :first-child {
+  display: flex;
+  align-items: center;
+}
+
+/* Project team */
+.project-intro-top .project-team {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+}
+
+/* GitHub */
+.project-intro-top .github-project-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 18px;
+}
+
+/* =========================================================
+   MAIN INTRO
+========================================================= */
+
+.project-intro-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: 42px;
+  align-items: start;
+  margin-bottom: 30px;
+}
+
+/* Left side */
+.project-intro-heading {
+  min-width: 0;
+}
+
+.project-intro-heading h2 {
+  margin: 0 0 14px;
+  max-width: 560px;
+
+  font-size: clamp(40px, 4vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+}
+
+/* Left paragraph */
+.project-intro-lead {
+  max-width: 540px;
+  margin: 0;
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   RIGHT DESCRIPTION
+========================================================= */
+
+.project-intro-description {
+  min-width: 0;
+  padding: 7px 0 0 32px;
+
+  border-left: 1px solid rgba(20, 157, 190, 0.18);
+}
+
+.project-intro-description p {
+  margin: 0 0 18px;
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.project-intro-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
+.project-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+
+  margin: 0;
+}
+
+.project-highlight {
+  min-width: 0;
+  min-height: 108px;
+
+  padding: 19px 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  box-sizing: border-box;
+}
+
+.project-highlight-content {
+  min-width: 0;
+}
+
+.project-highlight-content h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.project-highlight-content p {
+  margin: 0;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   BOTTOM PROJECT PURPOSE
+========================================================= */
+
+.project-intro-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+
+  border-top: 1px solid rgba(20, 157, 190, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.project-intro-footer > * {
+  min-width: 0;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .project-intro-container {
+    width: min(100% - 48px, 760px);
+  }
+
+  .project-intro-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .project-intro-top > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .project-intro-main {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .project-intro-description {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .project-highlights {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .project-intro-section {
+    padding: 32px 0 28px;
+  }
+
+  .project-intro-container {
+    width: calc(100% - 28px);
+  }
+
+  .project-intro-top {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+
+    margin-bottom: 28px;
+  }
+
+  .project-intro-top .project-team,
+  .project-intro-top .github-project-link,
+  .project-intro-top > * {
+    width: 100%;
+    height: 48px;
+  }
+
+  .project-intro-main {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    margin-bottom: 24px;
+  }
+
+  .project-intro-heading h2 {
+    font-size: clamp(34px, 10vw, 46px);
+    line-height: 1.04;
+  }
+
+  .project-intro-lead,
+  .project-intro-description p {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .project-intro-description {
+    padding: 0;
+    border: 0;
+  }
+
+  .project-highlights {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .project-highlight {
+    min-height: 94px;
+    padding: 17px;
+  }
+
+  .project-intro-footer {
+    margin-top: 22px;
+    padding-top: 17px;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .project-intro-container {
+    width: calc(100% - 22px);
+  }
+
+  .project-intro-heading h2 {
+    font-size: 32px;
+  }
+
+  .project-highlight {
+    padding: 15px;
+  }
+}
+
+/* =========================================================
+   PROJECT INTRO — ACTUAL JSX FIX
+   Based on current Home.fixed.jsx structure
+========================================================= */
+
+.project-intro-section {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.project-intro-container {
+  width: min(1060px, calc(100% - 80px));
+  max-width: 1060px;
+  margin: 0 auto;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   TOP ROW
+   Badge | Team | GitHub
+========================================================= */
+
+.project-intro-top {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 34px;
+  box-sizing: border-box;
+}
+
+/* Do NOT give every child a forced height.
+   The GitHub link has its own existing padding/margins. */
+
+.project-intro-top > * {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Educational badge */
+
+.project-intro-top .project-intro-badge {
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* Team */
+
+.project-intro-top .project-team {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* ACTUAL GitHub class */
+
+.project-intro-top .hero-github-link {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  margin-top: 0;
+  padding: 10px 13px;
+
+  box-sizing: border-box;
+}
+
+/* Keep GitHub text from forcing overflow */
+
+.project-intro-top .hero-github-link > span {
+  min-width: 0;
+}
+
+.project-intro-top .hero-github-link > span:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Arrow stays at right */
+
+.project-intro-top .hero-github-link > svg,
+.project-intro-top .hero-github-link > strong {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   MAIN INTRO
+========================================================= */
+
+.project-intro-main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: 42px;
+  align-items: start;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+}
+
+.project-intro-heading,
+.project-intro-description {
+  min-width: 0;
+}
+
+.project-intro-description {
+  padding-left: 30px;
+  border-left: 1px solid rgba(20, 157, 190, 0.18);
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   HIGHLIGHTS
+========================================================= */
+
+.project-highlights {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.project-highlight-card {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.project-intro-footer {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.project-intro-footer > * {
+  min-width: 0;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .project-intro-container {
+    width: calc(100% - 48px);
+    max-width: 760px;
+  }
+
+  .project-intro-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .project-intro-top .project-intro-badge {
+    width: fit-content;
+  }
+
+  .project-intro-top .hero-github-link {
+    width: 100%;
+  }
+
+  .project-intro-main {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .project-intro-description {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .project-highlights {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .project-intro-section {
+    padding: 38px 0 32px;
+  }
+
+  .project-intro-container {
+    width: calc(100% - 28px);
+    max-width: none;
+  }
+
+  .project-intro-top {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .project-intro-top .project-intro-badge,
+  .project-intro-top .project-team,
+  .project-intro-top .hero-github-link {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .project-intro-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .project-intro-description {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .project-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .project-intro-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* =========================================================
+   COMPACT LOGIN MODAL - FINAL
+========================================================= */
+
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+
+  background:
+    radial-gradient(circle at 15% 20%, rgba(24, 180, 195, 0.16), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(0, 120, 180, 0.14), transparent 32%),
+    rgba(7, 27, 35, 0.78);
+
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.hospital-login {
+  position: relative;
+
+  width: min(100%, 500px);
+  height: min(96vh, 720px);
+
+  max-height: 96vh;
+
+  box-sizing: border-box;
+
+  padding: 22px 42px 24px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 28px;
+
+  background:
+    radial-gradient(
+      circle at 12% 15%,
+      rgba(20, 175, 190, .08),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 88% 85%,
+      rgba(0, 130, 190, .06),
+      transparent 28%
+    ),
+    #fff;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.28);
+
+  scrollbar-width: thin;
+  scrollbar-color: #b9dfe4 transparent;
+}
+
+
+/* subtle texture */
+
+.hospital-login::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  border-radius: inherit;
+
+  opacity: .22;
+
+  background-image:
+    radial-gradient(
+      rgba(8,127,140,.16) .65px,
+      transparent .65px
+    );
+
+  background-size: 13px 13px;
+}
+
+
+/* keep content above texture */
+
+.hospital-login > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================================================
+   COMPACT LOGO
+========================================================= */
+
+.hospital-login-logo {
+  width: 68px;
+  height: 68px;
+
+  margin: 2px auto 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  border: 3px solid rgba(8,145,160,.13);
+
+  box-shadow:
+    0 7px 22px rgba(8,127,140,.14);
+
+  overflow: hidden;
+}
+
+
+.login-hospital-logo {
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+
+
+/* =========================================================
+   SMALLER TITLE AREA
+========================================================= */
+
+.hospital-login h1 {
+  margin: 0;
+
+  text-align: center;
+
+  color: #087f8c;
+
+  font-size: 32px;
+  line-height: 1.05;
+  font-weight: 850;
+
+  letter-spacing: -.8px;
+}
+
+
+.login-subtitle {
+  margin: 6px 0 16px;
+
+  text-align: center;
+
+  color: #718895;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   ROLE TABS
+========================================================= */
+
+.role-tabs {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 8px;
+
+  margin-bottom: 17px;
+}
+
+
+.role-tabs button {
+  min-height: 43px;
+
+  padding: 0 8px;
+
+  border: 1px solid #d5e6ea;
+
+  border-radius: 13px;
+
+  background: #f8fbfc;
+
+  color: #587180;
+
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  transition:
+    background .15s ease,
+    border-color .15s ease,
+    color .15s ease;
+}
+
+
+/* NO LIFT / NO BIG HOVER */
+
+.role-tabs button:hover {
+  transform: none;
+}
+
+
+.role-tabs button.active {
+  background: #0a93a1;
+
+  border-color: #0a93a1;
+
+  color: #fff;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.hospital-login form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.hospital-login form label {
+  margin-top: 6px;
+
+  color: #31596a;
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+
+.hospital-login form input {
+  width: 100%;
+  height: 48px;
+
+  box-sizing: border-box;
+
+  padding: 0 15px;
+
+  border: 1px solid #d5e5e9;
+
+  border-radius: 13px;
+
+  outline: none;
+
+  background: rgba(251,253,254,.9);
+
+  color: #294957;
+
+  font-size: 14px;
+
+  transition:
+    border-color .15s ease,
+    box-shadow .15s ease;
+}
+
+
+.hospital-login form input:focus {
+  border-color: #0b9aaa;
+
+  box-shadow:
+    0 0 0 3px rgba(11,154,170,.08);
+}
+
+
+/* =========================================================
+   SHOW / HIDE PASSWORD
+========================================================= */
+
+.login-password-wrap {
+  position: relative;
+
+  width: 100%;
+}
+
+
+.login-password-wrap input {
+  padding-right: 76px !important;
+}
+
+
+.show-password-btn {
+  position: absolute;
+
+  top: 50%;
+  right: 8px;
+
+  transform: translateY(-50%) !important;
+
+  width: 58px;
+  height: 32px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #edf8fa;
+
+  color: #087f8c;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  z-index: 3;
+}
+
+
+.show-password-btn:hover,
+.show-password-btn:focus,
+.show-password-btn:active {
+  transform: translateY(-50%) !important;
+
+  background: #e2f3f5;
+
+  color: #087f8c;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.hospital-login-button {
+  width: 100%;
+
+  height: 50px;
+
+  margin-top: 14px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: #0a93a1;
+
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(8,139,154,.16);
+
+  transition: background .15s ease;
+}
+
+
+.hospital-login-button:hover {
+  transform: none;
+
+  background: #087f8c;
+
+  box-shadow: 0 8px 20px rgba(8,139,154,.16);
+}
+
+
+/* =========================================================
+   REGISTER LINK
+========================================================= */
+
+.register-text {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 13px;
+
+  color: #718895;
+
+  font-size: 13px;
+}
+
+
+.register-text button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #078b9a;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+.register-text button:hover {
+  transform: none;
+
+  color: #056c77;
+}
+
+
+/* =========================================================
+   CLOSE X
+========================================================= */
+
+.hospital-login .close-login {
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #eef7f9;
+
+  color: #397080;
+
+  font-size: 23px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  transition:
+    background .15s ease,
+    color .15s ease;
+}
+
+
+/* RED WHEN TOUCHED / HOVERED */
+
+.hospital-login .close-login:hover,
+.hospital-login .close-login:active,
+.hospital-login .close-login:focus {
+  transform: none;
+
+  background: #ffe8e8;
+
+  color: #dc2626;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.login-error {
+  margin-top: 9px;
+
+  padding: 8px 10px;
+
+  border: 1px solid #f0cccc;
+
+  border-radius: 10px;
+
+  background: #fff4f4;
+
+  color: #b42323;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .login-overlay {
+    padding: 7px;
+  }
+
+  .hospital-login {
+    width: 100%;
+
+    height: 97vh;
+
+    max-height: 97vh;
+
+    padding: 19px 22px 20px;
+
+    border-radius: 23px;
+  }
+
+  .hospital-login-logo {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 7px;
+  }
+
+  .hospital-login h1 {
+    font-size: 27px;
+  }
+
+  .login-subtitle {
+    margin: 5px 0 13px;
+
+    font-size: 13px;
+  }
+
+  .role-tabs {
+    gap: 6px;
+
+    margin-bottom: 13px;
+  }
+
+  .role-tabs button {
+    min-height: 40px;
+
+    font-size: 13px;
+  }
+
+  .hospital-login form input {
+    height: 45px;
+
+    font-size: 14px;
+  }
+
+  .hospital-login-button {
+    height: 47px;
+
+    margin-top: 11px;
+
+    font-size: 15px;
+  }
+
+  .hospital-login .close-login {
+    top: 10px;
+    right: 10px;
+
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* =========================================================
+   PASSWORD CONDITIONS
+========================================================= */
+
+.password-rules {
+  margin-top: 6px;
+  padding: 9px 11px;
+
+  border-radius: 10px;
+
+  background: #f6fafb;
+
+  color: #8a9da5;
+
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.password-rules > span {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #55717d;
+
+  font-weight: 750;
+}
+
+.password-rules .valid {
+  color: #159447;
+  font-weight: 650;
+}
+
+/* =========================================================
+   FINAL LOGIN MODAL COMPACT FIX
+========================================================= */
+
+/* Make the modal smaller */
+.hospital-login {
+  width: min(100%, 500px);
+
+  height: auto;
+  max-height: 92vh;
+
+  padding: 18px 40px 22px;
+
+  overflow-y: auto;
+}
+
+
+/* Smaller logo */
+.hospital-login-logo {
+  width: 62px;
+  height: 62px;
+
+  margin: 0 auto 7px;
+}
+
+
+/* Smaller title */
+.hospital-login h1 {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.login-subtitle {
+  margin: 5px 0 13px;
+}
+
+
+/* Smaller role section */
+.role-tabs {
+  margin-bottom: 14px;
+}
+
+
+/* REMOVE PATIENT / DOCTOR / ADMIN UNDERLINE */
+.role-tabs button::after,
+.role-tabs button::before {
+  display: none !important;
+  content: none !important;
+}
+
+.role-tabs button {
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+
+/* Active tab stays clean */
+.role-tabs button.active {
+  box-shadow: none !important;
+}
+
+
+/* Smaller form spacing */
+.hospital-login form {
+  gap: 3px;
+}
+
+.hospital-login form label {
+  margin-top: 4px;
+}
+
+.hospital-login form input {
+  height: 46px;
+}
+
+
+/* Login button */
+.hospital-login-button {
+  height: 48px;
+  min-height: 48px;
+
+  margin-top: 12px;
+
+  box-shadow: none;
+}
+
+
+/* Remove unnecessary login button movement */
+.hospital-login-button:hover {
+  transform: none !important;
+}
+
+
+/* Error message smaller */
+.login-error {
+  margin-top: 7px;
+  padding: 7px 10px;
+}
+
+
+/* Register text closer to login */
+.register-text {
+  margin-top: 10px;
+}
+
+
+/* =========================================================
+   X BUTTON — SUBTLE HOVER
+========================================================= */
+
+.hospital-login .close-login {
+  top: 13px;
+  right: 13px;
+
+  width: 38px;
+  height: 38px;
+
+  background: #eef7f9;
+  color: #397080;
+
+  border: 1px solid transparent;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Hover = red */
+.hospital-login .close-login:hover {
+  background: #fff0f0;
+
+  color: #dc2626;
+
+  border-color: #fecaca;
+
+  transform: rotate(90deg);
+}
+
+
+/* Press */
+.hospital-login .close-login:active {
+  background: #fee2e2;
+
+  color: #b91c1c;
+
+  transform: rotate(90deg) scale(0.94);
+}
+
+
+/* Remove focus outline/extra effects */
+.hospital-login .close-login:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .hospital-login {
+    width: 100%;
+
+    max-height: 94vh;
+
+    padding: 17px 22px 19px;
+
+    border-radius: 22px;
+  }
+
+  .hospital-login-logo {
+    width: 56px;
+    height: 56px;
+
+    margin-bottom: 6px;
+  }
+
+  .hospital-login h1 {
+    font-size: 27px;
+  }
+
+  .login-subtitle {
+    font-size: 13px;
+
+    margin: 4px 0 11px;
+  }
+
+  .role-tabs {
+    gap: 6px;
+
+    margin-bottom: 12px;
+  }
+
+  .role-tabs button {
+    min-height: 39px;
+
+    font-size: 13px;
+  }
+
+  .hospital-login form input {
+    height: 44px;
+  }
+
+  .hospital-login-button {
+    height: 46px;
+    min-height: 46px;
+
+    margin-top: 10px;
+  }
+
+  .register-text {
+    margin-top: 9px;
+  }
+
+  .hospital-login .close-login {
+    top: 9px;
+    right: 9px;
+
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* =========================================================
+   PASSWORD SHOW / HIDE — CLEAN VERSION
+========================================================= */
+
+.hospital-login form .login-password-wrap {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.hospital-login form .login-password-wrap > input {
+  width: 100% !important;
+  padding-right: 70px !important;
+}
+
+.hospital-login form .login-password-wrap > .show-password-btn {
+  position: absolute !important;
+
+  top: 50% !important;
+  right: 12px !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+  height: 30px !important;
+
+  margin: 0 !important;
+  padding: 0 8px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  transform: translateY(-50%) !important;
+
+  border: 0 !important;
+  border-radius: 7px !important;
+
+  background: transparent !important;
+
+  color: #078b9a !important;
+
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+
+  z-index: 10 !important;
+}
+
+
+/* Hover — only slight color change */
+.hospital-login form .login-password-wrap > .show-password-btn:hover {
+  transform: translateY(-50%) !important;
+
+  background: #eef8fa !important;
+  color: #056f7c !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Click */
+.hospital-login form .login-password-wrap > .show-password-btn:active {
+  transform: translateY(-50%) !important;
+
+  background: #e3f4f6 !important;
+}
+
+
+/* Focus */
+.hospital-login form .login-password-wrap > .show-password-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+
+  .hospital-login form .login-password-wrap > input {
+    padding-right: 66px !important;
+  }
+
+  .hospital-login form .login-password-wrap > .show-password-btn {
+    right: 10px !important;
+
+    height: 28px !important;
+
+    padding: 0 7px !important;
+
+    font-size: 12px !important;
+  }
+}
+
+/* =========================================================
+   LOGIN ROLE ICONS
+========================================================= */
+
+.hospital-login .role-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.hospital-login .role-tabs button svg {
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+
+  fill: none;
+
+  stroke: #0795a5;
+  stroke-width: 1.8;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hospital-login .role-tabs button.active svg {
+  stroke: #ffffff;
+}
+
+
+/* Remove old underline */
+.hospital-login .role-tabs button::before,
+.hospital-login .role-tabs button::after {
+  display: none !important;
+  content: none !important;
+}
+
+
+/* =========================================================
+   OR DIVIDER
+========================================================= */
+
+.hospital-login .login-or {
+  width: 72%;
+
+  margin: 14px auto 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #78909c;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hospital-login .login-or::before,
+.hospital-login .login-or::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: #d8e5e8;
+}
+
+.hospital-login .login-or span {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+.hospital-login .register-text {
+  width: 100%;
+
+  margin-top: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   LOGIN INPUT / BROWSER AUTOFILL FIX
+========================================================= */
+
+.hospital-login input {
+  pointer-events: auto !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+
+  opacity: 1 !important;
+}
+
+
+/* Chrome / Edge saved autofill */
+.hospital-login input:-webkit-autofill,
+.hospital-login input:-webkit-autofill:hover,
+.hospital-login input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #294957 !important;
+
+  -webkit-box-shadow:
+    0 0 0 1000px #ffffff inset !important;
+
+  box-shadow:
+    0 0 0 1000px #ffffff inset !important;
+
+  caret-color: #294957 !important;
+
+  transition:
+    background-color 9999s ease-in-out 0s;
+}
+
+
+/* Make sure password Show button doesn't block typing */
+.login-password-wrap {
+  position: relative !important;
+}
+
+.login-password-wrap input {
+  position: relative;
+  z-index: 1;
+
+  pointer-events: auto !important;
+}
+
+.login-password-wrap .show-password-btn {
+  z-index: 5;
+
+  pointer-events: auto !important;
+}
+
+/* =========================================================
+   PASSWORD SHOW / HIDE — FINAL
+========================================================= */
+
+.login-password-wrap {
+  position: relative !important;
+  width: 100% !important;
+}
+
+
+/* Password input */
+
+.login-password-wrap > input {
+  width: 100% !important;
+
+  padding-right: 105px !important;
+}
+
+
+/* Show / Hide button */
+
+.hospital-login .show-password-btn {
+  position: absolute !important;
+
+  top: 50% !important;
+  right: 10px !important;
+
+  transform: translateY(-50%) !important;
+
+  width: 76px !important;
+  height: 34px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  gap: 6px !important;
+
+  border: 0 !important;
+  border-left: 1px solid #dbe8eb !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color: #078b9a !important;
+
+  font-size: 13px !important;
+  font-weight: 800 !important;
+
+  line-height: 1 !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+
+  z-index: 10 !important;
+}
+
+
+/* Eye icon */
+
+.hospital-login .show-password-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+
+  fill: none !important;
+
+  stroke: currentColor !important;
+
+  stroke-width: 1.8 !important;
+
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+
+  flex-shrink: 0 !important;
+}
+
+
+/* Text */
+
+.hospital-login .show-password-btn span {
+  display: inline-block;
+}
+
+
+/* Small hover */
+
+.hospital-login .show-password-btn:hover {
+  transform: translateY(-50%) !important;
+
+  background: transparent !important;
+
+  color: #056f7b !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Click */
+
+.hospital-login .show-password-btn:active {
+  transform: translateY(-50%) !important;
+}
+
+
+/* Focus */
+
+.hospital-login .show-password-btn:focus {
+  outline: none !important;
+
+  box-shadow: none !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .login-password-wrap > input {
+    padding-right: 92px !important;
+  }
+
+  .hospital-login .show-password-btn {
+    right: 8px !important;
+
+    width: 68px !important;
+    height: 32px !important;
+
+    font-size: 12px !important;
+  }
+
+  .hospital-login .show-password-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+/* =========================================================
+   SHOW / HIDE — PERFECTLY CENTERED
+========================================================= */
+
+.hospital-login .login-password-wrap {
+  position: relative !important;
+  width: 100% !important;
+  height: 46px !important;
+}
+
+.hospital-login .login-password-wrap > input {
+  width: 100% !important;
+  height: 46px !important;
+  box-sizing: border-box !important;
+  padding-right: 105px !important;
+}
+
+
+/* Show / Hide */
+
+.hospital-login .login-password-wrap > .show-password-btn {
+  position: absolute !important;
+
+  top: 50% !important;
+  right: 10px !important;
+
+  left: auto !important;
+  bottom: auto !important;
+
+  width: 78px !important;
+  height: 34px !important;
+
+  min-width: 78px !important;
+  max-width: 78px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  transform: translateY(-50%) !important;
+
+  border: 0 !important;
+  border-left: 1px solid #d7e5e8 !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color: #078b9a !important;
+
+  font-size: 13px !important;
+  font-weight: 800 !important;
+
+  line-height: 1 !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+
+  z-index: 20 !important;
+}
+
+
+/* Icon */
+
+.hospital-login .show-password-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+
+  display: block !important;
+
+  flex-shrink: 0 !important;
+
+  fill: none !important;
+  stroke: currentColor !important;
+
+  stroke-width: 1.8 !important;
+
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+
+/* Text */
+
+.hospital-login .show-password-btn span {
+  display: block !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  line-height: 1 !important;
+}
+
+
+/* Don't move it on hover */
+
+.hospital-login .show-password-btn:hover {
+  top: 50% !important;
+  right: 10px !important;
+
+  transform: translateY(-50%) !important;
+
+  background: transparent !important;
+
+  color: #056f7b !important;
+
+  box-shadow: none !important;
+}
+
+.hospital-login .show-password-btn:active {
+  top: 50% !important;
+
+  transform: translateY(-50%) !important;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .hospital-login .login-password-wrap {
+    height: 44px !important;
+  }
+
+  .hospital-login .login-password-wrap > input {
+    height: 44px !important;
+    padding-right: 92px !important;
+  }
+
+  .hospital-login .login-password-wrap > .show-password-btn {
+    top: 50% !important;
+    right: 8px !important;
+
+    width: 68px !important;
+    min-width: 68px !important;
+    max-width: 68px !important;
+
+    height: 32px !important;
+  }
+}
+
+/* =========================================================
+   REGISTER MODAL — FIT 100% SCREEN
+========================================================= */
+
+.login-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 12px !important;
+
+  overflow: hidden !important;
+}
+
+
+/* =========================================================
+   REGISTER CARD
+========================================================= */
+
+.login-overlay .register-modal {
+  position: relative !important;
+
+  width: min(100%, 650px) !important;
+
+  height: auto !important;
+  max-height: 94vh !important;
+
+  box-sizing: border-box !important;
+
+  padding: 22px 42px 20px !important;
+
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+
+  border-radius: 26px !important;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(25, 174, 190, .08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(0, 130, 180, .07),
+      transparent 30%
+    ),
+    #ffffff !important;
+
+  border: 1px solid rgba(100, 200, 215, .35) !important;
+
+  box-shadow:
+    0 28px 75px rgba(0, 35, 45, .30) !important;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: #b8dce2 transparent;
+}
+
+
+/* =========================================================
+   REGISTER INNER TEXTURE
+========================================================= */
+
+.login-overlay .register-modal::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  border-radius: inherit;
+
+  opacity: .25;
+
+  background-image:
+    radial-gradient(
+      rgba(8, 127, 140, .18) .65px,
+      transparent .65px
+    );
+
+  background-size: 14px 14px;
+}
+
+
+/* Keep content above texture */
+
+.login-overlay .register-modal > * {
+  position: relative;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   REGISTER HEADER
+========================================================= */
+
+.login-overlay .register-top {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  margin-bottom: 14px !important;
+}
+
+
+.login-overlay .register-top .large-logo {
+  width: 58px !important;
+  height: 58px !important;
+
+  margin: 0 !important;
+
+  border-radius: 50% !important;
+
+  font-size: 25px !important;
+}
+
+
+/* Title */
+
+.login-overlay .register-top h1 {
+  margin: 0 !important;
+
+  color: #078b9a !important;
+
+  font-size: 27px !important;
+
+  line-height: 1.1 !important;
+}
+
+
+.login-overlay .register-top p {
+  margin: 4px 0 0 !important;
+
+  color: #718995 !important;
+
+  font-size: 13px !important;
+}
+
+
+/* =========================================================
+   REGISTER FORM
+========================================================= */
+
+.login-overlay .register-modal form {
+  display: grid !important;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+  gap: 9px 12px !important;
+
+  margin: 0 !important;
+}
+
+
+.login-overlay .register-field {
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 4px !important;
+
+  min-width: 0 !important;
+}
+
+
+.login-overlay .register-field:nth-child(1),
+.login-overlay .register-field:nth-child(2),
+.login-overlay .register-submit {
+  grid-column: 1 / -1 !important;
+}
+
+
+/* Labels */
+
+.login-overlay .register-field label {
+  margin: 0 !important;
+
+  color: #3e5e6d !important;
+
+  font-size: 12px !important;
+
+  font-weight: 750 !important;
+}
+
+
+/* Inputs */
+
+.login-overlay .register-field input,
+.login-overlay .register-field select {
+  width: 100% !important;
+
+  height: 43px !important;
+
+  box-sizing: border-box !important;
+
+  padding: 0 12px !important;
+
+  border: 1px solid #d3e4e8 !important;
+
+  border-radius: 10px !important;
+
+  background: rgba(255,255,255,.9) !important;
+
+  color: #294957 !important;
+
+  font-size: 13px !important;
+
+  outline: none !important;
+}
+
+
+.login-overlay .register-field input:focus,
+.login-overlay .register-field select:focus {
+  border-color: #0a98a6 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(10,152,166,.08) !important;
+}
+
+
+/* =========================================================
+   MOBILE INPUT
+========================================================= */
+
+.login-overlay .mobile-input {
+  display: flex !important;
+
+  align-items: center !important;
+
+  width: 100% !important;
+
+  height: 43px !important;
+
+  box-sizing: border-box !important;
+
+  border: 1px solid #d3e4e8 !important;
+
+  border-radius: 10px !important;
+
+  background: #ffffff !important;
+
+  overflow: hidden !important;
+}
+
+
+.login-overlay .mobile-input > span {
+  flex: 0 0 auto;
+
+  padding: 0 10px;
+
+  color: #31596a;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.login-overlay .mobile-input input {
+  height: 100% !important;
+
+  border: none !important;
+
+  border-radius: 0 !important;
+
+  box-shadow: none !important;
+}
+
+
+/* =========================================================
+   PASSWORD RULES
+========================================================= */
+
+.login-overlay .password-rules {
+  margin-top: 4px !important;
+
+  padding: 7px 10px !important;
+
+  border-radius: 9px !important;
+
+  background: #f3f9fa !important;
+
+  color: #8199a3 !important;
+
+  font-size: 10px !important;
+
+  line-height: 1.45 !important;
+}
+
+
+.login-overlay .password-rules > span {
+  color: #526f7b !important;
+
+  font-weight: 750 !important;
+}
+
+
+.login-overlay .password-rules .valid {
+  color: #159447 !important;
+}
+
+
+/* =========================================================
+   REGISTER BUTTON
+========================================================= */
+
+.login-overlay .register-submit {
+  width: 100% !important;
+
+  height: 45px !important;
+
+  margin-top: 5px !important;
+
+  padding: 0 !important;
+
+  border: none !important;
+
+  border-radius: 11px !important;
+
+  background: #0a97a5 !important;
+
+  color: #ffffff !important;
+
+  font-size: 14px !important;
+
+  font-weight: 800 !important;
+
+  cursor: pointer !important;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.login-overlay .register-modal .close-login {
+  position: absolute !important;
+
+  top: 12px !important;
+  right: 12px !important;
+
+  width: 36px !important;
+  height: 36px !important;
+
+  display: flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid transparent !important;
+
+  border-radius: 50% !important;
+
+  background: #eef7f9 !important;
+
+  color: #397582 !important;
+
+  font-size: 22px !important;
+
+  cursor: pointer !important;
+
+  transition:
+    background .18s ease,
+    color .18s ease,
+    transform .18s ease !important;
+}
+
+
+.login-overlay .register-modal .close-login:hover {
+  transform: rotate(90deg) !important;
+
+  background: #fff0f0 !important;
+
+  color: #dc2626 !important;
+
+  border-color: #fecaca !important;
+}
+
+
+/* =========================================================
+   100% SCREEN / SMALL LAPTOP
+========================================================= */
+
+@media (max-height: 800px) and (min-width: 601px) {
+
+  .login-overlay .register-modal {
+    max-height: 92vh !important;
+
+    padding: 17px 38px 17px !important;
+  }
+
+  .login-overlay .register-top {
+    margin-bottom: 9px !important;
+  }
+
+  .login-overlay .register-top .large-logo {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .login-overlay .register-top h1 {
+    font-size: 24px !important;
+  }
+
+  .login-overlay .register-modal form {
+    gap: 7px 10px !important;
+  }
+
+  .login-overlay .register-field input,
+  .login-overlay .register-field select,
+  .login-overlay .mobile-input {
+    height: 40px !important;
+  }
+
+  .login-overlay .password-rules {
+    padding: 5px 8px !important;
+  }
+
+  .login-overlay .register-submit {
+    height: 42px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .login-overlay {
+    padding: 7px !important;
+
+    align-items: center !important;
+  }
+
+  .login-overlay .register-modal {
+    width: 100% !important;
+
+    max-height: 96vh !important;
+
+    padding: 18px 20px !important;
+
+    border-radius: 22px !important;
+  }
+
+  .login-overlay .register-modal form {
+    grid-template-columns: 1fr !important;
+
+    gap: 8px !important;
+  }
+
+  .login-overlay .register-field:nth-child(1),
+  .login-overlay .register-field:nth-child(2),
+  .login-overlay .register-submit {
+    grid-column: 1 !important;
+  }
+
+  .login-overlay .register-top {
+    margin-bottom: 12px !important;
+  }
+
+  .login-overlay .register-top .large-logo {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .login-overlay .register-top h1 {
+    font-size: 24px !important;
+  }
+}
+
+/* =========================================================
+   REGISTER MODAL — MATCH LOGIN DESIGN
+========================================================= */
+
+.login-overlay .register-modal {
+  position: relative !important;
+
+  width: min(100%, 660px) !important;
+  max-height: 94vh !important;
+
+  box-sizing: border-box !important;
+
+  padding: 24px 48px 22px !important;
+
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+
+  border-radius: 30px !important;
+
+  border: 1px solid rgba(115, 210, 222, 0.4) !important;
+
+  background:
+    radial-gradient(
+      circle at 10% 12%,
+      rgba(25, 174, 190, 0.08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 88%,
+      rgba(0, 130, 180, 0.07),
+      transparent 30%
+    ),
+    #ffffff !important;
+
+  box-shadow:
+    0 30px 80px rgba(0, 35, 45, 0.30) !important;
+
+  scrollbar-width: thin;
+  scrollbar-color: #b8dce2 transparent;
+}
+
+
+/* =========================================================
+   INNER DOT TEXTURE
+========================================================= */
+
+.login-overlay .register-modal::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  border-radius: inherit;
+
+  opacity: 0.25;
+
+  background-image:
+    radial-gradient(
+      rgba(8, 127, 140, 0.18) 0.7px,
+      transparent 0.7px
+    );
+
+  background-size: 14px 14px;
+}
+
+
+/* Content above texture */
+
+.login-overlay .register-modal > * {
+  position: relative;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   REGISTER HEADER
+========================================================= */
+
+.login-overlay .register-top {
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  text-align: center !important;
+
+  margin: 0 0 17px !important;
+}
+
+
+/* Logo */
+
+.login-overlay .register-top .large-logo {
+  width: 62px !important;
+  height: 62px !important;
+
+  margin: 0 auto 8px !important;
+
+  border-radius: 50% !important;
+
+  display: flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff !important;
+
+  border: 3px solid rgba(7, 139, 154, 0.12) !important;
+
+  box-shadow:
+    0 7px 22px rgba(8, 127, 140, 0.14) !important;
+
+  overflow: hidden !important;
+}
+
+
+/* Register title */
+
+.login-overlay .register-top h1 {
+  margin: 0 !important;
+
+  color: #078794 !important;
+
+  font-size: 30px !important;
+
+  line-height: 1.05 !important;
+
+  font-weight: 850 !important;
+
+  letter-spacing: -0.6px !important;
+}
+
+
+/* Subtitle */
+
+.login-overlay .register-top p {
+  margin: 5px 0 0 !important;
+
+  color: #718995 !important;
+
+  font-size: 14px !important;
+}
+
+
+/* =========================================================
+   REGISTER FORM
+========================================================= */
+
+.login-overlay .register-modal form {
+  display: grid !important;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+  column-gap: 14px !important;
+
+  row-gap: 11px !important;
+
+  margin: 0 !important;
+}
+
+
+/* Each field */
+
+.login-overlay .register-field {
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 5px !important;
+
+  min-width: 0 !important;
+}
+
+
+/* Full Name */
+
+.login-overlay .register-field:nth-child(1) {
+  grid-column: 1 / -1 !important;
+}
+
+
+/* Email */
+
+.login-overlay .register-field:nth-child(2) {
+  grid-column: 1 / -1 !important;
+}
+
+
+/* Labels */
+
+.login-overlay .register-field label {
+  margin: 0 !important;
+
+  color: #31596a !important;
+
+  font-size: 13px !important;
+
+  font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.login-overlay .register-field input,
+.login-overlay .register-field select {
+  width: 100% !important;
+
+  height: 44px !important;
+
+  box-sizing: border-box !important;
+
+  padding: 0 13px !important;
+
+  border: 1px solid #d1e3e7 !important;
+
+  border-radius: 11px !important;
+
+  outline: none !important;
+
+  background: rgba(255, 255, 255, 0.9) !important;
+
+  color: #294957 !important;
+
+  font-size: 13px !important;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease !important;
+}
+
+
+.login-overlay .register-field input::placeholder {
+  color: #9aafb8 !important;
+}
+
+
+.login-overlay .register-field input:focus,
+.login-overlay .register-field select:focus {
+  border-color: #12a4b2 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(18, 164, 178, 0.08) !important;
+}
+
+
+/* =========================================================
+   MOBILE NUMBER
+========================================================= */
+
+.login-overlay .mobile-input {
+  display: flex !important;
+
+  align-items: center !important;
+
+  width: 100% !important;
+
+  height: 44px !important;
+
+  box-sizing: border-box !important;
+
+  border: 1px solid #d1e3e7 !important;
+
+  border-radius: 11px !important;
+
+  background: rgba(255, 255, 255, 0.9) !important;
+
+  overflow: hidden !important;
+}
+
+
+.login-overlay .mobile-input > span {
+  flex-shrink: 0 !important;
+
+  padding: 0 9px !important;
+
+  color: #31596a !important;
+
+  font-size: 13px !important;
+
+  font-weight: 650 !important;
+}
+
+
+.login-overlay .mobile-input input {
+  height: 100% !important;
+
+  border: none !important;
+
+  border-radius: 0 !important;
+
+  box-shadow: none !important;
+}
+
+
+/* =========================================================
+   PASSWORD RULES
+========================================================= */
+
+.login-overlay .password-rules {
+  margin-top: 5px !important;
+
+  padding: 8px 10px !important;
+
+  border-radius: 10px !important;
+
+  background: #f2f8f9 !important;
+
+  color: #8199a3 !important;
+
+  font-size: 10px !important;
+
+  line-height: 1.5 !important;
+}
+
+
+.login-overlay .password-rules > span {
+  display: block !important;
+
+  margin-bottom: 2px !important;
+
+  color: #526f7b !important;
+
+  font-weight: 750 !important;
+}
+
+
+.login-overlay .password-rules .valid {
+  color: #159447 !important;
+}
+
+
+/* =========================================================
+   REMOVE EXTRA PASSWORD TEXT
+========================================================= */
+
+/* If you have the old standalone:
+   "8+ characters • Uppercase • Lowercase • Number"
+   remove it from JSX.
+*/
+
+
+/* =========================================================
+   CONFIRM PASSWORD
+========================================================= */
+
+.login-overlay .register-field.confirm-password {
+  margin-top: 0 !important;
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT BUTTON
+========================================================= */
+
+.login-overlay .register-submit {
+  grid-column: 1 / -1 !important;
+
+  width: 72% !important;
+
+  height: 47px !important;
+
+  margin: 5px auto 0 !important;
+
+  padding: 0 !important;
+
+  border: none !important;
+
+  border-radius: 13px !important;
+
+  background: #0a97a5 !important;
+
+  color: #ffffff !important;
+
+  font-size: 15px !important;
+
+  font-weight: 800 !important;
+
+  cursor: pointer !important;
+
+  box-shadow:
+    0 9px 20px rgba(8, 139, 154, 0.13) !important;
+
+  transition: background-color 0.18s ease !important;
+}
+
+
+.login-overlay .register-submit:hover {
+  transform: none !important;
+
+  background: #078794 !important;
+
+  box-shadow:
+    0 9px 20px rgba(8, 139, 154, 0.13) !important;
+}
+
+
+/* =========================================================
+   LOGIN LINK
+========================================================= */
+
+.login-overlay .register-login-text {
+  margin-top: 9px !important;
+
+  text-align: center !important;
+
+  color: #718995 !important;
+
+  font-size: 13px !important;
+}
+
+
+.login-overlay .register-login-text button {
+  padding: 0 !important;
+
+  border: none !important;
+
+  background: transparent !important;
+
+  color: #078b9a !important;
+
+  font-size: 13px !important;
+
+  font-weight: 800 !important;
+
+  cursor: pointer !important;
+}
+
+
+.login-overlay .register-login-text button:hover {
+  transform: none !important;
+
+  color: #056f7b !important;
+}
+
+
+/* =========================================================
+   CLOSE X
+========================================================= */
+
+.login-overlay .register-modal .close-login {
+  position: absolute !important;
+
+  top: 13px !important;
+  right: 13px !important;
+
+  width: 38px !important;
+  height: 38px !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 0 !important;
+
+  border: 1px solid transparent !important;
+
+  border-radius: 50% !important;
+
+  background: #eef7f9 !important;
+
+  color: #397582 !important;
+
+  font-size: 22px !important;
+
+  font-weight: 800 !important;
+
+  cursor: pointer !important;
+
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease !important;
+}
+
+
+.login-overlay .register-modal .close-login:hover {
+  transform: rotate(90deg) !important;
+
+  background: #fff0f0 !important;
+
+  color: #dc2626 !important;
+
+  border-color: #fecaca !important;
+}
+
+
+.login-overlay .register-modal .close-login:active {
+  transform: rotate(90deg) scale(0.94) !important;
+
+  background: #fee2e2 !important;
+
+  color: #b91c1c !important;
+}
+
+
+/* =========================================================
+   SHORT SCREENS
+========================================================= */
+
+@media (max-height: 800px) and (min-width: 601px) {
+
+  .login-overlay .register-modal {
+    max-height: 94vh !important;
+
+    padding: 18px 42px 18px !important;
+  }
+
+  .login-overlay .register-top {
+    margin-bottom: 11px !important;
+  }
+
+  .login-overlay .register-top .large-logo {
+    width: 52px !important;
+    height: 52px !important;
+
+    margin-bottom: 6px !important;
+  }
+
+  .login-overlay .register-top h1 {
+    font-size: 27px !important;
+  }
+
+  .login-overlay .register-top p {
+    margin-top: 3px !important;
+  }
+
+  .login-overlay .register-modal form {
+    row-gap: 7px !important;
+  }
+
+  .login-overlay .register-field {
+    gap: 3px !important;
+  }
+
+  .login-overlay .register-field input,
+  .login-overlay .register-field select,
+  .login-overlay .mobile-input {
+    height: 40px !important;
+  }
+
+  .login-overlay .password-rules {
+    padding: 5px 8px !important;
+
+    line-height: 1.35 !important;
+  }
+
+  .login-overlay .register-submit {
+    height: 43px !important;
+
+    margin-top: 3px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .login-overlay .register-modal {
+    width: 100% !important;
+
+    max-height: 96vh !important;
+
+    padding: 18px 20px 19px !important;
+
+    border-radius: 23px !important;
+  }
+
+  .login-overlay .register-top {
+    margin-bottom: 13px !important;
+  }
+
+  .login-overlay .register-top .large-logo {
+    width: 55px !important;
+    height: 55px !important;
+  }
+
+  .login-overlay .register-top h1 {
+    font-size: 26px !important;
+  }
+
+  .login-overlay .register-top p {
+    font-size: 13px !important;
+  }
+
+  .login-overlay .register-modal form {
+    grid-template-columns: 1fr !important;
+
+    row-gap: 8px !important;
+  }
+
+  .login-overlay .register-field:nth-child(1),
+  .login-overlay .register-field:nth-child(2),
+  .login-overlay .register-submit {
+    grid-column: 1 !important;
+  }
+
+  .login-overlay .register-field input,
+  .login-overlay .register-field select,
+  .login-overlay .mobile-input {
+    height: 43px !important;
+  }
+
+  .login-overlay .register-submit {
+    width: 82% !important;
+
+    height: 45px !important;
+  }
+}
+
+/* =========================================================
+   REGISTER — FORCE HORIZONTAL 2-COLUMN LAYOUT
+   PUT THIS AT THE VERY END OF Home.css
+========================================================= */
+
+.register-modal form {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px 16px !important;
+}
+
+
+/* EVERY FIELD = ONE GRID CELL */
+
+.register-modal form > .register-field {
+  grid-column: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.register-modal .register-input-wrap {
+  position: relative !important;
+  width: 100% !important;
+  height: 40px !important;
+
+  display: flex !important;
+  align-items: center !important;
+}
+
+
+.register-modal .register-input-wrap > svg {
+  position: absolute !important;
+
+  left: 12px !important;
+  top: 50% !important;
+
+  width: 16px !important;
+  height: 16px !important;
+
+  transform: translateY(-50%) !important;
+
+  margin: 0 !important;
+
+  pointer-events: none !important;
+
+  z-index: 5 !important;
+
+  fill: none !important;
+
+  stroke: #0797a7 !important;
+
+  stroke-width: 1.8 !important;
+
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+
+/* INPUT TEXT MUST START AFTER ICON */
+
+.register-modal .register-input-wrap > input,
+.register-modal .register-input-wrap > select {
+  width: 100% !important;
+  height: 40px !important;
+
+  box-sizing: border-box !important;
+
+  padding: 0 12px 0 38px !important;
+
+  margin: 0 !important;
+
+  border: 1px solid #d1e3e7 !important;
+
+  border-radius: 10px !important;
+
+  background: rgba(255,255,255,.96) !important;
+
+  color: #294957 !important;
+
+  outline: none !important;
+
+  font-size: 13px !important;
+}
+
+
+/* =========================================================
+   MOBILE FIELD
+========================================================= */
+
+.register-modal .mobile-input {
+  width: 100% !important;
+  height: 40px !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  box-sizing: border-box !important;
+
+  border: 1px solid #d1e3e7 !important;
+
+  border-radius: 10px !important;
+
+  background: rgba(255,255,255,.96) !important;
+
+  overflow: hidden !important;
+}
+
+
+.register-modal .mobile-input > svg {
+  width: 16px !important;
+  height: 16px !important;
+
+  margin-left: 11px !important;
+  margin-right: 8px !important;
+
+  flex-shrink: 0 !important;
+
+  fill: none !important;
+
+  stroke: #0797a7 !important;
+
+  stroke-width: 1.8 !important;
+}
+
+
+.register-modal .mobile-input > span {
+  flex-shrink: 0 !important;
+
+  padding-right: 7px !important;
+
+  color: #31596a !important;
+
+  font-size: 12px !important;
+
+  font-weight: 750 !important;
+}
+
+
+.register-modal .mobile-input > input {
+  flex: 1 !important;
+
+  min-width: 0 !important;
+
+  width: auto !important;
+  height: 100% !important;
+
+  padding: 0 8px !important;
+
+  border: none !important;
+  outline: none !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  font-size: 13px !important;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.register-modal .register-field label {
+  margin: 0 0 3px !important;
+
+  color: #31596a !important;
+
+  font-size: 12px !important;
+
+  font-weight: 750 !important;
+
+  line-height: 1.2 !important;
+}
+
+
+/* =========================================================
+   REMOVE OLD PASSWORD EXTRA SPACE
+========================================================= */
+
+.register-modal .password-rules,
+.register-modal .password-hint {
+  display: none !important;
+}
+
+
+/* =========================================================
+   ERROR / SUCCESS TAKE FULL WIDTH
+========================================================= */
+
+.register-modal form > .register-error,
+.register-modal form > .login-success {
+  grid-column: 1 / -1 !important;
+}
+
+
+/* =========================================================
+   CREATE BUTTON
+========================================================= */
+
+.register-modal .register-submit {
+  grid-column: 1 / -1 !important;
+
+  width: 58% !important;
+  height: 42px !important;
+
+  margin: 5px auto 0 !important;
+
+  border: none !important;
+  border-radius: 12px !important;
+
+  background: #0a97a5 !important;
+
+  color: white !important;
+
+  font-size: 14px !important;
+  font-weight: 800 !important;
+
+  cursor: pointer !important;
+
+  transition: background .18s ease !important;
+}
+
+.register-modal .register-submit:hover {
+  background: #078794 !important;
+  transform: none !important;
+}
+
+
+/* =========================================================
+   OR
+========================================================= */
+
+.register-or {
+  width: 58% !important;
+
+  margin: 8px auto 0 !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+
+  justify-content: center !important;
+
+  gap: 10px !important;
+
+  color: #78909c !important;
+
+  font-size: 12px !important;
+
+  font-weight: 700 !important;
+}
+
+.register-or::before,
+.register-or::after {
+  content: "" !important;
+
+  flex: 1 !important;
+
+  height: 1px !important;
+
+  background: #d8e5e8 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .register-modal form {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .register-modal form > .register-field {
+    grid-column: auto !important;
+  }
+
+  .register-modal .register-submit,
+  .register-or {
+    width: 82% !important;
+  }
+}
+
+/* =========================================================
+   REGISTER — TRUE 2 COLUMN HORIZONTAL LAYOUT
+========================================================= */
+
+.register-modal form {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-gap: 16px !important;
+  row-gap: 8px !important;
+}
+
+
+/* FORCE EVERY FIELD TO ONE COLUMN */
+
+.register-modal form > .register-field {
+  grid-column: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+
+/* Remove any old full-width rules */
+
+.register-modal form > .register-field:nth-child(1),
+.register-modal form > .register-field:nth-child(2),
+.register-modal form > .register-field:nth-child(3),
+.register-modal form > .register-field:nth-child(4),
+.register-modal form > .register-field:nth-child(5),
+.register-modal form > .register-field:nth-child(6),
+.register-modal form > .register-field:nth-child(7) {
+  grid-column: auto !important;
+}
+
+
+/* ERROR + SUCCESS remain full width */
+
+.register-modal form > .register-error,
+.register-modal form > .login-success {
+  grid-column: 1 / -1 !important;
+}
+
+
+/* CREATE ACCOUNT remains centered */
+
+.register-modal .register-submit {
+  grid-column: 1 / -1 !important;
+  width: 58% !important;
+  margin: 5px auto 0 !important;
+}
+
+
+/* =========================================================
+   INPUTS — PREVENT ICON OVERLAP
+========================================================= */
+
+.register-modal .register-input-wrap {
+  position: relative !important;
+  width: 100% !important;
+  height: 40px !important;
+}
+
+.register-modal .register-input-wrap > svg {
+  position: absolute !important;
+
+  left: 12px !important;
+  top: 50% !important;
+
+  width: 16px !important;
+  height: 16px !important;
+
+  transform: translateY(-50%) !important;
+
+  margin: 0 !important;
+
+  z-index: 5 !important;
+
+  pointer-events: none !important;
+
+  fill: none !important;
+  stroke: #0797a7 !important;
+  stroke-width: 1.7 !important;
+
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+.register-modal .register-input-wrap input,
+.register-modal .register-input-wrap select {
+  width: 100% !important;
+  height: 40px !important;
+
+  padding: 0 12px 0 38px !important;
+
+  box-sizing: border-box !important;
+
+  border: 1px solid #d1e3e7 !important;
+  border-radius: 10px !important;
+
+  background: rgba(255,255,255,.95) !important;
+
+  color: #294957 !important;
+
+  outline: none !important;
+
+  font-size: 13px !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .register-modal form {
+    grid-template-columns: 1fr !important;
+  }
+
+  .register-modal form > .register-field {
+    grid-column: auto !important;
+  }
+
+  .register-modal .register-submit {
+    width: 80% !important;
+  }
+}
+
+/* =========================================================
+   REGISTER LOGO — FIX HUGE IMAGE
+========================================================= */
+
+.register-modal .register-logo {
+  width: 58px !important;
+  height: 58px !important;
+
+  min-width: 58px !important;
+  min-height: 58px !important;
+
+  max-width: 58px !important;
+  max-height: 58px !important;
+
+  margin: 0 auto 7px !important;
+
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+
+  border-radius: 50% !important;
+
+  box-sizing: border-box !important;
+
+  background: #ffffff !important;
+
+  border: 3px solid rgba(7, 139, 154, 0.12) !important;
+
+  flex-shrink: 0 !important;
+}
+
+
+/* FORCE IMAGE TO STAY INSIDE CIRCLE */
+
+.register-modal .register-logo img {
+  width: 100% !important;
+  height: 100% !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  max-width: 100% !important;
+  max-height: 100% !important;
+
+  display: block !important;
+
+  object-fit: cover !important;
+
+  object-position: center !important;
+
+  border-radius: 50% !important;
+
+  margin: 0 !important;
+}
+
+
+/* PREVENT GLOBAL IMAGE RULES */
+
+.register-modal .register-top img {
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+
+/* =========================================================
+   SHORT SCREEN
+========================================================= */
+
+@media (max-height: 800px) and (min-width: 601px) {
+
+  .register-modal .register-logo {
+    width: 50px !important;
+    height: 50px !important;
+
+    min-width: 50px !important;
+    min-height: 50px !important;
+
+    max-width: 50px !important;
+    max-height: 50px !important;
+
+    margin-bottom: 5px !important;
+  }
+}
