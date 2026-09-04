@@ -3765,9 +3765,11 @@ const clearChat = () => {
 
             /* ================= SUCCESS ================= */
 
-            setRegisterSuccess(
-              "Account created successfully. Please login."
-            );
+            setRegisterError("");
+
+              setRegisterSuccess(
+                "Account created successfully. Please login."
+              );
 
             e.currentTarget.reset();
 
