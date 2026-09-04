@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
+import "./Home.responsive.css";
+import { Link, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
 /* =====================================================
@@ -216,71 +217,93 @@ const Icon = ({ name, size = 24, strokeWidth = 1.8 }) => {
 };
 
 function Home() {
-  useEffect(() => {
-  if (window.location.hash !== "#contact") {
-    return;
-  }
-
-  const timer = setTimeout(() => {
-    const contactSection =
-      document.getElementById("contact");
-
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, 300);
-
-  return () => {
-    clearTimeout(timer);
-  };
-  
-}, []);
   const [activeSection, setActiveSection] = useState("home");
-  useEffect(() => {
-  const sections = [
-    "home",
-    "services",
-    "departments",
-    "doctors",
-    "about",
-    "contact",
-  ];
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY + 140;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    let currentSection = "home";
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
 
-    sections.forEach((sectionId) => {
-      const section = document.getElementById(sectionId);
+    if (!section) {
+      console.warn(`Section #${sectionId} not found`);
+      setMobileMenuOpen(false);
+      return;
+    }
 
-      if (section && section.offsetTop <= scrollPosition) {
-        currentSection = sectionId;
-      }
+    const headerOffset = window.innerWidth <= 768 ? 76 : 90;
+    const elementPosition =
+      section.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: Math.max(0, elementPosition - headerOffset),
+      behavior: "smooth",
     });
 
-    setActiveSection(currentSection);
+    setActiveSection(sectionId);
+    setMobileMenuOpen(false);
+
+    window.history.replaceState(null, "", `#${sectionId}`);
   };
 
-  window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const sections = [
+      "home",
+      "services",
+      "departments",
+      "doctors",
+      "about",
+      "contact",
+    ];
 
-  handleScroll();
+    const handleScroll = () => {
+      const marker = window.scrollY + (window.innerWidth <= 768 ? 110 : 140);
+      let currentSection = "home";
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
+      sections.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
 
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        if (sectionTop <= marker) {
+          currentSection = sectionId;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+
+    const timer = setTimeout(() => {
+      scrollToSection(hash);
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useDarkMode();
   /* =====================================================
    AI HEALTHCARE CHATBOT
 ===================================================== */
-const [showAboutChat, setShowAboutChat] = useState(false);
-
 const [chatMessages, setChatMessages] = useState([
   {
     sender: "bot",
@@ -696,6 +719,7 @@ const clearChat = () => {
 };
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [registerError, setRegisterError] = useState("");
@@ -750,7 +774,10 @@ const clearChat = () => {
     <a
       href="#home"
       className="brand"
-      onClick={() => setActiveSection("home")}
+      onClick={(e) => {
+        e.preventDefault();
+        scrollToSection("home");
+      }}
     >
 
       <div className="brand-logo">
@@ -782,75 +809,105 @@ const clearChat = () => {
         CENTER — NAVIGATION
     ================================================= */}
 
-    <nav className="main-nav">
+<nav className={`main-nav ${mobileMenuOpen ? "mobile-open" : ""}`}>
 
-      <a
-        href="#home"
-        className={`nav-link ${
-          activeSection === "home" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("home")}
-      >
-        Home
-      </a>
+  <a
+    href="#home"
+    className={`nav-link ${
+      activeSection === "home" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("home");
+    }}
+  >
+    Home
+  </a>
+
+  <a
+    href="#services"
+    className={`nav-link ${
+      activeSection === "services" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("services");
+    }}
+  >
+    Services
+  </a>
+
+  <a
+    href="#departments"
+    className={`nav-link ${
+      activeSection === "departments" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("departments");
+    }}
+  >
+    Departments
+  </a>
+
+  <a
+    href="#doctors"
+    className={`nav-link ${
+      activeSection === "doctors" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("doctors");
+    }}
+  >
+    Doctors
+  </a>
+
+  <a
+    href="#about"
+    className={`nav-link ${
+      activeSection === "about" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("about");
+    }}
+  >
+    About
+  </a>
+
+  <a
+    href="#contact"
+    className={`nav-link ${
+      activeSection === "contact" ? "active" : ""
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection("contact");
+    }}
+  >
+    Contact
+  </a>
 
 
-      <a
-        href="#services"
-        className={`nav-link ${
-          activeSection === "services" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("services")}
-      >
-        Services
-      </a>
+  <div className="mobile-nav-actions">
+    <button type="button" className="login-btn" onClick={() => openLogin("Patient")}>Login</button>
+    <button type="button" className="register-btn" onClick={openRegister}>Register</button>
+  </div>
 
+</nav>
 
-      <a
-        href="#departments"
-        className={`nav-link ${
-          activeSection === "departments" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("departments")}
-      >
-        Departments
-      </a>
-
-
-      <a
-        href="#doctors"
-        className={`nav-link ${
-          activeSection === "doctors" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("doctors")}
-      >
-        Doctors
-      </a>
-
-
-      <a
-        href="#about"
-        className={`nav-link ${
-          activeSection === "about" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("about")}
-      >
-        About
-      </a>
-
-
-      <a
-        href="#contact"
-        className={`nav-link ${
-          activeSection === "contact" ? "active" : ""
-        }`}
-        onClick={() => setActiveSection("contact")}
-      >
-        Contact
-      </a>
-
-    </nav>
-
+    <button
+      type="button"
+      className={`mobile-menu-toggle ${mobileMenuOpen ? "open" : ""}`}
+      onClick={() => setMobileMenuOpen((open) => !open)}
+      aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+      aria-expanded={mobileMenuOpen}
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
     {/* =================================================
         RIGHT — ACTIONS
@@ -919,7 +976,7 @@ const clearChat = () => {
           Academic / Educational Project
       ===================================================== */}
 
-      <section className="project-intro-section" id="project">
+      <section className="project-intro-section" id="project-intro">
 
         <div className="project-intro-glow project-glow-one"></div>
         <div className="project-intro-glow project-glow-two"></div>
@@ -1187,7 +1244,7 @@ const clearChat = () => {
 
     {/* ================= Hero ================= */}
 
-<section className="hero-section">
+<section className="hero-section" id="home">
 
   <div className="hero-background-overlay"></div>
 
@@ -1233,6 +1290,10 @@ const clearChat = () => {
         <a
           href="#services"
           className="hero-secondary"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection("services");
+          }}
         >
           <span>Explore Services</span>
           <Icon name="arrow" size={17} />
@@ -1264,14 +1325,7 @@ const clearChat = () => {
     {/* RIGHT — YOUR EXISTING SMART CARE CARD */}
     <div className="hero-card-wrapper">
 
-      {/* keep your existing Smart Care card here */}
-
-    </div>
-
-  </div>
-
-
-<div className="hero-card compact-hero-card">
+      <div className="hero-card compact-hero-card">
 
   {/* Decorative texture */}
   <div className="hero-card-texture"></div>
@@ -1347,7 +1401,7 @@ const clearChat = () => {
       </span>
 
       <span className="assistant-content">
-        <strong>Hospital Assistant</strong>
+        <strong>AI Hospital Management System</strong>
       </span>
 
       <span className="assistant-arrow">
@@ -1378,7 +1432,7 @@ const clearChat = () => {
   </span>
 
   <span className="assistant-content">
-    <strong>Health Assistant</strong>
+    <strong>AI Healthcare Assistant</strong>
   </span>
 
   <span className="assistant-arrow">
@@ -1396,7 +1450,7 @@ const clearChat = () => {
   <div className="footer-status">
     <span className="status-dot"></span>
 
-    <strong>2 AI Assistants</strong>
+    <strong>2 Smart Healthcare Tools</strong>
   </div>
 
   <span className="footer-separator"></span>
@@ -1406,8 +1460,12 @@ const clearChat = () => {
   </span>
 </div>
 
-</div>
-  
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
 
@@ -1543,7 +1601,13 @@ const clearChat = () => {
               professional medical guidance.
             </p>
 
-            <a href="#doctors">
+            <a
+              href="#doctors"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("doctors");
+              }}
+            >
               Find Doctor →
             </a>
 
@@ -2880,7 +2944,7 @@ const clearChat = () => {
           </p>
 
           <a
-            href="tel:+91999999999"
+            href="tel:+919999999999"
             className="support-button"
           >
             Call Hospital →
@@ -2911,7 +2975,7 @@ const clearChat = () => {
           </p>
 
           <a
-            href="mailto:support@aihospital.com"
+            href="mailto:support@aismarthospital.com"
             className="support-button"
           >
             Email Support →
@@ -3052,7 +3116,7 @@ const clearChat = () => {
         Medical Records
       </a>
 
-      <a href="#ayushman">
+      <a href="#insurance">
         Ayushman Bharat
       </a>
 
@@ -3144,17 +3208,15 @@ const clearChat = () => {
 
   <div className="project-actions">
 
-    {/* Change these URLs if your page routes have different names */}
+   <Link to="/about" className="project-action-link">
+  <span>About Us</span>
+  <b>→</b>
+</Link>
 
-    <a href="/about">
-      <span>About Us</span>
-      <b>→</b>
-    </a>
-
-    <a href="/project">
-      <span>Project Details</span>
-      <b>→</b>
-    </a>
+<Link to="/project" className="project-action-link">
+  <span>Project Details</span>
+  <b>→</b>
+</Link>
 
   </div>
 
@@ -3246,53 +3308,53 @@ const clearChat = () => {
       <p className="login-subtitle">
         Login to AI Smart Hospital
       </p>
+{/* ROLE TABS */}
+<div className="role-tabs">
 
-      {/* ROLE TABS */}
-      <div className="role-tabs">
+  <button
+    type="button"
+    className={loginRole === "Patient" ? "active" : ""}
+    onClick={() => setLoginRole("Patient")}
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="7" r="3" />
+      <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
+    </svg>
 
-        <button
-          type="button"
-          className={
-            loginRole === "Patient"
-              ? "active"
-              : ""
-          }
-          onClick={() =>
-            setLoginRole("Patient")
-          }
-        >
-          Patient
-        </button>
+    <span>Patient</span>
+  </button>
 
-        <button
-          type="button"
-          className={
-            loginRole === "Doctor"
-              ? "active"
-              : ""
-          }
-          onClick={() =>
-            setLoginRole("Doctor")
-          }
-        >
-          Doctor
-        </button>
 
-        <button
-          type="button"
-          className={
-            loginRole === "Admin"
-              ? "active"
-              : ""
-          }
-          onClick={() =>
-            setLoginRole("Admin")
-          }
-        >
-          Admin
-        </button>
+  <button
+    type="button"
+    className={loginRole === "Doctor" ? "active" : ""}
+    onClick={() => setLoginRole("Doctor")}
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 4v6a3 3 0 0 0 6 0V4" />
+      <path d="M6 4h3M15 4h3" />
+      <path d="M15 13c0 4 2 6 5 6" />
+      <circle cx="20" cy="19" r="1.5" />
+    </svg>
 
-      </div>
+    <span>Doctor</span>
+  </button>
+
+
+  <button
+    type="button"
+    className={loginRole === "Admin" ? "active" : ""}
+    onClick={() => setLoginRole("Admin")}
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3l7 3v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3z" />
+      <path d="M9.5 12l1.7 1.7 3.5-3.7" />
+    </svg>
+
+    <span>Admin</span>
+  </button>
+
+</div>
 
       {/* LOGIN FORM */}
       <form
@@ -3422,17 +3484,54 @@ const clearChat = () => {
           required
         />
 
-        <label htmlFor="login-password">
+       <label htmlFor="login-password">
           Password
-        </label>
+       </label>
 
-        <input
-          id="login-password"
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          required
-        />
+    <div className="login-password-wrap">
+
+      <input
+        id="login-password"
+        type={showLoginPassword ? "text" : "password"}
+        name="password"
+        placeholder="Enter password"
+        required
+      />
+
+      <button
+          type="button"
+          className="show-password-btn"
+          onClick={() =>
+            setShowLoginPassword((previous) => !previous)
+          }
+          aria-label={
+            showLoginPassword
+              ? "Hide password"
+              : "Show password"
+          }
+        >
+          {showLoginPassword ? (
+            <>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 3l18 18" />
+                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 3.4 10 7-0.5 1.2-1.3 2.4-2.3 3.4" />
+                <path d="M6.2 6.2C4.7 7.2 3.5 8.6 2 12c1.5 3.6 5 7 10 7 1 0 2-.2 2.9-.5" />
+              </svg>
+              <span>Hide</span>
+            </>
+          ) : (
+            <>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span>Show</span>
+            </>
+          )}
+        </button>
+
+    </div>
 
         <button
           type="submit"
@@ -3450,13 +3549,31 @@ const clearChat = () => {
         </div>
       )}
 
+      {/* REGISTER */}
+        <div className="login-or">
+          <span>or</span>
+        </div>
+
+        <div className="register-text">
+
+          <span>New to AI Smart Hospital?</span>
+
+          <button
+            type="button"
+            onClick={openRegister}
+          >
+            Create an account
+          </button>
+
+        </div>
+
     </div>
 
   </div>
 
 )}
       
-    {/* =====================================================
+ {/* =====================================================
     REGISTER MODAL
 ===================================================== */}
 
@@ -3471,31 +3588,37 @@ const clearChat = () => {
       onClick={(e) => e.stopPropagation()}
     >
 
-      {/* CLOSE */}
+      {/* ================= CLOSE ================= */}
+
       <button
         className="close-login"
         onClick={() => setRegisterOpen(false)}
+        aria-label="Close registration"
       >
         ×
       </button>
 
 
-      {/* HEADER */}
+      {/* ================= HEADER ================= */}
+
       <div className="register-top">
 
-        <div className="large-logo">
-          🏥
+        <div className="register-logo">
+          <img
+            src="/github-logo.jpeg"
+            alt="AI Smart Hospital"
+          />
         </div>
 
-        <div>
-          <h1>Create Account</h1>
-          <p>Join AI Smart Hospital</p>
-        </div>
+        <h1>Create Account</h1>
+
+        <p>Join AI Smart Hospital</p>
 
       </div>
 
 
-          {/* REGISTER FORM — now calls the backend register API */}
+      {/* ================= REGISTER FORM ================= */}
+
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -3511,7 +3634,9 @@ const clearChat = () => {
           const dob = formData.get("dob");
           const gender = formData.get("gender");
 
-          // Full Name
+
+          /* ================= FULL NAME ================= */
+
           if (!/^[A-Za-z ]{2,50}$/.test(fullName)) {
             setRegisterError(
               "Please enter a valid full name using letters only."
@@ -3519,13 +3644,19 @@ const clearChat = () => {
             return;
           }
 
-          // Email
+
+          /* ================= EMAIL ================= */
+
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setRegisterError("Please enter a valid email address.");
+            setRegisterError(
+              "Please enter a valid email address."
+            );
             return;
           }
 
-          // Mobile
+
+          /* ================= MOBILE ================= */
+
           if (!/^[6-9][0-9]{9}$/.test(mobile)) {
             setRegisterError(
               "Mobile number must be exactly 10 digits and start with 6-9."
@@ -3533,9 +3664,13 @@ const clearChat = () => {
             return;
           }
 
-          // DOB
+
+          /* ================= DOB ================= */
+
           if (!dob) {
-            setRegisterError("Please select your date of birth.");
+            setRegisterError(
+              "Please select your date of birth."
+            );
             return;
           }
 
@@ -3543,42 +3678,65 @@ const clearChat = () => {
           const today = new Date();
 
           if (selectedDate > today) {
-            setRegisterError("Date of birth cannot be in the future.");
-            return;
-          }
-
-          // Gender
-          if (!gender) {
-            setRegisterError("Please select your gender.");
-            return;
-          }
-
-          // Password
-          if (
-            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(
-              registerPassword
-            )
-          ) {
             setRegisterError(
-              "Password must contain 8+ characters, uppercase, lowercase and a number."
+              "Date of birth cannot be in the future."
             );
             return;
           }
 
-          // Confirm Password
-          if (registerPassword !== confirmPassword) {
-            setRegisterError("Passwords do not match.");
+
+          /* ================= GENDER ================= */
+
+          if (!gender) {
+            setRegisterError(
+              "Please select your gender."
+            );
             return;
           }
 
+
+          /* ================= PASSWORD ================= */
+
+          const strongPassword =
+            registerPassword.length >= 8 &&
+            /[A-Z]/.test(registerPassword) &&
+            /[a-z]/.test(registerPassword) &&
+            /\d/.test(registerPassword) &&
+            /[^A-Za-z0-9]/.test(registerPassword);
+
+          if (!strongPassword) {
+            setRegisterError(
+              "Password must be 8+ characters and include uppercase, lowercase, number and special character."
+            );
+            return;
+          }
+
+
+          /* ================= CONFIRM PASSWORD ================= */
+
+          if (registerPassword !== confirmPassword) {
+            setRegisterError(
+              "Passwords do not match."
+            );
+            return;
+          }
+
+
+          /* =================================================
+             BACKEND — UNCHANGED
+          ================================================= */
+
           try {
+
             const response = await fetch(
               "http://localhost:8080/api/auth/register",
               {
                 method: "POST",
+
                 headers: {
                   "Content-Type": "application/json",
                 },
+
                 body: JSON.stringify({
                   fullName: fullName,
                   email: email,
@@ -3591,8 +3749,11 @@ const clearChat = () => {
               }
             );
 
+
             if (!response.ok) {
-              const message = await response.text();
+
+              const message =
+                await response.text();
 
               setRegisterError(
                 message || "Registration failed."
@@ -3600,6 +3761,9 @@ const clearChat = () => {
 
               return;
             }
+
+
+            /* ================= SUCCESS ================= */
 
             setRegisterSuccess(
               "Account created successfully. Please login."
@@ -3610,14 +3774,24 @@ const clearChat = () => {
             setRegisterPassword("");
             setConfirmPassword("");
 
+
             setTimeout(() => {
+
               setRegisterSuccess("");
+
               setRegisterOpen(false);
+
               openLogin("Patient");
+
             }, 1500);
 
+
           } catch (error) {
-            console.error("Registration error:", error);
+
+            console.error(
+              "Registration error:",
+              error
+            );
 
             setRegisterError(
               "Unable to connect to the hospital server."
@@ -3627,7 +3801,9 @@ const clearChat = () => {
       >
 
 
-        {/* ================= FULL NAME ================= */}
+        {/* =================================================
+            FULL NAME
+        ================================================= */}
 
         <div className="register-field">
 
@@ -3635,18 +3811,30 @@ const clearChat = () => {
             Full Name
           </label>
 
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Enter your full name"
-            maxLength="50"
-            required
-          />
+          <div className="register-input-wrap">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="7" r="3" />
+              <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
+            </svg>
+
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Enter your full name"
+              maxLength="50"
+              autoComplete="name"
+              required
+            />
+
+          </div>
 
         </div>
 
 
-        {/* ================= EMAIL ================= */}
+        {/* =================================================
+            EMAIL
+        ================================================= */}
 
         <div className="register-field">
 
@@ -3654,17 +3842,36 @@ const clearChat = () => {
             Email
           </label>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="example@gmail.com"
-            required
-          />
+          <div className="register-input-wrap">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect
+                x="3"
+                y="5"
+                width="18"
+                height="14"
+                rx="2"
+              />
+
+              <path d="m3 7 9 6 9-6" />
+            </svg>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="example@gmail.com"
+              autoComplete="email"
+              required
+            />
+
+          </div>
 
         </div>
 
 
-        {/* ================= MOBILE ================= */}
+        {/* =================================================
+            MOBILE NUMBER
+        ================================================= */}
 
         <div className="register-field">
 
@@ -3673,6 +3880,27 @@ const clearChat = () => {
           </label>
 
           <div className="mobile-input">
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <rect
+                x="7"
+                y="2"
+                width="10"
+                height="20"
+                rx="2"
+              />
+
+              <path d="M10 5h4" />
+
+              <circle
+                cx="12"
+                cy="18"
+                r="1"
+              />
+            </svg>
 
             <span>
               +91
@@ -3697,7 +3925,9 @@ const clearChat = () => {
         </div>
 
 
-        {/* ================= DATE OF BIRTH ================= */}
+        {/* =================================================
+            DATE OF BIRTH
+        ================================================= */}
 
         <div className="register-field">
 
@@ -3705,17 +3935,43 @@ const clearChat = () => {
             Date of Birth
           </label>
 
-          <input
-            type="date"
-            name="dob"
-            max={new Date().toISOString().split("T")[0]}
-            required
-          />
+          <div className="register-input-wrap">
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <rect
+                x="3"
+                y="5"
+                width="18"
+                height="16"
+                rx="2"
+              />
+
+              <path d="M8 3v4M16 3v4M3 10h18" />
+
+            </svg>
+
+            <input
+              type="date"
+              name="dob"
+              max={
+                new Date()
+                  .toISOString()
+                  .split("T")[0]
+              }
+              required
+            />
+
+          </div>
 
         </div>
 
 
-        {/* ================= GENDER ================= */}
+        {/* =================================================
+            GENDER
+        ================================================= */}
 
         <div className="register-field">
 
@@ -3723,33 +3979,53 @@ const clearChat = () => {
             Gender
           </label>
 
-          <select
-            name="gender"
-            required
-          >
+          <div className="register-input-wrap">
 
-            <option value="">
-              Select Gender
-            </option>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle
+                cx="12"
+                cy="7"
+                r="3"
+              />
 
-            <option value="male">
-              Male
-            </option>
+              <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
 
-            <option value="female">
-              Female
-            </option>
+            </svg>
 
-            <option value="other">
-              Other
-            </option>
+            <select
+              name="gender"
+              required
+            >
 
-          </select>
+              <option value="">
+                Select Gender
+              </option>
+
+              <option value="male">
+                Male
+              </option>
+
+              <option value="female">
+                Female
+              </option>
+
+              <option value="other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
 
         </div>
 
 
-        {/* ================= PASSWORD ================= */}
+        {/* =================================================
+            PASSWORD
+        ================================================= */}
 
         <div className="register-field">
 
@@ -3757,25 +4033,46 @@ const clearChat = () => {
             Password
           </label>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Create a strong password"
-            value={registerPassword}
-            onChange={(e) =>
-              setRegisterPassword(e.target.value)
-            }
-            required
-          />
+          <div className="register-input-wrap">
 
-          <small className="password-hint">
-            8+ characters • Uppercase • Lowercase • Number
-          </small>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <rect
+                x="5"
+                y="10"
+                width="14"
+                height="10"
+                rx="2"
+              />
+
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+
+            </svg>
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Create a strong password"
+              value={registerPassword}
+              onChange={(e) =>
+                setRegisterPassword(
+                  e.target.value
+                )
+              }
+              autoComplete="new-password"
+              required
+            />
+
+          </div>
 
         </div>
 
 
-        {/* ================= CONFIRM PASSWORD ================= */}
+        {/* =================================================
+            CONFIRM PASSWORD
+        ================================================= */}
 
         <div className="register-field">
 
@@ -3783,20 +4080,45 @@ const clearChat = () => {
             Confirm Password
           </label>
 
-          <input
-            type="password"
-            placeholder="Re-enter your password"
-            value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(e.target.value)
-            }
-            required
-          />
+          <div className="register-input-wrap">
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <rect
+                x="5"
+                y="10"
+                width="14"
+                height="10"
+                rx="2"
+              />
+
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+
+            </svg>
+
+            <input
+              type="password"
+              placeholder="Re-enter your password"
+              value={confirmPassword}
+              onChange={(e) =>
+                setConfirmPassword(
+                  e.target.value
+                )
+              }
+              autoComplete="new-password"
+              required
+            />
+
+          </div>
 
         </div>
 
 
-        {/* ================= ERROR ================= */}
+        {/* =================================================
+            ERROR
+        ================================================= */}
 
         {registerError && (
           <div className="register-error">
@@ -3805,7 +4127,9 @@ const clearChat = () => {
         )}
 
 
-        {/* ================= SUCCESS ================= */}
+        {/* =================================================
+            SUCCESS
+        ================================================= */}
 
         {registerSuccess && (
           <div className="login-success">
@@ -3814,7 +4138,9 @@ const clearChat = () => {
         )}
 
 
-        {/* ================= CREATE ACCOUNT ================= */}
+        {/* =================================================
+            CREATE ACCOUNT
+        ================================================= */}
 
         <button
           type="submit"
@@ -3826,11 +4152,24 @@ const clearChat = () => {
       </form>
 
 
-      {/* ================= LOGIN ================= */}
+      {/* =================================================
+          OR
+      ================================================= */}
+
+      <div className="register-or">
+        <span>or</span>
+      </div>
+
+
+      {/* =================================================
+          LOGIN
+      ================================================= */}
 
       <p className="already-account">
 
-        Already have an account?
+        <span>
+          Already have an account?
+        </span>
 
         <button
           type="button"
@@ -3846,9 +4185,9 @@ const clearChat = () => {
 
 
     </div>
-       </div>
-    )}
 
+  </div>
+)}
     </div>
   );
 }
