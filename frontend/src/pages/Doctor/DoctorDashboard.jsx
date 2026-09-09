@@ -1005,324 +1005,8 @@ const closePatientDetails = () => {
             Please login again.
           </p>
         </div>
-        {/* =================================================
-    PATIENT DETAILS MODAL
-================================================= */}
 
-{selectedPatient && (
-  <div
-    className="patient-details-overlay"
-    onClick={closePatientDetails}
-  >
-    <div
-      className="patient-details-modal"
-      onClick={(event) => event.stopPropagation()}
-    >
 
-      {/* HEADER */}
-
-      <div className="patient-details-header">
-
-        <div>
-          <h2>
-            {selectedPatient.name ||
-              selectedPatient.fullName ||
-              "Patient Details"}
-          </h2>
-
-          <p>
-            Patient ID: #{selectedPatient.patientId}
-          </p>
-        </div>
-
-        <button
-          type="button"
-          className="patient-details-close"
-          onClick={closePatientDetails}
-        >
-          ×
-        </button>
-
-      </div>
-
-      {patientDetailsLoading ? (
-        <div className="patient-details-loading">
-          <p>Loading patient information...</p>
-        </div>
-      ) : (
-        <>
-          {/* =====================================
-              PERSONAL INFORMATION
-          ===================================== */}
-
-          <div className="patient-details-section">
-
-            <h3>Personal Information</h3>
-
-            <div className="patient-info-grid">
-
-              <div className="patient-info-item">
-                <span>Full Name</span>
-                <strong>
-                  {selectedPatient.name ||
-                    selectedPatient.fullName ||
-                    "-"}
-                </strong>
-              </div>
-
-              <div className="patient-info-item">
-                <span>Patient ID</span>
-                <strong>
-                  #{selectedPatient.patientId}
-                </strong>
-              </div>
-
-              <div className="patient-info-item">
-                <span>Age</span>
-                <strong>
-                  {selectedPatient.age
-                    ? `${selectedPatient.age} years`
-                    : "-"}
-                </strong>
-              </div>
-
-              <div className="patient-info-item">
-                <span>Gender</span>
-                <strong>
-                  {selectedPatient.gender || "-"}
-                </strong>
-              </div>
-
-              <div className="patient-info-item">
-                <span>Blood Group</span>
-                <strong>
-                  {selectedPatient.bloodGroup || "-"}
-                </strong>
-              </div>
-
-              <div className="patient-info-item">
-                <span>Phone</span>
-                <strong>
-                  {selectedPatient.phone || "-"}
-                </strong>
-              </div>
-
-              <div className="patient-info-item">
-                <span>Email</span>
-                <strong>
-                  {selectedPatient.email || "-"}
-                </strong>
-              </div>
-
-              <div className="patient-info-item">
-                <span>Date of Birth</span>
-                <strong>
-                  {selectedPatient.dateOfBirth || "-"}
-                </strong>
-              </div>
-
-            </div>
-
-            <div className="patient-address">
-              <span>Address</span>
-              <strong>
-                {selectedPatient.address || "-"}
-              </strong>
-            </div>
-
-          </div>
-
-          {/* =====================================
-              APPOINTMENT HISTORY
-          ===================================== */}
-
-          <div className="patient-details-section">
-
-            <h3>Appointment History</h3>
-
-            {patientAppointments.length === 0 ? (
-              <p className="patient-empty-message">
-                No appointment history found.
-              </p>
-            ) : (
-              <div className="patient-history-list">
-
-                {patientAppointments.map(
-                  (appointment) => (
-                    <div
-                      className="patient-history-item"
-                      key={appointment.appointmentId}
-                    >
-
-                      <div>
-                        <strong>
-                          {appointment.appointmentDate ||
-                            "-"}
-                        </strong>
-
-                        <span>
-                          {appointment.appointmentTime ||
-                            ""}
-                        </span>
-                      </div>
-
-                      <div>
-                        <span>
-                          Reason
-                        </span>
-
-                        <strong>
-                          {appointment.reason ||
-                            "General consultation"}
-                        </strong>
-                      </div>
-
-                      <div>
-                        <span>
-                          Status
-                        </span>
-
-                        <strong>
-                          {appointment.status ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                    </div>
-                  )
-                )}
-
-              </div>
-            )}
-
-          </div>
-
-          {/* =====================================
-              MEDICAL RECORDS
-          ===================================== */}
-
-          <div className="patient-details-section">
-
-            <h3>Medical Records</h3>
-
-            {patientRecords.length === 0 ? (
-              <p className="patient-empty-message">
-                No medical records found.
-              </p>
-            ) : (
-              <div className="patient-history-list">
-
-                {patientRecords.map(
-                  (record) => (
-                    <div
-                      className="patient-history-item"
-                      key={record.recordId}
-                    >
-
-                      <div>
-                        <span>Date</span>
-                        <strong>
-                          {record.recordDate ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                      <div>
-                        <span>Diagnosis</span>
-                        <strong>
-                          {record.diagnosis ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                      <div>
-                        <span>Treatment</span>
-                        <strong>
-                          {record.treatment ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                    </div>
-                  )
-                )}
-
-              </div>
-            )}
-
-          </div>
-
-          {/* =====================================
-              PRESCRIPTIONS
-          ===================================== */}
-
-          <div className="patient-details-section">
-
-            <h3>Prescriptions</h3>
-
-            {patientPrescriptions.length === 0 ? (
-              <p className="patient-empty-message">
-                No prescriptions found.
-              </p>
-            ) : (
-              <div className="patient-history-list">
-
-                {patientPrescriptions.map(
-                  (prescription) => (
-                    <div
-                      className="patient-history-item"
-                      key={
-                        prescription.prescriptionId
-                      }
-                    >
-
-                      <div>
-                        <span>Date</span>
-                        <strong>
-                          {prescription.prescriptionDate ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                      <div>
-                        <span>Medicine</span>
-                        <strong>
-                          {prescription.medicineName ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                      <div>
-                        <span>Dosage</span>
-                        <strong>
-                          {prescription.dosage ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                      <div>
-                        <span>Duration</span>
-                        <strong>
-                          {prescription.duration ||
-                            "-"}
-                        </strong>
-                      </div>
-
-                    </div>
-                  )
-                )}
-
-              </div>
-            )}
-
-          </div>
-
-        </>
-      )}
-
-    </div>
-  </div>
-)}
       </div>
     );
   }
@@ -2771,7 +2455,324 @@ const closePatientDetails = () => {
         </div>
 
       </div>
+{/* =================================================
+    PATIENT DETAILS MODAL
+================================================= */}
 
+{selectedPatient && (
+  <div
+    className="patient-details-overlay"
+    onClick={closePatientDetails}
+  >
+    <div
+      className="patient-details-modal"
+      onClick={(event) => event.stopPropagation()}
+    >
+
+      {/* HEADER */}
+
+      <div className="patient-details-header">
+
+        <div>
+          <h2>
+            {selectedPatient.name ||
+              selectedPatient.fullName ||
+              "Patient Details"}
+          </h2>
+
+          <p>
+            Patient ID: #{selectedPatient.patientId}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          className="patient-details-close"
+          onClick={closePatientDetails}
+        >
+          ×
+        </button>
+
+      </div>
+
+      {patientDetailsLoading ? (
+        <div className="patient-details-loading">
+          <p>Loading patient information...</p>
+        </div>
+      ) : (
+        <>
+          {/* =====================================
+              PERSONAL INFORMATION
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Personal Information</h3>
+
+            <div className="patient-info-grid">
+
+              <div className="patient-info-item">
+                <span>Full Name</span>
+                <strong>
+                  {selectedPatient.name ||
+                    selectedPatient.fullName ||
+                    "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Patient ID</span>
+                <strong>
+                  #{selectedPatient.patientId}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Age</span>
+                <strong>
+                  {selectedPatient.age
+                    ? `${selectedPatient.age} years`
+                    : "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Gender</span>
+                <strong>
+                  {selectedPatient.gender || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Blood Group</span>
+                <strong>
+                  {selectedPatient.bloodGroup || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Phone</span>
+                <strong>
+                  {selectedPatient.phone || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Email</span>
+                <strong>
+                  {selectedPatient.email || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Date of Birth</span>
+                <strong>
+                  {selectedPatient.dateOfBirth || "-"}
+                </strong>
+              </div>
+
+            </div>
+
+            <div className="patient-address">
+              <span>Address</span>
+              <strong>
+                {selectedPatient.address || "-"}
+              </strong>
+            </div>
+
+          </div>
+
+          {/* =====================================
+              APPOINTMENT HISTORY
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Appointment History</h3>
+
+            {patientAppointments.length === 0 ? (
+              <p className="patient-empty-message">
+                No appointment history found.
+              </p>
+            ) : (
+              <div className="patient-history-list">
+
+                {patientAppointments.map(
+                  (appointment) => (
+                    <div
+                      className="patient-history-item"
+                      key={appointment.appointmentId}
+                    >
+
+                      <div>
+                        <strong>
+                          {appointment.appointmentDate ||
+                            "-"}
+                        </strong>
+
+                        <span>
+                          {appointment.appointmentTime ||
+                            ""}
+                        </span>
+                      </div>
+
+                      <div>
+                        <span>
+                          Reason
+                        </span>
+
+                        <strong>
+                          {appointment.reason ||
+                            "General consultation"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>
+                          Status
+                        </span>
+
+                        <strong>
+                          {appointment.status ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+            )}
+
+          </div>
+
+          {/* =====================================
+              MEDICAL RECORDS
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Medical Records</h3>
+
+            {patientRecords.length === 0 ? (
+              <p className="patient-empty-message">
+                No medical records found.
+              </p>
+            ) : (
+              <div className="patient-history-list">
+
+                {patientRecords.map(
+                  (record) => (
+                    <div
+                      className="patient-history-item"
+                      key={record.recordId}
+                    >
+
+                      <div>
+                        <span>Date</span>
+                        <strong>
+                          {record.recordDate ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Diagnosis</span>
+                        <strong>
+                          {record.diagnosis ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Treatment</span>
+                        <strong>
+                          {record.treatment ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+            )}
+
+          </div>
+
+          {/* =====================================
+              PRESCRIPTIONS
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Prescriptions</h3>
+
+            {patientPrescriptions.length === 0 ? (
+              <p className="patient-empty-message">
+                No prescriptions found.
+              </p>
+            ) : (
+              <div className="patient-history-list">
+
+                {patientPrescriptions.map(
+                  (prescription) => (
+                    <div
+                      className="patient-history-item"
+                      key={
+                        prescription.prescriptionId
+                      }
+                    >
+
+                      <div>
+                        <span>Date</span>
+                        <strong>
+                          {prescription.prescriptionDate ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Medicine</span>
+                        <strong>
+                          {prescription.medicineName ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Dosage</span>
+                        <strong>
+                          {prescription.dosage ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Duration</span>
+                        <strong>
+                          {prescription.duration ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+            )}
+
+          </div>
+
+        </>
+      )}
+
+    </div>
+  </div>
+)}
     </div>
   );
 }
