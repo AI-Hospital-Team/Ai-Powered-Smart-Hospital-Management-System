@@ -3312,6 +3312,8 @@ const clearChat = () => {
       <p className="login-subtitle">
         Login to AI Smart Hospital
       </p>
+
+      
 {/* ROLE TABS */}
 <div className="role-tabs">
 
