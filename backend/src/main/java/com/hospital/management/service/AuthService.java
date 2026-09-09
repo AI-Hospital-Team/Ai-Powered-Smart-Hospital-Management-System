@@ -128,12 +128,14 @@ public class AuthService {
 
     @Transactional
     public User registerPatient(
-            String fullName,
-            String email,
-            String password,
-            String mobile,
-            String dob,
-            String gender) {
+        String fullName,
+        String email,
+        String password,
+        String mobile,
+        String dob,
+        String gender,
+        String bloodGroup,
+        String address) {
 
         // -------------------------------------------------
         // VALIDATION
@@ -163,11 +165,20 @@ public class AuthService {
             throw new RuntimeException("Gender is required");
         }
 
+        if (bloodGroup == null || bloodGroup.trim().isEmpty()) {
+            throw new RuntimeException("Blood group is required");
+        }
+
+        if (address == null || address.trim().isEmpty()) {
+            throw new RuntimeException("Address is required");
+        }
+
         String cleanName = fullName.trim();
         String cleanEmail = email.trim();
         String cleanMobile = mobile.trim();
         String cleanGender = gender.trim();
-
+        String cleanBloodGroup = bloodGroup.trim();
+        String cleanAddress = address.trim();
         // -------------------------------------------------
         // CHECK DUPLICATE EMAIL IN USERS
         // -------------------------------------------------
@@ -199,13 +210,29 @@ public class AuthService {
         try {
 
             dateOfBirth = LocalDate.parse(dob);
-
+           
         } catch (Exception e) {
 
             throw new RuntimeException(
                     "Invalid date of birth"
             );
         }
+
+         LocalDate today = LocalDate.now();
+
+if (dateOfBirth.isAfter(today)) {
+    throw new RuntimeException("Date of birth cannot be in the future");
+}
+
+int calculatedAge =
+        java.time.Period
+                .between(dateOfBirth, today)
+                .getYears();
+
+if (calculatedAge < 0 || calculatedAge > 120) {
+    throw new RuntimeException("Invalid age");
+}
+
 
         // =================================================
         // CREATE PATIENT
@@ -218,6 +245,10 @@ public class AuthService {
         patient.setPhone(cleanMobile);
         patient.setGender(cleanGender);
         patient.setDateOfBirth(dateOfBirth);
+
+        patient.setAge(calculatedAge);
+        patient.setBloodGroup(cleanBloodGroup);
+        patient.setAddress(cleanAddress);
 
         Patient savedPatient =
                 patientRepository.save(patient);

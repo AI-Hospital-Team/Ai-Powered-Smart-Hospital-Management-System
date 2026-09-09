@@ -45,37 +45,38 @@ public class AuthController {
         }
     }
 
-    // =====================================================
-    // REGISTER PATIENT
-    // =====================================================
+   // =====================================================
+// REGISTER PATIENT
+// =====================================================
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(
-            @RequestBody RegisterRequest request) {
+@PostMapping("/register")
+public ResponseEntity<?> register(
+        @RequestBody RegisterRequest request) {
 
-        try {
+    try {
 
-            User user = authService.registerPatient(
-                    request.fullName(),
-                    request.email(),
-                    request.password(),
-                    request.mobile(),
-                    request.dob(),
-                    request.gender()
-            );
+        User user = authService.registerPatient(
+                request.fullName(),
+                request.email(),
+                request.password(),
+                request.mobile(),
+                request.dob(),
+                request.gender(),
+                request.bloodGroup(),
+                request.address()
+        );
 
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(user);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(user);
 
-        } catch (RuntimeException e) {
+    } catch (RuntimeException e) {
 
-            return ResponseEntity
-                    .badRequest()
-                    .body(e.getMessage());
-        }
+        return ResponseEntity
+                .badRequest()
+                .body(e.getMessage());
     }
-
+}
     // =====================================================
     // LOGIN REQUEST
     // =====================================================
@@ -88,16 +89,18 @@ public class AuthController {
     }
 
     // =====================================================
-    // PATIENT REGISTER REQUEST
-    // =====================================================
+// PATIENT REGISTER REQUEST
+// =====================================================
 
-    public record RegisterRequest(
-            String fullName,
-            String email,
-            String password,
-            String mobile,
-            String dob,
-            String gender
-    ) {
-    }
+public record RegisterRequest(
+        String fullName,
+        String email,
+        String password,
+        String mobile,
+        String dob,
+        String gender,
+        String bloodGroup,
+        String address
+) {
+}
 }
