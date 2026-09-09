@@ -101,19 +101,127 @@ function DashboardLayout() {
   ];
 
 
-  // ==========================================
-  // DOCTOR MENU
-  // ==========================================
+// ==========================================
+// DOCTOR MENU
+// ==========================================
 
-  const doctorMenu = [
+const doctorMenu = [
 
-    {
-      name: "Dashboard",
-      path: "/doctor",
-      icon: "🏠",
-    },
+  {
+    name: "Dashboard",
+    path: "/doctor",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M3 10.5 12 3l9 7.5" />
+        <path d="M5 9.5V21h14V9.5" />
+        <path d="M9 21v-6h6v6" />
+      </svg>
+    ),
+  },
 
-  ];
+  {
+    name: "Appointments",
+    path: "/doctor#appointments",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="4" y="5" width="16" height="15" rx="2" />
+        <path d="M8 3v4M16 3v4M4 9h16" />
+        <path d="M8 13h2M14 13h2M8 16h2" />
+      </svg>
+    ),
+  },
+
+  {
+    name: "My Patients",
+    path: "/doctor/patients",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="9" cy="8" r="3" />
+        <path d="M3.5 20c.6-3.6 2.4-5.5 5.5-5.5s4.9 1.9 5.5 5.5" />
+        <path d="M16 6.5a2.5 2.5 0 1 1 0 5" />
+        <path d="M16 14.5c2.5.2 4 2 4.5 5" />
+      </svg>
+    ),
+  },
+
+  {
+    name: "Medical Records",
+    path: "/doctor/medical-records",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="5" y="3" width="14" height="18" rx="2" />
+        <path d="M8 8h8M8 12h6M8 16h5" />
+      </svg>
+    ),
+  },
+
+  {
+    name: "Prescriptions",
+    path: "/doctor/prescriptions",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1-5.7 5.7l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
+        <path d="m10 6 8 8" />
+        <path d="M6.5 15.5 4 18" />
+        <path d="M4 18h3" />
+      </svg>
+    ),
+  },
+
+  {
+    name: "Profile",
+    path: "/doctor/profile",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="8" r="3" />
+        <path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6" />
+      </svg>
+    ),
+  },
+
+];
 
 
   // ==========================================

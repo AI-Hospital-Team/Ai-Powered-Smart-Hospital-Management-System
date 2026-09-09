@@ -102,6 +102,59 @@ function DoctorDashboard() {
   const doctorId = user?.doctorId;
 
   // =====================================================
+// SIDEBAR SECTION NAVIGATION
+// =====================================================
+
+useEffect(() => {
+  const scrollToHashSection = () => {
+    const hash = window.location.hash;
+
+    if (!hash) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      return;
+    }
+
+    const sectionId = hash.substring(1);
+    const section = document.getElementById(sectionId);
+
+    if (!section) return;
+
+    setTimeout(() => {
+      const headerOffset = 90;
+
+      const elementPosition =
+        section.getBoundingClientRect().top +
+        window.scrollY;
+
+      window.scrollTo({
+        top: Math.max(
+          0,
+          elementPosition - headerOffset
+        ),
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+
+  scrollToHashSection();
+
+  window.addEventListener(
+    "hashchange",
+    scrollToHashSection
+  );
+
+  return () => {
+    window.removeEventListener(
+      "hashchange",
+      scrollToHashSection
+    );
+  };
+}, []);
+
+  // =====================================================
 // FETCH PATIENTS
 // =====================================================
 
@@ -1041,17 +1094,59 @@ const closePatientDetails = () => {
           HEADER
       ================================================= */}
 
-      <div className="page-header">
-        <div>
-          <h1>Doctor Dashboard</h1>
-            <p>
-              Welcome,{" "}
-              {doctorProfileLoading
-                ? "Doctor"
-                : doctorProfile?.name || `Doctor #${doctorId}`}
-            </p>
-        </div>
+      <div className="doctor-welcome">
+
+  <div className="doctor-welcome-content">
+
+    <div className="doctor-welcome-badge">
+      <span>✦</span>
+      SMART HEALTHCARE
+    </div>
+
+    <h1>
+      Welcome,{" "}
+      <span>
+        Dr.{" "}
+        {doctorProfileLoading
+          ? "Doctor"
+          : doctorProfile?.name || `Doctor #${doctorId}`}
+      </span>
+    </h1>
+
+    <p>
+      Manage your patients, appointments and clinical
+      records from one smart healthcare workspace.
+    </p>
+
+    <div className="doctor-info-row">
+
+      <div className="doctor-info-item">
+        <span>Doctor ID</span>
+        <strong>#{doctorId}</strong>
       </div>
+
+      <div className="doctor-info-divider"></div>
+
+      <div className="doctor-info-item">
+        <span>Specialization</span>
+        <strong>
+          {doctorProfile?.specialization || "Specialist"}
+        </strong>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div className="doctor-welcome-symbol">
+    <div className="doctor-symbol-circle">
+      🩺
+    </div>
+
+    <div className="doctor-symbol-glow"></div>
+  </div>
+
+</div>
 
       {/* =================================================
           DASHBOARD CARDS
@@ -1132,7 +1227,10 @@ const closePatientDetails = () => {
     MY PATIENTS
 ================================================= */}
 
-<div className="dashboard-section">
+<div
+  id="patients"
+  className="dashboard-section"
+>
 
   <div
     style={{
@@ -1263,7 +1361,10 @@ const closePatientDetails = () => {
     DOCTOR PROFILE
 ================================================= */}
 
-<div className="dashboard-section doctor-profile-section">
+<div
+  id="profile"
+  className="dashboard-section doctor-profile-section"
+>
 
   <div className="doctor-profile-header">
     <div>
@@ -1316,7 +1417,10 @@ const closePatientDetails = () => {
           TODAY'S APPOINTMENTS
       ================================================= */}
 
-      <div className="dashboard-section">
+      <div
+        id="appointments"
+        className="dashboard-section"
+      >
 
         <h2>Today's Appointments</h2>
 
@@ -1576,7 +1680,10 @@ const closePatientDetails = () => {
           MEDICAL RECORDS
       ================================================= */}
 
-      <div className="dashboard-section">
+      <div
+        id="medical-records"
+        className="dashboard-section"
+      >
 
         <div
           style={{
@@ -1976,8 +2083,10 @@ const closePatientDetails = () => {
           PRESCRIPTIONS
       ================================================= */}
 
-      <div className="dashboard-section">
-
+<div
+  id="prescriptions"
+  className="dashboard-section"
+>
         <div
           style={{
             display: "flex",
