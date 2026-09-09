@@ -222,6 +222,7 @@ function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [calculatedAge, setCalculatedAge] = useState("");
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -3952,7 +3953,7 @@ const clearChat = () => {
         </div>
 
 
-       {/* =================================================
+{/* =================================================
     DATE OF BIRTH
 ================================================= */}
 
@@ -3980,16 +3981,47 @@ const clearChat = () => {
     </svg>
 
     <input
-      type="date"
-      name="dob"
-      max={
-        new Date()
-          .toISOString()
-          .split("T")[0]
-      }
-      required
-    />
+  type="date"
+  name="dob"
+  max={
+    new Date()
+      .toISOString()
+      .split("T")[0]
+  }
+  onChange={(e) => {
+    const dob = e.target.value;
 
+    if (!dob) {
+      setCalculatedAge("");
+      return;
+    }
+
+    const birthDate = new Date(dob);
+    const today = new Date();
+
+    let age =
+      today.getFullYear() -
+      birthDate.getFullYear();
+
+    const monthDifference =
+      today.getMonth() -
+      birthDate.getMonth();
+
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    setCalculatedAge(
+      age >= 0 ? age : ""
+    );
+  }}
+
+  required
+/>
   </div>
 
 </div>
@@ -4022,7 +4054,11 @@ const clearChat = () => {
 
     <input
       type="text"
-      value="Calculated from DOB"
+      value={
+        calculatedAge
+          ? `${calculatedAge} years`
+          : "Calculated from DOB"
+      }
       readOnly
     />
 
@@ -4151,49 +4187,33 @@ const clearChat = () => {
 
 </div>
 
-        {/* =================================================
-            PASSWORD
-        ================================================= */}
+{/* =================================================
+    PASSWORD
+===================================================== */}
 
-        <div className="register-field">
+<div className="register-field">
 
-          <label>
-            Password
-          </label>
+  <label>
+    Password
+  </label>
 
-          <div className="register-input-wrap">
+  <div className="login-password-wrap">
 
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <rect
-                x="5"
-                y="10"
-                width="14"
-                height="10"
-                rx="2"
-              />
-
-              <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-
-            </svg>
-
-            <div className="password-input-wrap">
   <input
     type={showRegisterPassword ? "text" : "password"}
     name="password"
     value={registerPassword}
     onChange={(e) => setRegisterPassword(e.target.value)}
-    placeholder="Create a strong password"
+    placeholder="Enter password"
+    autoComplete="new-password"
     required
   />
 
   <button
     type="button"
-    className="password-toggle"
+    className="show-password-btn"
     onClick={() =>
-      setShowRegisterPassword(!showRegisterPassword)
+      setShowRegisterPassword((previous) => !previous)
     }
     aria-label={
       showRegisterPassword
@@ -4201,35 +4221,40 @@ const clearChat = () => {
         : "Show password"
     }
   >
-    {showRegisterPassword ? "◉" : "◌"}
+    {showRegisterPassword ? "Hide" : "Show"}
   </button>
+
+</div>
 </div>
 
-          </div>
 
-        </div>
+{/* =================================================
+    CONFIRM PASSWORD
+===================================================== */}
 
+<div className="register-field">
 
-        {/* =================================================
-            CONFIRM PASSWORD
-        ================================================= */}
+  <label>
+    Confirm Password
+  </label>
 
-       
-        <div className="password-input-wrap">
+  <div className="login-password-wrap">
+
   <input
     type={showConfirmPassword ? "text" : "password"}
     name="confirmPassword"
     value={confirmPassword}
     onChange={(e) => setConfirmPassword(e.target.value)}
     placeholder="Re-enter your password"
+    autoComplete="new-password"
     required
   />
 
   <button
     type="button"
-    className="password-toggle"
+    className="show-password-btn"
     onClick={() =>
-      setShowConfirmPassword(!showConfirmPassword)
+      setShowConfirmPassword((previous) => !previous)
     }
     aria-label={
       showConfirmPassword
@@ -4237,10 +4262,11 @@ const clearChat = () => {
         : "Show password"
     }
   >
-    {showConfirmPassword ? "◉" : "◌"}
+    {showConfirmPassword ? "Hide" : "Show"}
   </button>
-</div>
 
+</div>
+</div>
 
         {/* =================================================
             ERROR
