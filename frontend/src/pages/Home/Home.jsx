@@ -4,6 +4,9 @@ import "./Home.responsive.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
+const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 /* =====================================================
    REUSABLE SVG ICON
 ===================================================== */
@@ -3633,6 +3636,27 @@ const clearChat = () => {
           const mobile = formData.get("mobile")?.trim();
           const dob = formData.get("dob");
           const gender = formData.get("gender");
+          const bloodGroup = formData.get("bloodGroup")?.trim();
+          const address = formData.get("address")?.trim();
+
+           /* ================= BLOOD GROUP ================= */
+
+          if (!bloodGroup) {
+            setRegisterError(
+              "Please select your blood group."
+            );
+            return;
+          }
+
+
+          /* ================= ADDRESS ================= */
+
+          if (!address) {
+            setRegisterError(
+              "Address is required."
+            );
+            return;
+          }
 
 
           /* ================= FULL NAME ================= */
@@ -3738,14 +3762,15 @@ const clearChat = () => {
                 },
 
                 body: JSON.stringify({
-                  fullName: fullName,
-                  email: email,
-                  mobile: mobile,
-                  dob: dob,
-                  gender: gender,
-                  password: registerPassword,
-                  role: "Patient",
-                }),
+                fullName: fullName,
+                email: email,
+                mobile: mobile,
+                dob: dob,
+                gender: gender,
+                bloodGroup: bloodGroup,
+                address: address,
+                password: registerPassword,
+              }),
               }
             );
 
@@ -3927,49 +3952,83 @@ const clearChat = () => {
         </div>
 
 
-        {/* =================================================
-            DATE OF BIRTH
-        ================================================= */}
+       {/* =================================================
+    DATE OF BIRTH
+================================================= */}
 
-        <div className="register-field">
+<div className="register-field">
 
-          <label>
-            Date of Birth
-          </label>
+  <label>
+    Date of Birth
+  </label>
 
-          <div className="register-input-wrap">
+  <div className="register-input-wrap">
 
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <rect
-                x="3"
-                y="5"
-                width="18"
-                height="16"
-                rx="2"
-              />
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <rect
+        x="3"
+        y="5"
+        width="18"
+        height="16"
+        rx="2"
+      />
 
-              <path d="M8 3v4M16 3v4M3 10h18" />
+      <path d="M8 3v4M16 3v4M3 10h18" />
+    </svg>
 
-            </svg>
+    <input
+      type="date"
+      name="dob"
+      max={
+        new Date()
+          .toISOString()
+          .split("T")[0]
+      }
+      required
+    />
 
-            <input
-              type="date"
-              name="dob"
-              max={
-                new Date()
-                  .toISOString()
-                  .split("T")[0]
-              }
-              required
-            />
+  </div>
 
-          </div>
+</div>
 
-        </div>
 
+{/* =================================================
+    AGE
+================================================= */}
+
+<div className="register-field">
+
+  <label>
+    Age
+  </label>
+
+  <div className="register-input-wrap">
+
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="7"
+        r="3"
+      />
+
+      <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
+    </svg>
+
+    <input
+      type="text"
+      value="Calculated from DOB"
+      readOnly
+    />
+
+  </div>
+
+</div>
 
         {/* =================================================
             GENDER
@@ -4024,6 +4083,73 @@ const clearChat = () => {
 
         </div>
 
+{/* =================================================
+    BLOOD GROUP
+================================================= */}
+
+<div className="register-field">
+
+  <label>
+    Blood Group
+  </label>
+
+  <div className="register-input-wrap">
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11Z" />
+      <path d="M9 15c.8 1.2 1.8 1.8 3 1.8" />
+    </svg>
+
+    <select
+      name="bloodGroup"
+      required
+    >
+      <option value="">
+        Select Blood Group
+      </option>
+
+      <option value="A+">A+</option>
+      <option value="A-">A-</option>
+      <option value="B+">B+</option>
+      <option value="B-">B-</option>
+      <option value="AB+">AB+</option>
+      <option value="AB-">AB-</option>
+      <option value="O+">O+</option>
+      <option value="O-">O-</option>
+    </select>
+
+  </div>
+
+</div>
+
+{/* =================================================
+    ADDRESS
+================================================= */}
+<div className="register-field">
+
+  <label>
+    Address
+  </label>
+
+  <div className="register-input-wrap">
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+
+    <input
+      type="text"
+      name="address"
+      placeholder="Enter your residential address"
+      maxLength="200"
+      autoComplete="street-address"
+      required
+    />
+
+  </div>
+
+</div>
 
         {/* =================================================
             PASSWORD
@@ -4053,19 +4179,31 @@ const clearChat = () => {
 
             </svg>
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Create a strong password"
-              value={registerPassword}
-              onChange={(e) =>
-                setRegisterPassword(
-                  e.target.value
-                )
-              }
-              autoComplete="new-password"
-              required
-            />
+            <div className="password-input-wrap">
+  <input
+    type={showRegisterPassword ? "text" : "password"}
+    name="password"
+    value={registerPassword}
+    onChange={(e) => setRegisterPassword(e.target.value)}
+    placeholder="Create a strong password"
+    required
+  />
+
+  <button
+    type="button"
+    className="password-toggle"
+    onClick={() =>
+      setShowRegisterPassword(!showRegisterPassword)
+    }
+    aria-label={
+      showRegisterPassword
+        ? "Hide password"
+        : "Show password"
+    }
+  >
+    {showRegisterPassword ? "◉" : "◌"}
+  </button>
+</div>
 
           </div>
 
@@ -4076,46 +4214,32 @@ const clearChat = () => {
             CONFIRM PASSWORD
         ================================================= */}
 
-        <div className="register-field">
+       
+        <div className="password-input-wrap">
+  <input
+    type={showConfirmPassword ? "text" : "password"}
+    name="confirmPassword"
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    placeholder="Re-enter your password"
+    required
+  />
 
-          <label>
-            Confirm Password
-          </label>
-
-          <div className="register-input-wrap">
-
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <rect
-                x="5"
-                y="10"
-                width="14"
-                height="10"
-                rx="2"
-              />
-
-              <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-
-            </svg>
-
-            <input
-              type="password"
-              placeholder="Re-enter your password"
-              value={confirmPassword}
-              onChange={(e) =>
-                setConfirmPassword(
-                  e.target.value
-                )
-              }
-              autoComplete="new-password"
-              required
-            />
-
-          </div>
-
-        </div>
+  <button
+    type="button"
+    className="password-toggle"
+    onClick={() =>
+      setShowConfirmPassword(!showConfirmPassword)
+    }
+    aria-label={
+      showConfirmPassword
+        ? "Hide password"
+        : "Show password"
+    }
+  >
+    {showConfirmPassword ? "◉" : "◌"}
+  </button>
+</div>
 
 
         {/* =================================================
