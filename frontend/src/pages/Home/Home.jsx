@@ -4,8 +4,6 @@ import "./Home.responsive.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
-const [showRegisterPassword, setShowRegisterPassword] = useState(false);
-const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 /* =====================================================
    REUSABLE SVG ICON
@@ -222,6 +220,8 @@ const Icon = ({ name, size = 24, strokeWidth = 1.8 }) => {
 function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);

@@ -3,15 +3,7 @@ package com.hospital.management.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hospital.management.entity.Doctor;
 import com.hospital.management.service.DoctorService;
@@ -41,6 +33,36 @@ public class DoctorController {
         );
     }
 
+    /*
+     * Create doctor profile + login account.
+     */
+    @PostMapping("/account")
+    public ResponseEntity<?> createDoctorAccount(
+            @RequestBody DoctorAccountRequest request) {
+
+        try {
+
+            Doctor doctor =
+                    doctorService.createDoctorAccount(
+                            request.name(),
+                            request.email(),
+                            request.password(),
+                            request.specialization()
+                    );
+
+            return ResponseEntity.ok(doctor);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    /*
+     * Existing doctor creation endpoint.
+     */
     @PostMapping
     public ResponseEntity<Doctor> createDoctor(
             @RequestBody Doctor doctor) {
@@ -56,7 +78,10 @@ public class DoctorController {
             @RequestBody Doctor doctor) {
 
         return ResponseEntity.ok(
-                doctorService.updateDoctor(doctorId, doctor)
+                doctorService.updateDoctor(
+                        doctorId,
+                        doctor
+                )
         );
     }
 
@@ -66,6 +91,19 @@ public class DoctorController {
 
         doctorService.deleteDoctor(doctorId);
 
-        return ResponseEntity.ok("Doctor deleted successfully");
+        return ResponseEntity.ok(
+                "Doctor deleted successfully"
+        );
+    }
+
+    /*
+     * Request used when Admin creates a Doctor.
+     */
+    public record DoctorAccountRequest(
+            String name,
+            String email,
+            String password,
+            String specialization
+    ) {
     }
 }
