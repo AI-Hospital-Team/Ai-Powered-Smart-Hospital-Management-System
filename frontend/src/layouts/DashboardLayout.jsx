@@ -109,7 +109,7 @@ const doctorMenu = [
 
   {
     name: "Dashboard",
-    path: "/doctor",
+    path: "/doctor#patients",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -147,7 +147,7 @@ const doctorMenu = [
 
   {
     name: "My Patients",
-    path: "/doctor/patients",
+    path: "/doctor#patients",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -167,7 +167,7 @@ const doctorMenu = [
 
   {
     name: "Medical Records",
-    path: "/doctor/medical-records",
+    path: "/doctor#medical-records",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -185,7 +185,7 @@ const doctorMenu = [
 
   {
     name: "Prescriptions",
-    path: "/doctor/prescriptions",
+    path: "/doctor#prescriptions",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -205,7 +205,7 @@ const doctorMenu = [
 
   {
     name: "Profile",
-    path: "/doctor/profile",
+    path: "/doctor#profile",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -381,12 +381,44 @@ const doctorMenu = [
   // NAVIGATION
   // ==========================================
 
-  const handleNavigation = (path) => {
+ const handleNavigation = (path) => {
 
-    navigate(path);
+  // Doctor dashboard section navigation
+  if (
+    role === "doctor" &&
+    path.startsWith("/doctor#")
+  ) {
+    const hash = path.split("#")[1];
 
-  };
+    // Stay on /doctor and update hash
+    navigate(`/doctor#${hash}`);
 
+    // Scroll after React updates the URL
+    setTimeout(() => {
+      const section = document.getElementById(hash);
+
+      if (section) {
+        const headerOffset = 90;
+
+        const elementPosition =
+          section.getBoundingClientRect().top +
+          window.scrollY;
+
+        window.scrollTo({
+          top: Math.max(
+            0,
+            elementPosition - headerOffset
+          ),
+          behavior: "smooth",
+        });
+      }
+    }, 100);
+
+    return;
+  }
+
+  navigate(path);
+};
 
   // ==========================================
   // LOGOUT
