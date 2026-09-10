@@ -59,43 +59,43 @@ function DashboardLayout() {
     {
       name: "Dashboard",
       path: "/dashboard",
-      icon: "🏠",
+      icon: "",
     },
 
     {
       name: "Patients",
       path: "/dashboard/patients",
-      icon: "👥",
+      icon: "",
     },
 
     {
       name: "Doctors",
       path: "/dashboard/doctors",
-      icon: "👨‍⚕️",
+      icon: "",
     },
 
     {
       name: "Appointments",
       path: "/dashboard/appointments",
-      icon: "📅",
+      icon: "",
     },
 
     {
       name: "Medical Records",
       path: "/dashboard/medical-records",
-      icon: "📋",
+      icon: "",
     },
 
     {
       name: "Prescriptions",
       path: "/dashboard/prescriptions",
-      icon: "💊",
+      icon: "",
     },
 
     {
       name: "Bills",
       path: "/dashboard/bills",
-      icon: "💰",
+      icon: "",
     },
 
   ];
