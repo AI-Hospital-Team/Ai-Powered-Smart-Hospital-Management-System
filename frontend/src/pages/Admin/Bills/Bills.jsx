@@ -6,7 +6,6 @@ import {
   UserRound,
   Stethoscope,
   CalendarDays,
-  FileText,
   Pencil,
   X,
   CheckCircle2,
@@ -56,11 +55,13 @@ function Bills() {
   const [showCreate, setShowCreate] = useState(false);
   const [editingBill, setEditingBill] = useState(null);
 
-  const [formData, setFormData] =
-    useState({ ...emptyForm });
+  const [formData, setFormData] = useState({
+    ...emptyForm,
+  });
 
-  const [editForm, setEditForm] =
-    useState({ ...emptyForm });
+  const [editForm, setEditForm] = useState({
+    ...emptyForm,
+  });
 
   /* =====================================================
      LOAD DATA
@@ -71,12 +72,15 @@ function Bills() {
       setLoading(true);
       setError("");
 
-      const [billData, patientData, doctorData] =
-        await Promise.all([
-          fetchBills(),
-          fetchPatients(),
-          fetchDoctors(),
-        ]);
+      const [
+        billData,
+        patientData,
+        doctorData,
+      ] = await Promise.all([
+        fetchBills(),
+        fetchPatients(),
+        fetchDoctors(),
+      ]);
 
       setBills(
         Array.isArray(billData)
@@ -142,14 +146,18 @@ function Bills() {
     );
   };
 
-  const getDoctorSpecialization = (doctorId) => {
+  const getDoctorSpecialization = (
+    doctorId
+  ) => {
     const doctor = doctors.find(
       (item) =>
         Number(item.doctorId) ===
         Number(doctorId)
     );
 
-    return doctor?.specialization || "";
+    return (
+      doctor?.specialization || ""
+    );
   };
 
   const formatDate = (date) => {
@@ -204,12 +212,14 @@ function Bills() {
   const stats = useMemo(() => {
     const paid = bills.filter(
       (bill) =>
-        bill.status?.toLowerCase() === "paid"
+        bill.status?.toLowerCase() ===
+        "paid"
     );
 
     const pending = bills.filter(
       (bill) =>
-        bill.status?.toLowerCase() === "pending"
+        bill.status?.toLowerCase() ===
+        "pending"
     );
 
     const cancelled = bills.filter(
@@ -263,10 +273,14 @@ function Bills() {
       }
 
       const patientName =
-        getPatientName(bill.patientId);
+        getPatientName(
+          bill.patientId
+        );
 
       const doctorName =
-        getDoctorName(bill.doctorId);
+        getDoctorName(
+          bill.doctorId
+        );
 
       const searchableText = [
         bill.billId,
@@ -282,11 +296,15 @@ function Bills() {
         bill.billDate,
       ]
         .map((value) =>
-          String(value ?? "").toLowerCase()
+          String(
+            value ?? ""
+          ).toLowerCase()
         )
         .join(" ");
 
-      return searchableText.includes(search);
+      return searchableText.includes(
+        search
+      );
     });
   }, [
     bills,
@@ -301,8 +319,10 @@ function Bills() {
   ===================================================== */
 
   const handleChange = (event) => {
-    const { name, value } =
-      event.target;
+    const {
+      name,
+      value,
+    } = event.target;
 
     setFormData((previous) => ({
       ...previous,
@@ -310,9 +330,13 @@ function Bills() {
     }));
   };
 
-  const handleEditChange = (event) => {
-    const { name, value } =
-      event.target;
+  const handleEditChange = (
+    event
+  ) => {
+    const {
+      name,
+      value,
+    } = event.target;
 
     setEditForm((previous) => ({
       ...previous,
@@ -321,27 +345,107 @@ function Bills() {
   };
 
   /* =====================================================
+     PATIENT / DOCTOR SELECTION
+  ===================================================== */
+
+  const handlePatientSelect = (
+    event
+  ) => {
+    const patientId =
+      event.target.value;
+
+    const selectedPatient =
+      patients.find(
+        (patient) =>
+          Number(
+            patient.patientId
+          ) === Number(patientId)
+      );
+
+    setFormData((previous) => ({
+      ...previous,
+      patientId,
+      patientName:
+        selectedPatient?.name || "",
+    }));
+  };
+
+  const handleDoctorSelect = (
+    event
+  ) => {
+    const doctorId =
+      event.target.value;
+
+    setFormData((previous) => ({
+      ...previous,
+      doctorId,
+    }));
+  };
+
+  const handleEditPatientSelect = (
+    event
+  ) => {
+    const patientId =
+      event.target.value;
+
+    const selectedPatient =
+      patients.find(
+        (patient) =>
+          Number(
+            patient.patientId
+          ) === Number(patientId)
+      );
+
+    setEditForm((previous) => ({
+      ...previous,
+      patientId,
+      patientName:
+        selectedPatient?.name || "",
+    }));
+  };
+
+  const handleEditDoctorSelect = (
+    event
+  ) => {
+    const doctorId =
+      event.target.value;
+
+    setEditForm((previous) => ({
+      ...previous,
+      doctorId,
+    }));
+  };
+
+  /* =====================================================
      CREATE BILL
   ===================================================== */
 
-  const handleCreate = async (event) => {
+  const handleCreate = async (
+    event
+  ) => {
     event.preventDefault();
 
     setError("");
     setSuccess("");
 
     if (!formData.patientId) {
-      setError("Patient ID is required.");
+      setError(
+        "Please select a patient."
+      );
       return;
     }
 
     if (!formData.patientName.trim()) {
-      setError("Patient name is required.");
+      setError(
+        "Patient name is required."
+      );
       return;
     }
 
     if (!formData.billType.trim()) {
-      setError("Bill type is required.");
+      setError(
+        "Bill type is required."
+      );
       return;
     }
 
@@ -349,7 +453,9 @@ function Bills() {
       !formData.amount ||
       Number(formData.amount) <= 0
     ) {
-      setError("Enter a valid bill amount.");
+      setError(
+        "Enter a valid bill amount."
+      );
       return;
     }
 
@@ -363,9 +469,12 @@ function Bills() {
         patientName:
           formData.patientName.trim(),
 
-        doctorId: formData.doctorId
-          ? Number(formData.doctorId)
-          : null,
+        doctorId:
+          formData.doctorId
+            ? Number(
+                formData.doctorId
+              )
+            : null,
 
         billType:
           formData.billType.trim(),
@@ -376,20 +485,25 @@ function Bills() {
         description:
           formData.description.trim(),
 
-        status: formData.status,
+        status:
+          formData.status,
 
         billDate:
           formData.billDate || null,
       };
 
       const createdBill =
-        await createBill(billData);
+        await createBill(
+          billData
+        );
 
       if (createdBill) {
-        setBills((previous) => [
-          createdBill,
-          ...previous,
-        ]);
+        setBills(
+          (previous) => [
+            createdBill,
+            ...previous,
+          ]
+        );
       } else {
         await loadData();
       }
@@ -398,7 +512,10 @@ function Bills() {
         "Bill created successfully."
       );
 
-      setFormData({ ...emptyForm });
+      setFormData({
+        ...emptyForm,
+      });
+
       setShowCreate(false);
     } catch (err) {
       console.error(
@@ -419,6 +536,9 @@ function Bills() {
   ===================================================== */
 
   const openEdit = (bill) => {
+    setError("");
+    setSuccess("");
+
     setEditingBill(bill);
 
     setEditForm({
@@ -426,7 +546,7 @@ function Bills() {
         bill.patientId ?? "",
 
       patientName:
-        bill.patientName ??
+        bill.patientName ||
         getPatientName(
           bill.patientId
         ),
@@ -455,26 +575,38 @@ function Bills() {
     if (saving) return;
 
     setEditingBill(null);
+
     setEditForm({
       ...emptyForm,
     });
   };
 
-  const handleUpdate = async (event) => {
+  const handleUpdate = async (
+    event
+  ) => {
     event.preventDefault();
 
+    setError("");
+    setSuccess("");
+
     if (!editForm.patientId) {
-      setError("Patient ID is required.");
+      setError(
+        "Please select a patient."
+      );
       return;
     }
 
     if (!editForm.patientName.trim()) {
-      setError("Patient name is required.");
+      setError(
+        "Patient name is required."
+      );
       return;
     }
 
     if (!editForm.billType.trim()) {
-      setError("Bill type is required.");
+      setError(
+        "Bill type is required."
+      );
       return;
     }
 
@@ -482,13 +614,14 @@ function Bills() {
       !editForm.amount ||
       Number(editForm.amount) <= 0
     ) {
-      setError("Enter a valid amount.");
+      setError(
+        "Enter a valid amount."
+      );
       return;
     }
 
     try {
       setSaving(true);
-      setError("");
 
       const billData = {
         patientId:
@@ -497,9 +630,12 @@ function Bills() {
         patientName:
           editForm.patientName.trim(),
 
-        doctorId: editForm.doctorId
-          ? Number(editForm.doctorId)
-          : null,
+        doctorId:
+          editForm.doctorId
+            ? Number(
+                editForm.doctorId
+              )
+            : null,
 
         billType:
           editForm.billType.trim(),
@@ -510,7 +646,8 @@ function Bills() {
         description:
           editForm.description.trim(),
 
-        status: editForm.status,
+        status:
+          editForm.status,
 
         billDate:
           editForm.billDate || null,
@@ -598,17 +735,25 @@ function Bills() {
     }
   };
 
+  /* =====================================================
+     PAGE
+  ===================================================== */
+
   return (
     <div className="admin-bills-page">
 
-      {/* HEADER */}
+      {/* =================================================
+          HEADER
+      ================================================= */}
 
       <div className="bills-page-header">
 
         <div className="bills-page-title">
 
           <div className="bills-title-icon">
-            <ReceiptIndianRupee size={27} />
+            <ReceiptIndianRupee
+              size={27}
+            />
           </div>
 
           <div>
@@ -617,11 +762,13 @@ function Bills() {
               Billing & Payments
             </div>
 
-            <h1>Bills & Payments</h1>
+            <h1>
+              Bills & Payments
+            </h1>
 
             <p>
-              Manage hospital billing records and
-              payment status.
+              Manage hospital billing
+              records and payment status.
             </p>
 
           </div>
@@ -644,6 +791,9 @@ function Bills() {
             onClick={() => {
               setError("");
               setSuccess("");
+              setFormData({
+                ...emptyForm,
+              });
               setShowCreate(true);
             }}
           >
@@ -655,14 +805,18 @@ function Bills() {
 
       </div>
 
-      {/* MESSAGES */}
+      {/* =================================================
+          MESSAGES
+      ================================================= */}
 
       {success && (
         <div className="bills-success">
 
           <CheckCircle2 size={17} />
 
-          <span>{success}</span>
+          <span>
+            {success}
+          </span>
 
           <button
             onClick={() =>
@@ -679,15 +833,21 @@ function Bills() {
         <div className="bills-error">
 
           <div>
+
             <strong>
               Billing error
             </strong>
 
-            <p>{error}</p>
+            <p>
+              {error}
+            </p>
+
           </div>
 
           <button
-            onClick={() => setError("")}
+            onClick={() =>
+              setError("")
+            }
           >
             <X size={14} />
           </button>
@@ -695,7 +855,9 @@ function Bills() {
         </div>
       )}
 
-      {/* STATS */}
+      {/* =================================================
+          STATS
+      ================================================= */}
 
       <div className="bills-stats">
 
@@ -711,18 +873,27 @@ function Bills() {
         >
 
           <div className="bill-stat-icon total">
-            <ReceiptIndianRupee size={20} />
+            <ReceiptIndianRupee
+              size={20}
+            />
           </div>
 
           <div>
-            <span>Total Bills</span>
-            <strong>{stats.total}</strong>
+
+            <span>
+              Total Bills
+            </span>
+
+            <strong>
+              {stats.total}
+            </strong>
 
             <small>
               {formatAmount(
                 stats.totalAmount
               )}
             </small>
+
           </div>
 
         </div>
@@ -743,14 +914,21 @@ function Bills() {
           </div>
 
           <div>
-            <span>Paid</span>
-            <strong>{stats.paid}</strong>
+
+            <span>
+              Paid
+            </span>
+
+            <strong>
+              {stats.paid}
+            </strong>
 
             <small>
               {formatAmount(
                 stats.paidAmount
               )}
             </small>
+
           </div>
 
         </div>
@@ -771,12 +949,19 @@ function Bills() {
           </div>
 
           <div>
-            <span>Pending</span>
-            <strong>{stats.pending}</strong>
+
+            <span>
+              Pending
+            </span>
+
+            <strong>
+              {stats.pending}
+            </strong>
 
             <small>
               Awaiting payment
             </small>
+
           </div>
 
         </div>
@@ -797,7 +982,11 @@ function Bills() {
           </div>
 
           <div>
-            <span>Cancelled</span>
+
+            <span>
+              Cancelled
+            </span>
+
             <strong>
               {stats.cancelled}
             </strong>
@@ -805,22 +994,28 @@ function Bills() {
             <small>
               Cancelled bills
             </small>
+
           </div>
 
         </div>
 
       </div>
 
-      {/* TOOLBAR */}
+      {/* =================================================
+          TOOLBAR
+      ================================================= */}
 
       <div className="bills-toolbar">
 
         <div>
 
-          <h2>Billing Directory</h2>
+          <h2>
+            Billing Directory
+          </h2>
 
           <p>
-            Search and manage all hospital bills.
+            Search and manage all hospital
+            bills.
           </p>
 
         </div>
@@ -854,7 +1049,9 @@ function Bills() {
 
       </div>
 
-      {/* FILTERS */}
+      {/* =================================================
+          FILTERS
+      ================================================= */}
 
       <div className="bills-filters">
 
@@ -862,31 +1059,37 @@ function Bills() {
           ["All", stats.total],
           ["Paid", stats.paid],
           ["Pending", stats.pending],
-          ["Cancelled", stats.cancelled],
-        ].map(([status, count]) => (
+          [
+            "Cancelled",
+            stats.cancelled,
+          ],
+        ].map(
+          ([status, count]) => (
+            <button
+              key={status}
+              className={
+                statusFilter === status
+                  ? "bill-filter active"
+                  : "bill-filter"
+              }
+              onClick={() =>
+                setStatusFilter(status)
+              }
+            >
+              {status}
 
-          <button
-            key={status}
-            className={
-              statusFilter === status
-                ? "bill-filter active"
-                : "bill-filter"
-            }
-            onClick={() =>
-              setStatusFilter(status)
-            }
-          >
-            {status}
-
-            <span>{count}</span>
-
-          </button>
-
-        ))}
+              <span>
+                {count}
+              </span>
+            </button>
+          )
+        )}
 
       </div>
 
-      {/* CONTENT */}
+      {/* =================================================
+          CONTENT
+      ================================================= */}
 
       {loading ? (
 
@@ -899,8 +1102,8 @@ function Bills() {
           </h3>
 
           <p>
-            Please wait while we fetch billing
-            information.
+            Please wait while we fetch
+            billing information.
           </p>
 
         </div>
@@ -910,7 +1113,9 @@ function Bills() {
         <div className="bills-empty">
 
           <div className="bills-empty-icon">
-            <ReceiptIndianRupee size={35} />
+            <ReceiptIndianRupee
+              size={35}
+            />
           </div>
 
           <h3>
@@ -918,8 +1123,8 @@ function Bills() {
           </h3>
 
           <p>
-            No bills match the selected filter
-            or search.
+            No bills match the selected
+            filter or search.
           </p>
 
           <button
@@ -1028,7 +1233,9 @@ function Bills() {
                   <div className="bill-person">
 
                     <div className="bill-person-icon patient">
-                      <UserRound size={15} />
+                      <UserRound
+                        size={15}
+                      />
                     </div>
 
                     <div>
@@ -1056,7 +1263,9 @@ function Bills() {
                   <div className="bill-person">
 
                     <div className="bill-person-icon doctor">
-                      <Stethoscope size={15} />
+                      <Stethoscope
+                        size={15}
+                      />
                     </div>
 
                     <div>
@@ -1083,7 +1292,9 @@ function Bills() {
 
                   <div className="bill-date">
 
-                    <CalendarDays size={14} />
+                    <CalendarDays
+                      size={14}
+                    />
 
                     <span>
                       Bill Date
@@ -1137,6 +1348,7 @@ function Bills() {
                           <CheckCircle2
                             size={14}
                           />
+
                           Mark Paid
                         </button>
                       )}
@@ -1159,6 +1371,7 @@ function Bills() {
                           }
                         >
                           <Ban size={14} />
+
                           Cancel
                         </button>
                       )}
@@ -1169,7 +1382,10 @@ function Bills() {
                         openEdit(bill)
                       }
                     >
-                      <Pencil size={14} />
+                      <Pencil
+                        size={14}
+                      />
+
                       Edit
                     </button>
 
@@ -1177,7 +1393,8 @@ function Bills() {
 
                   {isUpdating && (
                     <div className="bill-updating">
-                      Updating payment status...
+                      Updating payment
+                      status...
                     </div>
                   )}
 
@@ -1219,14 +1436,16 @@ function Bills() {
                 </div>
 
                 <div>
+
                   <h2>
                     Create New Bill
                   </h2>
 
                   <p>
-                    Add a new hospital billing
-                    record.
+                    Add a new hospital
+                    billing record.
                   </p>
+
                 </div>
 
               </div>
@@ -1250,69 +1469,123 @@ function Bills() {
 
               <div className="bill-form-grid">
 
+                {/* PATIENT */}
+
                 <div className="bill-form-group">
 
                   <label>
-                    Patient ID *
+                    Patient *
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name="patientId"
                     value={
                       formData.patientId
                     }
                     onChange={
-                      handleChange
+                      handlePatientSelect
                     }
-                    placeholder="Patient ID"
-                    min="1"
                     required
-                  />
+                  >
+
+                    <option value="">
+                      Select Patient
+                    </option>
+
+                    {patients.map(
+                      (patient) => (
+                        <option
+                          key={
+                            patient.patientId
+                          }
+                          value={
+                            patient.patientId
+                          }
+                        >
+                          {patient.name ||
+                            `Patient #${patient.patientId}`}
+                          {" — Patient #"}
+                          {
+                            patient.patientId
+                          }
+                        </option>
+                      )
+                    )}
+
+                  </select>
 
                 </div>
+
+                {/* PATIENT NAME */}
 
                 <div className="bill-form-group">
 
                   <label>
-                    Patient Name *
+                    Patient Name
                   </label>
 
                   <input
                     type="text"
-                    name="patientName"
                     value={
                       formData.patientName
                     }
-                    onChange={
-                      handleChange
-                    }
-                    placeholder="Patient name"
-                    required
+                    placeholder="Auto-filled from patient"
+                    readOnly
                   />
 
                 </div>
 
+                {/* DOCTOR */}
+
                 <div className="bill-form-group">
 
                   <label>
-                    Doctor ID
+                    Doctor
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name="doctorId"
                     value={
                       formData.doctorId
                     }
                     onChange={
-                      handleChange
+                      handleDoctorSelect
                     }
-                    placeholder="Doctor ID"
-                    min="1"
-                  />
+                  >
+
+                    <option value="">
+                      Select Doctor
+                    </option>
+
+                    {doctors.map(
+                      (doctor) => (
+                        <option
+                          key={
+                            doctor.doctorId
+                          }
+                          value={
+                            doctor.doctorId
+                          }
+                        >
+                          {doctor.name ||
+                            `Doctor #${doctor.doctorId}`}
+                          {" — Doctor #"}
+                          {
+                            doctor.doctorId
+                          }
+
+                          {doctor.specialization
+                            ? ` — ${doctor.specialization}`
+                            : ""}
+                        </option>
+                      )
+                    )}
+
+                  </select>
 
                 </div>
+
+                {/* BILL TYPE */}
 
                 <div className="bill-form-group">
 
@@ -1330,6 +1603,7 @@ function Bills() {
                     }
                     required
                   >
+
                     <option value="">
                       Select bill type
                     </option>
@@ -1366,6 +1640,8 @@ function Bills() {
 
                 </div>
 
+                {/* AMOUNT */}
+
                 <div className="bill-form-group">
 
                   <label>
@@ -1389,6 +1665,8 @@ function Bills() {
 
                 </div>
 
+                {/* STATUS */}
+
                 <div className="bill-form-group">
 
                   <label>
@@ -1404,6 +1682,7 @@ function Bills() {
                       handleChange
                     }
                   >
+
                     <option value="Pending">
                       Pending
                     </option>
@@ -1419,6 +1698,8 @@ function Bills() {
                   </select>
 
                 </div>
+
+                {/* DATE */}
 
                 <div className="bill-form-group">
 
@@ -1438,6 +1719,8 @@ function Bills() {
                   />
 
                 </div>
+
+                {/* DESCRIPTION */}
 
                 <div className="bill-form-group full">
 
@@ -1479,20 +1762,24 @@ function Bills() {
                   className="bill-form-save"
                   disabled={saving}
                 >
+
                   {saving ? (
                     <>
                       <RefreshCw
                         size={14}
                         className="bill-spin"
                       />
+
                       Saving...
                     </>
                   ) : (
                     <>
                       <Save size={14} />
+
                       Create Bill
                     </>
                   )}
+
                 </button>
 
               </div>
@@ -1531,14 +1818,19 @@ function Bills() {
                 </div>
 
                 <div>
+
                   <h2>
                     Edit Bill #
-                    {editingBill.billId}
+                    {
+                      editingBill.billId
+                    }
                   </h2>
 
                   <p>
-                    Update billing information.
+                    Update billing
+                    information.
                   </p>
+
                 </div>
 
               </div>
@@ -1560,66 +1852,123 @@ function Bills() {
 
               <div className="bill-form-grid">
 
+                {/* PATIENT */}
+
                 <div className="bill-form-group">
 
                   <label>
-                    Patient ID *
+                    Patient *
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name="patientId"
                     value={
                       editForm.patientId
                     }
                     onChange={
-                      handleEditChange
+                      handleEditPatientSelect
                     }
-                    min="1"
                     required
-                  />
+                  >
+
+                    <option value="">
+                      Select Patient
+                    </option>
+
+                    {patients.map(
+                      (patient) => (
+                        <option
+                          key={
+                            patient.patientId
+                          }
+                          value={
+                            patient.patientId
+                          }
+                        >
+                          {patient.name ||
+                            `Patient #${patient.patientId}`}
+                          {" — Patient #"}
+                          {
+                            patient.patientId
+                          }
+                        </option>
+                      )
+                    )}
+
+                  </select>
 
                 </div>
+
+                {/* PATIENT NAME */}
 
                 <div className="bill-form-group">
 
                   <label>
-                    Patient Name *
+                    Patient Name
                   </label>
 
                   <input
                     type="text"
-                    name="patientName"
                     value={
                       editForm.patientName
                     }
-                    onChange={
-                      handleEditChange
-                    }
-                    required
+                    placeholder="Auto-filled from patient"
+                    readOnly
                   />
 
                 </div>
 
+                {/* DOCTOR */}
+
                 <div className="bill-form-group">
 
                   <label>
-                    Doctor ID
+                    Doctor
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name="doctorId"
                     value={
                       editForm.doctorId
                     }
                     onChange={
-                      handleEditChange
+                      handleEditDoctorSelect
                     }
-                    min="1"
-                  />
+                  >
+
+                    <option value="">
+                      Select Doctor
+                    </option>
+
+                    {doctors.map(
+                      (doctor) => (
+                        <option
+                          key={
+                            doctor.doctorId
+                          }
+                          value={
+                            doctor.doctorId
+                          }
+                        >
+                          {doctor.name ||
+                            `Doctor #${doctor.doctorId}`}
+                          {" — Doctor #"}
+                          {
+                            doctor.doctorId
+                          }
+
+                          {doctor.specialization
+                            ? ` — ${doctor.specialization}`
+                            : ""}
+                        </option>
+                      )
+                    )}
+
+                  </select>
 
                 </div>
+
+                {/* BILL TYPE */}
 
                 <div className="bill-form-group">
 
@@ -1640,6 +1989,8 @@ function Bills() {
                   />
 
                 </div>
+
+                {/* AMOUNT */}
 
                 <div className="bill-form-group">
 
@@ -1663,6 +2014,8 @@ function Bills() {
 
                 </div>
 
+                {/* STATUS */}
+
                 <div className="bill-form-group">
 
                   <label>
@@ -1678,6 +2031,7 @@ function Bills() {
                       handleEditChange
                     }
                   >
+
                     <option value="Pending">
                       Pending
                     </option>
@@ -1693,6 +2047,8 @@ function Bills() {
                   </select>
 
                 </div>
+
+                {/* DATE */}
 
                 <div className="bill-form-group">
 
@@ -1712,6 +2068,8 @@ function Bills() {
                   />
 
                 </div>
+
+                {/* DESCRIPTION */}
 
                 <div className="bill-form-group full">
 
@@ -1750,20 +2108,24 @@ function Bills() {
                   className="bill-form-save"
                   disabled={saving}
                 >
+
                   {saving ? (
                     <>
                       <RefreshCw
                         size={14}
                         className="bill-spin"
                       />
+
                       Saving...
                     </>
                   ) : (
                     <>
                       <Save size={14} />
+
                       Save Changes
                     </>
                   )}
+
                 </button>
 
               </div>
