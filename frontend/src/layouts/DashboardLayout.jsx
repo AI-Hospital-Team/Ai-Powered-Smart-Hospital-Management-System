@@ -106,10 +106,9 @@ function DashboardLayout() {
 // ==========================================
 
 const doctorMenu = [
-
   {
     name: "Dashboard",
-    path: "/doctor#patients",
+    path: "/doctor",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -128,7 +127,7 @@ const doctorMenu = [
 
   {
     name: "Appointments",
-    path: "/doctor#appointments",
+    path: "/doctor/appointments",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -147,7 +146,7 @@ const doctorMenu = [
 
   {
     name: "My Patients",
-    path: "/doctor#patients",
+    path: "/doctor/patients",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -167,7 +166,7 @@ const doctorMenu = [
 
   {
     name: "Medical Records",
-    path: "/doctor#medical-records",
+    path: "/doctor/medical-records",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -185,7 +184,7 @@ const doctorMenu = [
 
   {
     name: "Prescriptions",
-    path: "/doctor#prescriptions",
+    path: "/doctor/prescriptions",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -195,7 +194,7 @@ const doctorMenu = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1-5.7 5.7l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
+        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1 0 5.7l-5.3 5.3a4 4 0 0 1-5.7 0l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
         <path d="m10 6 8 8" />
         <path d="M6.5 15.5 4 18" />
         <path d="M4 18h3" />
@@ -205,7 +204,7 @@ const doctorMenu = [
 
   {
     name: "Profile",
-    path: "/doctor#profile",
+    path: "/doctor/profile",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -220,9 +219,7 @@ const doctorMenu = [
       </svg>
     ),
   },
-
 ];
-
 
   // ==========================================
   // PATIENT MENU
@@ -382,41 +379,6 @@ const doctorMenu = [
   // ==========================================
 
  const handleNavigation = (path) => {
-
-  // Doctor dashboard section navigation
-  if (
-    role === "doctor" &&
-    path.startsWith("/doctor#")
-  ) {
-    const hash = path.split("#")[1];
-
-    // Stay on /doctor and update hash
-    navigate(`/doctor#${hash}`);
-
-    // Scroll after React updates the URL
-    setTimeout(() => {
-      const section = document.getElementById(hash);
-
-      if (section) {
-        const headerOffset = 90;
-
-        const elementPosition =
-          section.getBoundingClientRect().top +
-          window.scrollY;
-
-        window.scrollTo({
-          top: Math.max(
-            0,
-            elementPosition - headerOffset
-          ),
-          behavior: "smooth",
-        });
-      }
-    }, 100);
-
-    return;
-  }
-
   navigate(path);
 };
 
