@@ -1,24 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
+import {
+  CalendarDays,
+  ClipboardList,
+  Pill,
+  ReceiptText,
+  ArrowRight,
+  Clock3,
+  Stethoscope,
+  FileText,
+  CreditCard,
+  UserRound,
+} from "lucide-react";
+
 import "./PatientDashboard.css";
 
 const API_URL = "http://localhost:8080/api";
-
-const AI_EXAMPLES = [
-  {
-    label: "🌡️ Fever & Cough",
-    text: "I have fever, dry cough, weakness and mild headache for the last two days.",
-  },
-  {
-    label: "🤧 Cold & Sore Throat",
-    text: "I have a sore throat, runny nose and mild fever since yesterday.",
-  },
-  {
-    label: "🤢 Stomach Problem",
-    text: "I have stomach pain, nausea and weakness after eating since this morning.",
-  },
-];
 
 function formatDate(date) {
   if (!date) return "—";
@@ -51,155 +48,209 @@ function getGreeting() {
   return "Good Evening";
 }
 
+function getStatusClass(status) {
+  const value = String(
+    status || ""
+  ).toLowerCase();
+
+  if (
+    value === "confirmed" ||
+    value === "approved"
+  ) {
+    return "patient-status confirmed";
+  }
+
+  if (
+    value === "completed"
+  ) {
+    return "patient-status completed";
+  }
+
+  if (
+    value === "cancelled" ||
+    value === "canceled"
+  ) {
+    return "patient-status cancelled";
+  }
+
+  return "patient-status pending";
+}
+
+function getBillStatusClass(status) {
+  const value = String(
+    status || ""
+  ).toLowerCase();
+
+  if (value === "paid") {
+    return "bill-mini-status paid";
+  }
+
+  if (
+    value === "cancelled" ||
+    value === "canceled"
+  ) {
+    return "bill-mini-status cancelled";
+  }
+
+  return "bill-mini-status pending";
+}
+
+function formatAmount(amount) {
+  const value = Number(amount || 0);
+
+  return value.toLocaleString("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 2,
+  });
+}
+
 export default function PatientDashboard() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
 
-  const [appointments, setAppointments] = useState([]);
-  const [medicalRecords, setMedicalRecords] = useState([]);
-  const [prescriptions, setPrescriptions] = useState([]);
-  const [bills, setBills] = useState([]);
+  const [appointments, setAppointments] =
+    useState([]);
 
-  const [loading, setLoading] = useState(true);
+  const [medicalRecords, setMedicalRecords] =
+    useState([]);
 
-  /* =========================
-     AI HEALTH ASSISTANT
-  ========================= */
+  const [prescriptions, setPrescriptions] =
+    useState([]);
 
-  const [aiSymptoms, setAiSymptoms] = useState("");
-  const [aiResponse, setAiResponse] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiError, setAiError] = useState("");
+  const [bills, setBills] =
+    useState([]);
 
-  /* =========================
-     LOAD USER
-  ========================= */
+  const [loading, setLoading] =
+    useState(true);
 
   useEffect(() => {
     try {
-      const savedUser = localStorage.getItem("user");
+      const savedUser =
+        localStorage.getItem("user");
 
       if (savedUser) {
-        setUser(JSON.parse(savedUser));
+        setUser(
+          JSON.parse(savedUser)
+        );
       }
     } catch (error) {
-      console.error("Unable to load user:", error);
+      console.error(
+        "Unable to load user:",
+        error
+      );
     }
   }, []);
 
-  /* =========================
-     LOAD PATIENT DATA
-  ========================= */
-
   useEffect(() => {
-    const patientId = user?.patientId;
+    const patientId =
+      user?.patientId;
 
     if (!patientId) {
       setLoading(false);
       return;
     }
 
-    const loadDashboardData = async () => {
-      setLoading(true);
+    const loadDashboardData =
+      async () => {
+        setLoading(true);
 
-      try {
-        const results = await Promise.allSettled([
-          fetch(`${API_URL}/appointments/patient/${patientId}`),
-          fetch(`${API_URL}/medical-records/patient/${patientId}`),
-          fetch(`${API_URL}/prescriptions/patient/${patientId}`),
-          fetch(`${API_URL}/bills/patient/${patientId}`),
-        ]);
+        try {
+          const results =
+            await Promise.allSettled([
+              fetch(
+                `${API_URL}/appointments/patient/${patientId}`
+              ),
+              fetch(
+                `${API_URL}/medical-records/patient/${patientId}`
+              ),
+              fetch(
+                `${API_URL}/prescriptions/patient/${patientId}`
+              ),
+              fetch(
+                `${API_URL}/bills/patient/${patientId}`
+              ),
+            ]);
 
-        const [
-          appointmentsResult,
-          recordsResult,
-          prescriptionsResult,
-          billsResult,
-        ] = results;
+          const [
+            appointmentsResult,
+            recordsResult,
+            prescriptionsResult,
+            billsResult,
+          ] = results;
 
-        if (
-          appointmentsResult.status === "fulfilled" &&
-          appointmentsResult.value.ok
-        ) {
-          const data = await appointmentsResult.value.json();
-          setAppointments(Array.isArray(data) ? data : []);
-        } else {
-          setAppointments([]);
+          if (
+            appointmentsResult.status ===
+              "fulfilled" &&
+            appointmentsResult.value.ok
+          ) {
+            const data =
+              await appointmentsResult.value.json();
+
+            setAppointments(
+              Array.isArray(data)
+                ? data
+                : []
+            );
+          }
+
+          if (
+            recordsResult.status ===
+              "fulfilled" &&
+            recordsResult.value.ok
+          ) {
+            const data =
+              await recordsResult.value.json();
+
+            setMedicalRecords(
+              Array.isArray(data)
+                ? data
+                : []
+            );
+          }
+
+          if (
+            prescriptionsResult.status ===
+              "fulfilled" &&
+            prescriptionsResult.value.ok
+          ) {
+            const data =
+              await prescriptionsResult.value.json();
+
+            setPrescriptions(
+              Array.isArray(data)
+                ? data
+                : []
+            );
+          }
+
+          if (
+            billsResult.status ===
+              "fulfilled" &&
+            billsResult.value.ok
+          ) {
+            const data =
+              await billsResult.value.json();
+
+            setBills(
+              Array.isArray(data)
+                ? data
+                : []
+            );
+          }
+        } catch (error) {
+          console.error(
+            "Dashboard loading error:",
+            error
+          );
+        } finally {
+          setLoading(false);
         }
-
-        if (
-          recordsResult.status === "fulfilled" &&
-          recordsResult.value.ok
-        ) {
-          const data = await recordsResult.value.json();
-          setMedicalRecords(Array.isArray(data) ? data : []);
-        } else {
-          setMedicalRecords([]);
-        }
-
-        if (
-          prescriptionsResult.status === "fulfilled" &&
-          prescriptionsResult.value.ok
-        ) {
-          const data = await prescriptionsResult.value.json();
-          setPrescriptions(Array.isArray(data) ? data : []);
-        } else {
-          setPrescriptions([]);
-        }
-
-        if (
-          billsResult.status === "fulfilled" &&
-          billsResult.value.ok
-        ) {
-          const data = await billsResult.value.json();
-          setBills(Array.isArray(data) ? data : []);
-        } else {
-          setBills([]);
-        }
-      } catch (error) {
-        console.error("Dashboard loading error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
     loadDashboardData();
   }, [user?.patientId]);
-
-  /* =========================
-     UPCOMING APPOINTMENT
-  ========================= */
-
-  const upcomingAppointment = useMemo(() => {
-    const validAppointments = appointments.filter((appointment) => {
-      const status = String(appointment?.status || "").toLowerCase();
-
-      return (
-        status !== "cancelled" &&
-        status !== "canceled" &&
-        status !== "completed"
-      );
-    });
-
-    validAppointments.sort((a, b) => {
-      const dateA = new Date(
-        `${a?.appointmentDate || ""}T${a?.appointmentTime || "00:00"}`
-      );
-
-      const dateB = new Date(
-        `${b?.appointmentDate || ""}T${b?.appointmentTime || "00:00"}`
-      );
-
-      return dateA - dateB;
-    });
-
-    return validAppointments[0] || null;
-  }, [appointments]);
-
-  /* =========================
-     PATIENT NAME
-  ========================= */
 
   const patientName =
     user?.name ||
@@ -207,89 +258,133 @@ export default function PatientDashboard() {
     user?.patientName ||
     "Patient";
 
-  /* =========================
-     AI EXAMPLE
-  ========================= */
+  /* =========================================
+     UPCOMING APPOINTMENT
+  ========================================= */
 
-  const handleExampleClick = (example) => {
-    setAiSymptoms(example);
-    setAiResponse("");
-    setAiError("");
-  };
+  const upcomingAppointment =
+    useMemo(() => {
+      const valid =
+        appointments.filter(
+          (appointment) => {
+            const status =
+              String(
+                appointment?.status ||
+                  ""
+              ).toLowerCase();
 
-  /* =========================
-     AI HEALTH ASSISTANT
-  ========================= */
-
-  const handleAIHealthAssistant = async () => {
-    const symptoms = aiSymptoms.trim();
-
-    if (!symptoms) {
-      setAiError("Please describe your symptoms first.");
-      setAiResponse("");
-      return;
-    }
-
-    if (symptoms.length < 20) {
-      setAiError(
-        "Please describe your symptoms in more detail (at least 20 characters)."
-      );
-      setAiResponse("");
-      return;
-    }
-
-    setAiLoading(true);
-    setAiError("");
-    setAiResponse("");
-
-    try {
-      const response = await fetch(
-        `${API_URL}/ai/health-assistant`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            symptoms,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data?.error || "Unable to get AI response."
+            return (
+              status !== "cancelled" &&
+              status !== "canceled" &&
+              status !== "completed"
+            );
+          }
         );
-      }
 
-      setAiResponse(
-        data?.response || "AI response was not available."
-      );
-    } catch (error) {
-      console.error(
-        "AI Health Assistant Error:",
-        error
+      valid.sort((a, b) => {
+        const dateA =
+          new Date(
+            `${a?.appointmentDate || ""}T${
+              a?.appointmentTime || "00:00"
+            }`
+          );
+
+        const dateB =
+          new Date(
+            `${b?.appointmentDate || ""}T${
+              b?.appointmentTime || "00:00"
+            }`
+          );
+
+        return dateA - dateB;
+      });
+
+      return valid[0] || null;
+    }, [appointments]);
+
+  /* =========================================
+     RECENT DATA
+  ========================================= */
+
+  const recentRecords =
+    useMemo(() => {
+      return [...medicalRecords]
+        .sort(
+          (a, b) =>
+            new Date(
+              b?.recordDate || 0
+            ) -
+            new Date(
+              a?.recordDate || 0
+            )
+        )
+        .slice(0, 3);
+    }, [medicalRecords]);
+
+  const recentPrescriptions =
+    useMemo(() => {
+      return [...prescriptions]
+        .sort(
+          (a, b) =>
+            new Date(
+              b?.prescriptionDate || 0
+            ) -
+            new Date(
+              a?.prescriptionDate || 0
+            )
+        )
+        .slice(0, 3);
+    }, [prescriptions]);
+
+  const recentBills =
+    useMemo(() => {
+      return [...bills]
+        .sort(
+          (a, b) =>
+            new Date(
+              b?.billDate || 0
+            ) -
+            new Date(
+              a?.billDate || 0
+            )
+        )
+        .slice(0, 3);
+    }, [bills]);
+
+  /* =========================================
+     BILL TOTALS
+  ========================================= */
+
+  const pendingAmount =
+    bills
+      .filter(
+        (bill) =>
+          String(
+            bill?.status || ""
+          ).toLowerCase() ===
+          "pending"
+      )
+      .reduce(
+        (sum, bill) =>
+          sum +
+          Number(
+            bill?.amount || 0
+          ),
+        0
       );
 
-      setAiError(
-        "Unable to connect to AI Health Assistant. Please make sure Ollama and the hospital backend are running."
-      );
-    } finally {
-      setAiLoading(false);
-    }
-  };
-
-  /* =========================
-     LOADING SCREEN
-  ========================= */
+  /* =========================================
+     LOADING
+  ========================================= */
 
   if (loading) {
     return (
       <div className="patient-dashboard-loading">
-        <div className="dashboard-loader"></div>
-        <p>Loading patient dashboard...</p>
+        <div className="dashboard-loader" />
+
+        <p>
+          Loading patient dashboard...
+        </p>
       </div>
     );
   }
@@ -297,9 +392,9 @@ export default function PatientDashboard() {
   return (
     <div className="patient-dashboard">
 
-      {/* =========================================
+      {/* =====================================
           WELCOME
-      ========================================= */}
+      ===================================== */}
 
       <section className="dashboard-welcome">
 
@@ -310,18 +405,28 @@ export default function PatientDashboard() {
           </span>
 
           <h1>
-            {getGreeting()}, {patientName} 👋
+            {getGreeting()},{" "}
+            <span>{patientName}</span>
           </h1>
 
           <p>
-            Welcome back to your healthcare dashboard.
-            Manage your appointments, medical records,
-            prescriptions and bills from one place.
+            Manage your appointments,
+            medical records, prescriptions
+            and bills from one place.
           </p>
 
           <div className="patient-id">
-            <span>Patient ID</span>
-            <strong>#{user?.patientId || "—"}</strong>
+
+            <UserRound size={14} />
+
+            <span>
+              Patient ID
+            </span>
+
+            <strong>
+              #{user?.patientId || "—"}
+            </strong>
+
           </div>
 
           <div className="welcome-actions">
@@ -330,20 +435,29 @@ export default function PatientDashboard() {
               type="button"
               className="primary-dashboard-button"
               onClick={() =>
-                navigate("/patient/book-appointment")
+                navigate(
+                  "/patient/book-appointment"
+                )
               }
             >
-              🗓️ Book Appointment
+              <CalendarDays size={15} />
+
+              Book Appointment
             </button>
 
             <button
               type="button"
               className="secondary-dashboard-button"
               onClick={() =>
-                navigate("/patient/appointments")
+                navigate(
+                  "/patient/appointments"
+                )
               }
             >
-              View Appointments →
+              View Appointments
+
+              <ArrowRight size={15} />
+
             </button>
 
           </div>
@@ -351,12 +465,12 @@ export default function PatientDashboard() {
         </div>
 
         <div className="welcome-visual">
+
           <div className="heart-circle">
 
             <svg
               viewBox="0 0 100 100"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M50 82C50 82 18 63 18 38C18 24 28 17 39 17C45 17 49 20 50 25C51 20 55 17 61 17C72 17 82 24 82 38C82 63 50 82 50 82Z"
@@ -375,20 +489,22 @@ export default function PatientDashboard() {
             </svg>
 
           </div>
+
         </div>
 
       </section>
 
 
-      {/* =========================================
-          QUICK OVERVIEW
-      ========================================= */}
+      {/* =====================================
+          OVERVIEW
+      ===================================== */}
 
       <section className="quick-overview">
 
         <div className="section-heading">
 
           <div>
+
             <span className="section-label">
               OVERVIEW
             </span>
@@ -396,6 +512,7 @@ export default function PatientDashboard() {
             <h2>
               Your Health at a Glance
             </h2>
+
           </div>
 
         </div>
@@ -406,18 +523,33 @@ export default function PatientDashboard() {
             type="button"
             className="overview-card"
             onClick={() =>
-              navigate("/patient/appointments")
+              navigate(
+                "/patient/appointments"
+              )
             }
           >
-            <div className="overview-icon">
-              🗓️
+
+            <div className="overview-icon appointments">
+              <CalendarDays size={21} />
             </div>
 
             <div className="overview-info">
-              <span>Appointments</span>
-              <strong>{appointments.length}</strong>
-              <small>View appointments →</small>
+
+              <span>
+                Appointments
+              </span>
+
+              <strong>
+                {appointments.length}
+              </strong>
+
+              <small>
+                View appointments
+                <ArrowRight size={11} />
+              </small>
+
             </div>
+
           </button>
 
 
@@ -425,18 +557,33 @@ export default function PatientDashboard() {
             type="button"
             className="overview-card"
             onClick={() =>
-              navigate("/patient/medical-records")
+              navigate(
+                "/patient/medical-records"
+              )
             }
           >
-            <div className="overview-icon">
-              📋
+
+            <div className="overview-icon records">
+              <ClipboardList size={21} />
             </div>
 
             <div className="overview-info">
-              <span>Medical Records</span>
-              <strong>{medicalRecords.length}</strong>
-              <small>View records →</small>
+
+              <span>
+                Medical Records
+              </span>
+
+              <strong>
+                {medicalRecords.length}
+              </strong>
+
+              <small>
+                View records
+                <ArrowRight size={11} />
+              </small>
+
             </div>
+
           </button>
 
 
@@ -444,18 +591,33 @@ export default function PatientDashboard() {
             type="button"
             className="overview-card"
             onClick={() =>
-              navigate("/patient/prescriptions")
+              navigate(
+                "/patient/prescriptions"
+              )
             }
           >
-            <div className="overview-icon">
-              💊
+
+            <div className="overview-icon prescriptions">
+              <Pill size={21} />
             </div>
 
             <div className="overview-info">
-              <span>Prescriptions</span>
-              <strong>{prescriptions.length}</strong>
-              <small>View prescriptions →</small>
+
+              <span>
+                Prescriptions
+              </span>
+
+              <strong>
+                {prescriptions.length}
+              </strong>
+
+              <small>
+                View prescriptions
+                <ArrowRight size={11} />
+              </small>
+
             </div>
+
           </button>
 
 
@@ -463,18 +625,33 @@ export default function PatientDashboard() {
             type="button"
             className="overview-card"
             onClick={() =>
-              navigate("/patient/bills")
+              navigate(
+                "/patient/bills"
+              )
             }
           >
-            <div className="overview-icon">
-              💳
+
+            <div className="overview-icon bills">
+              <ReceiptText size={21} />
             </div>
 
             <div className="overview-info">
-              <span>Bills</span>
-              <strong>{bills.length}</strong>
-              <small>View bills →</small>
+
+              <span>
+                Bills
+              </span>
+
+              <strong>
+                {bills.length}
+              </strong>
+
+              <small>
+                View bills
+                <ArrowRight size={11} />
+              </small>
+
             </div>
+
           </button>
 
         </div>
@@ -482,19 +659,20 @@ export default function PatientDashboard() {
       </section>
 
 
-      {/* =========================================
-          MAIN GRID
-      ========================================= */}
+      {/* =====================================
+          UPCOMING + BILL SUMMARY
+      ===================================== */}
 
       <section className="dashboard-main-grid">
 
-        {/* UPCOMING APPOINTMENT */}
+        {/* UPCOMING */}
 
         <div className="dashboard-panel">
 
           <div className="panel-header">
 
             <div>
+
               <span className="section-label">
                 NEXT VISIT
               </span>
@@ -502,20 +680,23 @@ export default function PatientDashboard() {
               <h2>
                 Upcoming Appointment
               </h2>
+
             </div>
 
             <button
               type="button"
               className="panel-link"
               onClick={() =>
-                navigate("/patient/appointments")
+                navigate(
+                  "/patient/appointments"
+                )
               }
             >
-              View All →
+              View All
+              <ArrowRight size={14} />
             </button>
 
           </div>
-
 
           {upcomingAppointment ? (
 
@@ -524,17 +705,20 @@ export default function PatientDashboard() {
               <div className="appointment-date-box">
 
                 <span>
-                  {upcomingAppointment?.appointmentDate
+                  {upcomingAppointment.appointmentDate
                     ? new Date(
                         upcomingAppointment.appointmentDate
-                      ).toLocaleDateString("en-IN", {
-                        month: "short",
-                      })
+                      ).toLocaleDateString(
+                        "en-IN",
+                        {
+                          month: "short",
+                        }
+                      )
                     : "DATE"}
                 </span>
 
                 <strong>
-                  {upcomingAppointment?.appointmentDate
+                  {upcomingAppointment.appointmentDate
                     ? new Date(
                         upcomingAppointment.appointmentDate
                       ).getDate()
@@ -543,47 +727,47 @@ export default function PatientDashboard() {
 
               </div>
 
-
               <div className="appointment-details">
 
                 <h3>
                   Dr.{" "}
-                  {upcomingAppointment?.doctorName ||
+                  {upcomingAppointment.doctorName ||
                     "Doctor"}
                 </h3>
 
                 <p>
-                  {upcomingAppointment?.specialization ||
+                  {upcomingAppointment.specialization ||
                     "Healthcare Specialist"}
                 </p>
 
                 <div className="appointment-meta">
 
                   <span>
-                    🗓️{" "}
+                    <CalendarDays size={13} />
+
                     {formatDate(
-                      upcomingAppointment?.appointmentDate
+                      upcomingAppointment.appointmentDate
                     )}
                   </span>
 
                   <span>
-                    🕐{" "}
+                    <Clock3 size={13} />
+
                     {formatTime(
-                      upcomingAppointment?.appointmentTime
+                      upcomingAppointment.appointmentTime
                     )}
                   </span>
 
                 </div>
 
-                {upcomingAppointment?.status && (
-                  <span
-                    className={`appointment-status ${String(
-                      upcomingAppointment.status
-                    ).toLowerCase()}`}
-                  >
-                    {upcomingAppointment.status}
-                  </span>
-                )}
+                <span
+                  className={getStatusClass(
+                    upcomingAppointment.status
+                  )}
+                >
+                  {upcomingAppointment.status ||
+                    "Pending"}
+                </span>
 
               </div>
 
@@ -594,7 +778,7 @@ export default function PatientDashboard() {
             <div className="empty-panel">
 
               <div className="empty-panel-icon">
-                🗓️
+                <CalendarDays size={28} />
               </div>
 
               <h3>
@@ -602,13 +786,16 @@ export default function PatientDashboard() {
               </h3>
 
               <p>
-                You don't have any upcoming appointments.
+                You don't have any upcoming
+                appointments.
               </p>
 
               <button
                 type="button"
                 onClick={() =>
-                  navigate("/patient/book-appointment")
+                  navigate(
+                    "/patient/book-appointment"
+                  )
                 }
               >
                 Book Appointment
@@ -621,294 +808,145 @@ export default function PatientDashboard() {
         </div>
 
 
-        {/* HEALTH MESSAGE */}
+        {/* BILLS */}
 
-        <div className="dashboard-panel health-message-panel">
+        <div className="dashboard-panel">
 
           <div className="panel-header">
 
             <div>
+
               <span className="section-label">
-                HEALTH TIP
+                PAYMENTS
               </span>
 
               <h2>
-                Stay Healthy
+                Billing Summary
               </h2>
-            </div>
-
-            <div className="health-tip-icon">
-              💗
-            </div>
-
-          </div>
-
-
-          <div className="health-message">
-
-            <h3>
-              Take care of your health every day.
-            </h3>
-
-            <p>
-              Maintain a balanced diet, stay hydrated,
-              get enough sleep and keep your medical
-              appointments up to date.
-            </p>
-
-            <div className="health-tip-list">
-
-              <span>
-                ✓ Stay hydrated
-              </span>
-
-              <span>
-                ✓ Exercise regularly
-              </span>
-
-              <span>
-                ✓ Get enough sleep
-              </span>
-
-              <span>
-                ✓ Follow doctor's advice
-              </span>
 
             </div>
 
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =========================================
-          AI HEALTH ASSISTANT
-      ========================================= */}
-
-      <section className="ai-health-section">
-
-        <div className="ai-health-header">
-
-          <div>
-
-            <span className="section-label">
-              AI HEALTHCARE
-            </span>
-
-            <h2>
-              🤖 AI Health Assistant
-            </h2>
-
-            <p>
-              Describe your symptoms and get general
-              health guidance powered by AI.
-            </p>
+            <button
+              type="button"
+              className="panel-link"
+              onClick={() =>
+                navigate(
+                  "/patient/bills"
+                )
+              }
+            >
+              View All
+              <ArrowRight size={14} />
+            </button>
 
           </div>
 
-          <div className="ai-status-badge">
+          <div className="billing-summary">
 
-            <span className="ai-status-dot"></span>
+            <div className="billing-total">
 
-            AI Assistant Online
-
-          </div>
-
-        </div>
-
-
-        <div className="ai-health-card">
-
-          {/* =====================================
-              AI INPUT
-          ===================================== */}
-
-          <div className="ai-input-area">
-
-            <label htmlFor="ai-symptoms">
-              Describe Your Symptoms
-            </label>
-
-            <textarea
-              id="ai-symptoms"
-              value={aiSymptoms}
-              onChange={(e) => {
-                setAiSymptoms(e.target.value);
-                setAiError("");
-              }}
-              placeholder="Example: I have fever, cough, weakness and headache..."
-              rows={6}
-              disabled={aiLoading}
-            />
-
-
-            {/* TRY AN EXAMPLE */}
-
-            <div className="ai-examples">
-
-              <div className="ai-example-label">
-                Try an Example
-              </div>
-
-              <div className="ai-example-list">
-
-                {AI_EXAMPLES.map((example, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    className="ai-example-chip"
-                    onClick={() =>
-                      handleExampleClick(example.text)
-                    }
-                    disabled={aiLoading}
-                  >
-                    {example.label}
-                  </button>
-                ))}
-
-              </div>
-
-            </div>
-
-
-            {/* INPUT FOOTER */}
-
-            <div className="ai-input-footer">
-
-              <span>
-                {aiSymptoms.length} characters
-              </span>
-
-              <button
-                type="button"
-                className="ai-analyze-button"
-                onClick={handleAIHealthAssistant}
-                disabled={aiLoading}
-              >
-
-                {aiLoading ? (
-                  <>
-                    <span className="ai-spinner"></span>
-                    Analyzing...
-                  </>
-                ) : (
-                  <>
-                    🤖 Analyze Symptoms →
-                  </>
-                )}
-
-              </button>
-
-            </div>
-
-
-            {aiError && (
-              <div className="ai-error">
-                ⚠️ {aiError}
-              </div>
-            )}
-
-          </div>
-
-
-          {/* =====================================
-              AI RESPONSE
-          ===================================== */}
-
-          <div className="ai-response-area">
-
-            <div className="ai-response-header">
-
-              <div className="ai-response-icon">
-                🤖
+              <div className="billing-icon">
+                <CreditCard size={20} />
               </div>
 
               <div>
 
                 <span>
-                  AI ANALYSIS
+                  Pending Amount
                 </span>
 
-                <h3>
-                  Health Assistant Response
-                </h3>
+                <strong>
+                  {formatAmount(
+                    pendingAmount
+                  )}
+                </strong>
 
               </div>
 
             </div>
 
+            <div className="billing-stats">
 
-            {aiLoading ? (
+              <div>
+                <span>
+                  Total Bills
+                </span>
 
-              <div className="ai-loading">
-
-                <div className="ai-loading-animation">
-                  🤖
-                </div>
-
-                <h3>
-                  Analyzing symptoms...
-                </h3>
-
-                <p>
-                  Please wait while the health assistant
-                  prepares a response.
-                </p>
-
+                <strong>
+                  {bills.length}
+                </strong>
               </div>
 
-            ) : aiResponse ? (
+              <div>
+                <span>
+                  Paid
+                </span>
 
-              <div className="ai-response-content">
-
-                <div className="ai-response-text">
-                  <ReactMarkdown>
-                    {aiResponse}
-                  </ReactMarkdown>
-                </div>
-
-
-                <div className="ai-medical-warning">
-
-                  <span>
-                    ⚠️
-                  </span>
-
-                  <strong>
-                    Important:
-                  </strong>
-
-                  <span>
-                    This AI assistant provides general
-                    health information only. It does not
-                    provide a definitive diagnosis or replace
-                    a qualified doctor.
-                  </span>
-
-                </div>
-
+                <strong>
+                  {
+                    bills.filter(
+                      (bill) =>
+                        String(
+                          bill.status ||
+                            ""
+                        ).toLowerCase() ===
+                        "paid"
+                    ).length
+                  }
+                </strong>
               </div>
 
-            ) : (
+            </div>
 
-              <div className="ai-empty">
+            {recentBills.length > 0 && (
 
-                <div className="ai-empty-icon">
-                  🩺
-                </div>
+              <div className="mini-bill-list">
 
-                <h3>
-                  Your AI health guidance will appear here
-                </h3>
+                {recentBills
+                  .slice(0, 2)
+                  .map((bill) => (
 
-                <p>
-                  Enter your symptoms on the left and click{" "}
-                  <strong>
-                    Analyze Symptoms
-                  </strong>.
-                </p>
+                    <div
+                      className="mini-bill"
+                      key={bill.billId}
+                    >
+
+                      <div>
+
+                        <strong>
+                          Bill #
+                          {bill.billId}
+                        </strong>
+
+                        <span>
+                          {bill.billType ||
+                            "Hospital Bill"}
+                        </span>
+
+                      </div>
+
+                      <div>
+
+                        <strong>
+                          {formatAmount(
+                            bill.amount
+                          )}
+                        </strong>
+
+                        <span
+                          className={getBillStatusClass(
+                            bill.status
+                          )}
+                        >
+                          {bill.status ||
+                            "Pending"}
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  ))}
 
               </div>
 
@@ -918,204 +956,321 @@ export default function PatientDashboard() {
 
         </div>
 
+      </section>
 
-        {/* AI DISCLAIMER */}
 
-        <div className="ai-disclaimer">
+      {/* =====================================
+          RECENT HEALTH DATA
+      ===================================== */}
 
-          <span>
-            🔒
-          </span>
+      <section className="recent-grid">
 
-          <p>
-            AI-generated information is for educational
-            purposes only. For medical concerns, always
-            consult a qualified healthcare professional.
-          </p>
+        {/* RECORDS */}
+
+        <div className="dashboard-panel">
+
+          <div className="panel-header">
+
+            <div>
+
+              <span className="section-label">
+                CLINICAL
+              </span>
+
+              <h2>
+                Recent Medical Records
+              </h2>
+
+            </div>
+
+            <button
+              type="button"
+              className="panel-link"
+              onClick={() =>
+                navigate(
+                  "/patient/medical-records"
+                )
+              }
+            >
+              View All
+              <ArrowRight size={14} />
+            </button>
+
+          </div>
+
+          {recentRecords.length > 0 ? (
+
+            <div className="recent-list">
+
+              {recentRecords.map(
+                (record) => (
+
+                  <div
+                    className="recent-item"
+                    key={
+                      record.recordId
+                    }
+                  >
+
+                    <div className="recent-item-icon records">
+                      <FileText
+                        size={17}
+                      />
+                    </div>
+
+                    <div className="recent-item-content">
+
+                      <strong>
+                        {record.diagnosis ||
+                          "Medical Record"}
+                      </strong>
+
+                      <span>
+                        {record.treatment ||
+                          "Clinical information available"}
+                      </span>
+
+                    </div>
+
+                    <time>
+                      {formatDate(
+                        record.recordDate
+                      )}
+                    </time>
+
+                  </div>
+
+                )
+              )}
+
+            </div>
+
+          ) : (
+
+            <div className="small-empty">
+              No medical records available.
+            </div>
+
+          )}
+
+        </div>
+
+
+        {/* PRESCRIPTIONS */}
+
+        <div className="dashboard-panel">
+
+          <div className="panel-header">
+
+            <div>
+
+              <span className="section-label">
+                MEDICATION
+              </span>
+
+              <h2>
+                Recent Prescriptions
+              </h2>
+
+            </div>
+
+            <button
+              type="button"
+              className="panel-link"
+              onClick={() =>
+                navigate(
+                  "/patient/prescriptions"
+                )
+              }
+            >
+              View All
+              <ArrowRight size={14} />
+            </button>
+
+          </div>
+
+          {recentPrescriptions.length >
+          0 ? (
+
+            <div className="recent-list">
+
+              {recentPrescriptions.map(
+                (prescription) => (
+
+                  <div
+                    className="recent-item"
+                    key={
+                      prescription.prescriptionId ||
+                      prescription.id
+                    }
+                  >
+
+                    <div className="recent-item-icon prescriptions">
+                      <Pill size={17} />
+                    </div>
+
+                    <div className="recent-item-content">
+
+                      <strong>
+                        {prescription.medicineName ||
+                          "Medicine"}
+                      </strong>
+
+                      <span>
+                        {prescription.dosage ||
+                          "Dosage not specified"}
+                        {" • "}
+                        {prescription.frequency ||
+                          "As directed"}
+                      </span>
+
+                    </div>
+
+                    <time>
+                      {formatDate(
+                        prescription.prescriptionDate
+                      )}
+                    </time>
+
+                  </div>
+
+                )
+              )}
+
+            </div>
+
+          ) : (
+
+            <div className="small-empty">
+              No prescriptions available.
+            </div>
+
+          )}
 
         </div>
 
       </section>
 
 
-      {/* =========================================
-          PATIENT SERVICES
-      ========================================= */}
+      {/* =====================================
+          QUICK ACTIONS
+      ===================================== */}
 
-      <section className="patient-services">
+      <section className="quick-actions-section">
 
         <div className="section-heading">
 
           <div>
+
             <span className="section-label">
-              SERVICES
+              QUICK ACCESS
             </span>
 
             <h2>
-              Patient Services
+              What would you like to do?
             </h2>
+
           </div>
 
         </div>
 
-
-        <div className="services-grid">
+        <div className="quick-actions-grid">
 
           <button
             type="button"
-            className="service-card"
             onClick={() =>
-              navigate("/patient/appointments")
+              navigate(
+                "/patient/book-appointment"
+              )
             }
           >
-            <div className="service-icon">
-              🗓️
-            </div>
+            <CalendarDays size={20} />
 
             <div>
-              <h3>Appointments</h3>
-              <p>Manage your appointments</p>
+              <strong>
+                Book Appointment
+              </strong>
+
+              <span>
+                Schedule a visit
+              </span>
             </div>
 
-            <span>→</span>
+            <ArrowRight size={15} />
           </button>
 
-
           <button
             type="button"
-            className="service-card"
             onClick={() =>
-              navigate("/patient/book-appointment")
+              navigate(
+                "/patient/medical-records"
+              )
             }
           >
-            <div className="service-icon">
-              ✚
-            </div>
+            <ClipboardList size={20} />
 
             <div>
-              <h3>Book Appointment</h3>
-              <p>Schedule a doctor visit</p>
+              <strong>
+                Medical Records
+              </strong>
+
+              <span>
+                View your history
+              </span>
             </div>
 
-            <span>→</span>
+            <ArrowRight size={15} />
           </button>
 
-
           <button
             type="button"
-            className="service-card"
             onClick={() =>
-              navigate("/patient/medical-records")
+              navigate(
+                "/patient/prescriptions"
+              )
             }
           >
-            <div className="service-icon">
-              📋
-            </div>
+            <Pill size={20} />
 
             <div>
-              <h3>Medical Records</h3>
-              <p>View your health records</p>
+              <strong>
+                Prescriptions
+              </strong>
+
+              <span>
+                Check medications
+              </span>
             </div>
 
-            <span>→</span>
+            <ArrowRight size={15} />
           </button>
 
-
           <button
             type="button"
-            className="service-card"
             onClick={() =>
-              navigate("/patient/prescriptions")
+              navigate(
+                "/patient/bills"
+              )
             }
           >
-            <div className="service-icon">
-              💊
-            </div>
+            <ReceiptText size={20} />
 
             <div>
-              <h3>Prescriptions</h3>
-              <p>View prescribed medicines</p>
+              <strong>
+                Bills & Payment
+              </strong>
+
+              <span>
+                Check your bills
+              </span>
             </div>
 
-            <span>→</span>
-          </button>
-
-
-          <button
-            type="button"
-            className="service-card"
-            onClick={() =>
-              navigate("/patient/profile")
-            }
-          >
-            <div className="service-icon">
-              👤
-            </div>
-
-            <div>
-              <h3>My Profile</h3>
-              <p>Manage your profile</p>
-            </div>
-
-            <span>→</span>
-          </button>
-
-
-          <button
-            type="button"
-            className="service-card"
-            onClick={() =>
-              navigate("/patient/bills")
-            }
-          >
-            <div className="service-icon">
-              💳
-            </div>
-
-            <div>
-              <h3>My Bills</h3>
-              <p>View and manage bills</p>
-            </div>
-
-            <span>→</span>
+            <ArrowRight size={15} />
           </button>
 
         </div>
 
       </section>
-
-
-      {/* =========================================
-          NEW PATIENT MESSAGE
-      ========================================= */}
-
-      {appointments.length === 0 &&
-        medicalRecords.length === 0 &&
-        prescriptions.length === 0 &&
-        bills.length === 0 && (
-
-          <div className="new-patient-message">
-
-            <div className="new-patient-icon">
-              👋
-            </div>
-
-            <div>
-
-              <h3>
-                Welcome to AI Smart Hospital!
-              </h3>
-
-              <p>
-                Your healthcare information will appear
-                here as you use the hospital services.
-              </p>
-
-            </div>
-
-          </div>
-
-        )}
 
     </div>
   );
