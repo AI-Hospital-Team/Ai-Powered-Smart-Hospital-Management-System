@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./DoctorDashboard.css";
 
 function DoctorDashboard() {
   // =====================================================
@@ -6,6 +7,15 @@ function DoctorDashboard() {
   // =====================================================
 
   const [user, setUser] = useState(null);
+  const [patients, setPatients] = useState([]);
+  const [patientsLoading, setPatientsLoading] = useState(true);
+  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [patientDetailsLoading, setPatientDetailsLoading] = useState(false);
+  const [patientAppointments, setPatientAppointments] = useState([]);
+  const [patientRecords, setPatientRecords] = useState([]);
+  const [patientPrescriptions, setPatientPrescriptions] = useState([]);
+  const [doctorProfile, setDoctorProfile] = useState(null);
+  const [doctorProfileLoading, setDoctorProfileLoading] = useState(true);
 
   const [appointments, setAppointments] = useState([]);
   const [medicalRecords, setMedicalRecords] = useState([]);
@@ -90,6 +100,149 @@ function DoctorDashboard() {
   // =====================================================
 
   const doctorId = user?.doctorId;
+
+  // =====================================================
+// SIDEBAR SECTION NAVIGATION
+// =====================================================
+
+useEffect(() => {
+  const scrollToHashSection = () => {
+    const hash = window.location.hash;
+
+    if (!hash) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      return;
+    }
+
+    const sectionId = hash.substring(1);
+    const section = document.getElementById(sectionId);
+
+    if (!section) return;
+
+    setTimeout(() => {
+      const headerOffset = 90;
+
+      const elementPosition =
+        section.getBoundingClientRect().top +
+        window.scrollY;
+
+      window.scrollTo({
+        top: Math.max(
+          0,
+          elementPosition - headerOffset
+        ),
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+
+  scrollToHashSection();
+
+  window.addEventListener(
+    "hashchange",
+    scrollToHashSection
+  );
+
+  return () => {
+    window.removeEventListener(
+      "hashchange",
+      scrollToHashSection
+    );
+  };
+}, []);
+
+  // =====================================================
+// FETCH PATIENTS
+// =====================================================
+
+useEffect(() => {
+  if (!doctorId) {
+    setPatientsLoading(false);
+    return;
+  }
+
+  const fetchPatients = async () => {
+    try {
+      setPatientsLoading(true);
+
+      const response = await fetch(
+        "http://localhost:8080/api/patients"
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Patients API failed: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      console.log("All patients:", data);
+
+      setPatients(
+        Array.isArray(data) ? data : []
+      );
+    } catch (error) {
+      console.error(
+        "Error fetching patients:",
+        error
+      );
+
+      setPatients([]);
+    } finally {
+      setPatientsLoading(false);
+    }
+  };
+
+  fetchPatients();
+}, [doctorId]);
+
+  // =====================================================
+// FETCH DOCTOR PROFILE
+// =====================================================
+
+useEffect(() => {
+  if (!doctorId) {
+    setDoctorProfileLoading(false);
+    return;
+  }
+
+  const fetchDoctorProfile = async () => {
+    try {
+      setDoctorProfileLoading(true);
+
+      const response = await fetch(
+        `http://localhost:8080/api/doctors/${doctorId}`
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Doctor profile API failed: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      console.log("Doctor profile:", data);
+
+      setDoctorProfile(data);
+    } catch (error) {
+      console.error(
+        "Error fetching doctor profile:",
+        error
+      );
+
+      setDoctorProfile(null);
+    } finally {
+      setDoctorProfileLoading(false);
+    }
+  };
+
+  fetchDoctorProfile();
+}, [doctorId]);
 
   // =====================================================
   // TODAY
@@ -288,6 +441,115 @@ function DoctorDashboard() {
         )
     ),
   ];
+
+// =====================================================
+// MY PATIENTS
+// =====================================================
+
+const myPatients = patientIds
+  .map((patientId) =>
+    patients.find(
+      (patient) =>
+        Number(patient.patientId) ===
+        Number(patientId)
+    )
+  )
+  .filter(Boolean);
+
+  const getPatientName = (patientId) => {
+  const patient = patients.find(
+    (item) =>
+      Number(item.patientId) ===
+      Number(patientId)
+  );
+
+  return (
+    patient?.name ||
+    patient?.fullName ||
+    `Patient #${patientId || "-"}`
+  );
+};
+
+// =====================================================
+// OPEN PATIENT DETAILS
+// =====================================================
+
+const openPatientDetails = async (patient) => {
+  setSelectedPatient(patient);
+  setPatientDetailsLoading(true);
+
+  setPatientAppointments([]);
+  setPatientRecords([]);
+  setPatientPrescriptions([]);
+
+  try {
+    const patientId = patient.patientId;
+
+    const [
+      appointmentsResponse,
+      recordsResponse,
+      prescriptionsResponse,
+    ] = await Promise.all([
+      fetch(
+        `http://localhost:8080/api/appointments/patient/${patientId}`
+      ),
+      fetch(
+        `http://localhost:8080/api/medical-records/patient/${patientId}`
+      ),
+      fetch(
+        `http://localhost:8080/api/prescriptions/patient/${patientId}`
+      ),
+    ]);
+
+    const appointmentsData = appointmentsResponse.ok
+      ? await appointmentsResponse.json()
+      : [];
+
+    const recordsData = recordsResponse.ok
+      ? await recordsResponse.json()
+      : [];
+
+    const prescriptionsData = prescriptionsResponse.ok
+      ? await prescriptionsResponse.json()
+      : [];
+
+    setPatientAppointments(
+      Array.isArray(appointmentsData)
+        ? appointmentsData
+        : []
+    );
+
+    setPatientRecords(
+      Array.isArray(recordsData)
+        ? recordsData
+        : []
+    );
+
+    setPatientPrescriptions(
+      Array.isArray(prescriptionsData)
+        ? prescriptionsData
+        : []
+    );
+  } catch (error) {
+    console.error(
+      "Error loading patient details:",
+      error
+    );
+  } finally {
+    setPatientDetailsLoading(false);
+  }
+};
+
+// =====================================================
+// CLOSE PATIENT DETAILS
+// =====================================================
+
+const closePatientDetails = () => {
+  setSelectedPatient(null);
+  setPatientAppointments([]);
+  setPatientRecords([]);
+  setPatientPrescriptions([]);
+};
 
   // =====================================================
   // UPDATE APPOINTMENT STATUS
@@ -796,6 +1058,8 @@ function DoctorDashboard() {
             Please login again.
           </p>
         </div>
+
+
       </div>
     );
   }
@@ -830,15 +1094,59 @@ function DoctorDashboard() {
           HEADER
       ================================================= */}
 
-      <div className="page-header">
-        <div>
-          <h1>Doctor Dashboard</h1>
+      <div className="doctor-welcome">
 
-          <p>
-            Welcome, Doctor #{doctorId}
-          </p>
-        </div>
+  <div className="doctor-welcome-content">
+
+    <div className="doctor-welcome-badge">
+      <span>✦</span>
+      SMART HEALTHCARE
+    </div>
+
+    <h1>
+      Welcome,{" "}
+      <span>
+        Dr.{" "}
+        {doctorProfileLoading
+          ? "Doctor"
+          : doctorProfile?.name || `Doctor #${doctorId}`}
+      </span>
+    </h1>
+
+    <p>
+      Manage your patients, appointments and clinical
+      records from one smart healthcare workspace.
+    </p>
+
+    <div className="doctor-info-row">
+
+      <div className="doctor-info-item">
+        <span>Doctor ID</span>
+        <strong>#{doctorId}</strong>
       </div>
+
+      <div className="doctor-info-divider"></div>
+
+      <div className="doctor-info-item">
+        <span>Specialization</span>
+        <strong>
+          {doctorProfile?.specialization || "Specialist"}
+        </strong>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div className="doctor-welcome-symbol">
+    <div className="doctor-symbol-circle">
+      🩺
+    </div>
+
+    <div className="doctor-symbol-glow"></div>
+  </div>
+
+</div>
 
       {/* =================================================
           DASHBOARD CARDS
@@ -873,9 +1181,9 @@ function DoctorDashboard() {
             <h3>My Patients</h3>
 
             <p>
-              {loading
+              {patientsLoading
                 ? "..."
-                : patientIds.length}
+                : myPatients.length}
             </p>
           </div>
         </div>
@@ -914,11 +1222,205 @@ function DoctorDashboard() {
 
       </div>
 
+
+{/* =================================================
+    MY PATIENTS
+================================================= */}
+
+<div
+  id="patients"
+  className="dashboard-section"
+>
+
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "15px",
+    }}
+  >
+    <div>
+      <h2>My Patients</h2>
+      <p
+        style={{
+          margin: "5px 0 0",
+          color: "#64748b",
+          fontSize: "14px",
+        }}
+      >
+        Patients with appointments
+      </p>
+    </div>
+  </div>
+
+  {patientsLoading ? (
+    <p>Loading patients...</p>
+  ) : myPatients.length === 0 ? (
+    <p>No patients found.</p>
+  ) : (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns:
+          "repeat(auto-fill, minmax(220px, 1fr))",
+        gap: "15px",
+      }}
+    >
+        {myPatients.map((patient) => (
+      <div
+        key={patient.patientId}
+        onClick={() => openPatientDetails(patient)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            openPatientDetails(patient);
+          }
+        }}
+        style={{
+          padding: "18px",
+          border: "1px solid #e2e8f0",
+          borderRadius: "12px",
+          background: "#f8fafc",
+          cursor: "pointer",
+          transition: "0.2s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.currentTarget.style.transform = "translateY(-2px)";
+          event.currentTarget.style.boxShadow =
+            "0 8px 20px rgba(15, 23, 42, 0.08)";
+          event.currentTarget.style.borderColor = "#38bdf8";
+        }}
+        onMouseLeave={(event) => {
+          event.currentTarget.style.transform = "translateY(0)";
+          event.currentTarget.style.boxShadow = "none";
+          event.currentTarget.style.borderColor = "#e2e8f0";
+        }}
+      >
+        <h3
+          style={{
+            margin: "0 0 8px",
+            color: "#0f172a",
+          }}
+        >
+          {patient.name ||
+            patient.fullName ||
+            "Unknown Patient"}
+        </h3>
+
+        <p
+          style={{
+            margin: "4px 0",
+            color: "#64748b",
+            fontSize: "13px",
+          }}
+        >
+          Patient ID: #{patient.patientId}
+        </p>
+
+        <p
+          style={{
+            margin: "4px 0",
+            color: "#64748b",
+            fontSize: "13px",
+          }}
+        >
+          {patient.gender || "Gender not available"}
+        </p>
+
+        <p
+          style={{
+            margin: "4px 0",
+            color: "#64748b",
+            fontSize: "13px",
+          }}
+        >
+          {patient.bloodGroup ||
+            "Blood group not available"}
+        </p>
+
+        <p
+          style={{
+            margin: "12px 0 0",
+            color: "#0284c7",
+            fontSize: "13px",
+            fontWeight: "700",
+          }}
+        >
+          View Patient Details →
+        </p>
+      </div>
+    ))}
+    </div>
+  )}
+
+</div>
+
+{/* =================================================
+    DOCTOR PROFILE
+================================================= */}
+
+<div
+  id="profile"
+  className="dashboard-section doctor-profile-section"
+>
+
+  <div className="doctor-profile-header">
+    <div>
+      <h2>My Profile</h2>
+      <p>Doctor account information</p>
+    </div>
+  </div>
+
+  {doctorProfileLoading ? (
+    <p>Loading doctor profile...</p>
+  ) : !doctorProfile ? (
+    <p>Unable to load doctor profile.</p>
+  ) : (
+    <div className="doctor-profile-grid">
+
+      <div className="doctor-profile-item">
+        <span>Doctor ID</span>
+        <strong>
+          #{doctorProfile.doctorId}
+        </strong>
+      </div>
+
+      <div className="doctor-profile-item">
+        <span>Full Name</span>
+        <strong>
+          {doctorProfile.name || "-"}
+        </strong>
+      </div>
+
+      <div className="doctor-profile-item">
+        <span>Specialization</span>
+        <strong>
+          {doctorProfile.specialization || "-"}
+        </strong>
+      </div>
+
+      <div className="doctor-profile-item">
+        <span>Email</span>
+        <strong>
+          {user.email || "-"}
+        </strong>
+      </div>
+
+    </div>
+  )}
+
+</div>
+
       {/* =================================================
           TODAY'S APPOINTMENTS
       ================================================= */}
 
-      <div className="dashboard-section">
+      <div
+        id="appointments"
+        className="dashboard-section"
+      >
 
         <h2>Today's Appointments</h2>
 
@@ -957,10 +1459,9 @@ function DoctorDashboard() {
                       }
                     >
 
-                      <td>
-                        Patient #
-                        {appointment.patientId}
-                      </td>
+                     <td>
+                      {getPatientName(appointment.patientId)}
+                    </td>
 
                       <td>
                         {
@@ -1093,8 +1594,7 @@ function DoctorDashboard() {
                       </td>
 
                       <td>
-                        Patient #
-                        {appointment.patientId}
+                        {getPatientName(appointment.patientId)}
                       </td>
 
                       <td>
@@ -1180,7 +1680,10 @@ function DoctorDashboard() {
           MEDICAL RECORDS
       ================================================= */}
 
-      <div className="dashboard-section">
+      <div
+        id="medical-records"
+        className="dashboard-section"
+      >
 
         <div
           style={{
@@ -1248,29 +1751,37 @@ function DoctorDashboard() {
                 Patient ID
               </label>
 
-              <input
-                type="number"
-                name="patientId"
-                value={
-                  recordForm.patientId
-                }
-                onChange={
-                  handleRecordChange
-                }
-                placeholder="Enter patient ID"
-                required
-                disabled={
-                  editingRecordId !== null
-                }
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "10px",
-                  marginTop: "5px",
-                  boxSizing:
-                    "border-box",
-                }}
-              />
+              <select
+                    name="patientId"
+                    value={recordForm.patientId}
+                    onChange={handleRecordChange}
+                    required
+                    disabled={editingRecordId !== null}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      padding: "10px",
+                      marginTop: "5px",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <option value="">
+                      Select Patient
+                    </option>
+
+                    {myPatients.map((patient) => (
+                      <option
+                        key={patient.patientId}
+                        value={patient.patientId}
+                      >
+                        {patient.name ||
+                          patient.fullName ||
+                          `Patient #${patient.patientId}`}
+                        {" — ID #"}
+                        {patient.patientId}
+                      </option>
+                    ))}
+                  </select>
 
             </div>
 
@@ -1516,8 +2027,7 @@ function DoctorDashboard() {
                       </td>
 
                       <td>
-                        Patient #
-                        {record.patientId}
+                        {getPatientName(record.patientId)}
                       </td>
 
                       <td>
@@ -1573,8 +2083,10 @@ function DoctorDashboard() {
           PRESCRIPTIONS
       ================================================= */}
 
-      <div className="dashboard-section">
-
+<div
+  id="prescriptions"
+  className="dashboard-section"
+>
         <div
           style={{
             display: "flex",
@@ -1643,30 +2155,37 @@ function DoctorDashboard() {
                 Patient ID
               </label>
 
-              <input
-                type="number"
+              <select
                 name="patientId"
-                value={
-                  prescriptionForm.patientId
-                }
-                onChange={
-                  handlePrescriptionChange
-                }
-                placeholder="Enter patient ID"
+                value={prescriptionForm.patientId}
+                onChange={handlePrescriptionChange}
                 required
-                disabled={
-                  editingPrescriptionId !==
-                  null
-                }
+                disabled={editingPrescriptionId !== null}
                 style={{
                   display: "block",
                   width: "100%",
                   padding: "10px",
                   marginTop: "5px",
-                  boxSizing:
-                    "border-box",
+                  boxSizing: "border-box",
                 }}
-              />
+              >
+                <option value="">
+                  Select Patient
+                </option>
+
+                {myPatients.map((patient) => (
+                  <option
+                    key={patient.patientId}
+                    value={patient.patientId}
+                  >
+                    {patient.name ||
+                      patient.fullName ||
+                      `Patient #${patient.patientId}`}
+                    {" — ID #"}
+                    {patient.patientId}
+                  </option>
+                ))}
+              </select>
 
             </div>
 
@@ -1976,10 +2495,9 @@ function DoctorDashboard() {
                       </td>
 
                       <td>
-                        Patient #
-                        {prescription.patientId}
+                        {getPatientName(prescription.patientId)}
                       </td>
-
+                      
                       <td>
                         {prescription.diagnosis || "-"}
                       </td>
@@ -2046,7 +2564,324 @@ function DoctorDashboard() {
         </div>
 
       </div>
+{/* =================================================
+    PATIENT DETAILS MODAL
+================================================= */}
 
+{selectedPatient && (
+  <div
+    className="patient-details-overlay"
+    onClick={closePatientDetails}
+  >
+    <div
+      className="patient-details-modal"
+      onClick={(event) => event.stopPropagation()}
+    >
+
+      {/* HEADER */}
+
+      <div className="patient-details-header">
+
+        <div>
+          <h2>
+            {selectedPatient.name ||
+              selectedPatient.fullName ||
+              "Patient Details"}
+          </h2>
+
+          <p>
+            Patient ID: #{selectedPatient.patientId}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          className="patient-details-close"
+          onClick={closePatientDetails}
+        >
+          ×
+        </button>
+
+      </div>
+
+      {patientDetailsLoading ? (
+        <div className="patient-details-loading">
+          <p>Loading patient information...</p>
+        </div>
+      ) : (
+        <>
+          {/* =====================================
+              PERSONAL INFORMATION
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Personal Information</h3>
+
+            <div className="patient-info-grid">
+
+              <div className="patient-info-item">
+                <span>Full Name</span>
+                <strong>
+                  {selectedPatient.name ||
+                    selectedPatient.fullName ||
+                    "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Patient ID</span>
+                <strong>
+                  #{selectedPatient.patientId}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Age</span>
+                <strong>
+                  {selectedPatient.age
+                    ? `${selectedPatient.age} years`
+                    : "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Gender</span>
+                <strong>
+                  {selectedPatient.gender || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Blood Group</span>
+                <strong>
+                  {selectedPatient.bloodGroup || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Phone</span>
+                <strong>
+                  {selectedPatient.phone || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Email</span>
+                <strong>
+                  {selectedPatient.email || "-"}
+                </strong>
+              </div>
+
+              <div className="patient-info-item">
+                <span>Date of Birth</span>
+                <strong>
+                  {selectedPatient.dateOfBirth || "-"}
+                </strong>
+              </div>
+
+            </div>
+
+            <div className="patient-address">
+              <span>Address</span>
+              <strong>
+                {selectedPatient.address || "-"}
+              </strong>
+            </div>
+
+          </div>
+
+          {/* =====================================
+              APPOINTMENT HISTORY
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Appointment History</h3>
+
+            {patientAppointments.length === 0 ? (
+              <p className="patient-empty-message">
+                No appointment history found.
+              </p>
+            ) : (
+              <div className="patient-history-list">
+
+                {patientAppointments.map(
+                  (appointment) => (
+                    <div
+                      className="patient-history-item"
+                      key={appointment.appointmentId}
+                    >
+
+                      <div>
+                        <strong>
+                          {appointment.appointmentDate ||
+                            "-"}
+                        </strong>
+
+                        <span>
+                          {appointment.appointmentTime ||
+                            ""}
+                        </span>
+                      </div>
+
+                      <div>
+                        <span>
+                          Reason
+                        </span>
+
+                        <strong>
+                          {appointment.reason ||
+                            "General consultation"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>
+                          Status
+                        </span>
+
+                        <strong>
+                          {appointment.status ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+            )}
+
+          </div>
+
+          {/* =====================================
+              MEDICAL RECORDS
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Medical Records</h3>
+
+            {patientRecords.length === 0 ? (
+              <p className="patient-empty-message">
+                No medical records found.
+              </p>
+            ) : (
+              <div className="patient-history-list">
+
+                {patientRecords.map(
+                  (record) => (
+                    <div
+                      className="patient-history-item"
+                      key={record.recordId}
+                    >
+
+                      <div>
+                        <span>Date</span>
+                        <strong>
+                          {record.recordDate ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Diagnosis</span>
+                        <strong>
+                          {record.diagnosis ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Treatment</span>
+                        <strong>
+                          {record.treatment ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+            )}
+
+          </div>
+
+          {/* =====================================
+              PRESCRIPTIONS
+          ===================================== */}
+
+          <div className="patient-details-section">
+
+            <h3>Prescriptions</h3>
+
+            {patientPrescriptions.length === 0 ? (
+              <p className="patient-empty-message">
+                No prescriptions found.
+              </p>
+            ) : (
+              <div className="patient-history-list">
+
+                {patientPrescriptions.map(
+                  (prescription) => (
+                    <div
+                      className="patient-history-item"
+                      key={
+                        prescription.prescriptionId
+                      }
+                    >
+
+                      <div>
+                        <span>Date</span>
+                        <strong>
+                          {prescription.prescriptionDate ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Medicine</span>
+                        <strong>
+                          {prescription.medicineName ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Dosage</span>
+                        <strong>
+                          {prescription.dosage ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                      <div>
+                        <span>Duration</span>
+                        <strong>
+                          {prescription.duration ||
+                            "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+            )}
+
+          </div>
+
+        </>
+      )}
+
+    </div>
+  </div>
+)}
     </div>
   );
 }

@@ -7,11 +7,12 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // =====================================================
-  // GET LOGGED-IN USER
-  // =====================================================
+ // =====================================================
+// GET LOGGED-IN USER + PATIENT PROFILE
+// =====================================================
 
-  useEffect(() => {
+useEffect(() => {
+  const loadProfile = async () => {
     try {
       const storedUser = localStorage.getItem("user");
 
@@ -20,16 +21,74 @@ function Profile() {
         return;
       }
 
-      const parsedUser = JSON.parse(storedUser);
+      const loggedInUser = JSON.parse(storedUser);
 
-      setUser(parsedUser);
-      setEditUser(parsedUser);
+      // Patient ID comes from login response
+      const patientId = loggedInUser?.patientId;
+
+      if (!patientId) {
+        console.error("Patient ID not found in logged-in user.");
+        setUser(loggedInUser);
+        setEditUser(loggedInUser);
+        setLoading(false);
+        return;
+      }
+
+      // Fetch the REAL patient record created during registration
+      const response = await fetch(
+        `http://localhost:8080/api/patients/${patientId}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to load patient profile");
+      }
+
+      const patient = await response.json();
+
+      // Combine login information + patient information
+      const profileUser = {
+        ...loggedInUser,
+
+        patientId: patient.patientId,
+
+        name: patient.name,
+        fullName: patient.name,
+
+        email: patient.email || loggedInUser.email,
+
+        phone: patient.phone || "",
+        gender: patient.gender || "",
+        dateOfBirth: patient.dateOfBirth || "",
+        age: patient.age || "",
+        bloodGroup: patient.bloodGroup || "",
+        address: patient.address || "",
+      };
+
+      setUser(profileUser);
+      setEditUser(profileUser);
+
+      // Keep the complete profile available to dashboard
+      localStorage.setItem(
+        "user",
+        JSON.stringify(profileUser)
+      );
+
     } catch (error) {
-      console.error("Error loading profile:", error);
+
+      console.error(
+        "Error loading patient profile:",
+        error
+      );
+
     } finally {
+
       setLoading(false);
+
     }
-  }, []);
+  };
+
+  loadProfile();
+}, []);
 
   // =====================================================
   // EDIT PROFILE
@@ -60,19 +119,108 @@ function Profile() {
     }));
   };
 
-  // =====================================================
-  // SAVE PROFILE
-  // =====================================================
+ // =====================================================
+// SAVE PROFILE
+// =====================================================
 
-  const handleSave = () => {
+const handleSave = async () => {
+  try {
+
+    const patientId = user?.patientId;
+
+    if (!patientId) {
+      alert("Patient ID not found.");
+      return;
+    }
+
+    const response = await fetch(
+      `http://localhost:8080/api/patients/${patientId}`,
+      {
+        method: "PUT",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          patientId: patientId,
+
+          name:
+            user.name ||
+            user.fullName ||
+            "",
+
+          email:
+            user.email ||
+            "",
+
+          phone:
+            editUser.phone ||
+            "",
+
+          gender:
+            editUser.gender ||
+            "",
+
+          dateOfBirth:
+            editUser.dateOfBirth ||
+            null,
+
+          age:
+            editUser.age
+              ? Number(editUser.age)
+              : null,
+
+          bloodGroup:
+            editUser.bloodGroup ||
+            "",
+
+          address:
+            editUser.address ||
+            "",
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to update profile");
+    }
+
+    const updatedPatient =
+      await response.json();
+
     const updatedUser = {
       ...user,
-      phone: editUser.phone,
-      gender: editUser.gender,
-      dateOfBirth: editUser.dateOfBirth,
-      age: editUser.age,
-      bloodGroup: editUser.bloodGroup,
-      address: editUser.address,
+
+      patientId:
+        updatedPatient.patientId,
+
+      name:
+        updatedPatient.name,
+
+      fullName:
+        updatedPatient.name,
+
+      email:
+        updatedPatient.email,
+
+      phone:
+        updatedPatient.phone,
+
+      gender:
+        updatedPatient.gender,
+
+      dateOfBirth:
+        updatedPatient.dateOfBirth,
+
+      age:
+        updatedPatient.age,
+
+      bloodGroup:
+        updatedPatient.bloodGroup,
+
+      address:
+        updatedPatient.address,
     };
 
     setUser(updatedUser);
@@ -84,7 +232,19 @@ function Profile() {
     );
 
     setIsEditing(false);
-  };
+
+  } catch (error) {
+
+    console.error(
+      "Error saving profile:",
+      error
+    );
+
+    alert(
+      "Unable to update profile."
+    );
+  }
+};
 
   // =====================================================
   // LOADING
