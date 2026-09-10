@@ -1,7 +1,25 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  ShieldCheck,
+  Users,
+  Stethoscope,
+  CalendarDays,
+  ReceiptText,
+  UserRound,
+  ArrowRight,
+  Plus,
+  RefreshCw,
+  Activity,
+  ClipboardList,
+  X,
+} from "lucide-react";
+
 import "./Dashboard.css";
 
 function Dashboard() {
+  const navigate = useNavigate();
+
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
@@ -10,16 +28,26 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Add Doctor
+  // =====================================================
+  // ADD DOCTOR
+  // =====================================================
+
   const [showAddDoctor, setShowAddDoctor] = useState(false);
   const [doctorName, setDoctorName] = useState("");
   const [doctorEmail, setDoctorEmail] = useState("");
-  const [doctorSpecialization, setDoctorSpecialization] = useState("");
+  const [doctorSpecialization, setDoctorSpecialization] =
+    useState("");
   const [doctorPassword, setDoctorPassword] = useState("");
-  const [doctorConfirmPassword, setDoctorConfirmPassword] = useState("");
+  const [doctorConfirmPassword, setDoctorConfirmPassword] =
+    useState("");
+
   const [doctorError, setDoctorError] = useState("");
   const [doctorSuccess, setDoctorSuccess] = useState("");
   const [addingDoctor, setAddingDoctor] = useState(false);
+
+  // =====================================================
+  // LOAD DASHBOARD
+  // =====================================================
 
   useEffect(() => {
     loadDashboardData();
@@ -31,10 +59,10 @@ function Dashboard() {
       setError("");
 
       const [
-        patientsRes,
-        doctorsRes,
-        appointmentsRes,
-        billsRes,
+        patientsResponse,
+        doctorsResponse,
+        appointmentsResponse,
+        billsResponse,
       ] = await Promise.all([
         fetch("http://localhost:8080/api/patients"),
         fetch("http://localhost:8080/api/doctors"),
@@ -42,20 +70,20 @@ function Dashboard() {
         fetch("http://localhost:8080/api/bills"),
       ]);
 
-      const patientsData = patientsRes.ok
-        ? await patientsRes.json()
+      const patientsData = patientsResponse.ok
+        ? await patientsResponse.json()
         : [];
 
-      const doctorsData = doctorsRes.ok
-        ? await doctorsRes.json()
+      const doctorsData = doctorsResponse.ok
+        ? await doctorsResponse.json()
         : [];
 
-      const appointmentsData = appointmentsRes.ok
-        ? await appointmentsRes.json()
+      const appointmentsData = appointmentsResponse.ok
+        ? await appointmentsResponse.json()
         : [];
 
-      const billsData = billsRes.ok
-        ? await billsRes.json()
+      const billsData = billsResponse.ok
+        ? await billsResponse.json()
         : [];
 
       setPatients(
@@ -76,7 +104,8 @@ function Dashboard() {
         Array.isArray(billsData) ? billsData : []
       );
     } catch (err) {
-      console.error("Dashboard API Error:", err);
+      console.error("Admin Dashboard Error:", err);
+
       setError(
         "Unable to load dashboard data. Make sure the backend is running."
       );
@@ -84,6 +113,10 @@ function Dashboard() {
       setLoading(false);
     }
   };
+
+  // =====================================================
+  // DATA HELPERS
+  // =====================================================
 
   const pendingBills = bills.filter(
     (bill) =>
@@ -109,27 +142,45 @@ function Dashboard() {
     })
     .slice(0, 5);
 
-  const getPatientName = (appointment) =>
-    appointment.patientName ||
-    appointment.patient?.name ||
-    `Patient #${appointment.patientId || "-"}`;
+  const getPatientName = (appointment) => {
+    return (
+      appointment.patientName ||
+      appointment.patient?.name ||
+      `Patient #${appointment.patientId || "-"}`
+    );
+  };
 
-  const getDoctorName = (appointment) =>
-    appointment.doctorName ||
-    appointment.doctor?.name ||
-    `Doctor #${appointment.doctorId || "-"}`;
+  const getDoctorName = (appointment) => {
+    return (
+      appointment.doctorName ||
+      appointment.doctor?.name ||
+      `Doctor #${appointment.doctorId || "-"}`
+    );
+  };
 
   const getStatusClass = (status) => {
-    if (!status) return "pending";
-
-    return String(status)
+    return String(status || "Pending")
       .toLowerCase()
       .replace(/\s+/g, "-");
   };
 
-  // ================================
+  const formatDate = (date) => {
+    if (!date) return "-";
+
+    try {
+      return new Date(date).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    } catch {
+      return date;
+    }
+  };
+
+  // =====================================================
   // ADD DOCTOR
-  // ================================
+  // =====================================================
 
   const openAddDoctor = () => {
     setDoctorName("");
@@ -150,8 +201,8 @@ function Dashboard() {
     setDoctorSuccess("");
   };
 
-  const handleAddDoctor = async (e) => {
-    e.preventDefault();
+  const handleAddDoctor = async (event) => {
+    event.preventDefault();
 
     setDoctorError("");
     setDoctorSuccess("");
@@ -245,87 +296,125 @@ function Dashboard() {
     }
   };
 
+  // =====================================================
+  // LOADING
+  // =====================================================
+
+  if (loading) {
+    return (
+      <div className="admin-dashboard-page">
+        <div className="admin-dashboard-loading">
+          <div className="admin-dashboard-spinner"></div>
+          <p>Loading Admin Dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // =====================================================
+  // PAGE
+  // =====================================================
+
   return (
     <div className="admin-dashboard-page">
 
-      {/* =================================
-          HEADER
-      ================================= */}
+      {/* =================================================
+          WELCOME HERO
+      ================================================= */}
 
-      <div className="admin-dashboard-header">
+      <section className="admin-welcome-card">
 
-        <div className="admin-welcome">
+        <div className="admin-welcome-content">
 
-          <div className="admin-welcome-icon">
-            🛡️
+          <div className="admin-welcome-badge">
+            <ShieldCheck size={14} />
+            Admin Workspace
           </div>
 
-          <div>
-            <p className="admin-small-title">
-              Administration
-            </p>
+          <h1>
+            Welcome back,{" "}
+            <span>Admin</span>
+          </h1>
 
-            <h1>
-              Admin Dashboard
-            </h1>
+          <p>
+            Manage patients, doctors, appointments and
+            hospital operations from one place.
+          </p>
 
-            <p className="admin-subtitle">
-              Manage your hospital operations
-              from one place.
-            </p>
+          <div className="admin-welcome-info">
+
+            <div>
+              <small>Role</small>
+              <strong>Administrator</strong>
+            </div>
+
+            <div>
+              <small>System Status</small>
+              <strong className="admin-online">
+                <Activity size={13} />
+                Online
+              </strong>
+            </div>
+
           </div>
 
         </div>
 
-        <button
-          className="admin-add-doctor-btn"
-          onClick={openAddDoctor}
-        >
-          <span>＋</span>
-          Add Doctor
-        </button>
+        <div className="admin-welcome-actions">
 
-      </div>
+          <button
+            className="admin-add-doctor-button"
+            onClick={openAddDoctor}
+          >
+            <Plus size={18} />
+            Add Doctor
+          </button>
 
-      {/* =================================
+          <div className="admin-welcome-icon">
+            <ShieldCheck size={72} />
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* =================================================
           ERROR
-      ================================= */}
+      ================================================= */}
 
       {error && (
         <div className="admin-dashboard-error">
-          <span>⚠️</span>
 
           <div>
-            <strong>
-              Something went wrong
-            </strong>
-
+            <strong>Something went wrong</strong>
             <p>{error}</p>
           </div>
 
           <button onClick={loadDashboardData}>
+            <RefreshCw size={15} />
             Retry
           </button>
+
         </div>
       )}
 
-      {/* =================================
-          STAT CARDS
-      ================================= */}
+      {/* =================================================
+          STATISTICS
+      ================================================= */}
 
-      <div className="admin-stats-grid">
+      <section className="admin-stat-grid">
 
-        <div className="admin-stat-card patients-card">
+        <div className="admin-stat-card patients-stat">
 
           <div className="admin-stat-icon">
-            👥
+            <Users size={24} />
           </div>
 
-          <div className="admin-stat-content">
+          <div>
             <span>Total Patients</span>
 
             <strong>
-              {loading ? "..." : patients.length}
+              {patients.length}
             </strong>
 
             <small>
@@ -335,17 +424,17 @@ function Dashboard() {
 
         </div>
 
-        <div className="admin-stat-card doctors-card">
+        <div className="admin-stat-card doctors-stat">
 
           <div className="admin-stat-icon">
-            🩺
+            <Stethoscope size={24} />
           </div>
 
-          <div className="admin-stat-content">
+          <div>
             <span>Total Doctors</span>
 
             <strong>
-              {loading ? "..." : doctors.length}
+              {doctors.length}
             </strong>
 
             <small>
@@ -355,19 +444,17 @@ function Dashboard() {
 
         </div>
 
-        <div className="admin-stat-card appointments-card">
+        <div className="admin-stat-card appointments-stat">
 
           <div className="admin-stat-icon">
-            📅
+            <CalendarDays size={24} />
           </div>
 
-          <div className="admin-stat-content">
+          <div>
             <span>Appointments</span>
 
             <strong>
-              {loading
-                ? "..."
-                : appointments.length}
+              {appointments.length}
             </strong>
 
             <small>
@@ -377,19 +464,17 @@ function Dashboard() {
 
         </div>
 
-        <div className="admin-stat-card bills-card">
+        <div className="admin-stat-card bills-stat">
 
           <div className="admin-stat-icon">
-            💳
+            <ReceiptText size={24} />
           </div>
 
-          <div className="admin-stat-content">
+          <div>
             <span>Pending Bills</span>
 
             <strong>
-              {loading
-                ? "..."
-                : pendingBills.length}
+              {pendingBills.length}
             </strong>
 
             <small>
@@ -399,207 +484,301 @@ function Dashboard() {
 
         </div>
 
-      </div>
+      </section>
 
-      {/* =================================
-          QUICK ACTIONS
-      ================================= */}
+      {/* =================================================
+          MAIN GRID
+      ================================================= */}
 
-      <div className="admin-section">
+      <section className="admin-dashboard-grid">
 
-        <div className="admin-section-heading">
-          <div>
-            <h2>Quick Actions</h2>
-            <p>
-              Frequently used administration
-              tools
-            </p>
-          </div>
-        </div>
+        {/* =================================================
+            RECENT APPOINTMENTS
+        ================================================= */}
 
-        <div className="admin-quick-grid">
+        <div className="admin-dashboard-card">
 
-          <button
-            className="admin-quick-card"
-            onClick={openAddDoctor}
-          >
-            <div className="quick-icon">
-              🩺
-            </div>
+          <div className="admin-card-header">
 
             <div>
-              <h3>Add Doctor</h3>
+              <h2>Recent Appointments</h2>
+
               <p>
-                Create a new doctor account
+                Latest appointments in the hospital.
               </p>
             </div>
 
-            <span className="quick-arrow">
-              →
-            </span>
-          </button>
+            <button
+              className="admin-view-all"
+              onClick={() =>
+                navigate("/dashboard/appointments")
+              }
+            >
+              View All
+              <ArrowRight size={15} />
+            </button>
 
-          <button
-            className="admin-quick-card"
-            onClick={loadDashboardData}
-          >
-            <div className="quick-icon">
-              🔄
-            </div>
+          </div>
 
-            <div>
-              <h3>Refresh Data</h3>
+          {recentAppointments.length === 0 ? (
+            <div className="admin-empty-small">
+
+              <CalendarDays size={28} />
+
               <p>
-                Update dashboard information
+                No appointments found.
               </p>
+
             </div>
+          ) : (
+            <div className="admin-appointment-list">
 
-            <span className="quick-arrow">
-              →
-            </span>
-          </button>
+              {recentAppointments.map(
+                (appointment) => (
+                  <div
+                    className="admin-appointment-item"
+                    key={appointment.appointmentId}
+                  >
 
-        </div>
-
-      </div>
-
-      {/* =================================
-          RECENT APPOINTMENTS
-      ================================= */}
-
-      <div className="admin-section">
-
-        <div className="admin-section-heading">
-
-          <div>
-            <h2>Recent Appointments</h2>
-
-            <p>
-              Latest appointments in the
-              hospital
-            </p>
-          </div>
-
-          <span className="admin-record-count">
-            {recentAppointments.length} Recent
-          </span>
-
-        </div>
-
-        {loading ? (
-          <div className="admin-loading-card">
-            <div className="admin-spinner"></div>
-            <h3>Loading appointments...</h3>
-            <p>
-              Please wait while we fetch the
-              latest data.
-            </p>
-          </div>
-        ) : recentAppointments.length === 0 ? (
-          <div className="admin-empty-card">
-
-            <div>📭</div>
-
-            <h3>No appointments yet</h3>
-
-            <p>
-              Appointments will appear here
-              when patients book visits.
-            </p>
-
-          </div>
-        ) : (
-          <div className="admin-appointments-grid">
-
-            {recentAppointments.map(
-              (appointment) => (
-                <div
-                  className="admin-appointment-card"
-                  key={
-                    appointment.appointmentId
-                  }
-                >
-
-                  <div className="appointment-top">
-
-                    <div className="appointment-avatar">
-                      👤
+                    <div className="admin-appointment-icon">
+                      <CalendarDays size={18} />
                     </div>
 
-                    <span
-                      className={`admin-status-pill ${getStatusClass(
+                    <div className="admin-appointment-main">
+
+                      <strong>
+                        {getPatientName(appointment)}
+                      </strong>
+
+                      <span>
+                        <Stethoscope size={13} />
+                        {getDoctorName(appointment)}
+                      </span>
+
+                      <small>
+                        {formatDate(
+                          appointment.appointmentDate
+                        )}
+                        {" • "}
+                        {appointment.appointmentTime ||
+                          "Time not set"}
+                      </small>
+
+                    </div>
+
+                    <div
+                      className={`admin-status ${getStatusClass(
                         appointment.status
                       )}`}
                     >
                       {appointment.status ||
                         "Pending"}
+                    </div>
+
+                  </div>
+                )
+              )}
+
+            </div>
+          )}
+
+        </div>
+
+        {/* =================================================
+            DOCTORS
+        ================================================= */}
+
+        <div className="admin-dashboard-card">
+
+          <div className="admin-card-header">
+
+            <div>
+              <h2>Hospital Doctors</h2>
+
+              <p>
+                Doctors currently registered in the system.
+              </p>
+            </div>
+
+            <button
+              className="admin-view-all"
+              onClick={() =>
+                navigate("/dashboard/doctors")
+              }
+            >
+              View All
+              <ArrowRight size={15} />
+            </button>
+
+          </div>
+
+          {doctors.length === 0 ? (
+            <div className="admin-empty-small">
+
+              <Stethoscope size={28} />
+
+              <p>
+                No doctors registered yet.
+              </p>
+
+            </div>
+          ) : (
+            <div className="admin-doctor-list">
+
+              {doctors.slice(0, 5).map((doctor) => (
+
+                <div
+                  className="admin-doctor-item"
+                  key={doctor.doctorId}
+                >
+
+                  <div className="admin-doctor-avatar">
+                    <UserRound size={19} />
+                  </div>
+
+                  <div className="admin-doctor-main">
+
+                    <strong>
+                      {doctor.name ||
+                        `Doctor #${doctor.doctorId}`}
+                    </strong>
+
+                    <span>
+                      {doctor.specialization ||
+                        "Medical Specialist"}
                     </span>
 
                   </div>
 
-                  <div className="appointment-info">
-
-                    <h3>
-                      {getPatientName(
-                        appointment
-                      )}
-                    </h3>
-
-                    <p>
-                      👨‍⚕️{" "}
-                      {getDoctorName(
-                        appointment
-                      )}
-                    </p>
-
-                  </div>
-
-                  <div className="appointment-details">
-
-                    <div>
-                      <span>📅</span>
-
-                      <p>
-                        <strong>
-                          {appointment.appointmentDate ||
-                            "-"}
-                        </strong>
-
-                        <small>
-                          Appointment Date
-                        </small>
-                      </p>
-                    </div>
-
-                    <div>
-                      <span>🕐</span>
-
-                      <p>
-                        <strong>
-                          {appointment.appointmentTime ||
-                            "-"}
-                        </strong>
-
-                        <small>
-                          Appointment Time
-                        </small>
-                      </p>
-                    </div>
-
+                  <div className="admin-doctor-id">
+                    #{doctor.doctorId}
                   </div>
 
                 </div>
-              )
-            )}
 
+              ))}
+
+            </div>
+          )}
+
+          <button
+            className="admin-add-inline"
+            onClick={openAddDoctor}
+          >
+            <Plus size={16} />
+            Add New Doctor
+          </button>
+
+        </div>
+
+      </section>
+
+      {/* =================================================
+          SYSTEM OVERVIEW
+      ================================================= */}
+
+      <section className="admin-overview-card">
+
+        <div className="admin-overview-header">
+
+          <div>
+            <h2>Hospital Overview</h2>
+            <p>
+              Current system activity at a glance.
+            </p>
           </div>
-        )}
 
-      </div>
+          <button
+            onClick={loadDashboardData}
+            className="admin-refresh-button"
+          >
+            <RefreshCw size={15} />
+            Refresh
+          </button>
 
-      {/* =================================
+        </div>
+
+        <div className="admin-overview-grid">
+
+          <button
+            onClick={() =>
+              navigate("/dashboard/patients")
+            }
+            className="admin-overview-item"
+          >
+            <div className="overview-icon patients-overview">
+              <Users size={20} />
+            </div>
+
+            <div>
+              <strong>{patients.length}</strong>
+              <span>Patients</span>
+            </div>
+
+            <ArrowRight size={16} />
+          </button>
+
+          <button
+            onClick={() =>
+              navigate("/dashboard/doctors")
+            }
+            className="admin-overview-item"
+          >
+            <div className="overview-icon doctors-overview">
+              <Stethoscope size={20} />
+            </div>
+
+            <div>
+              <strong>{doctors.length}</strong>
+              <span>Doctors</span>
+            </div>
+
+            <ArrowRight size={16} />
+          </button>
+
+          <button
+            onClick={() =>
+              navigate("/dashboard/medical-records")
+            }
+            className="admin-overview-item"
+          >
+            <div className="overview-icon records-overview">
+              <ClipboardList size={20} />
+            </div>
+
+            <div>
+              <strong>View</strong>
+              <span>Medical Records</span>
+            </div>
+
+            <ArrowRight size={16} />
+          </button>
+
+          <button
+            onClick={() =>
+              navigate("/dashboard/bills")
+            }
+            className="admin-overview-item"
+          >
+            <div className="overview-icon bills-overview">
+              <ReceiptText size={20} />
+            </div>
+
+            <div>
+              <strong>{pendingBills.length}</strong>
+              <span>Pending Bills</span>
+            </div>
+
+            <ArrowRight size={16} />
+          </button>
+
+        </div>
+
+      </section>
+
+      {/* =================================================
           ADD DOCTOR MODAL
-      ================================= */}
+      ================================================= */}
 
       {showAddDoctor && (
         <div
@@ -609,8 +788,8 @@ function Dashboard() {
 
           <div
             className="admin-modal"
-            onClick={(e) =>
-              e.stopPropagation()
+            onClick={(event) =>
+              event.stopPropagation()
             }
           >
 
@@ -618,15 +797,14 @@ function Dashboard() {
 
               <div className="admin-modal-title">
 
-                <div className="modal-doctor-icon">
-                  🩺
+                <div className="admin-modal-icon">
+                  <Stethoscope size={24} />
                 </div>
 
                 <div>
                   <h2>Add Doctor</h2>
-
                   <p>
-                    Create a new doctor account
+                    Create a new doctor account.
                   </p>
                 </div>
 
@@ -635,93 +813,84 @@ function Dashboard() {
               <button
                 className="admin-modal-close"
                 onClick={closeAddDoctor}
+                type="button"
               >
-                ×
+                <X size={20} />
               </button>
 
             </div>
 
             <form
+              className="admin-doctor-form"
               onSubmit={handleAddDoctor}
-              className="doctor-form"
             >
 
-              <div className="doctor-form-grid">
+              <div className="admin-form-grid">
 
-                <div className="doctor-field">
+                <div className="admin-form-field">
                   <label>Full Name</label>
 
                   <input
                     type="text"
                     placeholder="Enter doctor's name"
                     value={doctorName}
-                    onChange={(e) =>
-                      setDoctorName(
-                        e.target.value
-                      )
+                    onChange={(event) =>
+                      setDoctorName(event.target.value)
                     }
                   />
                 </div>
 
-                <div className="doctor-field">
+                <div className="admin-form-field">
                   <label>Email</label>
 
                   <input
                     type="email"
                     placeholder="Enter doctor's email"
                     value={doctorEmail}
-                    onChange={(e) =>
-                      setDoctorEmail(
-                        e.target.value
-                      )
+                    onChange={(event) =>
+                      setDoctorEmail(event.target.value)
                     }
                   />
                 </div>
 
-                <div className="doctor-field">
+                <div className="admin-form-field">
                   <label>Specialization</label>
 
                   <input
                     type="text"
                     placeholder="e.g. Cardiologist"
-                    value={
-                      doctorSpecialization
-                    }
-                    onChange={(e) =>
+                    value={doctorSpecialization}
+                    onChange={(event) =>
                       setDoctorSpecialization(
-                        e.target.value
+                        event.target.value
                       )
                     }
                   />
                 </div>
 
-                <div className="doctor-field">
+                <div className="admin-form-field">
                   <label>Password</label>
 
                   <input
                     type="password"
-                    placeholder="Create password"
+                    placeholder="Enter password"
                     value={doctorPassword}
-                    onChange={(e) =>
-                      setDoctorPassword(
-                        e.target.value
-                      )
+                    onChange={(event) =>
+                      setDoctorPassword(event.target.value)
                     }
                   />
                 </div>
 
-                <div className="doctor-field">
+                <div className="admin-form-field">
                   <label>Confirm Password</label>
 
                   <input
                     type="password"
                     placeholder="Confirm password"
-                    value={
-                      doctorConfirmPassword
-                    }
-                    onChange={(e) =>
+                    value={doctorConfirmPassword}
+                    onChange={(event) =>
                       setDoctorConfirmPassword(
-                        e.target.value
+                        event.target.value
                       )
                     }
                   />
@@ -730,26 +899,47 @@ function Dashboard() {
               </div>
 
               {doctorError && (
-                <div className="doctor-form-error">
-                  ⚠️ {doctorError}
+                <div className="admin-form-error">
+                  {doctorError}
                 </div>
               )}
 
               {doctorSuccess && (
-                <div className="doctor-form-success">
-                  ✓ {doctorSuccess}
+                <div className="admin-form-success">
+                  {doctorSuccess}
                 </div>
               )}
 
-              <button
-                type="submit"
-                className="create-doctor-btn"
-                disabled={addingDoctor}
-              >
-                {addingDoctor
-                  ? "Creating..."
-                  : "Create Doctor Account"}
-              </button>
+              <div className="admin-form-actions">
+
+                <button
+                  type="button"
+                  className="admin-cancel-button"
+                  onClick={closeAddDoctor}
+                  disabled={addingDoctor}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  className="admin-create-button"
+                  disabled={addingDoctor}
+                >
+                  {addingDoctor ? (
+                    <>
+                      <span className="admin-button-spinner"></span>
+                      Creating...
+                    </>
+                  ) : (
+                    <>
+                      <Plus size={17} />
+                      Create Doctor
+                    </>
+                  )}
+                </button>
+
+              </div>
 
             </form>
 
