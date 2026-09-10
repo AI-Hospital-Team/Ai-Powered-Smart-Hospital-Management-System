@@ -1,3 +1,7 @@
+/* =========================================
+   LOGIN PAGE
+========================================= */
+
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -5,6 +9,7 @@
   align-items: center;
   background: #f4f7fb;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .login-container {
@@ -14,7 +19,12 @@
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 }
+
+/* =========================================
+   LOGIN HEADER
+========================================= */
 
 .login-header {
   text-align: center;
@@ -36,6 +46,10 @@
   color: #666;
 }
 
+/* =========================================
+   LOGIN FORM
+========================================= */
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -53,16 +67,115 @@
 }
 
 .form-group input {
+  width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 15px;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
   outline: none;
   border-color: #2563eb;
 }
+
+/* =========================================
+   PASSWORD FIELD
+========================================= */
+
+.login-password-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.login-password-wrap input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 90px;
+}
+
+/* Hide Microsoft Edge / browser default
+   password reveal icon */
+
+.login-password-wrap input::-ms-reveal,
+.login-password-wrap input::-ms-clear {
+  display: none;
+}
+
+/* Hide browser credential button where supported */
+
+.login-password-wrap input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+}
+
+/* =========================================
+   SHOW / HIDE PASSWORD BUTTON
+========================================= */
+
+.show-password-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border: none;
+  background: transparent;
+
+  color: #078b96;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+  padding: 5px 7px;
+  z-index: 5;
+}
+
+.show-password-btn:hover {
+  color: #056d78;
+}
+
+.show-password-btn:focus {
+  outline: none;
+}
+
+.show-password-btn svg {
+  width: 19px;
+  height: 19px;
+
+  display: block;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.show-password-btn span {
+  display: inline-block;
+}
+
+/* Prevent accidental pseudo eye icons */
+
+.login-password-wrap .show-password-btn::before,
+.login-password-wrap .show-password-btn::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
 
 .login-button {
   padding: 13px;
@@ -73,11 +186,16 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .login-button:hover {
   background: #1d4ed8;
 }
+
+/* =========================================
+   LOGIN FOOTER
+========================================= */
 
 .login-footer {
   text-align: center;
@@ -86,25 +204,22 @@
   color: #777;
 }
 
-/* ================= LOGIN ERROR ================= */
+/* =========================================
+   LOGIN ERROR
+========================================= */
 
 .login-error {
   display: flex;
   align-items: center;
   gap: 9px;
-
   margin: 12px 0;
   padding: 11px 14px;
-
   border: 1px solid #f3c5c5;
   border-radius: 9px;
-
   background: #fff5f5;
   color: #d33a3a;
-
   font-size: 13px;
   font-weight: 600;
-
   animation: errorSlide 0.2s ease;
 }
 
@@ -122,5 +237,46 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 500px) {
+  .login-page {
+    padding: 15px;
+  }
+
+  .login-container {
+    padding: 30px 22px;
+  }
+
+  .login-header h1 {
+    font-size: 26px;
+  }
+
+  .hospital-icon {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 360px) {
+  .login-container {
+    padding: 25px 18px;
+  }
+
+  .login-header h1 {
+    font-size: 24px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+  }
+
+  .show-password-btn {
+    font-size: 12px;
+    right: 7px;
   }
 }
