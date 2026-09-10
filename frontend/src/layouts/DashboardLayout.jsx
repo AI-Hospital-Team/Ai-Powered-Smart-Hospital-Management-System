@@ -97,24 +97,22 @@ function DashboardLayout() {
   {
     name: "Doctors",
     path: "/dashboard/doctors",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M8 3v4" />
-        <path d="M16 3v4" />
-        <path d="M5 7h14v6a7 7 0 0 1-14 0V7Z" />
-        <path d="M12 20v-4" />
-        <path d="M9 20h6" />
-        <path d="M9 11h6" />
-        <path d="M12 8v6" />
-      </svg>
-    ),
+   icon: (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.7"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 4v5a7 7 0 0 0 14 0V4" />
+    <path d="M5 4H3" />
+    <path d="M19 4h2" />
+    <path d="M12 16v1a4 4 0 0 0 4 4h1" />
+    <circle cx="19" cy="21" r="2" />
+  </svg>
+),
   },
 
   {
@@ -293,20 +291,21 @@ const doctorMenu = [
     name: "Prescriptions",
     path: "/doctor/prescriptions",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1 0 5.7l-5.3 5.3a4 4 0 0 1-5.7 0l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
-        <path d="m10 6 8 8" />
-        <path d="M6.5 15.5 4 18" />
-        <path d="M4 18h3" />
-      </svg>
-    ),
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M8 4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" />
+    <path d="M8 9h4a2 2 0 0 1 0 4H8" />
+    <path d="M8 9v6" />
+    <path d="M12 13l4 4" />
+    <path d="M15 9h2" />
+  </svg>
+),
   },
 
   {
@@ -384,13 +383,21 @@ const doctorMenu = [
     name: "Prescriptions",
     path: "/patient/prescriptions",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1-5.7 5.7l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
-        <path d="m10 6 8 8" />
-        <path d="M6.5 15.5 4 18" />
-        <path d="M4 18h3" />
-      </svg>
-    ),
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M8 4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" />
+    <path d="M8 9h4a2 2 0 0 1 0 4H8" />
+    <path d="M8 9v6" />
+    <path d="M12 13l4 4" />
+    <path d="M15 9h2" />
+  </svg>
+),
   },
 
   {
@@ -407,12 +414,21 @@ const doctorMenu = [
   {
     name: "Bills & Payment",
     path: "/patient/bills",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="4" y="3" width="16" height="18" rx="2" />
-        <path d="M8 8h8M8 12h5M8 16h6" />
-      </svg>
-    ),
+     icon: (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M6 3h12v18l-2.5-1.8L13 21l-3-1.8L7 21l-1-1.8L6 21V3Z" />
+    <path d="M9 8h6" />
+    <path d="M9 12h6" />
+    <path d="M9 16h4" />
+  </svg>
+),
   },
 ];
 
@@ -583,13 +599,13 @@ const doctorMenu = [
 
     }
 
-    else if (role === "doctor") {
+      else if (role === "doctor") {
 
-      navigate(
-        "/doctor"
-      );
+        navigate(
+          "/doctor/profile"
+        );
 
-    }
+      }
 
     else if (role === "admin") {
 
@@ -696,7 +712,7 @@ const doctorMenu = [
         </div>
 
 
-        {/* =====================================
+{/* =====================================
     USER ROLE CARD
 ===================================== */}
 
@@ -705,35 +721,36 @@ const doctorMenu = [
   <div className="role-icon">
 
     {role === "admin" && (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 3l7 3v5c0 4.5-2.8 7.8-7 10-4.2-2.2-7-5.5-7-10V6l7-3Z" />
-        <circle cx="12" cy="9" r="2.2" />
-        <path d="M8.5 16c.5-2 1.7-3 3.5-3s3 .9 3.5 3" />
-      </svg>
-    )}
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 3l7 3v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6l7-3Z" />
+    <path d="M9.5 11.5a2.5 2.5 0 1 1 5 0" />
+    <path d="M8.5 17c.6-2 1.8-3 3.5-3s2.9 1 3.5 3" />
+  </svg>
+)}
 
-    {role === "doctor" && (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="7" r="3" />
-        <path d="M6 20c.6-3.6 2.7-5.5 6-5.5s5.4 1.9 6 5.5" />
-        <path d="M18 3v5" />
-        <path d="M15.5 5.5h5" />
-      </svg>
-    )}
+   {role === "doctor" && (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M6 3v5a6 6 0 0 0 12 0V3" />
+    <path d="M6 3H4" />
+    <path d="M18 3h2" />
+    <path d="M12 14v2a4 4 0 0 0 4 4h1" />
+    <circle cx="19" cy="20" r="2" />
+  </svg>
+)}
 
     {role === "patient" && (
       <svg
