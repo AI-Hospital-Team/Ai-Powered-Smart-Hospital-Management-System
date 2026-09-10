@@ -232,28 +232,32 @@ function MedicalRecords() {
         ? "PUT"
         : "POST";
 
-      const body = {
+     const body = {
         recordId:
-          editingRecord?.recordId,
+            editingRecord?.recordId,
 
         patientId:
-          Number(formData.patientId),
+            Number(formData.patientId),
 
         doctorId:
-          Number(doctorId),
+            Number(doctorId),
 
         diagnosis:
-          formData.diagnosis.trim(),
+            formData.diagnosis.trim(),
 
         symptoms:
-          formData.symptoms.trim(),
+            formData.symptoms.trim(),
 
         treatment:
-          formData.treatment.trim(),
+            formData.treatment.trim(),
 
         notes:
-          formData.notes.trim(),
-      };
+            formData.notes.trim(),
+
+        recordDate:
+            editingRecord?.recordDate ||
+            new Date().toISOString().split("T")[0],
+        };
 
       const response = await fetch(
         url,
