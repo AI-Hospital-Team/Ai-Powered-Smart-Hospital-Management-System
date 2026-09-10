@@ -59,43 +59,43 @@ function DashboardLayout() {
     {
       name: "Dashboard",
       path: "/dashboard",
-      icon: "🏠",
+      icon: "",
     },
 
     {
       name: "Patients",
       path: "/dashboard/patients",
-      icon: "👥",
+      icon: "",
     },
 
     {
       name: "Doctors",
       path: "/dashboard/doctors",
-      icon: "👨‍⚕️",
+      icon: "",
     },
 
     {
       name: "Appointments",
       path: "/dashboard/appointments",
-      icon: "📅",
+      icon: "",
     },
 
     {
       name: "Medical Records",
       path: "/dashboard/medical-records",
-      icon: "📋",
+      icon: "",
     },
 
     {
       name: "Prescriptions",
       path: "/dashboard/prescriptions",
-      icon: "💊",
+      icon: "",
     },
 
     {
       name: "Bills",
       path: "/dashboard/bills",
-      icon: "💰",
+      icon: "",
     },
 
   ];
@@ -106,7 +106,6 @@ function DashboardLayout() {
 // ==========================================
 
 const doctorMenu = [
-
   {
     name: "Dashboard",
     path: "/doctor",
@@ -128,7 +127,7 @@ const doctorMenu = [
 
   {
     name: "Appointments",
-    path: "/doctor#appointments",
+    path: "/doctor/appointments",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -195,7 +194,7 @@ const doctorMenu = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1-5.7 5.7l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
+        <path d="M8.5 4.5a4 4 0 0 1 5.7 0l5.3 5.3a4 4 0 0 1 0 5.7l-5.3 5.3a4 4 0 0 1-5.7 0l-5.3-5.3a4 4 0 0 1 0-5.7Z" />
         <path d="m10 6 8 8" />
         <path d="M6.5 15.5 4 18" />
         <path d="M4 18h3" />
@@ -220,9 +219,7 @@ const doctorMenu = [
       </svg>
     ),
   },
-
 ];
-
 
   // ==========================================
   // PATIENT MENU
@@ -381,12 +378,9 @@ const doctorMenu = [
   // NAVIGATION
   // ==========================================
 
-  const handleNavigation = (path) => {
-
-    navigate(path);
-
-  };
-
+ const handleNavigation = (path) => {
+  navigate(path);
+};
 
   // ==========================================
   // LOGOUT
