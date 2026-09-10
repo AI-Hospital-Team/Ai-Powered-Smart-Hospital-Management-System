@@ -1,6 +1,7 @@
 import About from "./pages/About/About";
 import Project from "./pages/Project/Project";
 import Home from "./pages/Home/Home";
+import AIHealthAssistant from "./pages/AIHealthAssistant/AIHealthAssistant";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -84,6 +85,16 @@ function App() {
         <Route
           path="/project"
           element={<Project />}
+        />
+
+
+        {/* =====================================================
+            AI HEALTH ASSISTANT
+        ===================================================== */}
+
+        <Route
+          path="/ai-health-assistant"
+          element={<AIHealthAssistant />}
         />
 
 
@@ -172,6 +183,8 @@ function App() {
             </ProtectedRoute>
           }
         >
+
+          {/* Doctor Dashboard */}
 
           <Route
             index
