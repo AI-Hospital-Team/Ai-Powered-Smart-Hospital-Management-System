@@ -26,12 +26,18 @@ import AdminBills from "./pages/Admin/Bills/Bills";
 ============================== */
 
 import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
+import DoctorAppointments from "./pages/Doctor/Appointments/Appointments";
+import DoctorPatients from "./pages/Doctor/Patients/Patients";
+import DoctorMedicalRecords from "./pages/Doctor/MedicalRecords/MedicalRecords";
+import DoctorPrescriptions from "./pages/Doctor/Prescriptions/Prescriptions";
+import DoctorProfile from "./pages/Doctor/Profile/Profile";
 
 /* ==============================
    PATIENT
 ============================== */
 
 import PatientDashboard from "./pages/Patient/PatientDashboard";
+
 
 import Appointments from "./pages/Patient/Appointments/Appointments";
 import BookAppointment from "./pages/Patient/BookAppointment/BookAppointment";
@@ -159,27 +165,55 @@ function App() {
         </Route>
 
 
-        {/* =====================================================
-            DOCTOR DASHBOARD
-            ONLY DOCTOR CAN ACCESS
-        ===================================================== */}
+{/* =====================================================
+    DOCTOR DASHBOARD
+    ONLY DOCTOR CAN ACCESS
+===================================================== */}
 
-        <Route
-          path="/doctor"
-          element={
-            <ProtectedRoute allowedRoles={["Doctor"]}>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
+<Route
+  path="/doctor"
+  element={
+    <ProtectedRoute allowedRoles={["Doctor"]}>
+      <DashboardLayout />
+    </ProtectedRoute>
+  }
+>
+  {/* Doctor Dashboard */}
+  <Route
+    index
+    element={<DoctorDashboard />}
+  />
 
-          <Route
-            index
-            element={<DoctorDashboard />}
-          />
+  {/* Appointments */}
+  <Route
+    path="appointments"
+    element={<DoctorAppointments />}
+  />
 
-        </Route>
+  {/* My Patients */}
+  <Route
+    path="patients"
+    element={<DoctorPatients />}
+  />
 
+  {/* Medical Records */}
+  <Route
+    path="medical-records"
+    element={<DoctorMedicalRecords />}
+  />
+
+  {/* Prescriptions */}
+  <Route
+    path="prescriptions"
+    element={<DoctorPrescriptions />}
+  />
+
+  {/* Profile */}
+  <Route
+    path="profile"
+    element={<DoctorProfile />}
+  />
+</Route>
 
         {/* =====================================================
             PATIENT DASHBOARD
