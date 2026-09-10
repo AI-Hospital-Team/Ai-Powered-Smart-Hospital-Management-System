@@ -5,7 +5,53 @@ import "./PatientDashboard.css";
 
 const API_URL = "http://localhost:8080/api";
 
-function PatientDashboard() {
+const AI_EXAMPLES = [
+  {
+    label: "🌡️ Fever & Cough",
+    text: "I have fever, dry cough, weakness and mild headache for the last two days.",
+  },
+  {
+    label: "🤧 Cold & Sore Throat",
+    text: "I have a sore throat, runny nose and mild fever since yesterday.",
+  },
+  {
+    label: "🤢 Stomach Problem",
+    text: "I have stomach pain, nausea and weakness after eating since this morning.",
+  },
+];
+
+function formatDate(date) {
+  if (!date) return "—";
+
+  const parsedDate = new Date(date);
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return date;
+  }
+
+  return parsedDate.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function formatTime(time) {
+  if (!time) return "—";
+
+  return String(time).slice(0, 5);
+}
+
+function getGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 12) return "Good Morning";
+  if (hour < 17) return "Good Afternoon";
+
+  return "Good Evening";
+}
+
+export default function PatientDashboard() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
@@ -17,124 +63,118 @@ function PatientDashboard() {
 
   const [loading, setLoading] = useState(true);
 
-  // =========================================================
-  // AI HEALTH ASSISTANT STATES
-  // =========================================================
+  /* =========================
+     AI HEALTH ASSISTANT
+  ========================= */
+
   const [aiSymptoms, setAiSymptoms] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState("");
 
-  // =========================================================
-  // LOAD USER
-  // =========================================================
+  /* =========================
+     LOAD USER
+  ========================= */
+
   useEffect(() => {
     try {
-      const storedUser = localStorage.getItem("user");
+      const savedUser = localStorage.getItem("user");
 
-      if (!storedUser) {
-        console.error("No user found in localStorage.");
-        setLoading(false);
-        return;
+      if (savedUser) {
+        setUser(JSON.parse(savedUser));
       }
-
-      const parsedUser = JSON.parse(storedUser);
-      console.log("Logged-in user:", parsedUser);
-      setUser(parsedUser);
     } catch (error) {
-      console.error("Error reading logged-in user:", error);
-      setLoading(false);
+      console.error("Unable to load user:", error);
     }
   }, []);
 
-  // =========================================================
-  // FETCH PATIENT DATA
-  // =========================================================
+  /* =========================
+     LOAD PATIENT DATA
+  ========================= */
+
   useEffect(() => {
-    if (!user?.patientId) {
+    const patientId = user?.patientId;
+
+    if (!patientId) {
+      setLoading(false);
       return;
     }
 
-    const patientId = user.patientId;
-    setLoading(true);
+    const loadDashboardData = async () => {
+      setLoading(true);
 
-    const fetchData = async () => {
       try {
-        const [
-          appointmentsResponse,
-          recordsResponse,
-          prescriptionsResponse,
-          billsResponse,
-        ] = await Promise.allSettled([
+        const results = await Promise.allSettled([
           fetch(`${API_URL}/appointments/patient/${patientId}`),
           fetch(`${API_URL}/medical-records/patient/${patientId}`),
           fetch(`${API_URL}/prescriptions/patient/${patientId}`),
           fetch(`${API_URL}/bills/patient/${patientId}`),
         ]);
 
-        // APPOINTMENTS
+        const [
+          appointmentsResult,
+          recordsResult,
+          prescriptionsResult,
+          billsResult,
+        ] = results;
+
         if (
-          appointmentsResponse.status === "fulfilled" &&
-          appointmentsResponse.value.ok
+          appointmentsResult.status === "fulfilled" &&
+          appointmentsResult.value.ok
         ) {
-          const data = await appointmentsResponse.value.json();
+          const data = await appointmentsResult.value.json();
           setAppointments(Array.isArray(data) ? data : []);
         } else {
           setAppointments([]);
         }
 
-        // MEDICAL RECORDS
         if (
-          recordsResponse.status === "fulfilled" &&
-          recordsResponse.value.ok
+          recordsResult.status === "fulfilled" &&
+          recordsResult.value.ok
         ) {
-          const data = await recordsResponse.value.json();
+          const data = await recordsResult.value.json();
           setMedicalRecords(Array.isArray(data) ? data : []);
         } else {
           setMedicalRecords([]);
         }
 
-        // PRESCRIPTIONS
         if (
-          prescriptionsResponse.status === "fulfilled" &&
-          prescriptionsResponse.value.ok
+          prescriptionsResult.status === "fulfilled" &&
+          prescriptionsResult.value.ok
         ) {
-          const data = await prescriptionsResponse.value.json();
+          const data = await prescriptionsResult.value.json();
           setPrescriptions(Array.isArray(data) ? data : []);
         } else {
           setPrescriptions([]);
         }
 
-        // BILLS
         if (
-          billsResponse.status === "fulfilled" &&
-          billsResponse.value.ok
+          billsResult.status === "fulfilled" &&
+          billsResult.value.ok
         ) {
-          const data = await billsResponse.value.json();
+          const data = await billsResult.value.json();
           setBills(Array.isArray(data) ? data : []);
         } else {
           setBills([]);
         }
       } catch (error) {
-        console.error("Patient dashboard data error:", error);
+        console.error("Dashboard loading error:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [user]);
+    loadDashboardData();
+  }, [user?.patientId]);
 
-  // =========================================================
-  // UPCOMING APPOINTMENT
-  // =========================================================
+  /* =========================
+     UPCOMING APPOINTMENT
+  ========================= */
+
   const upcomingAppointment = useMemo(() => {
-    if (!appointments.length) {
-      return null;
-    }
-
     const validAppointments = appointments.filter((appointment) => {
       const status = String(appointment?.status || "").toLowerCase();
+
       return (
         status !== "cancelled" &&
         status !== "canceled" &&
@@ -142,33 +182,45 @@ function PatientDashboard() {
       );
     });
 
-    if (!validAppointments.length) {
-      return null;
-    }
-
-    return [...validAppointments].sort((a, b) => {
+    validAppointments.sort((a, b) => {
       const dateA = new Date(
-        `${a.appointmentDate || ""} ${a.appointmentTime || ""}`
+        `${a?.appointmentDate || ""}T${a?.appointmentTime || "00:00"}`
       );
+
       const dateB = new Date(
-        `${b.appointmentDate || ""} ${b.appointmentTime || ""}`
+        `${b?.appointmentDate || ""}T${b?.appointmentTime || "00:00"}`
       );
+
       return dateA - dateB;
-    })[0];
+    });
+
+    return validAppointments[0] || null;
   }, [appointments]);
 
-  // =========================================================
-  // PATIENT NAME
-  // =========================================================
+  /* =========================
+     PATIENT NAME
+  ========================= */
+
   const patientName =
     user?.name ||
     user?.fullName ||
     user?.patientName ||
     "Patient";
 
-  // =========================================================
-  // AI HEALTH ASSISTANT HANDLER
-  // =========================================================
+  /* =========================
+     AI EXAMPLE
+  ========================= */
+
+  const handleExampleClick = (example) => {
+    setAiSymptoms(example);
+    setAiResponse("");
+    setAiError("");
+  };
+
+  /* =========================
+     AI HEALTH ASSISTANT
+  ========================= */
+
   const handleAIHealthAssistant = async () => {
     const symptoms = aiSymptoms.trim();
 
@@ -179,7 +231,9 @@ function PatientDashboard() {
     }
 
     if (symptoms.length < 20) {
-      setAiError("Please describe your symptoms in more detail (at least 20 characters).");
+      setAiError(
+        "Please describe your symptoms in more detail (at least 20 characters)."
+      );
       setAiResponse("");
       return;
     }
@@ -197,7 +251,7 @@ function PatientDashboard() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            symptoms: symptoms,
+            symptoms,
           }),
         }
       );
@@ -205,12 +259,20 @@ function PatientDashboard() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data?.error || "Unable to get AI response.");
+        throw new Error(
+          data?.error || "Unable to get AI response."
+        );
       }
 
-      setAiResponse(data?.response || "AI response was not available.");
+      setAiResponse(
+        data?.response || "AI response was not available."
+      );
     } catch (error) {
-      console.error("AI Health Assistant Error:", error);
+      console.error(
+        "AI Health Assistant Error:",
+        error
+      );
+
       setAiError(
         "Unable to connect to AI Health Assistant. Please make sure Ollama and the hospital backend are running."
       );
@@ -219,363 +281,456 @@ function PatientDashboard() {
     }
   };
 
-  // =========================================================
-  // DATE & TIME FORMATTERS
-  // =========================================================
-  const formatDate = (date) => {
-    if (!date) {
-      return "Date not available";
-    }
+  /* =========================
+     LOADING SCREEN
+  ========================= */
 
-    try {
-      const parsed = new Date(date);
-      if (Number.isNaN(parsed.getTime())) {
-        return date;
-      }
-      return parsed.toLocaleDateString("en-IN", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    } catch {
-      return date;
-    }
-  };
+  if (loading) {
+    return (
+      <div className="patient-dashboard-loading">
+        <div className="dashboard-loader"></div>
+        <p>Loading patient dashboard...</p>
+      </div>
+    );
+  }
 
-  const formatTime = (time) => {
-    if (!time) {
-      return "Time not available";
-    }
-    return String(time).slice(0, 5);
-  };
-
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Good morning";
-    if (hour < 17) return "Good afternoon";
-    return "Good evening";
-  };
-
-  // =========================================================
-  // PAGE RENDER
-  // =========================================================
   return (
     <div className="patient-dashboard">
-      {/* =====================================================
-          WELCOME HEADER
-      ===================================================== */}
+
+      {/* =========================================
+          WELCOME
+      ========================================= */}
+
       <section className="dashboard-welcome">
+
         <div className="welcome-content">
-          <span className="welcome-label">AI SMART HOSPITAL</span>
+
+          <span className="welcome-label">
+            PATIENT PORTAL
+          </span>
+
           <h1>
-            {getGreeting()}, {patientName}
+            {getGreeting()}, {patientName} 👋
           </h1>
+
           <p>
-            Welcome to your patient dashboard. Manage your appointments,
-            medical records, prescriptions, and billing all in one place.
+            Welcome back to your healthcare dashboard.
+            Manage your appointments, medical records,
+            prescriptions and bills from one place.
           </p>
 
-          {user?.patientId && (
-            <span className="welcome-patient-id">
-              Patient ID: #{user.patientId}
-            </span>
-          )}
+          <div className="patient-id">
+            <span>Patient ID</span>
+            <strong>#{user?.patientId || "—"}</strong>
+          </div>
 
           <div className="welcome-actions">
+
             <button
               type="button"
               className="primary-dashboard-button"
-              onClick={() => navigate("/patient/book-appointment")}
+              onClick={() =>
+                navigate("/patient/book-appointment")
+              }
             >
-              <span className="button-icon">+</span>
-              Book Appointment
+              🗓️ Book Appointment
             </button>
 
             <button
               type="button"
               className="secondary-dashboard-button"
-              onClick={() => navigate("/patient/appointments")}
+              onClick={() =>
+                navigate("/patient/appointments")
+              }
             >
-              View Appointments
+              View Appointments →
             </button>
+
           </div>
+
         </div>
 
         <div className="welcome-visual">
-          <div className="welcome-heart">
+          <div className="heart-circle">
+
             <svg
-              viewBox="0 0 24 24"
+              viewBox="0 0 100 100"
               fill="none"
-              stroke="currentColor"
-              strokeWidth="1.7"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M20.8 8.8c0 5.5-8.8 10.4-8.8 10.4S3.2 14.3 3.2 8.8A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.4Z" />
-              <path d="M7 11h2l1.2-2.2L12 14l1.5-3h2.5" />
+              <path
+                d="M50 82C50 82 18 63 18 38C18 24 28 17 39 17C45 17 49 20 50 25C51 20 55 17 61 17C72 17 82 24 82 38C82 63 50 82 50 82Z"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinejoin="round"
+              />
+
+              <path
+                d="M31 45H42L46 36L52 54L57 43L61 45H69"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
+
           </div>
-          <strong>
-            Your Health,<br />Our Priority
-          </strong>
-          <span>Stay informed. Stay healthy.</span>
         </div>
+
       </section>
 
-      {/* =====================================================
+
+      {/* =========================================
           QUICK OVERVIEW
-      ===================================================== */}
-      <section className="dashboard-overview">
-        <div className="dashboard-section-heading">
+      ========================================= */}
+
+      <section className="quick-overview">
+
+        <div className="section-heading">
+
           <div>
-            <span>OVERVIEW</span>
-            <h2>Your Healthcare Summary</h2>
+            <span className="section-label">
+              OVERVIEW
+            </span>
+
+            <h2>
+              Your Health at a Glance
+            </h2>
           </div>
-          <p>A quick look at your hospital information.</p>
+
         </div>
 
-        <div className="dashboard-cards">
-          {/* APPOINTMENTS */}
+        <div className="overview-grid">
+
           <button
             type="button"
-            className="dashboard-card card-appointments"
-            onClick={() => navigate("/patient/appointments")}
+            className="overview-card"
+            onClick={() =>
+              navigate("/patient/appointments")
+            }
           >
-            <div className="dashboard-card-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect x="3" y="5" width="18" height="16" rx="2" />
-                <path d="M8 3v4M16 3v4M3 10h18" />
-              </svg>
+            <div className="overview-icon">
+              🗓️
             </div>
-            <div className="dashboard-card-content">
+
+            <div className="overview-info">
               <span>Appointments</span>
-              <strong>{loading ? "..." : appointments.length}</strong>
-              <small>
-                {appointments.length === 0
-                  ? "No appointments yet"
-                  : "View your appointments"}
-              </small>
+              <strong>{appointments.length}</strong>
+              <small>View appointments →</small>
             </div>
-            <span className="dashboard-card-arrow">→</span>
           </button>
 
-          {/* MEDICAL RECORDS */}
+
           <button
             type="button"
-            className="dashboard-card card-records"
-            onClick={() => navigate("/patient/medical-records")}
+            className="overview-card"
+            onClick={() =>
+              navigate("/patient/medical-records")
+            }
           >
-            <div className="dashboard-card-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect x="4" y="3" width="16" height="18" rx="2" />
-                <path d="M8 8h8M8 12h5M8 16h6" />
-              </svg>
+            <div className="overview-icon">
+              📋
             </div>
-            <div className="dashboard-card-content">
+
+            <div className="overview-info">
               <span>Medical Records</span>
-              <strong>{loading ? "..." : medicalRecords.length}</strong>
-              <small>
-                {medicalRecords.length === 0
-                  ? "No records yet"
-                  : "View your records"}
-              </small>
+              <strong>{medicalRecords.length}</strong>
+              <small>View records →</small>
             </div>
-            <span className="dashboard-card-arrow">→</span>
           </button>
 
-          {/* PRESCRIPTIONS */}
+
           <button
             type="button"
-            className="dashboard-card card-prescriptions"
-            onClick={() => navigate("/patient/prescriptions")}
+            className="overview-card"
+            onClick={() =>
+              navigate("/patient/prescriptions")
+            }
           >
-            <div className="dashboard-card-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <path d="m8 8 8 8" />
-                <path d="m16 8-8 8" />
-                <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" />
-              </svg>
+            <div className="overview-icon">
+              💊
             </div>
-            <div className="dashboard-card-content">
+
+            <div className="overview-info">
               <span>Prescriptions</span>
-              <strong>{loading ? "..." : prescriptions.length}</strong>
-              <small>
-                {prescriptions.length === 0
-                  ? "No prescriptions yet"
-                  : "View your medicines"}
-              </small>
+              <strong>{prescriptions.length}</strong>
+              <small>View prescriptions →</small>
             </div>
-            <span className="dashboard-card-arrow">→</span>
           </button>
 
-          {/* BILLS */}
+
           <button
             type="button"
-            className="dashboard-card card-bills"
-            onClick={() => navigate("/patient/bills")}
+            className="overview-card"
+            onClick={() =>
+              navigate("/patient/bills")
+            }
           >
-            <div className="dashboard-card-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect x="4" y="3" width="16" height="18" rx="2" />
-                <path d="M8 8h8M8 12h8M8 16h5" />
-              </svg>
+            <div className="overview-icon">
+              💳
             </div>
-            <div className="dashboard-card-content">
-              <span>Bills &amp; Payment</span>
-              <strong>{loading ? "..." : bills.length}</strong>
-              <small>
-                {bills.length === 0
-                  ? "No bills yet"
-                  : "View billing information"}
-              </small>
+
+            <div className="overview-info">
+              <span>Bills</span>
+              <strong>{bills.length}</strong>
+              <small>View bills →</small>
             </div>
-            <span className="dashboard-card-arrow">→</span>
           </button>
+
         </div>
+
       </section>
 
-      {/* =====================================================
-          UPCOMING APPOINTMENT & HEALTH MESSAGE
-      ===================================================== */}
+
+      {/* =========================================
+          MAIN GRID
+      ========================================= */}
+
       <section className="dashboard-main-grid">
-        <div className="upcoming-card">
-          <div className="content-card-header">
+
+        {/* UPCOMING APPOINTMENT */}
+
+        <div className="dashboard-panel">
+
+          <div className="panel-header">
+
             <div>
-              <span className="section-label">APPOINTMENT</span>
-              <h2>Upcoming Appointment</h2>
+              <span className="section-label">
+                NEXT VISIT
+              </span>
+
+              <h2>
+                Upcoming Appointment
+              </h2>
             </div>
+
             <button
               type="button"
-              className="text-link-button"
-              onClick={() => navigate("/patient/appointments")}
+              className="panel-link"
+              onClick={() =>
+                navigate("/patient/appointments")
+              }
             >
               View All →
             </button>
+
           </div>
 
-          {loading ? (
-            <div className="dashboard-empty-state">
-              <div className="empty-state-loader"></div>
-              <p>Checking your appointments...</p>
-            </div>
-          ) : upcomingAppointment ? (
-            <div className="upcoming-appointment">
+
+          {upcomingAppointment ? (
+
+            <div className="appointment-preview">
+
               <div className="appointment-date-box">
+
                 <span>
-                  {formatDate(upcomingAppointment.appointmentDate).split(" ")[0]}
+                  {upcomingAppointment?.appointmentDate
+                    ? new Date(
+                        upcomingAppointment.appointmentDate
+                      ).toLocaleDateString("en-IN", {
+                        month: "short",
+                      })
+                    : "DATE"}
                 </span>
+
                 <strong>
-                  {formatDate(upcomingAppointment.appointmentDate).split(" ")[1]}
+                  {upcomingAppointment?.appointmentDate
+                    ? new Date(
+                        upcomingAppointment.appointmentDate
+                      ).getDate()
+                    : "—"}
                 </strong>
+
               </div>
+
 
               <div className="appointment-details">
-                <h3>Doctor #{upcomingAppointment.doctorId || "—"}</h3>
-                <p>{upcomingAppointment.reason || "General consultation"}</p>
+
+                <h3>
+                  Dr.{" "}
+                  {upcomingAppointment?.doctorName ||
+                    "Doctor"}
+                </h3>
+
+                <p>
+                  {upcomingAppointment?.specialization ||
+                    "Healthcare Specialist"}
+                </p>
+
                 <div className="appointment-meta">
-                  <span>{formatDate(upcomingAppointment.appointmentDate)}</span>
-                  <span>{formatTime(upcomingAppointment.appointmentTime)}</span>
+
+                  <span>
+                    🗓️{" "}
+                    {formatDate(
+                      upcomingAppointment?.appointmentDate
+                    )}
+                  </span>
+
+                  <span>
+                    🕐{" "}
+                    {formatTime(
+                      upcomingAppointment?.appointmentTime
+                    )}
+                  </span>
+
                 </div>
+
+                {upcomingAppointment?.status && (
+                  <span
+                    className={`appointment-status ${String(
+                      upcomingAppointment.status
+                    ).toLowerCase()}`}
+                  >
+                    {upcomingAppointment.status}
+                  </span>
+                )}
+
               </div>
 
-              <span className="appointment-status">
-                {upcomingAppointment.status || "Confirmed"}
-              </span>
             </div>
+
           ) : (
-            <div className="dashboard-empty-state">
-              <div className="empty-state-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                >
-                  <rect x="3" y="5" width="18" height="16" rx="2" />
-                  <path d="M8 3v4M16 3v4M3 10h18" />
-                </svg>
+
+            <div className="empty-panel">
+
+              <div className="empty-panel-icon">
+                🗓️
               </div>
-              <h3>No upcoming appointments</h3>
+
+              <h3>
+                No Upcoming Appointment
+              </h3>
+
               <p>
-                Ready to see a doctor? Book your first appointment in just a few
-                steps.
+                You don't have any upcoming appointments.
               </p>
+
               <button
                 type="button"
-                className="empty-state-button"
-                onClick={() => navigate("/patient/book-appointment")}
+                onClick={() =>
+                  navigate("/patient/book-appointment")
+                }
               >
-                + Book Appointment
+                Book Appointment
               </button>
+
             </div>
+
           )}
+
         </div>
+
 
         {/* HEALTH MESSAGE */}
-        <div className="health-message-card">
-          <div className="health-message-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.7"
-            >
-              <path d="M12 21s-7-4.4-9-9.2C1.5 8.2 3.5 5 7 5c2 0 3.5 1 5 3 1.5-2 3-3 5-3 3.5 0 5.5 3.2 4 6.8C19 16.6 12 21 12 21Z" />
-            </svg>
+
+        <div className="dashboard-panel health-message-panel">
+
+          <div className="panel-header">
+
+            <div>
+              <span className="section-label">
+                HEALTH TIP
+              </span>
+
+              <h2>
+                Stay Healthy
+              </h2>
+            </div>
+
+            <div className="health-tip-icon">
+              💗
+            </div>
+
           </div>
-          <span className="section-label">YOUR HEALTH MATTERS</span>
-          <h2>
-            Your Health,<br />Our Priority
-          </h2>
-          <p>
-            Keep your healthcare information organized and stay informed about
-            your appointments, records and prescriptions.
-          </p>
-          <div className="health-message-line">Stay healthy. Stay informed.</div>
+
+
+          <div className="health-message">
+
+            <h3>
+              Take care of your health every day.
+            </h3>
+
+            <p>
+              Maintain a balanced diet, stay hydrated,
+              get enough sleep and keep your medical
+              appointments up to date.
+            </p>
+
+            <div className="health-tip-list">
+
+              <span>
+                ✓ Stay hydrated
+              </span>
+
+              <span>
+                ✓ Exercise regularly
+              </span>
+
+              <span>
+                ✓ Get enough sleep
+              </span>
+
+              <span>
+                ✓ Follow doctor's advice
+              </span>
+
+            </div>
+
+          </div>
+
         </div>
+
       </section>
 
-      {/* =====================================================
-          AI HEALTH ASSISTANT SECTION
-      ===================================================== */}
+
+      {/* =========================================
+          AI HEALTH ASSISTANT
+      ========================================= */}
+
       <section className="ai-health-section">
+
         <div className="ai-health-header">
+
           <div>
-            <span className="section-label">AI HEALTHCARE</span>
-            <h2>&#129302; AI Health Assistant</h2>
+
+            <span className="section-label">
+              AI HEALTHCARE
+            </span>
+
+            <h2>
+              🤖 AI Health Assistant
+            </h2>
+
             <p>
-              Describe your symptoms and get general health guidance powered by
-              AI.
+              Describe your symptoms and get general
+              health guidance powered by AI.
             </p>
+
           </div>
+
           <div className="ai-status-badge">
+
             <span className="ai-status-dot"></span>
+
             AI Assistant Online
+
           </div>
+
         </div>
 
+
         <div className="ai-health-card">
-          {/* LEFT SIDE: INPUT */}
+
+          {/* =====================================
+              AI INPUT
+          ===================================== */}
+
           <div className="ai-input-area">
-            <label htmlFor="ai-symptoms">Describe Your Symptoms</label>
+
+            <label htmlFor="ai-symptoms">
+              Describe Your Symptoms
+            </label>
+
             <textarea
               id="ai-symptoms"
               value={aiSymptoms}
@@ -583,287 +738,385 @@ function PatientDashboard() {
                 setAiSymptoms(e.target.value);
                 setAiError("");
               }}
-              placeholder="Example: fever, cough, weakness..."
-              rows="6"
+              placeholder="Example: I have fever, cough, weakness and headache..."
+              rows={6}
               disabled={aiLoading}
             />
 
+
+            {/* TRY AN EXAMPLE */}
+
+            <div className="ai-examples">
+
+              <div className="ai-example-label">
+                Try an Example
+              </div>
+
+              <div className="ai-example-list">
+
+                {AI_EXAMPLES.map((example, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    className="ai-example-chip"
+                    onClick={() =>
+                      handleExampleClick(example.text)
+                    }
+                    disabled={aiLoading}
+                  >
+                    {example.label}
+                  </button>
+                ))}
+
+              </div>
+
+            </div>
+
+
+            {/* INPUT FOOTER */}
+
             <div className="ai-input-footer">
-              <span>{aiSymptoms.length} characters</span>
+
+              <span>
+                {aiSymptoms.length} characters
+              </span>
+
               <button
                 type="button"
                 className="ai-analyze-button"
                 onClick={handleAIHealthAssistant}
                 disabled={aiLoading}
               >
+
                 {aiLoading ? (
                   <>
                     <span className="ai-spinner"></span>
                     Analyzing...
                   </>
                 ) : (
-                  <>&#129302; Analyze Symptoms &rarr;</>
+                  <>
+                    🤖 Analyze Symptoms →
+                  </>
                 )}
+
               </button>
+
             </div>
 
-            {aiError && <div className="ai-error">⚠️ {aiError}</div>}
-          </div>
 
-          {/* RIGHT SIDE: RESPONSE */}
-          <div className="ai-response-area">
-            <div className="ai-response-header">
-              <div className="ai-response-icon">&#129302;</div>
-              <div>
-                <span>AI ANALYSIS</span>
-                <h3>Health Assistant Response</h3>
-              </div>
-            </div>
-
-            {aiLoading ? (
-              <div className="ai-loading">
-                <div className="ai-loading-animation">&#129302;</div>
-                <h3>Analyzing symptoms...</h3>
-                <p>
-                  Please wait while the health assistant prepares a response.
-                </p>
-              </div>
-            ) : aiResponse ? (
-              <div className="ai-response-content">
-                <div className="ai-response-text"><ReactMarkdown>{aiResponse}</ReactMarkdown></div>
-                <div className="ai-medical-warning">
-                  ⚠️ <strong>Important:</strong>
-                  <span>
-                    This AI assistant provides general health information only.
-                    It does not provide a definitive diagnosis or replace a
-                    qualified doctor.
-                  </span>
-                </div>
-              </div>
-            ) : (
-              <div className="ai-empty">
-                <div className="ai-empty-icon">&#129695;</div>
-                <h3>Your AI health guidance will appear here</h3>
-                <p>
-                  Enter your symptoms on the left and click{" "}
-                  <strong>Analyze Symptoms</strong>.
-                </p>
+            {aiError && (
+              <div className="ai-error">
+                ⚠️ {aiError}
               </div>
             )}
+
           </div>
+
+
+          {/* =====================================
+              AI RESPONSE
+          ===================================== */}
+
+          <div className="ai-response-area">
+
+            <div className="ai-response-header">
+
+              <div className="ai-response-icon">
+                🤖
+              </div>
+
+              <div>
+
+                <span>
+                  AI ANALYSIS
+                </span>
+
+                <h3>
+                  Health Assistant Response
+                </h3>
+
+              </div>
+
+            </div>
+
+
+            {aiLoading ? (
+
+              <div className="ai-loading">
+
+                <div className="ai-loading-animation">
+                  🤖
+                </div>
+
+                <h3>
+                  Analyzing symptoms...
+                </h3>
+
+                <p>
+                  Please wait while the health assistant
+                  prepares a response.
+                </p>
+
+              </div>
+
+            ) : aiResponse ? (
+
+              <div className="ai-response-content">
+
+                <div className="ai-response-text">
+                  <ReactMarkdown>
+                    {aiResponse}
+                  </ReactMarkdown>
+                </div>
+
+
+                <div className="ai-medical-warning">
+
+                  <span>
+                    ⚠️
+                  </span>
+
+                  <strong>
+                    Important:
+                  </strong>
+
+                  <span>
+                    This AI assistant provides general
+                    health information only. It does not
+                    provide a definitive diagnosis or replace
+                    a qualified doctor.
+                  </span>
+
+                </div>
+
+              </div>
+
+            ) : (
+
+              <div className="ai-empty">
+
+                <div className="ai-empty-icon">
+                  🩺
+                </div>
+
+                <h3>
+                  Your AI health guidance will appear here
+                </h3>
+
+                <p>
+                  Enter your symptoms on the left and click{" "}
+                  <strong>
+                    Analyze Symptoms
+                  </strong>.
+                </p>
+
+              </div>
+
+            )}
+
+          </div>
+
         </div>
+
+
+        {/* AI DISCLAIMER */}
 
         <div className="ai-disclaimer">
-          <span>🔒</span>
+
+          <span>
+            🔒
+          </span>
+
           <p>
-            AI-generated information is for educational purposes only. For
-            medical concerns, always consult a qualified healthcare
-            professional.
+            AI-generated information is for educational
+            purposes only. For medical concerns, always
+            consult a qualified healthcare professional.
           </p>
+
         </div>
+
       </section>
 
-      {/* =====================================================
+
+      {/* =========================================
           PATIENT SERVICES
-      ===================================================== */}
-      <section className="services-section">
-        <div className="dashboard-section-heading">
+      ========================================= */}
+
+      <section className="patient-services">
+
+        <div className="section-heading">
+
           <div>
-            <span>PATIENT SERVICES</span>
-            <h2>Everything You Need in One Place</h2>
+            <span className="section-label">
+              SERVICES
+            </span>
+
+            <h2>
+              Patient Services
+            </h2>
           </div>
-          <p>Explore the different sections of your hospital account.</p>
+
         </div>
 
-        <div className="service-grid">
-          {/* APPOINTMENTS */}
-          <div className="service-card">
-            <div className="service-icon appointment-service">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect x="3" y="5" width="18" height="16" rx="2" />
-                <path d="M8 3v4M16 3v4M3 10h18" />
-              </svg>
-            </div>
-            <h3>Appointments</h3>
-            <p>View upcoming and previous appointments with your doctors.</p>
-            <button
-              type="button"
-              onClick={() => navigate("/patient/appointments")}
-            >
-              View Appointments →
-            </button>
-          </div>
 
-          {/* BOOK APPOINTMENT */}
-          <div className="service-card featured-service">
-            <div className="service-icon book-service">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect x="3" y="4" width="18" height="17" rx="2" />
-                <path d="M8 2v4M16 2v4M3 9h18M12 12v5M9.5 14.5h5" />
-              </svg>
-            </div>
-            <h3>Book Appointment</h3>
-            <p>
-              Choose a doctor, date and time for your next consultation.
-            </p>
-            <button
-              type="button"
-              onClick={() => navigate("/patient/book-appointment")}
-            >
-              Book Now →
-            </button>
-          </div>
+        <div className="services-grid">
 
-          {/* MEDICAL RECORDS */}
-          <div className="service-card">
-            <div className="service-icon records-service">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect x="4" y="3" width="16" height="18" rx="2" />
-                <path d="M8 8h8M8 12h5M8 16h6" />
-              </svg>
+          <button
+            type="button"
+            className="service-card"
+            onClick={() =>
+              navigate("/patient/appointments")
+            }
+          >
+            <div className="service-icon">
+              🗓️
             </div>
-            <h3>Medical Records</h3>
-            <p>Access your diagnosis, symptoms, treatment and medical notes.</p>
-            <button
-              type="button"
-              onClick={() => navigate("/patient/medical-records")}
-            >
-              View Records →
-            </button>
-          </div>
 
-          {/* PRESCRIPTIONS */}
-          <div className="service-card">
-            <div className="service-icon prescription-service">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <path d="m8 8 8 8M16 8l-8 8" />
-                <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" />
-              </svg>
+            <div>
+              <h3>Appointments</h3>
+              <p>Manage your appointments</p>
             </div>
-            <h3>Prescriptions</h3>
-            <p>View your medicines, dosage, frequency and instructions.</p>
-            <button
-              type="button"
-              onClick={() => navigate("/patient/prescriptions")}
-            >
-              View Prescriptions →
-            </button>
-          </div>
 
-          {/* PROFILE */}
-          <div className="service-card">
-            <div className="service-icon profile-service">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <circle cx="12" cy="8" r="3" />
-                <path d="M5 20c.8-3.5 3-5 7-5s6.2 1.5 7 5" />
-              </svg>
-            </div>
-            <h3>My Profile</h3>
-            <p>View your personal information and registered account details.</p>
-            <button
-              type="button"
-              onClick={() => navigate("/patient/profile")}
-            >
-              View Profile →
-            </button>
-          </div>
+            <span>→</span>
+          </button>
 
-          {/* BILLS */}
-          <div className="service-card">
-            <div className="service-icon bills-service">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect x="4" y="3" width="16" height="18" rx="2" />
-                <path d="M8 8h8M8 12h8M8 16h5" />
-              </svg>
+
+          <button
+            type="button"
+            className="service-card"
+            onClick={() =>
+              navigate("/patient/book-appointment")
+            }
+          >
+            <div className="service-icon">
+              ✚
             </div>
-            <h3>Bills &amp; Payment</h3>
-            <p>Review your hospital bills and simulated payment status.</p>
-            <button
-              type="button"
-              onClick={() => navigate("/patient/bills")}
-            >
-              View Bills →
-            </button>
-          </div>
+
+            <div>
+              <h3>Book Appointment</h3>
+              <p>Schedule a doctor visit</p>
+            </div>
+
+            <span>→</span>
+          </button>
+
+
+          <button
+            type="button"
+            className="service-card"
+            onClick={() =>
+              navigate("/patient/medical-records")
+            }
+          >
+            <div className="service-icon">
+              📋
+            </div>
+
+            <div>
+              <h3>Medical Records</h3>
+              <p>View your health records</p>
+            </div>
+
+            <span>→</span>
+          </button>
+
+
+          <button
+            type="button"
+            className="service-card"
+            onClick={() =>
+              navigate("/patient/prescriptions")
+            }
+          >
+            <div className="service-icon">
+              💊
+            </div>
+
+            <div>
+              <h3>Prescriptions</h3>
+              <p>View prescribed medicines</p>
+            </div>
+
+            <span>→</span>
+          </button>
+
+
+          <button
+            type="button"
+            className="service-card"
+            onClick={() =>
+              navigate("/patient/profile")
+            }
+          >
+            <div className="service-icon">
+              👤
+            </div>
+
+            <div>
+              <h3>My Profile</h3>
+              <p>Manage your profile</p>
+            </div>
+
+            <span>→</span>
+          </button>
+
+
+          <button
+            type="button"
+            className="service-card"
+            onClick={() =>
+              navigate("/patient/bills")
+            }
+          >
+            <div className="service-icon">
+              💳
+            </div>
+
+            <div>
+              <h3>My Bills</h3>
+              <p>View and manage bills</p>
+            </div>
+
+            <span>→</span>
+          </button>
+
         </div>
+
       </section>
 
-      {/* =====================================================
+
+      {/* =========================================
           NEW PATIENT MESSAGE
-      ===================================================== */}
-      {!loading &&
-        appointments.length === 0 &&
+      ========================================= */}
+
+      {appointments.length === 0 &&
         medicalRecords.length === 0 &&
         prescriptions.length === 0 &&
         bills.length === 0 && (
-          <section className="new-patient-card">
+
+          <div className="new-patient-message">
+
             <div className="new-patient-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.7"
-              >
-                <path d="M12 3v18M3 12h18" />
-              </svg>
+              👋
             </div>
+
             <div>
-              <span className="section-label">GET STARTED</span>
-              <h2>Welcome to AI Smart Hospital</h2>
+
+              <h3>
+                Welcome to AI Smart Hospital!
+              </h3>
+
               <p>
-                Your account is ready. Start by booking an appointment with one
-                of our doctors. Your appointments, medical records,
-                prescriptions and billing information will appear here as you use
-                the system.
+                Your healthcare information will appear
+                here as you use the hospital services.
               </p>
+
             </div>
-            <button
-              type="button"
-              className="primary-dashboard-button"
-              onClick={() => navigate("/patient/book-appointment")}
-            >
-              + Book Your First Appointment
-            </button>
-          </section>
+
+          </div>
+
         )}
+
     </div>
   );
 }
-
-export default PatientDashboard;
-
-
-
-
-
-

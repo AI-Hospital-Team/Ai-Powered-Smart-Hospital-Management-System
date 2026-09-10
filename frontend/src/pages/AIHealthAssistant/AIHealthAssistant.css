@@ -1,0 +1,844 @@
+/* ============================================
+   AI HEALTH ASSISTANT PAGE
+   ============================================ */
+
+.ai-assistant-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.ai-assistant-header {
+  width: 100%;
+  background: linear-gradient(135deg, #0f766e, #115e59);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.ai-header-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.ai-header-content h1 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.ai-header-content p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+
+/* ============================================
+   BACK BUTTON
+   ============================================ */
+
+.ai-back-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+
+  padding: 11px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.ai-back-btn:hover {
+  background: white;
+  color: #115e59;
+}
+
+
+/* ============================================
+   MAIN
+   ============================================ */
+
+.ai-assistant-main {
+  max-width: 950px;
+  margin: 0 auto;
+
+  padding: 45px 20px 50px;
+}
+
+
+/* ============================================
+   HERO
+   ============================================ */
+
+.ai-hero {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.ai-hero-icon {
+  width: 75px;
+  height: 75px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ccfbf1;
+
+  font-size: 38px;
+
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.15);
+}
+
+.ai-hero h2 {
+  margin: 0 0 10px;
+
+  color: #115e59;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.ai-hero p {
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: #6b7280;
+
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+/* ============================================
+   MAIN AI CARD
+   ============================================ */
+
+.ai-card {
+  background: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  padding: 30px;
+
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ============================================
+   LABEL
+   ============================================ */
+
+.ai-card label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #374151;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+/* ============================================
+   TEXTAREA
+   ============================================ */
+
+.ai-card textarea {
+  width: 100%;
+  min-height: 170px;
+
+  box-sizing: border-box;
+
+  padding: 16px;
+
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #1f2937;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+
+  line-height: 1.6;
+
+  resize: vertical;
+
+  outline: none;
+
+  transition: all 0.2s ease;
+}
+
+.ai-card textarea::placeholder {
+  color: #9ca3af;
+}
+
+.ai-card textarea:focus {
+  border-color: #0f766e;
+
+  box-shadow:
+    0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+
+/* ============================================
+   CHARACTER COUNT
+   ============================================ */
+
+.ai-character-count {
+  margin-top: 7px;
+
+  text-align: right;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+
+/* ============================================
+   BUTTON CONTAINER
+   ============================================ */
+
+.ai-buttons {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-top: 20px;
+}
+
+
+/* ============================================
+   ANALYZE BUTTON
+   ============================================ */
+
+.ai-analyze-btn {
+  flex: 1;
+
+  padding: 14px 20px;
+
+  background: #0f766e;
+  color: white;
+
+  border: none;
+  border-radius: 9px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.ai-analyze-btn:hover:not(:disabled) {
+  background: #115e59;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 12px rgba(15, 118, 110, 0.25);
+}
+
+
+/* ============================================
+   CLEAR BUTTON
+   ============================================ */
+
+.ai-clear-btn {
+  min-width: 110px;
+
+  padding: 14px 20px;
+
+  background: #e5e7eb;
+  color: #374151;
+
+  border: none;
+  border-radius: 9px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.ai-clear-btn:hover:not(:disabled) {
+  background: #d1d5db;
+
+  transform: translateY(-1px);
+}
+
+
+/* ============================================
+   DISABLED BUTTON
+   ============================================ */
+
+.ai-analyze-btn:disabled,
+.ai-clear-btn:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* ============================================
+   LOADING
+   ============================================ */
+
+.ai-loading {
+  margin-top: 22px;
+
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  background: #eff6ff;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+
+  color: #1d4ed8;
+}
+
+.ai-loading p {
+  margin: 8px 0 4px;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ai-loading span {
+  font-size: 13px;
+
+  color: #64748b;
+}
+
+
+/* ============================================
+   SPINNER
+   ============================================ */
+
+.ai-spinner {
+  width: 30px;
+  height: 30px;
+
+  border: 4px solid #dbeafe;
+  border-top: 4px solid #2563eb;
+
+  border-radius: 50%;
+
+  animation: aiSpin 0.8s linear infinite;
+}
+
+@keyframes aiSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ============================================
+   ERROR
+   ============================================ */
+
+.ai-error {
+  margin-top: 20px;
+
+  padding: 15px 18px;
+
+  background: #fef2f2;
+
+  border-left: 5px solid #dc2626;
+
+  border-radius: 8px;
+
+  color: #b91c1c;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* ============================================
+   AI RESPONSE
+   ============================================ */
+
+.ai-response {
+  margin-top: 25px;
+
+  padding: 25px;
+
+  background: #ecfdf5;
+
+  border: 1px solid #a7f3d0;
+
+  border-left: 5px solid #0f766e;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 4px 15px rgba(15, 118, 110, 0.08);
+}
+
+
+/* Response Heading */
+
+.ai-response h3 {
+  margin: 0 0 20px;
+
+  color: #115e59;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+
+/* Response Content */
+
+.ai-response-content {
+  color: #374151;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+/* Paragraph */
+
+.ai-response-content p {
+  margin: 0 0 14px;
+}
+
+
+/* Bold */
+
+.ai-response-content strong {
+  color: #115e59;
+
+  font-weight: 700;
+}
+
+
+/* Bullet List */
+
+.ai-response-content ul {
+  margin: 8px 0 18px;
+
+  padding-left: 28px;
+}
+
+.ai-response-content li {
+  margin: 8px 0;
+
+  padding-left: 5px;
+
+  line-height: 1.6;
+}
+
+
+/* Empty Line */
+
+.ai-response-space {
+  height: 5px;
+}
+
+
+/* ============================================
+   EXAMPLES
+   ============================================ */
+
+.ai-examples {
+  margin-top: 30px;
+}
+
+.ai-examples h3 {
+  margin: 0 0 15px;
+
+  color: #374151;
+
+  font-size: 19px;
+}
+
+
+/* Example Buttons Container */
+
+.ai-example-buttons {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 15px;
+}
+
+
+/* Example Button */
+
+.ai-example-buttons button {
+  min-height: 55px;
+
+  padding: 14px 16px;
+
+  background: white;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 10px;
+
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.ai-example-buttons button:hover {
+  background: #f0fdfa;
+
+  border-color: #0f766e;
+
+  color: #115e59;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 12px rgba(15, 118, 110, 0.12);
+}
+
+
+/* ============================================
+   DISCLAIMER
+   ============================================ */
+
+.ai-disclaimer {
+  margin-top: 30px;
+
+  padding: 17px 20px;
+
+  background: #fffbeb;
+
+  border: 1px solid #fde68a;
+
+  border-radius: 10px;
+
+  color: #92400e;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+.ai-disclaimer strong {
+  font-weight: 700;
+}
+
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.ai-footer {
+  padding: 25px 20px;
+
+  text-align: center;
+
+  background: #ffffff;
+
+  border-top: 1px solid #e5e7eb;
+
+  color: #6b7280;
+}
+
+.ai-footer p {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ai-footer span {
+  font-size: 12px;
+}
+
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+
+.dark-mode .ai-assistant-page {
+  background: #111827;
+
+  color: #f9fafb;
+}
+
+.dark-mode .ai-card {
+  background: #1f2937;
+
+  border-color: #374151;
+}
+
+.dark-mode .ai-hero h2 {
+  color: #5eead4;
+}
+
+.dark-mode .ai-hero p {
+  color: #9ca3af;
+}
+
+.dark-mode .ai-card label {
+  color: #e5e7eb;
+}
+
+.dark-mode .ai-card textarea {
+  background: #111827;
+
+  border-color: #4b5563;
+
+  color: #f9fafb;
+}
+
+.dark-mode .ai-card textarea::placeholder {
+  color: #6b7280;
+}
+
+.dark-mode .ai-character-count {
+  color: #9ca3af;
+}
+
+.dark-mode .ai-clear-btn {
+  background: #374151;
+
+  color: #f3f4f6;
+}
+
+.dark-mode .ai-clear-btn:hover:not(:disabled) {
+  background: #4b5563;
+}
+
+.dark-mode .ai-response {
+  background: #102a26;
+
+  border-color: #14532d;
+
+  border-left-color: #14b8a6;
+}
+
+.dark-mode .ai-response h3 {
+  color: #5eead4;
+}
+
+.dark-mode .ai-response-content {
+  color: #d1d5db;
+}
+
+.dark-mode .ai-response-content strong {
+  color: #5eead4;
+}
+
+.dark-mode .ai-examples h3 {
+  color: #e5e7eb;
+}
+
+.dark-mode .ai-example-buttons button {
+  background: #1f2937;
+
+  border-color: #4b5563;
+
+  color: #d1d5db;
+}
+
+.dark-mode .ai-example-buttons button:hover {
+  background: #102a26;
+
+  border-color: #14b8a6;
+
+  color: #5eead4;
+}
+
+.dark-mode .ai-footer {
+  background: #1f2937;
+
+  border-color: #374151;
+
+  color: #9ca3af;
+}
+
+
+/* ============================================
+   TABLET
+   ============================================ */
+
+@media (max-width: 800px) {
+
+  .ai-header-content {
+    padding: 18px 20px;
+  }
+
+  .ai-assistant-main {
+    padding: 35px 15px 45px;
+  }
+
+  .ai-example-buttons {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* ============================================
+   MOBILE
+   ============================================ */
+
+@media (max-width: 600px) {
+
+  .ai-header-content {
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  .ai-header-content > div {
+    width: 100%;
+  }
+
+  .ai-back-btn {
+    width: 100%;
+  }
+
+  .ai-assistant-main {
+    padding: 30px 12px 40px;
+  }
+
+  .ai-hero h2 {
+    font-size: 25px;
+  }
+
+  .ai-hero p {
+    font-size: 14px;
+  }
+
+  .ai-card {
+    padding: 20px;
+  }
+
+  .ai-card textarea {
+    min-height: 150px;
+
+    font-size: 14px;
+  }
+
+  .ai-buttons {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .ai-analyze-btn,
+  .ai-clear-btn {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+  .ai-response {
+    padding: 18px;
+  }
+
+  .ai-response h3 {
+    font-size: 18px;
+  }
+
+  .ai-response-content {
+    font-size: 14px;
+  }
+
+  .ai-example-buttons {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+}
+
+
+/* ============================================
+   SMALL MOBILE
+   ============================================ */
+
+@media (max-width: 400px) {
+
+  .ai-header-content h1 {
+    font-size: 21px;
+  }
+
+  .ai-assistant-main {
+    padding: 25px 10px 35px;
+  }
+
+  .ai-card {
+    padding: 16px;
+  }
+
+  .ai-hero-icon {
+    width: 65px;
+    height: 65px;
+
+    font-size: 32px;
+  }
+
+  .ai-hero h2 {
+    font-size: 22px;
+  }
+
+  .ai-response {
+    padding: 15px;
+  }
+
+}
