@@ -22,13 +22,14 @@ function MedicalRecords() {
   const [editingRecord, setEditingRecord] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const [formData, setFormData] = useState({
-    patientId: "",
-    diagnosis: "",
-    symptoms: "",
-    treatment: "",
-    notes: "",
-  });
+ const [formData, setFormData] = useState({
+  patientId: "",
+  diagnosis: "",
+  symptoms: "",
+  treatment: "",
+  notes: "",
+  recordDate: new Date().toISOString().split("T")[0],
+});
 
   // =====================================================
   // LOAD USER
@@ -151,44 +152,55 @@ function MedicalRecords() {
   // OPEN ADD
   // =====================================================
 
-  const openAddForm = () => {
-    setEditingRecord(null);
+const openAddForm = () => {
+  setEditingRecord(null);
 
-    setFormData({
-      patientId: "",
-      diagnosis: "",
-      symptoms: "",
-      treatment: "",
-      notes: "",
-    });
+  setFormData({
+    patientId: "",
+    diagnosis: "",
+    symptoms: "",
+    treatment: "",
+    notes: "",
+    recordDate: new Date().toISOString().split("T")[0],
+  });
 
-    setShowForm(true);
-  };
+  setError("");
+  setShowForm(true);
+};
 
   // =====================================================
   // OPEN EDIT
   // =====================================================
 
-  const openEditForm = (record) => {
-    setEditingRecord(record);
+ const openEditForm = (record) => {
+  setEditingRecord(record);
 
-    setFormData({
-      patientId:
-        record.patientId ||
-        record.patient?.patientId ||
-        "",
-      diagnosis:
-        record.diagnosis || "",
-      symptoms:
-        record.symptoms || "",
-      treatment:
-        record.treatment || "",
-      notes:
-        record.notes || "",
-    });
+  setFormData({
+    patientId:
+      record.patientId ||
+      record.patient?.patientId ||
+      "",
 
-    setShowForm(true);
-  };
+    diagnosis:
+      record.diagnosis || "",
+
+    symptoms:
+      record.symptoms || "",
+
+    treatment:
+      record.treatment || "",
+
+    notes:
+      record.notes || "",
+
+    recordDate:
+      record.recordDate ||
+      new Date().toISOString().split("T")[0],
+  });
+
+  setError("");
+  setShowForm(true);
+};
 
   // =====================================================
   // CLOSE FORM
@@ -233,31 +245,14 @@ function MedicalRecords() {
         : "POST";
 
      const body = {
-        recordId:
-            editingRecord?.recordId,
-
-        patientId:
-            Number(formData.patientId),
-
-        doctorId:
-            Number(doctorId),
-
-        diagnosis:
-            formData.diagnosis.trim(),
-
-        symptoms:
-            formData.symptoms.trim(),
-
-        treatment:
-            formData.treatment.trim(),
-
-        notes:
-            formData.notes.trim(),
-
-        recordDate:
-            editingRecord?.recordDate ||
-            new Date().toISOString().split("T")[0],
-        };
+        patientId: Number(formData.patientId),
+        doctorId: Number(doctorId),
+        diagnosis: formData.diagnosis.trim(),
+        symptoms: formData.symptoms.trim(),
+        treatment: formData.treatment.trim(),
+        notes: formData.notes.trim(),
+        recordDate: formData.recordDate,
+      };
 
       const response = await fetch(
         url,
@@ -667,6 +662,18 @@ function MedicalRecords() {
 
                 </select>
 
+              </div>
+
+              <div className="record-form-group"> 
+                <label>Record Date</label> 
+              
+                <input 
+                  type="date" 
+                  name="recordDate" 
+                  value={formData.recordDate} 
+                  onChange={handleChange} 
+                  required 
+                /> 
               </div>
 
               {/* DIAGNOSIS */}
