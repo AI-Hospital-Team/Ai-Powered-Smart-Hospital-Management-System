@@ -1156,7 +1156,7 @@ const closePatientDetails = () => {
 
         <div className="dashboard-card">
           <div className="card-icon">
-            📅
+            
           </div>
 
           <div>
@@ -1174,7 +1174,7 @@ const closePatientDetails = () => {
 
         <div className="dashboard-card">
           <div className="card-icon">
-            👥
+            
           </div>
 
           <div>
@@ -1190,7 +1190,7 @@ const closePatientDetails = () => {
 
         <div className="dashboard-card">
           <div className="card-icon">
-            📋
+            
           </div>
 
           <div>
@@ -1206,7 +1206,7 @@ const closePatientDetails = () => {
 
         <div className="dashboard-card">
           <div className="card-icon">
-            💊
+            
           </div>
 
           <div>
