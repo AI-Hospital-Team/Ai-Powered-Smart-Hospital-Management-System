@@ -23,6 +23,9 @@ function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [doctors, setDoctors] = useState([]);
+
+  
 
   const [cancellingId, setCancellingId] = useState(null);
 
@@ -45,79 +48,147 @@ function Appointments() {
 
       const user = JSON.parse(userData);
 
-      return user?.patientId || user?.id || null;
+      return user?.patientId || null;
     } catch (error) {
       console.error("Error reading user:", error);
       return null;
     }
   };
 
-  // =====================================================
-  // FETCH PATIENT APPOINTMENTS
-  // =====================================================
+// =====================================================
+// FETCH PATIENT APPOINTMENTS + DOCTORS
+// =====================================================
 
-  const fetchAppointments = async () => {
-    try {
-      setLoading(true);
-      setError("");
+const fetchAppointments = async () => {
+  try {
+    setLoading(true);
+    setError("");
 
-      const patientId = getPatientId();
+    const patientId = getPatientId();
 
-      if (!patientId) {
-        setError(
-          "Patient information not found. Please login again."
-        );
-
-        setAppointments([]);
-        return;
-      }
-
-      console.log(
-        "Fetching appointments for patient:",
-        patientId
-      );
-
-      const response = await fetch(
-        `http://localhost:8080/api/appointments/patient/${patientId}`
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch appointments: ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-
-      console.log("Patient appointments:", data);
-
-      setAppointments(
-        Array.isArray(data) ? data : []
-      );
-    } catch (error) {
-      console.error(
-        "Error fetching appointments:",
-        error
-      );
-
+    if (!patientId) {
       setError(
-        "Unable to load appointments. Please try again."
+        "Patient information not found. Please login again."
       );
 
       setAppointments([]);
-    } finally {
-      setLoading(false);
+      setDoctors([]);
+      return;
     }
-  };
 
-  // =====================================================
-  // LOAD APPOINTMENTS
-  // =====================================================
+    console.log(
+      "Fetching appointments for patient:",
+      patientId
+    );
 
-  useEffect(() => {
-    fetchAppointments();
-  }, []);
+    const [
+      appointmentsResponse,
+      doctorsResponse,
+    ] = await Promise.all([
+      fetch(
+        `http://localhost:8080/api/appointments/patient/${patientId}`
+      ),
+      fetch(
+        "http://localhost:8080/api/doctors"
+      ),
+    ]);
 
+    if (!appointmentsResponse.ok) {
+      throw new Error(
+        `Failed to fetch appointments: ${appointmentsResponse.status}`
+      );
+    }
+
+    const appointmentsData =
+      await appointmentsResponse.json();
+
+    const doctorsData =
+      doctorsResponse.ok
+        ? await doctorsResponse.json()
+        : [];
+
+    console.log(
+      "Patient appointments:",
+      appointmentsData
+    );
+
+    console.log(
+      "Doctors:",
+      doctorsData
+    );
+
+    setAppointments(
+      Array.isArray(appointmentsData)
+        ? appointmentsData
+        : []
+    );
+
+    setDoctors(
+      Array.isArray(doctorsData)
+        ? doctorsData
+        : []
+    );
+
+  } catch (error) {
+    console.error(
+      "Error fetching appointments:",
+      error
+    );
+
+    setError(
+      "Unable to load appointments. Please try again."
+    );
+
+    setAppointments([]);
+    setDoctors([]);
+
+  } finally {
+    setLoading(false);
+  }
+};
+
+// =====================================================
+// LOAD APPOINTMENTS
+// =====================================================
+
+useEffect(() => {
+  fetchAppointments();
+}, []);
+
+// =====================================================
+// GET DOCTOR NAME
+// =====================================================
+
+const getDoctorName = (doctorId) => {
+  const doctor = doctors.find(
+    (item) =>
+      Number(item.doctorId) ===
+      Number(doctorId)
+  );
+
+  return (
+    doctor?.name ||
+    `Doctor #${doctorId || "N/A"}`
+  );
+};
+
+// =====================================================
+// GET DOCTOR SPECIALIZATION
+// =====================================================
+
+const getDoctorSpecialization = (doctorId) => {
+  const doctor = doctors.find(
+    (item) =>
+      Number(item.doctorId) ===
+      Number(doctorId)
+  );
+
+  return (
+    doctor?.specialization ||
+    "Medical Specialist"
+  );
+};
+ 
   // =====================================================
   // OPEN CANCEL CONFIRMATION
   // =====================================================
@@ -453,17 +524,16 @@ function Appointments() {
                   <div className="doctor-text">
 
                     <h2>
-                      {appointment.doctorName ||
-                        `Doctor #${
-                          appointment.doctorId ||
-                          "N/A"
-                        }`}
+                      {getDoctorName(
+                        appointment.doctorId
+                      )}
                     </h2>
 
-                    <p>
-                      {appointment.specialization ||
-                        "Medical Specialist"}
-                    </p>
+                     <p>
+                        {getDoctorSpecialization(
+                          appointment.doctorId
+                        )}
+                      </p>
 
                     <span className="doctor-id">
                       Doctor #
