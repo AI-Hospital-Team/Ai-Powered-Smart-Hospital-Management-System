@@ -16645,3 +16645,11 @@ body.dark .footer-separator {
   border-radius: 50% !important;
 }
 
+.department-card {
+  cursor: pointer;
+}
+
+.department-card:focus-visible {
+  outline: 2px solid #0795a4;
+  outline-offset: 3px;
+}
