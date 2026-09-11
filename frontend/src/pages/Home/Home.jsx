@@ -829,14 +829,21 @@ function Home() {
               </span>
 
               {/* Fold Typing Title - Guaranteed Single Line */}
-              <h2 className="fold-title-typing" style={{ 
-                margin: "0.4rem 0 0.8rem 0",
-                fontSize: "clamp(1.4rem, 3.2vw, 2.7rem)",
-                fontWeight: "800",
-                lineHeight: "1.2"
-              }}>
+              <h2
+                className="fold-title-typing"
+                style={{
+                  margin: "0.4rem 0 0.8rem 0",
+                  fontSize: "clamp(1.4rem, 3.2vw, 2.7rem)",
+                  fontWeight: "800",
+                  lineHeight: "1.2",
+                  whiteSpace: "nowrap",
+                }}
+              >
                 <span className="typing-prefix">Welcome to&nbsp;</span>
-                <span className="typing-text-span" style={{ color: "var(--brand-primary, #00a8cc)" }}>
+                <span
+                  className="typing-text-span"
+                  style={{ color: "var(--brand-primary, #00a8cc)" }}
+                >
                   {typedWord}
                 </span>
                 <span className="typing-cursor">|</span>
