@@ -950,13 +950,12 @@ function Home() {
                   <path d="M6 11.5v4.2c3.7 2.5 8.3 2.5 12 0v-4.2" />
                 </svg>
               </span>
-              <span>Created for educational and academic purposes</span>
+              <span> Created for educational and academic purposes</span>
             </div>
           </div>
+
         </div>
       </section>
-
-      
 
       {/* ================= Hero ================= */}
       <section className="hero-section" id="home">
