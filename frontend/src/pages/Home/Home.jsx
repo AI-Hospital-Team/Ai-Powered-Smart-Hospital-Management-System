@@ -1969,75 +1969,91 @@ const clearChat = () => {
 
         <div className="departments-grid">
 
-          <div className="department-card">
-            <div>❤️</div>
-            <h3>Cardiology</h3>
-            <p>
-              Diagnosis and treatment of heart-related conditions.
-            </p>
+         <div
+            className="department-card"
+            onClick={() =>
+              navigate("/departments/cardiology")
+            }
+            role="button"
+            tabIndex={0}
+          >
             <span>View Department →</span>
           </div>
 
-          <div className="department-card">
-            <div>🧠</div>
-            <h3>Neurology</h3>
-            <p>
-              Specialized treatment for neurological disorders.
-            </p>
+          <div
+              className="department-card"
+              onClick={() =>
+                navigate("/departments/neurology")
+              }
+              role="button"
+              tabIndex={0}
+            >
             <span>View Department →</span>
           </div>
 
-          <div className="department-card">
-            <div>🦴</div>
-            <h3>Orthopedics</h3>
-            <p>
-              Bone, joint and musculoskeletal healthcare.
-            </p>
+          <div
+            className="department-card"
+            onClick={() =>
+              navigate("/departments/orthopedics")
+            }
+            role="button"
+            tabIndex={0}
+          >
             <span>View Department →</span>
           </div>
 
-          <div className="department-card">
-            <div>👶</div>
-            <h3>Pediatrics</h3>
-            <p>
-              Healthcare services focused on children.
-            </p>
+         <div
+            className="department-card"
+            onClick={() =>
+              navigate("/departments/pediatrics")
+            }
+            role="button"
+            tabIndex={0}
+          >
             <span>View Department →</span>
           </div>
 
-          <div className="department-card">
-            <div>👩</div>
-            <h3>Gynecology</h3>
-            <p>
-              Comprehensive women's healthcare services.
-            </p>
+         <div
+            className="department-card"
+            onClick={() =>
+              navigate("/departments/gynecology")
+            }
+            role="button"
+            tabIndex={0}
+          >
             <span>View Department →</span>
           </div>
 
-          <div className="department-card">
-            <div>🫁</div>
-            <h3>Pulmonology</h3>
-            <p>
-              Diagnosis and management of respiratory conditions.
-            </p>
+            <div
+              className="department-card"
+              onClick={() =>
+                navigate("/departments/pulmonology")
+              }
+              role="button"
+              tabIndex={0}
+            >
             <span>View Department →</span>
           </div>
 
-          <div className="department-card">
-            <div>🧴</div>
-            <h3>Dermatology</h3>
-            <p>
-              Medical care for skin, hair and nail conditions.
-            </p>
+         <div
+            className="department-card"
+            onClick={() =>
+              navigate("/departments/dermatology")
+            }
+            role="button"
+            tabIndex={0}
+          >
             <span>View Department →</span>
           </div>
 
-          <div className="department-card">
-            <div>🩺</div>
-            <h3>General Medicine</h3>
-            <p>
-              Primary diagnosis and comprehensive medical care.
-            </p>
+          <div
+              className="department-card"
+              onClick={() =>
+                navigate("/departments/general-medicine")
+              }
+              role="button"
+              tabIndex={0}
+            >
             <span>View Department →</span>
           </div>
 
