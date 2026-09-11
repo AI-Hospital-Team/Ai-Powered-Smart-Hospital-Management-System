@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import DepartmentInfo from "./pages/Departments/DepartmentInfo";
 
 /* ==============================
    ADMIN PAGES
@@ -84,6 +85,15 @@ function App() {
         <Route
           path="/project"
           element={<Project />}
+        />
+
+        {/* =====================================================
+            MEDICAL DEPARTMENTS
+        ===================================================== */}
+
+        <Route
+          path="/departments/:department"
+          element={<DepartmentInfo />}
         />
 
         {/* =====================================================

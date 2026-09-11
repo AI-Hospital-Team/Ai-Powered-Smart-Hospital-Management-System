@@ -1476,59 +1476,76 @@ function Home() {
         </div>
 
         <div className="departments-grid">
+
           <div className="department-card">
             <div>❤️</div>
             <h3>Cardiology</h3>
-            <p>Diagnosis and treatment of heart-related conditions.</p>
+            <p>
+              Diagnosis and treatment of heart-related conditions.
+            </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
             <div>🧠</div>
             <h3>Neurology</h3>
-            <p>Specialized treatment for neurological disorders.</p>
+            <p>
+              Specialized treatment for neurological disorders.
+            </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
             <div>🦴</div>
             <h3>Orthopedics</h3>
-            <p>Bone, joint and musculoskeletal healthcare.</p>
+            <p>
+              Bone, joint and musculoskeletal healthcare.
+            </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
             <div>👶</div>
             <h3>Pediatrics</h3>
-            <p>Healthcare services focused on children.</p>
+            <p>
+              Healthcare services focused on children.
+            </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
             <div>👩</div>
             <h3>Gynecology</h3>
-            <p>Comprehensive women's healthcare services.</p>
+            <p>
+              Comprehensive women's healthcare services.
+            </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
             <div>🫁</div>
             <h3>Pulmonology</h3>
-            <p>Diagnosis and management of respiratory conditions.</p>
+            <p>
+              Diagnosis and management of respiratory conditions.
+            </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
             <div>🧴</div>
             <h3>Dermatology</h3>
-            <p>Medical care for skin, hair and nail conditions.</p>
+            <p>
+              Medical care for skin, hair and nail conditions.
+            </p>
             <span>View Department →</span>
           </div>
 
           <div className="department-card">
             <div>🩺</div>
             <h3>General Medicine</h3>
-            <p>Primary diagnosis and comprehensive medical care.</p>
+            <p>
+              Primary diagnosis and comprehensive medical care.
+            </p>
             <span>View Department →</span>
           </div>
         </div>
