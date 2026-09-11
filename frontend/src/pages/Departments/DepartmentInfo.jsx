@@ -1,20 +1,14 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  Activity,
   ArrowLeft,
   ArrowRight,
   CalendarDays,
   CheckCircle2,
   ChevronDown,
-  ClipboardList,
-  Clock3,
   ExternalLink,
   HeartPulse,
   Microscope,
-  Search,
-  ShieldCheck,
-  Sparkles,
   Stethoscope,
   TriangleAlert,
   Activity,
