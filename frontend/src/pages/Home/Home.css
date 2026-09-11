@@ -9136,64 +9136,6 @@ html.dark-mode .project-academic-note,
   }
 }
 
-/* =========================================================
-   GITHUB
-   ========================================================= */
-
-.home-page .compact-hero-card .hero-github-link {
-  min-height: 43px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 0 12px;
-
-  color: #587783;
-
-  background: #edf8fa;
-
-  border: 1px solid #d2e9ed;
-
-  border-radius: 12px;
-
-  text-decoration: none;
-
-  font-size: 9px;
-  font-weight: 750;
-
-  transition: 0.25s ease;
-}
-
-.home-page .compact-hero-card .hero-github-link:hover {
-  color: #007e94;
-
-  background: #e3f6f8;
-
-  border-color: #9fdce4;
-
-  transform: translateY(-2px);
-}
-
-.home-page .github-mark {
-  width: 27px;
-  height: 27px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: white;
-
-  background: #183944;
-
-  border-radius: 8px;
-}
-
-.home-page .compact-hero-card .hero-github-link > svg {
-  margin-left: auto;
-}
 
 /* =====================================================
    MAIN NAVIGATION
@@ -9390,20 +9332,8 @@ html.dark-mode .project-academic-note,
   margin-bottom: 38px;
 }
 
-/* Prevent the boxes from becoming unnecessarily tall */
-.project-intro-top .project-team,
-.project-intro-top .github-project-link,
-.project-intro-top > * {
-  min-width: 0;
-  height: 50px;
-  box-sizing: border-box;
-}
 
-/* Educational project badge */
-.project-intro-top > :first-child {
-  display: flex;
-  align-items: center;
-}
+
 
 /* Project team */
 .project-intro-top .project-team {
@@ -9413,13 +9343,6 @@ html.dark-mode .project-academic-note,
   padding: 10px 18px;
 }
 
-/* GitHub */
-.project-intro-top .github-project-link {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 10px 18px;
-}
 
 /* =========================================================
    MAIN INTRO
@@ -9596,13 +9519,7 @@ html.dark-mode .project-academic-note,
     margin-bottom: 28px;
   }
 
-  .project-intro-top .project-team,
-  .project-intro-top .github-project-link,
-  .project-intro-top > * {
-    width: 100%;
-    height: 48px;
-  }
-
+  
   .project-intro-main {
     display: flex;
     flex-direction: column;
@@ -9723,40 +9640,6 @@ html.dark-mode .project-academic-note,
   box-sizing: border-box;
 }
 
-/* ACTUAL GitHub class */
-
-.project-intro-top .hero-github-link {
-  width: 100%;
-  min-width: 0;
-
-  display: flex;
-  align-items: center;
-
-  margin-top: 0;
-  padding: 10px 13px;
-
-  box-sizing: border-box;
-}
-
-/* Keep GitHub text from forcing overflow */
-
-.project-intro-top .hero-github-link > span {
-  min-width: 0;
-}
-
-.project-intro-top .hero-github-link > span:nth-child(2) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Arrow stays at right */
-
-.project-intro-top .hero-github-link > svg,
-.project-intro-top .hero-github-link > strong {
-  margin-left: auto;
-  flex-shrink: 0;
-}
 
 /* =========================================================
    MAIN INTRO
@@ -9834,10 +9717,6 @@ html.dark-mode .project-academic-note,
     width: fit-content;
   }
 
-  .project-intro-top .hero-github-link {
-    width: 100%;
-  }
-
   .project-intro-main {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -9877,10 +9756,7 @@ html.dark-mode .project-academic-note,
 
   .project-intro-top .project-intro-badge,
   .project-intro-top .project-team,
-  .project-intro-top .hero-github-link {
-    width: 100%;
-    max-width: 100%;
-  }
+ 
 
   .project-intro-main {
     display: flex;
@@ -14525,4 +14401,317 @@ html.dark-mode .project-academic-note,
 .project-intro-description {
   margin-top: 0 !important;
   padding-top: 0 !important;
+}
+
+/* =====================================================
+   GITHUB PROJECT LINK — PREMIUM STYLE
+===================================================== */
+
+.hero-github-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+
+  width: fit-content !important;
+
+  color: #073d57 !important;
+
+  text-decoration: none !important;
+
+  font-size: 16px !important;
+  font-weight: 700 !important;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease !important;
+}
+
+
+/* GitHub icon box */
+
+.github-mark {
+  width: 40px !important;
+  height: 40px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  flex-shrink: 0 !important;
+
+  border-radius: 12px !important;
+
+  background: #073d57 !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 7px 18px rgba(7, 61, 87, 0.18) !important;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease !important;
+}
+
+
+/* Link text */
+
+.hero-github-link > span:not(.github-mark) {
+  color: #073d57 !important;
+
+  text-decoration: none !important;
+}
+
+
+/* Arrow */
+
+.hero-github-link > svg {
+  color: #079db5 !important;
+
+  transition:
+    transform 0.3s ease !important;
+}
+
+
+/* Hover */
+
+.hero-github-link:hover {
+  color: #079db5 !important;
+
+  transform: translateY(-2px);
+
+  text-decoration: none !important;
+}
+
+
+.hero-github-link:hover .github-mark {
+  transform: translateY(-2px) scale(1.06);
+
+  background:
+    linear-gradient(
+      135deg,
+      #073d57,
+      #079db5
+    ) !important;
+
+  box-shadow:
+    0 10px 24px
+    rgba(7, 157, 181, 0.25) !important;
+}
+
+
+.hero-github-link:hover > span:not(.github-mark) {
+  color: #079db5 !important;
+}
+
+
+.hero-github-link:hover > svg {
+  transform: translateX(5px);
+
+  color: #079db5 !important;
+}
+
+/* =====================================================
+   PROJECT TOP ROW — EQUAL WIDTH + HEIGHT + SPACING
+===================================================== */
+
+.project-intro-top {
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns: repeat(3, 1fr) !important;
+
+  align-items: center !important;
+
+  column-gap: 32px !important;
+}
+
+
+/* =====================================================
+   FIRST TWO — IDENTICAL BOXES
+===================================================== */
+
+.hero-project-badge,
+.hero-team-card {
+  width: 100% !important;
+  height: 76px !important;
+  min-height: 76px !important;
+  max-height: 76px !important;
+
+  box-sizing: border-box !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 0 24px !important;
+
+  border-radius: 18px !important;
+
+  border: 1px solid
+    rgba(8, 164, 187, 0.20) !important;
+
+  background:
+    rgba(255, 255, 255, 0.78) !important;
+
+  box-shadow:
+    0 8px 25px
+    rgba(8, 110, 130, 0.08) !important;
+
+  backdrop-filter: blur(15px);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease,
+    border-color .3s ease !important;
+}
+
+
+/* =====================================================
+   EDUCATIONAL / PROJECT TEXT
+===================================================== */
+
+.hero-project-badge {
+  white-space: nowrap !important;
+}
+
+
+/* =====================================================
+   GITHUB — SAME COLUMN, NO BOX
+===================================================== */
+
+.hero-github-link {
+  width: 100% !important;
+
+  height: 76px !important;
+
+  min-height: 76px !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+
+  justify-content: center !important;
+
+  gap: 12px !important;
+
+  padding: 0 !important;
+
+  border: none !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  border-radius: 0 !important;
+
+  text-decoration: none !important;
+
+  white-space: nowrap !important;
+}
+
+
+/* GitHub icon */
+
+.hero-github-link .github-mark {
+  width: 44px !important;
+  height: 44px !important;
+
+  min-width: 44px !important;
+  min-height: 44px !important;
+
+  border-radius: 13px !important;
+}
+
+
+/* =====================================================
+   HOVER — ONLY BOXES
+===================================================== */
+
+.hero-project-badge:hover,
+.hero-team-card:hover {
+  transform: translateY(-3px) !important;
+
+  border-color:
+    rgba(8, 164, 187, 0.38) !important;
+
+  box-shadow:
+    0 14px 32px
+    rgba(8, 110, 130, 0.14) !important;
+}
+
+
+/* GitHub has no box hover */
+
+.hero-github-link:hover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 950px) {
+
+  .project-intro-top {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+  }
+
+  .hero-github-link {
+    grid-column: 1 / -1;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .project-intro-top {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .hero-github-link {
+    grid-column: auto;
+  }
+}
+
+/* =====================================================
+   PROJECT TOP ROW — REDUCE TOP SPACE
+===================================================== */
+
+.project-intro-top {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+
+  transform: translateY(-18px);
+}
+
+
+/* Keep boxes 76px but compact */
+.hero-project-badge,
+.hero-team-card {
+  height: 70px !important;
+  min-height: 70px !important;
+  max-height: 70px !important;
+}
+
+
+/* GitHub align with the boxes */
+.hero-github-link {
+  height: 70px !important;
+  min-height: 70px !important;
+}
+
+
+/* Don't let the next section get pushed down */
+.project-intro-heading {
+  margin-top: -10px !important;
 }
