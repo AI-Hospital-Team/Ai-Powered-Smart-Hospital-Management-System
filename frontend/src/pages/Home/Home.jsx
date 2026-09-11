@@ -950,27 +950,12 @@ function Home() {
                   <path d="M6 11.5v4.2c3.7 2.5 8.3 2.5 12 0v-4.2" />
                 </svg>
               </span>
-              <span>Created for educational and academic purposes</span>
+              <span> Created for educational and academic purposes</span>
             </div>
           </div>
+
         </div>
       </section>
-
-      {/* =====================================================
-          ANNOUNCEMENT
-      ===================================================== */}
-      <div className="announcement">
-        <span className="announcement-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
-            <path d="M10 21h4" />
-          </svg>
-        </span>
-        <span>
-          <strong>Smart Healthcare:</strong> Book appointments,
-          manage medical records and connect with doctors digitally.
-        </span>
-      </div>
 
       {/* ================= Hero ================= */}
       <section className="hero-section" id="home">
