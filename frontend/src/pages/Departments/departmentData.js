@@ -2,70 +2,83 @@ const departmentData = {
   cardiology: {
     name: "Cardiology",
     shortName: "Heart & Cardiovascular Care",
-    icon: "❤️",
-
     description:
-      "Cardiology focuses on the prevention, diagnosis and treatment of conditions affecting the heart and blood vessels.",
-
+      "Cardiology focuses on the prevention, diagnosis and treatment of diseases affecting the heart and blood vessels.",
     image:
       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "Cardiologists evaluate heart health, cardiovascular risk factors and symptoms that may indicate heart or blood-vessel problems. Care may include preventive guidance, diagnostic testing, medicines and procedures depending on the condition.",
+      "Cardiology provides specialized care for conditions involving the heart and circulatory system. Cardiologists evaluate symptoms, assess cardiovascular risk and use diagnostic tests to understand heart function.",
+
+    icon: "❤️",
 
     conditions: [
-      "High blood pressure",
       "Coronary artery disease",
-      "Heart rhythm disorders",
+      "High blood pressure",
       "Heart failure",
-      "Heart valve disorders",
-      "Heart attack and related cardiovascular conditions",
+      "Heart rhythm disorders",
+      "Heart valve diseases",
+      "High cholesterol",
     ],
 
     tests: [
-      "Electrocardiogram (ECG/EKG)",
+      "Electrocardiogram (ECG)",
       "Echocardiogram",
+      "Blood pressure monitoring",
       "Holter monitoring",
       "Stress testing",
-      "Blood tests",
-      "Cardiac imaging when required",
+      "Cardiac imaging",
     ],
 
     treatments: [
-      "Lifestyle and risk-factor management",
       "Medicines",
+      "Lifestyle modification",
+      "Blood pressure management",
+      "Cholesterol management",
       "Cardiac rehabilitation",
-      "Interventional procedures when required",
-      "Surgical referral when necessary",
+      "Specialist procedures when required",
     ],
 
     whenToVisit: [
-      "Persistent or unexplained chest discomfort",
+      "Chest pain or pressure",
       "Shortness of breath",
-      "Repeated palpitations",
-      "Dizziness or fainting",
-      "Swelling of the legs",
-      "Known heart or blood-vessel disease requiring follow-up",
+      "Irregular or racing heartbeat",
+      "Unexplained dizziness",
+      "Swelling in the legs",
+      "Persistent high blood pressure",
+    ],
+
+    medicalResources: [
+      {
+        title: "Heart Disease",
+        description:
+          "Learn about heart disease, risk factors, symptoms, diagnosis and treatment.",
+        url: "https://medlineplus.gov/heartdiseases.html",
+      },
+      {
+        title: "Heart Health",
+        description:
+          "Information about keeping your heart healthy and reducing cardiovascular risk.",
+        url: "https://www.nhlbi.nih.gov/health/heart-health",
+      },
     ],
 
     resourceTitle: "Heart Disease — MedlinePlus",
-    resourceUrl:
-      "https://medlineplus.gov/heartdiseases.html",
+    resourceUrl: "https://medlineplus.gov/heartdiseases.html",
   },
 
   neurology: {
     name: "Neurology",
     shortName: "Brain, Nerve & Nervous System Care",
-    icon: "🧠",
-
     description:
       "Neurology deals with disorders affecting the brain, spinal cord, nerves and related nervous-system functions.",
-
     image:
-      "https://atlasuniversityhospital.com/content/uploads/2026/05/neurology.png",
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "Neurologists assess problems involving movement, sensation, memory, balance, coordination, speech and other nervous-system functions. Diagnosis may involve neurological examination and specialized tests or imaging.",
+      "Neurologists assess problems involving movement, sensation, memory, balance, coordination, speech and other nervous-system functions. Diagnosis may involve neurological examination, laboratory tests and specialized imaging.",
+
+    icon: "🧠",
 
     conditions: [
       "Migraine and headache disorders",
@@ -82,7 +95,7 @@ const departmentData = {
       "EEG",
       "Nerve conduction studies",
       "Electromyography",
-      "Blood and laboratory tests when required",
+      "Blood and laboratory tests",
     ],
 
     treatments: [
@@ -91,7 +104,7 @@ const departmentData = {
       "Physical therapy",
       "Occupational therapy",
       "Speech therapy",
-      "Specialist or surgical referral when required",
+      "Specialist referral when required",
     ],
 
     whenToVisit: [
@@ -103,341 +116,449 @@ const departmentData = {
       "Tremors or movement problems",
     ],
 
+    medicalResources: [
+      {
+        title: "Neurologic Diseases",
+        description:
+          "Information about disorders affecting the brain, spinal cord and nerves.",
+        url: "https://medlineplus.gov/neurologicdiseases.html",
+      },
+      {
+        title: "Migraine",
+        description:
+          "Learn about migraine symptoms, causes, diagnosis and treatment.",
+        url: "https://medlineplus.gov/migraine.html",
+      },
+      {
+        title: "Epilepsy",
+        description:
+          "Learn about epilepsy, seizures, diagnosis and treatment options.",
+        url: "https://medlineplus.gov/epilepsy.html",
+      },
+      {
+        title: "Multiple Sclerosis",
+        description:
+          "Information about MS, symptoms, diagnosis and treatment.",
+        url: "https://medlineplus.gov/multiplesclerosis.html",
+      },
+      {
+        title: "Brain & Nerves",
+        description:
+          "Explore information about brain, nerve and spinal-cord conditions.",
+        url: "https://medlineplus.gov/brainandnerves.html",
+      },
+    ],
+
     resourceTitle: "Neurologic Diseases — MedlinePlus",
-    resourceUrl:
-      "https://medlineplus.gov/neurologicdiseases.html",
+    resourceUrl: "https://medlineplus.gov/neurologicdiseases.html",
   },
 
   orthopedics: {
     name: "Orthopedics",
     shortName: "Bone, Joint & Musculoskeletal Care",
-    icon: "🦴",
-
     description:
-      "Orthopedics focuses on conditions and injuries involving bones, joints, muscles, ligaments, tendons and related structures.",
-
+      "Orthopedics focuses on the diagnosis and treatment of problems involving bones, joints, muscles, ligaments and movement.",
     image:
-      "https://www.slhn.org/-/media/slhn/News/2023/David-Ramski-MD.ashx",
+      "https://images.unsplash.com/photo-1588776814546-daab30f310ce?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "Orthopedic care covers both injuries and longer-term musculoskeletal problems. Evaluation may include physical examination, imaging and functional assessment before selecting an appropriate treatment plan.",
+      "Orthopedic care helps patients manage injuries and conditions affecting the musculoskeletal system, including bones, joints, muscles, tendons and ligaments.",
+
+    icon: "🦴",
 
     conditions: [
-      "Fractures",
       "Arthritis",
-      "Sprains and strains",
+      "Bone fractures",
+      "Joint injuries",
       "Back and neck problems",
       "Sports injuries",
-      "Joint and tendon disorders",
+      "Osteoporosis",
     ],
 
     tests: [
-      "Physical examination",
       "X-ray",
       "MRI",
       "CT scan",
-      "Ultrasound when appropriate",
-      "Functional and movement assessment",
+      "Bone density testing",
+      "Physical examination",
+      "Joint and movement assessment",
     ],
 
     treatments: [
-      "Rest and activity modification",
       "Medicines",
-      "Physical therapy",
-      "Supportive devices",
+      "Physiotherapy",
+      "Exercise programs",
+      "Bracing and support",
       "Injections when appropriate",
-      "Surgical treatment when necessary",
+      "Surgery when required",
     ],
 
     whenToVisit: [
-      "Persistent bone or joint pain",
-      "Difficulty moving a joint",
-      "Swelling after an injury",
-      "Suspected fracture",
-      "Repeated sports injuries",
-      "Pain that interferes with daily activities",
+      "Persistent joint pain",
+      "Difficulty walking or moving",
+      "Bone or joint injury",
+      "Swelling around a joint",
+      "Persistent back pain",
+      "Reduced range of movement",
     ],
 
-    resourceTitle:
-      "Bones, Joints and Muscles — MedlinePlus",
-    resourceUrl:
-      "https://medlineplus.gov/bonesjointsandmuscles.html",
+    medicalResources: [
+      {
+        title: "Bone Diseases",
+        description:
+          "Learn about common diseases and conditions affecting bones.",
+        url: "https://medlineplus.gov/bonediseases.html",
+      },
+      {
+        title: "Arthritis",
+        description:
+          "Information about arthritis symptoms, diagnosis and treatment.",
+        url: "https://medlineplus.gov/arthritis.html",
+      },
+    ],
+
+    resourceTitle: "Bone Diseases — MedlinePlus",
+    resourceUrl: "https://medlineplus.gov/bonediseases.html",
   },
 
   pediatrics: {
     name: "Pediatrics",
-    shortName: "Healthcare for Infants, Children & Adolescents",
-    icon: "👶",
-
+    shortName: "Child & Adolescent Healthcare",
     description:
-      "Pediatrics provides healthcare focused on the physical, mental and social well-being of children and adolescents.",
-
+      "Pediatrics provides medical care for infants, children and adolescents, including preventive and developmental healthcare.",
     image:
-      "https://osf-p-001.sitecorecontenthub.cloud/api/public/content/03de82b516504b739fc24b8c8a9c7868?v=62cb99f7%3Ft%3Dw800",
+      "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "Pediatric care includes preventive checkups, growth and development monitoring, vaccination guidance, diagnosis of childhood illnesses and management of ongoing health conditions.",
+      "Pediatric care supports children's physical, developmental and emotional health from infancy through adolescence.",
+
+    icon: "👶",
 
     conditions: [
-      "Common childhood infections",
-      "Asthma and breathing problems",
+      "Childhood infections",
+      "Asthma",
       "Allergies",
       "Growth and development concerns",
       "Nutritional problems",
-      "Childhood chronic conditions",
+      "Childhood fever",
     ],
 
     tests: [
-      "Growth and development assessment",
       "Physical examination",
-      "Blood tests when required",
-      "Imaging when clinically necessary",
+      "Growth assessment",
+      "Blood tests",
+      "Urine tests",
+      "Immunization assessment",
       "Developmental screening",
-      "Vision and hearing screening",
     ],
 
     treatments: [
-      "Preventive healthcare",
+      "Medicines",
       "Vaccination",
-      "Medicines appropriate for children",
-      "Nutrition and lifestyle guidance",
+      "Nutrition guidance",
       "Developmental support",
-      "Referral to pediatric specialists when needed",
+      "Lifestyle guidance",
+      "Specialist referral when required",
     ],
 
     whenToVisit: [
       "Persistent fever",
       "Breathing difficulty",
-      "Dehydration or poor feeding",
-      "Unusual developmental concerns",
-      "Persistent pain or symptoms",
-      "Routine child health and vaccination visits",
+      "Poor feeding",
+      "Unusual weakness or sleepiness",
+      "Growth concerns",
+      "Developmental concerns",
     ],
 
-    resourceTitle: "Children's Health — MedlinePlus",
-    resourceUrl:
-      "https://medlineplus.gov/childrenshealth.html",
+    medicalResources: [
+      {
+        title: "Child Health",
+        description:
+          "Trusted information about children's health, development and common conditions.",
+        url: "https://medlineplus.gov/childrenshealth.html",
+      },
+      {
+        title: "Children's Health",
+        description:
+          "Health information for children and families from the NIH.",
+        url: "https://www.nichd.nih.gov/health",
+      },
+    ],
+
+    resourceTitle: "Child Health — MedlinePlus",
+    resourceUrl: "https://medlineplus.gov/childrenshealth.html",
   },
 
   gynecology: {
     name: "Gynecology",
-    shortName: "Women's Reproductive & Gynecologic Health",
-    icon: "♀",
-
+    shortName: "Women's Reproductive Healthcare",
     description:
-      "Gynecology focuses on women's reproductive health, including menstrual, hormonal and reproductive-system conditions.",
-
+      "Gynecology focuses on women's reproductive health, preventive care and conditions affecting the female reproductive system.",
     image:
       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "Gynecologic care may cover routine preventive care, menstrual concerns, reproductive health, contraception, menopause and conditions affecting the female reproductive system.",
+      "Gynecological care includes preventive examinations, reproductive health services and evaluation of conditions affecting the female reproductive system.",
+
+    icon: "🌸",
 
     conditions: [
-      "Menstrual problems",
-      "Polycystic ovary syndrome (PCOS)",
+      "Menstrual disorders",
+      "Polycystic ovary syndrome",
       "Endometriosis",
-      "Ovarian cysts",
-      "Uterine fibroids",
+      "Pelvic pain",
+      "Vaginal infections",
       "Menopause-related concerns",
     ],
 
     tests: [
-      "Medical and menstrual history",
-      "Physical examination",
-      "Pelvic examination when appropriate",
+      "Pelvic examination",
       "Ultrasound",
-      "Laboratory and hormonal tests",
-      "Recommended preventive screening",
+      "Pap test",
+      "Blood tests",
+      "Hormone testing",
+      "Pregnancy testing",
     ],
 
     treatments: [
-      "Lifestyle guidance",
       "Medicines",
-      "Hormonal treatments when appropriate",
-      "Contraceptive counseling",
-      "Procedures when required",
-      "Surgical treatment when necessary",
+      "Hormonal therapy",
+      "Lifestyle management",
+      "Preventive care",
+      "Counselling",
+      "Surgical treatment when required",
     ],
 
     whenToVisit: [
-      "Very heavy or unusual bleeding",
+      "Abnormal bleeding",
       "Persistent pelvic pain",
-      "Irregular or missed periods",
-      "Unusual vaginal symptoms",
-      "Concerns related to menopause",
-      "Reproductive or fertility concerns",
+      "Irregular periods",
+      "Unusual vaginal discharge",
+      "Pain during intercourse",
+      "Menopause-related symptoms",
     ],
 
-    resourceTitle: "Reproductive Health — Office on Women's Health",
-    resourceUrl:
-      "https://womenshealth.gov/topics/reproductive-health",
+    medicalResources: [
+      {
+        title: "Women's Health",
+        description:
+          "Trusted information covering women's health and reproductive conditions.",
+        url: "https://medlineplus.gov/womenshealth.html",
+      },
+      {
+        title: "Women's Health",
+        description:
+          "Health information and resources from the Office on Women's Health.",
+        url: "https://womenshealth.gov/",
+      },
+    ],
+
+    resourceTitle: "Women's Health — MedlinePlus",
+    resourceUrl: "https://medlineplus.gov/womenshealth.html",
   },
 
   pulmonology: {
     name: "Pulmonology",
     shortName: "Lung & Respiratory Care",
-    icon: "🫁",
-
     description:
-      "Pulmonology focuses on diseases and conditions affecting the lungs and respiratory system.",
-
+      "Pulmonology specializes in diseases and conditions affecting the lungs and respiratory system.",
     image:
       "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "Pulmonary care helps evaluate breathing problems and diseases affecting the airways, lung tissue and respiratory function.",
+      "Pulmonary care evaluates breathing problems and diseases affecting the lungs, airways and respiratory system.",
+
+    icon: "🫁",
 
     conditions: [
       "Asthma",
-      "Chronic obstructive pulmonary disease (COPD)",
+      "Chronic obstructive pulmonary disease",
       "Pneumonia",
-      "Tuberculosis",
-      "Pulmonary fibrosis",
-      "Other chronic respiratory conditions",
+      "Sleep apnea",
+      "Chronic cough",
+      "Respiratory infections",
     ],
 
     tests: [
-      "Pulse oximetry",
-      "Spirometry",
-      "Pulmonary function tests",
       "Chest X-ray",
       "CT scan",
-      "Bronchoscopy when required",
+      "Pulmonary function tests",
+      "Spirometry",
+      "Oxygen level testing",
+      "Sleep studies",
     ],
 
     treatments: [
-      "Medicines and inhalers",
-      "Respiratory rehabilitation",
-      "Lifestyle and risk-factor management",
-      "Oxygen therapy when prescribed",
-      "Treatment of underlying infections or conditions",
-      "Specialist procedures when necessary",
+      "Inhaled medicines",
+      "Oral medicines",
+      "Oxygen therapy",
+      "Breathing exercises",
+      "Pulmonary rehabilitation",
+      "Specialist procedures when required",
     ],
 
     whenToVisit: [
-      "Persistent shortness of breath",
-      "Long-lasting cough",
+      "Persistent cough",
+      "Shortness of breath",
       "Wheezing",
-      "Repeated respiratory infections",
       "Chest tightness",
-      "Known lung disease requiring follow-up",
+      "Repeated respiratory infections",
+      "Sleep-related breathing problems",
+    ],
+
+    medicalResources: [
+      {
+        title: "Lung Diseases",
+        description:
+          "Learn about lung diseases, symptoms, diagnosis and treatment.",
+        url: "https://medlineplus.gov/lungdiseases.html",
+      },
+      {
+        title: "Asthma",
+        description:
+          "Information about asthma symptoms, causes and management.",
+        url: "https://medlineplus.gov/asthma.html",
+      },
     ],
 
     resourceTitle: "Lung Diseases — MedlinePlus",
-    resourceUrl:
-      "https://medlineplus.gov/lungdiseases.html",
+    resourceUrl: "https://medlineplus.gov/lungdiseases.html",
   },
 
   dermatology: {
     name: "Dermatology",
     shortName: "Skin, Hair & Nail Care",
-    icon: "🧴",
-
     description:
-      "Dermatology focuses on conditions affecting the skin, hair and nails.",
-
+      "Dermatology focuses on conditions affecting the skin, hair and nails and provides medical and preventive skin care.",
     image:
       "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "Dermatologists evaluate changes affecting the skin, hair and nails. Care can include diagnosis, prevention, medicines, procedures and long-term management.",
+      "Dermatologists diagnose and manage a wide range of skin, hair and nail conditions and can also provide guidance for long-term skin health.",
+
+    icon: "🧴",
 
     conditions: [
       "Acne",
       "Eczema",
       "Psoriasis",
-      "Fungal infections",
-      "Hair-loss conditions",
-      "Skin infections and rashes",
+      "Skin infections",
+      "Hair loss",
+      "Allergic skin conditions",
     ],
 
     tests: [
-      "Clinical skin examination",
+      "Skin examination",
       "Dermatoscopy",
-      "Skin scraping",
-      "Allergy testing when appropriate",
-      "Skin biopsy when required",
-      "Laboratory tests when necessary",
+      "Skin biopsy",
+      "Allergy testing",
+      "Laboratory tests",
+      "Fungal testing",
     ],
 
     treatments: [
       "Topical medicines",
       "Oral medicines",
-      "Skin-care guidance",
-      "Procedures",
-      "Treatment of infections",
-      "Long-term condition management",
+      "Skin care plans",
+      "Light therapy",
+      "Minor procedures",
+      "Specialist treatment when required",
     ],
 
     whenToVisit: [
-      "A new or changing skin lesion",
-      "Persistent rash or itching",
-      "Sudden or significant hair loss",
-      "Persistent acne",
-      "Painful or infected skin lesions",
-      "Changes in nails that do not resolve",
+      "Persistent rash",
+      "New or changing skin growth",
+      "Severe acne",
+      "Unexplained hair loss",
+      "Persistent itching",
+      "Skin infection symptoms",
     ],
 
-    resourceTitle: "Skin, Hair and Nails — MedlinePlus",
-    resourceUrl:
-      "https://medlineplus.gov/skinhairandnails.html",
+    medicalResources: [
+      {
+        title: "Skin Conditions",
+        description:
+          "Learn about common skin diseases, symptoms and treatment options.",
+        url: "https://medlineplus.gov/skinconditions.html",
+      },
+      {
+        title: "Acne",
+        description:
+          "Information about acne causes, symptoms and treatment.",
+        url: "https://medlineplus.gov/acne.html",
+      },
+    ],
+
+    resourceTitle: "Skin Conditions — MedlinePlus",
+    resourceUrl: "https://medlineplus.gov/skinconditions.html",
   },
 
   "general-medicine": {
     name: "General Medicine",
-    shortName: "Primary & Comprehensive Adult Care",
-    icon: "🩺",
-
+    shortName: "Comprehensive Adult Medical Care",
     description:
-      "General medicine provides broad medical evaluation, prevention and management of common adult health problems.",
-
+      "General medicine provides comprehensive healthcare for common illnesses, chronic conditions and overall adult health.",
     image:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
 
     overview:
-      "General medicine can be the first point of medical care for many non-emergency health concerns. Doctors assess symptoms, manage common conditions and refer patients to specialists when necessary.",
+      "General medicine provides first-line evaluation and ongoing care for a broad range of adult health concerns. Physicians assess symptoms, manage chronic diseases and coordinate specialist care when needed.",
+
+    icon: "🩺",
 
     conditions: [
-      "Fever and infections",
       "Diabetes",
       "High blood pressure",
-      "High cholesterol",
-      "Digestive complaints",
-      "Common chronic health conditions",
+      "Common infections",
+      "Digestive problems",
+      "Thyroid disorders",
+      "Cholesterol problems",
     ],
 
     tests: [
-      "General physical examination",
-      "Blood pressure measurement",
+      "Physical examination",
       "Blood tests",
       "Urine tests",
-      "Health screening",
-      "Imaging or specialist tests when required",
+      "Blood pressure monitoring",
+      "Blood sugar testing",
+      "Health screening tests",
     ],
 
     treatments: [
-      "Preventive healthcare",
       "Medicines",
-      "Lifestyle guidance",
+      "Lifestyle changes",
+      "Nutrition guidance",
+      "Preventive healthcare",
       "Chronic disease management",
-      "Health monitoring",
-      "Referral to specialists when necessary",
+      "Specialist referral when required",
     ],
 
     whenToVisit: [
-      "New or persistent health symptoms",
-      "Routine health checkups",
-      "Ongoing chronic conditions",
-      "Medication reviews",
-      "Preventive health screening",
-      "Health concerns that need initial evaluation",
+      "Persistent unexplained symptoms",
+      "Fever or infection symptoms",
+      "Changes in blood pressure",
+      "Changes in blood sugar",
+      "Digestive problems",
+      "Regular health checkups",
     ],
 
-    resourceTitle:
-      "Choosing a Primary Care Provider — MedlinePlus",
-    resourceUrl:
-      "https://medlineplus.gov/ency/article/001939.htm",
+    medicalResources: [
+      {
+        title: "MedlinePlus Health Topics",
+        description:
+          "Explore trusted information about diseases, conditions, medicines and general health.",
+        url: "https://medlineplus.gov/healthtopics.html",
+      },
+      {
+        title: "Health Information",
+        description:
+          "Reliable health information from the National Institutes of Health.",
+        url: "https://www.nih.gov/health-information",
+      },
+    ],
+
+    resourceTitle: "Health Topics — MedlinePlus",
+    resourceUrl: "https://medlineplus.gov/healthtopics.html",
   },
 };
 
