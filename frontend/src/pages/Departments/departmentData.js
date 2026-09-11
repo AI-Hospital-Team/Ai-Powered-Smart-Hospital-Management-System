@@ -76,6 +76,9 @@ const departmentData = {
       "Peripheral nerve disorders",
     ],
 
+
+    
+
     tests: [
       "Neurological examination",
       "MRI or CT imaging",

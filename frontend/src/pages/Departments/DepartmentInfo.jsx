@@ -4,7 +4,6 @@ import {
   ArrowRight,
   CalendarDays,
   CheckCircle2,
-  ClipboardList,
   ExternalLink,
   HeartPulse,
   Microscope,
@@ -24,21 +23,18 @@ function DepartmentInfo() {
   if (!data) {
     return (
       <div className="department-not-found">
-        <div>
-          <HeartPulse size={42} />
-          <h1>Department Not Found</h1>
-          <p>
-            The requested medical department could not be found.
-          </p>
+        <HeartPulse size={42} />
 
-          <button
-            type="button"
-            onClick={() => navigate("/#departments")}
-          >
-            <ArrowLeft size={16} />
-            Back to Departments
-          </button>
-        </div>
+        <h1>Department Not Found</h1>
+
+        <p>
+          The requested medical department could not be found.
+        </p>
+
+        <button onClick={() => navigate("/#departments")}>
+          <ArrowLeft size={16} />
+          Back to Departments
+        </button>
       </div>
     );
   }
@@ -46,14 +42,12 @@ function DepartmentInfo() {
   return (
     <div className="department-page">
 
-      {/* ================= HEADER ================= */}
+      {/* HEADER */}
 
-      <header className="department-topbar">
-        <Link
-          to="/"
-          className="department-brand"
-        >
-          <div className="department-brand-icon">
+      <header className="department-header">
+
+        <Link to="/" className="department-logo">
+          <div className="department-logo-icon">
             <HeartPulse size={20} />
           </div>
 
@@ -64,56 +58,54 @@ function DepartmentInfo() {
         </Link>
 
         <button
-          type="button"
-          className="department-back-button"
+          className="department-back"
           onClick={() => navigate("/#departments")}
         >
           <ArrowLeft size={16} />
           Departments
         </button>
+
       </header>
 
-      {/* ================= HERO ================= */}
+
+      {/* HERO */}
 
       <section className="department-hero">
 
         <div className="department-hero-content">
 
-          <span className="department-kicker">
-            MEDICAL DEPARTMENT
+          <div className="department-breadcrumb">
+            <Link to="/">Home</Link>
+            <span>/</span>
+            <span>Departments</span>
+            <span>/</span>
+            <strong>{data.name}</strong>
+          </div>
+
+          <span className="department-label">
+            SPECIALIZED MEDICAL CARE
           </span>
 
-          <h1>
-            {data.name}
-          </h1>
+          <h1>{data.name}</h1>
 
-          <h2>
-            {data.shortName}
-          </h2>
+          <h2>{data.shortName}</h2>
 
-          <p>
-            {data.description}
-          </p>
+          <p>{data.description}</p>
 
-          <div className="department-hero-actions">
+          <div className="department-actions">
 
             <button
-              type="button"
-              className="department-primary-button"
-              onClick={() =>
-                navigate("/#contact")
-              }
+              className="primary-btn"
+              onClick={() => navigate("/#contact")}
             >
               <CalendarDays size={17} />
               Book Appointment
+              <ArrowRight size={15} />
             </button>
 
             <button
-              type="button"
-              className="department-secondary-button"
-              onClick={() =>
-                navigate("/#doctors")
-              }
+              className="secondary-btn"
+              onClick={() => navigate("/#doctors")}
             >
               <Stethoscope size={17} />
               Find Doctors
@@ -123,6 +115,9 @@ function DepartmentInfo() {
 
         </div>
 
+
+        {/* ONLY MAIN IMAGE */}
+
         <div className="department-hero-image">
 
           <img
@@ -130,19 +125,12 @@ function DepartmentInfo() {
             alt={`${data.name} medical care`}
           />
 
-          <div className="department-image-badge">
-            <span className="department-big-icon">
-              {data.icon}
-            </span>
+          <div className="hero-image-overlay">
+            <span>{data.icon}</span>
 
             <div>
-              <strong>
-                {data.name}
-              </strong>
-
-              <span>
-                Specialized medical care
-              </span>
+              <small>MEDICAL DEPARTMENT</small>
+              <strong>{data.name}</strong>
             </div>
           </div>
 
@@ -150,162 +138,145 @@ function DepartmentInfo() {
 
       </section>
 
-      {/* ================= DISCLAIMER ================= */}
+
+      {/* DISCLAIMER */}
 
       <div className="department-disclaimer">
+
         <TriangleAlert size={16} />
 
         <span>
-          This page provides general educational
-          information and is not a substitute for
-          professional medical diagnosis or treatment.
+          This page provides general educational information
+          and does not replace professional medical diagnosis
+          or treatment.
         </span>
+
       </div>
 
-      {/* ================= OVERVIEW ================= */}
+
+      {/* CONTENT */}
 
       <main className="department-content">
 
-        <section className="department-overview-card">
 
-          <div className="department-section-heading">
+        {/* ABOUT */}
 
-            <span>
-              OVERVIEW
-            </span>
+        <section className="department-section about-section">
 
-            <h2>
-              About {data.name}
-            </h2>
-
+          <div className="section-heading">
+            <span>OVERVIEW</span>
+            <h2>About {data.name}</h2>
           </div>
 
-          <p>
-            {data.overview}
-          </p>
+          <p>{data.overview}</p>
 
         </section>
 
-        {/* ================= TWO COLUMN ================= */}
 
-        <section className="department-info-grid">
+        {/* CONDITIONS */}
 
-          {/* CONDITIONS */}
+        <section className="department-section">
 
-          <div className="department-info-card">
-
-            <div className="department-info-title">
-
-              <div className="department-info-icon condition-icon">
-                <ClipboardList size={20} />
-              </div>
-
-              <div>
-                <span>
-                  COMMON CONDITIONS
-                </span>
-
-                <h3>
-                  What We Treat
-                </h3>
-              </div>
-
-            </div>
-
-            <ul>
-              {data.conditions.map(
-                (condition) => (
-                  <li key={condition}>
-                    <CheckCircle2 size={15} />
-                    {condition}
-                  </li>
-                )
-              )}
-            </ul>
-
+          <div className="section-heading">
+            <span>COMMON CONDITIONS</span>
+            <h2>Conditions We Treat</h2>
           </div>
 
-          {/* TESTS */}
+          <div className="department-list-grid">
 
-          <div className="department-info-card">
+            {data.conditions.map((condition) => (
 
-            <div className="department-info-title">
+              <div
+                className="department-list-card"
+                key={condition}
+              >
+                <CheckCircle2 size={18} />
 
-              <div className="department-info-icon test-icon">
-                <Microscope size={20} />
+                <span>{condition}</span>
               </div>
 
-              <div>
-                <span>
-                  DIAGNOSIS
-                </span>
-
-                <h3>
-                  Common Tests
-                </h3>
-              </div>
-
-            </div>
-
-            <ul>
-              {data.tests.map(
-                (test) => (
-                  <li key={test}>
-                    <CheckCircle2 size={15} />
-                    {test}
-                  </li>
-                )
-              )}
-            </ul>
+            ))}
 
           </div>
 
         </section>
 
-        {/* ================= TREATMENTS ================= */}
 
-        <section className="department-treatment-section">
+        {/* TESTS */}
 
-          <div className="department-section-heading">
+        <section className="department-section">
 
-            <span>
-              CARE & TREATMENT
-            </span>
+          <div className="section-heading">
 
-            <h2>
-              Treatment & Care Options
-            </h2>
+            <span>DIAGNOSIS</span>
+
+            <h2>Common Tests & Assessments</h2>
 
           </div>
 
-          <div className="department-treatment-grid">
+          <div className="department-list-grid">
+
+            {data.tests.map((test) => (
+
+              <div
+                className="department-list-card test-card"
+                key={test}
+              >
+
+                <Microscope size={18} />
+
+                <span>{test}</span>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </section>
+
+
+        {/* TREATMENTS */}
+
+        <section className="department-section">
+
+          <div className="section-heading">
+
+            <span>CARE & TREATMENT</span>
+
+            <h2>Treatment & Care Options</h2>
+
+          </div>
+
+          <div className="treatment-grid">
 
             {data.treatments.map(
               (treatment, index) => (
+
                 <div
-                  className="department-treatment-card"
+                  className="treatment-card"
                   key={treatment}
                 >
+
                   <div className="treatment-number">
-                    {String(index + 1).padStart(
-                      2,
-                      "0"
-                    )}
+                    {String(index + 1).padStart(2, "0")}
                   </div>
 
                   <div>
-                    <h3>
-                      {treatment}
-                    </h3>
+
+                    <h3>{treatment}</h3>
 
                     <p>
-                      Care is selected according
+                      Treatment is selected according
                       to the patient's condition,
                       medical history and doctor's
                       assessment.
                     </p>
+
                   </div>
+
                 </div>
+
               )
             )}
 
@@ -313,115 +284,99 @@ function DepartmentInfo() {
 
         </section>
 
-        {/* ================= WHEN TO VISIT ================= */}
 
-        <section className="department-warning-card">
+        {/* WHEN TO VISIT */}
 
-          <div className="warning-heading">
+        <section className="visit-section">
 
-            <div className="warning-icon">
+          <div className="visit-heading">
+
+            <div className="visit-icon">
               <TriangleAlert size={21} />
             </div>
 
             <div>
-              <span>
-                WHEN TO SEEK CARE
-              </span>
+
+              <span>WHEN TO SEEK CARE</span>
 
               <h2>
                 When Should You Consult a Doctor?
               </h2>
+
             </div>
 
           </div>
 
-          <div className="warning-list">
 
-            {data.whenToVisit.map(
-              (item) => (
-                <div
-                  key={item}
-                  className="warning-item"
-                >
-                  <CheckCircle2 size={15} />
-                  {item}
-                </div>
-              )
-            )}
+          <div className="visit-list">
+
+            {data.whenToVisit.map((item) => (
+
+              <div
+                className="visit-item"
+                key={item}
+              >
+
+                <CheckCircle2 size={16} />
+
+                <span>{item}</span>
+
+              </div>
+
+            ))}
 
           </div>
 
         </section>
 
-        {/* ================= CTA ================= */}
+
+        {/* CTA */}
 
         <section className="department-cta">
 
           <div>
 
-            <span>
-              NEED MEDICAL CARE?
-            </span>
+            <span>NEED MEDICAL CARE?</span>
 
             <h2>
               Ready to schedule a consultation?
             </h2>
 
             <p>
-              Connect with our healthcare team
-              through the hospital appointment system.
+              Connect with the appropriate healthcare
+              service through our hospital system.
             </p>
 
           </div>
 
-          <div className="department-cta-actions">
 
-            <button
-              type="button"
-              onClick={() =>
-                navigate("/#contact")
-              }
-            >
-              Book Appointment
-              <ArrowRight size={16} />
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                navigate("/#doctors")
-              }
-            >
-              Find a Doctor
-              <Stethoscope size={16} />
-            </button>
-
-          </div>
+          <button
+            onClick={() => navigate("/#contact")}
+          >
+            Book Appointment
+            <ArrowRight size={16} />
+          </button>
 
         </section>
 
-        {/* ================= EXTERNAL RESOURCE ================= */}
+
+        {/* RESOURCE */}
 
         <section className="department-resource">
 
           <div className="resource-icon">
-            <ExternalLink size={19} />
+            <ExternalLink size={18} />
           </div>
 
           <div>
 
-            <span>
-              LEARN MORE
-            </span>
+            <span>TRUSTED RESOURCE</span>
 
-            <h3>
-              {data.resourceTitle}
-            </h3>
+            <h3>{data.resourceTitle}</h3>
 
             <p>
-              Explore additional educational
-              information from a trusted health
-              information source.
+              Learn more about this medical specialty
+              from a trusted health information source.
             </p>
 
           </div>
@@ -439,19 +394,12 @@ function DepartmentInfo() {
 
       </main>
 
-      {/* ================= FOOTER ================= */}
+
+      {/* FOOTER */}
 
       <footer className="department-footer">
 
-        <div>
-          <strong>
-            AI Smart Hospital
-          </strong>
-
-          <span>
-            Educational healthcare management project
-          </span>
-        </div>
+        <strong>AI Smart Hospital</strong>
 
         <Link to="/">
           Back to Home
