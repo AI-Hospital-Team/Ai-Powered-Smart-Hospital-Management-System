@@ -1,0 +1,1441 @@
+/* =========================================================
+   ADMIN DASHBOARD
+   Matches Patient + Doctor visual system
+========================================================= */
+
+.admin-dashboard-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  background: #f4f9fb;
+  color: #12344d;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.admin-welcome-card {
+  position: relative;
+  min-height: 265px;
+  padding: 34px 40px;
+  border-radius: 26px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+
+  background:
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(54, 220, 207, 0.28),
+      transparent 30%
+    ),
+    linear-gradient(
+      115deg,
+      #073f58 0%,
+      #087381 52%,
+      #099f9b 100%
+    );
+
+  box-shadow:
+    0 18px 45px rgba(12, 91, 111, 0.18);
+
+  color: white;
+  animation: adminHeroIn 0.65s ease both;
+}
+
+.admin-welcome-card::before,
+.admin-welcome-card::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.admin-welcome-card::before {
+  width: 330px;
+  height: 330px;
+  right: -90px;
+  top: -210px;
+}
+
+.admin-welcome-card::after {
+  width: 260px;
+  height: 260px;
+  right: 70px;
+  bottom: -200px;
+}
+
+.admin-welcome-content {
+  position: relative;
+  z-index: 2;
+}
+
+.admin-welcome-badge {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 13px;
+  margin-bottom: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.admin-welcome-content h1 {
+  margin: 0;
+  font-size: 38px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.admin-welcome-content h1 span {
+  color: #52e5df;
+}
+
+.admin-welcome-content > p {
+  margin: 13px 0 22px;
+  max-width: 650px;
+
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.admin-welcome-info {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.admin-welcome-info > div {
+  padding-right: 30px;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-welcome-info > div:last-child {
+  border-right: 0;
+}
+
+.admin-welcome-info small {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.admin-welcome-info strong {
+  font-size: 14px;
+}
+
+.admin-online {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #7af2b9;
+}
+
+.admin-welcome-actions {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.admin-add-doctor-button {
+  border: 0;
+  border-radius: 13px;
+  padding: 13px 19px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: white;
+  color: #087b8a;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.admin-add-doctor-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+}
+
+.admin-welcome-icon {
+  width: 112px;
+  height: 112px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background: rgba(255, 255, 255, 0.06);
+  color: #61e5dd;
+
+  animation: adminFloat 4s ease-in-out infinite;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.admin-dashboard-error {
+  margin-top: 18px;
+  padding: 14px 18px;
+
+  border: 1px solid #f2caca;
+  border-radius: 14px;
+
+  background: #fff5f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.admin-dashboard-error strong {
+  color: #a63232;
+  font-size: 14px;
+}
+
+.admin-dashboard-error p {
+  margin: 3px 0 0;
+  color: #7f6464;
+  font-size: 12px;
+}
+
+.admin-dashboard-error button {
+  border: 0;
+  border-radius: 9px;
+  padding: 8px 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: #a63232;
+  color: white;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.admin-stat-grid {
+  margin-top: 25px;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-stat-card {
+  min-height: 112px;
+  padding: 19px 20px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  background: white;
+  border: 1px solid #e2edf1;
+  border-left: 3px solid #10a5b4;
+  border-radius: 17px;
+
+  box-shadow: 0 7px 22px rgba(24, 74, 93, 0.06);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  animation: adminCardIn 0.55s ease both;
+}
+
+.admin-stat-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.admin-stat-card:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.admin-stat-card:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 32px rgba(24, 74, 93, 0.1);
+}
+
+.admin-stat-card.patients-stat {
+  border-left-color: #0da5b5;
+}
+
+.admin-stat-card.doctors-stat {
+  border-left-color: #4d83ff;
+}
+
+.admin-stat-card.appointments-stat {
+  border-left-color: #8d5cff;
+}
+
+.admin-stat-card.bills-stat {
+  border-left-color: #00ad79;
+}
+
+.admin-stat-icon {
+  width: 55px;
+  height: 55px;
+  flex: 0 0 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  color: #0ca5b5;
+  background: #e9f9fb;
+}
+
+.doctors-stat .admin-stat-icon {
+  color: #4d83ff;
+  background: #edf2ff;
+}
+
+.appointments-stat .admin-stat-icon {
+  color: #8d5cff;
+  background: #f1ebff;
+}
+
+.bills-stat .admin-stat-icon {
+  color: #00a979;
+  background: #e9faf4;
+}
+
+.admin-stat-card > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-stat-card span {
+  color: #647b91;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-stat-card strong {
+  margin-top: 3px;
+
+  color: #123b57;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.admin-stat-card small {
+  margin-top: 3px;
+  color: #91a4b7;
+  font-size: 10px;
+}
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.admin-dashboard-grid {
+  margin-top: 25px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 20px;
+}
+
+.admin-dashboard-card {
+  min-width: 0;
+  padding: 25px;
+
+  background: white;
+  border: 1px solid #e2edf1;
+  border-radius: 20px;
+
+  box-shadow: 0 7px 24px rgba(24, 74, 93, 0.055);
+
+  animation: adminCardIn 0.6s ease both;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.admin-dashboard-card:hover {
+  box-shadow: 0 14px 34px rgba(24, 74, 93, 0.09);
+}
+
+.admin-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 19px;
+}
+
+.admin-card-header h2 {
+  margin: 0;
+  color: #123b57;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.admin-card-header p {
+  margin: 5px 0 0;
+  color: #8a9caf;
+  font-size: 11px;
+}
+
+.admin-view-all {
+  flex-shrink: 0;
+
+  border: 0;
+  padding: 4px 0;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  background: transparent;
+  color: #079c9d;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+  transition: gap 0.2s ease;
+}
+
+.admin-view-all:hover {
+  gap: 9px;
+}
+
+/* =========================================================
+   APPOINTMENTS
+========================================================= */
+
+.admin-appointment-list,
+.admin-doctor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.admin-appointment-item {
+  min-width: 0;
+  padding: 11px;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  border: 1px solid #e8eff2;
+  border-radius: 13px;
+  background: #fbfdfe;
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+.admin-appointment-item:hover {
+  transform: translateX(4px);
+  border-color: #bce4e8;
+  background: #f6fcfd;
+}
+
+.admin-appointment-icon {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+  background: #e8f8fa;
+  color: #079eae;
+}
+
+.admin-appointment-main {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-appointment-main strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #173d59;
+  font-size: 12px;
+}
+
+.admin-appointment-main span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  color: #6e879b;
+  font-size: 10px;
+}
+
+.admin-appointment-main small {
+  color: #99a9b7;
+  font-size: 9px;
+}
+
+.admin-status {
+  flex-shrink: 0;
+
+  padding: 5px 9px;
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.admin-status.pending {
+  background: #fff4dd;
+  color: #b87800;
+}
+
+.admin-status.confirmed {
+  background: #e6f1ff;
+  color: #3c76d8;
+}
+
+.admin-status.completed {
+  background: #e6f8f0;
+  color: #16845f;
+}
+
+.admin-status.cancelled {
+  background: #fff0f0;
+  color: #d14b4b;
+}
+
+/* =========================================================
+   DOCTORS
+========================================================= */
+
+.admin-doctor-item {
+  padding: 11px;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  border: 1px solid #e8eff2;
+  border-radius: 13px;
+  background: #fbfdfe;
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.admin-doctor-item:hover {
+  transform: translateY(-2px);
+  border-color: #c8e6ea;
+  box-shadow: 0 7px 17px rgba(26, 91, 108, 0.06);
+}
+
+.admin-doctor-avatar {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #4d83ff;
+  background: #edf3ff;
+}
+
+.admin-doctor-main {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-doctor-main strong {
+  color: #173d59;
+  font-size: 12px;
+}
+
+.admin-doctor-main span {
+  color: #8b9cab;
+  font-size: 10px;
+}
+
+.admin-doctor-id {
+  padding: 5px 8px;
+  border-radius: 7px;
+
+  background: #f0f5f7;
+  color: #708697;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.admin-add-inline {
+  width: 100%;
+  margin-top: 13px;
+  padding: 10px;
+
+  border: 1px dashed #b8dfe3;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  background: #f7fcfd;
+  color: #078d98;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-add-inline:hover {
+  background: #edfafa;
+  border-color: #7dcbd1;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.admin-empty-small {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  color: #9aabb8;
+}
+
+.admin-empty-small svg {
+  color: #8fcbd0;
+}
+
+.admin-empty-small p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* =========================================================
+   OVERVIEW
+========================================================= */
+
+.admin-overview-card {
+  margin-top: 20px;
+  padding: 24px;
+
+  background: white;
+  border: 1px solid #e2edf1;
+  border-radius: 20px;
+
+  box-shadow: 0 7px 24px rgba(24, 74, 93, 0.055);
+
+  animation: adminCardIn 0.7s ease both;
+}
+
+.admin-overview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 17px;
+}
+
+.admin-overview-header h2 {
+  margin: 0;
+  color: #123b57;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.admin-overview-header p {
+  margin: 5px 0 0;
+  color: #8a9caf;
+  font-size: 11px;
+}
+
+.admin-refresh-button {
+  border: 1px solid #dcebef;
+  border-radius: 9px;
+  padding: 8px 11px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: white;
+  color: #507188;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-refresh-button:hover {
+  transform: translateY(-2px);
+  border-color: #9fd5db;
+}
+
+.admin-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.admin-overview-item {
+  border: 1px solid #e5eef1;
+  border-radius: 13px;
+  padding: 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #fbfdfe;
+  text-align: left;
+
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.admin-overview-item:hover {
+  transform: translateY(-3px);
+  border-color: #b9dde2;
+  box-shadow: 0 9px 20px rgba(26, 91, 108, 0.07);
+}
+
+.overview-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+}
+
+.patients-overview {
+  color: #079eae;
+  background: #e8f8fa;
+}
+
+.doctors-overview {
+  color: #4d83ff;
+  background: #edf3ff;
+}
+
+.records-overview {
+  color: #8d5cff;
+  background: #f1ebff;
+}
+
+.bills-overview {
+  color: #00a979;
+  background: #e9faf4;
+}
+
+.admin-overview-item > div:nth-child(2) {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-overview-item strong {
+  color: #173d59;
+  font-size: 15px;
+}
+
+.admin-overview-item span {
+  color: #8799a8;
+  font-size: 9px;
+}
+
+.admin-overview-item > svg {
+  color: #94a8b5;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(8, 35, 49, 0.58);
+  backdrop-filter: blur(7px);
+
+  animation: adminFadeIn 0.2s ease;
+}
+
+.admin-modal {
+  width: min(620px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+
+  border-radius: 22px;
+  background: white;
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
+
+  animation: adminModalIn 0.3s ease;
+}
+
+.admin-modal-header {
+  padding: 21px 23px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #e8eff2;
+}
+
+.admin-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-modal-icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background: #e8f8fa;
+  color: #079eae;
+}
+
+.admin-modal-title h2 {
+  margin: 0;
+  color: #123b57;
+  font-size: 19px;
+}
+
+.admin-modal-title p {
+  margin: 3px 0 0;
+  color: #8b9cab;
+  font-size: 10px;
+}
+
+.admin-modal-close {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: #f2f6f8;
+  color: #708697;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-modal-close:hover {
+  background: #e7eef1;
+  transform: rotate(90deg);
+}
+
+.admin-doctor-form {
+  padding: 23px;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.admin-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-form-field label {
+  color: #456278;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.admin-form-field input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #dce8ec;
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #fbfdfe;
+  color: #193f59;
+
+  font-size: 12px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-form-field input:focus {
+  border-color: #16a5b1;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(22, 165, 177, 0.09);
+}
+
+.admin-form-field input::placeholder {
+  color: #a7b5bf;
+}
+
+.admin-form-error,
+.admin-form-success {
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 9px;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.admin-form-error {
+  background: #fff2f2;
+  color: #b43e3e;
+  border: 1px solid #f0cccc;
+}
+
+.admin-form-success {
+  background: #ecfaf4;
+  color: #17835e;
+  border: 1px solid #c7ebdc;
+}
+
+.admin-form-actions {
+  margin-top: 20px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.admin-cancel-button,
+.admin-create-button {
+  min-height: 40px;
+  padding: 0 16px;
+
+  border-radius: 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-cancel-button {
+  border: 1px solid #dce7eb;
+  background: white;
+  color: #617b8d;
+}
+
+.admin-create-button {
+  border: 0;
+  background: linear-gradient(
+    135deg,
+    #087e99,
+    #0ba5a3
+  );
+  color: white;
+}
+
+.admin-cancel-button:hover,
+.admin-create-button:hover {
+  transform: translateY(-2px);
+}
+
+.admin-create-button:hover {
+  box-shadow: 0 8px 18px rgba(8, 126, 153, 0.2);
+}
+
+.admin-cancel-button:disabled,
+.admin-create-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.admin-button-spinner {
+  width: 13px;
+  height: 13px;
+
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+
+  animation: adminSpin 0.7s linear infinite;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.admin-dashboard-loading {
+  min-height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #6e8798;
+
+  animation: adminFadeIn 0.3s ease;
+}
+
+.admin-dashboard-loading p {
+  margin-top: 13px;
+  font-size: 12px;
+}
+
+.admin-dashboard-spinner {
+  width: 38px;
+  height: 38px;
+
+  border: 3px solid #dceef1;
+  border-top-color: #0b9ba7;
+
+  border-radius: 50%;
+
+  animation: adminSpin 0.8s linear infinite;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes adminHeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes adminCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes adminFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes adminModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes adminFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes adminSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+  .admin-dashboard-page {
+    padding: 24px;
+  }
+
+  .admin-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .admin-dashboard-page {
+    padding: 16px;
+  }
+
+  .admin-welcome-card {
+    min-height: auto;
+    padding: 25px;
+    align-items: flex-start;
+  }
+
+  .admin-welcome-content h1 {
+    font-size: 28px;
+  }
+
+  .admin-welcome-content > p {
+    font-size: 13px;
+  }
+
+  .admin-welcome-actions {
+    display: none;
+  }
+
+  .admin-welcome-info {
+    gap: 18px;
+  }
+
+  .admin-welcome-info > div {
+    padding-right: 18px;
+  }
+
+  .admin-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard-card,
+  .admin-overview-card {
+    padding: 18px;
+  }
+
+  .admin-card-header {
+    align-items: center;
+  }
+
+  .admin-card-header h2,
+  .admin-overview-header h2 {
+    font-size: 17px;
+  }
+
+  .admin-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .admin-cancel-button,
+  .admin-create-button {
+    width: 100%;
+  }
+
+  .admin-status {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-welcome-card {
+    border-radius: 19px;
+    padding: 21px;
+  }
+
+  .admin-welcome-content h1 {
+    font-size: 25px;
+  }
+
+  .admin-welcome-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .admin-welcome-info > div {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .admin-appointment-item {
+    align-items: flex-start;
+  }
+
+  .admin-status {
+    display: none;
+  }
+
+  .admin-doctor-id {
+    display: none;
+  }
+
+  .admin-modal-overlay {
+    padding: 10px;
+  }
+
+  .admin-modal-header,
+  .admin-doctor-form {
+    padding: 17px;
+  }
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dark-mode .admin-dashboard-page {
+  background: #0f1b24;
+  color: #e4f1f5;
+}
+
+.dark-mode .admin-stat-card,
+.dark-mode .admin-dashboard-card,
+.dark-mode .admin-overview-card,
+.dark-mode .admin-modal {
+  background: #14232d;
+  border-color: #263b46;
+}
+
+.dark-mode .admin-stat-card span,
+.dark-mode .admin-card-header p,
+.dark-mode .admin-overview-header p {
+  color: #91a9b7;
+}
+
+.dark-mode .admin-stat-card strong,
+.dark-mode .admin-card-header h2,
+.dark-mode .admin-overview-header h2,
+.dark-mode .admin-doctor-main strong,
+.dark-mode .admin-appointment-main strong,
+.dark-mode .admin-overview-item strong,
+.dark-mode .admin-modal-title h2 {
+  color: #e6f4f7;
+}
+
+.dark-mode .admin-appointment-item,
+.dark-mode .admin-doctor-item,
+.dark-mode .admin-overview-item {
+  background: #101e27;
+  border-color: #29414d;
+}
+
+.dark-mode .admin-appointment-item:hover,
+.dark-mode .admin-doctor-item:hover,
+.dark-mode .admin-overview-item:hover {
+  background: #142832;
+  border-color: #35616c;
+}
+
+.dark-mode .admin-doctor-main span,
+.dark-mode .admin-appointment-main span,
+.dark-mode .admin-appointment-main small,
+.dark-mode .admin-overview-item span {
+  color: #8199a7;
+}
+
+.dark-mode .admin-doctor-id {
+  background: #1d303a;
+  color: #9db2be;
+}
+
+.dark-mode .admin-add-inline {
+  background: #10242c;
+  border-color: #315c65;
+}
+
+.dark-mode .admin-refresh-button,
+.dark-mode .admin-cancel-button {
+  background: #14232d;
+  border-color: #304852;
+  color: #a9bdc7;
+}
+
+.dark-mode .admin-form-field label {
+  color: #a7bcc7;
+}
+
+.dark-mode .admin-form-field input {
+  background: #101e27;
+  border-color: #304852;
+  color: #e5f2f5;
+}
+
+.dark-mode .admin-form-field input:focus {
+  background: #14232d;
+}
+
+.dark-mode .admin-form-field input::placeholder {
+  color: #667f8d;
+}
+
+.dark-mode .admin-modal-header {
+  border-color: #2a404a;
+}
+
+.dark-mode .admin-modal-close {
+  background: #20333d;
+  color: #a6bbc5;
+}
+
+.dark-mode .admin-dashboard-error {
+  background: #281b1e;
+  border-color: #553235;
+}
+
+.dark-mode .admin-empty-small {
+  color: #718b99;
+}

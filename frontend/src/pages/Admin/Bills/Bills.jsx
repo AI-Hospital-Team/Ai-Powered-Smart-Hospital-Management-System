@@ -1,58 +1,328 @@
-import { useState } from "react";
-
-import AdminTable from "../AdminTable";
+import { useEffect, useMemo, useState } from "react";
+import {
+  ReceiptIndianRupee,
+  Search,
+  RefreshCw,
+  UserRound,
+  Stethoscope,
+  CalendarDays,
+  Pencil,
+  X,
+  CheckCircle2,
+  Clock3,
+  Ban,
+  Plus,
+  Save,
+} from "lucide-react";
 
 import {
   fetchBills,
-  updateBillStatus,
+  fetchPatients,
+  fetchDoctors,
   createBill,
   updateBill,
+  updateBillStatus,
 } from "../adminApi";
 
+import "./Bills.css";
+
+const emptyForm = {
+  patientId: "",
+  patientName: "",
+  doctorId: "",
+  billType: "",
+  amount: "",
+  description: "",
+  status: "Pending",
+  billDate: "",
+};
+
 function Bills() {
-  // ==========================================
-  // EMPTY FORM
-  // ==========================================
+  const [bills, setBills] = useState([]);
+  const [patients, setPatients] = useState([]);
+  const [doctors, setDoctors] = useState([]);
 
-  const emptyForm = {
-    patientId: "",
-    patientName: "",
-    doctorId: "",
-    billType: "",
-    amount: "",
-    description: "",
-    status: "Pending",
-    billDate: "",
-  };
-
-  // ==========================================
-  // CREATE STATE
-  // ==========================================
-
-  const [formData, setFormData] = useState(emptyForm);
-
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [updatingId, setUpdatingId] = useState(null);
 
-  const [formMessage, setFormMessage] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const [formError, setFormError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
 
-  // ==========================================
-  // EDIT STATE
-  // ==========================================
-
+  const [showCreate, setShowCreate] = useState(false);
   const [editingBill, setEditingBill] = useState(null);
 
-  const [editForm, setEditForm] = useState(emptyForm);
+  const [formData, setFormData] = useState({
+    ...emptyForm,
+  });
 
-  const [editing, setEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    ...emptyForm,
+  });
 
-  // ==========================================
-  // HANDLE CREATE INPUT
-  // ==========================================
+  /* =====================================================
+     LOAD DATA
+  ===================================================== */
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const [
+        billData,
+        patientData,
+        doctorData,
+      ] = await Promise.all([
+        fetchBills(),
+        fetchPatients(),
+        fetchDoctors(),
+      ]);
+
+      setBills(
+        Array.isArray(billData)
+          ? billData
+          : []
+      );
+
+      setPatients(
+        Array.isArray(patientData)
+          ? patientData
+          : []
+      );
+
+      setDoctors(
+        Array.isArray(doctorData)
+          ? doctorData
+          : []
+      );
+    } catch (err) {
+      console.error("Bills error:", err);
+
+      setError(
+        "Unable to load bills. Make sure the backend is running."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  /* =====================================================
+     HELPERS
+  ===================================================== */
+
+  const getPatientName = (patientId) => {
+    const patient = patients.find(
+      (item) =>
+        Number(item.patientId) ===
+        Number(patientId)
+    );
+
+    return (
+      patient?.name ||
+      `Patient #${patientId ?? "-"}`
+    );
+  };
+
+  const getDoctorName = (doctorId) => {
+    const doctor = doctors.find(
+      (item) =>
+        Number(item.doctorId) ===
+        Number(doctorId)
+    );
+
+    return (
+      doctor?.name ||
+      (doctorId
+        ? `Doctor #${doctorId}`
+        : "Hospital")
+    );
+  };
+
+  const getDoctorSpecialization = (
+    doctorId
+  ) => {
+    const doctor = doctors.find(
+      (item) =>
+        Number(item.doctorId) ===
+        Number(doctorId)
+    );
+
+    return (
+      doctor?.specialization || ""
+    );
+  };
+
+  const formatDate = (date) => {
+    if (!date) return "-";
+
+    try {
+      return new Date(
+        `${date}T00:00:00`
+      ).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    } catch {
+      return date;
+    }
+  };
+
+  const formatAmount = (amount) => {
+    const value = Number(amount);
+
+    if (Number.isNaN(value)) {
+      return "₹0.00";
+    }
+
+    return value.toLocaleString("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 2,
+    });
+  };
+
+  const getStatusClass = (status) => {
+    const value =
+      status?.toLowerCase();
+
+    if (value === "paid") {
+      return "bill-status-paid";
+    }
+
+    if (value === "cancelled") {
+      return "bill-status-cancelled";
+    }
+
+    return "bill-status-pending";
+  };
+
+  /* =====================================================
+     STATS
+  ===================================================== */
+
+  const stats = useMemo(() => {
+    const paid = bills.filter(
+      (bill) =>
+        bill.status?.toLowerCase() ===
+        "paid"
+    );
+
+    const pending = bills.filter(
+      (bill) =>
+        bill.status?.toLowerCase() ===
+        "pending"
+    );
+
+    const cancelled = bills.filter(
+      (bill) =>
+        bill.status?.toLowerCase() ===
+        "cancelled"
+    );
+
+    const totalAmount = bills.reduce(
+      (sum, bill) =>
+        sum + Number(bill.amount || 0),
+      0
+    );
+
+    const paidAmount = paid.reduce(
+      (sum, bill) =>
+        sum + Number(bill.amount || 0),
+      0
+    );
+
+    return {
+      total: bills.length,
+      paid: paid.length,
+      pending: pending.length,
+      cancelled: cancelled.length,
+      totalAmount,
+      paidAmount,
+    };
+  }, [bills]);
+
+  /* =====================================================
+     FILTER
+  ===================================================== */
+
+  const filteredBills = useMemo(() => {
+    const search =
+      searchTerm.trim().toLowerCase();
+
+    return bills.filter((bill) => {
+      const statusMatch =
+        statusFilter === "All" ||
+        bill.status?.toLowerCase() ===
+          statusFilter.toLowerCase();
+
+      if (!statusMatch) {
+        return false;
+      }
+
+      if (!search) {
+        return true;
+      }
+
+      const patientName =
+        getPatientName(
+          bill.patientId
+        );
+
+      const doctorName =
+        getDoctorName(
+          bill.doctorId
+        );
+
+      const searchableText = [
+        bill.billId,
+        bill.patientId,
+        bill.patientName,
+        patientName,
+        bill.doctorId,
+        doctorName,
+        bill.billType,
+        bill.amount,
+        bill.description,
+        bill.status,
+        bill.billDate,
+      ]
+        .map((value) =>
+          String(
+            value ?? ""
+          ).toLowerCase()
+        )
+        .join(" ");
+
+      return searchableText.includes(
+        search
+      );
+    });
+  }, [
+    bills,
+    patients,
+    doctors,
+    searchTerm,
+    statusFilter,
+  ]);
+
+  /* =====================================================
+     FORM
+  ===================================================== */
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const {
+      name,
+      value,
+    } = event.target;
 
     setFormData((previous) => ({
       ...previous,
@@ -60,118 +330,13 @@ function Bills() {
     }));
   };
 
-  // ==========================================
-  // CREATE BILL
-  // ==========================================
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setFormMessage("");
-    setFormError("");
-
-    if (!formData.patientId) {
-      setFormError("Patient ID is required.");
-      return;
-    }
-
-    if (!formData.patientName.trim()) {
-      setFormError("Patient name is required.");
-      return;
-    }
-
-    if (!formData.billType.trim()) {
-      setFormError("Bill type is required.");
-      return;
-    }
-
-    if (!formData.amount || Number(formData.amount) <= 0) {
-      setFormError("Enter a valid bill amount.");
-      return;
-    }
-
-    try {
-      setSaving(true);
-
-      const billData = {
-        patientId: Number(formData.patientId),
-
-        patientName: formData.patientName.trim(),
-
-        doctorId: formData.doctorId
-          ? Number(formData.doctorId)
-          : null,
-
-        billType: formData.billType.trim(),
-
-        amount: Number(formData.amount),
-
-        description: formData.description.trim(),
-
-        status: formData.status,
-
-        billDate: formData.billDate || null,
-      };
-
-      await createBill(billData);
-
-      setFormMessage("Bill created successfully.");
-
-      setFormData({ ...emptyForm });
-    } catch (error) {
-      console.error("Create bill error:", error);
-
-      setFormError(
-        "Failed to create bill. Make sure Spring Boot backend is running."
-      );
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  // ==========================================
-  // RESET
-  // ==========================================
-
-  const handleReset = () => {
-    setFormData({ ...emptyForm });
-
-    setFormMessage("");
-    setFormError("");
-  };
-
-  // ==========================================
-  // OPEN EDIT
-  // ==========================================
-
-  const handleEdit = (bill) => {
-    setEditingBill(bill);
-
-    setEditForm({
-      patientId: bill.patientId ?? "",
-
-      patientName: bill.patientName ?? "",
-
-      doctorId: bill.doctorId ?? "",
-
-      billType: bill.billType ?? "",
-
-      amount: bill.amount ?? "",
-
-      description: bill.description ?? "",
-
-      status: bill.status ?? "Pending",
-
-      billDate: bill.billDate ?? "",
-    });
-  };
-
-  // ==========================================
-  // EDIT INPUT
-  // ==========================================
-
-  const handleEditChange = (event) => {
-    const { name, value } = event.target;
+  const handleEditChange = (
+    event
+  ) => {
+    const {
+      name,
+      value,
+    } = event.target;
 
     setEditForm((previous) => ({
       ...previous,
@@ -179,548 +344,1266 @@ function Bills() {
     }));
   };
 
-  // ==========================================
-  // SAVE EDIT
-  // ==========================================
+  /* =====================================================
+     PATIENT / DOCTOR SELECTION
+  ===================================================== */
 
-  const handleSaveEdit = async (event) => {
+  const handlePatientSelect = (
+    event
+  ) => {
+    const patientId =
+      event.target.value;
+
+    const selectedPatient =
+      patients.find(
+        (patient) =>
+          Number(
+            patient.patientId
+          ) === Number(patientId)
+      );
+
+    setFormData((previous) => ({
+      ...previous,
+      patientId,
+      patientName:
+        selectedPatient?.name || "",
+    }));
+  };
+
+  const handleDoctorSelect = (
+    event
+  ) => {
+    const doctorId =
+      event.target.value;
+
+    setFormData((previous) => ({
+      ...previous,
+      doctorId,
+    }));
+  };
+
+  const handleEditPatientSelect = (
+    event
+  ) => {
+    const patientId =
+      event.target.value;
+
+    const selectedPatient =
+      patients.find(
+        (patient) =>
+          Number(
+            patient.patientId
+          ) === Number(patientId)
+      );
+
+    setEditForm((previous) => ({
+      ...previous,
+      patientId,
+      patientName:
+        selectedPatient?.name || "",
+    }));
+  };
+
+  const handleEditDoctorSelect = (
+    event
+  ) => {
+    const doctorId =
+      event.target.value;
+
+    setEditForm((previous) => ({
+      ...previous,
+      doctorId,
+    }));
+  };
+
+  /* =====================================================
+     CREATE BILL
+  ===================================================== */
+
+  const handleCreate = async (
+    event
+  ) => {
     event.preventDefault();
 
-    if (!editForm.patientId) {
-      alert("Patient ID is required.");
+    setError("");
+    setSuccess("");
+
+    if (!formData.patientId) {
+      setError(
+        "Please select a patient."
+      );
       return;
     }
 
-    if (!editForm.patientName.trim()) {
-      alert("Patient name is required.");
+    if (!formData.patientName.trim()) {
+      setError(
+        "Patient name is required."
+      );
       return;
     }
 
-    if (!editForm.billType.trim()) {
-      alert("Bill type is required.");
+    if (!formData.billType.trim()) {
+      setError(
+        "Bill type is required."
+      );
       return;
     }
 
-    if (!editForm.amount || Number(editForm.amount) <= 0) {
-      alert("Enter a valid amount.");
+    if (
+      !formData.amount ||
+      Number(formData.amount) <= 0
+    ) {
+      setError(
+        "Enter a valid bill amount."
+      );
       return;
     }
 
     try {
-      setEditing(true);
+      setSaving(true);
 
       const billData = {
-        patientId: Number(editForm.patientId),
+        patientId:
+          Number(formData.patientId),
 
-        patientName: editForm.patientName.trim(),
+        patientName:
+          formData.patientName.trim(),
 
-        doctorId: editForm.doctorId
-          ? Number(editForm.doctorId)
-          : null,
+        doctorId:
+          formData.doctorId
+            ? Number(
+                formData.doctorId
+              )
+            : null,
 
-        billType: editForm.billType.trim(),
+        billType:
+          formData.billType.trim(),
 
-        amount: Number(editForm.amount),
+        amount:
+          Number(formData.amount),
 
-        description: editForm.description.trim(),
+        description:
+          formData.description.trim(),
 
-        status: editForm.status,
+        status:
+          formData.status,
 
-        billDate: editForm.billDate || null,
+        billDate:
+          formData.billDate || null,
       };
 
-      await updateBill(editingBill.billId, billData);
+      const createdBill =
+        await createBill(
+          billData
+        );
 
-      alert(
-        `Bill #${editingBill.billId} updated successfully.`
+      if (createdBill) {
+        setBills(
+          (previous) => [
+            createdBill,
+            ...previous,
+          ]
+        );
+      } else {
+        await loadData();
+      }
+
+      setSuccess(
+        "Bill created successfully."
       );
 
-      setEditingBill(null);
-    } catch (error) {
-      console.error("Update bill error:", error);
+      setFormData({
+        ...emptyForm,
+      });
 
-      alert("Failed to update bill.");
+      setShowCreate(false);
+    } catch (err) {
+      console.error(
+        "Create bill error:",
+        err
+      );
+
+      setError(
+        "Failed to create bill."
+      );
     } finally {
-      setEditing(false);
+      setSaving(false);
     }
   };
 
-  // ==========================================
-  // CLOSE EDIT
-  // ==========================================
+  /* =====================================================
+     EDIT BILL
+  ===================================================== */
+
+  const openEdit = (bill) => {
+    setError("");
+    setSuccess("");
+
+    setEditingBill(bill);
+
+    setEditForm({
+      patientId:
+        bill.patientId ?? "",
+
+      patientName:
+        bill.patientName ||
+        getPatientName(
+          bill.patientId
+        ),
+
+      doctorId:
+        bill.doctorId ?? "",
+
+      billType:
+        bill.billType ?? "",
+
+      amount:
+        bill.amount ?? "",
+
+      description:
+        bill.description ?? "",
+
+      status:
+        bill.status ?? "Pending",
+
+      billDate:
+        bill.billDate ?? "",
+    });
+  };
 
   const closeEdit = () => {
-    if (editing) {
+    if (saving) return;
+
+    setEditingBill(null);
+
+    setEditForm({
+      ...emptyForm,
+    });
+  };
+
+  const handleUpdate = async (
+    event
+  ) => {
+    event.preventDefault();
+
+    setError("");
+    setSuccess("");
+
+    if (!editForm.patientId) {
+      setError(
+        "Please select a patient."
+      );
       return;
     }
 
-    setEditingBill(null);
+    if (!editForm.patientName.trim()) {
+      setError(
+        "Patient name is required."
+      );
+      return;
+    }
+
+    if (!editForm.billType.trim()) {
+      setError(
+        "Bill type is required."
+      );
+      return;
+    }
+
+    if (
+      !editForm.amount ||
+      Number(editForm.amount) <= 0
+    ) {
+      setError(
+        "Enter a valid amount."
+      );
+      return;
+    }
+
+    try {
+      setSaving(true);
+
+      const billData = {
+        patientId:
+          Number(editForm.patientId),
+
+        patientName:
+          editForm.patientName.trim(),
+
+        doctorId:
+          editForm.doctorId
+            ? Number(
+                editForm.doctorId
+              )
+            : null,
+
+        billType:
+          editForm.billType.trim(),
+
+        amount:
+          Number(editForm.amount),
+
+        description:
+          editForm.description.trim(),
+
+        status:
+          editForm.status,
+
+        billDate:
+          editForm.billDate || null,
+      };
+
+      const updatedBill =
+        await updateBill(
+          editingBill.billId,
+          billData
+        );
+
+      setBills((previous) =>
+        previous.map((bill) =>
+          bill.billId ===
+          editingBill.billId
+            ? updatedBill || {
+                ...bill,
+                ...billData,
+              }
+            : bill
+        )
+      );
+
+      setSuccess(
+        `Bill #${editingBill.billId} updated successfully.`
+      );
+
+      closeEdit();
+    } catch (err) {
+      console.error(
+        "Update bill error:",
+        err
+      );
+
+      setError(
+        "Failed to update bill."
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
-  // ==========================================
-  // RENDER
-  // ==========================================
+  /* =====================================================
+     STATUS
+  ===================================================== */
+
+  const handleStatusUpdate = async (
+    billId,
+    status
+  ) => {
+    try {
+      setUpdatingId(billId);
+      setError("");
+
+      await updateBillStatus(
+        billId,
+        status
+      );
+
+      setBills((previous) =>
+        previous.map((bill) =>
+          bill.billId === billId
+            ? {
+                ...bill,
+                status,
+              }
+            : bill
+        )
+      );
+
+      setSuccess(
+        `Bill #${billId} marked as ${status}.`
+      );
+    } catch (err) {
+      console.error(
+        "Bill status error:",
+        err
+      );
+
+      setError(
+        "Failed to update bill status."
+      );
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  /* =====================================================
+     PAGE
+  ===================================================== */
 
   return (
-    <div className="admin-module">
+    <div className="admin-bills-page">
 
-      {/* ======================================
-          CREATE BILL
-      ====================================== */}
+      {/* =================================================
+          HEADER
+      ================================================= */}
 
-      <div
-        style={{
-          background: "#ffffff",
-          borderRadius: "18px",
-          padding: "28px",
-          marginBottom: "25px",
-          boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
-          border: "1px solid #e8eef5",
-        }}
-      >
-        <div style={{ marginBottom: "22px" }}>
-          <h2
-            style={{
-              margin: 0,
-              fontSize: "24px",
-              color: "#172033",
-            }}
-          >
-            ➕ Create New Bill
-          </h2>
+      <div className="bills-page-header">
 
-          <p
-            style={{
-              margin: "7px 0 0",
-              color: "#718096",
-              fontSize: "14px",
-            }}
-          >
-            Create and save a new hospital bill for a patient.
-          </p>
-        </div>
+        <div className="bills-page-title">
 
-        {formMessage && (
-          <div
-            style={{
-              padding: "12px 15px",
-              marginBottom: "18px",
-              borderRadius: "10px",
-              background: "#ecfdf3",
-              color: "#15803d",
-              border: "1px solid #bbf7d0",
-              fontSize: "14px",
-              fontWeight: "600",
-            }}
-          >
-            ✅ {formMessage}
-          </div>
-        )}
-
-        {formError && (
-          <div
-            style={{
-              padding: "12px 15px",
-              marginBottom: "18px",
-              borderRadius: "10px",
-              background: "#fef2f2",
-              color: "#dc2626",
-              border: "1px solid #fecaca",
-              fontSize: "14px",
-              fontWeight: "600",
-            }}
-          >
-            ⚠️ {formError}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: "18px",
-            }}
-          >
-            <div>
-              <label style={labelStyle}>
-                Patient ID *
-              </label>
-
-              <input
-                type="number"
-                name="patientId"
-                value={formData.patientId}
-                onChange={handleChange}
-                placeholder="Enter patient ID"
-                min="1"
-                required
-                style={inputStyle}
-              />
-            </div>
-
-            <div>
-              <label style={labelStyle}>
-                Patient Name *
-              </label>
-
-              <input
-                type="text"
-                name="patientName"
-                value={formData.patientName}
-                onChange={handleChange}
-                placeholder="Enter patient name"
-                required
-                style={inputStyle}
-              />
-            </div>
-
-            <div>
-              <label style={labelStyle}>
-                Doctor ID
-              </label>
-
-              <input
-                type="number"
-                name="doctorId"
-                value={formData.doctorId}
-                onChange={handleChange}
-                placeholder="Enter doctor ID"
-                min="1"
-                style={inputStyle}
-              />
-            </div>
-
-            <div>
-              <label style={labelStyle}>
-                Bill Type *
-              </label>
-
-              <select
-                name="billType"
-                value={formData.billType}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-              >
-                <option value="">
-                  Select bill type
-                </option>
-
-                <option value="Consultation">
-                  Consultation
-                </option>
-
-                <option value="Medicine">
-                  Medicine
-                </option>
-
-                <option value="Laboratory">
-                  Laboratory
-                </option>
-
-                <option value="Room Charges">
-                  Room Charges
-                </option>
-
-                <option value="Surgery">
-                  Surgery
-                </option>
-
-                <option value="Hospital Service">
-                  Hospital Service
-                </option>
-
-                <option value="Other">
-                  Other
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label style={labelStyle}>
-                Amount (₹) *
-              </label>
-
-              <input
-                type="number"
-                name="amount"
-                value={formData.amount}
-                onChange={handleChange}
-                placeholder="Enter amount"
-                min="1"
-                step="0.01"
-                required
-                style={inputStyle}
-              />
-            </div>
-
-            <div>
-              <label style={labelStyle}>
-                Status
-              </label>
-
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                style={inputStyle}
-              >
-                <option value="Pending">
-                  Pending
-                </option>
-
-                <option value="Paid">
-                  Paid
-                </option>
-
-                <option value="Cancelled">
-                  Cancelled
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label style={labelStyle}>
-                Bill Date
-              </label>
-
-              <input
-                type="date"
-                name="billDate"
-                value={formData.billDate}
-                onChange={handleChange}
-                style={inputStyle}
-              />
-            </div>
-          </div>
-
-          <div style={{ marginTop: "18px" }}>
-            <label style={labelStyle}>
-              Description
-            </label>
-
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Enter billing description..."
-              rows="3"
-              style={{
-                ...inputStyle,
-                resize: "vertical",
-                minHeight: "90px",
-              }}
+          <div className="bills-title-icon">
+            <ReceiptIndianRupee
+              size={27}
             />
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              marginTop: "22px",
-              flexWrap: "wrap",
-            }}
-          >
-            <button
-              type="submit"
-              disabled={saving}
-              style={{
-                border: "none",
-                borderRadius: "10px",
-                padding: "12px 22px",
-                background: "#2563eb",
-                color: "#ffffff",
-                fontWeight: "600",
-                cursor: saving
-                  ? "not-allowed"
-                  : "pointer",
-                opacity: saving ? 0.7 : 1,
-              }}
-            >
-              {saving
-                ? "⏳ Saving..."
-                : "💾 Save Bill"}
-            </button>
+          <div>
 
-            <button
-              type="button"
-              onClick={handleReset}
-              disabled={saving}
-              style={{
-                border: "1px solid #d1d5db",
-                borderRadius: "10px",
-                padding: "12px 22px",
-                background: "#ffffff",
-                color: "#374151",
-                fontWeight: "600",
-                cursor: "pointer",
-              }}
-            >
-              ↩ Reset
-            </button>
-          </div>
-        </form>
-      </div>
-
-      {/* ======================================
-          EXISTING BILLS
-      ====================================== */}
-
-      <AdminTable
-        title="Bills"
-        subtitle="View and manage all hospital billing records"
-        icon="💰"
-        fetchData={fetchBills}
-        statusType="bill"
-        onStatusUpdate={updateBillStatus}
-        onEdit={handleEdit}
-      />
-
-      {/* ======================================
-          EDIT BILL MODAL
-      ====================================== */}
-
-      {editingBill && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(15,23,42,0.65)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-            zIndex: 9999,
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "800px",
-              maxHeight: "90vh",
-              overflowY: "auto",
-              background: "#ffffff",
-              borderRadius: "18px",
-              padding: "28px",
-              boxShadow:
-                "0 20px 60px rgba(0,0,0,0.25)",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "24px",
-              }}
-            >
-              <div>
-                <h2
-                  style={{
-                    margin: 0,
-                    color: "#172033",
-                  }}
-                >
-                  ✏️ Edit Bill #{editingBill.billId}
-                </h2>
-
-                <p
-                  style={{
-                    margin: "6px 0 0",
-                    color: "#718096",
-                  }}
-                >
-                  Update bill information
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={closeEdit}
-                disabled={editing}
-                style={{
-                  border: "none",
-                  background: "#f1f5f9",
-                  width: "38px",
-                  height: "38px",
-                  borderRadius: "50%",
-                  fontSize: "18px",
-                  cursor: "pointer",
-                }}
-              >
-                ✕
-              </button>
+            <div className="bills-section-label">
+              Billing & Payments
             </div>
 
-            <form onSubmit={handleSaveEdit}>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns:
-                    "repeat(auto-fit, minmax(220px, 1fr))",
-                  gap: "18px",
-                }}
-              >
-                <div>
-                  <label style={labelStyle}>
-                    Patient ID *
-                  </label>
+            <h1>
+              Bills & Payments
+            </h1>
 
-                  <input
-                    type="number"
-                    name="patientId"
-                    value={editForm.patientId}
-                    onChange={handleEditChange}
-                    min="1"
-                    required
-                    style={inputStyle}
-                  />
+            <p>
+              Manage hospital billing
+              records and payment status.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div className="bills-header-actions">
+
+          <button
+            className="bills-refresh-button"
+            onClick={loadData}
+            disabled={loading}
+          >
+            <RefreshCw size={15} />
+            Refresh
+          </button>
+
+          <button
+            className="bills-create-button"
+            onClick={() => {
+              setError("");
+              setSuccess("");
+              setFormData({
+                ...emptyForm,
+              });
+              setShowCreate(true);
+            }}
+          >
+            <Plus size={16} />
+            Create Bill
+          </button>
+
+        </div>
+
+      </div>
+
+      {/* =================================================
+          MESSAGES
+      ================================================= */}
+
+      {success && (
+        <div className="bills-success">
+
+          <CheckCircle2 size={17} />
+
+          <span>
+            {success}
+          </span>
+
+          <button
+            onClick={() =>
+              setSuccess("")
+            }
+          >
+            <X size={14} />
+          </button>
+
+        </div>
+      )}
+
+      {error && (
+        <div className="bills-error">
+
+          <div>
+
+            <strong>
+              Billing error
+            </strong>
+
+            <p>
+              {error}
+            </p>
+
+          </div>
+
+          <button
+            onClick={() =>
+              setError("")
+            }
+          >
+            <X size={14} />
+          </button>
+
+        </div>
+      )}
+
+      {/* =================================================
+          STATS
+      ================================================= */}
+
+      <div className="bills-stats">
+
+        <div
+          className={`bill-stat-card ${
+            statusFilter === "All"
+              ? "selected"
+              : ""
+          }`}
+          onClick={() =>
+            setStatusFilter("All")
+          }
+        >
+
+          <div className="bill-stat-icon total">
+            <ReceiptIndianRupee
+              size={20}
+            />
+          </div>
+
+          <div>
+
+            <span>
+              Total Bills
+            </span>
+
+            <strong>
+              {stats.total}
+            </strong>
+
+            <small>
+              {formatAmount(
+                stats.totalAmount
+              )}
+            </small>
+
+          </div>
+
+        </div>
+
+        <div
+          className={`bill-stat-card ${
+            statusFilter === "Paid"
+              ? "selected"
+              : ""
+          }`}
+          onClick={() =>
+            setStatusFilter("Paid")
+          }
+        >
+
+          <div className="bill-stat-icon paid">
+            <CheckCircle2 size={20} />
+          </div>
+
+          <div>
+
+            <span>
+              Paid
+            </span>
+
+            <strong>
+              {stats.paid}
+            </strong>
+
+            <small>
+              {formatAmount(
+                stats.paidAmount
+              )}
+            </small>
+
+          </div>
+
+        </div>
+
+        <div
+          className={`bill-stat-card ${
+            statusFilter === "Pending"
+              ? "selected"
+              : ""
+          }`}
+          onClick={() =>
+            setStatusFilter("Pending")
+          }
+        >
+
+          <div className="bill-stat-icon pending">
+            <Clock3 size={20} />
+          </div>
+
+          <div>
+
+            <span>
+              Pending
+            </span>
+
+            <strong>
+              {stats.pending}
+            </strong>
+
+            <small>
+              Awaiting payment
+            </small>
+
+          </div>
+
+        </div>
+
+        <div
+          className={`bill-stat-card ${
+            statusFilter === "Cancelled"
+              ? "selected"
+              : ""
+          }`}
+          onClick={() =>
+            setStatusFilter("Cancelled")
+          }
+        >
+
+          <div className="bill-stat-icon cancelled">
+            <Ban size={20} />
+          </div>
+
+          <div>
+
+            <span>
+              Cancelled
+            </span>
+
+            <strong>
+              {stats.cancelled}
+            </strong>
+
+            <small>
+              Cancelled bills
+            </small>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* =================================================
+          TOOLBAR
+      ================================================= */}
+
+      <div className="bills-toolbar">
+
+        <div>
+
+          <h2>
+            Billing Directory
+          </h2>
+
+          <p>
+            Search and manage all hospital
+            bills.
+          </p>
+
+        </div>
+
+        <div className="bills-search">
+
+          <Search size={17} />
+
+          <input
+            type="text"
+            placeholder="Search bills..."
+            value={searchTerm}
+            onChange={(event) =>
+              setSearchTerm(
+                event.target.value
+              )
+            }
+          />
+
+          {searchTerm && (
+            <button
+              onClick={() =>
+                setSearchTerm("")
+              }
+            >
+              <X size={14} />
+            </button>
+          )}
+
+        </div>
+
+      </div>
+
+      {/* =================================================
+          FILTERS
+      ================================================= */}
+
+      <div className="bills-filters">
+
+        {[
+          ["All", stats.total],
+          ["Paid", stats.paid],
+          ["Pending", stats.pending],
+          [
+            "Cancelled",
+            stats.cancelled,
+          ],
+        ].map(
+          ([status, count]) => (
+            <button
+              key={status}
+              className={
+                statusFilter === status
+                  ? "bill-filter active"
+                  : "bill-filter"
+              }
+              onClick={() =>
+                setStatusFilter(status)
+              }
+            >
+              {status}
+
+              <span>
+                {count}
+              </span>
+            </button>
+          )
+        )}
+
+      </div>
+
+      {/* =================================================
+          CONTENT
+      ================================================= */}
+
+      {loading ? (
+
+        <div className="bills-loading">
+
+          <div className="bills-spinner" />
+
+          <h3>
+            Loading bills...
+          </h3>
+
+          <p>
+            Please wait while we fetch
+            billing information.
+          </p>
+
+        </div>
+
+      ) : filteredBills.length === 0 ? (
+
+        <div className="bills-empty">
+
+          <div className="bills-empty-icon">
+            <ReceiptIndianRupee
+              size={35}
+            />
+          </div>
+
+          <h3>
+            No Bills Found
+          </h3>
+
+          <p>
+            No bills match the selected
+            filter or search.
+          </p>
+
+          <button
+            onClick={() => {
+              setSearchTerm("");
+              setStatusFilter("All");
+            }}
+          >
+            Clear Filters
+          </button>
+
+        </div>
+
+      ) : (
+
+        <div className="bills-grid">
+
+          {filteredBills.map(
+            (bill, index) => {
+
+              const patientName =
+                getPatientName(
+                  bill.patientId
+                );
+
+              const doctorName =
+                getDoctorName(
+                  bill.doctorId
+                );
+
+              const specialization =
+                getDoctorSpecialization(
+                  bill.doctorId
+                );
+
+              const isUpdating =
+                updatingId ===
+                bill.billId;
+
+              return (
+                <div
+                  className="admin-bill-card"
+                  key={
+                    bill.billId ??
+                    index
+                  }
+                  style={{
+                    animationDelay:
+                      `${index * 0.04}s`,
+                  }}
+                >
+
+                  {/* TOP */}
+
+                  <div className="bill-card-top">
+
+                    <div className="bill-icon">
+                      <ReceiptIndianRupee
+                        size={21}
+                      />
+                    </div>
+
+                    <div className="bill-title">
+
+                      <h3>
+                        Bill #
+                        {bill.billId}
+                      </h3>
+
+                      <span>
+                        {bill.billType ||
+                          "Hospital Bill"}
+                      </span>
+
+                    </div>
+
+                    <span
+                      className={`bill-status ${getStatusClass(
+                        bill.status
+                      )}`}
+                    >
+                      {bill.status ||
+                        "Pending"}
+                    </span>
+
+                  </div>
+
+                  {/* AMOUNT */}
+
+                  <div className="bill-amount-box">
+
+                    <small>
+                      Total Amount
+                    </small>
+
+                    <strong>
+                      {formatAmount(
+                        bill.amount
+                      )}
+                    </strong>
+
+                  </div>
+
+                  {/* PATIENT */}
+
+                  <div className="bill-person">
+
+                    <div className="bill-person-icon patient">
+                      <UserRound
+                        size={15}
+                      />
+                    </div>
+
+                    <div>
+
+                      <small>
+                        Patient
+                      </small>
+
+                      <strong>
+                        {patientName}
+                      </strong>
+
+                      <span>
+                        Patient #
+                        {bill.patientId ??
+                          "-"}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  {/* DOCTOR */}
+
+                  <div className="bill-person">
+
+                    <div className="bill-person-icon doctor">
+                      <Stethoscope
+                        size={15}
+                      />
+                    </div>
+
+                    <div>
+
+                      <small>
+                        Doctor
+                      </small>
+
+                      <strong>
+                        {doctorName}
+                      </strong>
+
+                      {specialization && (
+                        <span>
+                          {specialization}
+                        </span>
+                      )}
+
+                    </div>
+
+                  </div>
+
+                  {/* DATE */}
+
+                  <div className="bill-date">
+
+                    <CalendarDays
+                      size={14}
+                    />
+
+                    <span>
+                      Bill Date
+                    </span>
+
+                    <strong>
+                      {formatDate(
+                        bill.billDate
+                      )}
+                    </strong>
+
+                  </div>
+
+                  {/* DESCRIPTION */}
+
+                  {bill.description && (
+                    <div className="bill-description">
+
+                      <small>
+                        Description
+                      </small>
+
+                      <p>
+                        {bill.description}
+                      </p>
+
+                    </div>
+                  )}
+
+                  {/* ACTIONS */}
+
+                  <div className="bill-actions">
+
+                    {bill.status !==
+                      "Paid" &&
+                      bill.status !==
+                        "Cancelled" && (
+
+                        <button
+                          className="bill-paid-action"
+                          disabled={
+                            isUpdating
+                          }
+                          onClick={() =>
+                            handleStatusUpdate(
+                              bill.billId,
+                              "Paid"
+                            )
+                          }
+                        >
+                          <CheckCircle2
+                            size={14}
+                          />
+
+                          Mark Paid
+                        </button>
+                      )}
+
+                    {bill.status !==
+                      "Cancelled" &&
+                      bill.status !==
+                        "Paid" && (
+
+                        <button
+                          className="bill-cancel-action"
+                          disabled={
+                            isUpdating
+                          }
+                          onClick={() =>
+                            handleStatusUpdate(
+                              bill.billId,
+                              "Cancelled"
+                            )
+                          }
+                        >
+                          <Ban size={14} />
+
+                          Cancel
+                        </button>
+                      )}
+
+                    <button
+                      className="bill-edit-action"
+                      onClick={() =>
+                        openEdit(bill)
+                      }
+                    >
+                      <Pencil
+                        size={14}
+                      />
+
+                      Edit
+                    </button>
+
+                  </div>
+
+                  {isUpdating && (
+                    <div className="bill-updating">
+                      Updating payment
+                      status...
+                    </div>
+                  )}
+
+                </div>
+              );
+            }
+          )}
+
+        </div>
+      )}
+
+      {/* =================================================
+          CREATE MODAL
+      ================================================= */}
+
+      {showCreate && (
+
+        <div
+          className="bill-modal-overlay"
+          onClick={() =>
+            !saving &&
+            setShowCreate(false)
+          }
+        >
+
+          <div
+            className="bill-modal"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
+
+            <div className="bill-modal-header">
+
+              <div className="bill-modal-title">
+
+                <div className="bill-modal-icon">
+                  <Plus size={20} />
                 </div>
 
                 <div>
-                  <label style={labelStyle}>
-                    Patient Name *
+
+                  <h2>
+                    Create New Bill
+                  </h2>
+
+                  <p>
+                    Add a new hospital
+                    billing record.
+                  </p>
+
+                </div>
+
+              </div>
+
+              <button
+                className="bill-modal-close"
+                onClick={() =>
+                  setShowCreate(false)
+                }
+                disabled={saving}
+              >
+                <X size={18} />
+              </button>
+
+            </div>
+
+            <form
+              className="bill-form"
+              onSubmit={handleCreate}
+            >
+
+              <div className="bill-form-grid">
+
+                {/* PATIENT */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Patient *
+                  </label>
+
+                  <select
+                    name="patientId"
+                    value={
+                      formData.patientId
+                    }
+                    onChange={
+                      handlePatientSelect
+                    }
+                    required
+                  >
+
+                    <option value="">
+                      Select Patient
+                    </option>
+
+                    {patients.map(
+                      (patient) => (
+                        <option
+                          key={
+                            patient.patientId
+                          }
+                          value={
+                            patient.patientId
+                          }
+                        >
+                          {patient.name ||
+                            `Patient #${patient.patientId}`}
+                          {" — Patient #"}
+                          {
+                            patient.patientId
+                          }
+                        </option>
+                      )
+                    )}
+
+                  </select>
+
+                </div>
+
+                {/* PATIENT NAME */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Patient Name
                   </label>
 
                   <input
                     type="text"
-                    name="patientName"
-                    value={editForm.patientName}
-                    onChange={handleEditChange}
-                    required
-                    style={inputStyle}
+                    value={
+                      formData.patientName
+                    }
+                    placeholder="Auto-filled from patient"
+                    readOnly
                   />
+
                 </div>
 
-                <div>
-                  <label style={labelStyle}>
-                    Doctor ID
+                {/* DOCTOR */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Doctor
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name="doctorId"
-                    value={editForm.doctorId}
-                    onChange={handleEditChange}
-                    min="1"
-                    style={inputStyle}
-                  />
+                    value={
+                      formData.doctorId
+                    }
+                    onChange={
+                      handleDoctorSelect
+                    }
+                  >
+
+                    <option value="">
+                      Select Doctor
+                    </option>
+
+                    {doctors.map(
+                      (doctor) => (
+                        <option
+                          key={
+                            doctor.doctorId
+                          }
+                          value={
+                            doctor.doctorId
+                          }
+                        >
+                          {doctor.name ||
+                            `Doctor #${doctor.doctorId}`}
+                          {" — Doctor #"}
+                          {
+                            doctor.doctorId
+                          }
+
+                          {doctor.specialization
+                            ? ` — ${doctor.specialization}`
+                            : ""}
+                        </option>
+                      )
+                    )}
+
+                  </select>
+
                 </div>
 
-                <div>
-                  <label style={labelStyle}>
+                {/* BILL TYPE */}
+
+                <div className="bill-form-group">
+
+                  <label>
                     Bill Type *
                   </label>
 
                   <select
                     name="billType"
-                    value={editForm.billType}
-                    onChange={handleEditChange}
+                    value={
+                      formData.billType
+                    }
+                    onChange={
+                      handleChange
+                    }
                     required
-                    style={inputStyle}
                   >
+
                     <option value="">
                       Select bill type
                     </option>
@@ -752,37 +1635,54 @@ function Bills() {
                     <option value="Other">
                       Other
                     </option>
+
                   </select>
+
                 </div>
 
-                <div>
-                  <label style={labelStyle}>
+                {/* AMOUNT */}
+
+                <div className="bill-form-group">
+
+                  <label>
                     Amount (₹) *
                   </label>
 
                   <input
                     type="number"
                     name="amount"
-                    value={editForm.amount}
-                    onChange={handleEditChange}
+                    value={
+                      formData.amount
+                    }
+                    onChange={
+                      handleChange
+                    }
+                    placeholder="Enter amount"
                     min="1"
                     step="0.01"
                     required
-                    style={inputStyle}
                   />
+
                 </div>
 
-                <div>
-                  <label style={labelStyle}>
+                {/* STATUS */}
+
+                <div className="bill-form-group">
+
+                  <label>
                     Status
                   </label>
 
                   <select
                     name="status"
-                    value={editForm.status}
-                    onChange={handleEditChange}
-                    style={inputStyle}
+                    value={
+                      formData.status
+                    }
+                    onChange={
+                      handleChange
+                    }
                   >
+
                     <option value="Pending">
                       Pending
                     </option>
@@ -794,115 +1694,451 @@ function Bills() {
                     <option value="Cancelled">
                       Cancelled
                     </option>
+
                   </select>
+
                 </div>
 
-                <div>
-                  <label style={labelStyle}>
+                {/* DATE */}
+
+                <div className="bill-form-group">
+
+                  <label>
                     Bill Date
                   </label>
 
                   <input
                     type="date"
                     name="billDate"
-                    value={editForm.billDate}
-                    onChange={handleEditChange}
-                    style={inputStyle}
+                    value={
+                      formData.billDate
+                    }
+                    onChange={
+                      handleChange
+                    }
                   />
+
                 </div>
+
+                {/* DESCRIPTION */}
+
+                <div className="bill-form-group full">
+
+                  <label>
+                    Description
+                  </label>
+
+                  <textarea
+                    name="description"
+                    value={
+                      formData.description
+                    }
+                    onChange={
+                      handleChange
+                    }
+                    placeholder="Enter billing description..."
+                    rows="3"
+                  />
+
+                </div>
+
               </div>
 
-              <div style={{ marginTop: "18px" }}>
-                <label style={labelStyle}>
-                  Description
-                </label>
+              <div className="bill-form-footer">
 
-                <textarea
-                  name="description"
-                  value={editForm.description}
-                  onChange={handleEditChange}
-                  rows="4"
-                  placeholder="Enter billing description..."
-                  style={{
-                    ...inputStyle,
-                    resize: "vertical",
-                  }}
-                />
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  gap: "12px",
-                  marginTop: "24px",
-                }}
-              >
                 <button
                   type="button"
-                  onClick={closeEdit}
-                  disabled={editing}
-                  style={{
-                    border: "1px solid #d1d5db",
-                    borderRadius: "10px",
-                    padding: "12px 22px",
-                    background: "#ffffff",
-                    color: "#374151",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                  }}
+                  className="bill-form-cancel"
+                  onClick={() =>
+                    setShowCreate(false)
+                  }
+                  disabled={saving}
                 >
                   Cancel
                 </button>
 
                 <button
                   type="submit"
-                  disabled={editing}
-                  style={{
-                    border: "none",
-                    borderRadius: "10px",
-                    padding: "12px 24px",
-                    background: "#2563eb",
-                    color: "#ffffff",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    opacity: editing ? 0.7 : 1,
-                  }}
+                  className="bill-form-save"
+                  disabled={saving}
                 >
-                  {editing
-                    ? "⏳ Updating..."
-                    : "💾 Save Changes"}
+
+                  {saving ? (
+                    <>
+                      <RefreshCw
+                        size={14}
+                        className="bill-spin"
+                      />
+
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save size={14} />
+
+                      Create Bill
+                    </>
+                  )}
+
                 </button>
+
               </div>
+
             </form>
+
           </div>
+
         </div>
       )}
+
+      {/* =================================================
+          EDIT MODAL
+      ================================================= */}
+
+      {editingBill && (
+
+        <div
+          className="bill-modal-overlay"
+          onClick={closeEdit}
+        >
+
+          <div
+            className="bill-modal"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
+
+            <div className="bill-modal-header">
+
+              <div className="bill-modal-title">
+
+                <div className="bill-modal-icon">
+                  <Pencil size={19} />
+                </div>
+
+                <div>
+
+                  <h2>
+                    Edit Bill #
+                    {
+                      editingBill.billId
+                    }
+                  </h2>
+
+                  <p>
+                    Update billing
+                    information.
+                  </p>
+
+                </div>
+
+              </div>
+
+              <button
+                className="bill-modal-close"
+                onClick={closeEdit}
+                disabled={saving}
+              >
+                <X size={18} />
+              </button>
+
+            </div>
+
+            <form
+              className="bill-form"
+              onSubmit={handleUpdate}
+            >
+
+              <div className="bill-form-grid">
+
+                {/* PATIENT */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Patient *
+                  </label>
+
+                  <select
+                    name="patientId"
+                    value={
+                      editForm.patientId
+                    }
+                    onChange={
+                      handleEditPatientSelect
+                    }
+                    required
+                  >
+
+                    <option value="">
+                      Select Patient
+                    </option>
+
+                    {patients.map(
+                      (patient) => (
+                        <option
+                          key={
+                            patient.patientId
+                          }
+                          value={
+                            patient.patientId
+                          }
+                        >
+                          {patient.name ||
+                            `Patient #${patient.patientId}`}
+                          {" — Patient #"}
+                          {
+                            patient.patientId
+                          }
+                        </option>
+                      )
+                    )}
+
+                  </select>
+
+                </div>
+
+                {/* PATIENT NAME */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Patient Name
+                  </label>
+
+                  <input
+                    type="text"
+                    value={
+                      editForm.patientName
+                    }
+                    placeholder="Auto-filled from patient"
+                    readOnly
+                  />
+
+                </div>
+
+                {/* DOCTOR */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Doctor
+                  </label>
+
+                  <select
+                    name="doctorId"
+                    value={
+                      editForm.doctorId
+                    }
+                    onChange={
+                      handleEditDoctorSelect
+                    }
+                  >
+
+                    <option value="">
+                      Select Doctor
+                    </option>
+
+                    {doctors.map(
+                      (doctor) => (
+                        <option
+                          key={
+                            doctor.doctorId
+                          }
+                          value={
+                            doctor.doctorId
+                          }
+                        >
+                          {doctor.name ||
+                            `Doctor #${doctor.doctorId}`}
+                          {" — Doctor #"}
+                          {
+                            doctor.doctorId
+                          }
+
+                          {doctor.specialization
+                            ? ` — ${doctor.specialization}`
+                            : ""}
+                        </option>
+                      )
+                    )}
+
+                  </select>
+
+                </div>
+
+                {/* BILL TYPE */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Bill Type *
+                  </label>
+
+                  <input
+                    type="text"
+                    name="billType"
+                    value={
+                      editForm.billType
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                    required
+                  />
+
+                </div>
+
+                {/* AMOUNT */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Amount (₹) *
+                  </label>
+
+                  <input
+                    type="number"
+                    name="amount"
+                    value={
+                      editForm.amount
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                    min="1"
+                    step="0.01"
+                    required
+                  />
+
+                </div>
+
+                {/* STATUS */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Status
+                  </label>
+
+                  <select
+                    name="status"
+                    value={
+                      editForm.status
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                  >
+
+                    <option value="Pending">
+                      Pending
+                    </option>
+
+                    <option value="Paid">
+                      Paid
+                    </option>
+
+                    <option value="Cancelled">
+                      Cancelled
+                    </option>
+
+                  </select>
+
+                </div>
+
+                {/* DATE */}
+
+                <div className="bill-form-group">
+
+                  <label>
+                    Bill Date
+                  </label>
+
+                  <input
+                    type="date"
+                    name="billDate"
+                    value={
+                      editForm.billDate
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                  />
+
+                </div>
+
+                {/* DESCRIPTION */}
+
+                <div className="bill-form-group full">
+
+                  <label>
+                    Description
+                  </label>
+
+                  <textarea
+                    name="description"
+                    value={
+                      editForm.description
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                    rows="3"
+                  />
+
+                </div>
+
+              </div>
+
+              <div className="bill-form-footer">
+
+                <button
+                  type="button"
+                  className="bill-form-cancel"
+                  onClick={closeEdit}
+                  disabled={saving}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  className="bill-form-save"
+                  disabled={saving}
+                >
+
+                  {saving ? (
+                    <>
+                      <RefreshCw
+                        size={14}
+                        className="bill-spin"
+                      />
+
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save size={14} />
+
+                      Save Changes
+                    </>
+                  )}
+
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
 }
-
-// ==========================================
-// STYLES
-// ==========================================
-
-const labelStyle = {
-  display: "block",
-  marginBottom: "7px",
-  fontWeight: "600",
-  color: "#374151",
-};
-
-const inputStyle = {
-  width: "100%",
-  boxSizing: "border-box",
-  padding: "11px 13px",
-  border: "1px solid #d7dee8",
-  borderRadius: "9px",
-  outline: "none",
-  fontSize: "14px",
-  color: "#1f2937",
-  background: "#ffffff",
-};
 
 export default Bills;
