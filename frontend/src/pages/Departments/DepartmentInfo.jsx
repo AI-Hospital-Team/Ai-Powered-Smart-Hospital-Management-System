@@ -1,25 +1,23 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  Activity,
   ArrowLeft,
   ArrowRight,
   CalendarDays,
   CheckCircle2,
   ChevronDown,
-  ClipboardList,
-  Clock3,
   ExternalLink,
   HeartPulse,
   Microscope,
-  Search,
-  ShieldCheck,
-  Sparkles,
   Stethoscope,
   TriangleAlert,
+  Activity,
+  Brain,
+  ShieldCheck,
+  ClipboardCheck,
+  CircleHelp,
 } from "lucide-react";
 
-import "./DepartmentInfo.css";
 import departmentData from "./departmentData";
 
 const departmentOrder = [
@@ -44,7 +42,7 @@ const focusText = {
   "general-medicine": "Prevention, diagnosis and whole-person adult care",
 };
 
-function DepartmentInfo() {
+const DepartmentInfo = () => {
   const { department } = useParams();
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(0);
@@ -102,8 +100,8 @@ function DepartmentInfo() {
         <Link to="/" className="department-brand">
           <div className="department-brand-icon"><HeartPulse size={20} /></div>
           <div>
-            <strong>AI Smart Hospital</strong>
-            <span>Intelligent Healthcare Management</span>
+            <strong>Smart Hospital</strong>
+            <span>AI-Powered Healthcare System</span>
           </div>
         </Link>
 
@@ -147,6 +145,7 @@ function DepartmentInfo() {
               <div><Activity size={16} /><span>Evidence-informed information</span></div>
               <div><Clock3 size={16} /><span>Care planning support</span></div>
             </div>
+
           </div>
 
           <div className="department-hero-visual">
@@ -261,6 +260,6 @@ function DepartmentInfo() {
       <footer className="department-footer"><div><strong>AI Smart Hospital</strong><span>Educational healthcare management project</span></div><Link to="/">Back to Home <ArrowRight size={14} /></Link></footer>
     </div>
   );
-}
+};
 
 export default DepartmentInfo;
