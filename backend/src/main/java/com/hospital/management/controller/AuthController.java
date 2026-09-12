@@ -35,7 +35,7 @@ public class AuthController {
                     request.role()
             );
 
-        return ResponseEntity.ok(user);
+            return ResponseEntity.ok(user);
 
         } catch (RuntimeException e) {
 
@@ -45,38 +45,75 @@ public class AuthController {
         }
     }
 
-   // =====================================================
-// REGISTER PATIENT
-// =====================================================
+    // =====================================================
+    // REGISTER PATIENT
+    // =====================================================
 
-@PostMapping("/register")
-public ResponseEntity<?> register(
-        @RequestBody RegisterRequest request) {
+    @PostMapping("/register")
+    public ResponseEntity<?> register(
+            @RequestBody RegisterRequest request) {
 
-    try {
+        try {
 
-        User user = authService.registerPatient(
-                request.fullName(),
-                request.email(),
-                request.password(),
-                request.mobile(),
-                request.dob(),
-                request.gender(),
-                request.bloodGroup(),
-                request.address()
-        );
+            User user = authService.registerPatient(
+                    request.fullName(),
+                    request.email(),
+                    request.password(),
+                    request.mobile(),
+                    request.dob(),
+                    request.gender(),
+                    request.bloodGroup(),
+                    request.address()
+            );
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(user);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(user);
 
-    } catch (RuntimeException e) {
+        } catch (RuntimeException e) {
 
-        return ResponseEntity
-                .badRequest()
-                .body(e.getMessage());
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
-}
+
+    // =====================================================
+    // REGISTER DOCTOR
+    // =====================================================
+
+    @PostMapping("/register-doctor")
+    public ResponseEntity<?> registerDoctor(
+            @RequestBody DoctorRegisterRequest request) {
+
+        try {
+
+            User user = authService.registerDoctor(
+                    request.fullName(),
+                    request.email(),
+                    request.password(),
+                    request.mobile(),
+                    request.dob(),
+                    request.gender(),
+                    request.specialization(),
+                    request.qualification(),
+                    request.medicalRegistrationNo(),
+                    request.hospitalAssociation(),
+                    request.address()
+            );
+
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(user);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
     // =====================================================
     // LOGIN REQUEST
     // =====================================================
@@ -89,18 +126,37 @@ public ResponseEntity<?> register(
     }
 
     // =====================================================
-// PATIENT REGISTER REQUEST
-// =====================================================
+    // PATIENT REGISTER REQUEST
+    // =====================================================
 
-public record RegisterRequest(
-        String fullName,
-        String email,
-        String password,
-        String mobile,
-        String dob,
-        String gender,
-        String bloodGroup,
-        String address
-) {
-}
+    public record RegisterRequest(
+            String fullName,
+            String email,
+            String password,
+            String mobile,
+            String dob,
+            String gender,
+            String bloodGroup,
+            String address
+    ) {
+    }
+
+    // =====================================================
+    // DOCTOR REGISTER REQUEST
+    // =====================================================
+
+    public record DoctorRegisterRequest(
+            String fullName,
+            String email,
+            String password,
+            String mobile,
+            String dob,
+            String gender,
+            String specialization,
+            String qualification,
+            String medicalRegistrationNo,
+            String hospitalAssociation,
+            String address
+    ) {
+    }
 }

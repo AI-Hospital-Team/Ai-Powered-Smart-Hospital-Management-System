@@ -25,6 +25,9 @@ public class User {
     @Column(name = "doctor_id")
     private Integer doctorId;
 
+    @Column(nullable = false)
+    private String status;
+
     public User() {
     }
 
@@ -74,5 +77,13 @@ public class User {
 
     public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

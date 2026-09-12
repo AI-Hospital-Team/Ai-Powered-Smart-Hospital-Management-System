@@ -38,6 +38,46 @@ export const fetchDoctors = async () => {
 };
 
 // ==========================================
+// DOCTOR APPROVAL
+// ==========================================
+
+export const approveDoctor = async (doctorId) => {
+  const response = await fetch(
+    `${API_BASE_URL}/doctors/${doctorId}/approve`,
+    {
+      method: "PUT",
+    }
+  );
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message || "Failed to approve doctor");
+  }
+
+  return response.json();
+};
+
+// ==========================================
+// DOCTOR REJECTION
+// ==========================================
+
+export const rejectDoctor = async (doctorId) => {
+  const response = await fetch(
+    `${API_BASE_URL}/doctors/${doctorId}/reject`,
+    {
+      method: "PUT",
+    }
+  );
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message || "Failed to reject doctor");
+  }
+
+  return response.json();
+};
+
+// ==========================================
 // APPOINTMENTS
 // ==========================================
 

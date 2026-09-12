@@ -9,6 +9,7 @@ function AdminTable({
   statusType,
   onStatusUpdate,
   onEdit,
+  doctorActions,
 }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -221,6 +222,58 @@ function AdminTable({
       setUpdatingId(null);
     }
   };
+
+// ==========================================
+// DOCTOR APPROVE / REJECT
+// ==========================================
+
+const handleDoctorAction = async (item, action) => {
+  if (!doctorActions) {
+    return;
+  }
+
+  const id = getId(item);
+
+  if (id === null || id === undefined) {
+    alert("Doctor ID not found.");
+    return;
+  }
+
+  try {
+    setUpdatingId(id);
+
+    const updated =
+      action === "approve"
+        ? await doctorActions.onApprove(id)
+        : await doctorActions.onReject(id);
+
+    if (!updated) {
+      return;
+    }
+
+    setData((previousData) =>
+      previousData.map((currentItem) => {
+        const currentId = getId(currentItem);
+
+        return currentId === id
+          ? updated
+          : currentItem;
+      })
+    );
+  } catch (err) {
+    console.error(
+      "Doctor action error:",
+      err
+    );
+
+    alert(
+      err.message ||
+        "Failed to update doctor status."
+    );
+  } finally {
+    setUpdatingId(null);
+  }
+};
 
   // ==========================================
   // STATUS OPTIONS
@@ -493,12 +546,11 @@ function AdminTable({
                         {formatLabel(column)}
                       </th>
                     ))}
-
-                    {(statusType || onEdit) && (
-                      <th>
-                        Action
-                      </th>
-                    )}
+                          {(statusType || onEdit || doctorActions) && (
+                            <th>
+                              Action
+                            </th>
+                          )}
 
                   </tr>
 
@@ -584,9 +636,10 @@ function AdminTable({
                           ================================= */}
 
                           {(statusType ||
-                            onEdit) && (
+                              onEdit ||
+                              doctorActions) && (
 
-                            <td>
+                              <td>
 
                               {/* EDIT BUTTON */}
 
@@ -618,6 +671,69 @@ function AdminTable({
                                   ✏️ Edit
                                 </button>
                               )}
+
+                {/* DOCTOR APPROVE / REJECT */}
+
+                {doctorActions && (
+                  <>
+                    {String(status).toUpperCase() === "PENDING" && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleDoctorAction(
+                              item,
+                              "approve"
+                            )
+                          }
+                          disabled={isUpdating}
+                          style={{
+                            border: "none",
+                            borderRadius: "8px",
+                            padding: "8px 12px",
+                            background: "#16a34a",
+                            color: "#ffffff",
+                            fontWeight: "600",
+                            cursor: isUpdating
+                              ? "not-allowed"
+                              : "pointer",
+                            marginRight: "8px",
+                            opacity: isUpdating ? 0.6 : 1,
+                          }}
+                        >
+                          {isUpdating
+                            ? "Updating..."
+                            : "✓ Approve"}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleDoctorAction(
+                              item,
+                              "reject"
+                            )
+                          }
+                          disabled={isUpdating}
+                          style={{
+                            border: "none",
+                            borderRadius: "8px",
+                            padding: "8px 12px",
+                            background: "#dc2626",
+                            color: "#ffffff",
+                            fontWeight: "600",
+                            cursor: isUpdating
+                              ? "not-allowed"
+                              : "pointer",
+                            opacity: isUpdating ? 0.6 : 1,
+                          }}
+                        >
+                          ✕ Reject
+                        </button>
+                      </>
+                    )}
+                  </>
+                )}
 
                               {/* STATUS */}
 
