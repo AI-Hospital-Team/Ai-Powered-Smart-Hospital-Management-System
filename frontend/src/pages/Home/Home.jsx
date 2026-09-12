@@ -220,6 +220,7 @@ function Home() {
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [calculatedAge, setCalculatedAge] = useState("");
+  const [registerRole, setRegisterRole] = useState("Patient");
 
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useDarkMode();
@@ -2444,7 +2445,7 @@ function Home() {
                 const bloodGroup = formData.get("bloodGroup")?.trim();
                 const address = formData.get("address")?.trim();
 
-                if (!bloodGroup) {
+                if (registerRole === "Patient" && !bloodGroup) {
                   setRegisterError("Please select your blood group.");
                   return;
                 }
@@ -2505,305 +2506,500 @@ function Home() {
                 }
 
                 try {
+                  const isDoctor = registerRole === "Doctor";
+
                   const response = await fetch(
-                    "http://localhost:8080/api/auth/register",
+                    isDoctor
+                      ? "http://localhost:8080/api/auth/register-doctor"
+                      : "http://localhost:8080/api/auth/register",
                     {
                       method: "POST",
                       headers: {
                         "Content-Type": "application/json",
                       },
-                      body: JSON.stringify({
-                        fullName,
-                        email,
-                        mobile,
-                        dob,
-                        gender,
-                        bloodGroup,
-                        address,
-                        password: registerPassword,
-                      }),
+                      body: JSON.stringify(
+                        isDoctor
+                          ? {
+                              fullName,
+                              email,
+                              password: registerPassword,
+                              mobile,
+                              dob,
+                              gender,
+                              specialization: formData.get("specialization")?.trim(),
+                              qualification: formData.get("qualification")?.trim(),
+                              medicalRegistrationNo: formData
+                                .get("medicalRegistrationNo")
+                                ?.trim(),
+                              hospitalAssociation: formData
+                                .get("hospitalAssociation")
+                                ?.trim(),
+                              address,
+                            }
+                          : {
+                              fullName,
+                              email,
+                              mobile,
+                              dob,
+                              gender,
+                              bloodGroup,
+                              address,
+                              password: registerPassword,
+                            }
+                      ),
                     }
                   );
 
+                  const data = await response.json();
+
                   if (!response.ok) {
-                    const message = await response.text();
-
-                    setRegisterSuccess("");
-                    setRegisterError(message || "Registration failed.");
-
-                    return;
+                    throw new Error(data || "Registration failed");
                   }
 
-                  // SUCCESS — remove any previous error
-                  setRegisterError("");
-                  setRegisterSuccess(
-                    "Account created successfully. Please login."
-                  );
+                  if (isDoctor) {
+                    setRegisterSuccess(
+                      "Doctor application submitted successfully. Please wait for Admin approval."
+                    );
+                  } else {
+                    setRegisterSuccess(
+                      "Account created successfully. Please login."
+                    );
+                  }
 
                   form.reset();
-
                   setRegisterPassword("");
                   setConfirmPassword("");
+                  setCalculatedAge("");
+                  setRegisterRole("Patient");
 
                   setTimeout(() => {
-                    setRegisterSuccess("");
-                    setRegisterOpen(false);
-                    openLogin("Patient");
-                  }, 1500);
+                    openLogin(isDoctor ? "Doctor" : "Patient");
+                  }, 2000);
 
                 } catch (error) {
-                  console.error("Registration error:", error);
-
-                  // CONNECTION ERROR — remove success message
-                  setRegisterSuccess("");
                   setRegisterError(
-                    "Unable to connect to the hospital server."
+                    error.message || "Something went wrong. Please try again."
                   );
                 }
-                
+                                
               }}
             >
-              <div className="register-field">
-                <label>Full Name</label>
-                <div className="register-input-wrap">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="7" r="3" />
-                    <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
-                  </svg>
-                  <input
-                    type="text"
-                    name="fullName"
-                    placeholder="Enter your full name"
-                    maxLength="50"
-                    autoComplete="name"
-                    required
-                  />
-                </div>
-              </div>
 
               <div className="register-field">
-                <label>Email</label>
-                <div className="register-input-wrap">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                    <path d="m3 7 9 6 9-6" />
-                  </svg>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="example@gmail.com"
-                    autoComplete="email"
-                    required
-                  />
-                </div>
-              </div>
+                <label>Register As</label>
 
-              <div className="register-field">
-                <label>Mobile Number</label>
-                <div className="mobile-input">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="7" y="2" width="10" height="20" rx="2" />
-                    <path d="M10 5h4" />
-                    <circle cx="12" cy="18" r="1" />
-                  </svg>
-                  <span>+91</span>
-                  <input
-                    type="tel"
-                    name="mobile"
-                    placeholder="10-digit mobile number"
-                    inputMode="numeric"
-                    maxLength="10"
-                    pattern="[6-9][0-9]{9}"
-                    onInput={(e) => {
-                      e.target.value = e.target.value.replace(/\D/g, "");
-                    }}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="register-field">
-                <label>Date of Birth</label>
-                <div className="register-input-wrap">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="3" y="5" width="18" height="16" rx="2" />
-                    <path d="M8 3v4M16 3v4M3 10h18" />
-                  </svg>
-                  <input
-                    type="date"
-                    name="dob"
-                    max={new Date().toISOString().split("T")[0]}
-                    onChange={(e) => {
-                      const dob = e.target.value;
-                      if (!dob) {
-                        setCalculatedAge("");
-                        return;
-                      }
-
-                      const birthDate = new Date(dob);
-                      const today = new Date();
-                      let age = today.getFullYear() - birthDate.getFullYear();
-                      const monthDifference = today.getMonth() - birthDate.getMonth();
-
-                      if (
-                        monthDifference < 0 ||
-                        (monthDifference === 0 && today.getDate() < birthDate.getDate())
-                      ) {
-                        age--;
-                      }
-                      setCalculatedAge(age >= 0 ? age : "");
-                    }}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="register-field">
-                <label>Age</label>
-                <div className="register-input-wrap">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="7" r="3" />
-                    <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
-                  </svg>
-                  <input
-                    type="text"
-                    value={calculatedAge ? `${calculatedAge} years` : "Calculated from DOB"}
-                    readOnly
-                  />
-                </div>
-              </div>
-
-              <div className="register-field">
-                <label>Gender</label>
-                <div className="register-input-wrap">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="7" r="3" />
-                    <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
-                  </svg>
-                  <select name="gender" required>
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="register-field">
-                <label>Blood Group</label>
-                <div className="register-input-wrap">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11Z" />
-                    <path d="M9 15c.8 1.2 1.8 1.8 3 1.8" />
-                  </svg>
-                  <select name="bloodGroup" required>
-                    <option value="">Select Blood Group</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="register-field">
-                <label>Address</label>
-                <div className="register-input-wrap">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
-                    <circle cx="12" cy="10" r="2.5" />
-                  </svg>
-                  <input
-                    type="text"
-                    name="address"
-                    placeholder="Enter your residential address"
-                    maxLength="200"
-                    autoComplete="street-address"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="register-field">
-                <label>Password</label>
-                <div className="login-password-wrap">
-                  <input
-                    type={showRegisterPassword ? "text" : "password"}
-                    name="password"
-                    value={registerPassword}
-                    onChange={(e) => setRegisterPassword(e.target.value)}
-                    placeholder="Enter password"
-                    autoComplete="new-password"
-                    required
-                  />
+                <div className="register-role-selector">
                   <button
                     type="button"
-                    className="show-password-btn"
-                    onClick={() => setShowRegisterPassword((previous) => !previous)}
-                    aria-label={showRegisterPassword ? "Hide password" : "Show password"}
+                    className={registerRole === "Patient" ? "active" : ""}
+                    onClick={() => setRegisterRole("Patient")}
                   >
-                    {showRegisterPassword ? "Hide" : "Show"}
+                    Patient
+                  </button>
+
+                  <button
+                    type="button"
+                    className={registerRole === "Doctor" ? "active" : ""}
+                    onClick={() => setRegisterRole("Doctor")}
+                  >
+                    Doctor
                   </button>
                 </div>
               </div>
-
+              
               <div className="register-field">
-                <label>Confirm Password</label>
-                <div className="login-password-wrap">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Re-enter your password"
-                    autoComplete="new-password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="show-password-btn"
-                    onClick={() => setShowConfirmPassword((previous) => !previous)}
-                    aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                  >
-                    {showConfirmPassword ? "Hide" : "Show"}
-                  </button>
-                </div>
-              </div>
+                      <label>Full Name</label>
+                      <div className="register-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="7" r="3" />
+                          <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
+                        </svg>
 
-              {registerError && (
-                <div className="register-error">⚠️ {registerError}</div>
-              )}
+                        <input
+                          type="text"
+                          name="fullName"
+                          placeholder="Enter your full name"
+                          maxLength="50"
+                          autoComplete="name"
+                          required
+                        />
+                      </div>
+                    </div>
 
-              {registerSuccess && (
-                <div className="login-success">✅ {registerSuccess}</div>
-              )}
 
-              <button type="submit" className="register-submit">
-                Create Account
-              </button>
-            </form>
+                    <div className="register-field">
+                      <label>Email</label>
+                      <div className="register-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <rect x="3" y="5" width="18" height="14" rx="2" />
+                          <path d="m3 7 9 6 9-6" />
+                        </svg>
 
-            <div className="register-or">
-              <span>or</span>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder="example@gmail.com"
+                          autoComplete="email"
+                          required
+                        />
+                      </div>
+                    </div>
+
+
+                    <div className="register-field">
+                      <label>Mobile Number</label>
+
+                      <div className="mobile-input">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <rect x="7" y="2" width="10" height="20" rx="2" />
+                          <path d="M10 5h4" />
+                          <circle cx="12" cy="18" r="1" />
+                        </svg>
+
+                        <span>+91</span>
+
+                        <input
+                          type="tel"
+                          name="mobile"
+                          placeholder="10-digit mobile number"
+                          inputMode="numeric"
+                          maxLength="10"
+                          pattern="[6-9][0-9]{9}"
+                          title="Enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9"
+                          onInput={(e) => {
+                            e.target.value = e.target.value
+                              .replace(/\D/g, "")
+                              .slice(0, 10);
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
+
+
+                    <div className="register-field">
+                      <label>Date of Birth</label>
+
+                      <div className="register-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <rect x="3" y="5" width="18" height="16" rx="2" />
+                          <path d="M8 3v4M16 3v4M3 10h18" />
+                        </svg>
+
+                        <input
+                          type="date"
+                          name="dob"
+                          max={new Date().toISOString().split("T")[0]}
+                          onChange={(e) => {
+                            const dob = e.target.value;
+
+                            if (!dob) {
+                              setCalculatedAge("");
+                              return;
+                            }
+
+                            const birthDate = new Date(dob);
+                            const today = new Date();
+
+                            let age =
+                              today.getFullYear() -
+                              birthDate.getFullYear();
+
+                            const monthDifference =
+                              today.getMonth() -
+                              birthDate.getMonth();
+
+                            if (
+                              monthDifference < 0 ||
+                              (
+                                monthDifference === 0 &&
+                                today.getDate() < birthDate.getDate()
+                              )
+                            ) {
+                              age--;
+                            }
+
+                            setCalculatedAge(
+                              age >= 0 ? age : ""
+                            );
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
+
+
+                    <div className="register-field">
+                      <label>Age</label>
+
+                      <div className="register-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="7" r="3" />
+                          <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
+                        </svg>
+
+                        <input
+                          type="text"
+                          value={
+                            calculatedAge
+                              ? `${calculatedAge} years`
+                              : "Calculated from DOB"
+                          }
+                          readOnly
+                        />
+                      </div>
+                    </div>
+
+
+                    <div className="register-field">
+                      <label>Gender</label>
+
+                      <div className="register-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="7" r="3" />
+                          <path d="M5 21c.5-4 3-6 7-6s6.5 2 7 6" />
+                        </svg>
+
+                        <select name="gender" required>
+                          <option value="">Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                    {registerRole === "Doctor" && (
+                      <>
+                        <div className="register-field">
+                          <label>Specialization</label>
+                          <div className="register-input-wrap">
+                            <input
+                              type="text"
+                              name="specialization"
+                              placeholder="e.g. Cardiology"
+                              maxLength="100"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div className="register-field">
+                          <label>Qualification</label>
+                          <div className="register-input-wrap">
+                            <input
+                              type="text"
+                              name="qualification"
+                              placeholder="e.g. MBBS, MD"
+                              maxLength="100"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div className="register-field">
+                          <label>Medical Registration Number</label>
+                          <div className="register-input-wrap">
+                            <input
+                              type="text"
+                              name="medicalRegistrationNo"
+                              placeholder="Enter medical registration number"
+                              maxLength="100"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div className="register-field">
+                          <label>Hospital Association</label>
+                          <div className="register-input-wrap">
+                            <input
+                              type="text"
+                              name="hospitalAssociation"
+                              placeholder="Enter hospital / organization"
+                              maxLength="150"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                    {registerRole === "Patient" && (
+                    <div className="register-field">
+                      <label>Blood Group</label>
+
+                      <div className="register-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11Z" />
+                          <path d="M9 15c.8 1.2 1.8 1.8 3 1.8" />
+                        </svg>
+
+                        <select name="bloodGroup" required>
+                          <option value="">Select Blood Group</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                        </select>
+                      </div>
+                    </div>
+                    )}
+
+
+                    <div className="register-field">
+                      <label>Address</label>
+
+                      <div className="register-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+                          <circle cx="12" cy="10" r="2.5" />
+                        </svg>
+
+                        <input
+                          type="text"
+                          name="address"
+                          placeholder="Enter your residential address"
+                          maxLength="200"
+                          autoComplete="street-address"
+                          required
+                        />
+                      </div>
+                    </div>
+
+
+                    <div className="register-field">
+                      <label>Password</label>
+
+                      <div className="login-password-wrap">
+                        <input
+                          type={
+                            showRegisterPassword
+                              ? "text"
+                              : "password"
+                          }
+                          name="password"
+                          value={registerPassword}
+                          onChange={(e) =>
+                            setRegisterPassword(e.target.value)
+                          }
+                          placeholder="Enter password"
+                          autoComplete="new-password"
+                          minLength="8"
+                          pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                          title="Password must be at least 8 characters and contain uppercase, lowercase, number, and special character"
+                          required
+                        />
+
+                        <button
+                          type="button"
+                          className="show-password-btn"
+                          onClick={() =>
+                            setShowRegisterPassword(
+                              (previous) => !previous
+                            )
+                          }
+                          aria-label={
+                            showRegisterPassword
+                              ? "Hide password"
+                              : "Show password"
+                          }
+                        >
+                          {showRegisterPassword ? "Hide" : "Show"}
+                        </button>
+                      </div>
+                    </div>
+
+
+                    <div className="register-field">
+                      <label>Confirm Password</label>
+
+                      <div className="login-password-wrap">
+                        <input
+                          type={
+                            showConfirmPassword
+                              ? "text"
+                              : "password"
+                          }
+                          name="confirmPassword"
+                          value={confirmPassword}
+                          onChange={(e) =>
+                            setConfirmPassword(e.target.value)
+                          }
+                          placeholder="Re-enter your password"
+                          autoComplete="new-password"
+                          minLength="8"
+                          required
+                        />
+
+                        <button
+                          type="button"
+                          className="show-password-btn"
+                          onClick={() =>
+                            setShowConfirmPassword(
+                              (previous) => !previous
+                            )
+                          }
+                          aria-label={
+                            showConfirmPassword
+                              ? "Hide password"
+                              : "Show password"
+                          }
+                        >
+                          {showConfirmPassword ? "Hide" : "Show"}
+                        </button>
+                      </div>
+                    </div>
+
+
+                    {registerError && (
+                      <div className="register-error">
+                        ⚠️ {registerError}
+                      </div>
+                    )}
+
+
+                    {registerSuccess && (
+                      <div className="login-success">
+                        ✅ {registerSuccess}
+                      </div>
+                    )}
+
+
+                    <button
+                      type="submit"
+                      className="register-submit"
+                    >
+                      Create Account
+                    </button>
+
+                    </form>
+
+
+                    <div className="register-or">
+                      <span>or</span>
+                    </div>
+
+
+                    <p className="already-account">
+                      <span>Already have an account?</span>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setRegisterOpen(false);
+                          openLogin("Patient");
+                        }}
+                      >
+                        Login
+                      </button>
+                    </p>
             </div>
-
-            <p className="already-account">
-              <span>Already have an account?</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setRegisterOpen(false);
-                  openLogin("Patient");
-                }}
-              >
-                Login
-              </button>
-            </p>
-          </div>
         </div>
       )}
     </div>

@@ -35,6 +35,7 @@ public class DoctorController {
 
     /*
      * Create doctor profile + login account.
+     * This endpoint is intended for Admin-created doctors.
      */
     @PostMapping("/account")
     public ResponseEntity<?> createDoctorAccount(
@@ -49,6 +50,50 @@ public class DoctorController {
                             request.password(),
                             request.specialization()
                     );
+
+            return ResponseEntity.ok(doctor);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    /*
+     * Admin approves a pending doctor application.
+     */
+    @PutMapping("/{doctorId}/approve")
+    public ResponseEntity<?> approveDoctor(
+            @PathVariable Integer doctorId) {
+
+        try {
+
+            Doctor doctor =
+                    doctorService.approveDoctor(doctorId);
+
+            return ResponseEntity.ok(doctor);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    /*
+     * Admin rejects a pending doctor application.
+     */
+    @PutMapping("/{doctorId}/reject")
+    public ResponseEntity<?> rejectDoctor(
+            @PathVariable Integer doctorId) {
+
+        try {
+
+            Doctor doctor =
+                    doctorService.rejectDoctor(doctorId);
 
             return ResponseEntity.ok(doctor);
 
