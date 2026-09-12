@@ -36,13 +36,24 @@ public class DoctorService {
 
     /*
      * Existing simple doctor creation.
+     * Used for direct/admin doctor creation.
      */
     public Doctor createDoctor(Doctor doctor) {
+
+        if (doctor.getStatus() == null ||
+                doctor.getStatus().trim().isEmpty()) {
+
+            doctor.setStatus("APPROVED");
+        }
+
         return doctorRepository.save(doctor);
     }
 
     /*
      * Create doctor + login account together.
+     *
+     * This method is for ADMIN-created doctors,
+     * so the account is active immediately.
      */
     @Transactional
     public Doctor createDoctorAccount(
@@ -63,13 +74,16 @@ public class DoctorService {
             throw new RuntimeException("Password is required");
         }
 
-        if (specialization == null || specialization.trim().isEmpty()) {
+        if (specialization == null ||
+                specialization.trim().isEmpty()) {
+
             throw new RuntimeException("Specialization is required");
         }
 
         String cleanName = name.trim();
         String cleanEmail = email.trim();
-        String cleanSpecialization = specialization.trim();
+        String cleanSpecialization =
+                specialization.trim();
 
         /*
          * Prevent duplicate login email.
@@ -79,28 +93,88 @@ public class DoctorService {
         }
 
         /*
-         * Create doctor profile.
+         * Create approved doctor profile.
          */
         Doctor doctor = new Doctor();
 
         doctor.setName(cleanName);
+        doctor.setEmail(cleanEmail);
         doctor.setSpecialization(cleanSpecialization);
+        doctor.setStatus("APPROVED");
 
-        Doctor savedDoctor = doctorRepository.save(doctor);
+        Doctor savedDoctor =
+                doctorRepository.save(doctor);
 
         /*
-         * Create login account.
+         * Create active login account.
          */
         User user = new User();
 
         user.setEmail(cleanEmail);
         user.setPassword(password);
         user.setRole("Doctor");
+        user.setStatus("ACTIVE");
 
         /*
          * Connect login account to doctor profile.
          */
-        user.setDoctorId(savedDoctor.getDoctorId());
+        user.setDoctorId(
+                savedDoctor.getDoctorId()
+        );
+
+        userRepository.save(user);
+
+        return savedDoctor;
+    }
+
+    /*
+     * Approve a pending doctor application.
+     */
+    @Transactional
+    public Doctor approveDoctor(Integer doctorId) {
+
+        Doctor doctor = getDoctorById(doctorId);
+
+        doctor.setStatus("APPROVED");
+
+        Doctor savedDoctor =
+                doctorRepository.save(doctor);
+
+        User user = userRepository
+                .findByDoctorId(doctorId)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Doctor login account not found"
+                        ));
+
+        user.setStatus("ACTIVE");
+
+        userRepository.save(user);
+
+        return savedDoctor;
+    }
+
+    /*
+     * Reject a pending doctor application.
+     */
+    @Transactional
+    public Doctor rejectDoctor(Integer doctorId) {
+
+        Doctor doctor = getDoctorById(doctorId);
+
+        doctor.setStatus("REJECTED");
+
+        Doctor savedDoctor =
+                doctorRepository.save(doctor);
+
+        User user = userRepository
+                .findByDoctorId(doctorId)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Doctor login account not found"
+                        ));
+
+        user.setStatus("REJECTED");
 
         userRepository.save(user);
 
@@ -114,8 +188,29 @@ public class DoctorService {
         Doctor doctor = getDoctorById(doctorId);
 
         doctor.setName(updatedDoctor.getName());
+
         doctor.setSpecialization(
                 updatedDoctor.getSpecialization()
+        );
+
+        doctor.setPhone(
+                updatedDoctor.getPhone()
+        );
+
+        doctor.setEmail(
+                updatedDoctor.getEmail()
+        );
+
+        doctor.setQualification(
+                updatedDoctor.getQualification()
+        );
+
+        doctor.setMedicalRegistrationNo(
+                updatedDoctor.getMedicalRegistrationNo()
+        );
+
+        doctor.setHospitalAssociation(
+                updatedDoctor.getHospitalAssociation()
         );
 
         return doctorRepository.save(doctor);

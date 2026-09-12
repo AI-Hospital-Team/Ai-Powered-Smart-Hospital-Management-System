@@ -833,6 +833,62 @@ body {
     scale(0.96);
 }
 
+/* =========================================================
+   REGISTER ROLE SELECTOR
+========================================================= */
+
+.register-role-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.register-role-selector button {
+  min-width: 82px;
+  padding: 9px 18px;
+
+  border: 1px solid #d8e7eb;
+  border-radius: 8px;
+
+  background: #f7fbfc;
+  color: #567080;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.register-role-selector button:hover {
+  background: #eefafb;
+  border-color: #0a98a6;
+  color: #087f8c;
+}
+
+.register-role-selector button.active {
+  background: #087f8c;
+  border-color: #087f8c;
+  color: #ffffff;
+
+  box-shadow: 0 4px 10px rgba(8, 127, 140, 0.15);
+}
+
+.register-role-selector button.active:hover {
+  background: #087f8c;
+  color: #ffffff;
+  border-color: #087f8c;
+  transform: translateY(-1px);
+}
+
 
 /* =====================================================
    AI MEDICAL HEADER TEXTURE
