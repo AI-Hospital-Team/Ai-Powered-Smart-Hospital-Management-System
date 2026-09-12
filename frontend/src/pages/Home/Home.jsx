@@ -2429,6 +2429,9 @@ function Home() {
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
+
+                const form = e.currentTarget;
+
                 setRegisterError("");
                 setRegisterSuccess("");
 
@@ -2510,13 +2513,13 @@ function Home() {
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify({
-                        fullName: fullName,
-                        email: email,
-                        mobile: mobile,
-                        dob: dob,
-                        gender: gender,
-                        bloodGroup: bloodGroup,
-                        address: address,
+                        fullName,
+                        email,
+                        mobile,
+                        dob,
+                        gender,
+                        bloodGroup,
+                        address,
                         password: registerPassword,
                       }),
                     }
@@ -2524,13 +2527,21 @@ function Home() {
 
                   if (!response.ok) {
                     const message = await response.text();
+
+                    setRegisterSuccess("");
                     setRegisterError(message || "Registration failed.");
+
                     return;
                   }
 
+                  // SUCCESS — remove any previous error
                   setRegisterError("");
-                  setRegisterSuccess("Account created successfully. Please login.");
-                  e.currentTarget.reset();
+                  setRegisterSuccess(
+                    "Account created successfully. Please login."
+                  );
+
+                  form.reset();
+
                   setRegisterPassword("");
                   setConfirmPassword("");
 
@@ -2539,10 +2550,17 @@ function Home() {
                     setRegisterOpen(false);
                     openLogin("Patient");
                   }, 1500);
+
                 } catch (error) {
                   console.error("Registration error:", error);
-                  setRegisterError("Unable to connect to the hospital server.");
+
+                  // CONNECTION ERROR — remove success message
+                  setRegisterSuccess("");
+                  setRegisterError(
+                    "Unable to connect to the hospital server."
+                  );
                 }
+                
               }}
             >
               <div className="register-field">

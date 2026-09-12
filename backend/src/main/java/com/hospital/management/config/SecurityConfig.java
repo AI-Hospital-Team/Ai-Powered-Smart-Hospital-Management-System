@@ -1,12 +1,15 @@
 package com.hospital.management.config;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,14 +24,22 @@ public class SecurityConfig {
             throws Exception {
 
         http
+            // Disable CSRF because this is a REST API
             .csrf(csrf -> csrf.disable())
 
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            // Enable CORS
+            .cors(cors ->
+                cors.configurationSource(corsConfigurationSource())
             )
 
+            // Stateless API
+            .sessionManagement(session ->
+                session.sessionCreationPolicy(
+                    SessionCreationPolicy.STATELESS
+                )
+            )
+
+            // Allow authentication endpoints
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .anyRequest().permitAll()
@@ -42,31 +53,51 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(
-            List.of("http://localhost:5173")
+        // Allow React/Vite running on any localhost port
+        configuration.setAllowedOriginPatterns(
+            List.of(
+                "http://localhost:*",
+                "http://127.0.0.1:*"
+            )
         );
 
+        // Allowed HTTP methods
         configuration.setAllowedMethods(
-            List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
+            List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            )
         );
 
+        // Allow all request headers
         configuration.setAllowedHeaders(
             List.of("*")
         );
 
+        // Allow cookies/authentication credentials
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
             new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration(
+            "/**",
+            configuration
+        );
 
         return source;
     }
-@Bean
-public UserDetailsService userDetailsService() {
-    return username -> {
-        throw new UsernameNotFoundException("User not found");
-    };
-}
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+
+        return username -> {
+            throw new UsernameNotFoundException(
+                "User not found"
+            );
+        };
+    }
 }
