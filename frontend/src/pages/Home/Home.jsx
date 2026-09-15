@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./Home.css";
 import "./Home.responsive.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
 /* =====================================================
@@ -1456,93 +1456,168 @@ function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          DEPARTMENTS
-      ===================================================== */}
-      <section className="departments-section" id="departments">
-        <div className="section-heading">
-          <p>OUR DEPARTMENTS</p>
-          <h2>Specialized Medical Care</h2>
-          <span>
-            Professional care across multiple medical specialties.
-          </span>
-        </div>
+{/* =====================================================
+    DEPARTMENTS
+===================================================== */}
+<section className="departments-section" id="departments">
+  <div className="section-heading">
+    <p>OUR DEPARTMENTS</p>
 
-        <div className="departments-grid">
+    <h2>Specialized Medical Care</h2>
 
-          <div className="department-card">
-            <div>❤️</div>
-            <h3>Cardiology</h3>
-            <p>
-              Diagnosis and treatment of heart-related conditions.
-            </p>
-            <span>View Department →</span>
-          </div>
+    <span>
+      Professional care across multiple medical specialties.
+    </span>
+  </div>
 
-          <div className="department-card">
-            <div>🧠</div>
-            <h3>Neurology</h3>
-            <p>
-              Specialized treatment for neurological disorders.
-            </p>
-            <span>View Department →</span>
-          </div>
+  <div className="departments-grid">
 
-          <div className="department-card">
-            <div>🦴</div>
-            <h3>Orthopedics</h3>
-            <p>
-              Bone, joint and musculoskeletal healthcare.
-            </p>
-            <span>View Department →</span>
-          </div>
+    {/* Cardiology */}
+    <div className="department-card">
+      <div>❤️</div>
+      <h3>Cardiology</h3>
+      <p>
+        Diagnosis and treatment of heart-related conditions.
+      </p>
 
-          <div className="department-card">
-            <div>👶</div>
-            <h3>Pediatrics</h3>
-            <p>
-              Healthcare services focused on children.
-            </p>
-            <span>View Department →</span>
-          </div>
+      <a
+        href="https://medlineplus.gov/heartdiseases.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
 
-          <div className="department-card">
-            <div>👩</div>
-            <h3>Gynecology</h3>
-            <p>
-              Comprehensive women's healthcare services.
-            </p>
-            <span>View Department →</span>
-          </div>
+    {/* Neurology */}
+    <div className="department-card">
+      <div>🧠</div>
+      <h3>Neurology</h3>
+      <p>
+        Specialized treatment for neurological disorders.
+      </p>
 
-          <div className="department-card">
-            <div>🫁</div>
-            <h3>Pulmonology</h3>
-            <p>
-              Diagnosis and management of respiratory conditions.
-            </p>
-            <span>View Department →</span>
-          </div>
+      <a
+        href="https://medlineplus.gov/brainandnerves.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
 
-          <div className="department-card">
-            <div>🧴</div>
-            <h3>Dermatology</h3>
-            <p>
-              Medical care for skin, hair and nail conditions.
-            </p>
-            <span>View Department →</span>
-          </div>
+    {/* Orthopedics */}
+    <div className="department-card">
+      <div>🦴</div>
+      <h3>Orthopedics</h3>
+      <p>
+        Bone, joint and musculoskeletal healthcare.
+      </p>
 
-          <div className="department-card">
-            <div>🩺</div>
-            <h3>General Medicine</h3>
-            <p>
-              Primary diagnosis and comprehensive medical care.
-            </p>
-            <span>View Department →</span>
-          </div>
-        </div>
-      </section>
+      <a
+        href="https://medlineplus.gov/ency/article/007455.htm"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
+
+    {/* Pediatrics */}
+    <div className="department-card">
+      <div>👶</div>
+      <h3>Pediatrics</h3>
+      <p>
+        Healthcare services focused on children.
+      </p>
+
+      <a
+        href="https://medlineplus.gov/childrenshealth.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
+
+    {/* Gynecology */}
+    <div className="department-card">
+      <div>👩</div>
+      <h3>Gynecology</h3>
+      <p>
+        Comprehensive women's healthcare services.
+      </p>
+
+      <a
+        href="https://medlineplus.gov/ency/article/007458.htm"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
+
+    {/* Pulmonology */}
+    <div className="department-card">
+      <div>🫁</div>
+      <h3>Pulmonology</h3>
+      <p>
+        Diagnosis and management of respiratory conditions.
+      </p>
+
+      <a
+        href="https://medlineplus.gov/lungdiseases.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
+
+    {/* Dermatology */}
+    <div className="department-card">
+      <div>🧴</div>
+      <h3>Dermatology</h3>
+      <p>
+        Medical care for skin, hair and nail conditions.
+      </p>
+
+      <a
+        href="https://medlineplus.gov/skinconditions.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
+
+    {/* General Medicine */}
+    <div className="department-card">
+      <div>🩺</div>
+      <h3>General Medicine</h3>
+      <p>
+        Primary diagnosis and comprehensive medical care.
+      </p>
+
+      <a
+        href="https://medlineplus.gov/healthtopics.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="department-view-link"
+      >
+        View Department →
+      </a>
+    </div>
+
+  </div>
+</section>
 
       {/* =====================================================
           DOCTORS
