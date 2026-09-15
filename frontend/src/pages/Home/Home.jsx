@@ -609,6 +609,96 @@ function Home() {
     setLoginMenuOpen(false);
   };
 
+  /* =====================================================
+     DAY / NIGHT SHIFT DOCTOR AVAILABILITY
+  ===================================================== */
+  const [dayDoctors, setDayDoctors] = useState([]);
+  const [nightDoctors, setNightDoctors] = useState([]);
+  const [shiftLoading, setShiftLoading] = useState(true);
+  const [shiftError, setShiftError] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchShiftDoctors = async () => {
+      setShiftLoading(true);
+      setShiftError("");
+
+      try {
+        const [dayResponse, nightResponse] = await Promise.all([
+          fetch("http://localhost:8080/api/doctors/shift/DAY"),
+          fetch("http://localhost:8080/api/doctors/shift/NIGHT"),
+        ]);
+
+        if (!dayResponse.ok || !nightResponse.ok) {
+          throw new Error("Unable to load doctor availability.");
+        }
+
+        const [dayData, nightData] = await Promise.all([
+          dayResponse.json(),
+          nightResponse.json(),
+        ]);
+
+        if (!cancelled) {
+          setDayDoctors(Array.isArray(dayData) ? dayData : []);
+          setNightDoctors(Array.isArray(nightData) ? nightData : []);
+        }
+      } catch (error) {
+        console.error("Shift doctors fetch error:", error);
+
+        if (!cancelled) {
+          setShiftError(
+            "Unable to load doctor availability right now. Please try again later."
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setShiftLoading(false);
+        }
+      }
+    };
+
+    fetchShiftDoctors();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const renderShiftDoctorCard = (doctor, index) => {
+    const name = doctor.name || doctor.fullName || "Doctor";
+    const specialization =
+      doctor.specialization || doctor.qualification || "General Physician";
+    const isAvailable =
+      doctor.available !== undefined ? doctor.available : true;
+
+    return (
+      <div className="shift-doctor-card" key={doctor.id ?? `${name}-${index}`}>
+        <div className="shift-doctor-avatar">
+          {name
+            .replace(/^Dr\.?\s*/i, "")
+            .trim()
+            .charAt(0)
+            .toUpperCase() || "D"}
+        </div>
+
+        <div className="shift-doctor-info">
+          <h4>{name}</h4>
+          <p>{specialization}</p>
+        </div>
+
+        <span
+          className={`shift-doctor-status ${
+            isAvailable ? "status-available" : "status-unavailable"
+          }`}
+        >
+          <span className="status-dot"></span>
+          {isAvailable ? "Available" : "Unavailable"}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div
       className={`home-page ${darkMode ? "dark-theme" : "light-theme"}`}
@@ -1701,6 +1791,81 @@ function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* =====================================================
+          DAY / NIGHT SHIFT DOCTOR AVAILABILITY
+      ===================================================== */}
+      <section className="shift-availability-section" id="shift-availability">
+        <div className="section-heading">
+          <p>DOCTOR AVAILABILITY</p>
+          <h2>Who's On Duty Right Now</h2>
+          <span>
+            Check which doctors are available during day and night
+            shifts before you plan your visit.
+          </span>
+        </div>
+
+        {shiftLoading && (
+          <div className="shift-status-message shift-loading">
+            <span className="shift-spinner"></span>
+            Loading doctor availability...
+          </div>
+        )}
+
+        {!shiftLoading && shiftError && (
+          <div className="shift-status-message shift-error">
+            ⚠️ {shiftError}
+          </div>
+        )}
+
+        {!shiftLoading && !shiftError && (
+          <div className="shift-availability-grid">
+            <div className="shift-column day-shift">
+              <div className="shift-column-header">
+                <span className="shift-column-icon">☀️</span>
+                <div>
+                  <h3>Day Shift Doctors</h3>
+                  <span>Available during regular hospital hours</span>
+                </div>
+              </div>
+
+              {dayDoctors.length === 0 ? (
+                <p className="shift-empty-message">
+                  No day shift doctors available right now.
+                </p>
+              ) : (
+                <div className="shift-doctor-list">
+                  {dayDoctors.map((doctor, index) =>
+                    renderShiftDoctorCard(doctor, index)
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="shift-column night-shift">
+              <div className="shift-column-header">
+                <span className="shift-column-icon">🌙</span>
+                <div>
+                  <h3>Night Shift Doctors</h3>
+                  <span>Available for overnight and emergency care</span>
+                </div>
+              </div>
+
+              {nightDoctors.length === 0 ? (
+                <p className="shift-empty-message">
+                  No night shift doctors available right now.
+                </p>
+              ) : (
+                <div className="shift-doctor-list">
+                  {nightDoctors.map((doctor, index) =>
+                    renderShiftDoctorCard(doctor, index)
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* =====================================================
