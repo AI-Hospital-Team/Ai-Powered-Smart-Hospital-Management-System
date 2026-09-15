@@ -1480,12 +1480,14 @@ function Home() {
         Diagnosis and treatment of heart-related conditions.
       </p>
 
-      <Link
-        to="/departments/cardiology"
+      <a
+        href="https://medlineplus.gov/heartdiseases.html"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
     {/* Neurology */}
@@ -1496,12 +1498,14 @@ function Home() {
         Specialized treatment for neurological disorders.
       </p>
 
-      <Link
-        to="/departments/neurology"
+      <a
+        href="https://medlineplus.gov/brainandnerves.html"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
     {/* Orthopedics */}
@@ -1512,12 +1516,14 @@ function Home() {
         Bone, joint and musculoskeletal healthcare.
       </p>
 
-      <Link
-        to="/departments/orthopedics"
+      <a
+        href="https://medlineplus.gov/ency/article/007455.htm"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
     {/* Pediatrics */}
@@ -1528,12 +1534,14 @@ function Home() {
         Healthcare services focused on children.
       </p>
 
-      <Link
-        to="/departments/pediatrics"
+      <a
+        href="https://medlineplus.gov/childrenshealth.html"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
     {/* Gynecology */}
@@ -1544,12 +1552,14 @@ function Home() {
         Comprehensive women's healthcare services.
       </p>
 
-      <Link
-        to="/departments/gynecology"
+      <a
+        href="https://medlineplus.gov/ency/article/007458.htm"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
     {/* Pulmonology */}
@@ -1560,12 +1570,14 @@ function Home() {
         Diagnosis and management of respiratory conditions.
       </p>
 
-      <Link
-        to="/departments/pulmonology"
+      <a
+        href="https://medlineplus.gov/lungdiseases.html"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
     {/* Dermatology */}
@@ -1576,12 +1588,14 @@ function Home() {
         Medical care for skin, hair and nail conditions.
       </p>
 
-      <Link
-        to="/departments/dermatology"
+      <a
+        href="https://medlineplus.gov/skinconditions.html"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
     {/* General Medicine */}
@@ -1592,12 +1606,14 @@ function Home() {
         Primary diagnosis and comprehensive medical care.
       </p>
 
-      <Link
-        to="/departments/general-medicine"
+      <a
+        href="https://medlineplus.gov/healthtopics.html"
+        target="_blank"
+        rel="noopener noreferrer"
         className="department-view-link"
       >
         View Department →
-      </Link>
+      </a>
     </div>
 
   </div>
