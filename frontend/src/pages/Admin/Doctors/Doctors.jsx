@@ -42,7 +42,11 @@ function Doctors() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch doctors");
+        const errorText = await response.text();
+
+        throw new Error(
+          errorText || "Failed to fetch doctors"
+        );
       }
 
       const data = await response.json();
@@ -52,7 +56,8 @@ function Doctors() {
       console.error("Doctors error:", err);
 
       setError(
-        "Unable to load doctors. Make sure the backend is running."
+        err.message ||
+          "Unable to load doctors. Make sure the backend is running."
       );
     } finally {
       setLoading(false);
@@ -113,6 +118,7 @@ function Doctors() {
 
     try {
       setUpdatingDoctorId(doctor.doctorId);
+      setError("");
 
       const response = await fetch(
         `${API_BASE_URL}/doctors/${doctor.doctorId}/approve`,
@@ -121,29 +127,50 @@ function Doctors() {
         }
       );
 
-      const data = await response.json();
+      /*
+       * Backend can return either JSON or plain text
+       * for an error. Therefore read text first.
+       */
+      const responseText = await response.text();
 
       if (!response.ok) {
         throw new Error(
-          data || "Failed to approve doctor"
+          responseText || "Failed to approve doctor"
         );
       }
 
-      setDoctors((previousDoctors) =>
-        previousDoctors.map((currentDoctor) =>
-          currentDoctor.doctorId === doctor.doctorId
-            ? data
-            : currentDoctor
-        )
+      let updatedDoctor;
+
+      try {
+        updatedDoctor = JSON.parse(responseText);
+      } catch {
+        throw new Error(
+          "Doctor approval succeeded, but the server returned an invalid response."
+        );
+      }
+
+      console.log(
+        "Doctor approved successfully:",
+        updatedDoctor
       );
 
-      setSelectedDoctor(data);
+      /*
+       * Important:
+       * Reload doctors directly from backend/database.
+       * This prevents frontend-only status changes.
+       */
+      await loadDoctors();
+
+      setSelectedDoctor(updatedDoctor);
 
       alert(
         "Doctor approved successfully. The doctor can now login."
       );
     } catch (err) {
-      console.error("Approve doctor error:", err);
+      console.error(
+        "Approve doctor error:",
+        err
+      );
 
       alert(
         err.message ||
@@ -169,6 +196,7 @@ function Doctors() {
 
     try {
       setUpdatingDoctorId(doctor.doctorId);
+      setError("");
 
       const response = await fetch(
         `${API_BASE_URL}/doctors/${doctor.doctorId}/reject`,
@@ -177,29 +205,48 @@ function Doctors() {
         }
       );
 
-      const data = await response.json();
+      /*
+       * Read response as text first so plain-text backend
+       * errors do not cause JSON parsing errors.
+       */
+      const responseText = await response.text();
 
       if (!response.ok) {
         throw new Error(
-          data || "Failed to reject doctor"
+          responseText || "Failed to reject doctor"
         );
       }
 
-      setDoctors((previousDoctors) =>
-        previousDoctors.map((currentDoctor) =>
-          currentDoctor.doctorId === doctor.doctorId
-            ? data
-            : currentDoctor
-        )
+      let updatedDoctor;
+
+      try {
+        updatedDoctor = JSON.parse(responseText);
+      } catch {
+        throw new Error(
+          "Doctor rejection succeeded, but the server returned an invalid response."
+        );
+      }
+
+      console.log(
+        "Doctor rejected successfully:",
+        updatedDoctor
       );
 
-      setSelectedDoctor(data);
+      /*
+       * Reload from backend/database.
+       */
+      await loadDoctors();
+
+      setSelectedDoctor(updatedDoctor);
 
       alert(
         "Doctor application rejected."
       );
     } catch (err) {
-      console.error("Reject doctor error:", err);
+      console.error(
+        "Reject doctor error:",
+        err
+      );
 
       alert(
         err.message ||
@@ -451,7 +498,8 @@ function Doctors() {
                     doctor.doctorId ?? index
                   }
                   style={{
-                    animationDelay: `${index * 0.05}s`,
+                    animationDelay:
+                      `${index * 0.05}s`,
                   }}
                 >
 
@@ -616,7 +664,10 @@ function Doctors() {
                             marginRight: "5px",
                           }}
                         />
-                        Approve
+
+                        {isUpdating
+                          ? "Approving..."
+                          : "Approve"}
                       </button>
 
                       <button
@@ -649,7 +700,10 @@ function Doctors() {
                             marginRight: "5px",
                           }}
                         />
-                        Reject
+
+                        {isUpdating
+                          ? "Processing..."
+                          : "Reject"}
                       </button>
 
                     </div>
@@ -737,8 +791,6 @@ function Doctors() {
 
                 <div className="doctor-detail-grid">
 
-                  {/* PERSONAL INFORMATION */}
-
                   <div>
                     <small>
                       Full Name
@@ -789,8 +841,6 @@ function Doctors() {
                     </strong>
                   </div>
 
-                  {/* PROFESSIONAL INFORMATION */}
-
                   <div>
                     <small>
                       Specialization
@@ -834,8 +884,6 @@ function Doctors() {
                     </strong>
                   </div>
 
-                  {/* ACCOUNT STATUS */}
-
                   <div>
                     <small>
                       Account Status
@@ -860,8 +908,6 @@ function Doctors() {
                       ).toUpperCase()}
                     </strong>
                   </div>
-
-                  {/* ADDRESS */}
 
                   <div
                     style={{
@@ -986,6 +1032,7 @@ function Doctors() {
                   </button>
 
                 </>
+
               )}
 
               <button
