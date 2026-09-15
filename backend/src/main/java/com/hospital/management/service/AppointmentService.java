@@ -79,7 +79,6 @@ public class AppointmentService {
     public AppointmentResponse createAppointment(
             Appointment appointment) {
 
-        // Prevent booking an appointment in the past
         if (appointment.getAppointmentDate() == null ||
                 appointment.getAppointmentTime() == null) {
 
@@ -102,7 +101,6 @@ public class AppointmentService {
             );
         }
 
-        // Default status
         if (appointment.getStatus() == null ||
                 appointment.getStatus().isBlank()) {
 
@@ -132,6 +130,7 @@ public class AppointmentService {
 
             if (appointment.getAppointmentDate() == null ||
                     appointment.getAppointmentTime() == null) {
+
                 continue;
             }
 
@@ -143,7 +142,7 @@ public class AppointmentService {
 
             String status = appointment.getStatus();
 
-            // Do not change already finished appointments
+            // Do not change finished appointments
             if ("Completed".equalsIgnoreCase(status) ||
                     "Cancelled".equalsIgnoreCase(status) ||
                     "Rejected".equalsIgnoreCase(status) ||
@@ -152,7 +151,6 @@ public class AppointmentService {
                 continue;
             }
 
-            // Mark past appointment as Expired
             if (appointmentDateTime.isBefore(now)) {
 
                 appointment.setStatus("Expired");
@@ -174,28 +172,26 @@ public class AppointmentService {
     }
 
     // =====================================================
-    // GET BY DOCTOR
+    // GET APPOINTMENTS BY DOCTOR
     // =====================================================
 
     public List<AppointmentResponse> getAppointmentsByDoctor(
             Integer doctorId) {
 
         return toResponseList(
-                appointmentRepository
-                        .findByDoctorId(doctorId)
+                appointmentRepository.findByDoctorId(doctorId)
         );
     }
 
     // =====================================================
-    // GET BY PATIENT
+    // GET APPOINTMENTS BY PATIENT
     // =====================================================
 
     public List<AppointmentResponse> getAppointmentsByPatient(
             Integer patientId) {
 
         return toResponseList(
-                appointmentRepository
-                        .findByPatientId(patientId)
+                appointmentRepository.findByPatientId(patientId)
         );
     }
 
@@ -246,31 +242,22 @@ public class AppointmentService {
 
         String currentStatus = appointment.getStatus();
 
-        // Completed appointment cannot be rescheduled
-        if ("Completed".equalsIgnoreCase(currentStatus)) {
+        // =================================================
+        // ONLY PENDING AND EXPIRED CAN BE RESCHEDULED
+        // =================================================
+
+        if (!"Pending".equalsIgnoreCase(currentStatus) &&
+                !"Expired".equalsIgnoreCase(currentStatus)) {
 
             throw new RuntimeException(
-                    "Completed appointment cannot be rescheduled."
+                    "Only Pending or Expired appointments can be rescheduled."
             );
         }
 
-        // Cancelled appointment cannot be rescheduled
-        if ("Cancelled".equalsIgnoreCase(currentStatus)) {
+        // =================================================
+        // VALIDATE DATE AND TIME
+        // =================================================
 
-            throw new RuntimeException(
-                    "Cancelled appointment cannot be rescheduled."
-            );
-        }
-
-        // Rejected appointment cannot be rescheduled
-        if ("Rejected".equalsIgnoreCase(currentStatus)) {
-
-            throw new RuntimeException(
-                    "Rejected appointment cannot be rescheduled."
-            );
-        }
-
-        // Validate date and time
         if (newDate == null || newTime == null) {
 
             throw new RuntimeException(
@@ -278,7 +265,10 @@ public class AppointmentService {
             );
         }
 
-        // Prevent selecting a past date/time
+        // =================================================
+        // PREVENT PAST DATE/TIME
+        // =================================================
+
         LocalDateTime newAppointmentDateTime =
                 LocalDateTime.of(newDate, newTime);
 
@@ -290,13 +280,14 @@ public class AppointmentService {
             );
         }
 
-        // Update date
-        appointment.setAppointmentDate(newDate);
+        // =================================================
+        // UPDATE APPOINTMENT
+        // =================================================
 
-        // Update time
+        appointment.setAppointmentDate(newDate);
         appointment.setAppointmentTime(newTime);
 
-        // Needs confirmation again
+        // Must be confirmed again
         appointment.setStatus("Pending");
 
         Appointment updatedAppointment =
@@ -322,7 +313,7 @@ public class AppointmentService {
                                 )
                         );
 
-        // Prevent cancelling completed appointment
+        // Completed cannot be cancelled
         if ("Completed".equalsIgnoreCase(
                 appointment.getStatus())) {
 
@@ -331,7 +322,7 @@ public class AppointmentService {
             );
         }
 
-        // Prevent cancelling already cancelled appointment
+        // Already cancelled
         if ("Cancelled".equalsIgnoreCase(
                 appointment.getStatus())) {
 
@@ -340,12 +331,12 @@ public class AppointmentService {
             );
         }
 
-        // Prevent cancelling expired appointment
+        // Expired cannot be cancelled
         if ("Expired".equalsIgnoreCase(
                 appointment.getStatus())) {
 
             throw new RuntimeException(
-                    "Expired appointment cannot be cancelled."
+                    "Expired appointment cannot be cancelled. Please reschedule the appointment."
             );
         }
 
