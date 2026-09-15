@@ -588,6 +588,24 @@
   color: #c45656;
 }
 
+.status-expired {
+  background: #fff4e5;
+  color: #c46f16;
+}
+
+.appointment-expired-info {
+  margin-top: 7px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fff8ef;
+  color: #b66a16;
+  border: 1px solid #f3dfc4;
+  font-size: 8px;
+  line-height: 1.4;
+  font-weight: 700;
+  text-align: center;
+}
+
 /* =========================================================
    DOCTOR
 ========================================================= */
