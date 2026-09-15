@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./Home.css";
 import "./Home.responsive.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
 /* =====================================================
@@ -1456,93 +1456,152 @@ function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          DEPARTMENTS
-      ===================================================== */}
-      <section className="departments-section" id="departments">
-        <div className="section-heading">
-          <p>OUR DEPARTMENTS</p>
-          <h2>Specialized Medical Care</h2>
-          <span>
-            Professional care across multiple medical specialties.
-          </span>
-        </div>
+{/* =====================================================
+    DEPARTMENTS
+===================================================== */}
+<section className="departments-section" id="departments">
+  <div className="section-heading">
+    <p>OUR DEPARTMENTS</p>
 
-        <div className="departments-grid">
+    <h2>Specialized Medical Care</h2>
 
-          <div className="department-card">
-            <div>❤️</div>
-            <h3>Cardiology</h3>
-            <p>
-              Diagnosis and treatment of heart-related conditions.
-            </p>
-            <span>View Department →</span>
-          </div>
+    <span>
+      Professional care across multiple medical specialties.
+    </span>
+  </div>
 
-          <div className="department-card">
-            <div>🧠</div>
-            <h3>Neurology</h3>
-            <p>
-              Specialized treatment for neurological disorders.
-            </p>
-            <span>View Department →</span>
-          </div>
+  <div className="departments-grid">
 
-          <div className="department-card">
-            <div>🦴</div>
-            <h3>Orthopedics</h3>
-            <p>
-              Bone, joint and musculoskeletal healthcare.
-            </p>
-            <span>View Department →</span>
-          </div>
+    {/* Cardiology */}
+    <div className="department-card">
+      <div>❤️</div>
+      <h3>Cardiology</h3>
+      <p>
+        Diagnosis and treatment of heart-related conditions.
+      </p>
 
-          <div className="department-card">
-            <div>👶</div>
-            <h3>Pediatrics</h3>
-            <p>
-              Healthcare services focused on children.
-            </p>
-            <span>View Department →</span>
-          </div>
+      <Link
+        to="/departments/cardiology"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
 
-          <div className="department-card">
-            <div>👩</div>
-            <h3>Gynecology</h3>
-            <p>
-              Comprehensive women's healthcare services.
-            </p>
-            <span>View Department →</span>
-          </div>
+    {/* Neurology */}
+    <div className="department-card">
+      <div>🧠</div>
+      <h3>Neurology</h3>
+      <p>
+        Specialized treatment for neurological disorders.
+      </p>
 
-          <div className="department-card">
-            <div>🫁</div>
-            <h3>Pulmonology</h3>
-            <p>
-              Diagnosis and management of respiratory conditions.
-            </p>
-            <span>View Department →</span>
-          </div>
+      <Link
+        to="/departments/neurology"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
 
-          <div className="department-card">
-            <div>🧴</div>
-            <h3>Dermatology</h3>
-            <p>
-              Medical care for skin, hair and nail conditions.
-            </p>
-            <span>View Department →</span>
-          </div>
+    {/* Orthopedics */}
+    <div className="department-card">
+      <div>🦴</div>
+      <h3>Orthopedics</h3>
+      <p>
+        Bone, joint and musculoskeletal healthcare.
+      </p>
 
-          <div className="department-card">
-            <div>🩺</div>
-            <h3>General Medicine</h3>
-            <p>
-              Primary diagnosis and comprehensive medical care.
-            </p>
-            <span>View Department →</span>
-          </div>
-        </div>
-      </section>
+      <Link
+        to="/departments/orthopedics"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
+
+    {/* Pediatrics */}
+    <div className="department-card">
+      <div>👶</div>
+      <h3>Pediatrics</h3>
+      <p>
+        Healthcare services focused on children.
+      </p>
+
+      <Link
+        to="/departments/pediatrics"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
+
+    {/* Gynecology */}
+    <div className="department-card">
+      <div>👩</div>
+      <h3>Gynecology</h3>
+      <p>
+        Comprehensive women's healthcare services.
+      </p>
+
+      <Link
+        to="/departments/gynecology"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
+
+    {/* Pulmonology */}
+    <div className="department-card">
+      <div>🫁</div>
+      <h3>Pulmonology</h3>
+      <p>
+        Diagnosis and management of respiratory conditions.
+      </p>
+
+      <Link
+        to="/departments/pulmonology"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
+
+    {/* Dermatology */}
+    <div className="department-card">
+      <div>🧴</div>
+      <h3>Dermatology</h3>
+      <p>
+        Medical care for skin, hair and nail conditions.
+      </p>
+
+      <Link
+        to="/departments/dermatology"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
+
+    {/* General Medicine */}
+    <div className="department-card">
+      <div>🩺</div>
+      <h3>General Medicine</h3>
+      <p>
+        Primary diagnosis and comprehensive medical care.
+      </p>
+
+      <Link
+        to="/departments/general-medicine"
+        className="department-view-link"
+      >
+        View Department →
+      </Link>
+    </div>
+
+  </div>
+</section>
 
       {/* =====================================================
           DOCTORS

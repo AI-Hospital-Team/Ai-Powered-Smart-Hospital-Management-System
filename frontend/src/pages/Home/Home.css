@@ -1600,13 +1600,6 @@ body {
   margin-bottom: 13px;
 }
 
-.department-card span {
-  color: #0b8996;
-
-  font-size: 11px;
-
-  font-weight: 800;
-}
 
 /* =====================================================
    DOCTORS - FINAL FIX
@@ -6543,27 +6536,29 @@ body {
    VIEW LINK
 ========================================================= */
 
-.department-card span {
+/* =========================================================
+   DEPARTMENT VIEW LINK
+========================================================= */
+
+.department-view-link {
   display: inline-flex;
   align-items: center;
+  gap: 5px;
+  margin-top: 18px;
 
-  width: fit-content;
+  color: #008c9e;
+  text-decoration: none;
 
-  color: #078b9a;
-
-  font-size: 10px;
-
+  font-size: 14px;
   font-weight: 800;
 
   transition:
-    color 0.25s ease,
-    transform 0.25s ease;
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-
-.department-card:hover span {
+.department-view-link:hover {
   color: #056f80;
-
   transform: translateX(4px);
 }
 
