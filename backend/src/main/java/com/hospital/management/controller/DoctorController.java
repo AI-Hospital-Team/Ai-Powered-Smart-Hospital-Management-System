@@ -34,6 +34,22 @@ public class DoctorController {
     }
 
     /*
+     * Get doctors available in a particular shift.
+     *
+     * Example:
+     * GET /api/doctors/shift/DAY
+     * GET /api/doctors/shift/NIGHT
+     */
+    @GetMapping("/shift/{shift}")
+    public ResponseEntity<List<Doctor>> getDoctorsByShift(
+            @PathVariable String shift) {
+
+        return ResponseEntity.ok(
+                doctorService.getDoctorsByShift(shift)
+        );
+    }
+
+    /*
      * Create doctor profile + login account.
      * This endpoint is intended for Admin-created doctors.
      */
@@ -95,7 +111,8 @@ public class DoctorController {
             Doctor doctor =
                     doctorService.rejectDoctor(doctorId);
 
-            return ResponseEntity.ok(doctor);
+            return ResponseEntity
+                    .ok(doctor);
 
         } catch (RuntimeException e) {
 

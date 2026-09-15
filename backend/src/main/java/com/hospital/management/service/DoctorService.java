@@ -35,6 +35,32 @@ public class DoctorService {
     }
 
     /*
+     * Get doctors by Day / Night shift.
+     *
+     * Example:
+     * DAY   -> Day shift doctors
+     * NIGHT -> Night shift doctors
+     */
+    public List<Doctor> getDoctorsByShift(String shift) {
+
+        if (shift == null || shift.trim().isEmpty()) {
+            throw new RuntimeException("Shift is required");
+        }
+
+        String cleanShift = shift.trim().toUpperCase();
+
+        if (!cleanShift.equals("DAY") &&
+                !cleanShift.equals("NIGHT")) {
+
+            throw new RuntimeException(
+                    "Invalid shift. Use DAY or NIGHT"
+            );
+        }
+
+        return doctorRepository.findByShiftIgnoreCase(cleanShift);
+    }
+
+    /*
      * Existing simple doctor creation.
      * Used for direct/admin doctor creation.
      */

@@ -1,6 +1,7 @@
 package com.hospital.management.entity;
 
 import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,9 +43,15 @@ public class Doctor {
 
     private String status;
 
+    // Day / Night shift
+    @Column(name = "shift")
+    private String shift;
+
+    // Default constructor
     public Doctor() {
     }
 
+    // Doctor ID
     public Integer getDoctorId() {
         return doctorId;
     }
@@ -53,6 +60,7 @@ public class Doctor {
         this.doctorId = doctorId;
     }
 
+    // Name
     public String getName() {
         return name;
     }
@@ -61,6 +69,7 @@ public class Doctor {
         this.name = name;
     }
 
+    // Specialization
     public String getSpecialization() {
         return specialization;
     }
@@ -69,6 +78,7 @@ public class Doctor {
         this.specialization = specialization;
     }
 
+    // Phone
     public String getPhone() {
         return phone;
     }
@@ -77,54 +87,25 @@ public class Doctor {
         this.phone = phone;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    // Email
     public String getEmail() {
         return email;
     }
 
-    public String getQualification() {
-        return qualification;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
-
-    public String getMedicalRegistrationNo() {
-        return medicalRegistrationNo;
-    }
-
-    public void setMedicalRegistrationNo(String medicalRegistrationNo) {
-        this.medicalRegistrationNo = medicalRegistrationNo;
-    }
-
-    public String getHospitalAssociation() {
-        return hospitalAssociation;
-    }
-
-    public void setHospitalAssociation(String hospitalAssociation) {
-        this.hospitalAssociation = hospitalAssociation;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
+    // Date of Birth
     public LocalDate getDob() {
-    return dob;
+        return dob;
     }
 
     public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
+    // Gender
     public String getGender() {
         return gender;
     }
@@ -133,11 +114,57 @@ public class Doctor {
         this.gender = gender;
     }
 
+    // Address
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    // Qualification
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    // Medical Registration Number
+    public String getMedicalRegistrationNo() {
+        return medicalRegistrationNo;
+    }
+
+    public void setMedicalRegistrationNo(String medicalRegistrationNo) {
+        this.medicalRegistrationNo = medicalRegistrationNo;
+    }
+
+    // Hospital Association
+    public String getHospitalAssociation() {
+        return hospitalAssociation;
+    }
+
+    public void setHospitalAssociation(String hospitalAssociation) {
+        this.hospitalAssociation = hospitalAssociation;
+    }
+
+    // Status
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    // Shift
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 }

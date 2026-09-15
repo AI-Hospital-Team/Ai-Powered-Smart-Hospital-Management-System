@@ -2317,12 +2317,7 @@ function Home() {
                 className={loginRole === "Doctor" ? "active" : ""}
                 onClick={() => setLoginRole("Doctor")}
               >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M9 4v6a3 3 0 0 0 6 0V4" />
-                  <path d="M6 4h3M15 4h3" />
-                  <path d="M15 13c0 4 2 6 5 6" />
-                  <circle cx="20" cy="19" r="1.5" />
-                </svg>
+                <span className="doctor-login-icon">🩺</span>
                 <span>Doctor</span>
               </button>
 
@@ -2345,8 +2340,9 @@ function Home() {
                 setErrorMessage("");
 
                 const formData = new FormData(e.currentTarget);
-                const email = formData.get("email");
-                const password = formData.get("password");
+
+                const email = formData.get("email")?.toString().trim();
+                const password = formData.get("password")?.toString();
 
                 if (!email || !password) {
                   setErrorMessage("Please enter email and password.");
@@ -2362,37 +2358,55 @@ function Home() {
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify({
-                        email: email.trim(),
-                        password: password,
+                        email,
+                        password,
                         role: loginRole,
                       }),
                     }
                   );
 
+                  const responseText = await response.text();
+
                   if (!response.ok) {
-                    await response.text();
-                    setErrorMessage("Invalid email or password.");
+                    console.error("Login failed:", responseText);
+
+                    setErrorMessage(
+                      responseText || "Invalid email or password."
+                    );
+
                     return;
                   }
 
-                  const user = await response.json();
+                  const user = JSON.parse(responseText);
+
+                  console.log("LOGIN SUCCESS:", user);
+
                   localStorage.clear();
+
                   localStorage.setItem("isLoggedIn", "true");
                   localStorage.setItem("role", user.role);
                   localStorage.setItem("user", JSON.stringify(user));
 
                   setLoginOpen(false);
 
-                  if (user.role === "Admin") {
+                  const userRole = user.role?.toLowerCase();
+
+                  if (userRole === "admin") {
                     navigate("/dashboard", { replace: true });
-                  } else if (user.role === "Doctor") {
+                  } else if (userRole === "doctor") {
                     navigate("/doctor", { replace: true });
-                  } else if (user.role === "Patient") {
+                  } else if (userRole === "patient") {
                     navigate("/patient", { replace: true });
+                  } else {
+                    setErrorMessage("Invalid user role.");
                   }
+
                 } catch (error) {
                   console.error("Login error:", error);
-                  setErrorMessage("Unable to connect to the hospital server.");
+
+                  setErrorMessage(
+                    "Unable to connect to the hospital server."
+                  );
                 }
               }}
             >
