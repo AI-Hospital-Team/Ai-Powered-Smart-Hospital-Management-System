@@ -4,6 +4,7 @@ import {
   Activity,
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   CalendarDays,
   CheckCircle2,
   ChevronDown,
