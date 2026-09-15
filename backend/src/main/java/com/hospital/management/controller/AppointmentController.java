@@ -1,5 +1,9 @@
 package com.hospital.management.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Map;
+
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +65,52 @@ public class AppointmentController {
                 appointmentService.getAllAppointments()
         );
     }
+
+    // =====================================================
+// RESCHEDULE APPOINTMENT
+// =====================================================
+
+@PutMapping("/{appointmentId}/reschedule")
+public ResponseEntity<?> rescheduleAppointment(
+        @PathVariable Integer appointmentId,
+        @RequestBody Map<String, String> request) {
+
+    try {
+
+        String dateString = request.get("appointmentDate");
+        String timeString = request.get("appointmentTime");
+
+        if (dateString == null || timeString == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Appointment date and time are required.");
+        }
+
+        LocalDate newDate = LocalDate.parse(dateString);
+        LocalTime newTime = LocalTime.parse(timeString);
+
+        AppointmentResponse updatedAppointment =
+                appointmentService.rescheduleAppointment(
+                        appointmentId,
+                        newDate,
+                        newTime
+                );
+
+        return ResponseEntity.ok(updatedAppointment);
+
+    } catch (RuntimeException e) {
+
+        return ResponseEntity
+                .badRequest()
+                .body(e.getMessage());
+
+    } catch (Exception e) {
+
+        return ResponseEntity
+                .badRequest()
+                .body("Invalid date or time.");
+    }
+}
 
     // =====================================================
     // GET APPOINTMENTS BY DOCTOR

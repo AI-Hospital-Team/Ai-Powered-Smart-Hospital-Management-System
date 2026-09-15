@@ -19,10 +19,18 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
+    // =========================================================
+    // GET ALL DOCTORS
+    // =========================================================
+
     @GetMapping
     public List<Doctor> getAllDoctors() {
         return doctorService.getAllDoctors();
     }
+
+    // =========================================================
+    // GET DOCTOR BY ID
+    // =========================================================
 
     @GetMapping("/{doctorId}")
     public ResponseEntity<Doctor> getDoctorById(
@@ -33,13 +41,11 @@ public class DoctorController {
         );
     }
 
-    /*
-     * Get doctors available in a particular shift.
-     *
-     * Example:
-     * GET /api/doctors/shift/DAY
-     * GET /api/doctors/shift/NIGHT
-     */
+    // =========================================================
+    // GET DOCTORS BY SHIFT
+    // DAY / NIGHT
+    // =========================================================
+
     @GetMapping("/shift/{shift}")
     public ResponseEntity<List<Doctor>> getDoctorsByShift(
             @PathVariable String shift) {
@@ -49,25 +55,31 @@ public class DoctorController {
         );
     }
 
-    /*
-     * Create doctor profile + login account.
-     * This endpoint is intended for Admin-created doctors.
-     */
+    // =========================================================
+    // CREATE DOCTOR ACCOUNT
+    // Used when Admin creates doctor directly
+    // =========================================================
+
     @PostMapping("/account")
     public ResponseEntity<?> createDoctorAccount(
             @RequestBody DoctorAccountRequest request) {
 
         try {
 
-            Doctor doctor =
+            Doctor doctor = new Doctor();
+
+            doctor.setName(request.name());
+            doctor.setEmail(request.email());
+            doctor.setSpecialization(request.specialization());
+
+            Doctor savedDoctor =
                     doctorService.createDoctorAccount(
-                            request.name(),
+                            doctor,
                             request.email(),
-                            request.password(),
-                            request.specialization()
+                            request.password()
                     );
 
-            return ResponseEntity.ok(doctor);
+            return ResponseEntity.ok(savedDoctor);
 
         } catch (RuntimeException e) {
 
@@ -77,9 +89,12 @@ public class DoctorController {
         }
     }
 
-    /*
-     * Admin approves a pending doctor application.
-     */
+    // =========================================================
+    // ADMIN APPROVES PENDING DOCTOR
+    // Doctor status  -> APPROVED
+    // User status    -> ACTIVE
+    // =========================================================
+
     @PutMapping("/{doctorId}/approve")
     public ResponseEntity<?> approveDoctor(
             @PathVariable Integer doctorId) {
@@ -99,9 +114,12 @@ public class DoctorController {
         }
     }
 
-    /*
-     * Admin rejects a pending doctor application.
-     */
+    // =========================================================
+    // ADMIN REJECTS PENDING DOCTOR
+    // Doctor status  -> REJECTED
+    // User status    -> REJECTED
+    // =========================================================
+
     @PutMapping("/{doctorId}/reject")
     public ResponseEntity<?> rejectDoctor(
             @PathVariable Integer doctorId) {
@@ -111,8 +129,7 @@ public class DoctorController {
             Doctor doctor =
                     doctorService.rejectDoctor(doctorId);
 
-            return ResponseEntity
-                    .ok(doctor);
+            return ResponseEntity.ok(doctor);
 
         } catch (RuntimeException e) {
 
@@ -122,9 +139,11 @@ public class DoctorController {
         }
     }
 
-    /*
-     * Existing doctor creation endpoint.
-     */
+    // =========================================================
+    // CREATE DOCTOR
+    // Existing doctor creation endpoint
+    // =========================================================
+
     @PostMapping
     public ResponseEntity<Doctor> createDoctor(
             @RequestBody Doctor doctor) {
@@ -133,6 +152,10 @@ public class DoctorController {
                 doctorService.createDoctor(doctor)
         );
     }
+
+    // =========================================================
+    // UPDATE DOCTOR
+    // =========================================================
 
     @PutMapping("/{doctorId}")
     public ResponseEntity<Doctor> updateDoctor(
@@ -147,6 +170,10 @@ public class DoctorController {
         );
     }
 
+    // =========================================================
+    // DELETE DOCTOR
+    // =========================================================
+
     @DeleteMapping("/{doctorId}")
     public ResponseEntity<String> deleteDoctor(
             @PathVariable Integer doctorId) {
@@ -158,9 +185,10 @@ public class DoctorController {
         );
     }
 
-    /*
-     * Request used when Admin creates a Doctor.
-     */
+    // =========================================================
+    // REQUEST USED WHEN ADMIN CREATES A DOCTOR
+    // =========================================================
+
     public record DoctorAccountRequest(
             String name,
             String email,
