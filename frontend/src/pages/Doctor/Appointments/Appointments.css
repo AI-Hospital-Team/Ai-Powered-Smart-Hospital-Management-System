@@ -759,3 +759,12 @@
     align-self: flex-start;
   }
 }
+
+.status-expired {
+  color: #d97706;
+  background: #fff7ed;
+}
+
+.expired-info {
+  color: #d97706;
+}

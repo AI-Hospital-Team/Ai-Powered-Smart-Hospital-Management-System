@@ -155,6 +155,9 @@ function Appointments() {
       case "cancelled":
         return "status-cancelled";
 
+      case "expired":
+        return "status-expired";
+
       case "pending":
       default:
         return "status-pending";
@@ -337,6 +340,7 @@ function Appointments() {
                   {statusLower === "cancelled" && (
                     <XCircle size={15} />
                   )}
+                
 
                   <span>{status}</span>
 
@@ -524,6 +528,12 @@ function Appointments() {
                     Appointment cancelled.
                   </div>
                 )}
+
+                {statusLower === "expired" && (
+                    <div className="appointment-info expired-info">
+                      Appointment expired. Patient must reschedule the appointment.
+                    </div>
+                  )}
 
               </div>
 

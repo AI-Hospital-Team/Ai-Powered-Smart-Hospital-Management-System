@@ -195,31 +195,122 @@ public class AppointmentService {
         );
     }
 
-    // =====================================================
-    // UPDATE APPOINTMENT STATUS
-    // =====================================================
+// =====================================================
+// UPDATE APPOINTMENT STATUS
+// =====================================================
 
-    public AppointmentResponse updateAppointmentStatus(
-            Integer appointmentId,
-            String status) {
+public AppointmentResponse updateAppointmentStatus(
+        Integer appointmentId,
+        String newStatus) {
 
-        Appointment appointment =
-                appointmentRepository
-                        .findById(appointmentId)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Appointment not found with ID: "
-                                                + appointmentId
-                                )
-                        );
+    Appointment appointment =
+            appointmentRepository
+                    .findById(appointmentId)
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    "Appointment not found with ID: "
+                                            + appointmentId
+                            )
+                    );
 
-        appointment.setStatus(status);
+    if (newStatus == null || newStatus.isBlank()) {
 
-        Appointment updatedAppointment =
-                appointmentRepository.save(appointment);
-
-        return toResponse(updatedAppointment);
+        throw new RuntimeException(
+                "Appointment status is required."
+        );
     }
+
+    String currentStatus =
+            appointment.getStatus() == null
+                    ? "Pending"
+                    : appointment.getStatus().trim();
+
+    String requestedStatus =
+            newStatus.trim();
+
+    // =================================================
+    // FINAL STATUSES
+    // =================================================
+
+    if ("Completed".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Completed appointment cannot be changed."
+        );
+    }
+
+    if ("Cancelled".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Cancelled appointment cannot be changed."
+        );
+    }
+
+    if ("Rejected".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Rejected appointment cannot be changed."
+        );
+    }
+
+    // =================================================
+    // EXPIRED MUST BE RESCHEDULED
+    // =================================================
+
+    if ("Expired".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Expired appointment must be rescheduled before confirmation."
+        );
+    }
+
+    // =================================================
+    // PENDING
+    // Allowed:
+    // Pending → Confirmed
+    // Pending → Cancelled
+    // =================================================
+
+    if ("Pending".equalsIgnoreCase(currentStatus)) {
+
+        if (!"Confirmed".equalsIgnoreCase(requestedStatus) &&
+                !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+            throw new RuntimeException(
+                    "Pending appointment can only be Confirmed or Cancelled."
+            );
+        }
+    }
+
+    // =================================================
+    // CONFIRMED
+    // Allowed:
+    // Confirmed → Completed
+    // Confirmed → Cancelled
+    // =================================================
+
+    else if ("Confirmed".equalsIgnoreCase(currentStatus)) {
+
+        if (!"Completed".equalsIgnoreCase(requestedStatus) &&
+                !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+            throw new RuntimeException(
+                    "Confirmed appointment can only be Completed or Cancelled."
+            );
+        }
+    }
+
+    // =================================================
+    // UPDATE
+    // =================================================
+
+    appointment.setStatus(requestedStatus);
+
+    Appointment updatedAppointment =
+            appointmentRepository.save(appointment);
+
+    return toResponse(updatedAppointment);
+}
 
     // =====================================================
     // RESCHEDULE APPOINTMENT

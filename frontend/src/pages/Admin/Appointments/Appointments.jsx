@@ -145,6 +145,10 @@ function Appointments() {
       return "status-confirmed";
     }
 
+    if (value === "expired") {
+      return "status-expired";
+    }
+
     return "status-pending";
   };
 
@@ -215,6 +219,11 @@ function Appointments() {
       cancelled: appointments.filter(
         (item) =>
           item.status?.toLowerCase() === "cancelled"
+      ).length,
+
+      expired: appointments.filter(
+        (item) =>
+          item.status?.toLowerCase() === "expired"
       ).length,
     };
   }, [appointments]);
@@ -474,6 +483,7 @@ function Appointments() {
           ["Confirmed", counts.confirmed],
           ["Completed", counts.completed],
           ["Cancelled", counts.cancelled],
+          ["Expired", counts.expired],
         ].map(([status, count]) => (
 
           <button
@@ -691,12 +701,8 @@ function Appointments() {
 
                   <div className="appointment-actions">
 
-                    {appointment.status !==
-                      "Confirmed" &&
-                      appointment.status !==
-                        "Completed" &&
-                      appointment.status !==
-                        "Cancelled" && (
+                    {appointment.status?.toLowerCase() ===
+                      "pending" && (
 
                         <button
                           className="confirm-action"
@@ -731,10 +737,10 @@ function Appointments() {
                         </button>
                       )}
 
-                    {appointment.status !==
-                      "Completed" &&
-                      appointment.status !==
-                        "Cancelled" && (
+                    {(appointment.status?.toLowerCase() ===
+                      "pending" ||
+                      appointment.status?.toLowerCase() ===
+                        "confirmed") && (
 
                         <button
                           className="cancel-action"
@@ -764,6 +770,12 @@ function Appointments() {
                     </button>
 
                   </div>
+
+                  {appointment.status?.toLowerCase() === "expired" && (
+                    <div className="appointment-expired-info">
+                      Appointment expired. Patient must reschedule before it can be confirmed again.
+                    </div>
+                  )}
 
                   {isUpdating && (
                     <div className="appointment-updating">
