@@ -507,9 +507,6 @@ function Appointments() {
       case "rejected":
         return "status-rejected";
 
-      case "rescheduled":
-        return "status-rescheduled";
-
       case "pending":
       default:
         return "status-pending";
@@ -680,9 +677,7 @@ function Appointments() {
           // can be extended/rescheduled
           const canReschedule =
             statusLower === "pending" ||
-            statusLower === "confirmed" ||
-            statusLower === "expired" ||
-            statusLower === "rescheduled";
+            statusLower === "expired";
 
           const isCompleted =
             statusLower === "completed";
@@ -777,12 +772,6 @@ function Appointments() {
                     />
                   )}
 
-                  {statusLower === "rescheduled" && (
-                    <RefreshCw
-                      size={15}
-                      strokeWidth={2.4}
-                    />
-                  )}
 
                   <span>
                     {status}
