@@ -10,6 +10,7 @@
   background: #f4f7fb;
   padding: 20px;
   box-sizing: border-box;
+  transition: background-color 0.25s ease;
 }
 
 .login-container {
@@ -20,6 +21,11 @@
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 /* =========================================
@@ -39,6 +45,7 @@
 .login-header h1 {
   margin: 0;
   font-size: 30px;
+  color: #111827;
 }
 
 .login-header p {
@@ -64,20 +71,31 @@
 
 .form-group label {
   font-weight: 600;
+  color: #1f2937;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 15px;
   box-sizing: border-box;
+  background: #ffffff;
+  color: #111827;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
   border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 /* =========================================
@@ -120,21 +138,16 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-
   border: none;
   background: transparent;
-
   color: #078b96;
-
   font-family: inherit;
   font-size: 13px;
   font-weight: 800;
-
   cursor: pointer;
   padding: 5px 7px;
   z-index: 5;
@@ -151,9 +164,7 @@
 .show-password-btn svg {
   width: 19px;
   height: 19px;
-
   display: block;
-
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -191,6 +202,11 @@
 
 .login-button:hover {
   background: #1d4ed8;
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* =========================================
@@ -240,6 +256,145 @@
   }
 }
 
+/* =====================================================
+   🌙 DARK MODE - LOGIN PAGE
+===================================================== */
+
+html.dark-mode .login-page,
+body.dark-mode .login-page {
+  background: #0b141b !important;
+}
+
+html.dark-mode .login-container,
+body.dark-mode .login-container {
+  background: #101c24 !important;
+  color: #e8f1f4 !important;
+  border: 1px solid #29434e !important;
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Header */
+
+html.dark-mode .login-header h1,
+body.dark-mode .login-header h1 {
+  color: #ffffff !important;
+}
+
+html.dark-mode .login-header p,
+body.dark-mode .login-header p {
+  color: #9fb4bd !important;
+}
+
+/* Labels */
+
+html.dark-mode .form-group label,
+body.dark-mode .form-group label {
+  color: #dce8ec !important;
+}
+
+/* Inputs */
+
+html.dark-mode .form-group input,
+html.dark-mode .form-group select,
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+  background: #0c1820 !important;
+  color: #f4f8fa !important;
+  border: 1px solid #354e58 !important;
+}
+
+html.dark-mode .form-group input:hover,
+html.dark-mode .form-group select:hover,
+body.dark-mode .form-group input:hover,
+body.dark-mode .form-group select:hover {
+  border-color: #4b6873 !important;
+}
+
+html.dark-mode .form-group input:focus,
+html.dark-mode .form-group select:focus,
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+  background: #10232c !important;
+  color: #ffffff !important;
+  border-color: #25b8c5 !important;
+  box-shadow: 0 0 0 3px rgba(37, 184, 197, 0.12) !important;
+}
+
+/* Placeholder */
+
+html.dark-mode .form-group input::placeholder,
+body.dark-mode .form-group input::placeholder {
+  color: #718891 !important;
+}
+
+/* Select options */
+
+html.dark-mode .form-group select option,
+body.dark-mode .form-group select option {
+  background: #101c24 !important;
+  color: #ffffff !important;
+}
+
+/* Password button */
+
+html.dark-mode .show-password-btn,
+body.dark-mode .show-password-btn {
+  color: #65d7df !important;
+}
+
+html.dark-mode .show-password-btn:hover,
+body.dark-mode .show-password-btn:hover {
+  color: #9aeaf0 !important;
+}
+
+html.dark-mode .show-password-btn svg,
+body.dark-mode .show-password-btn svg {
+  stroke: currentColor !important;
+}
+
+/* Login button */
+
+html.dark-mode .login-button,
+body.dark-mode .login-button {
+  background: linear-gradient(
+    135deg,
+    #087f92,
+    #0aaabd
+  ) !important;
+
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(8, 127, 146, 0.25) !important;
+}
+
+html.dark-mode .login-button:hover,
+body.dark-mode .login-button:hover {
+  background: linear-gradient(
+    135deg,
+    #0995a8,
+    #10bdc9
+  ) !important;
+
+  color: #ffffff !important;
+}
+
+/* Footer */
+
+html.dark-mode .login-footer,
+body.dark-mode .login-footer {
+  color: #8fa5ae !important;
+}
+
+/* Error */
+
+html.dark-mode .login-error,
+body.dark-mode .login-error {
+  background: #351d23 !important;
+  color: #ff9c9c !important;
+  border: 1px solid #713942 !important;
+}
+
 /* =========================================
    RESPONSIVE
 ========================================= */
@@ -271,7 +426,8 @@
     font-size: 24px;
   }
 
-  .form-group input {
+  .form-group input,
+  .form-group select {
     font-size: 14px;
   }
 

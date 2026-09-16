@@ -82,7 +82,10 @@ function Login() {
               "Invalid email, password or role."
             );
           }
-        } else if (typeof data === "string" && data.trim()) {
+        } else if (
+          typeof data === "string" &&
+          data.trim()
+        ) {
           setErrorMessage(data);
         } else {
           setErrorMessage(
@@ -97,10 +100,7 @@ function Login() {
       // CHECK BACKEND RESPONSE
       // =====================================================
 
-      if (
-        !data ||
-        typeof data !== "object"
-      ) {
+      if (!data || typeof data !== "object") {
         console.error(
           "Invalid login response:",
           data
@@ -191,11 +191,11 @@ function Login() {
           null,
 
         name:
-        user.name ??
-        user.fullName ??
-        user.patientName ??
-        user.patient?.name ??
-        null,
+          user.name ??
+          user.fullName ??
+          user.patientName ??
+          user.patient?.name ??
+          null,
       };
 
       console.log(
@@ -270,7 +270,10 @@ function Login() {
 
       <div className="login-container">
 
-        {/* Header */}
+        {/* =================================================
+            HEADER
+        ================================================= */}
+
         <div className="login-header">
 
           <div className="hospital-icon">
@@ -287,13 +290,17 @@ function Login() {
 
         </div>
 
-        {/* Login Form */}
+        {/* =================================================
+            LOGIN FORM
+        ================================================= */}
+
         <form
           className="login-form"
           onSubmit={handleLogin}
         >
 
-          {/* Email */}
+          {/* EMAIL */}
+
           <div className="form-group">
 
             <label htmlFor="email">
@@ -314,7 +321,8 @@ function Login() {
 
           </div>
 
-          {/* Password */}
+          {/* PASSWORD */}
+
           <div className="form-group">
 
             <label htmlFor="password">
@@ -335,7 +343,8 @@ function Login() {
 
           </div>
 
-          {/* Role */}
+          {/* ROLE */}
+
           <div className="form-group">
 
             <label htmlFor="role">
@@ -366,14 +375,16 @@ function Login() {
 
           </div>
 
-          {/* Error Message */}
+          {/* ERROR MESSAGE */}
+
           {errorMessage && (
             <div className="login-error">
               {errorMessage}
             </div>
           )}
 
-          {/* Login Button */}
+          {/* LOGIN BUTTON */}
+
           <button
             type="submit"
             className="login-button"
