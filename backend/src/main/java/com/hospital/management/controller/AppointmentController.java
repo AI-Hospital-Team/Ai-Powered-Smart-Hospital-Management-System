@@ -1,9 +1,10 @@
 package com.hospital.management.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,17 +37,24 @@ public class AppointmentController {
     // =====================================================
 
     @PostMapping
-    public ResponseEntity<AppointmentResponse> createAppointment(
+    public ResponseEntity<?> createAppointment(
             @RequestBody Appointment appointment) {
 
-        AppointmentResponse savedAppointment =
-                appointmentService.createAppointment(
-                        appointment
-                );
+        try {
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(savedAppointment);
+            AppointmentResponse response =
+                    appointmentService.createAppointment(
+                            appointment
+                    );
+
+            return ResponseEntity.ok(response);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 
     // =====================================================
@@ -55,7 +63,7 @@ public class AppointmentController {
 
     @GetMapping
     public ResponseEntity<List<AppointmentResponse>>
-    getAllAppointments() {
+            getAllAppointments() {
 
         return ResponseEntity.ok(
                 appointmentService.getAllAppointments()
@@ -68,8 +76,8 @@ public class AppointmentController {
 
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<List<AppointmentResponse>>
-    getAppointmentsByDoctor(
-            @PathVariable Integer doctorId) {
+            getAppointmentsByDoctor(
+                    @PathVariable Integer doctorId) {
 
         return ResponseEntity.ok(
                 appointmentService
@@ -83,8 +91,8 @@ public class AppointmentController {
 
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<List<AppointmentResponse>>
-    getAppointmentsByPatient(
-            @PathVariable Integer patientId) {
+            getAppointmentsByPatient(
+                    @PathVariable Integer patientId) {
 
         return ResponseEntity.ok(
                 appointmentService
@@ -101,32 +109,94 @@ public class AppointmentController {
             @PathVariable Integer appointmentId,
             @RequestBody Map<String, String> request) {
 
-        String status = request.get("status");
-
-        if (status == null || status.isBlank()) {
-
-            return ResponseEntity
-                    .badRequest()
-                    .body("Status is required.");
-        }
-
         try {
 
-            AppointmentResponse updatedAppointment =
-                    appointmentService.updateAppointmentStatus(
-                            appointmentId,
-                            status
-                    );
+            String status = request.get("status");
 
-            return ResponseEntity.ok(
-                    updatedAppointment
-            );
+            if (status == null || status.isBlank()) {
+
+                return ResponseEntity
+                        .badRequest()
+                        .body("Status is required.");
+            }
+
+            AppointmentResponse response =
+                    appointmentService
+                            .updateAppointmentStatus(
+                                    appointmentId,
+                                    status
+                            );
+
+            return ResponseEntity.ok(response);
 
         } catch (RuntimeException e) {
 
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .badRequest()
                     .body(e.getMessage());
+        }
+    }
+
+    // =====================================================
+    // RESCHEDULE APPOINTMENT
+    // =====================================================
+
+    @PutMapping("/{appointmentId}/reschedule")
+    public ResponseEntity<?> rescheduleAppointment(
+            @PathVariable Integer appointmentId,
+            @RequestBody Map<String, String> request) {
+
+        try {
+
+            String dateString =
+                    request.get("appointmentDate");
+
+            String timeString =
+                    request.get("appointmentTime");
+
+            if (dateString == null ||
+                    dateString.isBlank()) {
+
+                return ResponseEntity
+                        .badRequest()
+                        .body("New appointment date is required.");
+            }
+
+            if (timeString == null ||
+                    timeString.isBlank()) {
+
+                return ResponseEntity
+                        .badRequest()
+                        .body("New appointment time is required.");
+            }
+
+            LocalDate newDate =
+                    LocalDate.parse(dateString);
+
+            LocalTime newTime =
+                    LocalTime.parse(timeString);
+
+            AppointmentResponse response =
+                    appointmentService
+                            .rescheduleAppointment(
+                                    appointmentId,
+                                    newDate,
+                                    newTime
+                            );
+
+            return ResponseEntity.ok(response);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+
+        } catch (Exception e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body("Invalid date or time format.");
         }
     }
 
@@ -140,14 +210,13 @@ public class AppointmentController {
 
         try {
 
-            AppointmentResponse cancelledAppointment =
-                    appointmentService.cancelAppointment(
-                            appointmentId
-                    );
+            AppointmentResponse response =
+                    appointmentService
+                            .cancelAppointment(
+                                    appointmentId
+                            );
 
-            return ResponseEntity.ok(
-                    cancelledAppointment
-            );
+            return ResponseEntity.ok(response);
 
         } catch (RuntimeException e) {
 

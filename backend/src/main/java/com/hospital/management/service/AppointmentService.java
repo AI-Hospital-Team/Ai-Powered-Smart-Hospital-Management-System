@@ -1,7 +1,11 @@
 package com.hospital.management.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.hospital.management.dto.AppointmentResponse;
@@ -75,6 +79,28 @@ public class AppointmentService {
     public AppointmentResponse createAppointment(
             Appointment appointment) {
 
+        if (appointment.getAppointmentDate() == null ||
+                appointment.getAppointmentTime() == null) {
+
+            throw new RuntimeException(
+                    "Appointment date and time are required."
+            );
+        }
+
+        LocalDateTime appointmentDateTime =
+                LocalDateTime.of(
+                        appointment.getAppointmentDate(),
+                        appointment.getAppointmentTime()
+                );
+
+        if (appointmentDateTime.isBefore(
+                LocalDateTime.now())) {
+
+            throw new RuntimeException(
+                    "Cannot book an appointment in the past."
+            );
+        }
+
         if (appointment.getStatus() == null ||
                 appointment.getStatus().isBlank()) {
 
@@ -85,6 +111,53 @@ public class AppointmentService {
                 appointmentRepository.save(appointment);
 
         return toResponse(savedAppointment);
+    }
+
+    // =====================================================
+    // AUTO EXPIRE APPOINTMENTS
+    // Runs every 1 minute
+    // =====================================================
+
+    @Scheduled(fixedRate = 60000)
+    public void expirePastAppointments() {
+
+        List<Appointment> appointments =
+                appointmentRepository.findAll();
+
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Appointment appointment : appointments) {
+
+            if (appointment.getAppointmentDate() == null ||
+                    appointment.getAppointmentTime() == null) {
+
+                continue;
+            }
+
+            LocalDateTime appointmentDateTime =
+                    LocalDateTime.of(
+                            appointment.getAppointmentDate(),
+                            appointment.getAppointmentTime()
+                    );
+
+            String status = appointment.getStatus();
+
+            // Do not change finished appointments
+            if ("Completed".equalsIgnoreCase(status) ||
+                    "Cancelled".equalsIgnoreCase(status) ||
+                    "Rejected".equalsIgnoreCase(status) ||
+                    "Expired".equalsIgnoreCase(status)) {
+
+                continue;
+            }
+
+            if (appointmentDateTime.isBefore(now)) {
+
+                appointment.setStatus("Expired");
+
+                appointmentRepository.save(appointment);
+            }
+        }
     }
 
     // =====================================================
@@ -99,38 +172,154 @@ public class AppointmentService {
     }
 
     // =====================================================
-    // GET BY DOCTOR
+    // GET APPOINTMENTS BY DOCTOR
     // =====================================================
 
     public List<AppointmentResponse> getAppointmentsByDoctor(
             Integer doctorId) {
 
         return toResponseList(
-                appointmentRepository
-                        .findByDoctorId(doctorId)
+                appointmentRepository.findByDoctorId(doctorId)
         );
     }
 
     // =====================================================
-    // GET BY PATIENT
+    // GET APPOINTMENTS BY PATIENT
     // =====================================================
 
     public List<AppointmentResponse> getAppointmentsByPatient(
             Integer patientId) {
 
         return toResponseList(
-                appointmentRepository
-                        .findByPatientId(patientId)
+                appointmentRepository.findByPatientId(patientId)
         );
     }
 
+// =====================================================
+// UPDATE APPOINTMENT STATUS
+// =====================================================
+
+public AppointmentResponse updateAppointmentStatus(
+        Integer appointmentId,
+        String newStatus) {
+
+    Appointment appointment =
+            appointmentRepository
+                    .findById(appointmentId)
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    "Appointment not found with ID: "
+                                            + appointmentId
+                            )
+                    );
+
+    if (newStatus == null || newStatus.isBlank()) {
+
+        throw new RuntimeException(
+                "Appointment status is required."
+        );
+    }
+
+    String currentStatus =
+            appointment.getStatus() == null
+                    ? "Pending"
+                    : appointment.getStatus().trim();
+
+    String requestedStatus =
+            newStatus.trim();
+
+    // =================================================
+    // FINAL STATUSES
+    // =================================================
+
+    if ("Completed".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Completed appointment cannot be changed."
+        );
+    }
+
+    if ("Cancelled".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Cancelled appointment cannot be changed."
+        );
+    }
+
+    if ("Rejected".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Rejected appointment cannot be changed."
+        );
+    }
+
+    // =================================================
+    // EXPIRED MUST BE RESCHEDULED
+    // =================================================
+
+    if ("Expired".equalsIgnoreCase(currentStatus)) {
+
+        throw new RuntimeException(
+                "Expired appointment must be rescheduled before confirmation."
+        );
+    }
+
+    // =================================================
+    // PENDING
+    // Allowed:
+    // Pending → Confirmed
+    // Pending → Cancelled
+    // =================================================
+
+    if ("Pending".equalsIgnoreCase(currentStatus)) {
+
+        if (!"Confirmed".equalsIgnoreCase(requestedStatus) &&
+                !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+            throw new RuntimeException(
+                    "Pending appointment can only be Confirmed or Cancelled."
+            );
+        }
+    }
+
+    // =================================================
+    // CONFIRMED
+    // Allowed:
+    // Confirmed → Completed
+    // Confirmed → Cancelled
+    // =================================================
+
+    else if ("Confirmed".equalsIgnoreCase(currentStatus)) {
+
+        if (!"Completed".equalsIgnoreCase(requestedStatus) &&
+                !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+            throw new RuntimeException(
+                    "Confirmed appointment can only be Completed or Cancelled."
+            );
+        }
+    }
+
+    // =================================================
+    // UPDATE
+    // =================================================
+
+    appointment.setStatus(requestedStatus);
+
+    Appointment updatedAppointment =
+            appointmentRepository.save(appointment);
+
+    return toResponse(updatedAppointment);
+}
+
     // =====================================================
-    // UPDATE APPOINTMENT STATUS
+    // RESCHEDULE APPOINTMENT
     // =====================================================
 
-    public AppointmentResponse updateAppointmentStatus(
+    public AppointmentResponse rescheduleAppointment(
             Integer appointmentId,
-            String status) {
+            LocalDate newDate,
+            LocalTime newTime) {
 
         Appointment appointment =
                 appointmentRepository
@@ -142,7 +331,55 @@ public class AppointmentService {
                                 )
                         );
 
-        appointment.setStatus(status);
+        String currentStatus = appointment.getStatus();
+
+        // =================================================
+        // ONLY PENDING AND EXPIRED CAN BE RESCHEDULED
+        // =================================================
+
+        if (!"Pending".equalsIgnoreCase(currentStatus) &&
+                !"Expired".equalsIgnoreCase(currentStatus)) {
+
+            throw new RuntimeException(
+                    "Only Pending or Expired appointments can be rescheduled."
+            );
+        }
+
+        // =================================================
+        // VALIDATE DATE AND TIME
+        // =================================================
+
+        if (newDate == null || newTime == null) {
+
+            throw new RuntimeException(
+                    "New appointment date and time are required."
+            );
+        }
+
+        // =================================================
+        // PREVENT PAST DATE/TIME
+        // =================================================
+
+        LocalDateTime newAppointmentDateTime =
+                LocalDateTime.of(newDate, newTime);
+
+        if (newAppointmentDateTime.isBefore(
+                LocalDateTime.now())) {
+
+            throw new RuntimeException(
+                    "New appointment date and time cannot be in the past."
+            );
+        }
+
+        // =================================================
+        // UPDATE APPOINTMENT
+        // =================================================
+
+        appointment.setAppointmentDate(newDate);
+        appointment.setAppointmentTime(newTime);
+
+        // Must be confirmed again
+        appointment.setStatus("Pending");
 
         Appointment updatedAppointment =
                 appointmentRepository.save(appointment);
@@ -167,7 +404,7 @@ public class AppointmentService {
                                 )
                         );
 
-        // Prevent cancelling completed appointment
+        // Completed cannot be cancelled
         if ("Completed".equalsIgnoreCase(
                 appointment.getStatus())) {
 
@@ -176,12 +413,21 @@ public class AppointmentService {
             );
         }
 
-        // Prevent cancelling already cancelled appointment
+        // Already cancelled
         if ("Cancelled".equalsIgnoreCase(
                 appointment.getStatus())) {
 
             throw new RuntimeException(
                     "Appointment is already cancelled."
+            );
+        }
+
+        // Expired cannot be cancelled
+        if ("Expired".equalsIgnoreCase(
+                appointment.getStatus())) {
+
+            throw new RuntimeException(
+                    "Expired appointment cannot be cancelled. Please reschedule the appointment."
             );
         }
 

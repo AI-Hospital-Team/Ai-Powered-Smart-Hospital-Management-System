@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   Trash2,
   Plus,
+  RefreshCw,
+  XCircle,
 } from "lucide-react";
 import "./Appointments.css";
 
@@ -25,14 +27,20 @@ function Appointments() {
   const [error, setError] = useState("");
   const [doctors, setDoctors] = useState([]);
 
-  
-
+  // Cancel
   const [cancellingId, setCancellingId] = useState(null);
-
-  // Cancel confirmation modal
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [selectedAppointmentId, setSelectedAppointmentId] =
     useState(null);
+
+  // Reschedule
+  const [showRescheduleModal, setShowRescheduleModal] =
+    useState(false);
+  const [selectedRescheduleAppointment, setSelectedRescheduleAppointment] =
+    useState(null);
+  const [rescheduleDate, setRescheduleDate] = useState("");
+  const [rescheduleTime, setRescheduleTime] = useState("");
+  const [reschedulingId, setReschedulingId] = useState(null);
 
   // =====================================================
   // GET LOGGED-IN PATIENT
@@ -55,140 +63,156 @@ function Appointments() {
     }
   };
 
-// =====================================================
-// FETCH PATIENT APPOINTMENTS + DOCTORS
-// =====================================================
+  // =====================================================
+  // GET TODAY'S DATE
+  // =====================================================
 
-const fetchAppointments = async () => {
-  try {
-    setLoading(true);
-    setError("");
+  const getTodayDate = () => {
+    const today = new Date();
 
-    const patientId = getPatientId();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
 
-    if (!patientId) {
+    return `${year}-${month}-${day}`;
+  };
+
+  // =====================================================
+  // FETCH PATIENT APPOINTMENTS + DOCTORS
+  // =====================================================
+
+  const fetchAppointments = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const patientId = getPatientId();
+
+      if (!patientId) {
+        setError(
+          "Patient information not found. Please login again."
+        );
+
+        setAppointments([]);
+        setDoctors([]);
+
+        return;
+      }
+
+      console.log(
+        "Fetching appointments for patient:",
+        patientId
+      );
+
+      const [
+        appointmentsResponse,
+        doctorsResponse,
+      ] = await Promise.all([
+        fetch(
+          `http://localhost:8080/api/appointments/patient/${patientId}`
+        ),
+
+        fetch(
+          "http://localhost:8080/api/doctors"
+        ),
+      ]);
+
+      if (!appointmentsResponse.ok) {
+        throw new Error(
+          `Failed to fetch appointments: ${appointmentsResponse.status}`
+        );
+      }
+
+      const appointmentsData =
+        await appointmentsResponse.json();
+
+      const doctorsData =
+        doctorsResponse.ok
+          ? await doctorsResponse.json()
+          : [];
+
+      console.log(
+        "Patient appointments:",
+        appointmentsData
+      );
+
+      console.log(
+        "Doctors:",
+        doctorsData
+      );
+
+      setAppointments(
+        Array.isArray(appointmentsData)
+          ? appointmentsData
+          : []
+      );
+
+      setDoctors(
+        Array.isArray(doctorsData)
+          ? doctorsData
+          : []
+      );
+
+    } catch (error) {
+      console.error(
+        "Error fetching appointments:",
+        error
+      );
+
       setError(
-        "Patient information not found. Please login again."
+        "Unable to load appointments. Please try again."
       );
 
       setAppointments([]);
       setDoctors([]);
-      return;
+
+    } finally {
+      setLoading(false);
     }
+  };
 
-    console.log(
-      "Fetching appointments for patient:",
-      patientId
+  // =====================================================
+  // LOAD APPOINTMENTS
+  // =====================================================
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  // =====================================================
+  // GET DOCTOR NAME
+  // =====================================================
+
+  const getDoctorName = (doctorId) => {
+    const doctor = doctors.find(
+      (item) =>
+        Number(item.doctorId) ===
+        Number(doctorId)
     );
 
-    const [
-      appointmentsResponse,
-      doctorsResponse,
-    ] = await Promise.all([
-      fetch(
-        `http://localhost:8080/api/appointments/patient/${patientId}`
-      ),
-      fetch(
-        "http://localhost:8080/api/doctors"
-      ),
-    ]);
+    return (
+      doctor?.name ||
+      `Doctor #${doctorId || "N/A"}`
+    );
+  };
 
-    if (!appointmentsResponse.ok) {
-      throw new Error(
-        `Failed to fetch appointments: ${appointmentsResponse.status}`
-      );
-    }
+  // =====================================================
+  // GET DOCTOR SPECIALIZATION
+  // =====================================================
 
-    const appointmentsData =
-      await appointmentsResponse.json();
-
-    const doctorsData =
-      doctorsResponse.ok
-        ? await doctorsResponse.json()
-        : [];
-
-    console.log(
-      "Patient appointments:",
-      appointmentsData
+  const getDoctorSpecialization = (doctorId) => {
+    const doctor = doctors.find(
+      (item) =>
+        Number(item.doctorId) ===
+        Number(doctorId)
     );
 
-    console.log(
-      "Doctors:",
-      doctorsData
+    return (
+      doctor?.specialization ||
+      "Medical Specialist"
     );
+  };
 
-    setAppointments(
-      Array.isArray(appointmentsData)
-        ? appointmentsData
-        : []
-    );
-
-    setDoctors(
-      Array.isArray(doctorsData)
-        ? doctorsData
-        : []
-    );
-
-  } catch (error) {
-    console.error(
-      "Error fetching appointments:",
-      error
-    );
-
-    setError(
-      "Unable to load appointments. Please try again."
-    );
-
-    setAppointments([]);
-    setDoctors([]);
-
-  } finally {
-    setLoading(false);
-  }
-};
-
-// =====================================================
-// LOAD APPOINTMENTS
-// =====================================================
-
-useEffect(() => {
-  fetchAppointments();
-}, []);
-
-// =====================================================
-// GET DOCTOR NAME
-// =====================================================
-
-const getDoctorName = (doctorId) => {
-  const doctor = doctors.find(
-    (item) =>
-      Number(item.doctorId) ===
-      Number(doctorId)
-  );
-
-  return (
-    doctor?.name ||
-    `Doctor #${doctorId || "N/A"}`
-  );
-};
-
-// =====================================================
-// GET DOCTOR SPECIALIZATION
-// =====================================================
-
-const getDoctorSpecialization = (doctorId) => {
-  const doctor = doctors.find(
-    (item) =>
-      Number(item.doctorId) ===
-      Number(doctorId)
-  );
-
-  return (
-    doctor?.specialization ||
-    "Medical Specialist"
-  );
-};
- 
   // =====================================================
   // OPEN CANCEL CONFIRMATION
   // =====================================================
@@ -240,9 +264,11 @@ const getDoctorSpecialization = (doctorId) => {
         `http://localhost:8080/api/appointments/${appointmentId}/status`,
         {
           method: "PUT",
+
           headers: {
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify({
             status: "Cancelled",
           }),
@@ -292,8 +318,159 @@ const getDoctorSpecialization = (doctorId) => {
       setError(
         "Unable to cancel appointment. Please try again."
       );
+
     } finally {
       setCancellingId(null);
+    }
+  };
+
+  // =====================================================
+  // OPEN RESCHEDULE MODAL
+  // =====================================================
+
+  const handleOpenReschedule = (appointment) => {
+    if (!appointment?.appointmentId) {
+      setError("Appointment ID not found.");
+      return;
+    }
+
+    setSelectedRescheduleAppointment(appointment);
+
+    // Patient selects a completely new date/time
+    setRescheduleDate("");
+    setRescheduleTime("");
+
+    setShowRescheduleModal(true);
+  };
+
+  // =====================================================
+  // CLOSE RESCHEDULE MODAL
+  // =====================================================
+
+  const closeRescheduleModal = () => {
+    if (reschedulingId) {
+      return;
+    }
+
+    setShowRescheduleModal(false);
+    setSelectedRescheduleAppointment(null);
+    setRescheduleDate("");
+    setRescheduleTime("");
+  };
+
+  // =====================================================
+  // CONFIRM RESCHEDULE
+  // =====================================================
+
+  const confirmRescheduleAppointment = async () => {
+    if (!selectedRescheduleAppointment) {
+      return;
+    }
+
+    if (!rescheduleDate || !rescheduleTime) {
+      alert("Please select a new date and time.");
+      return;
+    }
+
+    const appointmentId =
+      selectedRescheduleAppointment.appointmentId;
+
+    try {
+      setReschedulingId(appointmentId);
+      setError("");
+
+      console.log(
+        "Rescheduling appointment:",
+        appointmentId
+      );
+
+      const response = await fetch(
+        `http://localhost:8080/api/appointments/${appointmentId}/reschedule`,
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            appointmentDate: rescheduleDate,
+            appointmentTime: rescheduleTime,
+          }),
+        }
+      );
+
+      let responseData = null;
+
+      const responseText = await response.text();
+
+      if (responseText) {
+        try {
+          responseData = JSON.parse(responseText);
+        } catch {
+          responseData = responseText;
+        }
+      }
+
+      if (!response.ok) {
+        const message =
+          typeof responseData === "string"
+            ? responseData
+            : responseData?.message ||
+              "Failed to reschedule appointment.";
+
+        throw new Error(message);
+      }
+
+      console.log(
+        "Appointment rescheduled:",
+        responseData
+      );
+
+      // =================================================
+      // UPDATE UI IMMEDIATELY
+      // =================================================
+
+      setAppointments((previousAppointments) =>
+        previousAppointments.map((appointment) =>
+          appointment.appointmentId === appointmentId
+            ? {
+                ...appointment,
+                ...(responseData &&
+                typeof responseData === "object"
+                  ? responseData
+                  : {}),
+                appointmentDate: rescheduleDate,
+                appointmentTime: rescheduleTime,
+                status: "Pending",
+              }
+            : appointment
+        )
+      );
+
+      // Close modal
+      setShowRescheduleModal(false);
+      setSelectedRescheduleAppointment(null);
+      setRescheduleDate("");
+      setRescheduleTime("");
+
+      alert(
+        "Appointment rescheduled successfully. It is now pending confirmation."
+      );
+
+    } catch (error) {
+      console.error(
+        "Reschedule appointment error:",
+        error
+      );
+
+      setError(
+        error.message ||
+          "Unable to reschedule appointment. Please try again."
+      );
+
+    } finally {
+      setReschedulingId(null);
     }
   };
 
@@ -324,9 +501,13 @@ const getDoctorSpecialization = (doctorId) => {
       case "cancelled":
         return "status-cancelled";
 
-      case "pending":
-        return "status-pending";
+      case "expired":
+        return "status-expired";
 
+      case "rejected":
+        return "status-rejected";
+
+      case "pending":
       default:
         return "status-pending";
     }
@@ -483,16 +664,35 @@ const getDoctorSpecialization = (doctorId) => {
           const statusLower =
             status.toLowerCase();
 
-          // Pending AND Confirmed can be cancelled
+          // =================================================
+          // ACTION CONDITIONS
+          // =================================================
+
+          // Pending and Confirmed can be cancelled
           const canCancel =
             statusLower === "pending" ||
             statusLower === "confirmed";
+
+          // Pending, Confirmed, Expired and Rescheduled
+          // can be extended/rescheduled
+          const canReschedule =
+            statusLower === "pending" ||
+            statusLower === "expired";
 
           const isCompleted =
             statusLower === "completed";
 
           const isCancelled =
             statusLower === "cancelled";
+
+          const isExpired =
+            statusLower === "expired";
+
+          const isRejected =
+            statusLower === "rejected";
+
+          const isRescheduling =
+            reschedulingId === appointmentId;
 
           const isCancelling =
             cancellingId === appointmentId;
@@ -529,11 +729,11 @@ const getDoctorSpecialization = (doctorId) => {
                       )}
                     </h2>
 
-                     <p>
-                        {getDoctorSpecialization(
-                          appointment.doctorId
-                        )}
-                      </p>
+                    <p>
+                      {getDoctorSpecialization(
+                        appointment.doctorId
+                      )}
+                    </p>
 
                     <span className="doctor-id">
                       Doctor #
@@ -557,6 +757,21 @@ const getDoctorSpecialization = (doctorId) => {
                       strokeWidth={2.4}
                     />
                   )}
+
+                  {statusLower === "expired" && (
+                    <Clock3
+                      size={15}
+                      strokeWidth={2.4}
+                    />
+                  )}
+
+                  {statusLower === "cancelled" && (
+                    <XCircle
+                      size={15}
+                      strokeWidth={2.4}
+                    />
+                  )}
+
 
                   <span>
                     {status}
@@ -696,7 +911,7 @@ const getDoctorSpecialization = (doctorId) => {
               </div>
 
               {/* =========================================
-                  ACTION
+                  ACTIONS
               ========================================= */}
 
               <div className="appointment-actions">
@@ -712,13 +927,40 @@ const getDoctorSpecialization = (doctorId) => {
                         appointmentId
                       )
                     }
-                    disabled={isCancelling}
+                    disabled={
+                      isCancelling ||
+                      isRescheduling
+                    }
                   >
                     <Trash2 size={17} />
 
                     {isCancelling
                       ? "Cancelling..."
                       : "Cancel Appointment"}
+                  </button>
+                )}
+
+                {/* RESCHEDULE / EXTEND */}
+
+                {canReschedule && (
+                  <button
+                    type="button"
+                    className="reschedule-appointment-btn"
+                    onClick={() =>
+                      handleOpenReschedule(
+                        appointment
+                      )
+                    }
+                    disabled={
+                      isCancelling ||
+                      isRescheduling
+                    }
+                  >
+                    <RefreshCw size={15} />
+
+                    {isRescheduling
+                      ? "Rescheduling..."
+                      : "Reschedule"}
                   </button>
                 )}
 
@@ -740,6 +982,22 @@ const getDoctorSpecialization = (doctorId) => {
                   </div>
                 )}
 
+                {/* EXPIRED */}
+
+                {isExpired && (
+                  <div className="appointment-info expired-info">
+                    This appointment has expired.
+                  </div>
+                )}
+
+                {/* REJECTED */}
+
+                {isRejected && (
+                  <div className="appointment-info rejected-info">
+                    This appointment was rejected.
+                  </div>
+                )}
+
               </div>
 
             </div>
@@ -748,19 +1006,165 @@ const getDoctorSpecialization = (doctorId) => {
 
       </div>
 
+      {/* =================================================
+          CANCEL CONFIRMATION MODAL
+      ================================================= */}
+
       <ConfirmModal
-      isOpen={showCancelModal}
-      variant="danger"
-      title="Cancel Appointment?"
-      message="Are you sure you want to cancel this appointment?"
-      warning="This will change the appointment status to Cancelled."
-      confirmText="Yes, Cancel"
-      cancelText="Keep Appointment"
-      onConfirm={confirmCancelAppointment}
-      onCancel={closeCancelModal}
-      loading={!!cancellingId}
+        isOpen={showCancelModal}
+        variant="danger"
+        title="Cancel Appointment?"
+        message="Are you sure you want to cancel this appointment?"
+        warning="This will change the appointment status to Cancelled."
+        confirmText="Yes, Cancel"
+        cancelText="Keep Appointment"
+        onConfirm={confirmCancelAppointment}
+        onCancel={closeCancelModal}
+        loading={!!cancellingId}
       />
-      
+
+      {/* =================================================
+          RESCHEDULE MODAL
+      ================================================= */}
+
+      {showRescheduleModal &&
+        selectedRescheduleAppointment && (
+          <div
+            className="reschedule-modal-overlay"
+            onClick={closeRescheduleModal}
+          >
+
+            <div
+              className="reschedule-modal"
+              onClick={(e) =>
+                e.stopPropagation()
+              }
+            >
+
+              {/* ICON */}
+
+              <div className="reschedule-modal-icon">
+                <RefreshCw size={24} />
+              </div>
+
+              {/* TITLE */}
+
+              <h3>
+                Reschedule Appointment
+              </h3>
+
+              {/* DESCRIPTION */}
+
+              <p>
+                Select a new date and time for
+                your appointment. The appointment
+                will become{" "}
+                <strong>Pending</strong> until it
+                is confirmed again.
+              </p>
+
+              {/* FORM */}
+
+              <div className="reschedule-form">
+
+                {/* DATE */}
+
+                <div className="reschedule-field">
+
+                  <label htmlFor="reschedule-date">
+                    New Date
+                  </label>
+
+                  <div className="reschedule-input-wrap">
+
+                    <CalendarDays size={16} />
+
+                    <input
+                      id="reschedule-date"
+                      type="date"
+                      min={getTodayDate()}
+                      value={rescheduleDate}
+                      onChange={(e) =>
+                        setRescheduleDate(
+                          e.target.value
+                        )
+                      }
+                      disabled={!!reschedulingId}
+                    />
+
+                  </div>
+
+                </div>
+
+                {/* TIME */}
+
+                <div className="reschedule-field">
+
+                  <label htmlFor="reschedule-time">
+                    New Time
+                  </label>
+
+                  <div className="reschedule-input-wrap">
+
+                    <Clock3 size={16} />
+
+                    <input
+                      id="reschedule-time"
+                      type="time"
+                      value={rescheduleTime}
+                      onChange={(e) =>
+                        setRescheduleTime(
+                          e.target.value
+                        )
+                      }
+                      disabled={!!reschedulingId}
+                    />
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* MODAL ACTIONS */}
+
+              <div className="reschedule-modal-actions">
+
+                <button
+                  type="button"
+                  className="reschedule-modal-btn reschedule-modal-close"
+                  onClick={closeRescheduleModal}
+                  disabled={!!reschedulingId}
+                >
+                  <XCircle size={14} />
+                  Close
+                </button>
+
+                <button
+                  type="button"
+                  className="reschedule-modal-btn reschedule-modal-confirm"
+                  onClick={
+                    confirmRescheduleAppointment
+                  }
+                  disabled={
+                    !!reschedulingId ||
+                    !rescheduleDate ||
+                    !rescheduleTime
+                  }
+                >
+                  <RefreshCw size={14} />
+
+                  {reschedulingId
+                    ? "Rescheduling..."
+                    : "Reschedule"}
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+        )}
 
     </div>
   );
