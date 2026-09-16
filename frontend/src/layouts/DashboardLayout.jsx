@@ -34,12 +34,7 @@ function DashboardLayout() {
   // ==========================================
 
   if (!isLoggedIn || !role) {
-    return (
-      <Navigate
-        to="/"
-        replace
-      />
-    );
+    return <Navigate to="/" replace />;
   }
 
   // ==========================================
@@ -196,10 +191,6 @@ function DashboardLayout() {
         </svg>
       ),
     },
-
-    // ==========================================
-    // ADMIN LOGS
-    // ==========================================
 
     {
       name: "Admin Logs",
@@ -508,42 +499,25 @@ function DashboardLayout() {
   // ==========================================
 
   let menuItems = [];
-
   let dashboardTitle = "Dashboard";
-
-  let dashboardSubtitle =
-    "AI Hospital Management System";
+  let dashboardSubtitle = "AI Hospital Management System";
 
   if (role === "admin") {
     menuItems = adminMenu;
-
     dashboardTitle = "Admin Panel";
-
-    dashboardSubtitle =
-      "AI Hospital Management System";
+    dashboardSubtitle = "AI Hospital Management System";
   } else if (role === "doctor") {
     menuItems = doctorMenu;
-
     dashboardTitle = "Doctor Panel";
-
-    dashboardSubtitle =
-      "AI Hospital Management System";
+    dashboardSubtitle = "AI Hospital Management System";
   } else if (role === "patient") {
     menuItems = patientMenu;
-
     dashboardTitle = "Patient Panel";
-
-    dashboardSubtitle =
-      "AI Hospital Management System";
+    dashboardSubtitle = "AI Hospital Management System";
   } else {
     localStorage.clear();
 
-    return (
-      <Navigate
-        to="/"
-        replace
-      />
-    );
+    return <Navigate to="/" replace />;
   }
 
   // ==========================================
@@ -610,12 +584,19 @@ function DashboardLayout() {
   const handleLogoError = (event) => {
     event.currentTarget.style.display = "none";
 
-    const fallback =
-      event.currentTarget.nextElementSibling;
+    const fallback = event.currentTarget.nextElementSibling;
 
     if (fallback) {
       fallback.style.display = "flex";
     }
+  };
+
+  // ==========================================
+  // TOGGLE DARK MODE
+  // ==========================================
+
+  const handleDarkMode = () => {
+    setDarkMode((current) => !current);
   };
 
   // ==========================================
@@ -631,9 +612,7 @@ function DashboardLayout() {
 
       <aside className="dashboard-sidebar">
 
-        {/* =====================================
-            LOGO
-        ===================================== */}
+        {/* LOGO */}
 
         <div className="sidebar-logo">
 
@@ -671,9 +650,7 @@ function DashboardLayout() {
 
         </div>
 
-        {/* =====================================
-            USER ROLE CARD
-        ===================================== */}
+        {/* USER ROLE CARD */}
 
         <div className="user-role-card">
 
@@ -748,9 +725,7 @@ function DashboardLayout() {
 
         </div>
 
-        {/* =====================================
-            NAVIGATION
-        ===================================== */}
+        {/* NAVIGATION */}
 
         <nav className="sidebar-navigation">
 
@@ -787,9 +762,7 @@ function DashboardLayout() {
 
         </nav>
 
-        {/* =====================================
-            PATIENT SUPPORT
-        ===================================== */}
+        {/* PATIENT SUPPORT */}
 
         {role === "patient" && (
           <div className="sidebar-support">
@@ -798,8 +771,7 @@ function DashboardLayout() {
               type="button"
               className="sidebar-support-item"
               onClick={() => {
-                window.location.href =
-                  "/#contact";
+                window.location.href = "/#contact";
               }}
             >
 
@@ -834,8 +806,7 @@ function DashboardLayout() {
               type="button"
               className="sidebar-support-item"
               onClick={() => {
-                window.location.href =
-                  "/#contact";
+                window.location.href = "/#contact";
               }}
             >
 
@@ -865,9 +836,7 @@ function DashboardLayout() {
           </div>
         )}
 
-        {/* =====================================
-            SIDEBAR BOTTOM
-        ===================================== */}
+        {/* SIDEBAR BOTTOM */}
 
         <div className="sidebar-bottom">
 
@@ -899,9 +868,7 @@ function DashboardLayout() {
 
       <main className="dashboard-main">
 
-        {/* ===================================
-            TOP HEADER
-        =================================== */}
+        {/* TOP HEADER */}
 
         <header className="dashboard-header">
 
@@ -923,16 +890,12 @@ function DashboardLayout() {
 
           <div className="header-right">
 
-            {/* =================================
-                HOME
-            ================================= */}
+            {/* HOME */}
 
             <button
               type="button"
               className="home-header-button"
-              onClick={() =>
-                navigate("/")
-              }
+              onClick={() => navigate("/")}
               title="Go to Home"
             >
 
@@ -946,34 +909,32 @@ function DashboardLayout() {
 
             </button>
 
-            {/* =================================
-                DARK MODE
-            ================================= */}
+            {/* DARK MODE */}
 
             <button
               type="button"
               className="header-button"
-              onClick={() =>
-                setDarkMode(
-                  (current) => !current
-                )
-              }
+              onClick={handleDarkMode}
               title={
                 darkMode
                   ? "Switch to Light Mode"
                   : "Switch to Dark Mode"
               }
+              aria-label={
+                darkMode
+                  ? "Switch to Light Mode"
+                  : "Switch to Dark Mode"
+              }
+              aria-pressed={darkMode}
             >
 
-              {darkMode
-                ? "☀️"
-                : "🌙"}
+              <span className="theme-icon">
+                {darkMode ? "☀️" : "🌙"}
+              </span>
 
             </button>
 
-            {/* =================================
-                ACCOUNT
-            ================================= */}
+            {/* ACCOUNT */}
 
             <button
               type="button"
@@ -992,9 +953,7 @@ function DashboardLayout() {
 
             </button>
 
-            {/* =================================
-                LOGOUT
-            ================================= */}
+            {/* LOGOUT */}
 
             <button
               type="button"
@@ -1017,9 +976,7 @@ function DashboardLayout() {
 
         </header>
 
-        {/* ===================================
-            PAGE CONTENT
-        =================================== */}
+        {/* PAGE CONTENT */}
 
         <section className="dashboard-content">
 

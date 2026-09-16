@@ -1,31 +1,38 @@
-import About from "./pages/About/About";
-import Project from "./pages/Project/Project";
-import Home from "./pages/Home/Home";
-import AdminLogs from "./pages/Admin/Logs/Logs";
-import AIHealthAssistant from "./pages/AIHealthAssistant/AIHealthAssistant";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+/* =========================================================
+   PUBLIC PAGES
+========================================================= */
+
+import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
+import Project from "./pages/Project/Project";
 import Login from "./pages/Login/Login";
+import AIHealthAssistant from "./pages/AIHealthAssistant/AIHealthAssistant";
+
+/* =========================================================
+   LAYOUT / PROTECTION
+========================================================= */
+
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-/* ==============================
+/* =========================================================
    ADMIN PAGES
-============================== */
+========================================================= */
 
 import Dashboard from "./pages/Admin/Dashboard";
-
 import AdminPatients from "./pages/Admin/Patients/Patients";
 import AdminDoctors from "./pages/Admin/Doctors/Doctors";
 import AdminAppointments from "./pages/Admin/Appointments/Appointments";
 import AdminMedicalRecords from "./pages/Admin/MedicalRecords/MedicalRecords";
 import AdminPrescriptions from "./pages/Admin/Prescriptions/Prescriptions";
 import AdminBills from "./pages/Admin/Bills/Bills";
+import AdminLogs from "./pages/Admin/Logs/Logs";
 
-/* ==============================
-   DOCTOR
-============================== */
+/* =========================================================
+   DOCTOR PAGES
+========================================================= */
 
 import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
 import DoctorAppointments from "./pages/Doctor/Appointments/Appointments";
@@ -34,9 +41,9 @@ import DoctorMedicalRecords from "./pages/Doctor/MedicalRecords/MedicalRecords";
 import DoctorPrescriptions from "./pages/Doctor/Prescriptions/Prescriptions";
 import DoctorProfile from "./pages/Doctor/Profile/Profile";
 
-/* ==============================
-   PATIENT
-============================== */
+/* =========================================================
+   PATIENT PAGES
+========================================================= */
 
 import PatientDashboard from "./pages/Patient/PatientDashboard";
 import Appointments from "./pages/Patient/Appointments/Appointments";
@@ -46,60 +53,47 @@ import Prescriptions from "./pages/Patient/Prescriptions/Prescriptions";
 import Profile from "./pages/Patient/Profile/Profile";
 import Bills from "./pages/Patient/Bills/Bills";
 
+/* =========================================================
+   APP
+========================================================= */
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* =====================================================
-            PUBLIC HOME
-        ===================================================== */}
+        {/* =================================================
+            PUBLIC ROUTES
+        ================================================= */}
 
         <Route
           path="/"
           element={<Home />}
         />
 
-        {/* =====================================================
-            LOGIN
-        ===================================================== */}
-
         <Route
           path="/login"
           element={<Login />}
         />
-
-        {/* =====================================================
-            ABOUT
-        ===================================================== */}
 
         <Route
           path="/about"
           element={<About />}
         />
 
-        {/* =====================================================
-            PROJECT
-        ===================================================== */}
-
         <Route
           path="/project"
           element={<Project />}
         />
-
-        {/* =====================================================
-            AI HEALTH ASSISTANT
-        ===================================================== */}
 
         <Route
           path="/ai-health-assistant"
           element={<AIHealthAssistant />}
         />
 
-        {/* =====================================================
-            ADMIN DASHBOARD
-            ONLY ADMIN CAN ACCESS
-        ===================================================== */}
+        {/* =================================================
+            ADMIN ROUTES
+        ================================================= */}
 
         <Route
           path="/dashboard"
@@ -109,72 +103,66 @@ function App() {
             </ProtectedRoute>
           }
         >
-
-          {/* Admin Dashboard Home */}
+          {/* Admin Dashboard */}
 
           <Route
             index
             element={<Dashboard />}
           />
 
-          {/* Admin Patients */}
+          {/* Patients */}
 
           <Route
             path="patients"
             element={<AdminPatients />}
           />
 
-          {/* Admin Doctors */}
+          {/* Doctors */}
 
           <Route
             path="doctors"
             element={<AdminDoctors />}
           />
 
-          {/* Admin Appointments */}
+          {/* Appointments */}
 
           <Route
             path="appointments"
             element={<AdminAppointments />}
           />
 
-          {/* Admin Medical Records */}
+          {/* Medical Records */}
 
           <Route
             path="medical-records"
             element={<AdminMedicalRecords />}
           />
 
-          {/* Admin Prescriptions */}
+          {/* Prescriptions */}
 
           <Route
             path="prescriptions"
             element={<AdminPrescriptions />}
           />
 
-          {/* Admin Bills */}
+          {/* Bills */}
 
           <Route
             path="bills"
             element={<AdminBills />}
           />
 
-          {/* =================================================
-              ADMIN LOGS
-              Doctor Approval / Rejection History
-          ================================================= */}
+          {/* Admin Logs */}
 
           <Route
             path="logs"
             element={<AdminLogs />}
           />
-
         </Route>
 
-        {/* =====================================================
-            DOCTOR DASHBOARD
-            ONLY DOCTOR CAN ACCESS
-        ===================================================== */}
+        {/* =================================================
+            DOCTOR ROUTES
+        ================================================= */}
 
         <Route
           path="/doctor"
@@ -184,7 +172,6 @@ function App() {
             </ProtectedRoute>
           }
         >
-
           {/* Doctor Dashboard */}
 
           <Route
@@ -192,14 +179,14 @@ function App() {
             element={<DoctorDashboard />}
           />
 
-          {/* Doctor Appointments */}
+          {/* Appointments */}
 
           <Route
             path="appointments"
             element={<DoctorAppointments />}
           />
 
-          {/* My Patients */}
+          {/* Patients */}
 
           <Route
             path="patients"
@@ -226,13 +213,11 @@ function App() {
             path="profile"
             element={<DoctorProfile />}
           />
-
         </Route>
 
-        {/* =====================================================
-            PATIENT DASHBOARD
-            ONLY PATIENT CAN ACCESS
-        ===================================================== */}
+        {/* =================================================
+            PATIENT ROUTES
+        ================================================= */}
 
         <Route
           path="/patient"
@@ -242,7 +227,6 @@ function App() {
             </ProtectedRoute>
           }
         >
-
           {/* Patient Dashboard */}
 
           <Route
@@ -291,13 +275,11 @@ function App() {
             path="bills"
             element={<Bills />}
           />
-
         </Route>
 
-        {/* =====================================================
-            UNKNOWN URL
-            REDIRECT TO HOME
-        ===================================================== */}
+        {/* =================================================
+            FALLBACK ROUTE
+        ================================================= */}
 
         <Route
           path="*"

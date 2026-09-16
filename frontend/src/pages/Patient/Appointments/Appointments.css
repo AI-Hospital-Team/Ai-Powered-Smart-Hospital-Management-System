@@ -1211,3 +1211,635 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+/* =========================================================
+   PATIENT APPOINTMENTS - DARK MODE
+   KEEP THIS SECTION AT THE VERY END
+========================================================= */
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+html.dark-mode .appointments-page,
+body.dark-mode .appointments-page {
+  background: #0f1b24 !important;
+  color: #e8f1f4 !important;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+html.dark-mode .appointments-header h1,
+body.dark-mode .appointments-header h1 {
+  color: #f5fafb !important;
+}
+
+html.dark-mode .appointments-header p,
+body.dark-mode .appointments-header p {
+  color: #91aab3 !important;
+}
+
+html.dark-mode .appointments-title-icon,
+body.dark-mode .appointments-title-icon {
+  background: linear-gradient(
+    135deg,
+    #12343b,
+    #163e46
+  ) !important;
+
+  color: #48cbd4 !important;
+
+  box-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .appointments-title-icon:hover,
+body.dark-mode .appointments-title-icon:hover {
+  background: #183f48 !important;
+  color: #67dce3 !important;
+}
+
+/* =========================================================
+   BOOK APPOINTMENT BUTTON
+========================================================= */
+
+html.dark-mode .book-appointment-btn,
+body.dark-mode .book-appointment-btn {
+  background: linear-gradient(
+    135deg,
+    #087f92,
+    #0aaabd
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.32) !important;
+}
+
+html.dark-mode .book-appointment-btn:hover,
+body.dark-mode .book-appointment-btn:hover {
+  background: linear-gradient(
+    135deg,
+    #0995a8,
+    #10bdc9
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.42) !important;
+}
+
+/* =========================================================
+   APPOINTMENT CARD
+========================================================= */
+
+html.dark-mode .appointment-card,
+body.dark-mode .appointment-card {
+  background: #101c24 !important;
+  background-color: #101c24 !important;
+
+  color: #e8f1f4 !important;
+
+  border-color: #29434e !important;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.30) !important;
+}
+
+html.dark-mode .appointment-card:hover,
+body.dark-mode .appointment-card:hover {
+  background: #13232c !important;
+
+  border-color: #37606b !important;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.40) !important;
+}
+
+/* =========================================================
+   DOCTOR SECTION
+========================================================= */
+
+html.dark-mode .doctor-icon,
+body.dark-mode .doctor-icon {
+  background: #12343b !important;
+  color: #48cbd4 !important;
+}
+
+html.dark-mode .appointment-card:hover .doctor-icon,
+body.dark-mode .appointment-card:hover .doctor-icon {
+  background: #16434c !important;
+  color: #67dce3 !important;
+}
+
+html.dark-mode .doctor-text h2,
+body.dark-mode .doctor-text h2 {
+  color: #f3f9fa !important;
+}
+
+html.dark-mode .doctor-text p,
+body.dark-mode .doctor-text p {
+  color: #91aab3 !important;
+}
+
+html.dark-mode .doctor-id,
+body.dark-mode .doctor-id {
+  color: #718b95 !important;
+}
+
+/* =========================================================
+   APPOINTMENT DETAILS
+========================================================= */
+
+html.dark-mode .appointment-details,
+body.dark-mode .appointment-details {
+  color: #e8f1f4 !important;
+}
+
+html.dark-mode .detail-icon,
+body.dark-mode .detail-icon {
+  background: #12343b !important;
+  color: #48cbd4 !important;
+}
+
+html.dark-mode .appointment-detail:hover .detail-icon,
+body.dark-mode .appointment-detail:hover .detail-icon {
+  background: #16434c !important;
+  color: #67dce3 !important;
+}
+
+html.dark-mode .detail-label,
+body.dark-mode .detail-label {
+  color: #718b95 !important;
+}
+
+html.dark-mode .appointment-detail strong,
+body.dark-mode .appointment-detail strong {
+  color: #eaf4f6 !important;
+}
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+html.dark-mode .status-confirmed,
+body.dark-mode .status-confirmed {
+  background: #163a29 !important;
+  color: #67dc96 !important;
+}
+
+html.dark-mode .status-pending,
+body.dark-mode .status-pending {
+  background: #3d3118 !important;
+  color: #f0c35e !important;
+}
+
+html.dark-mode .status-cancelled,
+body.dark-mode .status-cancelled {
+  background: #3b2025 !important;
+  color: #ff858d !important;
+}
+
+html.dark-mode .status-completed,
+body.dark-mode .status-completed {
+  background: #1d2e48 !important;
+  color: #79aaf2 !important;
+}
+
+html.dark-mode .status-expired,
+body.dark-mode .status-expired {
+  background: #3b2920 !important;
+  color: #f1a56b !important;
+}
+
+html.dark-mode .status-rejected,
+body.dark-mode .status-rejected {
+  background: #3b2025 !important;
+  color: #ff858d !important;
+}
+
+/* =========================================================
+   CANCEL APPOINTMENT BUTTON
+========================================================= */
+
+html.dark-mode .cancel-appointment-btn,
+body.dark-mode .cancel-appointment-btn {
+  background: #101c24 !important;
+
+  color: #ff7777 !important;
+
+  border-color: #9d4148 !important;
+}
+
+html.dark-mode .cancel-appointment-btn:hover,
+body.dark-mode .cancel-appointment-btn:hover {
+  background: #d43f3f !important;
+
+  color: #ffffff !important;
+
+  border-color: #d43f3f !important;
+
+  box-shadow:
+    0 6px 15px rgba(212, 63, 63, 0.25) !important;
+}
+
+html.dark-mode .cancel-appointment-btn:disabled,
+body.dark-mode .cancel-appointment-btn:disabled {
+  opacity: 0.45 !important;
+}
+
+/* =========================================================
+   RESCHEDULE BUTTON
+========================================================= */
+
+html.dark-mode .reschedule-appointment-btn,
+body.dark-mode .reschedule-appointment-btn {
+  background: #101c24 !important;
+
+  color: #54ccd5 !important;
+
+  border-color: #37606b !important;
+
+  box-shadow: none !important;
+}
+
+html.dark-mode .reschedule-appointment-btn:hover,
+body.dark-mode .reschedule-appointment-btn:hover {
+  background: #15303a !important;
+
+  color: #7ce3e8 !important;
+
+  border-color: #4c8590 !important;
+}
+
+html.dark-mode .reschedule-appointment-btn:disabled,
+body.dark-mode .reschedule-appointment-btn:disabled {
+  opacity: 0.45 !important;
+}
+
+/* =========================================================
+   APPOINTMENT INFORMATION
+========================================================= */
+
+html.dark-mode .appointment-info,
+body.dark-mode .appointment-info {
+  color: #dcebef !important;
+}
+
+html.dark-mode .completed-info,
+body.dark-mode .completed-info {
+  background: #1d2e48 !important;
+  color: #79aaf2 !important;
+}
+
+html.dark-mode .cancelled-info,
+body.dark-mode .cancelled-info {
+  background: #3b2025 !important;
+  color: #ff858d !important;
+}
+
+html.dark-mode .expired-info,
+body.dark-mode .expired-info {
+  background: #3b2920 !important;
+  color: #f1a56b !important;
+}
+
+html.dark-mode .rejected-info,
+body.dark-mode .rejected-info {
+  background: #3b2025 !important;
+  color: #ff858d !important;
+}
+
+/* =========================================================
+   NO APPOINTMENTS
+========================================================= */
+
+html.dark-mode .no-appointments,
+body.dark-mode .no-appointments {
+  background: #101c24 !important;
+
+  color: #e8f1f4 !important;
+
+  border-color: #29434e !important;
+
+  box-shadow:
+    0 6px 22px rgba(0, 0, 0, 0.30) !important;
+}
+
+html.dark-mode .no-appointments-icon,
+body.dark-mode .no-appointments-icon {
+  background: #12343b !important;
+  color: #48cbd4 !important;
+}
+
+html.dark-mode .no-appointments h2,
+body.dark-mode .no-appointments h2 {
+  color: #f4fafb !important;
+}
+
+html.dark-mode .no-appointments p,
+body.dark-mode .no-appointments p {
+  color: #91aab3 !important;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .appointments-loading,
+body.dark-mode .appointments-loading {
+  background: #101c24 !important;
+
+  color: #e8f1f4 !important;
+
+  border-color: #29434e !important;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.30) !important;
+}
+
+html.dark-mode .loading-spinner,
+body.dark-mode .loading-spinner {
+  border-color: #24404a !important;
+
+  border-top-color: #20aebe !important;
+}
+
+html.dark-mode .appointments-loading p,
+body.dark-mode .appointments-loading p {
+  color: #91aab3 !important;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+html.dark-mode .appointments-error,
+body.dark-mode .appointments-error {
+  background: #351d23 !important;
+
+  color: #ff9c9c !important;
+
+  border-color: #713942 !important;
+}
+
+/* =========================================================
+   RESCHEDULE MODAL OVERLAY
+========================================================= */
+
+html.dark-mode .reschedule-modal-overlay,
+body.dark-mode .reschedule-modal-overlay {
+  background: rgba(0, 0, 0, 0.72) !important;
+
+  backdrop-filter: blur(6px) !important;
+}
+
+/* =========================================================
+   RESCHEDULE MODAL
+========================================================= */
+
+html.dark-mode .reschedule-modal,
+body.dark-mode .reschedule-modal {
+  background: #101c24 !important;
+
+  color: #e8f1f4 !important;
+
+  border: 1px solid #29434e !important;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.65) !important;
+}
+
+html.dark-mode .reschedule-modal-icon,
+body.dark-mode .reschedule-modal-icon {
+  background: #12343b !important;
+
+  color: #48cbd4 !important;
+}
+
+html.dark-mode .reschedule-modal h3,
+body.dark-mode .reschedule-modal h3 {
+  color: #f5fafb !important;
+}
+
+html.dark-mode .reschedule-modal > p,
+body.dark-mode .reschedule-modal > p {
+  color: #91aab3 !important;
+}
+
+html.dark-mode .reschedule-modal > p strong,
+body.dark-mode .reschedule-modal > p strong {
+  color: #54ccd5 !important;
+}
+
+/* =========================================================
+   RESCHEDULE FORM
+========================================================= */
+
+html.dark-mode .reschedule-field label,
+body.dark-mode .reschedule-field label {
+  color: #dce8ec !important;
+}
+
+html.dark-mode .reschedule-input-wrap,
+body.dark-mode .reschedule-input-wrap {
+  background: #0c1820 !important;
+
+  border-color: #354e58 !important;
+
+  color: #91cfd5 !important;
+}
+
+html.dark-mode .reschedule-input-wrap:focus-within,
+body.dark-mode .reschedule-input-wrap:focus-within {
+  background: #10232c !important;
+
+  border-color: #25b8c5 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 184, 197, 0.12) !important;
+}
+
+html.dark-mode .reschedule-input-wrap input,
+body.dark-mode .reschedule-input-wrap input {
+  background: transparent !important;
+
+  color: #f4f8fa !important;
+}
+
+html.dark-mode .reschedule-input-wrap input::placeholder,
+body.dark-mode .reschedule-input-wrap input::placeholder {
+  color: #718891 !important;
+}
+
+html.dark-mode .reschedule-input-wrap svg,
+body.dark-mode .reschedule-input-wrap svg {
+  color: #58cbd4 !important;
+  stroke: currentColor !important;
+}
+
+/* Date/time picker color */
+html.dark-mode .reschedule-input-wrap input::-webkit-calendar-picker-indicator,
+body.dark-mode .reschedule-input-wrap input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+/* =========================================================
+   RESCHEDULE MODAL BUTTONS
+========================================================= */
+
+html.dark-mode .reschedule-modal-close,
+body.dark-mode .reschedule-modal-close {
+  background: #172a33 !important;
+
+  color: #dcebef !important;
+
+  border-color: #304952 !important;
+}
+
+html.dark-mode .reschedule-modal-close:hover,
+body.dark-mode .reschedule-modal-close:hover {
+  background: #243c46 !important;
+
+  color: #ffffff !important;
+
+  border-color: #42616c !important;
+}
+
+html.dark-mode .reschedule-modal-confirm,
+body.dark-mode .reschedule-modal-confirm {
+  background: linear-gradient(
+    135deg,
+    #087f92,
+    #0aaabd
+  ) !important;
+
+  color: #ffffff !important;
+
+  border-color: #087f92 !important;
+
+  box-shadow:
+    0 6px 16px rgba(8, 127, 146, 0.25) !important;
+}
+
+html.dark-mode .reschedule-modal-confirm:hover,
+body.dark-mode .reschedule-modal-confirm:hover {
+  background: linear-gradient(
+    135deg,
+    #0995a8,
+    #10bdc9
+  ) !important;
+
+  border-color: #0995a8 !important;
+}
+
+html.dark-mode .reschedule-modal-btn:disabled,
+body.dark-mode .reschedule-modal-btn:disabled {
+  opacity: 0.45 !important;
+}
+
+/* =========================================================
+   OLD CANCEL MODAL SUPPORT
+   ConfirmModal is currently used in JSX, but these rules
+   keep the old modal dark if it is used elsewhere.
+========================================================= */
+
+html.dark-mode .cancel-modal-overlay,
+body.dark-mode .cancel-modal-overlay {
+  background: rgba(0, 0, 0, 0.72) !important;
+}
+
+html.dark-mode .cancel-modal,
+body.dark-mode .cancel-modal {
+  background: #101c24 !important;
+
+  color: #e8f1f4 !important;
+
+  border-color: #29434e !important;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.65) !important;
+}
+
+html.dark-mode .cancel-modal h3,
+body.dark-mode .cancel-modal h3 {
+  color: #f5fafb !important;
+}
+
+html.dark-mode .cancel-modal p,
+body.dark-mode .cancel-modal p {
+  color: #91aab3 !important;
+}
+
+html.dark-mode .cancel-modal-icon,
+body.dark-mode .cancel-modal-icon {
+  background: #3b2025 !important;
+  color: #ff858d !important;
+}
+
+html.dark-mode .cancel-modal-close,
+body.dark-mode .cancel-modal-close {
+  background: #172a33 !important;
+  color: #dcebef !important;
+  border-color: #304952 !important;
+}
+
+html.dark-mode .cancel-modal-close:hover,
+body.dark-mode .cancel-modal-close:hover {
+  background: #243c46 !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   SVG ICONS
+========================================================= */
+
+html.dark-mode .appointments-page svg,
+body.dark-mode .appointments-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   SMOOTH TRANSITIONS
+========================================================= */
+
+html.dark-mode .appointments-page *,
+body.dark-mode .appointments-page * {
+  transition:
+    background-color 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+/* =========================================================
+   DOCTOR INFO - DARK MODE FIX
+========================================================= */
+
+html.dark-mode .appointments-page .appointment-card .doctor-info,
+body.dark-mode .appointments-page .appointment-card .doctor-info {
+  color: #e8f1f4 !important;
+}
+
+html.dark-mode .appointments-page .appointment-card .doctor-text,
+body.dark-mode .appointments-page .appointment-card .doctor-text {
+  color: #e8f1f4 !important;
+}
+
+html.dark-mode .appointments-page .appointment-card .doctor-text h2,
+body.dark-mode .appointments-page .appointment-card .doctor-text h2 {
+  color: #f5fafb !important;
+}
+
+html.dark-mode .appointments-page .appointment-card .doctor-text p,
+body.dark-mode .appointments-page .appointment-card .doctor-text p {
+  color: #a8bdc4 !important;
+}
+
+html.dark-mode .appointments-page .appointment-card .doctor-text .doctor-id,
+body.dark-mode .appointments-page .appointment-card .doctor-text .doctor-id {
+  color: #718b95 !important;
+}
