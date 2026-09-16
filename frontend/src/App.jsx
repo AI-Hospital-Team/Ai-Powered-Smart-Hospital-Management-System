@@ -1,6 +1,7 @@
 import About from "./pages/About/About";
 import Project from "./pages/Project/Project";
 import Home from "./pages/Home/Home";
+import AdminLogs from "./pages/Admin/Logs/Logs";
 import AIHealthAssistant from "./pages/AIHealthAssistant/AIHealthAssistant";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -86,7 +87,6 @@ function App() {
           element={<Project />}
         />
 
-      
         {/* =====================================================
             AI HEALTH ASSISTANT
         ===================================================== */}
@@ -109,6 +109,7 @@ function App() {
             </ProtectedRoute>
           }
         >
+
           {/* Admin Dashboard Home */}
 
           <Route
@@ -157,6 +158,17 @@ function App() {
             path="bills"
             element={<AdminBills />}
           />
+
+          {/* =================================================
+              ADMIN LOGS
+              Doctor Approval / Rejection History
+          ================================================= */}
+
+          <Route
+            path="logs"
+            element={<AdminLogs />}
+          />
+
         </Route>
 
         {/* =====================================================
@@ -172,6 +184,7 @@ function App() {
             </ProtectedRoute>
           }
         >
+
           {/* Doctor Dashboard */}
 
           <Route
@@ -213,6 +226,7 @@ function App() {
             path="profile"
             element={<DoctorProfile />}
           />
+
         </Route>
 
         {/* =====================================================
@@ -228,6 +242,7 @@ function App() {
             </ProtectedRoute>
           }
         >
+
           {/* Patient Dashboard */}
 
           <Route
@@ -276,6 +291,7 @@ function App() {
             path="bills"
             element={<Bills />}
           />
+
         </Route>
 
         {/* =====================================================

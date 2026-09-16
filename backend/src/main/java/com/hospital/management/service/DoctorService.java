@@ -15,13 +15,20 @@ public class DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
+    private final DoctorApprovalLogService doctorApprovalLogService;
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
 
     public DoctorService(
             DoctorRepository doctorRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            DoctorApprovalLogService doctorApprovalLogService) {
 
         this.doctorRepository = doctorRepository;
         this.userRepository = userRepository;
+        this.doctorApprovalLogService = doctorApprovalLogService;
     }
 
     // =========================================================
@@ -134,7 +141,10 @@ public class DoctorService {
         String doctorEmail =
                 email.trim().toLowerCase();
 
+        // -----------------------------------------
         // Check duplicate email
+        // -----------------------------------------
+
         if (userRepository.findByEmail(doctorEmail)
                 .isPresent()) {
 
@@ -143,7 +153,10 @@ public class DoctorService {
             );
         }
 
+        // -----------------------------------------
         // Default values
+        // -----------------------------------------
+
         doctor.setStatus("APPROVED");
 
         if (doctor.getShift() == null ||
@@ -158,11 +171,17 @@ public class DoctorService {
                         .toUpperCase()
         );
 
-        // Save doctor first
+        // -----------------------------------------
+        // Save doctor
+        // -----------------------------------------
+
         Doctor savedDoctor =
                 doctorRepository.save(doctor);
 
+        // -----------------------------------------
         // Create login user
+        // -----------------------------------------
+
         User user = new User();
 
         user.setEmail(doctorEmail);
@@ -181,14 +200,17 @@ public class DoctorService {
     // =========================================================
     // APPROVE DOCTOR
     //
-    // Doctor status  -> APPROVED
-    // User status    -> ACTIVE
-    //
-    // This allows doctor to login.
+    // Doctor status -> APPROVED
+    // User status   -> ACTIVE
+    // Log           -> APPROVED
     // =========================================================
 
     @Transactional
     public Doctor approveDoctor(Integer doctorId) {
+
+        // -----------------------------------------
+        // Find doctor
+        // -----------------------------------------
 
         Doctor doctor =
                 getDoctorById(doctorId);
@@ -222,6 +244,15 @@ public class DoctorService {
 
         userRepository.save(user);
 
+        // -----------------------------------------
+        // CREATE APPROVAL LOG
+        // -----------------------------------------
+
+        doctorApprovalLogService.createLog(
+                savedDoctor,
+                "APPROVED"
+        );
+
         return savedDoctor;
     }
 
@@ -230,10 +261,15 @@ public class DoctorService {
     //
     // Doctor status -> REJECTED
     // User status   -> REJECTED
+    // Log           -> REJECTED
     // =========================================================
 
     @Transactional
     public Doctor rejectDoctor(Integer doctorId) {
+
+        // -----------------------------------------
+        // Find doctor
+        // -----------------------------------------
 
         Doctor doctor =
                 getDoctorById(doctorId);
@@ -266,6 +302,15 @@ public class DoctorService {
         user.setStatus("REJECTED");
 
         userRepository.save(user);
+
+        // -----------------------------------------
+        // CREATE REJECTION LOG
+        // -----------------------------------------
+
+        doctorApprovalLogService.createLog(
+                savedDoctor,
+                "REJECTED"
+        );
 
         return savedDoctor;
     }
