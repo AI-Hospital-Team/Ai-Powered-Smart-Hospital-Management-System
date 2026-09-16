@@ -612,8 +612,27 @@ function Home() {
   /* =====================================================
      DAY / NIGHT SHIFT DOCTOR AVAILABILITY
   ===================================================== */
-  const [dayDoctors, setDayDoctors] = useState([]);
-  const [nightDoctors, setNightDoctors] = useState([]);
+
+  // Fallback demo data — used if the backend is unreachable
+  // or returns fewer than 5 doctors for a shift.
+  const FALLBACK_DAY_DOCTORS = [
+    { id: "day-1", name: "Dr. Amit Sharma", specialization: "Cardiologist", available: true },
+    { id: "day-2", name: "Dr. Priya Patil", specialization: "General Physician", available: true },
+    { id: "day-3", name: "Dr. Amit Patil", specialization: "Orthopedic Surgeon", available: true },
+    { id: "day-4", name: "Dr. Sonal Deshpande", specialization: "Dermatologist", available: true },
+    { id: "day-5", name: "Dr. Rohan Kulkarni", specialization: "ENT Specialist", available: true },
+  ];
+
+  const FALLBACK_NIGHT_DOCTORS = [
+    { id: "night-1", name: "Dr. Rahul Deshmukh", specialization: "Neurologist", available: true },
+    { id: "night-2", name: "Dr. Sneha Kulkarni", specialization: "Pediatrician", available: true },
+    { id: "night-3", name: "Dr. Vikram Joshi", specialization: "General Physician", available: true },
+    { id: "night-4", name: "Dr. Anjali Rane", specialization: "Gynecologist", available: true },
+    { id: "night-5", name: "Dr. Suresh Pawar", specialization: "Emergency Medicine", available: true },
+  ];
+
+  const [dayDoctors, setDayDoctors] = useState(FALLBACK_DAY_DOCTORS);
+  const [nightDoctors, setNightDoctors] = useState(FALLBACK_NIGHT_DOCTORS);
   const [shiftLoading, setShiftLoading] = useState(true);
   const [shiftError, setShiftError] = useState("");
 
@@ -639,17 +658,39 @@ function Home() {
           nightResponse.json(),
         ]);
 
+        const cleanDay = Array.isArray(dayData) ? dayData : [];
+        const cleanNight = Array.isArray(nightData) ? nightData : [];
+
         if (!cancelled) {
-          setDayDoctors(Array.isArray(dayData) ? dayData : []);
-          setNightDoctors(Array.isArray(nightData) ? nightData : []);
+          // If the backend has fewer than 5 doctors for a shift,
+          // top it up with fallback demo doctors so the UI always
+          // shows 5 + 5.
+          setDayDoctors(
+            cleanDay.length >= 5
+              ? cleanDay
+              : [
+                  ...cleanDay,
+                  ...FALLBACK_DAY_DOCTORS.slice(cleanDay.length, 5),
+                ]
+          );
+
+          setNightDoctors(
+            cleanNight.length >= 5
+              ? cleanNight
+              : [
+                  ...cleanNight,
+                  ...FALLBACK_NIGHT_DOCTORS.slice(cleanNight.length, 5),
+                ]
+          );
         }
       } catch (error) {
         console.error("Shift doctors fetch error:", error);
 
+        // Backend unreachable — fall back to demo data instead
+        // of showing an empty section.
         if (!cancelled) {
-          setShiftError(
-            "Unable to load doctor availability right now. Please try again later."
-          );
+          setDayDoctors(FALLBACK_DAY_DOCTORS);
+          setNightDoctors(FALLBACK_NIGHT_DOCTORS);
         }
       } finally {
         if (!cancelled) {
