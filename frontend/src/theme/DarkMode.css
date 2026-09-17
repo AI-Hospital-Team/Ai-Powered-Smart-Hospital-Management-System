@@ -6280,3 +6280,59 @@ html.dark-mode .home-page .about-heading > p {
   font-weight: 600 !important;
   margin: 0 !important;
 }
+
+/* ABOUT HEADING — SAME AS DOCTOR AVAILABILITY */
+
+.dark-mode .home-page .about-heading {
+  max-width: 760px !important;
+  margin: 0 auto 50px !important;
+  text-align: center !important;
+}
+
+.dark-mode .home-page .about-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  margin: 0 0 12px !important;
+  padding: 7px 15px !important;
+
+  border-radius: 30px !important;
+
+  background: #102f3b !important;
+  border: 1px solid #247487 !important;
+
+  color: #35d5df !important;
+
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+}
+
+.dark-mode .home-page .about-heading h2 {
+  margin: 0 0 14px !important;
+
+  color: #dff6f8 !important;
+
+  font-size: clamp(30px, 3.5vw, 42px) !important;
+  line-height: 1.1 !important;
+  font-weight: 850 !important;
+  letter-spacing: -1.2px !important;
+
+  text-align: center !important;
+}
+
+.dark-mode .home-page .about-heading h2 span {
+  color: #35d5df !important;
+}
+
+.dark-mode .home-page .about-heading > p {
+  max-width: 600px !important;
+  margin: 0 auto !important;
+
+  color: #9fb8bf !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+
+  text-align: center !important;
+}
