@@ -3,10 +3,6 @@ import "./DarkMode.css";
 
 export const DARK_MODE_KEY = "darkMode";
 
-/* =========================================================
-   GET SAVED THEME
-========================================================= */
-
 export function getInitialDarkMode() {
   if (typeof window === "undefined") {
     return false;
@@ -14,10 +10,6 @@ export function getInitialDarkMode() {
 
   return localStorage.getItem(DARK_MODE_KEY) === "true";
 }
-
-/* =========================================================
-   APPLY THEME GLOBALLY
-========================================================= */
 
 export function applyDarkMode(enabled) {
   if (typeof document === "undefined") {
@@ -30,24 +22,24 @@ export function applyDarkMode(enabled) {
   html.classList.toggle("dark-mode", enabled);
   body.classList.toggle("dark-mode", enabled);
 
-  html.dataset.theme = enabled
-    ? "dark"
-    : "light";
+  html.dataset.theme = enabled ? "dark" : "light";
+  body.dataset.theme = enabled ? "dark" : "light";
 }
 
-/* =========================================================
-   GLOBAL DARK MODE HOOK
-========================================================= */
-
 export function useDarkMode() {
-  const [darkMode, setDarkMode] = useState(
-    getInitialDarkMode
+  const [darkMode, setDarkMode] = useState(() =>
+    getInitialDarkMode()
   );
 
-  /* -------------------------------------------------------
-     APPLY THEME + SAVE TO LOCAL STORAGE
-  ------------------------------------------------------- */
+  // Apply immediately when component mounts
+  useEffect(() => {
+    const savedTheme = getInitialDarkMode();
 
+    setDarkMode(savedTheme);
+    applyDarkMode(savedTheme);
+  }, []);
+
+  // Apply whenever state changes
   useEffect(() => {
     localStorage.setItem(
       DARK_MODE_KEY,
@@ -56,11 +48,6 @@ export function useDarkMode() {
 
     applyDarkMode(darkMode);
 
-    /*
-      Notify other components/pages.
-      This allows multiple theme buttons/components
-      to stay synchronized.
-    */
     window.dispatchEvent(
       new CustomEvent("dark-mode-change", {
         detail: darkMode,
@@ -68,36 +55,27 @@ export function useDarkMode() {
     );
   }, [darkMode]);
 
-  /* -------------------------------------------------------
-     SYNC THEME FROM OTHER COMPONENTS / TABS
-  ------------------------------------------------------- */
-
+  // Keep theme synchronized across pages/components
   useEffect(() => {
     const syncTheme = (event) => {
-      let savedTheme;
+      let nextTheme;
 
-      /*
-        If event contains the new theme,
-        use it directly.
-      */
       if (
         event?.type === "dark-mode-change" &&
         typeof event.detail === "boolean"
       ) {
-        savedTheme = event.detail;
+        nextTheme = event.detail;
+      } else if (
+        event?.type === "storage" &&
+        event.key === DARK_MODE_KEY
+      ) {
+        nextTheme = event.newValue === "true";
       } else {
-        savedTheme = getInitialDarkMode();
+        nextTheme = getInitialDarkMode();
       }
 
-      setDarkMode((current) => {
-        if (current === savedTheme) {
-          return current;
-        }
-
-        return savedTheme;
-      });
-
-      applyDarkMode(savedTheme);
+      setDarkMode(nextTheme);
+      applyDarkMode(nextTheme);
     };
 
     window.addEventListener(
@@ -126,20 +104,13 @@ export function useDarkMode() {
   return [darkMode, setDarkMode];
 }
 
-/* =========================================================
-   DARK MODE TOGGLE BUTTON
-========================================================= */
-
 export function DarkModeToggle({
   className = "",
 }) {
-  const [darkMode, setDarkMode] =
-    useDarkMode();
+  const [darkMode, setDarkMode] = useDarkMode();
 
   const toggleDarkMode = () => {
-    setDarkMode(
-      (current) => !current
-    );
+    setDarkMode((current) => !current);
   };
 
   return (
