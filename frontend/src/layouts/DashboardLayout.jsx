@@ -5,8 +5,12 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import { useState } from "react";
-import { useDarkMode } from "../theme/DarkMode";
+import { useEffect } from "react";
+
+import {
+  useDarkMode,
+  applyDarkMode,
+} from "../theme/DarkMode";
 
 import "./DashboardLayout.css";
 
@@ -18,7 +22,9 @@ function DashboardLayout() {
   // LOGIN / ROLE
   // ==========================================
 
-  const role = localStorage.getItem("role")?.toLowerCase();
+  const role = localStorage
+    .getItem("role")
+    ?.toLowerCase();
 
   const isLoggedIn =
     localStorage.getItem("isLoggedIn") === "true";
@@ -27,14 +33,26 @@ function DashboardLayout() {
   // DARK MODE
   // ==========================================
 
-  const [darkMode, setDarkMode] = useDarkMode();
+  const [darkMode, setDarkMode] =
+    useDarkMode();
+
+  // Apply theme whenever Dashboard loads
+  // or darkMode state changes.
+  useEffect(() => {
+    applyDarkMode(darkMode);
+  }, [darkMode]);
 
   // ==========================================
   // LOGIN PROTECTION
   // ==========================================
 
   if (!isLoggedIn || !role) {
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to="/"
+        replace
+      />
+    );
   }
 
   // ==========================================
@@ -73,7 +91,11 @@ function DashboardLayout() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <circle cx="9" cy="8" r="3" />
+          <circle
+            cx="9"
+            cy="8"
+            r="3"
+          />
           <path d="M3.5 20c.6-3.6 2.4-5.5 5.5-5.5s4.9 1.9 5.5 5.5" />
           <path d="M16 6.5a2.5 2.5 0 1 1 0 5" />
           <path d="M16 14.5c2.5.2 4 2 4.5 5" />
@@ -97,7 +119,11 @@ function DashboardLayout() {
           <path d="M5 4H3" />
           <path d="M19 4h2" />
           <path d="M12 16v1a4 4 0 0 0 4 4h1" />
-          <circle cx="19" cy="21" r="2" />
+          <circle
+            cx="19"
+            cy="21"
+            r="2"
+          />
         </svg>
       ),
     },
@@ -274,7 +300,11 @@ function DashboardLayout() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <circle cx="9" cy="8" r="3" />
+          <circle
+            cx="9"
+            cy="8"
+            r="3"
+          />
           <path d="M3.5 20c.6-3.6 2.4-5.5 5.5-5.5s4.9 1.9 5.5 5.5" />
           <path d="M16 6.5a2.5 2.5 0 1 1 0 5" />
           <path d="M16 14.5c2.5.2 4 2 4.5 5" />
@@ -339,7 +369,11 @@ function DashboardLayout() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <circle cx="12" cy="8" r="3" />
+          <circle
+            cx="12"
+            cy="8"
+            r="3"
+          />
           <path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6" />
         </svg>
       ),
@@ -445,8 +479,6 @@ function DashboardLayout() {
           fill="none"
           stroke="currentColor"
           strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
         >
           <path d="M8 4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" />
           <path d="M8 9h4a2 2 0 0 1 0 4H8" />
@@ -467,7 +499,11 @@ function DashboardLayout() {
           stroke="currentColor"
           strokeWidth="1.8"
         >
-          <circle cx="12" cy="8" r="3" />
+          <circle
+            cx="12"
+            cy="8"
+            r="3"
+          />
           <path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6" />
         </svg>
       ),
@@ -499,25 +535,37 @@ function DashboardLayout() {
   // ==========================================
 
   let menuItems = [];
-  let dashboardTitle = "Dashboard";
-  let dashboardSubtitle = "AI Hospital Management System";
+
+  let dashboardTitle =
+    "Dashboard";
+
+  let dashboardSubtitle =
+    "AI Hospital Management System";
 
   if (role === "admin") {
     menuItems = adminMenu;
     dashboardTitle = "Admin Panel";
-    dashboardSubtitle = "AI Hospital Management System";
+    dashboardSubtitle =
+      "AI Hospital Management System";
   } else if (role === "doctor") {
     menuItems = doctorMenu;
     dashboardTitle = "Doctor Panel";
-    dashboardSubtitle = "AI Hospital Management System";
+    dashboardSubtitle =
+      "AI Hospital Management System";
   } else if (role === "patient") {
     menuItems = patientMenu;
     dashboardTitle = "Patient Panel";
-    dashboardSubtitle = "AI Hospital Management System";
+    dashboardSubtitle =
+      "AI Hospital Management System";
   } else {
     localStorage.clear();
 
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to="/"
+        replace
+      />
+    );
   }
 
   // ==========================================
@@ -533,10 +581,24 @@ function DashboardLayout() {
   // ==========================================
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("role");
-    localStorage.removeItem("user");
-    localStorage.removeItem("userId");
+    localStorage.removeItem(
+      "isLoggedIn"
+    );
+
+    localStorage.removeItem(
+      "role"
+    );
+
+    localStorage.removeItem(
+      "user"
+    );
+
+    localStorage.removeItem(
+      "userId"
+    );
+
+    // IMPORTANT:
+    // darkMode is intentionally NOT removed.
 
     navigate("/", {
       replace: true,
@@ -549,18 +611,29 @@ function DashboardLayout() {
 
   const isActive = (path) => {
     if (path === "/dashboard") {
-      return location.pathname === "/dashboard";
+      return (
+        location.pathname ===
+        "/dashboard"
+      );
     }
 
     if (path === "/doctor") {
-      return location.pathname === "/doctor";
+      return (
+        location.pathname ===
+        "/doctor"
+      );
     }
 
     if (path === "/patient") {
-      return location.pathname === "/patient";
+      return (
+        location.pathname ===
+        "/patient"
+      );
     }
 
-    return location.pathname === path;
+    return (
+      location.pathname === path
+    );
   };
 
   // ==========================================
@@ -569,9 +642,13 @@ function DashboardLayout() {
 
   const handleAccount = () => {
     if (role === "patient") {
-      navigate("/patient/profile");
+      navigate(
+        "/patient/profile"
+      );
     } else if (role === "doctor") {
-      navigate("/doctor/profile");
+      navigate(
+        "/doctor/profile"
+      );
     } else if (role === "admin") {
       navigate("/dashboard");
     }
@@ -581,13 +658,19 @@ function DashboardLayout() {
   // LOGO ERROR HANDLER
   // ==========================================
 
-  const handleLogoError = (event) => {
-    event.currentTarget.style.display = "none";
+  const handleLogoError = (
+    event
+  ) => {
+    event.currentTarget.style.display =
+      "none";
 
-    const fallback = event.currentTarget.nextElementSibling;
+    const fallback =
+      event.currentTarget
+        .nextElementSibling;
 
     if (fallback) {
-      fallback.style.display = "flex";
+      fallback.style.display =
+        "flex";
     }
   };
 
@@ -596,7 +679,9 @@ function DashboardLayout() {
   // ==========================================
 
   const handleDarkMode = () => {
-    setDarkMode((current) => !current);
+    setDarkMode(
+      (current) => !current
+    );
   };
 
   // ==========================================
@@ -622,7 +707,9 @@ function DashboardLayout() {
               src="/ai-smart-hospital-logo.jpeg"
               alt="AI Smart Hospital"
               className="patient-hospital-logo"
-              onError={handleLogoError}
+              onError={
+                handleLogoError
+              }
             />
 
             <div
@@ -684,7 +771,11 @@ function DashboardLayout() {
                 <path d="M6 3H4" />
                 <path d="M18 3h2" />
                 <path d="M12 14v2a4 4 0 0 0 4 4h1" />
-                <circle cx="19" cy="20" r="2" />
+                <circle
+                  cx="19"
+                  cy="20"
+                  r="2"
+                />
               </svg>
             )}
 
@@ -716,7 +807,9 @@ function DashboardLayout() {
 
             <strong>
               {role
-                ? role.charAt(0).toUpperCase() +
+                ? role
+                    .charAt(0)
+                    .toUpperCase() +
                   role.slice(1)
                 : "User"}
             </strong>
@@ -733,32 +826,36 @@ function DashboardLayout() {
             MAIN MENU
           </div>
 
-          {menuItems.map((item) => (
+          {menuItems.map(
+            (item) => (
+              <button
+                key={item.path}
+                type="button"
+                className={`sidebar-menu-item ${
+                  isActive(
+                    item.path
+                  )
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  handleNavigation(
+                    item.path
+                  )
+                }
+              >
 
-            <button
-              key={item.path}
-              type="button"
-              className={`sidebar-menu-item ${
-                isActive(item.path)
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                handleNavigation(item.path)
-              }
-            >
+                <span className="menu-icon">
+                  {item.icon}
+                </span>
 
-              <span className="menu-icon">
-                {item.icon}
-              </span>
+                <span className="menu-name">
+                  {item.name}
+                </span>
 
-              <span className="menu-name">
-                {item.name}
-              </span>
-
-            </button>
-
-          ))}
+              </button>
+            )
+          )}
 
         </nav>
 
@@ -771,7 +868,8 @@ function DashboardLayout() {
               type="button"
               className="sidebar-support-item"
               onClick={() => {
-                window.location.href = "/#contact";
+                window.location.href =
+                  "/#contact";
               }}
             >
 
@@ -806,7 +904,8 @@ function DashboardLayout() {
               type="button"
               className="sidebar-support-item"
               onClick={() => {
-                window.location.href = "/#contact";
+                window.location.href =
+                  "/#contact";
               }}
             >
 
@@ -895,7 +994,9 @@ function DashboardLayout() {
             <button
               type="button"
               className="home-header-button"
-              onClick={() => navigate("/")}
+              onClick={() =>
+                navigate("/")
+              }
               title="Go to Home"
             >
 
@@ -914,7 +1015,9 @@ function DashboardLayout() {
             <button
               type="button"
               className="header-button"
-              onClick={handleDarkMode}
+              onClick={
+                handleDarkMode
+              }
               title={
                 darkMode
                   ? "Switch to Light Mode"
@@ -925,11 +1028,15 @@ function DashboardLayout() {
                   ? "Switch to Light Mode"
                   : "Switch to Dark Mode"
               }
-              aria-pressed={darkMode}
+              aria-pressed={
+                darkMode
+              }
             >
 
               <span className="theme-icon">
-                {darkMode ? "☀️" : "🌙"}
+                {darkMode
+                  ? "☀️"
+                  : "🌙"}
               </span>
 
             </button>
@@ -939,7 +1046,9 @@ function DashboardLayout() {
             <button
               type="button"
               className="account-button"
-              onClick={handleAccount}
+              onClick={
+                handleAccount
+              }
               title="My Account"
             >
 
@@ -958,7 +1067,9 @@ function DashboardLayout() {
             <button
               type="button"
               className="logout-button"
-              onClick={handleLogout}
+              onClick={
+                handleLogout
+              }
               title="Logout"
             >
 

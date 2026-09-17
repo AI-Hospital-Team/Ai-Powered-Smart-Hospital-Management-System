@@ -2,6 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
+import {
+  applyDarkMode,
+  getInitialDarkMode,
+} from "../../theme/DarkMode";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,22 +19,29 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    /*
+     * IMPORTANT:
+     * Save the current dark mode value BEFORE login starts.
+     * This prevents any component/navigation from accidentally
+     * changing it during the login process.
+     */
+    const savedDarkMode =
+      localStorage.getItem("darkMode");
+
     setErrorMessage("");
 
     const cleanEmail = email.trim();
 
     if (!cleanEmail || !password.trim()) {
-      setErrorMessage("Please enter email and password.");
+      setErrorMessage(
+        "Please enter email and password."
+      );
       return;
     }
 
     setLoading(true);
 
     try {
-      // =====================================================
-      // LOGIN API
-      // =====================================================
-
       const response = await fetch(
         "http://localhost:8080/api/auth/login",
         {
@@ -45,34 +57,45 @@ function Login() {
         }
       );
 
-      // =====================================================
-      // READ BACKEND RESPONSE
-      // =====================================================
-
-      const contentType = response.headers.get("content-type");
+      const contentType =
+        response.headers.get("content-type");
 
       let data;
 
       if (
         contentType &&
-        contentType.toLowerCase().includes("application/json")
+        contentType
+          .toLowerCase()
+          .includes("application/json")
       ) {
         data = await response.json();
       } else {
         data = await response.text();
       }
 
-      console.log("LOGIN STATUS:", response.status);
-      console.log("LOGIN RESPONSE FROM BACKEND:", data);
+      console.log(
+        "LOGIN STATUS:",
+        response.status
+      );
 
-      // =====================================================
-      // LOGIN FAILED
-      // =====================================================
+      console.log(
+        "LOGIN RESPONSE FROM BACKEND:",
+        data
+      );
 
+      /*
+       * LOGIN FAILED
+       */
       if (!response.ok) {
-        console.error("Login failed:", data);
+        console.error(
+          "Login failed:",
+          data
+        );
 
-        if (typeof data === "object" && data !== null) {
+        if (
+          typeof data === "object" &&
+          data !== null
+        ) {
           if (data.message) {
             setErrorMessage(data.message);
           } else if (data.error) {
@@ -93,14 +116,30 @@ function Login() {
           );
         }
 
+        /*
+         * Restore dark mode even when login fails.
+         */
+        if (savedDarkMode !== null) {
+          localStorage.setItem(
+            "darkMode",
+            savedDarkMode
+          );
+
+          applyDarkMode(
+            savedDarkMode === "true"
+          );
+        }
+
         return;
       }
 
-      // =====================================================
-      // CHECK BACKEND RESPONSE
-      // =====================================================
-
-      if (!data || typeof data !== "object") {
+      /*
+       * INVALID BACKEND RESPONSE
+       */
+      if (
+        !data ||
+        typeof data !== "object"
+      ) {
         console.error(
           "Invalid login response:",
           data
@@ -110,39 +149,46 @@ function Login() {
           "Invalid response received from server."
         );
 
+        if (savedDarkMode !== null) {
+          localStorage.setItem(
+            "darkMode",
+            savedDarkMode
+          );
+
+          applyDarkMode(
+            savedDarkMode === "true"
+          );
+        }
+
         return;
       }
-
-      // =====================================================
-      // BACKEND USER DATA
-      // =====================================================
 
       const user = data;
 
       console.log(
-        "USER RECEIVED FROM BACKEND:",
+        "LOGIN SUCCESS:",
         user
       );
 
-      // =====================================================
-      // GET ROLE
-      // =====================================================
-
+      /*
+       * BACKEND ROLE
+       */
       const backendRole =
         user.role || role;
 
       const userRole =
-        backendRole.toString().toLowerCase();
+        backendRole
+          .toString()
+          .toLowerCase();
 
       console.log(
         "USER ROLE:",
         userRole
       );
 
-      // =====================================================
-      // VERIFY ROLE
-      // =====================================================
-
+      /*
+       * VALIDATE ROLE
+       */
       if (
         userRole !== "admin" &&
         userRole !== "doctor" &&
@@ -152,24 +198,46 @@ function Login() {
           "Invalid user role received from server."
         );
 
+        /*
+         * Restore theme if role is invalid.
+         */
+        if (savedDarkMode !== null) {
+          localStorage.setItem(
+            "darkMode",
+            savedDarkMode
+          );
+
+          applyDarkMode(
+            savedDarkMode === "true"
+          );
+        }
+
         return;
       }
 
-      // =====================================================
-      // CLEAR OLD LOGIN DATA
-      // =====================================================
+      /*
+       * CLEAR ONLY OLD LOGIN DATA
+       *
+       * IMPORTANT:
+       * We DO NOT remove darkMode.
+       */
+      localStorage.removeItem(
+        "isLoggedIn"
+      );
 
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("role");
-      localStorage.removeItem("user");
+      localStorage.removeItem(
+        "role"
+      );
 
-      // =====================================================
-      // SAFE USER OBJECT
-      //
-      // IMPORTANT:
-      // PASSWORD IS NOT STORED
-      // =====================================================
+      localStorage.removeItem(
+        "user"
+      );
 
+      /*
+       * SAFE USER OBJECT
+       *
+       * Password is NEVER stored.
+       */
       const safeUser = {
         userId:
           user.userId ??
@@ -203,10 +271,9 @@ function Login() {
         safeUser
       );
 
-      // =====================================================
-      // SAVE LOGIN STATE
-      // =====================================================
-
+      /*
+       * SAVE LOGIN STATE
+       */
       localStorage.setItem(
         "isLoggedIn",
         "true"
@@ -222,10 +289,54 @@ function Login() {
         JSON.stringify(safeUser)
       );
 
-      // =====================================================
-      // VERIFY LOCAL STORAGE
-      // =====================================================
+      /*
+       * ==================================================
+       * RESTORE DARK MODE
+       * ==================================================
+       *
+       * If the user had dark mode ON before login,
+       * keep it ON after login.
+       */
+      if (savedDarkMode !== null) {
+        localStorage.setItem(
+          "darkMode",
+          savedDarkMode
+        );
 
+        applyDarkMode(
+          savedDarkMode === "true"
+        );
+
+        console.log(
+          "DARK MODE RESTORED AFTER LOGIN:",
+          savedDarkMode
+        );
+      } else {
+        /*
+         * If there was no saved value, use the
+         * DarkMode utility's default.
+         */
+        const currentDarkMode =
+          getInitialDarkMode();
+
+        localStorage.setItem(
+          "darkMode",
+          String(currentDarkMode)
+        );
+
+        applyDarkMode(
+          currentDarkMode
+        );
+
+        console.log(
+          "DARK MODE INITIALIZED:",
+          currentDarkMode
+        );
+      }
+
+      /*
+       * VERIFY LOCAL STORAGE
+       */
       console.log(
         "USER STORED IN LOCALSTORAGE:",
         JSON.parse(
@@ -233,9 +344,32 @@ function Login() {
         )
       );
 
-      // =====================================================
-      // REDIRECT BASED ON ROLE
-      // =====================================================
+      console.log(
+        "FINAL DARK MODE:",
+        localStorage.getItem(
+          "darkMode"
+        )
+      );
+
+      console.log(
+        "HTML DARK MODE:",
+        document.documentElement.classList.contains(
+          "dark-mode"
+        )
+      );
+
+      console.log(
+        "BODY DARK MODE:",
+        document.body.classList.contains(
+          "dark-mode"
+        )
+      );
+
+      /*
+       * ==================================================
+       * REDIRECT BASED ON ROLE
+       * ==================================================
+       */
 
       if (userRole === "admin") {
         navigate("/dashboard", {
@@ -250,7 +384,6 @@ function Login() {
           replace: true,
         });
       }
-
     } catch (error) {
       console.error(
         "LOGIN ERROR:",
@@ -260,6 +393,20 @@ function Login() {
       setErrorMessage(
         "Cannot connect to the hospital server. Make sure Spring Boot is running on port 8080."
       );
+
+      /*
+       * Restore dark mode if network/server error occurs.
+       */
+      if (savedDarkMode !== null) {
+        localStorage.setItem(
+          "darkMode",
+          savedDarkMode
+        );
+
+        applyDarkMode(
+          savedDarkMode === "true"
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -267,12 +414,9 @@ function Login() {
 
   return (
     <div className="login-page">
-
       <div className="login-container">
 
-        {/* =================================================
-            HEADER
-        ================================================= */}
+        {/* HEADER */}
 
         <div className="login-header">
 
@@ -290,9 +434,7 @@ function Login() {
 
         </div>
 
-        {/* =================================================
-            LOGIN FORM
-        ================================================= */}
+        {/* LOGIN FORM */}
 
         <form
           className="login-form"
@@ -312,7 +454,9 @@ function Login() {
               type="email"
               value={email}
               onChange={(e) =>
-                setEmail(e.target.value)
+                setEmail(
+                  e.target.value
+                )
               }
               placeholder="Enter your email"
               autoComplete="email"
@@ -334,7 +478,9 @@ function Login() {
               type="password"
               value={password}
               onChange={(e) =>
-                setPassword(e.target.value)
+                setPassword(
+                  e.target.value
+                )
               }
               placeholder="Enter your password"
               autoComplete="current-password"
@@ -355,7 +501,9 @@ function Login() {
               id="role"
               value={role}
               onChange={(e) =>
-                setRole(e.target.value)
+                setRole(
+                  e.target.value
+                )
               }
             >
 
@@ -375,7 +523,7 @@ function Login() {
 
           </div>
 
-          {/* ERROR MESSAGE */}
+          {/* ERROR */}
 
           {errorMessage && (
             <div className="login-error">
@@ -398,7 +546,6 @@ function Login() {
         </form>
 
       </div>
-
     </div>
   );
 }

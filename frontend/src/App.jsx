@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { useDarkMode } from "./theme/DarkMode";
+
 /* =========================================================
    PUBLIC PAGES
 ========================================================= */
@@ -28,6 +30,7 @@ import AdminAppointments from "./pages/Admin/Appointments/Appointments";
 import AdminMedicalRecords from "./pages/Admin/MedicalRecords/MedicalRecords";
 import AdminPrescriptions from "./pages/Admin/Prescriptions/Prescriptions";
 import AdminBills from "./pages/Admin/Bills/Bills";
+import AdminLogs from "./pages/Admin/Logs/Logs";
 
 /* =========================================================
    DOCTOR PAGES
@@ -57,6 +60,14 @@ import Bills from "./pages/Patient/Bills/Bills";
 ========================================================= */
 
 function App() {
+  /*
+   * GLOBAL DARK MODE
+   *
+   * Keeps the selected theme active while navigating
+   * between Home, Login, Admin, Doctor and Patient pages.
+   */
+  useDarkMode();
+
   return (
     <BrowserRouter>
       <Routes>
@@ -152,10 +163,11 @@ function App() {
           />
 
           {/* Admin Logs */}
-            <Route
-         
-          />
 
+          <Route
+            path="logs"
+            element={<AdminLogs />}
+          />
         </Route>
 
         {/* =================================================
