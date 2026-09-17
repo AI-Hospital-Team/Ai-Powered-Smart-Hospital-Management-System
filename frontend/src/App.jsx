@@ -1,8 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import {
-  useDarkMode,
-} from "./theme/DarkMode";
+import { useDarkMode } from "./theme/DarkMode";
 
 /* =========================================================
    PUBLIC PAGES
@@ -65,14 +63,8 @@ function App() {
   /*
    * GLOBAL DARK MODE
    *
-   * This hook stays mounted while React Router changes pages.
-   * Therefore dark mode is maintained across:
-   *
-   * Home
-   * Login
-   * Admin
-   * Doctor
-   * Patient
+   * Keeps the selected theme active while navigating
+   * between Home, Login, Admin, Doctor and Patient pages.
    */
   useDarkMode();
 
@@ -121,40 +113,56 @@ function App() {
             </ProtectedRoute>
           }
         >
+          {/* Admin Dashboard */}
+
           <Route
             index
             element={<Dashboard />}
           />
+
+          {/* Patients */}
 
           <Route
             path="patients"
             element={<AdminPatients />}
           />
 
+          {/* Doctors */}
+
           <Route
             path="doctors"
             element={<AdminDoctors />}
           />
+
+          {/* Appointments */}
 
           <Route
             path="appointments"
             element={<AdminAppointments />}
           />
 
+          {/* Medical Records */}
+
           <Route
             path="medical-records"
             element={<AdminMedicalRecords />}
           />
+
+          {/* Prescriptions */}
 
           <Route
             path="prescriptions"
             element={<AdminPrescriptions />}
           />
 
+          {/* Bills */}
+
           <Route
             path="bills"
             element={<AdminBills />}
           />
+
+          {/* Admin Logs */}
 
           <Route
             path="logs"
@@ -174,30 +182,42 @@ function App() {
             </ProtectedRoute>
           }
         >
+          {/* Doctor Dashboard */}
+
           <Route
             index
             element={<DoctorDashboard />}
           />
+
+          {/* Appointments */}
 
           <Route
             path="appointments"
             element={<DoctorAppointments />}
           />
 
+          {/* Patients */}
+
           <Route
             path="patients"
             element={<DoctorPatients />}
           />
+
+          {/* Medical Records */}
 
           <Route
             path="medical-records"
             element={<DoctorMedicalRecords />}
           />
 
+          {/* Prescriptions */}
+
           <Route
             path="prescriptions"
             element={<DoctorPrescriptions />}
           />
+
+          {/* Profile */}
 
           <Route
             path="profile"
@@ -217,35 +237,49 @@ function App() {
             </ProtectedRoute>
           }
         >
+          {/* Patient Dashboard */}
+
           <Route
             index
             element={<PatientDashboard />}
           />
+
+          {/* Appointments */}
 
           <Route
             path="appointments"
             element={<Appointments />}
           />
 
+          {/* Book Appointment */}
+
           <Route
             path="book-appointment"
             element={<BookAppointment />}
           />
+
+          {/* Medical Records */}
 
           <Route
             path="medical-records"
             element={<MedicalRecords />}
           />
 
+          {/* Prescriptions */}
+
           <Route
             path="prescriptions"
             element={<Prescriptions />}
           />
 
+          {/* Profile */}
+
           <Route
             path="profile"
             element={<Profile />}
           />
+
+          {/* Bills */}
 
           <Route
             path="bills"
@@ -254,7 +288,7 @@ function App() {
         </Route>
 
         {/* =================================================
-            FALLBACK
+            FALLBACK ROUTE
         ================================================= */}
 
         <Route
