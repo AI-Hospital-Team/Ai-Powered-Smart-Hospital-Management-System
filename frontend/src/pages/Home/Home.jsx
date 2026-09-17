@@ -1307,206 +1307,408 @@ function Home() {
         </div>
       </section>
       
-      {/* =====================================================
-          SERVICES
-      ===================================================== */}
-      <section className="services-section" id="services">
-        <div className="section-heading">
-          <p>OUR SERVICES</p>
-          <h2>
-            Complete Healthcare
-            <br />
-            Under One Platform
-          </h2>
-          <span>
-            Access essential healthcare services through our
-            intelligent hospital management system.
-          </span>
+{/* =====================================================
+    SERVICES
+===================================================== */}
+<section className="services-section" id="services">
+  <div className="section-heading">
+    <p>OUR SERVICES</p>
+
+    <h2>
+      Complete Healthcare
+      <br />
+      Under One Platform
+    </h2>
+
+    <span>
+      Access essential healthcare services through our
+      intelligent hospital management system.
+    </span>
+  </div>
+
+  <div className="services-grid">
+
+    {/* Online Appointments */}
+    <div className="service-card">
+      <div className="service-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="4" y="5" width="16" height="15" rx="2" />
+          <path d="M8 3v4M16 3v4M4 9h16" />
+          <path d="M8 13h2M14 13h2M8 16h2" />
+        </svg>
+      </div>
+
+      <h3>Online Appointments</h3>
+
+      <p>
+        Book appointments with doctors according to your
+        preferred date and time.
+      </p>
+
+      <a
+        href="#contact"
+        onClick={(e) => {
+          e.preventDefault();
+          openLogin("Patient");
+        }}
+      >
+        Book Appointment →
+      </a>
+    </div>
+
+    {/* Doctor Consultation */}
+    <div className="service-card">
+      <div className="service-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M5 4v5a7 7 0 0 0 14 0V4" />
+          <path d="M5 4H3" />
+          <path d="M19 4h2" />
+          <path d="M12 16v1a4 4 0 0 0 4 4h1" />
+          <circle cx="19" cy="21" r="2" />
+        </svg>
+      </div>
+
+      <h3>Doctor Consultation</h3>
+
+      <p>
+        Connect with qualified doctors and receive
+        professional medical guidance.
+      </p>
+
+      <a
+        href="#doctors"
+        onClick={(e) => {
+          e.preventDefault();
+          scrollToSection("doctors");
+        }}
+      >
+        Find Doctor →
+      </a>
+    </div>
+
+    {/* Medical Records */}
+    <div className="service-card">
+      <div className="service-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="5" y="3" width="14" height="18" rx="2" />
+          <path d="M8 8h8M8 12h6M8 16h5" />
+        </svg>
+      </div>
+
+      <h3>Medical Records</h3>
+
+      <p>
+        Securely manage prescriptions, reports and
+        important medical records.
+      </p>
+
+      <a
+        href="#contact"
+        onClick={(e) => {
+          e.preventDefault();
+          openLogin("Patient");
+        }}
+      >
+        View Records →
+      </a>
+    </div>
+
+    {/* Pharmacy Support */}
+    <div className="service-card">
+      <div className="service-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M8 4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" />
+          <path d="M8 9h4a2 2 0 0 1 0 4H8" />
+          <path d="M8 9v6" />
+          <path d="M12 13l4 4" />
+          <path d="M15 9h2" />
+        </svg>
+      </div>
+
+      <h3>Pharmacy Support</h3>
+
+      <p>
+        Manage prescriptions and get information about
+        required medicines.
+      </p>
+
+      <a href="#contact">
+        Learn More →
+      </a>
+    </div>
+
+    {/* Diagnostic Services */}
+<div className="service-card">
+  <div className="service-icon">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 3v7.5l-4.5 7A2.8 2.8 0 0 0 6.8 21h10.4a2.8 2.8 0 0 0 2.3-4.5l-4.5-7V3" />
+      <path d="M7 3h8" />
+      <path d="M8 14h8" />
+      <path d="M9 17h6" />
+    </svg>
+  </div>
+
+  <h3>Diagnostic Services</h3>
+
+  <p>
+    Access laboratory testing and diagnostic services
+    through our hospital network.
+  </p>
+
+  <a href="#contact">
+    Explore →
+  </a>
+</div>
+
+    {/* AI Healthcare */}
+    <div className="service-card ai-card">
+      <div className="service-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="5" y="6" width="14" height="13" rx="3" />
+          <path d="M9 6V4M15 6V4M9 19v2M15 19v2" />
+          <circle cx="9.5" cy="12" r="1" />
+          <circle cx="14.5" cy="12" r="1" />
+          <path d="M9 16h6" />
+        </svg>
+      </div>
+
+      <h3>AI Healthcare</h3>
+
+      <p>
+        Use intelligent healthcare tools for symptom
+        analysis, risk alerts and medical information.
+      </p>
+
+      <a
+        href="#ai-healthcare"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/ai-health-assistant");
+        }}
+      >
+        Explore AI →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{/* =====================================================
+    HEALTHCARE GALLERY
+===================================================== */}
+<section className="healthcare-gallery">
+  <div className="section-heading">
+    <p>MODERN HEALTHCARE</p>
+
+    <h2>
+      Healthcare Designed
+      <span> Around You</span>
+    </h2>
+
+    <span>
+      Modern infrastructure, expert professionals and
+      technology working together.
+    </span>
+  </div>
+
+  <div className="healthcare-gallery-grid">
+
+    {/* Large Gallery */}
+    <div className="gallery-large">
+      <img
+        src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=80"
+        alt="Modern Hospital"
+      />
+
+      <div className="gallery-overlay">
+        <div className="gallery-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M3 21h18" />
+            <path d="M5 21V9l7-5 7 5v12" />
+            <path d="M9 21v-6h6v6" />
+            <path d="M12 8v4M10 10h4" />
+          </svg>
         </div>
 
-        <div className="services-grid">
-          <div className="service-card">
-            <div className="service-icon">📅</div>
-            <h3>Online Appointments</h3>
-            <p>
-              Book appointments with doctors according to your
-              preferred date and time.
-            </p>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                openLogin("Patient");
-              }}
-            >
-              Book Appointment →
-            </a>
-          </div>
-
-          <div className="service-card">
-            <div className="service-icon">🩺</div>
-            <h3>Doctor Consultation</h3>
-            <p>
-              Connect with qualified doctors and receive
-              professional medical guidance.
-            </p>
-            <a
-              href="#doctors"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("doctors");
-              }}
-            >
-              Find Doctor →
-            </a>
-          </div>
-
-          <div className="service-card">
-            <div className="service-icon">📋</div>
-            <h3>Medical Records</h3>
-            <p>
-              Securely manage prescriptions, reports and
-              important medical records.
-            </p>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                openLogin("Patient");
-              }}
-            >
-              View Records →
-            </a>
-          </div>
-
-          <div className="service-card">
-            <div className="service-icon">💊</div>
-            <h3>Pharmacy Support</h3>
-            <p>
-              Manage prescriptions and get information about
-              required medicines.
-            </p>
-            <a href="#contact">Learn More →</a>
-          </div>
-
-          <div className="service-card">
-            <div className="service-icon">🧪</div>
-            <h3>Diagnostic Services</h3>
-            <p>
-              Access laboratory testing and diagnostic services
-              through our hospital network.
-            </p>
-            <a href="#contact">Explore →</a>
-          </div>
-
-          <div className="service-card ai-card">
-            <div className="service-icon">🤖</div>
-            <h3>AI Healthcare</h3>
-            <p>
-              Use intelligent healthcare tools for symptom
-              analysis, risk alerts and medical information.
-            </p>
-            <a
-              href="#ai-healthcare"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/ai-health-assistant");
-              }}
-            >
-              Explore AI →
-            </a>
-          </div>
+        <div>
+          <h3>Modern Hospital Infrastructure</h3>
+          <p>Designed for safe and comfortable patient care.</p>
         </div>
-      </section>
+      </div>
+    </div>
 
-      {/* =====================================================
-          HEALTHCARE GALLERY
-      ===================================================== */}
-      <section className="healthcare-gallery">
-        <div className="section-heading">
-          <p>MODERN HEALTHCARE</p>
-          <h2>
-            Healthcare Designed
-            <span> Around You</span>
-          </h2>
-          <span>
-            Modern infrastructure, expert professionals and
-            technology working together.
-          </span>
-        </div>
+    {/* Medical Team */}
+    <div className="gallery-small">
+      <img
+        src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=80"
+        alt="Medical Team"
+      />
 
-        <div className="healthcare-gallery-grid">
-          <div className="gallery-large">
-            <img
-              src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=80"
-              alt="Modern Hospital"
-            />
-            <div className="gallery-overlay">
-              <div className="gallery-icon">🏥</div>
-              <div>
-                <h3>Modern Hospital Infrastructure</h3>
-                <p>Designed for safe and comfortable patient care.</p>
-              </div>
-            </div>
-          </div>
+      <div className="gallery-caption">
+        <strong>Expert Medical Team</strong>
+        <span>Experienced healthcare professionals</span>
+      </div>
+    </div>
 
-          <div className="gallery-small">
-            <img
-              src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=80"
-              alt="Medical Team"
-            />
-            <div className="gallery-caption">
-              <strong>Expert Medical Team</strong>
-              <span>Experienced healthcare professionals</span>
-            </div>
-          </div>
+    {/* Healthcare Technology */}
+    <div className="gallery-small">
+      <img
+        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
+        alt="Healthcare Technology"
+      />
 
-          <div className="gallery-small">
-            <img
-              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
-              alt="Healthcare Technology"
-            />
-            <div className="gallery-caption">
-              <strong>Smart Healthcare Technology</strong>
-              <span>Technology-enabled medical services</span>
-            </div>
-          </div>
-        </div>
+      <div className="gallery-caption">
+        <strong>Smart Healthcare Technology</strong>
+        <span>Technology-enabled medical services</span>
+      </div>
+    </div>
 
-        <div className="gallery-features">
-          <div>
-            <span>🧑‍⚕️</span>
-            <div>
-              <strong>Qualified Staff</strong>
-              <small>Experienced medical professionals</small>
-            </div>
-          </div>
+  </div>
 
-          <div>
-            <span>🛡️</span>
-            <div>
-              <strong>Patient Safety</strong>
-              <small>Safety-focused healthcare environment</small>
-            </div>
-          </div>
+  {/* Gallery Features */}
+  <div className="gallery-features">
 
-          <div>
-            <span>💻</span>
-            <div>
-              <strong>Digital Healthcare</strong>
-              <small>Smart and connected medical services</small>
-            </div>
-          </div>
+    {/* Qualified Staff */}
+    <div>
+      <span>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="12" cy="7" r="3" />
+          <path d="M5 21a7 7 0 0 1 14 0" />
+          <path d="M17 4v4M15 6h4" />
+        </svg>
+      </span>
 
-          <div>
-            <span>❤️</span>
-            <div>
-              <strong>Patient First</strong>
-              <small>Care focused on patient needs</small>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div>
+        <strong>Qualified Staff</strong>
+        <small>Experienced medical professionals</small>
+      </div>
+    </div>
+
+    {/* Patient Safety */}
+    <div>
+      <span>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 3l8 4v5c0 4.8-3.2 7.9-8 9-4.8-1.1-8-4.2-8-9V7l8-4Z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
+      </span>
+
+      <div>
+        <strong>Patient Safety</strong>
+        <small>Safety-focused healthcare environment</small>
+      </div>
+    </div>
+
+    {/* Digital Healthcare */}
+    <div>
+      <span>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="4" y="5" width="16" height="12" rx="2" />
+          <path d="M8 21h8M12 17v4" />
+          <path d="M8 9h8M8 12h5" />
+        </svg>
+      </span>
+
+      <div>
+        <strong>Digital Healthcare</strong>
+        <small>Smart and connected medical services</small>
+      </div>
+    </div>
+
+    {/* Patient First */}
+    <div>
+      <span>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M20.8 8.8c0 5-8.8 10.2-8.8 10.2S3.2 13.8 3.2 8.8A4.8 4.8 0 0 1 12 6.2a4.8 4.8 0 0 1 8.8 2.6Z" />
+          <path d="M9 10h6M12 7v6" />
+        </svg>
+      </span>
+
+      <div>
+        <strong>Patient First</strong>
+        <small>Care focused on patient needs</small>
+      </div>
+    </div>
+
+  </div>
+</section>
 
       {/* =====================================================
           INSURANCE (AYUSHMAN BHARAT)
