@@ -1089,3 +1089,714 @@
     padding: 13px 17px;
   }
 }
+/* =========================================================
+   ADMIN PRESCRIPTIONS - DARK MODE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-prescriptions-page,
+body.dark-mode .admin-prescriptions-page,
+.dark-mode .admin-prescriptions-page {
+  background: #0f1b24 !important;
+  color: #e7f3f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .prescriptions-section-label,
+body.dark-mode .prescriptions-section-label,
+.dark-mode .prescriptions-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-page-title h1,
+body.dark-mode .prescriptions-page-title h1,
+.dark-mode .prescriptions-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .prescriptions-page-title p,
+body.dark-mode .prescriptions-page-title p,
+.dark-mode .prescriptions-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .prescriptions-title-icon,
+body.dark-mode .prescriptions-title-icon,
+.dark-mode .prescriptions-title-icon {
+  background: #16343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .prescriptions-title-icon:hover,
+body.dark-mode .prescriptions-title-icon:hover,
+.dark-mode .prescriptions-title-icon:hover {
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* REFRESH BUTTON */
+html.dark-mode .prescriptions-refresh,
+body.dark-mode .prescriptions-refresh,
+.dark-mode .prescriptions-refresh {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #b8cbd1 !important;
+}
+
+html.dark-mode .prescriptions-refresh:hover:not(:disabled),
+body.dark-mode .prescriptions-refresh:hover:not(:disabled),
+.dark-mode .prescriptions-refresh:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #eaf7f8 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .prescriptions-refresh:disabled,
+body.dark-mode .prescriptions-refresh:disabled,
+.dark-mode .prescriptions-refresh:disabled {
+  opacity: 0.55 !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .prescriptions-error,
+body.dark-mode .prescriptions-error,
+.dark-mode .prescriptions-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+}
+
+html.dark-mode .prescriptions-error strong,
+body.dark-mode .prescriptions-error strong,
+.dark-mode .prescriptions-error strong {
+  color: #ff9191 !important;
+}
+
+html.dark-mode .prescriptions-error p,
+body.dark-mode .prescriptions-error p,
+.dark-mode .prescriptions-error p {
+  color: #c89191 !important;
+}
+
+html.dark-mode .prescriptions-error button,
+body.dark-mode .prescriptions-error button,
+.dark-mode .prescriptions-error button {
+  background: #a33f45 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .prescriptions-error button:hover,
+body.dark-mode .prescriptions-error button:hover,
+.dark-mode .prescriptions-error button:hover {
+  background: #bd4b52 !important;
+}
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+html.dark-mode .prescriptions-summary,
+body.dark-mode .prescriptions-summary,
+.dark-mode .prescriptions-summary {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  border-left-color: #16b8b1 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .prescriptions-summary-icon,
+body.dark-mode .prescriptions-summary-icon,
+.dark-mode .prescriptions-summary-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-summary span,
+body.dark-mode .prescriptions-summary span,
+.dark-mode .prescriptions-summary span {
+  color: #8da6b0 !important;
+}
+
+html.dark-mode .prescriptions-summary strong,
+body.dark-mode .prescriptions-summary strong,
+.dark-mode .prescriptions-summary strong {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .prescriptions-summary small,
+body.dark-mode .prescriptions-summary small,
+.dark-mode .prescriptions-summary small {
+  color: #718b95 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .prescriptions-toolbar h2,
+body.dark-mode .prescriptions-toolbar h2,
+.dark-mode .prescriptions-toolbar h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescriptions-toolbar p,
+body.dark-mode .prescriptions-toolbar p,
+.dark-mode .prescriptions-toolbar p {
+  color: #8da4ae !important;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+html.dark-mode .prescriptions-search,
+body.dark-mode .prescriptions-search,
+.dark-mode .prescriptions-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7fabb5 !important;
+}
+
+html.dark-mode .prescriptions-search:focus-within,
+body.dark-mode .prescriptions-search:focus-within,
+.dark-mode .prescriptions-search:focus-within {
+  border-color: #16b8b1 !important;
+  box-shadow: 0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .prescriptions-search input,
+body.dark-mode .prescriptions-search input,
+.dark-mode .prescriptions-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .prescriptions-search input::placeholder,
+body.dark-mode .prescriptions-search input::placeholder,
+.dark-mode .prescriptions-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .prescriptions-search button,
+body.dark-mode .prescriptions-search button,
+.dark-mode .prescriptions-search button {
+  background: #1d343d !important;
+  color: #a5bcc4 !important;
+}
+
+html.dark-mode .prescriptions-search button:hover,
+body.dark-mode .prescriptions-search button:hover,
+.dark-mode .prescriptions-search button:hover {
+  background: #29444e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   PRESCRIPTION CARD
+   ========================================================= */
+
+html.dark-mode .admin-prescription-card,
+body.dark-mode .admin-prescription-card,
+.dark-mode .admin-prescription-card {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .admin-prescription-card:hover,
+body.dark-mode .admin-prescription-card:hover,
+.dark-mode .admin-prescription-card:hover {
+  background: #162832 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* CARD TOP */
+html.dark-mode .prescription-card-top,
+body.dark-mode .prescription-card-top,
+.dark-mode .prescription-card-top {
+  border-bottom-color: #29414c !important;
+}
+
+html.dark-mode .prescription-medicine-icon,
+body.dark-mode .prescription-medicine-icon,
+.dark-mode .prescription-medicine-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-card-title h3,
+body.dark-mode .prescription-card-title h3,
+.dark-mode .prescription-card-title h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescription-card-title span,
+body.dark-mode .prescription-card-title span,
+.dark-mode .prescription-card-title span {
+  color: #78929d !important;
+}
+
+/* =========================================================
+   PATIENT / DOCTOR
+   ========================================================= */
+
+html.dark-mode .prescription-person-icon.patient,
+body.dark-mode .prescription-person-icon.patient,
+.dark-mode .prescription-person-icon.patient {
+  background: #1a2946 !important;
+  color: #76a0ff !important;
+}
+
+html.dark-mode .prescription-person-icon.doctor,
+body.dark-mode .prescription-person-icon.doctor,
+.dark-mode .prescription-person-icon.doctor {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-person small,
+body.dark-mode .prescription-person small,
+.dark-mode .prescription-person small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .prescription-person strong,
+body.dark-mode .prescription-person strong,
+.dark-mode .prescription-person strong {
+  color: #c4d4da !important;
+}
+
+html.dark-mode .prescription-person span,
+body.dark-mode .prescription-person span,
+.dark-mode .prescription-person span {
+  color: #8199a3 !important;
+}
+
+/* =========================================================
+   MEDICINE DETAILS
+   ========================================================= */
+
+html.dark-mode .prescription-details > div,
+body.dark-mode .prescription-details > div,
+.dark-mode .prescription-details > div {
+  background: #101e27 !important;
+  border: 1px solid #29414c !important;
+}
+
+html.dark-mode .prescription-details small,
+body.dark-mode .prescription-details small,
+.dark-mode .prescription-details small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .prescription-details strong,
+body.dark-mode .prescription-details strong,
+.dark-mode .prescription-details strong {
+  color: #c4d4da !important;
+}
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+html.dark-mode .prescription-date,
+body.dark-mode .prescription-date,
+.dark-mode .prescription-date {
+  background: #10272e !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-date span,
+body.dark-mode .prescription-date span,
+.dark-mode .prescription-date span {
+  color: #9bb0b8 !important;
+}
+
+/* =========================================================
+   DIAGNOSIS
+   ========================================================= */
+
+html.dark-mode .prescription-diagnosis,
+body.dark-mode .prescription-diagnosis,
+.dark-mode .prescription-diagnosis {
+  border-top-color: #29414c !important;
+}
+
+html.dark-mode .prescription-diagnosis small,
+body.dark-mode .prescription-diagnosis small,
+.dark-mode .prescription-diagnosis small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .prescription-diagnosis p,
+body.dark-mode .prescription-diagnosis p,
+.dark-mode .prescription-diagnosis p {
+  color: #9fb3bb !important;
+}
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+html.dark-mode .prescription-view-button,
+body.dark-mode .prescription-view-button,
+.dark-mode .prescription-view-button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-view-button:hover,
+body.dark-mode .prescription-view-button:hover,
+.dark-mode .prescription-view-button:hover {
+  background: #17363d !important;
+  border-color: #4a747d !important;
+  color: #68e1dc !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .prescriptions-loading,
+body.dark-mode .prescriptions-loading,
+.dark-mode .prescriptions-loading,
+html.dark-mode .prescriptions-empty,
+body.dark-mode .prescriptions-empty,
+.dark-mode .prescriptions-empty {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .prescriptions-spinner,
+body.dark-mode .prescriptions-spinner,
+.dark-mode .prescriptions-spinner {
+  border-color: #23424c !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .prescriptions-loading h3,
+body.dark-mode .prescriptions-loading h3,
+.dark-mode .prescriptions-loading h3,
+html.dark-mode .prescriptions-empty h3,
+body.dark-mode .prescriptions-empty h3,
+.dark-mode .prescriptions-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescriptions-loading p,
+body.dark-mode .prescriptions-loading p,
+.dark-mode .prescriptions-loading p,
+html.dark-mode .prescriptions-empty p,
+body.dark-mode .prescriptions-empty p,
+.dark-mode .prescriptions-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .prescriptions-empty-icon,
+body.dark-mode .prescriptions-empty-icon,
+.dark-mode .prescriptions-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-empty button,
+body.dark-mode .prescriptions-empty button,
+.dark-mode .prescriptions-empty button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-empty button:hover,
+body.dark-mode .prescriptions-empty button:hover,
+.dark-mode .prescriptions-empty button:hover {
+  background: #17363d !important;
+  border-color: #4a747d !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .prescription-modal-overlay,
+body.dark-mode .prescription-modal-overlay,
+.dark-mode .prescription-modal-overlay {
+  background: rgba(2, 12, 18, 0.80) !important;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+html.dark-mode .prescription-modal,
+body.dark-mode .prescription-modal,
+.dark-mode .prescription-modal {
+  background: #14232d !important;
+  color: #eaf5f7 !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55) !important;
+}
+
+html.dark-mode .prescription-modal-header,
+body.dark-mode .prescription-modal-header,
+.dark-mode .prescription-modal-header {
+  border-bottom-color: #29414c !important;
+}
+
+html.dark-mode .prescription-modal-icon,
+body.dark-mode .prescription-modal-icon,
+.dark-mode .prescription-modal-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-modal-title h2,
+body.dark-mode .prescription-modal-title h2,
+.dark-mode .prescription-modal-title h2 {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .prescription-modal-title p,
+body.dark-mode .prescription-modal-title p,
+.dark-mode .prescription-modal-title p {
+  color: #8099a4 !important;
+}
+
+html.dark-mode .prescription-modal-close,
+body.dark-mode .prescription-modal-close,
+.dark-mode .prescription-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .prescription-modal-close:hover,
+body.dark-mode .prescription-modal-close:hover,
+.dark-mode .prescription-modal-close:hover {
+  background: #29434d !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MODAL PATIENT
+   ========================================================= */
+
+html.dark-mode .prescription-modal-patient,
+body.dark-mode .prescription-modal-patient,
+.dark-mode .prescription-modal-patient {
+  background: #10242c !important;
+}
+
+html.dark-mode .modal-prescription-avatar,
+body.dark-mode .modal-prescription-avatar,
+.dark-mode .modal-prescription-avatar {
+  background: #1a2946 !important;
+  color: #76a0ff !important;
+}
+
+html.dark-mode .prescription-modal-patient small,
+body.dark-mode .prescription-modal-patient small,
+.dark-mode .prescription-modal-patient small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-modal-patient strong,
+body.dark-mode .prescription-modal-patient strong,
+.dark-mode .prescription-modal-patient strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescription-modal-patient span,
+body.dark-mode .prescription-modal-patient span,
+.dark-mode .prescription-modal-patient span {
+  color: #8199a3 !important;
+}
+
+/* =========================================================
+   MODAL DOCTOR
+   ========================================================= */
+
+html.dark-mode .prescription-modal-doctor,
+body.dark-mode .prescription-modal-doctor,
+.dark-mode .prescription-modal-doctor {
+  background: #10272e !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-modal-doctor small,
+body.dark-mode .prescription-modal-doctor small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-modal-doctor strong,
+body.dark-mode .prescription-modal-doctor strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescription-modal-doctor span,
+body.dark-mode .prescription-modal-doctor span {
+  color: #8199a3 !important;
+}
+
+/* =========================================================
+   MODAL MEDICINE
+   ========================================================= */
+
+html.dark-mode .prescription-medicine-box,
+body.dark-mode .prescription-medicine-box,
+.dark-mode .prescription-medicine-box {
+  background: #12332f !important;
+}
+
+html.dark-mode .medicine-box-icon,
+body.dark-mode .medicine-box-icon,
+.dark-mode .medicine-box-icon {
+  background: #183b3b !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-medicine-box small,
+body.dark-mode .prescription-medicine-box small,
+.dark-mode .prescription-medicine-box small {
+  color: #78939d !important;
+}
+
+html.dark-mode .prescription-medicine-box strong,
+body.dark-mode .prescription-medicine-box strong,
+.dark-mode .prescription-medicine-box strong {
+  color: #8ce4d2 !important;
+}
+
+/* =========================================================
+   MODAL DETAIL GRID
+   ========================================================= */
+
+html.dark-mode .prescription-detail-grid > div,
+body.dark-mode .prescription-detail-grid > div,
+.dark-mode .prescription-detail-grid > div {
+  background: #101e27 !important;
+  border-color: #29414c !important;
+}
+
+html.dark-mode .prescription-detail-grid small,
+body.dark-mode .prescription-detail-grid small,
+.dark-mode .prescription-detail-grid small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-detail-grid strong,
+body.dark-mode .prescription-detail-grid strong,
+.dark-mode .prescription-detail-grid strong {
+  color: #c5d5da !important;
+}
+
+/* =========================================================
+   MODAL DETAIL BOXES
+   ========================================================= */
+
+html.dark-mode .prescription-detail-box,
+body.dark-mode .prescription-detail-box,
+.dark-mode .prescription-detail-box {
+  background: #102027 !important;
+  border: 1px solid #29414c !important;
+}
+
+html.dark-mode .prescription-detail-box small,
+body.dark-mode .prescription-detail-box small,
+.dark-mode .prescription-detail-box small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-detail-box p,
+body.dark-mode .prescription-detail-box p,
+.dark-mode .prescription-detail-box p {
+  color: #a7bcc4 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .prescription-modal-footer,
+body.dark-mode .prescription-modal-footer,
+.dark-mode .prescription-modal-footer {
+  border-top-color: #29414c !important;
+}
+
+html.dark-mode .prescription-modal-footer button,
+body.dark-mode .prescription-modal-footer button,
+.dark-mode .prescription-modal-footer button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .prescription-modal-footer button:hover,
+body.dark-mode .prescription-modal-footer button:hover,
+.dark-mode .prescription-modal-footer button:hover {
+  background: linear-gradient(
+    135deg,
+    #10b5ae,
+    #09908f
+  ) !important;
+}
+
+/* =========================================================
+   SVG / ICONS
+   ========================================================= */
+
+html.dark-mode .admin-prescriptions-page svg,
+body.dark-mode .admin-prescriptions-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   MOBILE DARK MODE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .admin-prescriptions-page,
+  body.dark-mode .admin-prescriptions-page {
+    background: #0f1b24 !important;
+  }
+
+  html.dark-mode .prescriptions-toolbar h2,
+  body.dark-mode .prescriptions-toolbar h2 {
+    color: #edf7f9 !important;
+  }
+
+  html.dark-mode .prescriptions-search,
+  body.dark-mode .prescriptions-search {
+    background: #142730 !important;
+  }
+}
+
+@media (max-width: 500px) {
+  html.dark-mode .prescription-modal,
+  body.dark-mode .prescription-modal {
+    background: #14232d !important;
+  }
+
+  html.dark-mode .prescription-modal-header,
+  body.dark-mode .prescription-modal-header {
+    border-bottom-color: #29414c !important;
+  }
+
+  html.dark-mode .prescription-detail-grid > div,
+  body.dark-mode .prescription-detail-grid > div {
+    background: #101e27 !important;
+  }
+}
