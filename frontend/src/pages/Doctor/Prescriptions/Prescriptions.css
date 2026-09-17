@@ -735,3 +735,458 @@
     width: 100%;
   }
 }
+/* =========================================================
+   DOCTOR PRESCRIPTIONS - DARK MODE
+========================================================= */
+
+html.dark-mode .doctor-prescriptions-page,
+body.dark-mode .doctor-prescriptions-page {
+  background: #0f1b22 !important;
+  color: #eaf4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+html.dark-mode .prescriptions-title-wrap h1,
+body.dark-mode .prescriptions-title-wrap h1 {
+  color: #f2f8fa !important;
+}
+
+html.dark-mode .prescriptions-title-wrap p,
+body.dark-mode .prescriptions-title-wrap p {
+  color: #91a7b0 !important;
+}
+
+html.dark-mode .prescriptions-title-icon,
+body.dark-mode .prescriptions-title-icon {
+  background: #12363a !important;
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   ADD PRESCRIPTION BUTTON
+========================================================= */
+
+html.dark-mode .add-prescription-button,
+body.dark-mode .add-prescription-button {
+  background: #079b96 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .add-prescription-button:hover,
+body.dark-mode .add-prescription-button:hover {
+  background: #08b0aa !important;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+html.dark-mode .doctor-prescriptions-error,
+body.dark-mode .doctor-prescriptions-error {
+  background: #321b1e !important;
+  border-color: #633137 !important;
+  color: #ff9a9f !important;
+}
+
+html.dark-mode .doctor-prescriptions-error button,
+body.dark-mode .doctor-prescriptions-error button {
+  color: #ff9a9f !important;
+}
+
+/* =========================================================
+   PRESCRIPTION CARD
+========================================================= */
+
+html.dark-mode .doctor-prescription-card,
+body.dark-mode .doctor-prescription-card {
+  background: #14232b !important;
+  border-color: #263b45 !important;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .doctor-prescription-card:hover,
+body.dark-mode .doctor-prescription-card:hover {
+  background: #172a33 !important;
+  border-color: #31505a !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .doctor-prescription-card::before,
+body.dark-mode .doctor-prescription-card::before {
+  background: #20bdb6 !important;
+}
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+html.dark-mode .doctor-prescription-title h2,
+body.dark-mode .doctor-prescription-title h2 {
+  color: #f2f8fa !important;
+}
+
+html.dark-mode .doctor-prescription-title p,
+body.dark-mode .doctor-prescription-title p {
+  color: #8da3ad !important;
+}
+
+html.dark-mode .doctor-prescription-icon,
+body.dark-mode .doctor-prescription-icon {
+  background: #12363a !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .edit-prescription-button,
+body.dark-mode .edit-prescription-button {
+  background: #192b34 !important;
+  border-color: #304650 !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .edit-prescription-button:hover,
+body.dark-mode .edit-prescription-button:hover {
+  background: #123b3e !important;
+  border-color: #347276 !important;
+  color: #5ce3dc !important;
+}
+
+/* =========================================================
+   PATIENT
+========================================================= */
+
+html.dark-mode .doctor-prescription-patient,
+body.dark-mode .doctor-prescription-patient {
+  background: #10242c !important;
+}
+
+html.dark-mode .prescription-patient-icon,
+body.dark-mode .prescription-patient-icon {
+  background: #17354b !important;
+  color: #67a9ed !important;
+}
+
+html.dark-mode .doctor-prescription-patient small,
+body.dark-mode .doctor-prescription-patient small {
+  color: #8299a3 !important;
+}
+
+html.dark-mode .doctor-prescription-patient strong,
+body.dark-mode .doctor-prescription-patient strong {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctor-prescription-patient span,
+body.dark-mode .doctor-prescription-patient span {
+  color: #718892 !important;
+}
+
+/* =========================================================
+   DATE
+========================================================= */
+
+html.dark-mode .doctor-prescription-date,
+body.dark-mode .doctor-prescription-date {
+  color: #91a6af !important;
+}
+
+html.dark-mode .doctor-prescription-date svg,
+body.dark-mode .doctor-prescription-date svg {
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   DOSAGE / FREQUENCY / DURATION
+========================================================= */
+
+html.dark-mode .prescription-detail-box,
+body.dark-mode .prescription-detail-box {
+  background: #102027 !important;
+  border-color: #2b4049 !important;
+}
+
+html.dark-mode .prescription-detail-box span,
+body.dark-mode .prescription-detail-box span {
+  color: #8299a3 !important;
+}
+
+html.dark-mode .prescription-detail-box strong,
+body.dark-mode .prescription-detail-box strong {
+  color: #e7f2f4 !important;
+}
+
+/* =========================================================
+   DIAGNOSIS / INSTRUCTIONS
+========================================================= */
+
+html.dark-mode .prescription-section,
+body.dark-mode .prescription-section {
+  border-top-color: #2a3d46 !important;
+}
+
+html.dark-mode .prescription-section h3,
+body.dark-mode .prescription-section h3 {
+  color: #b7cbd1 !important;
+}
+
+html.dark-mode .prescription-section h3 svg,
+body.dark-mode .prescription-section h3 svg {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-section p,
+body.dark-mode .prescription-section p {
+  color: #91a7b0 !important;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .doctor-prescriptions-message,
+body.dark-mode .doctor-prescriptions-message {
+  color: #91a7b0 !important;
+}
+
+html.dark-mode .doctor-prescriptions-loader,
+body.dark-mode .doctor-prescriptions-loader {
+  border-color: #29434a !important;
+  border-top-color: #25bdb7 !important;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+html.dark-mode .no-doctor-prescriptions,
+body.dark-mode .no-doctor-prescriptions {
+  background: #14232b !important;
+  border-color: #30454f !important;
+  color: #eaf4f6 !important;
+}
+
+html.dark-mode .no-prescriptions-icon,
+body.dark-mode .no-prescriptions-icon {
+  background: #12363a !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .no-doctor-prescriptions h2,
+body.dark-mode .no-doctor-prescriptions h2 {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .no-doctor-prescriptions p,
+body.dark-mode .no-doctor-prescriptions p {
+  color: #8da3ad !important;
+}
+
+html.dark-mode .no-doctor-prescriptions button,
+body.dark-mode .no-doctor-prescriptions button {
+  background: #079b96 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .no-doctor-prescriptions button:hover,
+body.dark-mode .no-doctor-prescriptions button:hover {
+  background: #08b0aa !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+html.dark-mode .doctor-prescription-modal-overlay,
+body.dark-mode .doctor-prescription-modal-overlay {
+  background: rgba(0, 0, 0, 0.72) !important;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+html.dark-mode .doctor-prescription-modal,
+body.dark-mode .doctor-prescription-modal {
+  background: #14232b !important;
+  border-color: #30454f !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+html.dark-mode .doctor-prescription-modal-header,
+body.dark-mode .doctor-prescription-modal-header {
+  background: #14232b !important;
+  border-bottom-color: #2b4049 !important;
+}
+
+html.dark-mode .doctor-prescription-modal-header h2,
+body.dark-mode .doctor-prescription-modal-header h2 {
+  color: #f2f8fa !important;
+}
+
+html.dark-mode .doctor-prescription-modal-header p,
+body.dark-mode .doctor-prescription-modal-header p {
+  color: #8da3ad !important;
+}
+
+html.dark-mode .close-prescription-modal,
+body.dark-mode .close-prescription-modal {
+  background: #20333c !important;
+  color: #a8bbc2 !important;
+}
+
+html.dark-mode .close-prescription-modal:hover,
+body.dark-mode .close-prescription-modal:hover {
+  background: #2b424c !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   FORM LABELS
+========================================================= */
+
+html.dark-mode .prescription-form-group label,
+body.dark-mode .prescription-form-group label {
+  color: #b8cbd1 !important;
+}
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+html.dark-mode .prescription-form-group input,
+html.dark-mode .prescription-form-group select,
+html.dark-mode .prescription-form-group textarea,
+body.dark-mode .prescription-form-group input,
+body.dark-mode .prescription-form-group select,
+body.dark-mode .prescription-form-group textarea {
+  background: #102027 !important;
+  border-color: #304650 !important;
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .prescription-form-group input::placeholder,
+html.dark-mode .prescription-form-group textarea::placeholder,
+body.dark-mode .prescription-form-group input::placeholder,
+body.dark-mode .prescription-form-group textarea::placeholder {
+  color: #657b85 !important;
+}
+
+/* =========================================================
+   FORM FOCUS
+========================================================= */
+
+html.dark-mode .prescription-form-group input:focus,
+html.dark-mode .prescription-form-group select:focus,
+html.dark-mode .prescription-form-group textarea:focus,
+body.dark-mode .prescription-form-group input:focus,
+body.dark-mode .prescription-form-group select:focus,
+body.dark-mode .prescription-form-group textarea:focus {
+  border-color: #20bdb6 !important;
+  box-shadow: 0 0 0 3px rgba(32, 189, 182, 0.12) !important;
+}
+
+/* =========================================================
+   SELECT OPTIONS
+========================================================= */
+
+html.dark-mode .prescription-form-group select option,
+body.dark-mode .prescription-form-group select option {
+  background: #14232b !important;
+  color: #edf7f8 !important;
+}
+
+/* =========================================================
+   DISABLED SELECT
+========================================================= */
+
+html.dark-mode .prescription-form-group select:disabled,
+body.dark-mode .prescription-form-group select:disabled {
+  background: #1a2a31 !important;
+  color: #718892 !important;
+  border-color: #2d414a !important;
+}
+
+/* =========================================================
+   DATE INPUT
+========================================================= */
+
+html.dark-mode .prescription-form-group input[type="date"],
+body.dark-mode .prescription-form-group input[type="date"] {
+  color-scheme: dark;
+}
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+html.dark-mode .doctor-prescription-form-actions,
+body.dark-mode .doctor-prescription-form-actions {
+  border-top-color: #2b4049 !important;
+}
+
+html.dark-mode .prescription-cancel-button,
+body.dark-mode .prescription-cancel-button {
+  background: #1b2d35 !important;
+  border-color: #344b55 !important;
+  color: #a9bbc2 !important;
+}
+
+html.dark-mode .prescription-cancel-button:hover,
+body.dark-mode .prescription-cancel-button:hover {
+  background: #263c45 !important;
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .prescription-save-button,
+body.dark-mode .prescription-save-button {
+  background: #079b96 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .prescription-save-button:hover,
+body.dark-mode .prescription-save-button:hover {
+  background: #08b0aa !important;
+}
+
+/* =========================================================
+   DISABLED BUTTONS
+========================================================= */
+
+html.dark-mode .prescription-save-button:disabled,
+html.dark-mode .prescription-cancel-button:disabled,
+body.dark-mode .prescription-save-button:disabled,
+body.dark-mode .prescription-cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   SVG ICONS
+========================================================= */
+
+html.dark-mode .doctor-prescriptions-page svg,
+body.dark-mode .doctor-prescriptions-page svg {
+  stroke-width: 2;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+  html.dark-mode .doctor-prescription-modal,
+  body.dark-mode .doctor-prescription-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .doctor-prescription-modal-header,
+  body.dark-mode .doctor-prescription-modal-header {
+    background: #14232b !important;
+  }
+}
