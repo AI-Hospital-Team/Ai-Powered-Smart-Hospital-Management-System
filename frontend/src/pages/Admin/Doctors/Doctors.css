@@ -1068,3 +1068,560 @@
     padding: 13px 17px;
   }
 }
+/* =========================================================
+   ADMIN DOCTORS - DARK MODE
+   ========================================================= */
+
+html.dark-mode .admin-doctors-page,
+body.dark-mode .admin-doctors-page {
+  background: #0f1b22 !important;
+  color: #eaf4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .doctors-page-title h1,
+body.dark-mode .doctors-page-title h1 {
+  color: #f2f8fa !important;
+}
+
+html.dark-mode .doctors-page-title p,
+body.dark-mode .doctors-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .doctors-section-label,
+body.dark-mode .doctors-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctors-title-icon,
+body.dark-mode .doctors-title-icon {
+  background: linear-gradient(135deg, #16343c, #17414a) !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark-mode .doctors-refresh-button,
+body.dark-mode .doctors-refresh-button {
+  background: #14232b !important;
+  border-color: #2b424c !important;
+  color: #b4c7cd !important;
+}
+
+html.dark-mode .doctors-refresh-button:hover:not(:disabled),
+body.dark-mode .doctors-refresh-button:hover:not(:disabled) {
+  background: #1a3039 !important;
+  border-color: #3d6670 !important;
+  color: #edf7f8 !important;
+}
+
+/* =========================================================
+   SUMMARY CARD
+   ========================================================= */
+
+html.dark-mode .doctors-summary-card,
+body.dark-mode .doctors-summary-card {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  border-left-color: #4d86ff !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .doctors-summary-icon,
+body.dark-mode .doctors-summary-icon {
+  background: #182b45 !important;
+  color: #6e9cff !important;
+}
+
+html.dark-mode .doctors-summary-card span,
+body.dark-mode .doctors-summary-card span {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .doctors-summary-card strong,
+body.dark-mode .doctors-summary-card strong {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .doctors-summary-card small,
+body.dark-mode .doctors-summary-card small {
+  color: #718993 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .doctors-toolbar-heading h2,
+body.dark-mode .doctors-toolbar-heading h2 {
+  color: #f0f7f9 !important;
+}
+
+html.dark-mode .doctors-toolbar-heading p,
+body.dark-mode .doctors-toolbar-heading p {
+  color: #8ea5ae !important;
+}
+
+html.dark-mode .doctors-search,
+body.dark-mode .doctors-search {
+  background: #14232b !important;
+  border-color: #2c434c !important;
+  color: #8fa9b2 !important;
+}
+
+html.dark-mode .doctors-search:focus-within,
+body.dark-mode .doctors-search:focus-within {
+  border-color: #18b8b0 !important;
+  box-shadow: 0 0 0 3px rgba(24, 184, 176, 0.12) !important;
+}
+
+html.dark-mode .doctors-search input,
+body.dark-mode .doctors-search input {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctors-search input::placeholder,
+body.dark-mode .doctors-search input::placeholder {
+  color: #627b85 !important;
+}
+
+html.dark-mode .doctors-clear-search,
+body.dark-mode .doctors-clear-search {
+  background: #1b3038 !important;
+  color: #91a8b2 !important;
+}
+
+/* =========================================================
+   DOCTOR CARD
+   ========================================================= */
+
+html.dark-mode .admin-doctor-card,
+body.dark-mode .admin-doctor-card {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .admin-doctor-card:hover,
+body.dark-mode .admin-doctor-card:hover {
+  background: #172831 !important;
+  border-color: #3a626c !important;
+  box-shadow: 0 15px 32px rgba(0, 0, 0, 0.36) !important;
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+html.dark-mode .doctor-card-top,
+body.dark-mode .doctor-card-top {
+  border-bottom-color: #293e48 !important;
+}
+
+html.dark-mode .doctor-avatar,
+body.dark-mode .doctor-avatar {
+  background: #182b45 !important;
+  color: #73a0ff !important;
+}
+
+html.dark-mode .doctor-card-name h3,
+body.dark-mode .doctor-card-name h3 {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctor-card-name span,
+body.dark-mode .doctor-card-name span {
+  color: #78919b !important;
+}
+
+/* ACTIVE DOT */
+
+html.dark-mode .doctor-active,
+body.dark-mode .doctor-active {
+  background: #12352c !important;
+}
+
+html.dark-mode .doctor-active span,
+body.dark-mode .doctor-active span {
+  background: #25c78d !important;
+  box-shadow: 0 0 0 4px rgba(37, 199, 141, 0.10) !important;
+}
+
+/* PENDING DOT */
+
+html.dark-mode .doctor-active.doctor-pending,
+body.dark-mode .doctor-active.doctor-pending {
+  background: #3a3015 !important;
+}
+
+html.dark-mode .doctor-active.doctor-pending span,
+body.dark-mode .doctor-active.doctor-pending span {
+  background: #f2b84b !important;
+  box-shadow: 0 0 0 4px rgba(242, 184, 75, 0.10) !important;
+}
+
+/* REJECTED DOT */
+
+html.dark-mode .doctor-active.doctor-rejected,
+body.dark-mode .doctor-active.doctor-rejected {
+  background: #3b2023 !important;
+}
+
+html.dark-mode .doctor-active.doctor-rejected span,
+body.dark-mode .doctor-active.doctor-rejected span {
+  background: #ef6666 !important;
+  box-shadow: 0 0 0 4px rgba(239, 102, 102, 0.10) !important;
+}
+
+/* =========================================================
+   SPECIALIZATION
+   ========================================================= */
+
+html.dark-mode .doctor-specialization,
+body.dark-mode .doctor-specialization {
+  background: #10242c !important;
+}
+
+html.dark-mode .doctor-specialization-icon,
+body.dark-mode .doctor-specialization-icon {
+  background: #15363d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-specialization small,
+body.dark-mode .doctor-specialization small {
+  color: #7f98a2 !important;
+}
+
+html.dark-mode .doctor-specialization strong,
+body.dark-mode .doctor-specialization strong {
+  color: #d9eaed !important;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+html.dark-mode .doctor-status-row small,
+body.dark-mode .doctor-status-row small {
+  color: #7f98a2 !important;
+}
+
+html.dark-mode .doctor-status-icon,
+body.dark-mode .doctor-status-icon {
+  background: #12342d !important;
+  color: #35c991 !important;
+}
+
+html.dark-mode .doctor-status-row strong,
+body.dark-mode .doctor-status-row strong {
+  color: #35c991 !important;
+}
+
+html.dark-mode .doctor-pending-text,
+body.dark-mode .doctor-pending-text {
+  color: #f2bd52 !important;
+}
+
+html.dark-mode .doctor-rejected-text,
+body.dark-mode .doctor-rejected-text {
+  color: #f16d6d !important;
+}
+
+html.dark-mode .doctor-active-text,
+body.dark-mode .doctor-active-text {
+  color: #35c991 !important;
+}
+
+html.dark-mode .doctor-verified-icon,
+body.dark-mode .doctor-verified-icon {
+  color: #35c991 !important;
+}
+
+/* Awaiting Review text */
+html.dark-mode .doctor-status-row > span,
+body.dark-mode .doctor-status-row > span {
+  color: #d9b45a !important;
+}
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+html.dark-mode .doctor-view-button,
+body.dark-mode .doctor-view-button {
+  background: #10242c !important;
+  border-color: #2c4852 !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-view-button:hover,
+body.dark-mode .doctor-view-button:hover {
+  background: #15323b !important;
+  border-color: #3d6972 !important;
+  color: #68e1dc !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .doctors-error,
+body.dark-mode .doctors-error {
+  background: #30191b !important;
+  border-color: #683033 !important;
+}
+
+html.dark-mode .doctors-error strong,
+body.dark-mode .doctors-error strong {
+  color: #ff8d8d !important;
+}
+
+html.dark-mode .doctors-error p,
+body.dark-mode .doctors-error p {
+  color: #c99494 !important;
+}
+
+html.dark-mode .doctors-error button,
+body.dark-mode .doctors-error button {
+  background: #a93e3e !important;
+  color: #fff !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .doctors-loading,
+body.dark-mode .doctors-loading,
+html.dark-mode .doctors-empty,
+body.dark-mode .doctors-empty {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .doctors-spinner,
+body.dark-mode .doctors-spinner {
+  border-color: #24414a !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .doctors-loading h3,
+body.dark-mode .doctors-loading h3,
+html.dark-mode .doctors-empty h3,
+body.dark-mode .doctors-empty h3 {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctors-loading p,
+body.dark-mode .doctors-loading p,
+html.dark-mode .doctors-empty p,
+body.dark-mode .doctors-empty p {
+  color: #8199a3 !important;
+}
+
+html.dark-mode .doctors-empty-icon,
+body.dark-mode .doctors-empty-icon {
+  background: #182b45 !important;
+  color: #6e9cff !important;
+}
+
+html.dark-mode .doctors-empty button,
+body.dark-mode .doctors-empty button {
+  background: #10242c !important;
+  border-color: #2d4b55 !important;
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .doctor-modal-overlay,
+body.dark-mode .doctor-modal-overlay {
+  background: rgba(2, 12, 17, 0.78) !important;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+html.dark-mode .doctor-modal,
+body.dark-mode .doctor-modal {
+  background: #14232b !important;
+  color: #eaf4f6 !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55) !important;
+}
+
+html.dark-mode .doctor-modal-header,
+body.dark-mode .doctor-modal-header {
+  border-bottom-color: #293e48 !important;
+}
+
+html.dark-mode .doctor-modal-avatar,
+body.dark-mode .doctor-modal-avatar {
+  background: #182b45 !important;
+  color: #73a0ff !important;
+}
+
+html.dark-mode .doctor-modal-title h2,
+body.dark-mode .doctor-modal-title h2 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .doctor-modal-title p,
+body.dark-mode .doctor-modal-title p {
+  color: #8199a3 !important;
+}
+
+html.dark-mode .doctor-modal-close,
+body.dark-mode .doctor-modal-close {
+  background: #1a2c34 !important;
+  color: #8ea6af !important;
+}
+
+html.dark-mode .doctor-modal-close:hover,
+body.dark-mode .doctor-modal-close:hover {
+  background: #253b44 !important;
+  color: #edf7f8 !important;
+}
+
+/* =========================================================
+   MODAL CONTENT
+   ========================================================= */
+
+html.dark-mode .doctor-detail-section h3,
+body.dark-mode .doctor-detail-section h3 {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctor-detail-grid > div,
+body.dark-mode .doctor-detail-grid > div {
+  background: #102027 !important;
+  border-color: #2b424c !important;
+}
+
+html.dark-mode .doctor-detail-grid > div:hover,
+body.dark-mode .doctor-detail-grid > div:hover {
+  border-color: #3a6069 !important;
+}
+
+html.dark-mode .doctor-detail-grid small,
+body.dark-mode .doctor-detail-grid small,
+html.dark-mode .doctor-email-detail small,
+body.dark-mode .doctor-email-detail small {
+  color: #8199a3 !important;
+}
+
+html.dark-mode .doctor-detail-grid strong,
+body.dark-mode .doctor-detail-grid strong,
+html.dark-mode .doctor-email-detail strong,
+body.dark-mode .doctor-email-detail strong {
+  color: #e8f3f5 !important;
+}
+
+/* =========================================================
+   EMAIL
+   ========================================================= */
+
+html.dark-mode .doctor-email-detail,
+body.dark-mode .doctor-email-detail {
+  background: #10242c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-email-detail strong,
+body.dark-mode .doctor-email-detail strong {
+  color: #e8f3f5 !important;
+}
+
+/* =========================================================
+   CARE / VERIFICATION MESSAGE
+   ========================================================= */
+
+html.dark-mode .doctor-care-message,
+body.dark-mode .doctor-care-message {
+  background: #12323a !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-care-message p,
+body.dark-mode .doctor-care-message p {
+  color: #a7c1c8 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .doctor-modal-footer,
+body.dark-mode .doctor-modal-footer {
+  border-top-color: #293e48 !important;
+}
+
+html.dark-mode .doctor-modal-footer button:last-child,
+body.dark-mode .doctor-modal-footer button:last-child {
+  background: #087f82 !important;
+  color: #fff !important;
+}
+
+html.dark-mode .doctor-modal-footer button:last-child:hover,
+body.dark-mode .doctor-modal-footer button:last-child:hover {
+  background: #079b96 !important;
+}
+
+/* =========================================================
+   APPROVE / REJECT BUTTONS
+   Inline styles need !important
+   ========================================================= */
+
+html.dark-mode .doctor-modal-footer button[style*="background: #16a34a"],
+body.dark-mode .doctor-modal-footer button[style*="background: #16a34a"] {
+  background: #168f55 !important;
+  color: #fff !important;
+}
+
+html.dark-mode .doctor-modal-footer button[style*="background: #dc2626"],
+body.dark-mode .doctor-modal-footer button[style*="background: #dc2626"] {
+  background: #b83b42 !important;
+  color: #fff !important;
+}
+
+/* Card approve/reject inline buttons */
+
+html.dark-mode .admin-doctor-card button[style*="background: #16a34a"],
+body.dark-mode .admin-doctor-card button[style*="background: #16a34a"] {
+  background: #168f55 !important;
+}
+
+html.dark-mode .admin-doctor-card button[style*="background: #dc2626"],
+body.dark-mode .admin-doctor-card button[style*="background: #dc2626"] {
+  background: #b83b42 !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .doctors-toolbar,
+  body.dark-mode .doctors-toolbar {
+    color: #eaf4f6 !important;
+  }
+}
+
+@media (max-width: 500px) {
+  html.dark-mode .doctor-modal,
+  body.dark-mode .doctor-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .doctor-detail-grid > div,
+  body.dark-mode .doctor-detail-grid > div {
+    background: #102027 !important;
+  }
+}

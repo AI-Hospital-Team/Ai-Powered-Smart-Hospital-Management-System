@@ -1307,3 +1307,718 @@
     padding: 13px 17px;
   }
 }
+/* =========================================================
+   ADMIN MEDICAL RECORDS - COMPLETE DARK MODE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-medical-records-page,
+body.dark-mode .admin-medical-records-page,
+.dark-mode .admin-medical-records-page {
+  background: #0f1b22 !important;
+  color: #e8f4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .medical-records-title-icon,
+body.dark-mode .medical-records-title-icon,
+.dark-mode .medical-records-title-icon {
+  background: #17343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .medical-records-section-label,
+body.dark-mode .medical-records-section-label,
+.dark-mode .medical-records-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-records-page-title h1,
+body.dark-mode .medical-records-page-title h1,
+.dark-mode .medical-records-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .medical-records-page-title p,
+body.dark-mode .medical-records-page-title p,
+.dark-mode .medical-records-page-title p {
+  color: #91a8b2 !important;
+}
+
+/* REFRESH */
+html.dark-mode .medical-records-refresh,
+body.dark-mode .medical-records-refresh,
+.dark-mode .medical-records-refresh {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #b8cbd1 !important;
+}
+
+html.dark-mode .medical-records-refresh:hover:not(:disabled),
+body.dark-mode .medical-records-refresh:hover:not(:disabled),
+.dark-mode .medical-records-refresh:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #edf8f9 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .medical-records-error,
+body.dark-mode .medical-records-error,
+.dark-mode .medical-records-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+}
+
+html.dark-mode .medical-records-error strong,
+body.dark-mode .medical-records-error strong {
+  color: #ff9494 !important;
+}
+
+html.dark-mode .medical-records-error p,
+body.dark-mode .medical-records-error p {
+  color: #c99393 !important;
+}
+
+html.dark-mode .medical-records-error button,
+body.dark-mode .medical-records-error button {
+  background: #a33f45 !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+html.dark-mode .medical-records-summary,
+body.dark-mode .medical-records-summary,
+.dark-mode .medical-records-summary {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  border-left-color: #16b8b1 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .medical-records-summary-icon,
+body.dark-mode .medical-records-summary-icon,
+.dark-mode .medical-records-summary-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-records-summary span,
+body.dark-mode .medical-records-summary span {
+  color: #8da6b0 !important;
+}
+
+html.dark-mode .medical-records-summary strong,
+body.dark-mode .medical-records-summary strong {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .medical-records-summary small,
+body.dark-mode .medical-records-summary small {
+  color: #718b95 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .medical-records-toolbar h2,
+body.dark-mode .medical-records-toolbar h2,
+.dark-mode .medical-records-toolbar h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-records-toolbar p,
+body.dark-mode .medical-records-toolbar p,
+.dark-mode .medical-records-toolbar p {
+  color: #8da4ae !important;
+}
+
+/* SEARCH */
+html.dark-mode .medical-records-search,
+body.dark-mode .medical-records-search,
+.dark-mode .medical-records-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7fabb5 !important;
+}
+
+html.dark-mode .medical-records-search:focus-within,
+body.dark-mode .medical-records-search:focus-within,
+.dark-mode .medical-records-search:focus-within {
+  border-color: #16b8b1 !important;
+  box-shadow: 0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .medical-records-search input,
+body.dark-mode .medical-records-search input,
+.dark-mode .medical-records-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .medical-records-search input::placeholder,
+body.dark-mode .medical-records-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .medical-records-search button,
+body.dark-mode .medical-records-search button {
+  background: #1d343d !important;
+  color: #a5bcc4 !important;
+}
+
+html.dark-mode .medical-records-search button:hover,
+body.dark-mode .medical-records-search button:hover {
+  background: #29444e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MEDICAL RECORD CARDS
+   ========================================================= */
+
+html.dark-mode .admin-medical-record-card,
+body.dark-mode .admin-medical-record-card,
+.dark-mode .admin-medical-record-card {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .admin-medical-record-card:hover,
+body.dark-mode .admin-medical-record-card:hover,
+.dark-mode .admin-medical-record-card:hover {
+  background: #162932 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.36) !important;
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+html.dark-mode .medical-record-card-top,
+body.dark-mode .medical-record-card-top,
+.dark-mode .medical-record-card-top {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-patient-avatar,
+body.dark-mode .medical-record-patient-avatar,
+.dark-mode .medical-record-patient-avatar {
+  background: #17354a !important;
+  color: #65b7ff !important;
+}
+
+html.dark-mode .medical-record-patient-info h3,
+body.dark-mode .medical-record-patient-info h3,
+.dark-mode .medical-record-patient-info h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-patient-info span,
+body.dark-mode .medical-record-patient-info span,
+.dark-mode .medical-record-patient-info span {
+  color: #78929d !important;
+}
+
+html.dark-mode .medical-record-id,
+body.dark-mode .medical-record-id,
+.dark-mode .medical-record-id {
+  background: #2b2450 !important;
+  color: #b59aff !important;
+}
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+html.dark-mode .medical-record-date,
+body.dark-mode .medical-record-date,
+.dark-mode .medical-record-date {
+  background: #10262d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-date span,
+body.dark-mode .medical-record-date span {
+  color: #809aa4 !important;
+}
+
+html.dark-mode .medical-record-date strong,
+body.dark-mode .medical-record-date strong {
+  color: #b9cdd3 !important;
+}
+
+/* =========================================================
+   DOCTOR
+   ========================================================= */
+
+html.dark-mode .medical-record-doctor-icon,
+body.dark-mode .medical-record-doctor-icon,
+.dark-mode .medical-record-doctor-icon {
+  background: #17344a !important;
+  color: #69a9ff !important;
+}
+
+html.dark-mode .medical-record-doctor small,
+body.dark-mode .medical-record-doctor small,
+.dark-mode .medical-record-doctor small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .medical-record-doctor strong,
+body.dark-mode .medical-record-doctor strong,
+.dark-mode .medical-record-doctor strong {
+  color: #d7e5e9 !important;
+}
+
+html.dark-mode .medical-record-doctor span,
+body.dark-mode .medical-record-doctor span,
+.dark-mode .medical-record-doctor span {
+  color: #839ca6 !important;
+}
+
+/* =========================================================
+   DIAGNOSIS
+   ========================================================= */
+
+html.dark-mode .medical-record-diagnosis,
+body.dark-mode .medical-record-diagnosis,
+.dark-mode .medical-record-diagnosis {
+  background: #211d34 !important;
+}
+
+html.dark-mode .diagnosis-icon,
+body.dark-mode .diagnosis-icon,
+.dark-mode .diagnosis-icon {
+  background: #2b2450 !important;
+  color: #b59aff !important;
+}
+
+html.dark-mode .medical-record-diagnosis small,
+body.dark-mode .medical-record-diagnosis small {
+  color: #7e929c !important;
+}
+
+html.dark-mode .medical-record-diagnosis strong,
+body.dark-mode .medical-record-diagnosis strong {
+  color: #c9baff !important;
+}
+
+/* =========================================================
+   TREATMENT
+   ========================================================= */
+
+html.dark-mode .medical-record-treatment,
+body.dark-mode .medical-record-treatment {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-treatment small,
+body.dark-mode .medical-record-treatment small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .medical-record-treatment p,
+body.dark-mode .medical-record-treatment p {
+  color: #9eb3bb !important;
+}
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+html.dark-mode .medical-record-view-button,
+body.dark-mode .medical-record-view-button,
+.dark-mode .medical-record-view-button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-view-button:hover,
+body.dark-mode .medical-record-view-button:hover,
+.dark-mode .medical-record-view-button:hover {
+  background: #17363d !important;
+  border-color: #4a747d !important;
+  color: #68e1dc !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .medical-records-loading,
+body.dark-mode .medical-records-loading,
+.dark-mode .medical-records-loading,
+html.dark-mode .medical-records-empty,
+body.dark-mode .medical-records-empty,
+.dark-mode .medical-records-empty {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .medical-records-spinner,
+body.dark-mode .medical-records-spinner {
+  border-color: #23424c !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .medical-records-loading h3,
+body.dark-mode .medical-records-loading h3,
+html.dark-mode .medical-records-empty h3,
+body.dark-mode .medical-records-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-records-loading p,
+body.dark-mode .medical-records-loading p,
+html.dark-mode .medical-records-empty p,
+body.dark-mode .medical-records-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .medical-records-empty-icon,
+body.dark-mode .medical-records-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-records-empty button,
+body.dark-mode .medical-records-empty button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .medical-record-modal-overlay,
+body.dark-mode .medical-record-modal-overlay {
+  background: rgba(2, 12, 18, 0.80) !important;
+}
+
+/* =========================================================
+   VIEW / EDIT MODAL
+   ========================================================= */
+
+html.dark-mode .medical-record-modal,
+body.dark-mode .medical-record-modal,
+html.dark-mode .medical-record-edit-modal,
+body.dark-mode .medical-record-edit-modal {
+  background: #14232b !important;
+  color: #eaf5f7 !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.58) !important;
+}
+
+/* MODAL HEADER */
+html.dark-mode .medical-record-modal-header,
+body.dark-mode .medical-record-modal-header {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-modal-icon,
+body.dark-mode .medical-record-modal-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-modal-title h2,
+body.dark-mode .medical-record-modal-title h2 {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .medical-record-modal-title p,
+body.dark-mode .medical-record-modal-title p {
+  color: #8099a4 !important;
+}
+
+/* CLOSE */
+html.dark-mode .medical-record-modal-close,
+body.dark-mode .medical-record-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .medical-record-modal-close:hover,
+body.dark-mode .medical-record-modal-close:hover {
+  background: #29434d !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MODAL PATIENT
+   ========================================================= */
+
+html.dark-mode .medical-record-modal-patient,
+body.dark-mode .medical-record-modal-patient {
+  background: #102a31 !important;
+}
+
+html.dark-mode .modal-patient-avatar,
+body.dark-mode .modal-patient-avatar {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-modal-patient small,
+body.dark-mode .medical-record-modal-patient small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .medical-record-modal-patient strong,
+body.dark-mode .medical-record-modal-patient strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-modal-patient span,
+body.dark-mode .medical-record-modal-patient span {
+  color: #8099a4 !important;
+}
+
+/* =========================================================
+   MODAL DETAIL GRID
+   ========================================================= */
+
+html.dark-mode .medical-record-detail-grid > div,
+body.dark-mode .medical-record-detail-grid > div {
+  background: #101e27 !important;
+  border-color: #29414c !important;
+}
+
+html.dark-mode .medical-record-detail-grid small,
+body.dark-mode .medical-record-detail-grid small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .medical-record-detail-grid strong,
+body.dark-mode .medical-record-detail-grid strong {
+  color: #c7d7dc !important;
+}
+
+/* DETAIL BOXES */
+html.dark-mode .medical-record-detail-box,
+body.dark-mode .medical-record-detail-box {
+  background: #102027 !important;
+}
+
+html.dark-mode .medical-record-detail-box small,
+body.dark-mode .medical-record-detail-box small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .medical-record-detail-box p,
+body.dark-mode .medical-record-detail-box p {
+  color: #a9bdc4 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .medical-record-modal-footer,
+body.dark-mode .medical-record-modal-footer {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-edit-button,
+body.dark-mode .medical-record-edit-button {
+  background: #211d34 !important;
+  border-color: #4a3f70 !important;
+  color: #b9a5ff !important;
+}
+
+html.dark-mode .medical-record-edit-button:hover,
+body.dark-mode .medical-record-edit-button:hover {
+  background: #2b2450 !important;
+  border-color: #65558f !important;
+}
+
+html.dark-mode .medical-record-close-button,
+body.dark-mode .medical-record-close-button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   EDIT FORM
+   ========================================================= */
+
+html.dark-mode .medical-record-edit-form,
+body.dark-mode .medical-record-edit-form {
+  color: #eaf5f7 !important;
+}
+
+html.dark-mode .medical-record-form-group label,
+body.dark-mode .medical-record-form-group label {
+  color: #9ab0b9 !important;
+}
+
+html.dark-mode .medical-record-form-group input,
+body.dark-mode .medical-record-form-group input,
+html.dark-mode .medical-record-form-group select,
+body.dark-mode .medical-record-form-group select,
+html.dark-mode .medical-record-form-group textarea,
+body.dark-mode .medical-record-form-group textarea {
+  background: #0c1b21 !important;
+  border-color: #304953 !important;
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-form-group input:focus,
+body.dark-mode .medical-record-form-group input:focus,
+html.dark-mode .medical-record-form-group select:focus,
+body.dark-mode .medical-record-form-group select:focus,
+html.dark-mode .medical-record-form-group textarea:focus,
+body.dark-mode .medical-record-form-group textarea:focus {
+  background: #10232a !important;
+  border-color: #16b8b1 !important;
+  box-shadow: 0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .medical-record-form-group input::placeholder,
+body.dark-mode .medical-record-form-group input::placeholder,
+html.dark-mode .medical-record-form-group textarea::placeholder,
+body.dark-mode .medical-record-form-group textarea::placeholder {
+  color: #607984 !important;
+}
+
+/* SELECT OPTIONS */
+html.dark-mode .medical-record-form-group select option,
+body.dark-mode .medical-record-form-group select option {
+  background: #102027 !important;
+  color: #edf7f9 !important;
+}
+
+/* DATE */
+html.dark-mode .medical-record-form-group input[type="date"],
+body.dark-mode .medical-record-form-group input[type="date"] {
+  color-scheme: dark;
+}
+
+/* EDIT FOOTER */
+html.dark-mode .medical-record-edit-footer,
+body.dark-mode .medical-record-edit-footer {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-cancel-button,
+body.dark-mode .medical-record-cancel-button {
+  background: #17272e !important;
+  border-color: #38505a !important;
+  color: #b2c4ca !important;
+}
+
+html.dark-mode .medical-record-cancel-button:hover,
+body.dark-mode .medical-record-cancel-button:hover {
+  background: #20333b !important;
+  border-color: #4a6670 !important;
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-save-button,
+body.dark-mode .medical-record-save-button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+  color: #ffffff !important;
+}
+
+/* DISABLED */
+html.dark-mode .medical-record-save-button:disabled,
+body.dark-mode .medical-record-save-button:disabled,
+html.dark-mode .medical-record-cancel-button:disabled,
+body.dark-mode .medical-record-cancel-button:disabled {
+  opacity: 0.55;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar {
+  width: 7px;
+}
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar-track,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar-track {
+  background: #0d1a20;
+}
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar-thumb,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar-thumb {
+  background: #31505b;
+  border-radius: 10px;
+}
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar-thumb:hover,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar-thumb:hover {
+  background: #47717b;
+}
+
+/* =========================================================
+   SVG ICONS
+   ========================================================= */
+
+html.dark-mode .admin-medical-records-page svg,
+body.dark-mode .admin-medical-records-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   RESPONSIVE DARK MODE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .admin-medical-records-page,
+  body.dark-mode .admin-medical-records-page {
+    background: #0f1b22 !important;
+  }
+
+  html.dark-mode .medical-records-summary,
+  body.dark-mode .medical-records-summary {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .medical-records-search,
+  body.dark-mode .medical-records-search {
+    background: #142730 !important;
+  }
+}
+
+@media (max-width: 520px) {
+  html.dark-mode .medical-record-modal,
+  body.dark-mode .medical-record-modal,
+  html.dark-mode .medical-record-edit-modal,
+  body.dark-mode .medical-record-edit-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .medical-record-detail-grid > div,
+  body.dark-mode .medical-record-detail-grid > div {
+    background: #101e27 !important;
+  }
+}

@@ -1245,3 +1245,865 @@
     padding: 17px;
   }
 }
+/* =========================================================
+   ADMIN BILLS - COMPLETE DARK MODE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-bills-page,
+body.dark-mode .admin-bills-page,
+.dark-mode .admin-bills-page {
+  background: #0f1b22 !important;
+  color: #eaf4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .bills-section-label,
+body.dark-mode .bills-section-label,
+.dark-mode .bills-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bills-page-title h1,
+body.dark-mode .bills-page-title h1,
+.dark-mode .bills-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .bills-page-title p,
+body.dark-mode .bills-page-title p,
+.dark-mode .bills-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .bills-title-icon,
+body.dark-mode .bills-title-icon,
+.dark-mode .bills-title-icon {
+  background: #16343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .bills-title-icon:hover,
+body.dark-mode .bills-title-icon:hover,
+.dark-mode .bills-title-icon:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* HEADER BUTTONS */
+
+html.dark-mode .bills-refresh-button,
+body.dark-mode .bills-refresh-button,
+.dark-mode .bills-refresh-button {
+  background: #142730 !important;
+  color: #b7cbd2 !important;
+  border-color: #304953 !important;
+}
+
+html.dark-mode .bills-refresh-button:hover:not(:disabled),
+body.dark-mode .bills-refresh-button:hover:not(:disabled),
+.dark-mode .bills-refresh-button:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #edf8fa !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .bills-create-button,
+body.dark-mode .bills-create-button,
+.dark-mode .bills-create-button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .bills-create-button:hover,
+body.dark-mode .bills-create-button:hover,
+.dark-mode .bills-create-button:hover {
+  background: linear-gradient(
+    135deg,
+    #0bb0aa,
+    #098b8d
+  ) !important;
+
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* =========================================================
+   SUCCESS / ERROR
+   ========================================================= */
+
+html.dark-mode .bills-success,
+body.dark-mode .bills-success,
+.dark-mode .bills-success {
+  background: #102a20 !important;
+  border-color: #245b43 !important;
+  color: #73dfaa !important;
+}
+
+html.dark-mode .bills-success button,
+body.dark-mode .bills-success button,
+.dark-mode .bills-success button {
+  color: #8fe5ba !important;
+}
+
+html.dark-mode .bills-error,
+body.dark-mode .bills-error,
+.dark-mode .bills-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+  color: #ff9191 !important;
+}
+
+html.dark-mode .bills-error strong,
+body.dark-mode .bills-error strong,
+.dark-mode .bills-error strong {
+  color: #ff9a9a !important;
+}
+
+html.dark-mode .bills-error p,
+body.dark-mode .bills-error p,
+.dark-mode .bills-error p {
+  color: #c89191 !important;
+}
+
+html.dark-mode .bills-error button,
+body.dark-mode .bills-error button,
+.dark-mode .bills-error button {
+  color: #ff9a9a !important;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+html.dark-mode .bill-stat-card,
+body.dark-mode .bill-stat-card,
+.dark-mode .bill-stat-card {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .bill-stat-card:hover,
+body.dark-mode .bill-stat-card:hover,
+.dark-mode .bill-stat-card:hover {
+  background: #172832 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34) !important;
+}
+
+html.dark-mode .bill-stat-card.selected,
+body.dark-mode .bill-stat-card.selected,
+.dark-mode .bill-stat-card.selected {
+  border-color: #16b8b1 !important;
+  box-shadow:
+    0 0 0 2px rgba(22, 184, 177, 0.12),
+    0 10px 25px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .bill-stat-card span,
+body.dark-mode .bill-stat-card span,
+.dark-mode .bill-stat-card span {
+  color: #8da6b0 !important;
+}
+
+html.dark-mode .bill-stat-card strong,
+body.dark-mode .bill-stat-card strong,
+.dark-mode .bill-stat-card strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-stat-card small,
+body.dark-mode .bill-stat-card small,
+.dark-mode .bill-stat-card small {
+  color: #718b95 !important;
+}
+
+/* STAT ICONS */
+
+html.dark-mode .bill-stat-icon.total,
+body.dark-mode .bill-stat-icon.total,
+.dark-mode .bill-stat-icon.total {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-stat-icon.paid,
+body.dark-mode .bill-stat-icon.paid,
+.dark-mode .bill-stat-icon.paid {
+  background: #12352e !important;
+  color: #55d7a2 !important;
+}
+
+html.dark-mode .bill-stat-icon.pending,
+body.dark-mode .bill-stat-icon.pending,
+.dark-mode .bill-stat-icon.pending {
+  background: #392b17 !important;
+  color: #f0b84e !important;
+}
+
+html.dark-mode .bill-stat-icon.cancelled,
+body.dark-mode .bill-stat-icon.cancelled,
+.dark-mode .bill-stat-icon.cancelled {
+  background: #391e21 !important;
+  color: #ed7777 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .bills-toolbar h2,
+body.dark-mode .bills-toolbar h2,
+.dark-mode .bills-toolbar h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bills-toolbar p,
+body.dark-mode .bills-toolbar p,
+.dark-mode .bills-toolbar p {
+  color: #8da5ae !important;
+}
+
+/* SEARCH */
+
+html.dark-mode .bills-search,
+body.dark-mode .bills-search,
+.dark-mode .bills-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7faab4 !important;
+}
+
+html.dark-mode .bills-search:focus-within,
+body.dark-mode .bills-search:focus-within,
+.dark-mode .bills-search:focus-within {
+  border-color: #16b8b1 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .bills-search input,
+body.dark-mode .bills-search input,
+.dark-mode .bills-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .bills-search input::placeholder,
+body.dark-mode .bills-search input::placeholder,
+.dark-mode .bills-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .bills-search button,
+body.dark-mode .bills-search button,
+.dark-mode .bills-search button {
+  background: #1d343d !important;
+  color: #a6bdc5 !important;
+}
+
+html.dark-mode .bills-search button:hover,
+body.dark-mode .bills-search button:hover,
+.dark-mode .bills-search button:hover {
+  background: #29454e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+html.dark-mode .bill-filter,
+body.dark-mode .bill-filter,
+.dark-mode .bill-filter {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #8ea6af !important;
+}
+
+html.dark-mode .bill-filter:hover,
+body.dark-mode .bill-filter:hover,
+.dark-mode .bill-filter:hover {
+  background: #19333b !important;
+  border-color: #3c626c !important;
+  color: #eaf6f8 !important;
+}
+
+html.dark-mode .bill-filter span,
+body.dark-mode .bill-filter span,
+.dark-mode .bill-filter span {
+  background: #1e343d !important;
+  color: #9fb5bd !important;
+}
+
+html.dark-mode .bill-filter.active,
+body.dark-mode .bill-filter.active,
+.dark-mode .bill-filter.active {
+  background: #123a37 !important;
+  border-color: #16b8b1 !important;
+  color: #57d8d2 !important;
+}
+
+html.dark-mode .bill-filter.active span,
+body.dark-mode .bill-filter.active span,
+.dark-mode .bill-filter.active span {
+  background: #1b514d !important;
+  color: #75e4de !important;
+}
+
+/* =========================================================
+   BILL CARD
+   ========================================================= */
+
+html.dark-mode .admin-bill-card,
+body.dark-mode .admin-bill-card,
+.dark-mode .admin-bill-card {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .admin-bill-card:hover,
+body.dark-mode .admin-bill-card:hover,
+.dark-mode .admin-bill-card:hover {
+  background: #172832 !important;
+  border-color: #3b626c !important;
+
+  box-shadow:
+    0 16px 35px rgba(0, 0, 0, 0.36) !important;
+}
+
+/* CARD TOP */
+
+html.dark-mode .bill-card-top,
+body.dark-mode .bill-card-top,
+.dark-mode .bill-card-top {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .bill-icon,
+body.dark-mode .bill-icon,
+.dark-mode .bill-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-title h3,
+body.dark-mode .bill-title h3,
+.dark-mode .bill-title h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-title span,
+body.dark-mode .bill-title span,
+.dark-mode .bill-title span {
+  color: #78939d !important;
+}
+
+/* STATUS */
+
+html.dark-mode .bill-status-paid,
+body.dark-mode .bill-status-paid,
+.dark-mode .bill-status-paid {
+  background: #12382e !important;
+  color: #5ee0aa !important;
+}
+
+html.dark-mode .bill-status-pending,
+body.dark-mode .bill-status-pending,
+.dark-mode .bill-status-pending {
+  background: #3b2c17 !important;
+  color: #f0bb54 !important;
+}
+
+html.dark-mode .bill-status-cancelled,
+body.dark-mode .bill-status-cancelled,
+.dark-mode .bill-status-cancelled {
+  background: #3b2023 !important;
+  color: #ef8585 !important;
+}
+
+/* =========================================================
+   AMOUNT
+   ========================================================= */
+
+html.dark-mode .bill-amount-box,
+body.dark-mode .bill-amount-box,
+.dark-mode .bill-amount-box {
+  background: #102027 !important;
+}
+
+html.dark-mode .bill-amount-box small,
+body.dark-mode .bill-amount-box small,
+.dark-mode .bill-amount-box small {
+  color: #718a95 !important;
+}
+
+html.dark-mode .bill-amount-box strong,
+body.dark-mode .bill-amount-box strong,
+.dark-mode .bill-amount-box strong {
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   PATIENT / DOCTOR
+   ========================================================= */
+
+html.dark-mode .bill-person-icon.patient,
+body.dark-mode .bill-person-icon.patient,
+.dark-mode .bill-person-icon.patient {
+  background: #192d4b !important;
+  color: #78a0ff !important;
+}
+
+html.dark-mode .bill-person-icon.doctor,
+body.dark-mode .bill-person-icon.doctor,
+.dark-mode .bill-person-icon.doctor {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-person small,
+body.dark-mode .bill-person small,
+.dark-mode .bill-person small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .bill-person strong,
+body.dark-mode .bill-person strong,
+.dark-mode .bill-person strong {
+  color: #c6d6db !important;
+}
+
+html.dark-mode .bill-person span,
+body.dark-mode .bill-person span,
+.dark-mode .bill-person span {
+  color: #78939d !important;
+}
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+html.dark-mode .bill-date,
+body.dark-mode .bill-date,
+.dark-mode .bill-date {
+  background: #10242b !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-date span,
+body.dark-mode .bill-date span,
+.dark-mode .bill-date span {
+  color: #78939d !important;
+}
+
+html.dark-mode .bill-date strong,
+body.dark-mode .bill-date strong,
+.dark-mode .bill-date strong {
+  color: #b9ccd2 !important;
+}
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+html.dark-mode .bill-description,
+body.dark-mode .bill-description,
+.dark-mode .bill-description {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .bill-description small,
+body.dark-mode .bill-description small,
+.dark-mode .bill-description small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .bill-description p,
+body.dark-mode .bill-description p,
+.dark-mode .bill-description p {
+  color: #9db2b9 !important;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+html.dark-mode .bill-paid-action,
+body.dark-mode .bill-paid-action,
+.dark-mode .bill-paid-action {
+  background: #12382e !important;
+  border-color: #27664e !important;
+  color: #5ee0aa !important;
+}
+
+html.dark-mode .bill-paid-action:hover:not(:disabled),
+body.dark-mode .bill-paid-action:hover:not(:disabled),
+.dark-mode .bill-paid-action:hover:not(:disabled) {
+  background: #174a3b !important;
+  border-color: #398365 !important;
+}
+
+html.dark-mode .bill-cancel-action,
+body.dark-mode .bill-cancel-action,
+.dark-mode .bill-cancel-action {
+  background: #391e21 !important;
+  border-color: #663236 !important;
+  color: #ef8585 !important;
+}
+
+html.dark-mode .bill-cancel-action:hover:not(:disabled),
+body.dark-mode .bill-cancel-action:hover:not(:disabled),
+.dark-mode .bill-cancel-action:hover:not(:disabled) {
+  background: #482529 !important;
+  border-color: #814147 !important;
+}
+
+html.dark-mode .bill-edit-action,
+body.dark-mode .bill-edit-action,
+.dark-mode .bill-edit-action {
+  background: #102b32 !important;
+  border-color: #31545e !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-edit-action:hover:not(:disabled),
+body.dark-mode .bill-edit-action:hover:not(:disabled),
+.dark-mode .bill-edit-action:hover:not(:disabled) {
+  background: #173a42 !important;
+  border-color: #4a737c !important;
+  color: #6be2dc !important;
+}
+
+html.dark-mode .bill-updating,
+body.dark-mode .bill-updating,
+.dark-mode .bill-updating {
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .bills-loading,
+body.dark-mode .bills-loading,
+.dark-mode .bills-loading,
+html.dark-mode .bills-empty,
+body.dark-mode .bills-empty,
+.dark-mode .bills-empty {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .bills-spinner,
+body.dark-mode .bills-spinner,
+.dark-mode .bills-spinner {
+  border-color: #21414a !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .bills-loading h3,
+body.dark-mode .bills-loading h3,
+.dark-mode .bills-loading h3,
+html.dark-mode .bills-empty h3,
+body.dark-mode .bills-empty h3,
+.dark-mode .bills-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bills-loading p,
+body.dark-mode .bills-loading p,
+.dark-mode .bills-loading p,
+html.dark-mode .bills-empty p,
+body.dark-mode .bills-empty p,
+.dark-mode .bills-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .bills-empty-icon,
+body.dark-mode .bills-empty-icon,
+.dark-mode .bills-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bills-empty button,
+body.dark-mode .bills-empty button,
+.dark-mode .bills-empty button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bills-empty button:hover,
+body.dark-mode .bills-empty button:hover,
+.dark-mode .bills-empty button:hover {
+  background: #173a42 !important;
+  border-color: #4a737c !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .bill-modal-overlay,
+body.dark-mode .bill-modal-overlay,
+.dark-mode .bill-modal-overlay {
+  background: rgba(2, 12, 18, 0.78) !important;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+html.dark-mode .bill-modal,
+body.dark-mode .bill-modal,
+.dark-mode .bill-modal {
+  background: #14232b !important;
+  color: #eaf5f7 !important;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.58) !important;
+}
+
+html.dark-mode .bill-modal-header,
+body.dark-mode .bill-modal-header,
+.dark-mode .bill-modal-header {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .bill-modal-icon,
+body.dark-mode .bill-modal-icon,
+.dark-mode .bill-modal-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-modal-title h2,
+body.dark-mode .bill-modal-title h2,
+.dark-mode .bill-modal-title h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-modal-title p,
+body.dark-mode .bill-modal-title p,
+.dark-mode .bill-modal-title p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .bill-modal-close,
+body.dark-mode .bill-modal-close,
+.dark-mode .bill-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .bill-modal-close:hover,
+body.dark-mode .bill-modal-close:hover,
+.dark-mode .bill-modal-close:hover {
+  background: #29444e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+html.dark-mode .bill-form-group label,
+body.dark-mode .bill-form-group label,
+.dark-mode .bill-form-group label {
+  color: #8fa7b0 !important;
+}
+
+html.dark-mode .bill-form-group input,
+body.dark-mode .bill-form-group input,
+.dark-mode .bill-form-group input,
+html.dark-mode .bill-form-group select,
+body.dark-mode .bill-form-group select,
+.dark-mode .bill-form-group select,
+html.dark-mode .bill-form-group textarea,
+body.dark-mode .bill-form-group textarea,
+.dark-mode .bill-form-group textarea {
+  background: #102027 !important;
+  border-color: #304953 !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .bill-form-group input::placeholder,
+body.dark-mode .bill-form-group input::placeholder,
+.dark-mode .bill-form-group input::placeholder,
+html.dark-mode .bill-form-group textarea::placeholder,
+body.dark-mode .bill-form-group textarea::placeholder,
+.dark-mode .bill-form-group textarea::placeholder {
+  color: #627b85 !important;
+}
+
+html.dark-mode .bill-form-group input:focus,
+body.dark-mode .bill-form-group input:focus,
+.dark-mode .bill-form-group input:focus,
+html.dark-mode .bill-form-group select:focus,
+body.dark-mode .bill-form-group select:focus,
+.dark-mode .bill-form-group select:focus,
+html.dark-mode .bill-form-group textarea:focus,
+body.dark-mode .bill-form-group textarea:focus,
+.dark-mode .bill-form-group textarea:focus {
+  background: #10242b !important;
+  border-color: #16b8b1 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+/* SELECT OPTIONS */
+
+html.dark-mode .bill-form-group select option,
+body.dark-mode .bill-form-group select option,
+.dark-mode .bill-form-group select option {
+  background: #102027 !important;
+  color: #e8f5f7 !important;
+}
+
+/* DATE INPUT */
+
+html.dark-mode .bill-form-group input[type="date"],
+body.dark-mode .bill-form-group input[type="date"],
+.dark-mode .bill-form-group input[type="date"] {
+  color-scheme: dark;
+}
+
+/* READ ONLY PATIENT NAME */
+
+html.dark-mode .bill-form-group input[readonly],
+body.dark-mode .bill-form-group input[readonly],
+.dark-mode .bill-form-group input[readonly] {
+  background: #0d1b21 !important;
+  color: #a9bec6 !important;
+}
+
+/* =========================================================
+   FORM FOOTER
+   ========================================================= */
+
+html.dark-mode .bill-form-footer,
+body.dark-mode .bill-form-footer,
+.dark-mode .bill-form-footer {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .bill-form-cancel,
+body.dark-mode .bill-form-cancel,
+.dark-mode .bill-form-cancel {
+  background: #17272e !important;
+  border-color: #38505a !important;
+  color: #b2c4ca !important;
+}
+
+html.dark-mode .bill-form-cancel:hover:not(:disabled),
+body.dark-mode .bill-form-cancel:hover:not(:disabled),
+.dark-mode .bill-form-cancel:hover:not(:disabled) {
+  background: #20353d !important;
+  border-color: #4a6670 !important;
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-form-save,
+body.dark-mode .bill-form-save,
+.dark-mode .bill-form-save {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .bill-form-save:hover:not(:disabled),
+body.dark-mode .bill-form-save:hover:not(:disabled),
+.dark-mode .bill-form-save:hover:not(:disabled) {
+  background: linear-gradient(
+    135deg,
+    #0bb0aa,
+    #098b8d
+  ) !important;
+
+  transform: translateY(-2px);
+}
+
+/* DISABLED */
+
+html.dark-mode .bill-form-save:disabled,
+body.dark-mode .bill-form-save:disabled,
+.dark-mode .bill-form-save:disabled,
+html.dark-mode .bill-form-cancel:disabled,
+body.dark-mode .bill-form-cancel:disabled,
+.dark-mode .bill-form-cancel:disabled {
+  opacity: 0.5 !important;
+}
+
+/* =========================================================
+   SVG / ICON SAFETY
+   ========================================================= */
+
+html.dark-mode .admin-bills-page svg,
+body.dark-mode .admin-bills-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .admin-bills-page,
+  body.dark-mode .admin-bills-page {
+    background: #0f1b22 !important;
+  }
+
+  html.dark-mode .bills-search,
+  body.dark-mode .bills-search {
+    background: #142730 !important;
+  }
+
+  html.dark-mode .bill-stat-card,
+  body.dark-mode .bill-stat-card {
+    background: #14232b !important;
+  }
+}
+
+@media (max-width: 520px) {
+  html.dark-mode .bill-modal,
+  body.dark-mode .bill-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .bill-form-group input,
+  body.dark-mode .bill-form-group input,
+  html.dark-mode .bill-form-group select,
+  body.dark-mode .bill-form-group select,
+  html.dark-mode .bill-form-group textarea,
+  body.dark-mode .bill-form-group textarea {
+    background: #102027 !important;
+  }
+}
