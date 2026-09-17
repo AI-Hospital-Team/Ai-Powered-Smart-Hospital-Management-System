@@ -32,7 +32,6 @@ import AdminAppointments from "./pages/Admin/Appointments/Appointments";
 import AdminMedicalRecords from "./pages/Admin/MedicalRecords/MedicalRecords";
 import AdminPrescriptions from "./pages/Admin/Prescriptions/Prescriptions";
 import AdminBills from "./pages/Admin/Bills/Bills";
-import AdminLogs from "./pages/Admin/Logs/Logs";
 
 /* =========================================================
    DOCTOR PAGES
@@ -160,6 +159,7 @@ function App() {
             path="logs"
             element={<AdminLogs />}
           />
+
         </Route>
 
         {/* =================================================
