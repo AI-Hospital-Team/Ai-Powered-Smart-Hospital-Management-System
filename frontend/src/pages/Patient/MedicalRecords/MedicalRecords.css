@@ -497,3 +497,213 @@
     width: 100%;
   }
 }
+/* =========================================================
+   MEDICAL RECORDS - DARK MODE
+   Paste at the VERY END of MedicalRecords.css
+========================================================= */
+
+html.dark-mode .medical-records-page,
+body.dark-mode .medical-records-page {
+  background: #0f1b24 !important;
+  color: #e8f1f4 !important;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+html.dark-mode .medical-records-header h1,
+body.dark-mode .medical-records-header h1 {
+  color: #f4fafb !important;
+}
+
+html.dark-mode .medical-records-header p,
+body.dark-mode .medical-records-header p {
+  color: #91aab3 !important;
+}
+
+/* =========================================================
+   RECORD CARD
+========================================================= */
+
+html.dark-mode .record-card,
+body.dark-mode .record-card {
+  background: #101c24 !important;
+  border-color: #29434e !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark-mode .record-card:hover,
+body.dark-mode .record-card:hover {
+  background: #13232c !important;
+  border-color: #37606b !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* =========================================================
+   RECORD HEADER
+========================================================= */
+
+html.dark-mode .record-card-header,
+body.dark-mode .record-card-header {
+  border-color: #29434e !important;
+}
+
+html.dark-mode .record-icon,
+body.dark-mode .record-icon {
+  background: #12343b !important;
+  color: #48cbd4 !important;
+  box-shadow: inset 0 0 0 1px #1c4a53 !important;
+}
+
+html.dark-mode .record-title h2,
+body.dark-mode .record-title h2 {
+  color: #f3f9fa !important;
+}
+
+html.dark-mode .record-title p,
+body.dark-mode .record-title p {
+  color: #91aab3 !important;
+}
+
+html.dark-mode .record-id,
+body.dark-mode .record-id {
+  background: #14252e !important;
+  color: #a9bdc7 !important;
+}
+
+/* =========================================================
+   RECORD DETAILS GRID
+========================================================= */
+
+html.dark-mode .record-detail-icon,
+body.dark-mode .record-detail-icon {
+  background: #12343b !important;
+  color: #48cbd4 !important;
+}
+
+html.dark-mode .record-detail-item small,
+body.dark-mode .record-detail-item small {
+  color: #8fa7b0 !important;
+}
+
+html.dark-mode .record-detail-item strong,
+body.dark-mode .record-detail-item strong {
+  color: #eaf4f6 !important;
+}
+
+/* =========================================================
+   RECORD SECTIONS (Diagnosis, Symptoms, Treatment, Notes)
+========================================================= */
+
+html.dark-mode .record-section,
+body.dark-mode .record-section {
+  background: #14252e !important;
+  border-color: #29434e !important;
+}
+
+html.dark-mode .record-section:hover,
+body.dark-mode .record-section:hover {
+  background: #182b35 !important;
+  border-color: #37606b !important;
+}
+
+html.dark-mode .record-section h3,
+body.dark-mode .record-section h3 {
+  color: #f2f8f9 !important;
+}
+
+html.dark-mode .record-section p,
+body.dark-mode .record-section p {
+  color: #91aab3 !important;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .records-message,
+body.dark-mode .records-message {
+  background: #101c24 !important;
+  border-color: #29434e !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark-mode .records-loader,
+body.dark-mode .records-loader {
+  border-color: #24404a !important;
+  border-top-color: #20aebe !important;
+}
+
+html.dark-mode .records-message p,
+body.dark-mode .records-message p {
+  color: #91aab3 !important;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+html.dark-mode .records-error,
+body.dark-mode .records-error {
+  background: #2a1618 !important;
+  border-color: #5c2a2e !important;
+  color: #ff9c9c !important;
+}
+
+html.dark-mode .error-icon,
+body.dark-mode .error-icon {
+  background: #3b2025 !important;
+  color: #ff858d !important;
+}
+
+html.dark-mode .records-error button,
+body.dark-mode .records-error button {
+  background: #d43f3f !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .records-error button:hover,
+body.dark-mode .records-error button:hover {
+  background: #bd3030 !important;
+}
+
+/* =========================================================
+   NO RECORDS
+========================================================= */
+
+html.dark-mode .no-records,
+body.dark-mode .no-records {
+  background: #101c24 !important;
+  border-color: #29434e !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark-mode .no-records-icon,
+body.dark-mode .no-records-icon {
+  background: #12343b !important;
+  color: #48cbd4 !important;
+}
+
+html.dark-mode .no-records h2,
+body.dark-mode .no-records h2 {
+  color: #f4fafb !important;
+}
+
+html.dark-mode .no-records p,
+body.dark-mode .no-records p {
+  color: #91aab3 !important;
+}
+
+/* =========================================================
+   SMOOTH TRANSITION
+========================================================= */
+
+html.dark-mode .medical-records-page *,
+body.dark-mode .medical-records-page * {
+  transition:
+    background-color 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
