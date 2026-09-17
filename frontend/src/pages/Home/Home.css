@@ -17201,3 +17201,162 @@ html.dark-mode .home-page .home-stat-card > span,
     border-bottom-color: #1c4655 !important;
   }
 }
+/* =========================================================
+   DARK MODE — SECTION LABEL PILLS
+   (OUR SERVICES / MODERN HEALTHCARE / OUR DEPARTMENTS /
+    OUR DOCTORS / DOCTOR AVAILABILITY)
+========================================================= */
+
+html.dark-mode .home-page .services-section .section-heading > p,
+html.dark-mode .home-page .healthcare-gallery .section-heading > p,
+html.dark-mode .home-page .departments-section .section-heading p,
+html.dark-mode .home-page .doctors-section .section-heading p,
+html.dark-mode .home-page .shift-availability-section .section-heading p {
+  background: rgba(70, 205, 215, 0.08) !important;
+  border: 1px solid rgba(70, 205, 215, 0.25) !important;
+  color: #78dbe1 !important;
+  box-shadow: none !important;
+}
+
+/* decorative lines beside the "Services" / "Healthcare" pill labels */
+html.dark-mode .home-page .services-section .section-heading > p::before,
+html.dark-mode .home-page .healthcare-gallery .section-heading > p::before {
+  background: linear-gradient(90deg, transparent, #3fb8c4);
+}
+
+html.dark-mode .home-page .services-section .section-heading > p::after,
+html.dark-mode .home-page .healthcare-gallery .section-heading > p::after {
+  background: linear-gradient(90deg, #3fb8c4, transparent);
+}
+/* =========================================================
+   DARK MODE — HERO "SMART CARE" CARD
+========================================================= */
+
+html.dark-mode .hero-card.compact-hero-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16, 38, 48, .97),
+      rgba(10, 30, 38, .95)
+    ) !important;
+
+  border-color: rgba(70, 205, 215, .18) !important;
+
+  box-shadow:
+    0 35px 85px rgba(0, 0, 0, .45),
+    0 10px 30px rgba(0, 0, 0, .30) !important;
+}
+
+html.dark-mode .hero-card-texture {
+  background:
+    radial-gradient(
+      circle,
+      rgba(70, 205, 215, .18),
+      transparent 70%
+    ) !important;
+}
+
+/* Brand row */
+html.dark-mode .hero-card-logo {
+  background: #0d2530 !important;
+  border-color: rgba(70, 205, 215, .25) !important;
+}
+
+html.dark-mode .hero-card-label {
+  color: #62d8df !important;
+}
+
+html.dark-mode .hero-card-heading h2 {
+  color: #eaf6f8 !important;
+}
+
+html.dark-mode .hero-card-heading p {
+  color: #8fadb6 !important;
+}
+
+/* "Your Healthcare Platform" message box */
+html.dark-mode .hero-card-message {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(16, 42, 52, .9),
+      rgba(12, 34, 43, .8)
+    ) !important;
+
+  border-color: rgba(70, 205, 215, .20) !important;
+
+  box-shadow: inset 0 1px rgba(255, 255, 255, .04) !important;
+}
+
+html.dark-mode .hero-card-message-icon {
+  background: #123641 !important;
+  color: #6ee0e5 !important;
+  box-shadow: none !important;
+}
+
+html.dark-mode .hero-card-message-content strong {
+  color: #eaf6f8 !important;
+}
+
+html.dark-mode .hero-card-message-content p {
+  color: #8fadb6 !important;
+}
+
+/* AI Hospital Management System / AI Healthcare Assistant buttons */
+html.dark-mode .hero-assistant-card {
+  background: rgba(16, 42, 52, .7) !important;
+  border-color: rgba(70, 205, 215, .16) !important;
+  color: #eaf6f8 !important;
+}
+
+html.dark-mode .hero-assistant-card:hover {
+  background: #123641 !important;
+  box-shadow: 0 13px 30px rgba(0, 0, 0, .30) !important;
+}
+
+html.dark-mode .assistant-icon {
+  background:
+    linear-gradient(
+      145deg,
+      #123b49,
+      #0d2c37
+    ) !important;
+
+  color: #6ee0e5 !important;
+  border-color: rgba(70, 205, 215, .22) !important;
+}
+
+html.dark-mode .assistant-content strong {
+  color: #eaf6f8 !important;
+}
+
+html.dark-mode .assistant-arrow {
+  background: #123641 !important;
+  color: #6ee0e5 !important;
+}
+
+html.dark-mode .hero-assistant-card:hover .assistant-arrow {
+  background: #174451 !important;
+}
+
+/* Footer row — "2 Smart Healthcare Tools / One connected..." */
+html.dark-mode .hero-card-footer {
+  border-top-color: rgba(70, 205, 215, .16) !important;
+}
+
+html.dark-mode .footer-status {
+  color: #62d8df !important;
+}
+
+html.dark-mode .footer-status .status-dot {
+  background: #17c496 !important;
+  box-shadow: 0 0 0 5px rgba(23, 196, 150, .12) !important;
+}
+
+html.dark-mode .footer-separator {
+  background: rgba(70, 205, 215, .16) !important;
+}
+
+html.dark-mode .footer-text {
+  color: #8fadb6 !important;
+}
