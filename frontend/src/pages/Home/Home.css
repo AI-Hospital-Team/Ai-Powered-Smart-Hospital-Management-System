@@ -17151,3 +17151,53 @@ html.dark-mode .hospital-login button {
     box-shadow 0.25s ease,
     transform 0.25s ease;
 }
+/* =========================================================
+   DARK MODE — HOME STATISTICS (FINAL PATCH)
+   Paste at the VERY END of Home.css
+========================================================= */
+
+html.dark-mode .home-page .home-stats-section,
+.dark-mode .home-page .home-stats-section {
+  background: #071c27 !important;
+  border-bottom-color: #1c4655 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .home-page .home-stat-card,
+.dark-mode .home-page .home-stat-card {
+  background: #071c27 !important;
+  border-right-color: #1c4655 !important;
+}
+
+html.dark-mode .home-page .home-stat-icon,
+.dark-mode .home-page .home-stat-icon {
+  background: #123b49 !important;
+  color: #6ee0e5 !important;
+}
+
+html.dark-mode .home-page .home-stat-card strong,
+.dark-mode .home-page .home-stat-card strong {
+  color: #6ee0e5 !important;
+}
+
+html.dark-mode .home-page .home-stat-card > span,
+.dark-mode .home-page .home-stat-card > span {
+  color: #91adb7 !important;
+}
+
+/* Tablet dark-mode borders */
+@media (max-width: 900px) {
+  html.dark-mode .home-page .home-stat-card,
+  .dark-mode .home-page .home-stat-card {
+    border-right-color: #1c4655 !important;
+    border-bottom-color: #1c4655 !important;
+  }
+}
+
+/* Mobile dark-mode borders */
+@media (max-width: 480px) {
+  html.dark-mode .home-page .home-stat-card,
+  .dark-mode .home-page .home-stat-card {
+    border-bottom-color: #1c4655 !important;
+  }
+}
