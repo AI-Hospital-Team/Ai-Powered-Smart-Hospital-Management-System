@@ -1,7 +1,6 @@
 import About from "./pages/About/About";
 import Project from "./pages/Project/Project";
 import Home from "./pages/Home/Home";
-import AdminLogs from "./pages/Admin/Logs/Logs";
 import AIHealthAssistant from "./pages/AIHealthAssistant/AIHealthAssistant";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -157,16 +156,6 @@ function App() {
           <Route
             path="bills"
             element={<AdminBills />}
-          />
-
-          {/* =================================================
-              ADMIN LOGS
-              Doctor Approval / Rejection History
-          ================================================= */}
-
-          <Route
-            path="logs"
-            element={<AdminLogs />}
           />
 
         </Route>
