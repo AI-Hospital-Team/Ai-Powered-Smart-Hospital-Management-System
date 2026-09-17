@@ -1,222 +1,38 @@
 /* =========================================================
-   GLOBAL DARK MODE
-========================================================= */
-
-html.dark-mode,
-body.dark-mode {
-  background: #0f1b24;
-  color: #e8f1f4;
-}
-
-
-/* =========================================================
-   PAGE BACKGROUND
-========================================================= */
-
-.dark-mode .home-page,
-.dark-mode .dashboard-layout,
-.dark-mode .dashboard-main,
-.dark-mode .patient-dashboard,
-.dark-mode .admin-page,
-.dark-mode .doctor-page {
-  background: #0f1b24;
-  color: #e8f1f4;
-}
-
-
-/* =========================================================
-   COMMON TEXT
-========================================================= */
-
-.dark-mode h1,
-.dark-mode h2,
-.dark-mode h3,
-.dark-mode h4,
-.dark-mode h5,
-.dark-mode h6 {
-  color: #f1f7f8;
-}
-
-.dark-mode p,
-.dark-mode span,
-.dark-mode small,
-.dark-mode label {
-  color: #a9bdc5;
-}
-
-
-/* =========================================================
-   COMMON CARDS
-========================================================= */
-
-.dark-mode .card,
-.dark-mode .dashboard-card,
-.dark-mode .dashboard-section,
-.dark-mode .patient-info-section,
-.dark-mode .admin-table-card,
-.dark-mode .bills-card,
-.dark-mode .appointment-card,
-.dark-mode .medical-record-card,
-.dark-mode .prescription-card {
-  background: #142630;
-  border-color: #29404a;
-}
-
-
-/* =========================================================
-   INPUTS
-========================================================= */
-
-.dark-mode input,
-.dark-mode textarea,
-.dark-mode select {
-  background: #132630;
-  color: #edf6f8;
-  border-color: #304a55;
-}
-
-.dark-mode input::placeholder,
-.dark-mode textarea::placeholder {
-  color: #718992;
-}
-
-.dark-mode input:focus,
-.dark-mode textarea:focus,
-.dark-mode select:focus {
-  border-color: #4ccbd4;
-  outline: none;
-}
-
-
-/* =========================================================
-   TABLES
-========================================================= */
-
-.dark-mode table {
-  color: #e8f1f4;
-}
-
-.dark-mode th {
-  background: #18313c;
-  color: #dcebef;
-}
-
-.dark-mode td {
-  border-color: #29404a;
-  color: #b9cbd1;
-}
-
-.dark-mode tr:hover {
-  background: #18323d;
-}
-
-
-/* =========================================================
-   COMMON BUTTONS
-========================================================= */
-
-.dark-mode button {
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-
-/* =========================================================
-   LINKS
-========================================================= */
-
-.dark-mode a {
-  color: #6ed5dc;
-}
-
-.dark-mode a:hover {
-  color: #91e4e9;
-}
-
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-.dark-mode .confirm-modal {
-  background: #142630;
-  color: #e8f1f4;
-}
-
-.dark-mode .confirm-modal-content h2 {
-  color: #f1f7f8;
-}
-
-.dark-mode .confirm-modal-message {
-  color: #a9bdc5;
-}
-
-.dark-mode .confirm-modal-warning {
-  color: #d5e4e8;
-}
-
-.dark-mode .confirm-modal-cancel {
-  background: #172d38;
-  color: #d8e7eb;
-  border-color: #304a55;
-}
-
-.dark-mode .confirm-modal-cancel:hover {
-  background: #203b47;
-}
-
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
-
-.dark-mode ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.dark-mode ::-webkit-scrollbar-track {
-  background: #0f1b24;
-}
-
-.dark-mode ::-webkit-scrollbar-thumb {
-  background: #34515d;
-  border-radius: 8px;
-}
-
-.dark-mode ::-webkit-scrollbar-thumb:hover {
-  background: #47707b;
-}
-
-
-/* =========================================================
-   SMOOTH THEME TRANSITION
+   GLOBAL THEME
 ========================================================= */
 
 html,
 body,
-.home-page,
-.dashboard-layout,
-.dashboard-main,
-.patient-dashboard {
+#root {
   transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-/* =========================================================
-   GLOBAL DARK MODE
-   Only controls shared application surfaces.
-   Individual pages keep their own visual design.
-========================================================= */
-
 html.dark-mode,
-html.dark-mode body {
+html.dark-mode body,
+html.dark-mode #root,
+body.dark-mode {
   background: #0f1720;
   color: #e6eef2;
 }
+
+
+/* =========================================================
+   PAGE BACKGROUNDS
+========================================================= */
+
+html.dark-mode .home-page,
+html.dark-mode .dashboard-layout,
+html.dark-mode .dashboard-main,
+html.dark-mode .patient-dashboard,
+html.dark-mode .admin-page,
+html.dark-mode .doctor-page {
+  background: #0f1720;
+  color: #e6eef2;
+}
+
 
 /* =========================================================
    SHARED DASHBOARD SURFACES
@@ -237,31 +53,63 @@ html.dark-mode .dashboard-sidebar {
   border-color: #29404b !important;
 }
 
+
 /* =========================================================
    DASHBOARD CARDS
 ========================================================= */
 
+html.dark-mode .card,
 html.dark-mode .dashboard-card,
 html.dark-mode .dashboard-section,
-html.dark-mode .patient-info-section {
+html.dark-mode .patient-info-section,
+html.dark-mode .admin-table-card,
+html.dark-mode .bills-card,
+html.dark-mode .appointment-card,
+html.dark-mode .medical-record-card,
+html.dark-mode .prescription-card {
   background: #152831 !important;
+  color: #e6eef2;
   border-color: #29404b !important;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+
 /* =========================================================
-   DASHBOARD TEXT ONLY
-   IMPORTANT: don't globally change every <p>/<span>.
+   CARD HEADINGS
+========================================================= */
+
+html.dark-mode .dashboard-card h1,
+html.dark-mode .dashboard-card h2,
+html.dark-mode .dashboard-card h3,
+html.dark-mode .dashboard-card h4,
+html.dark-mode .dashboard-section h1,
+html.dark-mode .dashboard-section h2,
+html.dark-mode .dashboard-section h3,
+html.dark-mode .dashboard-section h4,
+html.dark-mode .patient-info-section h1,
+html.dark-mode .patient-info-section h2,
+html.dark-mode .patient-info-section h3,
+html.dark-mode .admin-table-card h1,
+html.dark-mode .admin-table-card h2,
+html.dark-mode .admin-table-card h3,
+html.dark-mode .bills-card h1,
+html.dark-mode .bills-card h2,
+html.dark-mode .bills-card h3 {
+  color: #f2f7f9 !important;
+}
+
+
+/* =========================================================
+   DASHBOARD TEXT
 ========================================================= */
 
 html.dark-mode .dashboard-header h1,
 html.dark-mode .dashboard-header h2,
-html.dark-mode .dashboard-header h3,
-html.dark-mode .dashboard-card h1,
-html.dark-mode .dashboard-card h2,
-html.dark-mode .dashboard-card h3,
-html.dark-mode .dashboard-section h1,
-html.dark-mode .dashboard-section h2,
-html.dark-mode .dashboard-section h3 {
+html.dark-mode .dashboard-header h3 {
   color: #f2f7f9 !important;
 }
 
@@ -270,6 +118,7 @@ html.dark-mode .dashboard-card p,
 html.dark-mode .dashboard-section p {
   color: #a9bbc3 !important;
 }
+
 
 /* =========================================================
    SIDEBAR
@@ -281,15 +130,51 @@ html.dark-mode .sidebar-menu-item {
 
 html.dark-mode .sidebar-menu-item:hover {
   background: #19323d !important;
+  color: #ffffff !important;
 }
 
 html.dark-mode .sidebar-menu-item.active {
   color: #ffffff !important;
 }
 
+
+/* =========================================================
+   GLOBAL FORMS
+========================================================= */
+
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select {
+  background: #11242d !important;
+  color: #edf5f7 !important;
+  border-color: #304853 !important;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #718791 !important;
+}
+
+html.dark-mode input:focus,
+html.dark-mode textarea:focus,
+html.dark-mode select:focus {
+  border-color: #39c5cf !important;
+  outline: none;
+}
+
+
 /* =========================================================
    TABLES
 ========================================================= */
+
+html.dark-mode table {
+  background: #152831;
+  color: #e6eef2;
+}
 
 html.dark-mode .table-container {
   background: #152831 !important;
@@ -299,35 +184,49 @@ html.dark-mode .table-container thead {
   background: #19323d !important;
 }
 
-html.dark-mode .table-container th {
+html.dark-mode th {
+  background: #19323d !important;
   color: #e5f0f3 !important;
+  border-color: #29404b !important;
 }
 
-html.dark-mode .table-container td {
+html.dark-mode td {
   color: #b9c9cf !important;
   border-color: #29404b !important;
 }
 
+html.dark-mode tbody tr:hover,
 html.dark-mode .table-container tbody tr:hover {
   background: #19323d !important;
 }
 
+
 /* =========================================================
-   FORMS
+   LINKS
 ========================================================= */
 
-html.dark-mode input,
-html.dark-mode textarea,
-html.dark-mode select {
-  background: #11242d !important;
-  color: #edf5f7 !important;
-  border-color: #304853 !important;
+html.dark-mode a {
+  color: #67d2d8;
 }
 
-html.dark-mode input::placeholder,
-html.dark-mode textarea::placeholder {
-  color: #718791 !important;
+html.dark-mode a:hover {
+  color: #91e4e9;
 }
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+html.dark-mode button {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
 
 /* =========================================================
    MODALS
@@ -337,6 +236,7 @@ html.dark-mode .confirm-modal,
 html.dark-mode .modal-content {
   background: #152831 !important;
   color: #e6eef2 !important;
+  border-color: #29404b !important;
 }
 
 html.dark-mode .confirm-modal-content h2,
@@ -348,58 +248,20 @@ html.dark-mode .confirm-modal-message {
   color: #a9bbc3 !important;
 }
 
-/* =========================================================
-   HOME PAGE
-   Preserve the existing Home design instead of applying
-   generic text colors to it.
-========================================================= */
-
-html.dark-mode .home-page {
-  background: #0f1720;
+html.dark-mode .confirm-modal-warning {
+  color: #d5e4e8 !important;
 }
 
-/* Header */
-html.dark-mode .home-page .main-header {
-  background: rgba(15, 35, 45, 0.96) !important;
-  border-color: rgba(103, 210, 216, 0.18) !important;
+html.dark-mode .confirm-modal-cancel {
+  background: #172d38 !important;
+  color: #d8e7eb !important;
+  border-color: #304a55 !important;
 }
 
-/* Keep Home navigation readable */
-html.dark-mode .home-page .main-header a,
-html.dark-mode .home-page .main-header button {
-  color: #d9eef1;
+html.dark-mode .confirm-modal-cancel:hover {
+  background: #203b47 !important;
 }
 
-html.dark-mode .home-page .main-header a:hover {
-  color: #67d2d8;
-}
-
-/* Announcement */
-html.dark-mode .home-page .announcement {
-  background: #142c36 !important;
-  color: #b9cdd2;
-}
-
-/* Home hero keeps its existing dark visual */
-html.dark-mode .home-page .hero-section {
-  color: #ffffff;
-}
-
-/* Hero card */
-html.dark-mode .home-page .hero-card {
-  background: #152831 !important;
-  border-color: #29404b !important;
-}
-
-html.dark-mode .home-page .hero-card h1,
-html.dark-mode .home-page .hero-card h2,
-html.dark-mode .home-page .hero-card h3 {
-  color: #f2f7f9 !important;
-}
-
-html.dark-mode .home-page .hero-card p {
-  color: #a9bbc3 !important;
-}
 
 /* =========================================================
    SCROLLBAR
@@ -419,113 +281,241 @@ html.dark-mode ::-webkit-scrollbar-thumb {
   border-radius: 8px;
 }
 
+html.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #47707b;
+}
+
+
 /* =========================================================
-   HOME HEADER — DARK MODE
+   HOME PAGE
+   Existing Home visual design is preserved.
+========================================================= */
+
+html.dark-mode .home-page {
+  background: #0f1720 !important;
+}
+
+
+/* =========================================================
+   HOME HEADER
+========================================================= */
+
+html.dark-mode .home-page .main-header {
+  background: rgba(15, 35, 45, 0.96) !important;
+  border-color: rgba(103, 210, 216, 0.18) !important;
+}
+
+html.dark-mode .home-page .main-header a,
+html.dark-mode .home-page .main-header button {
+  color: #d9eef1;
+}
+
+html.dark-mode .home-page .main-header a:hover {
+  color: #67d2d8;
+}
+
+
+/* =========================================================
+   HOME BRAND
 ========================================================= */
 
 html.dark-mode .home-page .logo-text,
 html.dark-mode .home-page .brand-name,
-html.dark-mode .home-page .hospital-name {
+html.dark-mode .home-page .hospital-name,
+html.dark-mode .home-page .brand-text h2 {
   color: #f2f7f9 !important;
 }
 
 html.dark-mode .home-page .logo-subtitle,
-html.dark-mode .home-page .brand-subtitle {
+html.dark-mode .home-page .brand-subtitle,
+html.dark-mode .home-page .brand-text span {
   color: #9fb5bd !important;
 }
 
-/* Login button */
-html.dark-mode .home-page .login-button {
-  background: #e6f0f2 !important;
-  color: #12303b !important;
+
+/* =========================================================
+   HOME NAVIGATION
+========================================================= */
+
+html.dark-mode .home-page .nav-link {
+  color: #d9eef1 !important;
 }
 
-/* Theme button */
-html.dark-mode .home-page .theme-toggle {
-  background: #e6f0f2 !important;
+html.dark-mode .home-page .nav-link:hover {
+  color: #67d2d8 !important;
 }
 
-/* Register keeps the hospital accent */
-html.dark-mode .home-page .register-button {
+
+/* =========================================================
+   HOME LOGIN BUTTON
+========================================================= */
+
+html.dark-mode .home-page .login-btn {
+  background: #172c36 !important;
+  color: #e8f5f7 !important;
+  border: 1px solid #31505b !important;
+}
+
+html.dark-mode .home-page .login-btn:hover {
+  background: #1d3944 !important;
   color: #ffffff !important;
+  border-color: #39c5cf !important;
+  box-shadow: 0 6px 18px rgba(40, 200, 210, 0.15);
 }
 
-/* HOME HEADER — DARK MODE */
 
-html.dark-mode .brand-text h2 {
+/* =========================================================
+   HOME REGISTER BUTTON
+========================================================= */
+
+html.dark-mode .home-page .register-btn {
+  background: #078ba0 !important;
+  color: #ffffff !important;
+  border: 1px solid #078ba0 !important;
+}
+
+html.dark-mode .home-page .register-btn:hover {
+  background: #09a1b5 !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 8px 25px rgba(0, 190, 205, 0.28),
+    0 0 18px rgba(0, 190, 205, 0.18);
+}
+
+
+/* =========================================================
+   HOME THEME TOGGLE
+========================================================= */
+
+html.dark-mode .home-page .theme-toggle {
+  background: #172c36 !important;
+  color: #f1f7f8 !important;
+  border: 1px solid #31505b !important;
+}
+
+html.dark-mode .home-page .theme-toggle:hover {
+  background: #1d3944 !important;
+  color: #ffffff !important;
+  border-color: #39c5cf !important;
+  box-shadow:
+    0 0 14px rgba(40, 200, 210, 0.15);
+}
+
+
+/* =========================================================
+   HOME ANNOUNCEMENT
+========================================================= */
+
+html.dark-mode .home-page .announcement {
+  background: #142c36 !important;
+  color: #b9cdd2 !important;
+}
+
+
+/* =========================================================
+   HOME HERO
+========================================================= */
+
+html.dark-mode .home-page .hero-section {
+  color: #ffffff;
+}
+
+html.dark-mode .home-page .hero-card {
+  background: #122630 !important;
+  border: 1px solid #294650 !important;
   color: #f1f7f8 !important;
 }
 
-html.dark-mode .brand-text span {
+html.dark-mode .home-page .hero-card h1,
+html.dark-mode .home-page .hero-card h2,
+html.dark-mode .home-page .hero-card h3,
+html.dark-mode .home-page .hero-card strong {
+  color: #f1f7f8 !important;
+}
+
+html.dark-mode .home-page .hero-card p,
+html.dark-mode .home-page .hero-card span {
+  color: #a9bdc5 !important;
+}
+
+
+/* =========================================================
+   HERO BUTTON
+========================================================= */
+
+html.dark-mode .home-page .hero-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+html.dark-mode .home-page .hero-btn.primary:hover {
+  box-shadow:
+    0 10px 28px rgba(0, 195, 210, 0.3),
+    0 0 20px rgba(0, 195, 210, 0.18);
+}
+
+
+/* =========================================================
+   MEDICAL IMAGE
+========================================================= */
+
+html.dark-mode .home-page .hero-medical-image {
+  background: #18343f !important;
+  border-color: #31515b !important;
+}
+
+html.dark-mode .home-page .hero-medical-image strong {
+  color: #eaf5f7 !important;
+}
+
+html.dark-mode .home-page .hero-medical-image small {
   color: #9fb5bd !important;
 }
 
-html.dark-mode .login-btn {
-  background: #e8f2f4 !important;
-  color: #123b52 !important;
-}
-
-html.dark-mode .login-btn:hover {
-  background: #ffffff !important;
-  color: #087f8c !important;
-}
-
-html.dark-mode .register-btn {
-  background: #078ba0 !important;
-  color: #ffffff !important;
-}
-
-html.dark-mode .theme-toggle {
-  background: #e8f2f4 !important;
-  color: #123b52 !important;
-}
 
 /* =========================================================
-   HOME — PREMIUM ANIMATIONS & HOVER EFFECTS
+   HERO STATS
 ========================================================= */
 
-/* ---------- Smooth page elements ---------- */
-
-.home-page .main-header,
-.home-page .announcement,
-.home-page .hero-card,
-.home-page .hero-content,
-.home-page .hero-actions,
-.home-page .hero-stats {
-  animation: homeFadeUp 0.7s ease both;
+html.dark-mode .home-page .hero-stats > div {
+  background: #172f39 !important;
+  border-color: #31505b !important;
 }
 
-.home-page .hero-content {
-  animation-delay: 0.1s;
+html.dark-mode .home-page .hero-stats > div strong {
+  color: #43c9d2 !important;
 }
 
-.home-page .hero-card {
-  animation-delay: 0.25s;
-}
-
-.home-page .hero-actions {
-  animation-delay: 0.4s;
-}
-
-.home-page .hero-stats {
-  animation-delay: 0.5s;
-}
-
-@keyframes homeFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+html.dark-mode .home-page .hero-stats > div span,
+html.dark-mode .home-page .hero-stats > div small {
+  color: #9fb5bd !important;
 }
 
 
 /* =========================================================
-   HEADER HOVER
+   HOME BOTTOM STATISTICS
+========================================================= */
+
+html.dark-mode .home-page .stats-section {
+  background: #101f27;
+}
+
+html.dark-mode .home-page .stats-section > div {
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+html.dark-mode .home-page .stats-section > div:hover {
+  background: #172d37;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   HOME NAV UNDERLINE
 ========================================================= */
 
 .home-page .nav-link {
@@ -558,7 +548,7 @@ html.dark-mode .theme-toggle {
 
 
 /* =========================================================
-   BUTTON HOVER + SHINE
+   HOME BUTTON ANIMATIONS
 ========================================================= */
 
 .home-page .login-btn,
@@ -581,7 +571,9 @@ html.dark-mode .theme-toggle {
 }
 
 
-/* Shine sweep */
+/* =========================================================
+   BUTTON SHINE
+========================================================= */
 
 .home-page .login-btn::before,
 .home-page .register-btn::before,
@@ -609,44 +601,16 @@ html.dark-mode .theme-toggle {
 }
 
 
-/* Register glow */
-
-html.dark-mode .home-page .register-btn:hover {
-  box-shadow:
-    0 8px 25px rgba(0, 190, 205, 0.28),
-    0 0 18px rgba(0, 190, 205, 0.18);
-}
-
-
-/* Main appointment button */
-
-html.dark-mode .home-page .hero-btn.primary:hover {
-  box-shadow:
-    0 10px 28px rgba(0, 195, 210, 0.3),
-    0 0 20px rgba(0, 195, 210, 0.18);
-}
-
-
 /* =========================================================
-   HERO CARD
-========================================================= */
-
-.home-page .hero-card {
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
-}
-
-
-
-
-/* =========================================================
-   HERO CARD SHINE
+   HERO CARD EFFECT
 ========================================================= */
 
 .home-page .hero-card {
   position: relative;
   overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .home-page .hero-card::after {
@@ -673,7 +637,7 @@ html.dark-mode .home-page .hero-btn.primary:hover {
 
 
 /* =========================================================
-   MEDICAL IMAGE / DOCTOR AREA
+   MEDICAL IMAGE HOVER
 ========================================================= */
 
 .home-page .hero-medical-image {
@@ -688,7 +652,7 @@ html.dark-mode .home-page .hero-btn.primary:hover {
 
 
 /* =========================================================
-   STAT CARDS
+   HERO STAT HOVER
 ========================================================= */
 
 .home-page .hero-stats > div {
@@ -705,29 +669,7 @@ html.dark-mode .home-page .hero-btn.primary:hover {
 
 
 /* =========================================================
-   BOTTOM STATISTICS
-========================================================= */
-
-html.dark-mode .home-page .stats-section {
-  background: #101f27;
-}
-
-html.dark-mode .home-page .stats-section > div {
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-html.dark-mode .home-page .stats-section > div:hover {
-  background: #172d37;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-
-/* =========================================================
-   BRAND LOGO
+   BRAND HOVER
 ========================================================= */
 
 .home-page .brand {
@@ -753,17 +695,6 @@ html.dark-mode .home-page .stats-section > div:hover {
 
 
 /* =========================================================
-   THEME BUTTON
-========================================================= */
-
-.home-page .theme-toggle:hover {
-  box-shadow:
-    0 0 0 4px rgba(50, 200, 210, 0.1),
-    0 0 18px rgba(50, 200, 210, 0.25);
-}
-
-
-/* =========================================================
    ACCESSIBILITY
 ========================================================= */
 
@@ -776,92 +707,2972 @@ html.dark-mode .home-page .stats-section > div:hover {
   }
 }
 
-/* =========================================================
-   HOME HEADER CONTROLS — DARK MODE
-========================================================= */
-
-html.dark-mode .home-page .login-btn {
-  background: #172c36 !important;
-  color: #e8f5f7 !important;
-  border: 1px solid #31505b !important;
-}
-
-html.dark-mode .home-page .login-btn:hover {
-  background: #1d3944 !important;
-  color: #ffffff !important;
-  border-color: #39c5cf !important;
-  box-shadow: 0 6px 18px rgba(40, 200, 210, 0.15);
-}
-
-html.dark-mode .home-page .theme-toggle {
-  background: #172c36 !important;
-  color: #f1f7f8 !important;
-  border: 1px solid #31505b !important;
-}
-
-html.dark-mode .home-page .theme-toggle:hover {
-  background: #1d3944 !important;
-  color: #ffffff !important;
-  border-color: #39c5cf !important;
-  box-shadow: 0 0 14px rgba(40, 200, 210, 0.15);
-}
-
-html.dark-mode .home-page .register-btn {
-  background: #078ba0 !important;
-  color: #ffffff !important;
-  border: 1px solid #078ba0 !important;
-}
 
 /* =========================================================
-   SMART CARE CARD — DARK MODE
+   RESPONSIVE
 ========================================================= */
 
-html.dark-mode .home-page .hero-card {
-  background: #122630 !important;
-  border: 1px solid #294650 !important;
-  color: #f1f7f8 !important;
+@media (max-width: 900px) {
+  html.dark-mode .dashboard-card {
+    background: #152831 !important;
+  }
+}
+/* =========================================================
+   MASTER GLOBAL DARK MODE
+   AI SMART HOSPITAL MANAGEMENT SYSTEM
+========================================================= */
+
+
+/* =========================================================
+   ROOT COLORS
+========================================================= */
+
+html.dark-mode {
+  --dark-bg: #071923;
+  --dark-bg-2: #0a202b;
+  --dark-bg-3: #0d2b38;
+
+  --dark-card: #102f3b;
+  --dark-card-2: #123744;
+  --dark-card-hover: #164352;
+
+  --dark-border: #24515f;
+  --dark-border-light: #315f6c;
+
+  --dark-text: #eaf7f9;
+  --dark-heading: #f4fbfc;
+  --dark-muted: #91adb7;
+  --dark-muted-2: #76939d;
+
+  --dark-primary: #19c5d2;
+  --dark-primary-2: #0b91a2;
+
+  --dark-success: #39d39a;
+  --dark-danger: #ff7777;
+
+  --dark-input: #0d2935;
+
+  color-scheme: dark;
 }
 
-html.dark-mode .home-page .hero-card h2,
-html.dark-mode .home-page .hero-card h3,
-html.dark-mode .home-page .hero-card strong {
-  color: #f1f7f8 !important;
+
+/* =========================================================
+   HTML + BODY
+========================================================= */
+
+html.dark-mode,
+html.dark-mode body {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
 }
 
-html.dark-mode .home-page .hero-card p,
-html.dark-mode .home-page .hero-card span {
-  color: #a9bdc5 !important;
+html.dark-mode #root {
+  min-height: 100vh;
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
 }
 
-/* Medical information panel */
 
-html.dark-mode .home-page .hero-medical-image {
-  background: #18343f !important;
-  border-color: #31515b !important;
+/* =========================================================
+   GLOBAL TRANSITION
+========================================================= */
+
+html.dark-mode,
+html.dark-mode body,
+html.dark-mode #root,
+html.dark-mode main,
+html.dark-mode section,
+html.dark-mode header,
+html.dark-mode footer,
+html.dark-mode article,
+html.dark-mode aside,
+html.dark-mode nav,
+html.dark-mode .card,
+html.dark-mode button,
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-/* Doctor information */
 
-html.dark-mode .home-page .hero-medical-image strong {
-  color: #eaf5f7 !important;
+/* =========================================================
+   ALL MAIN APPLICATION PAGES
+========================================================= */
+
+html.dark-mode .home-page,
+html.dark-mode .login-page,
+html.dark-mode .about-page,
+html.dark-mode .project-page,
+html.dark-mode .admin-page,
+html.dark-mode .doctor-page,
+html.dark-mode .patient-page,
+html.dark-mode .patient-dashboard,
+html.dark-mode .dashboard-layout,
+html.dark-mode .dashboard-main {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
 }
 
-html.dark-mode .home-page .hero-medical-image small {
-  color: #9fb5bd !important;
+
+/* =========================================================
+   GENERIC SECTIONS
+========================================================= */
+
+html.dark-mode .home-page section,
+html.dark-mode .about-page section,
+html.dark-mode .project-page section,
+html.dark-mode .admin-page section,
+html.dark-mode .doctor-page section,
+html.dark-mode .patient-page section {
+  color: var(--dark-text);
 }
 
-/* 24/7 — 50+ — 10K+ boxes */
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode h5,
+html.dark-mode h6 {
+  color: var(--dark-heading);
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+html.dark-mode p {
+  color: var(--dark-muted);
+}
+
+html.dark-mode small {
+  color: var(--dark-muted);
+}
+
+html.dark-mode label {
+  color: #c6dce1;
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+html.dark-mode a {
+  color: #68dbe2;
+}
+
+html.dark-mode a:hover {
+  color: #9aebef;
+}
+
+
+/* =========================================================
+   HOME PAGE
+========================================================= */
+
+html.dark-mode .home-page {
+  background: var(--dark-bg) !important;
+}
+
+
+/* Hero */
+
+html.dark-mode .home-page .hero-section {
+  background-color: transparent !important;
+}
+
+
+/* Services */
+
+html.dark-mode .home-page .services-section {
+  background: var(--dark-bg) !important;
+}
+
+html.dark-mode .home-page .service-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .service-card:hover {
+  background: var(--dark-card-hover) !important;
+  border-color: var(--dark-primary) !important;
+}
+
+html.dark-mode .home-page .service-card h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .service-card p {
+  color: var(--dark-muted) !important;
+}
+
+
+/* Why section */
+
+html.dark-mode .home-page .why-section {
+  background: var(--dark-bg-2) !important;
+}
+
+html.dark-mode .home-page .why-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .why-card h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .why-card p {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   HOME — SECTION HEADINGS
+========================================================= */
+
+html.dark-mode .home-page .section-heading h2,
+html.dark-mode .home-page .section-title,
+html.dark-mode .home-page .section-heading strong {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .section-heading p,
+html.dark-mode .home-page .section-heading span {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   HOME — DASHBOARD / STATS
+========================================================= */
+
+html.dark-mode .home-page .trust-bar,
+html.dark-mode .home-page .stats-section {
+  background: var(--dark-bg-2) !important;
+}
+
+html.dark-mode .home-page .trust-bar > div,
+html.dark-mode .home-page .stats-section > div {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .trust-bar strong,
+html.dark-mode .home-page .stats-section strong {
+  color: var(--dark-primary) !important;
+}
+
+html.dark-mode .home-page .trust-bar span,
+html.dark-mode .home-page .stats-section span {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   HOME — ABOUT PLATFORM
+========================================================= */
+
+html.dark-mode .home-page .about-platform-card {
+  background:
+    linear-gradient(
+      145deg,
+      #123541,
+      #0b2632
+    ) !important;
+
+  border-color: var(--dark-border) !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .about-platform-card h3,
+html.dark-mode .home-page .about-platform-card h2 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .about-platform-card p {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .platform-stat {
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .platform-stat strong {
+  color: var(--dark-primary) !important;
+}
+
+html.dark-mode .home-page .platform-stat span {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   HOME — GALLERY FEATURES
+========================================================= */
+
+html.dark-mode .home-page .gallery-features > div {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .gallery-features strong {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .gallery-features small {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   HOME — MEDICAL CARE
+========================================================= */
+
+html.dark-mode .home-page .specialized-care-section {
+  background: var(--dark-bg) !important;
+}
+
+html.dark-mode .home-page .specialized-care-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .specialized-care-card h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .specialized-care-card p,
+html.dark-mode .home-page .specialized-care-card span {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   HOME — DOCTORS
+========================================================= */
+
+html.dark-mode .home-page .doctor-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .doctor-card h3,
+html.dark-mode .home-page .doctor-card h4 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .doctor-card p,
+html.dark-mode .home-page .doctor-card small {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .doctor-card button {
+  background: var(--dark-primary-2) !important;
+  color: white !important;
+}
+
+
+/* =========================================================
+   HOME — SHIFT AVAILABILITY
+========================================================= */
+
+html.dark-mode .home-page .shift-availability-section {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .shift-column {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .shift-column-header {
+  background: var(--dark-card-2) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .shift-column-header h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .shift-column-header span {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .shift-doctor-card {
+  background: #0d2935 !important;
+  border-color: #1f4b59 !important;
+}
+
+html.dark-mode .home-page .shift-doctor-card:hover {
+  background: #143b49 !important;
+}
+
+html.dark-mode .home-page .shift-doctor-info h4 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .shift-doctor-info p {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .shift-doctor-status {
+  background: #123c32 !important;
+  color: #5de0aa !important;
+  border-color: #27634f !important;
+}
+
+
+/* =========================================================
+   HOME — ABOUT AI SMART HOSPITAL
+========================================================= */
+
+html.dark-mode .home-page .about-section {
+  background: var(--dark-bg) !important;
+}
+
+html.dark-mode .home-page .about-content h2,
+html.dark-mode .home-page .about-information h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .about-content > p,
+html.dark-mode .home-page .about-text {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .about-points span {
+  color: var(--dark-primary) !important;
+}
+
+
+/* =========================================================
+   HOME — AI CHATBOT
+========================================================= */
+
+html.dark-mode .home-page .about-chat-area {
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .ai-chatbot {
+  background: #091d26 !important;
+  border-color: var(--dark-border) !important;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .home-page .ai-chat-header {
+  background: #0d8292 !important;
+  color: white !important;
+}
+
+html.dark-mode .home-page .ai-chat-body {
+  background: #0b222c !important;
+}
+
+html.dark-mode .home-page .message-sender {
+  color: #8daab3 !important;
+}
+
+html.dark-mode .home-page .message-content p {
+  background: #153642 !important;
+  color: #cfe3e7 !important;
+  border-color: #285361 !important;
+}
+
+html.dark-mode .home-page .message-ai-icon {
+  background: #164651 !important;
+  color: #73e3e8 !important;
+}
+
+html.dark-mode .home-page .chat-quick-section {
+  background: #0d2833 !important;
+  border-color: #264c59 !important;
+}
+
+html.dark-mode .home-page .chat-quick-section > span {
+  color: #8daab3 !important;
+}
+
+html.dark-mode .home-page .chat-quick-buttons button {
+  background: #123642 !important;
+  color: #6edce2 !important;
+  border-color: #285462 !important;
+}
+
+html.dark-mode .home-page .chat-quick-buttons button:hover {
+  background: #174551 !important;
+  border-color: var(--dark-primary) !important;
+}
+
+html.dark-mode .home-page .ai-chat-input-area {
+  background: #081c25 !important;
+  border-color: #264b58 !important;
+}
+
+html.dark-mode .home-page .ai-chat-input-area input {
+  background: #102f3a !important;
+  color: #e8f6f8 !important;
+  border-color: #315865 !important;
+}
+
+html.dark-mode .home-page .ai-chat-input-area input::placeholder {
+  color: #718d96 !important;
+}
+
+html.dark-mode .home-page .ai-chat-footer {
+  background: #07171e !important;
+  color: #718c95 !important;
+}
+
+
+/* =========================================================
+   HOME — AI HEALTHCARE / POWERED BY AI
+========================================================= */
+
+html.dark-mode .home-page .home-ai-section {
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(0, 190, 205, 0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(0, 120, 170, 0.10),
+      transparent 35%
+    ),
+    #061923 !important;
+
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .home-ai-content {
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .home-ai-label {
+  color: var(--dark-primary) !important;
+}
+
+html.dark-mode .home-page .home-ai-content h2 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .home-ai-content h2 span {
+  color: #4fd5dc !important;
+}
+
+html.dark-mode .home-page .home-ai-content p {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .home-ai-card {
+  background:
+    linear-gradient(
+      145deg,
+      #102f3b,
+      #0a232d
+    ) !important;
+
+  border-color: var(--dark-border) !important;
+  color: var(--dark-text) !important;
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .home-page .home-ai-card-content {
+  background: transparent !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .home-ai-card-content h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .home-ai-card-content p {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .home-ai-card-content strong {
+  color: var(--dark-primary) !important;
+}
+
+html.dark-mode .home-page .home-ai-image {
+  background:
+    radial-gradient(
+      circle,
+      rgba(40, 210, 220, 0.18),
+      transparent 60%
+    ),
+    #102f3b !important;
+}
+
+
+/* =========================================================
+   HOME — AYUSHMAN BHARAT
+========================================================= */
+
+html.dark-mode .home-page .ayushman-section {
+  background: #071e29 !important;
+}
+
+html.dark-mode .home-page .ayushman-content h2,
+html.dark-mode .home-page .ayushman-content h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .ayushman-content p {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .ayushman-visual-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+
+/* =========================================================
+   HOME — HOSPITAL INFO
+========================================================= */
+
+html.dark-mode .home-page .hospital-info-section {
+  background: #061923 !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .hospital-info-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .hospital-info-card h2,
+html.dark-mode .home-page .hospital-info-card h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .hospital-info-card p,
+html.dark-mode .home-page .hospital-info-card span {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   HOME — PATIENT SUPPORT
+========================================================= */
+
+html.dark-mode .home-page .support-section {
+  background: var(--dark-bg-2) !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page .support-heading h2 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .support-heading h2 span {
+  color: var(--dark-primary) !important;
+}
+
+html.dark-mode .home-page .support-heading p {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .home-page .support-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .home-page .support-card h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .support-card p {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   LOGIN / REGISTER
+========================================================= */
+
+html.dark-mode .login-container,
+html.dark-mode .login-card,
+html.dark-mode .register-card,
+html.dark-mode .register-container {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .login-card,
+html.dark-mode .register-card {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .login-card h1,
+html.dark-mode .login-card h2,
+html.dark-mode .register-card h1,
+html.dark-mode .register-card h2 {
+  color: var(--dark-heading) !important;
+}
+
+
+/* =========================================================
+   ALL FORMS
+========================================================= */
+
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select {
+  background: var(--dark-input) !important;
+  color: #edf8fa !important;
+  border-color: #315664 !important;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #708b95 !important;
+}
+
+html.dark-mode input:focus,
+html.dark-mode textarea:focus,
+html.dark-mode select:focus {
+  background: #123441 !important;
+  border-color: var(--dark-primary) !important;
+  outline: none !important;
+}
+
+
+/* =========================================================
+   DASHBOARD HEADER
+========================================================= */
+
+html.dark-mode .dashboard-header {
+  background: #0d2530 !important;
+  border-color: var(--dark-border) !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .dashboard-header h1,
+html.dark-mode .dashboard-header h2,
+html.dark-mode .dashboard-header h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .dashboard-header p {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   DASHBOARD SIDEBAR
+========================================================= */
+
+html.dark-mode .dashboard-sidebar {
+  background: #081b24 !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .sidebar-menu-item {
+  color: #a9c1c8 !important;
+}
+
+html.dark-mode .sidebar-menu-item:hover {
+  background: #123542 !important;
+  color: white !important;
+}
+
+html.dark-mode .sidebar-menu-item.active {
+  background: #0d6675 !important;
+  color: white !important;
+}
+
+
+/* =========================================================
+   DASHBOARD CARDS
+========================================================= */
+
+html.dark-mode .dashboard-card,
+html.dark-mode .dashboard-section,
+html.dark-mode .patient-info-section,
+html.dark-mode .admin-table-card,
+html.dark-mode .bills-card,
+html.dark-mode .appointment-card,
+html.dark-mode .medical-record-card,
+html.dark-mode .prescription-card,
+html.dark-mode .profile-card {
+  background: var(--dark-card) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .dashboard-card h1,
+html.dark-mode .dashboard-card h2,
+html.dark-mode .dashboard-card h3,
+html.dark-mode .dashboard-section h1,
+html.dark-mode .dashboard-section h2,
+html.dark-mode .dashboard-section h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .dashboard-card p,
+html.dark-mode .dashboard-section p {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+html.dark-mode table {
+  background: var(--dark-card) !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode thead,
+html.dark-mode th {
+  background: #153844 !important;
+  color: #e9f6f8 !important;
+}
+
+html.dark-mode td {
+  background: transparent !important;
+  color: #b9ced3 !important;
+  border-color: #294d59 !important;
+}
+
+html.dark-mode tbody tr:hover {
+  background: #143844 !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+html.dark-mode button {
+  color: inherit;
+}
+
+html.dark-mode .primary-btn,
+html.dark-mode .submit-btn,
+html.dark-mode .save-btn,
+html.dark-mode .add-btn {
+  background: var(--dark-primary-2) !important;
+  color: white !important;
+  border-color: var(--dark-primary-2) !important;
+}
+
+html.dark-mode .primary-btn:hover,
+html.dark-mode .submit-btn:hover,
+html.dark-mode .save-btn:hover,
+html.dark-mode .add-btn:hover {
+  background: #0aaabd !important;
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+html.dark-mode .modal,
+html.dark-mode .modal-content,
+html.dark-mode .confirm-modal,
+html.dark-mode .confirm-modal-content {
+  background: var(--dark-card) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .modal h1,
+html.dark-mode .modal h2,
+html.dark-mode .modal h3,
+html.dark-mode .confirm-modal h1,
+html.dark-mode .confirm-modal h2,
+html.dark-mode .confirm-modal h3 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .modal p,
+html.dark-mode .confirm-modal-message {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   DROPDOWNS
+========================================================= */
+
+html.dark-mode .login-menu,
+html.dark-mode .dropdown-menu,
+html.dark-mode .profile-menu {
+  background: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .login-menu button,
+html.dark-mode .dropdown-menu button {
+  background: transparent !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .login-menu button:hover,
+html.dark-mode .dropdown-menu button:hover {
+  background: var(--dark-card-hover) !important;
+}
+
+
+/* =========================================================
+   BADGES / STATUS
+========================================================= */
+
+html.dark-mode .status-badge,
+html.dark-mode .badge {
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .status-confirmed,
+html.dark-mode .status-completed,
+html.dark-mode .status-paid,
+html.dark-mode .available {
+  background: #123c32 !important;
+  color: #62dfac !important;
+}
+
+html.dark-mode .status-pending {
+  background: #443b20 !important;
+  color: #f2ca6a !important;
+}
+
+html.dark-mode .status-cancelled,
+html.dark-mode .status-rejected {
+  background: #422525 !important;
+  color: #ff9090 !important;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+html.dark-mode ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html.dark-mode ::-webkit-scrollbar-track {
+  background: #06151c;
+}
+
+html.dark-mode ::-webkit-scrollbar-thumb {
+  background: #28515e;
+  border-radius: 10px;
+}
+
+html.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #3b7180;
+}
+
+
+/* =========================================================
+   DARK MODE TOGGLE
+========================================================= */
+
+html.dark-mode .dark-mode-toggle {
+  background: #123441 !important;
+  color: #f2f7f8 !important;
+  border: 1px solid #315664 !important;
+}
+
+html.dark-mode .dark-mode-toggle:hover {
+  background: #174552 !important;
+  border-color: var(--dark-primary) !important;
+}
+
+
+/* =========================================================
+   HOME HEADER
+========================================================= */
+
+html.dark-mode .home-page .home-header,
+html.dark-mode .home-page .main-header {
+  background: rgba(7, 27, 36, 0.96) !important;
+  border-color: #244c59 !important;
+}
+
+html.dark-mode .home-page .brand-text h2,
+html.dark-mode .home-page .brand-name,
+html.dark-mode .home-page .hospital-name {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page .brand-text span,
+html.dark-mode .home-page .brand-subtitle,
+html.dark-mode .home-page .logo-subtitle {
+  color: var(--dark-muted) !important;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+html.dark-mode .home-page footer,
+html.dark-mode .home-page .home-footer {
+  background: #031118 !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .home-page footer h2,
+html.dark-mode .home-page footer h3,
+html.dark-mode .home-page footer h4 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .home-page footer p,
+html.dark-mode .home-page footer span {
+  color: #819da7 !important;
+}
+
+
+/* =========================================================
+   PREVENT WHITE BACKGROUNDS FROM COMMON ELEMENTS
+========================================================= */
+
+html.dark-mode .home-page .card,
+html.dark-mode .home-page .panel,
+html.dark-mode .home-page .box,
+html.dark-mode .home-page .info-card,
+html.dark-mode .home-page .feature-card {
+  background-color: var(--dark-card) !important;
+  border-color: var(--dark-border) !important;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html.dark-mode *,
+  html.dark-mode *::before,
+  html.dark-mode *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* =========================================================
+   FINAL GLOBAL DARK MODE OVERRIDE
+   Applies DARK MODE to the complete website
+========================================================= */
+
+html.dark-mode {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode body {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+/* =========================================================
+   ALL HOME PAGE SECTIONS
+========================================================= */
+
+html.dark-mode .home-page,
+html.dark-mode .home-page main,
+html.dark-mode .home-page section,
+html.dark-mode .home-page article,
+html.dark-mode .home-page footer {
+  background-color: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+/* Remove unwanted white section backgrounds */
+
+html.dark-mode .home-page section:nth-child(n),
+html.dark-mode .home-page main > section,
+html.dark-mode .home-page .section,
+html.dark-mode .home-page .section-container {
+  background-color: #071923 !important;
+}
+
+/* =========================================================
+   LIGHT BLUE SECTIONS → DARK
+========================================================= */
+
+html.dark-mode .home-page
+.stats-section,
+
+html.dark-mode .home-page
+.duty-section,
+
+html.dark-mode .home-page
+.about-section,
+
+html.dark-mode .home-page
+.healthcare-section,
+
+html.dark-mode .home-page
+.services-section,
+
+html.dark-mode .home-page
+.specialized-section,
+
+html.dark-mode .home-page
+.doctors-section,
+
+html.dark-mode .home-page
+.features-section,
+
+html.dark-mode .home-page
+.ai-section,
+
+html.dark-mode .home-page
+.patient-support-section {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+/* =========================================================
+   ALL COMMON CARDS
+========================================================= */
+
+html.dark-mode .home-page .card,
+html.dark-mode .home-page .service-card,
+html.dark-mode .home-page .feature-card,
+html.dark-mode .home-page .doctor-card,
+html.dark-mode .home-page .specialty-card,
+html.dark-mode .home-page .stat-card,
+html.dark-mode .home-page .info-card,
+html.dark-mode .home-page .ai-card,
+html.dark-mode .home-page .support-card,
+html.dark-mode .home-page .health-card,
+html.dark-mode .home-page .duty-card,
+html.dark-mode .home-page .medical-card,
+html.dark-mode .home-page .expert-card,
+html.dark-mode .home-page .about-card {
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+  border-color: #214955 !important;
+}
+
+/* =========================================================
+   NESTED CARDS / WHITE BOXES
+========================================================= */
+
+html.dark-mode .home-page .card *,
+html.dark-mode .home-page .service-card *,
+html.dark-mode .home-page .feature-card *,
+html.dark-mode .home-page .doctor-card *,
+html.dark-mode .home-page .specialty-card *,
+html.dark-mode .home-page .stat-card *,
+html.dark-mode .home-page .info-card *,
+html.dark-mode .home-page .ai-card *,
+html.dark-mode .home-page .support-card *,
+html.dark-mode .home-page .health-card *,
+html.dark-mode .home-page .duty-card *,
+html.dark-mode .home-page .medical-card *,
+html.dark-mode .home-page .expert-card *,
+html.dark-mode .home-page .about-card * {
+  border-color: #214955 !important;
+}
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+html.dark-mode .home-page h1,
+html.dark-mode .home-page h2,
+html.dark-mode .home-page h3,
+html.dark-mode .home-page h4,
+html.dark-mode .home-page h5,
+html.dark-mode .home-page h6 {
+  color: #f3fbfc !important;
+}
+
+/* Accent headings */
+
+html.dark-mode .home-page .gradient-text,
+html.dark-mode .home-page .accent-text,
+html.dark-mode .home-page .highlight,
+html.dark-mode .home-page .section-title span {
+  color: #35d5df !important;
+}
+
+/* =========================================================
+   PARAGRAPHS
+========================================================= */
+
+html.dark-mode .home-page p {
+  color: #a9c1c8 !important;
+}
+
+/* =========================================================
+   SMALL TEXT / LABELS
+========================================================= */
+
+html.dark-mode .home-page small,
+html.dark-mode .home-page label {
+  color: #9eb8bf !important;
+}
+
+/* =========================================================
+   AI HEALTHCARE SECTION
+   This is the section still visible at the bottom
+========================================================= */
+
+html.dark-mode .home-page .ai-healthcare,
+html.dark-mode .home-page .ai-health-section,
+html.dark-mode .home-page .smart-healthcare,
+html.dark-mode .home-page .smart-healthcare-section,
+html.dark-mode .home-page .patient-support,
+html.dark-mode .home-page .patient-support-section {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+/* AI card */
+
+html.dark-mode .home-page .ai-healthcare-card,
+html.dark-mode .home-page .smart-healthcare-card,
+html.dark-mode .home-page .ai-support-card,
+html.dark-mode .home-page .patient-support-card {
+  background: #102b36 !important;
+  border: 1px solid #214955 !important;
+  color: #eaf7f8 !important;
+}
+
+/* AI card text */
+
+html.dark-mode .home-page .ai-healthcare-card h1,
+html.dark-mode .home-page .ai-healthcare-card h2,
+html.dark-mode .home-page .ai-healthcare-card h3,
+html.dark-mode .home-page .smart-healthcare-card h1,
+html.dark-mode .home-page .smart-healthcare-card h2,
+html.dark-mode .home-page .smart-healthcare-card h3 {
+  color: #f3fbfc !important;
+}
+
+html.dark-mode .home-page .ai-healthcare-card p,
+html.dark-mode .home-page .smart-healthcare-card p {
+  color: #a9c1c8 !important;
+}
+
+/* =========================================================
+   WHO'S ON DUTY
+========================================================= */
+
+html.dark-mode .home-page .duty-list,
+html.dark-mode .home-page .doctor-duty,
+html.dark-mode .home-page .on-duty-card,
+html.dark-mode .home-page .duty-doctor-card {
+  background: #102b36 !important;
+  border-color: #214955 !important;
+  color: #eaf7f8 !important;
+}
+
+/* =========================================================
+   MEDICAL EXPERT CARDS
+========================================================= */
+
+html.dark-mode .home-page .doctor-card {
+  background: #102b36 !important;
+  border: 1px solid #214955 !important;
+}
+
+html.dark-mode .home-page .doctor-card .doctor-info,
+html.dark-mode .home-page .doctor-card .doctor-details {
+  background: #102b36 !important;
+}
+
+html.dark-mode .home-page .doctor-card strong,
+html.dark-mode .home-page .doctor-card b {
+  color: #35d5df !important;
+}
+
+/* =========================================================
+   SPECIALIZED MEDICAL CARE
+========================================================= */
+
+html.dark-mode .home-page .specialty-card {
+  background: #102b36 !important;
+  border: 1px solid #214955 !important;
+}
+
+html.dark-mode .home-page .specialty-card h3 {
+  color: #f3fbfc !important;
+}
+
+html.dark-mode .home-page .specialty-card p {
+  color: #9fb8bf !important;
+}
+
+/* =========================================================
+   HEALTHCARE DESIGNED SECTION
+========================================================= */
+
+html.dark-mode .home-page .healthcare-designed,
+html.dark-mode .home-page .designed-section {
+  background: #071923 !important;
+}
+
+html.dark-mode .home-page .healthcare-designed .card,
+html.dark-mode .home-page .designed-section .card {
+  background: #102b36 !important;
+}
+
+/* =========================================================
+   AYUSHMAN BHARAT
+========================================================= */
+
+html.dark-mode .home-page .ayushman-section,
+html.dark-mode .home-page .ayushman-card {
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+  border-color: #214955 !important;
+}
+
+html.dark-mode .home-page .ayushman-section h1,
+html.dark-mode .home-page .ayushman-section h2,
+html.dark-mode .home-page .ayushman-section h3 {
+  color: #f3fbfc !important;
+}
+
+html.dark-mode .home-page .ayushman-section p {
+  color: #a9c1c8 !important;
+}
+
+/* =========================================================
+   ABOUT AI SMART HOSPITAL
+========================================================= */
+
+html.dark-mode .home-page .about-ai,
+html.dark-mode .home-page .about-ai-section,
+html.dark-mode .home-page .about-hospital {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .home-page .about-ai .card,
+html.dark-mode .home-page .about-hospital .card {
+  background: #102b36 !important;
+  border-color: #214955 !important;
+}
+
+/* =========================================================
+   INPUTS / SEARCH / AI BOX
+========================================================= */
+
+html.dark-mode .home-page input,
+html.dark-mode .home-page textarea,
+html.dark-mode .home-page select {
+  background: #0d2630 !important;
+  color: #eaf7f8 !important;
+  border: 1px solid #31515c !important;
+}
+
+html.dark-mode .home-page input::placeholder,
+html.dark-mode .home-page textarea::placeholder {
+  color: #6f8e97 !important;
+}
+
+/* =========================================================
+   WHITE BACKGROUND FALLBACK
+   Catches remaining white containers
+========================================================= */
+
+html.dark-mode .home-page [style*="background: white"],
+html.dark-mode .home-page [style*="background:white"],
+html.dark-mode .home-page [style*="background-color: white"],
+html.dark-mode .home-page [style*="background-color:white"],
+html.dark-mode .home-page [style*="#fff"],
+html.dark-mode .home-page [style*="#ffffff"],
+html.dark-mode .home-page [style*="#FFFFFF"] {
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+}
+
+/* =========================================================
+   BORDERS
+========================================================= */
+
+html.dark-mode .home-page hr {
+  border-color: #214955 !important;
+}
+
+html.dark-mode .home-page .divider {
+  background: #214955 !important;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+html.dark-mode .home-page button {
+  color: #f3fbfc;
+}
+
+html.dark-mode .home-page .primary,
+html.dark-mode .home-page .primary-btn,
+html.dark-mode .home-page .hero-btn.primary {
+  background: #078b9f !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .home-page .primary:hover,
+html.dark-mode .home-page .primary-btn:hover,
+html.dark-mode .home-page .hero-btn.primary:hover {
+  background: #09aabd !important;
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+html.dark-mode .home-page a {
+  color: #6edce3;
+}
+
+html.dark-mode .home-page a:hover {
+  color: #a0edf1;
+}
+
+/* =========================================================
+   IMAGES
+   Do NOT darken actual medical images
+========================================================= */
+
+html.dark-mode .home-page img {
+  filter: none !important;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+html.dark-mode .home-page footer {
+  background: #050f16 !important;
+  color: #dceff2 !important;
+}
+
+html.dark-mode .home-page footer p,
+html.dark-mode .home-page footer span {
+  color: #91aeb6 !important;
+}
+
+/* =========================================================
+   SMOOTH TRANSITION
+========================================================= */
+
+html.dark-mode .home-page,
+html.dark-mode .home-page section,
+html.dark-mode .home-page article,
+html.dark-mode .home-page .card,
+html.dark-mode .home-page .doctor-card,
+html.dark-mode .home-page .specialty-card,
+html.dark-mode .home-page .ai-card {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+/* =========================================================
+   FINAL FIX — HOME STATS WHITE STRIP
+========================================================= */
+
+html.dark-mode .home-page .hero-stats {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+  border-color: #214955 !important;
+}
 
 html.dark-mode .home-page .hero-stats > div {
-  background: #172f39 !important;
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+  border-color: #214955 !important;
+  box-shadow: none !important;
+}
+
+html.dark-mode .home-page .hero-stats strong,
+html.dark-mode .home-page .hero-stats b {
+  color: #35d5df !important;
+}
+
+html.dark-mode .home-page .hero-stats span,
+html.dark-mode .home-page .hero-stats small,
+html.dark-mode .home-page .hero-stats p {
+  color: #9fb8bf !important;
+}
+
+/* SVG / Icons */
+
+html.dark-mode .home-page .hero-stats svg {
+  color: #35d5df !important;
+  stroke: #35d5df !important;
+}
+
+/* If stats wrapper itself has white background */
+
+html.dark-mode .home-page .stats-section {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .home-page .stats-section * {
+  border-color: #214955 !important;
+}
+/* =========================================================
+   FINAL FIX — AYUSHMAN BHARAT SECTION
+========================================================= */
+
+html.dark-mode .home-page .ayushman-section {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .home-page .ayushman-section h1,
+html.dark-mode .home-page .ayushman-section h2,
+html.dark-mode .home-page .ayushman-section h3 {
+  color: #f3fbfc !important;
+}
+
+html.dark-mode .home-page .ayushman-section p {
+  color: #a9c1c8 !important;
+}
+
+html.dark-mode .home-page .ayushman-section li {
+  color: #b8cdd2 !important;
+}
+
+html.dark-mode .home-page .ayushman-card {
+  background: #102b36 !important;
+  border: 1px solid #214955 !important;
+  color: #eaf7f8 !important;
+}
+
+/* Keep actual Ayushman image unchanged */
+html.dark-mode .home-page .ayushman-section img,
+html.dark-mode .home-page .ayushman-card img {
+  filter: none !important;
+}
+/* =========================================================
+   ABOUT + PROJECT — GLOBAL DARK MODE
+========================================================= */
+
+/* About page */
+
+html.dark-mode .about-page,
+html.dark-mode .about-page main {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .about-page section {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .about-page h1,
+html.dark-mode .about-page h2,
+html.dark-mode .about-page h3,
+html.dark-mode .about-page h4,
+html.dark-mode .about-page h5,
+html.dark-mode .about-page h6 {
+  color: #f3fbfc !important;
+}
+
+html.dark-mode .about-page p,
+html.dark-mode .about-page span,
+html.dark-mode .about-page small,
+html.dark-mode .about-page li {
+  color: #a9c1c8 !important;
+}
+
+/* About cards */
+
+html.dark-mode .about-page .card,
+html.dark-mode .about-page .about-card,
+html.dark-mode .about-page .info-card,
+html.dark-mode .about-page .feature-card {
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+  border-color: #214955 !important;
+}
+
+
+/* =========================================================
+   PROJECT PAGE
+========================================================= */
+
+html.dark-mode .project-page,
+html.dark-mode .project-page main {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .project-page section {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .project-page h1,
+html.dark-mode .project-page h2,
+html.dark-mode .project-page h3,
+html.dark-mode .project-page h4,
+html.dark-mode .project-page h5,
+html.dark-mode .project-page h6 {
+  color: #f3fbfc !important;
+}
+
+html.dark-mode .project-page p,
+html.dark-mode .project-page span,
+html.dark-mode .project-page small,
+html.dark-mode .project-page li {
+  color: #a9c1c8 !important;
+}
+
+/* Project cards */
+
+html.dark-mode .project-page .card,
+html.dark-mode .project-page .project-card,
+html.dark-mode .project-page .info-card,
+html.dark-mode .project-page .feature-card {
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+  border-color: #214955 !important;
+}
+
+
+/* =========================================================
+   PUBLIC PAGE BACKGROUND
+========================================================= */
+
+html.dark-mode #root {
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+
+/* =========================================================
+   PUBLIC HEADER
+========================================================= */
+
+html.dark-mode .about-page .main-header,
+html.dark-mode .project-page .main-header {
+  background: #0c202a !important;
+  border-color: #214955 !important;
+}
+
+html.dark-mode .about-page .main-header a,
+html.dark-mode .project-page .main-header a {
+  color: #dceff2 !important;
+}
+
+html.dark-mode .about-page .main-header a:hover,
+html.dark-mode .project-page .main-header a:hover {
+  color: #35d5df !important;
+}
+
+
+/* =========================================================
+   COMMON WHITE BACKGROUNDS
+========================================================= */
+
+html.dark-mode .about-page [style*="background: white"],
+html.dark-mode .about-page [style*="background:white"],
+html.dark-mode .about-page [style*="#fff"],
+html.dark-mode .about-page [style*="#ffffff"],
+html.dark-mode .project-page [style*="background: white"],
+html.dark-mode .project-page [style*="background:white"],
+html.dark-mode .project-page [style*="#fff"],
+html.dark-mode .project-page [style*="#ffffff"] {
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+html.dark-mode .about-page button,
+html.dark-mode .project-page button {
+  color: #f3fbfc;
+}
+
+html.dark-mode .about-page .primary-btn,
+html.dark-mode .project-page .primary-btn {
+  background: #078b9f !important;
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+html.dark-mode .about-page img,
+html.dark-mode .project-page img {
+  filter: none !important;
+}
+/* =========================================================
+   PROJECT PAGE — FINAL DARK MODE
+========================================================= */
+
+html.dark-mode .project-page {
+  min-height: 100vh;
+  background: #071923 !important;
+  color: #eaf7f8 !important;
+}
+
+/* Header */
+
+html.dark-mode .project-page .project-page-header {
+  background: #0c202a !important;
+  color: #eaf7f8 !important;
+  border-color: #214955 !important;
+}
+
+html.dark-mode .project-page .project-page-header span {
+  color: #dff3f5 !important;
+}
+
+/* Back button */
+
+html.dark-mode .project-page .project-back {
+  color: #6edce3 !important;
+}
+
+html.dark-mode .project-page .project-back:hover {
+  color: #a4edf1 !important;
+}
+
+
+/* Main container */
+
+html.dark-mode .project-page .project-container {
+  background: transparent !important;
+  color: #eaf7f8 !important;
+}
+
+
+/* =========================================================
+   PROJECT HERO
+========================================================= */
+
+html.dark-mode .project-page .project-hero {
+  background: transparent !important;
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .project-page .project-badge {
+  background: #102f39 !important;
+  color: #45d4dc !important;
+  border-color: #28535e !important;
+}
+
+html.dark-mode .project-page .project-hero h1 {
+  color: #f3fbfc !important;
+}
+
+html.dark-mode .project-page .project-hero h1 span {
+  color: #35d5df !important;
+}
+
+html.dark-mode .project-page .project-hero p {
+  color: #a9c1c8 !important;
+}
+
+
+/* =========================================================
+   PROJECT CARDS
+========================================================= */
+
+html.dark-mode .project-page .project-card {
+  background: #102b36 !important;
+  color: #eaf7f8 !important;
+  border: 1px solid #214955 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18) !important;
+}
+
+html.dark-mode .project-page .project-card:hover {
+  background: #12313c !important;
+  border-color: #2d6570 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+/* Card headings */
+
+html.dark-mode .project-page .project-card h2 {
+  color: #f2fafb !important;
+}
+
+
+/* Card paragraphs */
+
+html.dark-mode .project-page .project-card p {
+  color: #a9c1c8 !important;
+}
+
+
+/* =========================================================
+   OBJECTIVES LIST
+========================================================= */
+
+html.dark-mode .project-page .project-card ul {
+  color: #b8cdd2 !important;
+}
+
+html.dark-mode .project-page .project-card li {
+  color: #b8cdd2 !important;
+}
+
+html.dark-mode .project-page .project-card li::marker {
+  color: #35d5df !important;
+}
+
+
+/* =========================================================
+   TECHNOLOGIES
+========================================================= */
+
+html.dark-mode .project-page .technology-list span {
+  background: #163742 !important;
+  color: #6edce3 !important;
+  border: 1px solid #285661 !important;
+}
+
+html.dark-mode .project-page .technology-list span:hover {
+  background: #1b4652 !important;
+  color: #ffffff !important;
+  border-color: #35d5df !important;
+}
+
+
+/* =========================================================
+   DOCUMENT BUTTONS
+========================================================= */
+
+html.dark-mode .project-page .document-buttons button {
+  background: #12333e !important;
+  color: #dff3f5 !important;
+  border: 1px solid #285661 !important;
+}
+
+html.dark-mode .project-page .document-buttons button:hover {
+  background: #078b9f !important;
+  color: #ffffff !important;
+  border-color: #078b9f !important;
+}
+
+
+/* =========================================================
+   LINKS / BUTTONS
+========================================================= */
+
+html.dark-mode .project-page a {
+  color: #6edce3 !important;
+}
+
+html.dark-mode .project-page button {
+  color: #eaf7f8;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  html.dark-mode .project-page {
+    background: #071923 !important;
+  }
+
+  html.dark-mode .project-page .project-card {
+    background: #102b36 !important;
+  }
+}
+/* =========================================================
+   ABOUT + PROJECT — GLOBAL DARK MODE
+========================================================= */
+
+/* ---------------------------------------------------------
+   ABOUT PAGE
+--------------------------------------------------------- */
+
+html.dark-mode .about-page,
+html.dark-mode body .about-page {
+  background: #071d26 !important;
+  color: #eaf7f8 !important;
+  min-height: 100vh;
+}
+
+html.dark-mode .about-page-header {
+  background: #0b2630 !important;
+  color: #eaf7f8 !important;
+  border-bottom: 1px solid #21434e !important;
+}
+
+html.dark-mode .about-page-header span {
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .about-back {
+  color: #69d8df !important;
+}
+
+html.dark-mode .about-back:hover {
+  color: #9aebef !important;
+}
+
+
+/* About Hero */
+
+html.dark-mode .about-hero {
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .about-hero h1 {
+  color: #f4fbfc !important;
+}
+
+html.dark-mode .about-hero h1 span {
+  color: #28c5cf !important;
+}
+
+html.dark-mode .about-hero p {
+  color: #9dbbc3 !important;
+}
+
+
+/* About Badge */
+
+html.dark-mode .about-badge {
+  background: #123641 !important;
+  color: #63d5dc !important;
+  border-color: #27515c !important;
+}
+
+
+/* Team Cards */
+
+html.dark-mode .team-card {
+  background: #0d2a35 !important;
+  color: #eaf7f8 !important;
+  border: 1px solid #214651 !important;
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark-mode .team-card h2 {
+  color: #f3fafb !important;
+}
+
+html.dark-mode .team-card p {
+  color: #9fb9c0 !important;
+}
+
+html.dark-mode .team-role {
+  color: #43ccd4 !important;
+}
+
+
+/* Avatar */
+
+html.dark-mode .team-avatar {
+  background: linear-gradient(
+    135deg,
+    #0a9eaa,
+    #075d69
+  ) !important;
+
+  color: #ffffff !important;
+}
+
+
+/* Skills */
+
+html.dark-mode .team-skills span {
+  background: #123b47 !important;
+  color: #80dce1 !important;
+  border-color: #245460 !important;
+}
+
+
+/* Links */
+
+html.dark-mode .team-links a {
+  background: #102f3a !important;
+  color: #69d8df !important;
+  border-color: #24505b !important;
+}
+
+html.dark-mode .team-links a:hover {
+  background: #164450 !important;
+  color: #ffffff !important;
+}
+
+
+/* Resume */
+
+html.dark-mode .resume-button {
+  background: #0b9aa6 !important;
+  color: #ffffff !important;
+  border-color: #0b9aa6 !important;
+}
+
+html.dark-mode .resume-button:hover {
+  background: #0db5c0 !important;
+}
+
+
+/* Academic Section */
+
+html.dark-mode .academic-section {
+  background: #0b2630 !important;
+  color: #eaf7f8 !important;
+  border-color: #21434e !important;
+}
+
+html.dark-mode .academic-section h2 {
+  color: #f3fafb !important;
+}
+
+html.dark-mode .academic-grid > div {
+  background: #102f3a !important;
+  border: 1px solid #234a55 !important;
+}
+
+html.dark-mode .academic-grid strong {
+  color: #53ced6 !important;
+}
+
+html.dark-mode .academic-grid span {
+  color: #a4bdc4 !important;
+}
+
+
+/* ---------------------------------------------------------
+   PROJECT PAGE
+--------------------------------------------------------- */
+
+html.dark-mode .project-page,
+html.dark-mode body .project-page {
+  background: #071d26 !important;
+  color: #eaf7f8 !important;
+  min-height: 100vh;
+}
+
+
+/* Project Header */
+
+html.dark-mode .project-page-header {
+  background: #0b2630 !important;
+  color: #eaf7f8 !important;
+  border-bottom: 1px solid #21434e !important;
+}
+
+html.dark-mode .project-page-header span {
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .project-back {
+  color: #69d8df !important;
+}
+
+html.dark-mode .project-back:hover {
+  color: #9aebef !important;
+}
+
+
+/* Project Hero */
+
+html.dark-mode .project-hero {
+  color: #eaf7f8 !important;
+}
+
+html.dark-mode .project-hero h1 {
+  color: #f4fbfc !important;
+}
+
+html.dark-mode .project-hero h1 span {
+  color: #27c5cf !important;
+}
+
+html.dark-mode .project-hero p {
+  color: #9dbbc3 !important;
+}
+
+
+/* Project Badge */
+
+html.dark-mode .project-badge {
+  background: #123641 !important;
+  color: #63d5dc !important;
+  border-color: #27515c !important;
+}
+
+
+/* Project Cards */
+
+html.dark-mode .project-card {
+  background: #0d2a35 !important;
+  color: #eaf7f8 !important;
+  border: 1px solid #214651 !important;
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark-mode .project-card h2 {
+  color: #f3fafb !important;
+}
+
+html.dark-mode .project-card p {
+  color: #9fb9c0 !important;
+}
+
+html.dark-mode .project-card li {
+  color: #a8c1c7 !important;
+}
+
+html.dark-mode .project-card li::marker {
+  color: #2bc7d0 !important;
+}
+
+
+/* Technology */
+
+html.dark-mode .technology-list span {
+  background: #123b47 !important;
+  color: #7cdee3 !important;
+  border-color: #245460 !important;
+}
+
+
+/* Document Buttons */
+
+html.dark-mode .document-buttons button {
+  background: #102f3a !important;
+  color: #74dce1 !important;
+  border: 1px solid #28535e !important;
+}
+
+html.dark-mode .document-buttons button:hover {
+  background: #164450 !important;
+  color: #ffffff !important;
+  border-color: #2fc8d0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   ABOUT / PROJECT HEADER LAYOUT
+--------------------------------------------------------- */
+
+.about-header-right,
+.project-header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+
+/* ---------------------------------------------------------
+   DARK MODE BUTTON
+--------------------------------------------------------- */
+
+.about-page .dark-mode-toggle,
+.project-page .dark-mode-toggle {
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 1px solid #cbdde2;
+
+  background: #ffffff;
+
+  color: #123b52;
+
+  cursor: pointer;
+
+  font-size: 20px;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.about-page .dark-mode-toggle:hover,
+.project-page .dark-mode-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 5px 18px rgba(0, 170, 190, 0.18);
+}
+
+
+/* Dark button */
+
+html.dark-mode .about-page .dark-mode-toggle,
+html.dark-mode .project-page .dark-mode-toggle {
+  background: #123541 !important;
+  color: #f3fbfc !important;
+  border-color: #315763 !important;
+}
+
+html.dark-mode .about-page .dark-mode-toggle:hover,
+html.dark-mode .project-page .dark-mode-toggle:hover {
+  background: #194651 !important;
+  border-color: #3acbd3 !important;
+  box-shadow:
+    0 0 18px rgba(40, 205, 215, 0.2);
+}
+
+
+/* ---------------------------------------------------------
+   GLOBAL TRANSITION
+--------------------------------------------------------- */
+
+html,
+body,
+.about-page,
+.project-page,
+.about-page-header,
+.project-page-header,
+.team-card,
+.project-card,
+.academic-section,
+.academic-grid > div {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .about-header-right,
+  .project-header-right {
+    gap: 10px;
+  }
+
+  .about-page .dark-mode-toggle,
+  .project-page .dark-mode-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+}
+/* =========================================================
+   LOGIN PAGE — DARK MODE
+========================================================= */
+
+html.dark-mode .login-page {
+  background: #0f1720 !important;
+  color: #e6eef2 !important;
+}
+
+/* Main login container / card */
+html.dark-mode .login-page .login-card,
+html.dark-mode .login-page .login-container,
+html.dark-mode .login-page .login-box {
+  background: #152831 !important;
+  color: #e6eef2 !important;
+  border-color: #29404b !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Login headings */
+html.dark-mode .login-page h1,
+html.dark-mode .login-page h2,
+html.dark-mode .login-page h3 {
+  color: #f2f7f9 !important;
+}
+
+/* Login text */
+html.dark-mode .login-page p,
+html.dark-mode .login-page span,
+html.dark-mode .login-page label {
+  color: #a9bbc3 !important;
+}
+
+/* Inputs */
+html.dark-mode .login-page input,
+html.dark-mode .login-page select,
+html.dark-mode .login-page textarea {
+  background: #11242d !important;
+  color: #edf5f7 !important;
+  border: 1px solid #304853 !important;
+}
+
+html.dark-mode .login-page input::placeholder {
+  color: #718791 !important;
+}
+
+html.dark-mode .login-page input:focus,
+html.dark-mode .login-page select:focus,
+html.dark-mode .login-page textarea:focus {
+  background: #132a34 !important;
+  color: #ffffff !important;
+  border-color: #39c5cf !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(57, 197, 207, 0.12) !important;
+}
+
+/* Login button */
+html.dark-mode .login-page button {
+  color: #ffffff !important;
+}
+
+/* Primary login button */
+html.dark-mode .login-page .login-btn,
+html.dark-mode .login-page .login-button,
+html.dark-mode .login-page button[type="submit"] {
+  background: #078ba0 !important;
+  color: #ffffff !important;
+  border-color: #078ba0 !important;
+}
+
+html.dark-mode .login-page .login-btn:hover,
+html.dark-mode .login-page .login-button:hover,
+html.dark-mode .login-page button[type="submit"]:hover {
+  background: #09a2b5 !important;
+  border-color: #09a2b5 !important;
+  box-shadow: 0 8px 22px rgba(0, 190, 205, 0.25) !important;
+}
+
+/* Links */
+html.dark-mode .login-page a {
+  color: #67d2d8 !important;
+}
+
+html.dark-mode .login-page a:hover {
+  color: #91e4e9 !important;
+}
+
+/* Error / message */
+html.dark-mode .login-page .error,
+html.dark-mode .login-page .error-message {
+  color: #ff8f8f !important;
+}
+
+/* Back/Home button */
+html.dark-mode .login-page .back-button,
+html.dark-mode .login-page .home-button {
+  color: #d9eef1 !important;
+  background: #172c36 !important;
   border-color: #31505b !important;
 }
 
-html.dark-mode .home-page .hero-stats > div strong {
-  color: #43c9d2 !important;
+html.dark-mode .login-page .back-button:hover,
+html.dark-mode .login-page .home-button:hover {
+  background: #1d3944 !important;
+  border-color: #39c5cf !important;
 }
 
-html.dark-mode .home-page .hero-stats > div span,
-html.dark-mode .home-page .hero-stats > div small {
+/* Login logo / brand */
+html.dark-mode .login-page .brand-text,
+html.dark-mode .login-page .logo-text,
+html.dark-mode .login-page .hospital-name {
+  color: #f2f7f9 !important;
+}
+
+/* Secondary text */
+html.dark-mode .login-page .subtitle,
+html.dark-mode .login-page .login-subtitle {
   color: #9fb5bd !important;
+}
+
+/* Checkbox */
+html.dark-mode .login-page input[type="checkbox"] {
+  accent-color: #39c5cf;
+}
+
+/* Login page smooth transition */
+.login-page,
+.login-page *,
+.login-page *::before,
+.login-page *::after {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+/* =========================================================
+   LOGIN — FORCE GLOBAL DARK THEME
+========================================================= */
+
+html.dark-mode body {
+  background: #0f1720 !important;
+  color: #e6eef2 !important;
+}
+
+/* Any common login wrappers */
+html.dark-mode .login-page,
+html.dark-mode .login-container,
+html.dark-mode .login-wrapper,
+html.dark-mode .login-section,
+html.dark-mode .login-content,
+html.dark-mode .login-box,
+html.dark-mode .login-card,
+html.dark-mode .auth-page,
+html.dark-mode .auth-container,
+html.dark-mode .auth-card {
+  background: #0f1720 !important;
+  color: #e6eef2 !important;
+}
+
+/* All direct/inner cards */
+html.dark-mode .login-page *,
+html.dark-mode .login-container *,
+html.dark-mode .login-wrapper *,
+html.dark-mode .login-section *,
+html.dark-mode .auth-page *,
+html.dark-mode .auth-container * {
+  border-color: #29404b;
+}
+
+/* Headings */
+html.dark-mode .login-page h1,
+html.dark-mode .login-page h2,
+html.dark-mode .login-page h3,
+html.dark-mode .login-container h1,
+html.dark-mode .login-container h2,
+html.dark-mode .login-container h3,
+html.dark-mode .login-wrapper h1,
+html.dark-mode .login-wrapper h2,
+html.dark-mode .login-wrapper h3,
+html.dark-mode .auth-page h1,
+html.dark-mode .auth-page h2,
+html.dark-mode .auth-page h3 {
+  color: #f2f7f9 !important;
+}
+
+/* Paragraph / labels */
+html.dark-mode .login-page p,
+html.dark-mode .login-page label,
+html.dark-mode .login-page span,
+html.dark-mode .login-container p,
+html.dark-mode .login-container label,
+html.dark-mode .login-container span,
+html.dark-mode .login-wrapper p,
+html.dark-mode .login-wrapper label,
+html.dark-mode .login-wrapper span,
+html.dark-mode .auth-page p,
+html.dark-mode .auth-page label,
+html.dark-mode .auth-page span {
+  color: #a9bbc3 !important;
+}
+
+/* Inputs */
+html.dark-mode .login-page input,
+html.dark-mode .login-page select,
+html.dark-mode .login-page textarea,
+html.dark-mode .login-container input,
+html.dark-mode .login-container select,
+html.dark-mode .login-wrapper input,
+html.dark-mode .login-wrapper select,
+html.dark-mode .auth-page input,
+html.dark-mode .auth-page select {
+  background: #11242d !important;
+  color: #edf5f7 !important;
+  border: 1px solid #304853 !important;
+}
+
+/* Placeholder */
+html.dark-mode .login-page input::placeholder,
+html.dark-mode .login-container input::placeholder,
+html.dark-mode .login-wrapper input::placeholder,
+html.dark-mode .auth-page input::placeholder {
+  color: #718791 !important;
+}
+
+/* Focus */
+html.dark-mode .login-page input:focus,
+html.dark-mode .login-container input:focus,
+html.dark-mode .login-wrapper input:focus,
+html.dark-mode .auth-page input:focus {
+  background: #132a34 !important;
+  color: #ffffff !important;
+  border-color: #39c5cf !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(57, 197, 207, 0.12) !important;
+}
+
+/* Submit buttons */
+html.dark-mode .login-page button[type="submit"],
+html.dark-mode .login-container button[type="submit"],
+html.dark-mode .login-wrapper button[type="submit"],
+html.dark-mode .auth-page button[type="submit"] {
+  background: #078ba0 !important;
+  color: #ffffff !important;
+  border-color: #078ba0 !important;
+}
+
+/* Links */
+html.dark-mode .login-page a,
+html.dark-mode .login-container a,
+html.dark-mode .login-wrapper a,
+html.dark-mode .auth-page a {
+  color: #67d2d8 !important;
+}
+
+/* Error */
+html.dark-mode .login-page .error,
+html.dark-mode .login-page .error-message,
+html.dark-mode .login-container .error,
+html.dark-mode .login-container .error-message {
+  color: #ff8f8f !important;
+}
+/* =========================================================
+   AI SMART HOSPITAL - LOGIN DARK MODE
+========================================================= */
+
+/* Main Login Page */
+html.dark-mode .login-page,
+body.dark-mode .login-page {
+  background: #0f1720 !important;
+  color: #e6eef2 !important;
+}
+
+/* Login Container */
+html.dark-mode .login-page .login-container {
+  background: #12232c !important;
+  color: #e6eef2 !important;
+  border: 1px solid #29424d !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Header */
+html.dark-mode .login-page .login-header {
+  color: #e6eef2 !important;
+}
+
+html.dark-mode .login-page .login-header h1 {
+  color: #ffffff !important;
+}
+
+html.dark-mode .login-page .login-header p {
+  color: #9fb3bc !important;
+}
+
+/* Hospital Icon */
+html.dark-mode .login-page .hospital-icon {
+  background: #17343f !important;
+  color: #ffffff !important;
+}
+
+/* Form */
+html.dark-mode .login-page .login-form {
+  background: transparent !important;
+  color: #e6eef2 !important;
+}
+
+/* Form Groups */
+html.dark-mode .login-page .form-group {
+  background: transparent !important;
+}
+
+/* Labels */
+html.dark-mode .login-page .form-group label {
+  color: #dce8ec !important;
+}
+
+/* Inputs */
+html.dark-mode .login-page .form-group input,
+html.dark-mode .login-page .form-group select {
+  background: #0d1b23 !important;
+  color: #f1f7f9 !important;
+  border: 1px solid #36515d !important;
+}
+
+/* Input Hover */
+html.dark-mode .login-page .form-group input:hover,
+html.dark-mode .login-page .form-group select:hover {
+  border-color: #4c6874 !important;
+}
+
+/* Input Focus */
+html.dark-mode .login-page .form-group input:focus,
+html.dark-mode .login-page .form-group select:focus {
+  background: #10232c !important;
+  color: #ffffff !important;
+  border-color: #39c5cf !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(57, 197, 207, 0.12) !important;
+}
+
+/* Placeholder */
+html.dark-mode .login-page .form-group input::placeholder {
+  color: #71858e !important;
+}
+
+/* Select Options */
+html.dark-mode .login-page .form-group select option {
+  background: #12232c !important;
+  color: #ffffff !important;
+}
+
+/* Error Message */
+html.dark-mode .login-page .login-error {
+  background: #351d22 !important;
+  color: #ff9b9b !important;
+  border: 1px solid #71353d !important;
+}
+
+/* Login Button */
+html.dark-mode .login-page .login-button {
+  background: #078b9f !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+/* Login Button Hover */
+html.dark-mode .login-page .login-button:hover:not(:disabled) {
+  background: #0aaabd !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(0, 170, 189, 0.25) !important;
+}
+
+/* Disabled Button */
+html.dark-mode .login-page .login-button:disabled {
+  background: #31545c !important;
+  color: #9fb1b7 !important;
+}
+
+/* =========================================================
+   FORCE LOGIN CHILD ELEMENTS
+========================================================= */
+
+html.dark-mode .login-page h1,
+html.dark-mode .login-page h2,
+html.dark-mode .login-page h3,
+html.dark-mode .login-page p,
+html.dark-mode .login-page label,
+html.dark-mode .login-page span {
+  transition: color 0.25s ease;
+}
+
+/* Remove accidental white backgrounds */
+html.dark-mode .login-page .login-header,
+html.dark-mode .login-page .login-form,
+html.dark-mode .login-page .form-group {
+  background-color: transparent !important;
+}
+
+/* Smooth transition */
+.login-page,
+.login-container,
+.login-header,
+.login-form,
+.form-group,
+.form-group input,
+.form-group select,
+.login-button {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+/* =========================================================
+   FINAL GLOBAL DARK MODE CARD FIX
+   This section must be at the END of DarkMode.css
+========================================================= */
+
+html.dark-mode .card,
+html.dark-mode .dashboard-card,
+html.dark-mode .dashboard-section,
+html.dark-mode .patient-info-section,
+html.dark-mode .admin-table-card,
+html.dark-mode .bills-card,
+html.dark-mode .appointment-card,
+html.dark-mode .medical-record-card,
+html.dark-mode .prescription-card,
+
+html.dark-mode .info-card,
+html.dark-mode .stat-card,
+html.dark-mode .feature-card,
+html.dark-mode .service-card,
+html.dark-mode .doctor-card,
+html.dark-mode .team-card,
+html.dark-mode .project-card,
+html.dark-mode .about-card,
+html.dark-mode .section-card,
+html.dark-mode .content-card,
+html.dark-mode .health-card,
+html.dark-mode .support-card,
+html.dark-mode .platform-card,
+html.dark-mode .safety-card,
+
+body.dark-mode .card,
+body.dark-mode .dashboard-card,
+body.dark-mode .dashboard-section,
+body.dark-mode .patient-info-section,
+body.dark-mode .admin-table-card,
+body.dark-mode .bills-card,
+body.dark-mode .appointment-card,
+body.dark-mode .medical-record-card,
+body.dark-mode .prescription-card,
+
+body.dark-mode .info-card,
+body.dark-mode .stat-card,
+body.dark-mode .feature-card,
+body.dark-mode .service-card,
+body.dark-mode .doctor-card,
+body.dark-mode .team-card,
+body.dark-mode .project-card,
+body.dark-mode .about-card,
+body.dark-mode .section-card,
+body.dark-mode .content-card,
+body.dark-mode .health-card,
+body.dark-mode .support-card,
+body.dark-mode .platform-card,
+body.dark-mode .safety-card {
+  background: #101c24 !important;
+  background-color: #101c24 !important;
+  color: #e8f1f4 !important;
+  border-color: #29434e !important;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+html.dark-mode .card h1,
+html.dark-mode .card h2,
+html.dark-mode .card h3,
+html.dark-mode .card h4,
+html.dark-mode .card h5,
+html.dark-mode .card h6,
+html.dark-mode .dashboard-card h1,
+html.dark-mode .dashboard-card h2,
+html.dark-mode .dashboard-card h3,
+html.dark-mode .dashboard-card h4,
+html.dark-mode .dashboard-card h5,
+html.dark-mode .dashboard-card h6,
+html.dark-mode .dashboard-section h1,
+html.dark-mode .dashboard-section h2,
+html.dark-mode .dashboard-section h3,
+html.dark-mode .dashboard-section h4,
+html.dark-mode .dashboard-section h5,
+html.dark-mode .dashboard-section h6 {
+  color: #ffffff !important;
+}
+
+html.dark-mode .card p,
+html.dark-mode .dashboard-card p,
+html.dark-mode .dashboard-section p,
+html.dark-mode .card span,
+html.dark-mode .dashboard-card span {
+  color: #b8c9cf !important;
+}
+
+
+/* =========================================================
+   CARD ICON / CIRCLE
+========================================================= */
+
+html.dark-mode .card .icon,
+html.dark-mode .card .card-icon,
+html.dark-mode .dashboard-card .icon,
+html.dark-mode .dashboard-card .card-icon,
+html.dark-mode .stat-card .icon,
+html.dark-mode .feature-card .icon {
+  background: #172b34 !important;
+  color: #65d7df !important;
+  border-color: #34515c !important;
+}
+
+
+/* =========================================================
+   HOME PAGE SECTIONS
+========================================================= */
+
+html.dark-mode .home-page .card,
+html.dark-mode .home-page .feature-card,
+html.dark-mode .home-page .service-card,
+html.dark-mode .home-page .doctor-card,
+html.dark-mode .home-page .support-card,
+html.dark-mode .home-page .platform-card,
+html.dark-mode .home-page .safety-card {
+  background: #101c24 !important;
+  color: #e8f1f4 !important;
+}
+
+
+/* =========================================================
+   ABOUT PAGE
+========================================================= */
+
+html.dark-mode .about-page .team-card,
+html.dark-mode .about-page .academic-section,
+html.dark-mode .about-page .academic-grid > div {
+  background: #101c24 !important;
+  background-color: #101c24 !important;
+  color: #e8f1f4 !important;
+  border-color: #29434e !important;
+}
+
+html.dark-mode .about-page .team-card h2,
+html.dark-mode .about-page .team-card h3,
+html.dark-mode .about-page .academic-section h2,
+html.dark-mode .about-page strong {
+  color: #ffffff !important;
+}
+
+html.dark-mode .about-page .team-card p,
+html.dark-mode .about-page .academic-section p,
+html.dark-mode .about-page .academic-grid span {
+  color: #b8c9cf !important;
+}
+
+
+/* =========================================================
+   PROJECT PAGE
+========================================================= */
+
+html.dark-mode .project-page .project-card {
+  background: #101c24 !important;
+  background-color: #101c24 !important;
+  color: #e8f1f4 !important;
+  border-color: #29434e !important;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .project-page .project-card h2,
+html.dark-mode .project-page .project-card h3 {
+  color: #ffffff !important;
+}
+
+html.dark-mode .project-page .project-card p,
+html.dark-mode .project-page .project-card li {
+  color: #b8c9cf !important;
+}
+
+
+/* =========================================================
+   TABLE / DATA CARDS
+========================================================= */
+
+html.dark-mode table,
+html.dark-mode .table-container,
+html.dark-mode .table-card {
+  background: #101c24 !important;
+  color: #e8f1f4 !important;
+}
+
+html.dark-mode th {
+  background: #172831 !important;
+  color: #ffffff !important;
+  border-color: #304750 !important;
+}
+
+html.dark-mode td {
+  background: #101c24 !important;
+  color: #d5e2e6 !important;
+  border-color: #29434e !important;
+}
+
+
+/* =========================================================
+   INPUTS INSIDE CARDS
+========================================================= */
+
+html.dark-mode .card input,
+html.dark-mode .card select,
+html.dark-mode .card textarea,
+html.dark-mode .dashboard-card input,
+html.dark-mode .dashboard-card select,
+html.dark-mode .dashboard-card textarea,
+html.dark-mode .dashboard-section input,
+html.dark-mode .dashboard-section select,
+html.dark-mode .dashboard-section textarea {
+  background: #0c1820 !important;
+  color: #f4f8fa !important;
+  border-color: #354e58 !important;
+}
+
+
+/* =========================================================
+   BUTTONS INSIDE CARDS
+========================================================= */
+
+html.dark-mode .card button,
+html.dark-mode .dashboard-card button,
+html.dark-mode .dashboard-section button {
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   WHITE BACKGROUND OVERRIDE
+========================================================= */
+
+html.dark-mode .card [style*="background"],
+html.dark-mode .dashboard-card [style*="background"],
+html.dark-mode .dashboard-section [style*="background"] {
+  color: #e8f1f4 !important;
+}
+
+
+/* =========================================================
+   SMOOTH TRANSITION
+========================================================= */
+
+.card,
+.dashboard-card,
+.dashboard-section,
+.patient-info-section,
+.admin-table-card,
+.bills-card,
+.appointment-card,
+.medical-record-card,
+.prescription-card,
+.team-card,
+.project-card {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
