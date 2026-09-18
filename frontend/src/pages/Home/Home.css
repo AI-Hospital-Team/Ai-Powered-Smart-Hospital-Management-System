@@ -455,267 +455,6 @@ body {
     scale(0.94);
 }
 
-/* =========================================================
-   AI SMART HOSPITAL
-   HEADER — PROFESSIONAL DARK MODE
-========================================================= */
-
-.dark-mode .main-header {
-  background: #0d1b24;
-  border-bottom: 1px solid #263b44;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
-}
-
-
-/* =========================================================
-   BRAND
-========================================================= */
-
-.dark-mode .brand-text h2 {
-  color: #f1f7f8;
-  transition: color 0.25s ease;
-}
-
-.dark-mode .brand-text span {
-  color: #8fa8b1;
-}
-
-.dark-mode .brand:hover .brand-text h2 {
-  color: #69cbd2;
-}
-
-
-/* Logo */
-
-.dark-mode .brand-logo {
-  background: #ffffff;
-  border-color: #344e58;
-
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.22);
-}
-
-.dark-mode .brand:hover .brand-logo {
-  border-color: #4f7d85;
-
-  transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-.dark-mode .nav-link {
-  position: relative;
-
-  color: #b7c8cd;
-
-  background: transparent;
-
-  box-shadow: none;
-
-  border-radius: 7px;
-
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    transform 0.25s ease;
-}
-
-
-/* Hover */
-
-.dark-mode .nav-link:hover {
-  color: #6bcbd2;
-
-  background: rgba(80, 180, 190, 0.06);
-
-  box-shadow: none;
-
-  transform: translateY(-1px);
-}
-
-
-/* Active */
-
-.dark-mode .nav-link.active {
-  color: #6bcbd2;
-
-  background: transparent;
-
-  box-shadow: none;
-
-  font-weight: 800;
-}
-
-
-/* Underline */
-
-.dark-mode .nav-link::after {
-  height: 2px;
-
-  background: #58bec7;
-
-  box-shadow: none;
-
-  border-radius: 5px;
-
-  transition:
-    width 0.3s ease;
-}
-
-
-/* Hover underline */
-
-.dark-mode .nav-link:hover::after {
-  width: 45%;
-}
-
-
-/* Active underline */
-
-.dark-mode .nav-link.active::after {
-  width: 65%;
-}
-
-
-/* =========================================================
-   THEME BUTTON
-========================================================= */
-
-.dark-mode .theme-toggle {
-  background: #142a34;
-
-  border: 1px solid #304b55;
-
-  color: #d4e6e9;
-
-  box-shadow: none;
-
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.dark-mode .theme-toggle:hover {
-  background: #19333e;
-
-  border-color: #4c7780;
-
-  color: #71ccd3;
-
-  transform: translateY(-2px);
-
-  box-shadow: none;
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-.dark-mode .login-btn {
-  background: transparent;
-
-  border: 1px solid #3a555f;
-
-  color: #d2e2e5;
-
-  box-shadow: none;
-
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.dark-mode .login-btn:hover {
-  background: #142d38;
-
-  border-color: #4c7881;
-
-  color: #70cbd2;
-
-  transform: translateY(-2px);
-
-  box-shadow: none;
-}
-
-
-/* =========================================================
-   REGISTER
-========================================================= */
-
-.dark-mode .register-btn {
-  background: #168895;
-
-  border: 1px solid #168895;
-
-  color: #ffffff;
-
-  box-shadow: none;
-
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.dark-mode .register-btn:hover {
-  background: #1a9aa7;
-
-  border-color: #1a9aa7;
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 6px 16px rgba(22, 136, 149, 0.20);
-}
-
-
-/* =========================================================
-   LOGIN DROPDOWN
-========================================================= */
-
-.dark-mode .login-menu {
-  background: #102630;
-
-  border: 1px solid #2c4853;
-
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.30);
-}
-
-.dark-mode .login-menu button {
-  color: #c4d7dc;
-
-  background: transparent;
-}
-
-.dark-mode .login-menu button:hover {
-  color: #69cbd2;
-
-  background: #173640;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .dark-mode .main-header {
-    background: #0d1b24;
-
-    box-shadow:
-      0 3px 14px rgba(0, 0, 0, 0.25);
-  }
-
-}
 
 /* =====================================================
    LOGIN
@@ -1031,71 +770,6 @@ body {
 
 .announcement strong {
   color: #087f8c;
-}
-
-/* =========================================================
-   ANNOUNCEMENT BAR — DARK MODE
-========================================================= */
-
-.dark-mode .announcement {
-  background: #102a34;
-
-  border-bottom: 1px solid #294750;
-
-  color: #c5d8dc;
-
-  box-shadow: none;
-}
-
-
-/* Announcement text */
-
-.dark-mode .announcement span,
-.dark-mode .announcement p {
-  color: #c5d8dc;
-}
-
-
-/* Highlight / strong text */
-
-.dark-mode .announcement strong {
-  color: #69cbd2;
-}
-
-
-/* Links */
-
-.dark-mode .announcement a {
-  color: #69cbd2;
-
-  text-decoration: none;
-}
-
-.dark-mode .announcement a:hover {
-  color: #8be0e5;
-}
-
-
-/* Icon */
-
-.dark-mode .announcement svg,
-.dark-mode .announcement .announcement-icon {
-  color: #69cbd2;
-}
-
-
-/* Close button, if present */
-
-.dark-mode .announcement button {
-  color: #a9c1c6;
-
-  background: transparent;
-
-  border: none;
-}
-
-.dark-mode .announcement button:hover {
-  color: #ffffff;
 }
 
 /* =========================================================
@@ -7472,179 +7146,6 @@ body {
   color: #078b9a;
 }
 
-
-/* =========================================================
-   LOGIN DARK MODE
-   ONLY THE LOGIN CARD CHANGES
-========================================================= */
-
-.hospital-login.login-dark-mode {
-  background: #10252d;
-
-  border-color: #294751;
-
-  color: #e9f6f8;
-
-  box-shadow:
-    0 30px 90px rgba(0, 0, 0, 0.55);
-}
-
-
-/* Logo area */
-
-.hospital-login.login-dark-mode
-.hospital-login-logo {
-  background: #183b44;
-
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.20);
-}
-
-
-/* Title */
-
-.hospital-login.login-dark-mode h1 {
-  color: #55d5df;
-}
-
-
-/* Subtitle */
-
-.hospital-login.login-dark-mode
-.login-subtitle {
-  color: #9ab8c0;
-}
-
-
-/* Labels */
-
-.hospital-login.login-dark-mode
-form label {
-  color: #d4e7ea;
-}
-
-
-/* Inputs */
-
-.hospital-login.login-dark-mode
-form input {
-  background: #18343d;
-
-  border-color: #31545e;
-
-  color: #f2fafb;
-}
-
-.hospital-login.login-dark-mode
-form input::placeholder {
-  color: #819da5;
-}
-
-.hospital-login.login-dark-mode
-form input:focus {
-  background: #1c3c45;
-
-  border-color: #38c7d4;
-
-  box-shadow:
-    0 0 0 4px rgba(56, 199, 212, 0.12);
-}
-
-
-/* Role tabs */
-
-.hospital-login.login-dark-mode
-.role-tabs button {
-  background: #18343d;
-
-  border-color: #31545e;
-
-  color: #aac3c9;
-}
-
-.hospital-login.login-dark-mode
-.role-tabs button:hover {
-  border-color: #38c7d4;
-
-  color: #55d5df;
-}
-
-.hospital-login.login-dark-mode
-.role-tabs button.active {
-  background: #0b8f9e;
-
-  border-color: #0b8f9e;
-
-  color: #ffffff;
-}
-
-
-/* Close button */
-
-.hospital-login.login-dark-mode
-.close-login {
-  background: #1a3a43;
-
-  color: #d9eef1;
-}
-
-.hospital-login.login-dark-mode
-.close-login:hover {
-  background: #244c56;
-
-  color: #ffffff;
-}
-
-
-/* Theme button */
-
-.hospital-login.login-dark-mode
-.login-theme-toggle {
-  background: #1a3a43;
-
-  border-color: #31545e;
-
-  color: #ffffff;
-}
-
-
-/* Submit button */
-
-.hospital-login.login-dark-mode
-.hospital-login-button {
-  background: linear-gradient(
-    135deg,
-    #0b8f9e,
-    #087e8c
-  );
-}
-
-
-/* Forgot password */
-
-.hospital-login.login-dark-mode
-.forgot-password {
-  color: #8fd5dc;
-}
-
-.hospital-login.login-dark-mode
-.forgot-password:hover {
-  color: #63e1e9;
-}
-
-
-/* Error */
-
-.hospital-login.login-dark-mode
-.login-error {
-  background: #351f22;
-
-  border-color: #61373c;
-
-  color: #ffb6b6;
-}
-
-
 /* =========================================================
    SCROLLBAR INSIDE LOGIN
 ========================================================= */
@@ -7662,11 +7163,6 @@ form input:focus {
 
   border-radius: 10px;
 }
-
-.hospital-login.login-dark-mode::-webkit-scrollbar-thumb {
-  background: #31545e;
-}
-
 
 /* =========================================================
    ANIMATIONS
@@ -8073,66 +7569,6 @@ form input:focus {
 
 .forgot-password:hover::after {
   width: 100%;
-}
-
-
-/* =========================================================
-   DARK MODE HOVERS
-========================================================= */
-
-.hospital-login.login-dark-mode:hover {
-  box-shadow:
-    0 35px 95px rgba(0, 0, 0, 0.60);
-}
-
-.hospital-login.login-dark-mode
-.hospital-login-logo:hover {
-  box-shadow:
-    0 12px 30px rgba(55, 213, 223, 0.15);
-}
-
-.hospital-login.login-dark-mode
-.role-tabs button:hover {
-  background: #20434d;
-
-  border-color: #38c7d4;
-
-  color: #63e1e9;
-
-  box-shadow:
-    0 8px 22px rgba(56, 199, 212, 0.12);
-}
-
-.hospital-login.login-dark-mode
-form input:hover {
-  background: #1d3d46;
-
-  border-color: #47717b;
-}
-
-.hospital-login.login-dark-mode
-form input:focus {
-  background: #20434d;
-
-  border-color: #38c7d4;
-
-  box-shadow:
-    0 0 0 4px rgba(56, 199, 212, 0.14),
-    0 8px 20px rgba(0, 0, 0, 0.18);
-}
-
-.hospital-login.login-dark-mode
-.login-theme-toggle:hover {
-  background: #244c56;
-
-  border-color: #4a7881;
-}
-
-.hospital-login.login-dark-mode
-.close-login:hover {
-  background: #4a272b;
-
-  color: #ff9f9f;
 }
 
 /* =========================================================
@@ -8890,117 +8326,6 @@ form input:focus {
 }
 
 /* =========================================================
-   DARK MODE
-========================================================= */
-
-html.dark-mode .project-intro-section,
-.dark-mode .project-intro-section {
-  background:
-    radial-gradient(circle at 12% 15%, rgba(70,205,215,.09), transparent 30%),
-    radial-gradient(circle at 88% 80%, rgba(70,205,215,.06), transparent 28%),
-    linear-gradient(135deg,#0b2029 0%,#102d37 52%,#0b2029 100%);
-  border-bottom-color: rgba(90,210,220,.12);
-}
-
-html.dark-mode .project-intro-badge,
-.dark-mode .project-intro-badge {
-  color: #78dbe1;
-  background: rgba(70,205,215,.08);
-  border-color: rgba(70,205,215,.25);
-}
-
-html.dark-mode .project-team,
-.dark-mode .project-team {
-  background: rgba(18,42,52,.92);
-  border-color: rgba(80,200,210,.15);
-  box-shadow: 0 8px 25px rgba(0,0,0,.15);
-}
-
-html.dark-mode .project-team div > span,
-.dark-mode .project-team div > span {
-  color: #78939c;
-}
-
-html.dark-mode .project-team strong,
-.dark-mode .project-team strong {
-  color: #e5f4f6;
-}
-
-html.dark-mode .project-intro-kicker,
-.dark-mode .project-intro-kicker {
-  color: #68d5dc;
-}
-
-html.dark-mode .project-intro-heading h2,
-.dark-mode .project-intro-heading h2 {
-  color: #f0f7f8;
-}
-
-html.dark-mode .project-intro-heading h2 span,
-.dark-mode .project-intro-heading h2 span {
-  color: #55d5dc;
-}
-
-html.dark-mode .project-intro-lead,
-.dark-mode .project-intro-lead {
-  color: #adc3c9;
-}
-
-html.dark-mode .project-intro-description p,
-.dark-mode .project-intro-description p {
-  color: #9eb7be;
-}
-
-html.dark-mode .project-highlight-card,
-.dark-mode .project-highlight-card {
-  background: rgba(17,43,53,.92);
-  border-color: rgba(90,205,215,.13);
-  box-shadow: 0 8px 25px rgba(0,0,0,.16);
-}
-
-html.dark-mode .project-highlight-card:hover,
-.dark-mode .project-highlight-card:hover {
-  background: #173741;
-  border-color: rgba(90,210,220,.3);
-}
-
-html.dark-mode .project-highlight-icon,
-.dark-mode .project-highlight-icon {
-  color: #71dbe1;
-  background: rgba(70,205,215,.1);
-}
-
-html.dark-mode .project-highlight-card strong,
-.dark-mode .project-highlight-card strong {
-  color: #e4f2f4;
-}
-
-html.dark-mode .project-highlight-card small,
-.dark-mode .project-highlight-card small {
-  color: #91aab2;
-}
-
-html.dark-mode .project-intro-footer,
-.dark-mode .project-intro-footer {
-  border-top-color: rgba(90,205,215,.12);
-}
-
-html.dark-mode .project-purpose span:not(.project-purpose-icon),
-.dark-mode .project-purpose span:not(.project-purpose-icon) {
-  color: #6f8992;
-}
-
-html.dark-mode .project-purpose strong,
-.dark-mode .project-purpose strong {
-  color: #b3c8cd;
-}
-
-html.dark-mode .project-academic-note,
-.dark-mode .project-academic-note {
-  color: #8da7af;
-}
-
-/* =========================================================
    RESPONSIVE
 ========================================================= */
 
@@ -9285,31 +8610,6 @@ html.dark-mode .project-academic-note,
   position: sticky;
   top: 0;
   z-index: 1000;
-}
-
-
-/* =====================================================
-   DARK MODE
-===================================================== */
-
-.dark-mode .main-nav .nav-link {
-  color: rgba(232, 246, 248, 0.78);
-}
-
-.dark-mode .main-nav .nav-link:hover {
-  color: #63e2eb;
-}
-
-.dark-mode .main-nav .nav-link.active {
-  color: #63e2eb;
-}
-
-.dark-mode .main-nav .nav-link::after {
-  background: linear-gradient(
-    90deg,
-    #20bfd2,
-    #71e7ee
-  );
 }
 
 
@@ -15278,6 +14578,682 @@ html.dark-mode .project-academic-note,
 }
 
 /* =========================================================
+   PROJECT INTRO TOP — FINAL CLEAN ALIGNMENT
+========================================================= */
+
+.project-intro-top {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 42px;
+
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 24px;
+
+  align-items: stretch;
+}
+
+/* SAME SIZE FOR ALL 3 */
+
+.project-intro-top .project-intro-badge,
+.project-intro-top .project-team,
+.project-intro-top .hero-github-link {
+  width: 100% !important;
+  height: 68px !important;
+  min-height: 68px !important;
+  max-height: 68px !important;
+
+  min-width: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+
+  display: flex !important;
+  align-items: center !important;
+
+  border-radius: 16px;
+}
+
+
+.project-team-icon {
+  width: 28px;
+  height: 28px;
+
+  flex: 0 0 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-team-icon svg {
+  width: 20px;
+  height: 20px;
+
+  display: block;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================================
+   AYUSHMAN BHARAT — NORMAL MODE
+   MATCH MODERN HEALTHCARE / OUR SERVICES
+========================================================= */
+
+/* Section background */
+.home-page .insurance-section {
+  background:
+    radial-gradient(
+      circle at 8% 50%,
+      rgba(0, 170, 190, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 92% 50%,
+      rgba(0, 170, 190, 0.08),
+      transparent 30%
+    ),
+    #f3fbfc;
+}
+
+
+/* Keep original two-column layout */
+.home-page .insurance-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+  gap: 55px;
+  align-items: center;
+}
+
+
+/* =========================================================
+   AYUSHMAN LABEL
+========================================================= */
+
+.home-page .insurance-title-row {
+  display: block;
+
+  margin-bottom: 22px;
+
+  text-align: left;
+}
+
+
+/* Hide old logo */
+.home-page .insurance-title-row .insurance-logo {
+  display: none;
+}
+
+
+/* Label */
+.home-page .insurance-title-row .section-label {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 16px;
+
+  margin-bottom: 13px;
+
+  border-radius: 50px;
+
+  background: #e8f8fa;
+
+  border: 1px solid rgba(8, 143, 162, 0.25);
+
+  color: #078c9d;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  line-height: 1;
+
+  box-shadow:
+    0 5px 18px rgba(8, 143, 162, 0.08);
+}
+
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.home-page .insurance-title-row h2 {
+  margin: 0;
+
+  color: #103e56;
+
+  font-size: clamp(38px, 4vw, 55px);
+
+  line-height: 1.08;
+
+  letter-spacing: -1.7px;
+
+  font-weight: 800;
+
+  background: linear-gradient(
+    135deg,
+    #103e56 0%,
+    #174e65 45%,
+    #20b7c8 78%,
+    #078ca0 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  text-shadow:
+    0 4px 12px rgba(8, 100, 120, 0.08);
+}
+
+
+/* Highlighted heading text */
+.home-page .insurance-title-row h2 span {
+  color: #16b7c8;
+
+  -webkit-text-fill-color: #16b7c8;
+}
+
+
+/* Cyan underline */
+.home-page .insurance-title-row h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+
+  height: 4px;
+
+  margin-top: 17px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #078ca0,
+    #3edbe5,
+    #078ca0
+  );
+
+  box-shadow:
+    0 0 12px rgba(30, 190, 205, 0.25);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.home-page .insurance-description {
+  color: #5f7b89;
+
+  font-size: 15px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.home-page .insurance-features div {
+  color: #17465a;
+}
+
+.home-page .insurance-features strong {
+  color: #17465a;
+}
+
+
+/* Check circles */
+.home-page .insurance-features span {
+  background: #e6f8fa;
+
+  color: #078fa1;
+
+  border-color:
+    rgba(8, 143, 162, 0.12);
+
+  box-shadow:
+    0 5px 14px rgba(8, 143, 162, 0.08);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .home-page .insurance-layout {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .home-page .insurance-title-row h2 {
+    font-size: 38px;
+  }
+
+}
+
+/* =========================================================
+   MODERN HEALTHCARE — NORMAL MODE
+   Same style as OUR SERVICES
+========================================================= */
+
+.home-page .healthcare-gallery .section-heading > p {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 22px;
+  margin-bottom: 18px;
+
+  border-radius: 50px;
+
+  background: #e9f9fb;
+  border: 1px solid rgba(8, 143, 162, 0.22);
+
+  color: #08a7b8;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+
+  box-shadow:
+    0 5px 18px rgba(8, 143, 162, 0.08);
+}
+
+
+/* Main heading */
+.home-page .healthcare-gallery .section-heading h2 {
+  margin: 0 0 18px;
+
+  color: #103e56;
+
+  font-size: clamp(42px, 5vw, 64px);
+
+  line-height: 1.08;
+
+  font-weight: 800;
+
+  letter-spacing: -1.8px;
+
+  background: linear-gradient(
+    135deg,
+    #103e56 0%,
+    #174e65 45%,
+    #28c6d5 75%,
+    #0797aa 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  text-shadow:
+    0 4px 12px rgba(8, 100, 120, 0.08);
+}
+
+
+/* Around You */
+.home-page .healthcare-gallery .section-heading h2 span {
+  display: inline;
+
+  margin: 0;
+  padding: 0;
+
+  color: #20bfce;
+
+  background: none;
+
+  border: none;
+
+  font-size: inherit;
+  font-weight: inherit;
+
+  -webkit-text-fill-color: #20bfce;
+}
+
+
+/* Cyan underline */
+.home-page .healthcare-gallery .section-heading h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 4px;
+
+  margin: 17px auto 0;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #078ca0,
+    #3edbe5,
+    #078ca0
+  );
+
+  box-shadow:
+    0 0 12px rgba(30, 190, 205, 0.25);
+}
+
+
+/* Description */
+.home-page .healthcare-gallery .section-heading > span {
+  display: block;
+
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: #64818b;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  text-align: center;
+
+  background: transparent;
+
+  border: none;
+}
+
+/* =========================================================
+   OUR SERVICES — NORMAL MODE
+========================================================= */
+
+.home-page .services-section .section-heading > p {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 22px;
+  margin-bottom: 18px;
+
+  border-radius: 50px;
+
+  background: #e9f9fb;
+  border: 1px solid rgba(8, 143, 162, 0.22);
+
+  color: #08a7b8;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+
+  box-shadow: 0 5px 18px rgba(8, 143, 162, 0.08);
+}
+
+
+/* Main heading */
+.home-page .services-section .section-heading h2 {
+  margin: 0 0 18px;
+
+  color: #103e56;
+
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -1.8px;
+
+  background: linear-gradient(
+    135deg,
+    #103e56 0%,
+    #174e65 45%,
+    #28c6d5 75%,
+    #0797aa 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  text-shadow: 0 4px 12px rgba(8, 100, 120, 0.08);
+}
+
+
+/* Cyan underline */
+.home-page .services-section .section-heading h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 4px;
+
+  margin: 17px auto 0;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #078ca0,
+    #3edbe5,
+    #078ca0
+  );
+
+  box-shadow:
+    0 0 12px rgba(30, 190, 205, 0.25);
+}
+
+
+/* Description */
+.home-page .services-section .section-heading > span {
+  display: block;
+
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: #64818b;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  text-align: center;
+
+  background: transparent;
+  border: none;
+}
+
+/* =========================================================
+   LIGHT MODE — SECTION LABEL STYLE
+   AYUSHMAN • DEPARTMENTS • DOCTORS
+   Same style as OUR SERVICES
+========================================================= */
+
+
+/* =========================================================
+   AYUSHMAN BHARAT
+========================================================= */
+
+.home-page .insurance-section .section-label {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 8px 18px;
+
+  border-radius: 50px;
+
+  background: #e9f9fb;
+  border: 1px solid rgba(8, 143, 162, 0.22);
+
+  color: #08a7b8;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+
+  box-shadow: 0 5px 18px rgba(8, 143, 162, 0.08);
+
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+
+/* =========================================================
+   DEPARTMENTS
+========================================================= */
+
+.home-page .departments-section .section-heading > p {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 8px 22px;
+
+  border-radius: 50px;
+
+  background: #e9f9fb;
+  border: 1px solid rgba(8, 143, 162, 0.22);
+
+  color: #08a7b8;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+
+  box-shadow: 0 5px 18px rgba(8, 143, 162, 0.08);
+
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+
+/* =========================================================
+   DOCTORS
+========================================================= */
+
+.home-page .doctors-section .section-heading > p {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 8px 22px;
+
+  border-radius: 50px;
+
+  background: #e9f9fb;
+  border: 1px solid rgba(8, 143, 162, 0.22);
+
+  color: #08a7b8;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+
+  box-shadow: 0 5px 18px rgba(8, 143, 162, 0.08);
+
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+
+/* =========================================================
+   INSIDE LINES — AYUSHMAN
+========================================================= */
+
+.home-page .insurance-section .section-label::before,
+.home-page .insurance-section .section-label::after,
+
+.home-page .departments-section .section-heading > p::before,
+.home-page .departments-section .section-heading > p::after,
+
+.home-page .doctors-section .section-heading > p::before,
+.home-page .doctors-section .section-heading > p::after {
+  content: "";
+
+  width: 34px;
+  height: 1px;
+
+  flex-shrink: 0;
+
+  background: #55cbd5;
+
+  opacity: 0.85;
+}
+
+
+/* Left line fade */
+.home-page .insurance-section .section-label::before,
+.home-page .departments-section .section-heading > p::before,
+.home-page .doctors-section .section-heading > p::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #55cbd5
+  );
+}
+
+
+/* Right line fade */
+.home-page .insurance-section .section-label::after,
+.home-page .departments-section .section-heading > p::after,
+.home-page .doctors-section .section-heading > p::after {
+  background: linear-gradient(
+    90deg,
+    #55cbd5,
+    transparent
+  );
+}
+
+
+/* =========================================================
+   SMOOTH THEME TRANSITION
+========================================================= */
+
+.home-page .insurance-section,
+.home-page .departments-section,
+.home-page .doctors-section,
+.home-page .insurance-section .section-label,
+.home-page .departments-section .section-heading > p,
+.home-page .doctors-section .section-heading > p {
+  transition:
+    background 0.55s ease,
+    color 0.55s ease,
+    border-color 0.55s ease,
+    box-shadow 0.55s ease;
+}
+
+/* =========================================================
    LIGHT MODE — OUR DOCTORS
 ========================================================= */
 
@@ -15359,4 +15335,3 @@ html.dark-mode .project-academic-note,
 
   color: #718896;
 }
-
