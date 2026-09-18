@@ -12723,63 +12723,6 @@ body {
   }
 }
 
-/* =========================================
-   REGISTER PASSWORD SHOW / HIDE
-========================================= */
-
-.password-input-wrap {
-  position: relative !important;
-  width: 100% !important;
-}
-
-.password-input-wrap input {
-  width: 100% !important;
-  padding-right: 48px !important;
-}
-
-.password-toggle {
-  position: absolute !important;
-
-  right: 10px !important;
-  top: 50% !important;
-
-  transform: translateY(-50%) !important;
-
-  width: 32px !important;
-  height: 32px !important;
-
-  padding: 0 !important;
-  margin: 0 !important;
-
-  border: none !important;
-  background: transparent !important;
-
-  color: #0b9db0 !important;
-
-  font-size: 18px !important;
-  cursor: pointer !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  z-index: 5 !important;
-}
-
-.password-toggle:hover {
-  background: rgba(11, 157, 176, 0.08) !important;
-  border-radius: 50% !important;
-}
-
-.department-card {
-  cursor: pointer;
-}
-
-.department-card:focus-visible {
-  outline: 2px solid #0795a4;
-  outline-offset: 3px;
-}
-
 /* =========================================================
    AI SMART HOSPITAL
    FINAL PREMIUM HERO DESIGN
@@ -17116,4 +17059,344 @@ body {
   .footer-creators {
     justify-content: flex-start;
   }
+}
+
+/* =====================================================
+   DOCTOR ROLE ICON — EXACT FIX
+===================================================== */
+
+.doctor-role-icon {
+  width: 26px;
+  height: 26px;
+
+  display: inline-block;
+  flex-shrink: 0;
+
+  fill: none !important;
+  background: transparent !important;
+
+  color: #078b96;
+  stroke: #078b96;
+
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Doctor selected */
+
+.role-button.active .doctor-role-icon,
+.login-role.active .doctor-role-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none !important;
+  background: transparent !important;
+}
+
+/* =========================================================
+   FINAL LOGIN CLOSE BUTTON
+========================================================= */
+
+.hospital-login .close-login {
+  position: absolute;
+
+  top: 13px;
+  right: 13px;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #dbecef;
+  border-radius: 50%;
+
+  background: #eef7f9;
+  color: #397080;
+
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 20;
+
+  transform: rotate(0deg) scale(1);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.3s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Hover animation */
+.hospital-login .close-login:hover {
+  background: #fff0f0;
+  color: #dc2626;
+  border-color: #fecaca;
+
+  transform: rotate(90deg) scale(1.08);
+
+  box-shadow:
+    0 6px 16px rgba(220, 38, 38, 0.15);
+}
+
+/* Click animation */
+.hospital-login .close-login:active {
+  background: #fee2e2;
+  color: #b91c1c;
+
+  transform: rotate(90deg) scale(0.92);
+}
+
+/* Keyboard focus */
+.hospital-login .close-login:focus-visible {
+  outline: 2px solid #087f8c;
+  outline-offset: 3px;
+}
+
+/* Remove normal focus outline */
+.hospital-login .close-login:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* =========================================================
+   REGISTER PASSWORD SHOW / HIDE
+   SAME STYLE AS LOGIN
+========================================================= */
+
+.register-modal .login-password-wrap {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.register-modal .login-password-wrap > input {
+  width: 100% !important;
+  padding-right: 105px !important;
+}
+
+.register-modal .login-password-wrap > .show-password-btn {
+  position: absolute !important;
+
+  top: 50% !important;
+  right: 10px !important;
+
+  transform: translateY(-50%) !important;
+
+  width: 76px !important;
+  height: 34px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  gap: 6px !important;
+
+  border: 0 !important;
+  border-left: 1px solid #dbe8eb !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color: #078b9a !important;
+
+  font-size: 13px !important;
+  font-weight: 800 !important;
+
+  line-height: 1 !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+
+  z-index: 10 !important;
+}
+
+.register-modal .login-password-wrap > .show-password-btn:hover {
+  top: 50% !important;
+  right: 10px !important;
+
+  transform: translateY(-50%) !important;
+
+  background: transparent !important;
+
+  color: #056f7b !important;
+
+  box-shadow: none !important;
+}
+
+.register-modal .login-password-wrap > .show-password-btn:active {
+  transform: translateY(-50%) !important;
+}
+
+.register-modal .login-password-wrap > .show-password-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   REGISTER LOGO — SIZE + HOVER
+========================================================= */
+
+.register-modal .register-logo {
+  width: 65px !important;
+  height: 65px !important;
+
+  min-width: 65px !important;
+  min-height: 65px !important;
+
+  max-width: 65px !important;
+  max-height: 65px !important;
+
+  margin: 0 auto 9px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+
+  border-radius: 50% !important;
+  box-sizing: border-box !important;
+
+  background: #ffffff !important;
+
+  border: 3px solid rgba(7, 139, 154, 0.15) !important;
+
+  flex-shrink: 0 !important;
+
+  cursor: pointer !important;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease !important;
+}
+
+
+/* LOGO HOVER */
+
+.register-modal .register-logo:hover {
+  transform: scale(1.08) !important;
+
+  border-color: rgba(7, 139, 154, 0.45) !important;
+
+  box-shadow:
+    0 8px 22px rgba(7, 139, 154, 0.22) !important;
+}
+
+
+/* LOGO IMAGE */
+
+.register-modal .register-logo img {
+  width: 100% !important;
+  height: 100% !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  max-width: 100% !important;
+  max-height: 100% !important;
+
+  display: block !important;
+
+  object-fit: cover !important;
+  object-position: center !important;
+
+  border-radius: 50% !important;
+
+  margin: 0 !important;
+
+  transition: transform 0.25s ease !important;
+}
+
+
+/* IMAGE SLIGHTLY ZOOMS ON HOVER */
+
+.register-modal .register-logo:hover img {
+  transform: scale(1.04) !important;
+}
+
+/* =========================================================
+   CREATE ACCOUNT BUTTON — SHINY EFFECT
+========================================================= */
+
+.register-submit {
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(
+    135deg,
+    #0796a5,
+    #10a3b2,
+    #16b6c5
+  ) !important;
+
+  color: #ffffff !important;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease !important;
+
+  box-shadow:
+    0 10px 25px rgba(7, 150, 165, 0.20);
+}
+
+
+/* SHINE */
+
+.register-submit::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    110deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.6s ease;
+
+  pointer-events: none;
+}
+
+
+/* HOVER */
+
+.register-submit:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 30px rgba(7, 150, 165, 0.32);
+}
+
+.register-submit:hover::before {
+  left: 140%;
+}
+
+
+/* CLICK */
+
+.register-submit:active {
+  transform: translateY(0);
 }
