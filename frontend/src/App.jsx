@@ -1,4 +1,4 @@
-```jsx
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { useDarkMode } from "./theme/DarkMode";
@@ -252,4 +252,3 @@ function App() {
 }
 
 export default App;
-```

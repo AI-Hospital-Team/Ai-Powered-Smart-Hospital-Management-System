@@ -37,8 +37,7 @@ public class NotificationService {
                         .existsByUserIdAndTypeAndReferenceId(
                                 userId,
                                 type,
-                                referenceId
-                        )) {
+                                referenceId)) {
 
             return null;
         }
@@ -55,6 +54,48 @@ public class NotificationService {
         notification.setCreatedAt(LocalDateTime.now());
 
         return notificationRepository.save(notification);
+    }
+
+    // =====================================================
+    // DOCTOR NOTIFICATION
+    // =====================================================
+
+    public Notification notifyDoctor(
+            Integer doctorUserId,
+            String title,
+            String message,
+            String type,
+            Integer referenceId) {
+
+        return createNotification(
+                doctorUserId,
+                "DOCTOR",
+                title,
+                message,
+                type,
+                referenceId
+        );
+    }
+
+    // =====================================================
+    // ADMIN NOTIFICATION
+    // =====================================================
+
+    public Notification notifyAdmin(
+            Integer adminUserId,
+            String title,
+            String message,
+            String type,
+            Integer referenceId) {
+
+        return createNotification(
+                adminUserId,
+                "ADMIN",
+                title,
+                message,
+                type,
+                referenceId
+        );
     }
 
     // =====================================================
@@ -102,7 +143,6 @@ public class NotificationService {
                         .findByUserIdOrderByCreatedAtDesc(userId);
 
         for (Notification notification : notifications) {
-
             notification.setRead(true);
         }
 

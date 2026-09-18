@@ -11,23 +11,28 @@ import org.springframework.stereotype.Service;
 import com.hospital.management.dto.AppointmentResponse;
 import com.hospital.management.entity.Appointment;
 import com.hospital.management.entity.Doctor;
+import com.hospital.management.entity.User;
 import com.hospital.management.repository.AppointmentRepository;
 import com.hospital.management.repository.DoctorRepository;
+import com.hospital.management.repository.UserRepository;
 
 @Service
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
+    private final UserRepository userRepository;
     private final NotificationService notificationService;
 
     public AppointmentService(
             AppointmentRepository appointmentRepository,
             DoctorRepository doctorRepository,
+            UserRepository userRepository,
             NotificationService notificationService) {
 
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
+        this.userRepository = userRepository;
         this.notificationService = notificationService;
     }
 
@@ -113,6 +118,48 @@ public class AppointmentService {
         Appointment savedAppointment =
                 appointmentRepository.save(appointment);
 
+        // =================================================
+        // DOCTOR NOTIFICATION
+        // =================================================
+
+        userRepository
+                .findByDoctorId(
+                        savedAppointment.getDoctorId()
+                )
+                .ifPresent(doctorUser -> {
+
+                    notificationService.notifyDoctor(
+                            doctorUser.getUserId(),
+                            "New Appointment Booked",
+                            "A new patient appointment has been booked for "
+                                    + savedAppointment.getAppointmentDate()
+                                    + " at "
+                                    + savedAppointment.getAppointmentTime()
+                                    + ".",
+                            "APPOINTMENT_BOOKED",
+                            savedAppointment.getAppointmentId()
+                    );
+                });
+
+        // =================================================
+        // ADMIN NOTIFICATION
+        // =================================================
+
+        List<User> admins =
+                userRepository
+                        .findByRoleIgnoreCase("ADMIN");
+
+        for (User admin : admins) {
+
+            notificationService.notifyAdmin(
+                    admin.getUserId(),
+                    "New Appointment",
+                    "A new appointment has been booked in the hospital system.",
+                    "NEW_APPOINTMENT",
+                    savedAppointment.getAppointmentId()
+            );
+        }
+
         return toResponse(savedAppointment);
     }
 
@@ -197,6 +244,10 @@ public class AppointmentService {
                 continue;
             }
 
+            // -------------------------------
+            // PATIENT
+            // -------------------------------
+
             notificationService.createNotification(
                     appointment.getPatientId(),
                     "PATIENT",
@@ -207,6 +258,27 @@ public class AppointmentService {
                     "APPOINTMENT_TOMORROW",
                     appointment.getAppointmentId()
             );
+
+            // -------------------------------
+            // DOCTOR
+            // -------------------------------
+
+            userRepository
+                    .findByDoctorId(
+                            appointment.getDoctorId()
+                    )
+                    .ifPresent(doctorUser -> {
+
+                        notificationService.notifyDoctor(
+                                doctorUser.getUserId(),
+                                "Appointment Tomorrow",
+                                "You have a patient appointment tomorrow at "
+                                        + appointment.getAppointmentTime()
+                                        + ".",
+                                "APPOINTMENT_TOMORROW",
+                                appointment.getAppointmentId()
+                        );
+                    });
         }
     }
 
@@ -313,8 +385,6 @@ public class AppointmentService {
 
         // =================================================
         // PENDING
-        // Pending → Confirmed
-        // Pending → Cancelled
         // =================================================
 
         if ("Pending".equalsIgnoreCase(currentStatus)) {
@@ -330,8 +400,6 @@ public class AppointmentService {
 
         // =================================================
         // CONFIRMED
-        // Confirmed → Completed
-        // Confirmed → Cancelled
         // =================================================
 
         else if ("Confirmed".equalsIgnoreCase(currentStatus)) {
@@ -355,7 +423,8 @@ public class AppointmentService {
                 appointmentRepository.save(appointment);
 
         // =================================================
-        // APPOINTMENT CONFIRMED NOTIFICATION
+        // APPOINTMENT CONFIRMED
+        // PATIENT
         // =================================================
 
         if ("Confirmed".equalsIgnoreCase(requestedStatus)) {
@@ -375,10 +444,15 @@ public class AppointmentService {
         }
 
         // =================================================
-        // APPOINTMENT CANCELLED NOTIFICATION
+        // APPOINTMENT CANCELLED
+        // PATIENT + DOCTOR + ADMIN
         // =================================================
 
         if ("Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+            // -------------------------------
+            // PATIENT
+            // -------------------------------
 
             notificationService.createNotification(
                     appointment.getPatientId(),
@@ -392,6 +466,48 @@ public class AppointmentService {
                     "APPOINTMENT_CANCELLED",
                     appointment.getAppointmentId()
             );
+
+            // -------------------------------
+            // DOCTOR
+            // -------------------------------
+
+            userRepository
+                    .findByDoctorId(
+                            appointment.getDoctorId()
+                    )
+                    .ifPresent(doctorUser -> {
+
+                        notificationService.notifyDoctor(
+                                doctorUser.getUserId(),
+                                "Appointment Cancelled",
+                                "An appointment scheduled for "
+                                        + appointment.getAppointmentDate()
+                                        + " at "
+                                        + appointment.getAppointmentTime()
+                                        + " has been cancelled.",
+                                "APPOINTMENT_CANCELLED",
+                                appointment.getAppointmentId()
+                        );
+                    });
+
+            // -------------------------------
+            // ADMIN
+            // -------------------------------
+
+            List<User> admins =
+                    userRepository
+                            .findByRoleIgnoreCase("ADMIN");
+
+            for (User admin : admins) {
+
+                notificationService.notifyAdmin(
+                        admin.getUserId(),
+                        "Appointment Cancelled",
+                        "An appointment has been cancelled.",
+                        "APPOINTMENT_CANCELLED",
+                        appointment.getAppointmentId()
+                );
+            }
         }
 
         return toResponse(updatedAppointment);
@@ -447,14 +563,13 @@ public class AppointmentService {
 
         appointment.setAppointmentDate(newDate);
         appointment.setAppointmentTime(newTime);
-
         appointment.setStatus("Pending");
 
         Appointment updatedAppointment =
                 appointmentRepository.save(appointment);
 
         // =================================================
-        // RESCHEDULE NOTIFICATION
+        // PATIENT
         // =================================================
 
         notificationService.createNotification(
@@ -469,6 +584,29 @@ public class AppointmentService {
                 "APPOINTMENT_RESCHEDULED",
                 appointment.getAppointmentId()
         );
+
+        // =================================================
+        // DOCTOR
+        // =================================================
+
+        userRepository
+                .findByDoctorId(
+                        appointment.getDoctorId()
+                )
+                .ifPresent(doctorUser -> {
+
+                    notificationService.notifyDoctor(
+                            doctorUser.getUserId(),
+                            "Appointment Rescheduled",
+                            "A patient appointment has been rescheduled to "
+                                    + newDate
+                                    + " at "
+                                    + newTime
+                                    + ".",
+                            "APPOINTMENT_RESCHEDULED",
+                            appointment.getAppointmentId()
+                    );
+                });
 
         return toResponse(updatedAppointment);
     }
@@ -520,7 +658,7 @@ public class AppointmentService {
                 appointmentRepository.save(appointment);
 
         // =================================================
-        // PATIENT CANCELLATION NOTIFICATION
+        // PATIENT
         // =================================================
 
         notificationService.createNotification(
@@ -535,6 +673,48 @@ public class AppointmentService {
                 "APPOINTMENT_CANCELLED",
                 appointment.getAppointmentId()
         );
+
+        // =================================================
+        // DOCTOR
+        // =================================================
+
+        userRepository
+                .findByDoctorId(
+                        appointment.getDoctorId()
+                )
+                .ifPresent(doctorUser -> {
+
+                    notificationService.notifyDoctor(
+                            doctorUser.getUserId(),
+                            "Appointment Cancelled",
+                            "A patient has cancelled an appointment scheduled for "
+                                    + appointment.getAppointmentDate()
+                                    + " at "
+                                    + appointment.getAppointmentTime()
+                                    + ".",
+                            "APPOINTMENT_CANCELLED",
+                            appointment.getAppointmentId()
+                    );
+                });
+
+        // =================================================
+        // ADMIN
+        // =================================================
+
+        List<User> admins =
+                userRepository
+                        .findByRoleIgnoreCase("ADMIN");
+
+        for (User admin : admins) {
+
+            notificationService.notifyAdmin(
+                    admin.getUserId(),
+                    "Appointment Cancelled",
+                    "An appointment has been cancelled.",
+                    "APPOINTMENT_CANCELLED",
+                    appointment.getAppointmentId()
+            );
+        }
 
         return toResponse(cancelledAppointment);
     }

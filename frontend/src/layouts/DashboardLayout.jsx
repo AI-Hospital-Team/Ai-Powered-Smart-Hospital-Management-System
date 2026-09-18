@@ -5,7 +5,7 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   useDarkMode,
@@ -13,6 +13,8 @@ import {
 } from "../theme/DarkMode";
 
 import "./DashboardLayout.css";
+
+const API_URL = "http://localhost:8080/api";
 
 function DashboardLayout() {
   const navigate = useNavigate();
@@ -30,23 +32,488 @@ function DashboardLayout() {
     localStorage.getItem("isLoggedIn") === "true";
 
   // ==========================================
+  // USER ID
+  // ==========================================
+
+  const getUserId = () => {
+    const directUserId =
+      localStorage.getItem("userId");
+
+    if (directUserId) {
+      return Number(directUserId);
+    }
+
+    try {
+      const storedUser = JSON.parse(
+        localStorage.getItem("user") || "null"
+      );
+
+      if (!storedUser) {
+        return null;
+      }
+
+      return Number(
+        storedUser.userId ||
+          storedUser.patientId ||
+          storedUser.doctorId ||
+          storedUser.id ||
+          null
+      );
+    } catch {
+      return null;
+    }
+  };
+
+  const userId = getUserId();
+
+  // ==========================================
   // DARK MODE
   // ==========================================
 
   const [darkMode, setDarkMode] =
     useDarkMode();
 
-  // Apply theme whenever Dashboard loads
-  // or darkMode state changes.
   useEffect(() => {
     applyDarkMode(darkMode);
   }, [darkMode]);
 
   // ==========================================
+  // NOTIFICATIONS
+  // ==========================================
+
+  const [notifications, setNotifications] =
+    useState([]);
+
+  const [
+    notificationLoading,
+    setNotificationLoading,
+  ] = useState(false);
+
+  const [
+    notificationError,
+    setNotificationError,
+  ] = useState("");
+
+  const [
+    notificationOpen,
+    setNotificationOpen,
+  ] = useState(false);
+
+  const notificationRef =
+    useRef(null);
+
+  // ==========================================
+  // UNREAD COUNT
+  // ==========================================
+
+  const unreadNotificationCount =
+    notifications.filter(
+      (notification) =>
+        !notification.read
+    ).length;
+
+  // ==========================================
+  // LOAD NOTIFICATIONS
+  // ==========================================
+
+  const loadNotifications =
+    async () => {
+      if (
+        !isLoggedIn ||
+        !userId
+      ) {
+        setNotifications([]);
+        return;
+      }
+
+      setNotificationLoading(true);
+      setNotificationError("");
+
+      try {
+        const response = await fetch(
+          `${API_URL}/notifications/${userId}`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to load notifications"
+          );
+        }
+
+        const data =
+          await response.json();
+
+        setNotifications(
+          Array.isArray(data)
+            ? data
+            : []
+        );
+      } catch (error) {
+        console.error(
+          "Notification loading error:",
+          error
+        );
+
+        setNotificationError(
+          "Unable to load notifications."
+        );
+      } finally {
+        setNotificationLoading(false);
+      }
+    };
+
+  // ==========================================
+  // LOAD NOTIFICATIONS ON LOGIN
+  // ==========================================
+
+  useEffect(() => {
+    if (
+      isLoggedIn &&
+      userId
+    ) {
+      loadNotifications();
+    } else {
+      setNotifications([]);
+    }
+  }, [
+    isLoggedIn,
+    userId,
+  ]);
+
+  // ==========================================
+  // AUTO REFRESH NOTIFICATIONS
+  // EVERY 30 SECONDS
+  // ==========================================
+
+  useEffect(() => {
+    if (
+      !isLoggedIn ||
+      !userId
+    ) {
+      return;
+    }
+
+    const interval =
+      setInterval(() => {
+        loadNotifications();
+      }, 30000);
+
+    return () =>
+      clearInterval(interval);
+  }, [
+    isLoggedIn,
+    userId,
+  ]);
+
+  // ==========================================
+  // CLOSE DROPDOWN WHEN CLICKING OUTSIDE
+  // ==========================================
+
+  useEffect(() => {
+    const handleOutsideClick = (
+      event
+    ) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(
+          event.target
+        )
+      ) {
+        setNotificationOpen(false);
+      }
+    };
+
+    document.addEventListener(
+      "mousedown",
+      handleOutsideClick
+    );
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleOutsideClick
+      );
+    };
+  }, []);
+
+  // ==========================================
+  // CLOSE DROPDOWN WITH ESC
+  // ==========================================
+
+  useEffect(() => {
+    const handleEscape = (
+      event
+    ) => {
+      if (
+        event.key === "Escape"
+      ) {
+        setNotificationOpen(false);
+      }
+    };
+
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
+
+    return () => {
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+    };
+  }, []);
+
+  // ==========================================
+  // MARK INDIVIDUAL NOTIFICATION AS READ
+  // ==========================================
+
+  const markNotificationAsRead =
+    async (notificationId) => {
+      try {
+        const response =
+          await fetch(
+            `${API_URL}/notifications/${notificationId}/read`,
+            {
+              method: "PUT",
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to mark notification as read"
+          );
+        }
+
+        setNotifications(
+          (previousNotifications) =>
+            previousNotifications.map(
+              (notification) =>
+                notification.notificationId ===
+                notificationId
+                  ? {
+                      ...notification,
+                      read: true,
+                    }
+                  : notification
+            )
+        );
+      } catch (error) {
+        console.error(
+          "Mark notification read error:",
+          error
+        );
+      }
+    };
+
+  // ==========================================
+  // MARK ALL NOTIFICATIONS AS READ
+  // ==========================================
+
+  const markAllNotificationsAsRead =
+    async () => {
+      if (
+        !userId ||
+        unreadNotificationCount === 0
+      ) {
+        return;
+      }
+
+      try {
+        const response =
+          await fetch(
+            `${API_URL}/notifications/user/${userId}/read-all`,
+            {
+              method: "PUT",
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to mark all notifications as read"
+          );
+        }
+
+        setNotifications(
+          (previousNotifications) =>
+            previousNotifications.map(
+              (notification) => ({
+                ...notification,
+                read: true,
+              })
+            )
+        );
+      } catch (error) {
+        console.error(
+          "Mark all notifications read error:",
+          error
+        );
+      }
+    };
+
+  // ==========================================
+  // NOTIFICATION ICON
+  // ==========================================
+
+  const getNotificationIcon =
+    (type) => {
+      if (!type) {
+        return "🔔";
+      }
+
+      const notificationType =
+        String(type).toUpperCase();
+
+      if (
+        notificationType.includes(
+          "APPOINTMENT"
+        )
+      ) {
+        return "📅";
+      }
+
+      if (
+        notificationType.includes(
+          "BILL"
+        )
+      ) {
+        return "💳";
+      }
+
+      if (
+        notificationType.includes(
+          "PRESCRIPTION"
+        )
+      ) {
+        return "💊";
+      }
+
+      if (
+        notificationType.includes(
+          "LAB"
+        )
+      ) {
+        return "🧪";
+      }
+
+      if (
+        notificationType.includes(
+          "MEDICINE"
+        )
+      ) {
+        return "💊";
+      }
+
+      if (
+        notificationType.includes(
+          "DOCTOR"
+        )
+      ) {
+        return "👨‍⚕️";
+      }
+
+      return "🔔";
+    };
+
+  // ==========================================
+  // NOTIFICATION TYPE CLASS
+  // ==========================================
+
+  const getNotificationTypeClass =
+    (type) => {
+      if (!type) {
+        return "default";
+      }
+
+      const notificationType =
+        String(type).toUpperCase();
+
+      if (
+        notificationType.includes(
+          "APPOINTMENT"
+        )
+      ) {
+        return "appointment";
+      }
+
+      if (
+        notificationType.includes(
+          "BILL"
+        )
+      ) {
+        return "bill";
+      }
+
+      if (
+        notificationType.includes(
+          "PRESCRIPTION"
+        )
+      ) {
+        return "prescription";
+      }
+
+      if (
+        notificationType.includes(
+          "LAB"
+        )
+      ) {
+        return "lab";
+      }
+
+      if (
+        notificationType.includes(
+          "MEDICINE"
+        )
+      ) {
+        return "medicine";
+      }
+
+      if (
+        notificationType.includes(
+          "DOCTOR"
+        )
+      ) {
+        return "doctor";
+      }
+
+      return "default";
+    };
+
+  // ==========================================
+  // NOTIFICATION TIME
+  // ==========================================
+
+  const formatNotificationTime =
+    (createdAt) => {
+      if (!createdAt) {
+        return "";
+      }
+
+      try {
+        return new Date(
+          createdAt
+        ).toLocaleString(
+          "en-IN",
+          {
+            day: "2-digit",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          }
+        );
+      } catch {
+        return "";
+      }
+    };
+
+  // ==========================================
   // LOGIN PROTECTION
   // ==========================================
 
-  if (!isLoggedIn || !role) {
+  if (
+    !isLoggedIn ||
+    !role
+  ) {
     return (
       <Navigate
         to="/"
@@ -531,7 +998,7 @@ function DashboardLayout() {
   ];
 
   // ==========================================
-  // SELECT MENU ACCORDING TO ROLE
+  // SELECT MENU
   // ==========================================
 
   let menuItems = [];
@@ -545,18 +1012,12 @@ function DashboardLayout() {
   if (role === "admin") {
     menuItems = adminMenu;
     dashboardTitle = "Admin Panel";
-    dashboardSubtitle =
-      "AI Hospital Management System";
   } else if (role === "doctor") {
     menuItems = doctorMenu;
     dashboardTitle = "Doctor Panel";
-    dashboardSubtitle =
-      "AI Hospital Management System";
   } else if (role === "patient") {
     menuItems = patientMenu;
     dashboardTitle = "Patient Panel";
-    dashboardSubtitle =
-      "AI Hospital Management System";
   } else {
     localStorage.clear();
 
@@ -572,7 +1033,9 @@ function DashboardLayout() {
   // NAVIGATION
   // ==========================================
 
-  const handleNavigation = (path) => {
+  const handleNavigation = (
+    path
+  ) => {
     navigate(path);
   };
 
@@ -597,8 +1060,14 @@ function DashboardLayout() {
       "userId"
     );
 
-    // IMPORTANT:
-    // darkMode is intentionally NOT removed.
+    localStorage.removeItem(
+      "patientId"
+    );
+
+    setNotifications([]);
+    setNotificationOpen(false);
+
+    // Dark mode remains saved.
 
     navigate("/", {
       replace: true,
@@ -609,7 +1078,9 @@ function DashboardLayout() {
   // ACTIVE MENU
   // ==========================================
 
-  const isActive = (path) => {
+  const isActive = (
+    path
+  ) => {
     if (path === "/dashboard") {
       return (
         location.pathname ===
@@ -637,7 +1108,7 @@ function DashboardLayout() {
   };
 
   // ==========================================
-  // ACCOUNT NAVIGATION
+  // ACCOUNT
   // ==========================================
 
   const handleAccount = () => {
@@ -655,7 +1126,7 @@ function DashboardLayout() {
   };
 
   // ==========================================
-  // LOGO ERROR HANDLER
+  // LOGO ERROR
   // ==========================================
 
   const handleLogoError = (
@@ -675,7 +1146,7 @@ function DashboardLayout() {
   };
 
   // ==========================================
-  // TOGGLE DARK MODE
+  // DARK MODE TOGGLE
   // ==========================================
 
   const handleDarkMode = () => {
@@ -683,6 +1154,21 @@ function DashboardLayout() {
       (current) => !current
     );
   };
+
+  // ==========================================
+  // NOTIFICATION TOGGLE
+  // ==========================================
+
+  const handleNotificationToggle =
+    () => {
+      setNotificationOpen(
+        (current) => !current
+      );
+
+      if (!notificationOpen) {
+        loadNotifications();
+      }
+    };
 
   // ==========================================
   // UI
@@ -967,7 +1453,9 @@ function DashboardLayout() {
 
       <main className="dashboard-main">
 
-        {/* TOP HEADER */}
+        {/* =====================================
+            TOP HEADER
+        ===================================== */}
 
         <header className="dashboard-header">
 
@@ -1010,7 +1498,269 @@ function DashboardLayout() {
 
             </button>
 
-            {/* DARK MODE */}
+            {/* =================================
+                NOTIFICATION BELL
+                PATIENT + DOCTOR + ADMIN
+            ================================= */}
+
+            <div
+              className="notification-header-wrapper"
+              ref={notificationRef}
+            >
+
+              <button
+                type="button"
+                className={`notification-header-button ${
+                  notificationOpen
+                    ? "active"
+                    : ""
+                } ${
+                  unreadNotificationCount >
+                  0
+                    ? "has-unread"
+                    : ""
+                }`}
+                onClick={
+                  handleNotificationToggle
+                }
+                title="Notifications"
+                aria-label="Notifications"
+                aria-expanded={
+                  notificationOpen
+                }
+              >
+
+                <span className="notification-header-icon">
+                  🔔
+                </span>
+
+                {/* UNREAD BADGE */}
+
+                {unreadNotificationCount >
+                  0 && (
+                  <span className="notification-badge">
+
+                    {unreadNotificationCount >=
+                    10
+                      ? "9+"
+                      : unreadNotificationCount}
+
+                  </span>
+                )}
+
+              </button>
+
+              {/* =================================
+                  NOTIFICATION DROPDOWN
+              ================================= */}
+
+              {notificationOpen && (
+                <div className="notification-dropdown">
+
+                  {/* HEADER */}
+
+                  <div className="notification-dropdown-header">
+
+                    <div>
+
+                      <h3>
+                        Notifications
+                      </h3>
+
+                      <span>
+                        {unreadNotificationCount ===
+                        0
+                          ? "You're all caught up"
+                          : `${unreadNotificationCount} unread notification${
+                              unreadNotificationCount >
+                              1
+                                ? "s"
+                                : ""
+                            }`}
+                      </span>
+
+                    </div>
+
+                    {unreadNotificationCount >
+                      0 && (
+                      <button
+                        type="button"
+                        className="notification-mark-all"
+                        onClick={
+                          markAllNotificationsAsRead
+                        }
+                      >
+                        Mark all as read
+                      </button>
+                    )}
+
+                  </div>
+
+                  {/* CONTENT */}
+
+                  <div className="notification-dropdown-body">
+
+                    {notificationLoading ? (
+                      <div className="notification-dropdown-loading">
+
+                        <span className="notification-small-loader"></span>
+
+                        <span>
+                          Loading notifications...
+                        </span>
+
+                      </div>
+                    ) : notificationError ? (
+                      <div className="notification-dropdown-error">
+
+                        <span>
+                          {notificationError}
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={
+                            loadNotifications
+                          }
+                        >
+                          Retry
+                        </button>
+
+                      </div>
+                    ) : notifications.length ===
+                      0 ? (
+                      <div className="notification-dropdown-empty">
+
+                        <div className="notification-empty-icon">
+                          🔔
+                        </div>
+
+                        <strong>
+                          No notifications
+                        </strong>
+
+                        <span>
+                          You're all caught up.
+                        </span>
+
+                      </div>
+                    ) : (
+                      <div className="notification-dropdown-list">
+
+                        {notifications
+                          .slice(
+                            0,
+                            6
+                          )
+                          .map(
+                            (
+                              notification
+                            ) => (
+                              <div
+                                key={
+                                  notification.notificationId
+                                }
+                                className={`notification-dropdown-item ${
+                                  !notification.read
+                                    ? "unread"
+                                    : ""
+                                }`}
+                              >
+
+                                {/* ICON */}
+
+                                <div
+                                  className={`notification-dropdown-icon ${getNotificationTypeClass(
+                                    notification.type
+                                  )}`}
+                                >
+                                  {getNotificationIcon(
+                                    notification.type
+                                  )}
+                                </div>
+
+                                {/* CONTENT */}
+
+                                <div className="notification-dropdown-content">
+
+                                  <div className="notification-dropdown-title">
+
+                                    <strong>
+                                      {
+                                        notification.title
+                                      }
+                                    </strong>
+
+                                    {!notification.read && (
+                                      <span className="notification-new-dot">
+                                        New
+                                      </span>
+                                    )}
+
+                                  </div>
+
+                                  <p>
+                                    {
+                                      notification.message
+                                    }
+                                  </p>
+
+                                  <small>
+                                    {formatNotificationTime(
+                                      notification.createdAt
+                                    )}
+                                  </small>
+
+                                </div>
+
+                                {/* MARK AS READ */}
+
+                                {!notification.read && (
+                                  <button
+                                    type="button"
+                                    className="notification-mark-read"
+                                    onClick={() =>
+                                      markNotificationAsRead(
+                                        notification.notificationId
+                                      )
+                                    }
+                                    title="Mark as read"
+                                    aria-label="Mark notification as read"
+                                  >
+                                    ✓
+                                  </button>
+                                )}
+
+                              </div>
+                            )
+                          )}
+
+                      </div>
+                    )}
+
+                  </div>
+
+                  {/* FOOTER */}
+
+                  {notifications.length >
+                    6 && (
+                    <div className="notification-dropdown-footer">
+
+                      <span>
+                        Showing latest 6 notifications
+                      </span>
+
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+            </div>
+
+            {/* =================================
+                DARK MODE
+            ================================= */}
 
             <button
               type="button"
@@ -1087,7 +1837,9 @@ function DashboardLayout() {
 
         </header>
 
-        {/* PAGE CONTENT */}
+        {/* =====================================
+            PAGE CONTENT
+        ===================================== */}
 
         <section className="dashboard-content">
 
