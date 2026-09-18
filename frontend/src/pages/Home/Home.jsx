@@ -294,6 +294,7 @@ function Home() {
       "departments",
       "doctors",
       "about",
+      "ai-healthcare",
       "contact",
     ];
 
@@ -838,6 +839,19 @@ function Home() {
             >
               About
             </a>
+
+            <a
+                href="#ai-healthcare"
+                className={`nav-link ${
+                  activeSection === "ai-healthcare" ? "active" : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("ai-healthcare");
+                }}
+              >
+                AI
+              </a>
 
             <a
               href="#contact"
@@ -2118,7 +2132,7 @@ function Home() {
       <section className="about-section" id="about">
         <div className="about-container">
           <div className="about-heading">
-            <span className="about-badge">AI POWERED HEALTHCARE</span>
+            <span className="about-badge">AI SMART HOSPITAL</span>
             <h2>About <span>AI Smart Hospital</span></h2>
             <p>
               A smarter digital healthcare platform connecting
@@ -2343,58 +2357,8 @@ function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          AI HEALTH ASSISTANT — REDIRECT CARD
-      ===================================================== */}
-      <section className="home-ai-section" id="ai-healthcare">
-        <div className="home-ai-content">
-          <span className="home-ai-label">🤖 AI HEALTHCARE</span>
-          <h2>
-            Smart Healthcare,
-            <br />
-            Powered by AI
-          </h2>
-          <p>
-            Get general health guidance from our AI Health
-            Assistant. Describe your symptoms and receive
-            helpful information instantly.
-          </p>
 
-          <button
-            type="button"
-            className="home-ai-button"
-            onClick={() => navigate("/ai-health-assistant")}
-          >
-            🤖 Open AI Health Assistant →
-          </button>
-        </div>
-
-        <button
-          type="button"
-          className="home-ai-card"
-          onClick={() => navigate("/ai-health-assistant")}
-        >
-          <div className="home-ai-image">
-            <div className="ai-glow-circle">🤖</div>
-            <div className="ai-floating-card">
-              <span>AI Assistant</span>
-              <strong>Online</strong>
-            </div>
-          </div>
-
-          <div className="home-ai-card-content">
-            <span>AI HEALTH ASSISTANT</span>
-            <h3>Your Smart Healthcare Helper</h3>
-            <p>
-              Click here to describe your symptoms
-              and get AI-powered general health guidance.
-            </p>
-            <strong>Try AI Assistant →</strong>
-          </div>
-        </button>
-      </section>
-
-      {/* =====================================================
+ {/* =====================================================
           HOSPITAL INFO
       ===================================================== */}
       <section className="hospital-info-section">
@@ -2402,6 +2366,7 @@ function Home() {
           <div className="hospital-info-card hours-card">
             <div className="info-card-top">
               <div className="info-icon">◷</div>
+
               <div>
                 <span className="info-label">HOSPITAL AVAILABILITY</span>
                 <h2>Hospital Hours</h2>
@@ -2409,35 +2374,49 @@ function Home() {
             </div>
 
             <p className="info-description">
-              Our hospital is available around the clock to provide
-              reliable healthcare support whenever you need it.
+              Our hospital provides 12-hour medical services on weekdays,
+              half-day services on Saturday, with essential digital and
+              emergency support available 24/7.
             </p>
 
             <div className="hours-list">
+
               <div className="hours-row">
                 <span>Monday – Friday</span>
-                <strong>24 Hours</strong>
+                <strong>8:00 AM – 8:00 PM</strong>
               </div>
+
               <div className="hours-row">
                 <span>Saturday</span>
-                <strong>24 Hours</strong>
+                <strong>8:00 AM – 2:00 PM</strong>
               </div>
+
               <div className="hours-row">
                 <span>Sunday</span>
-                <strong>24 Hours</strong>
+                <strong>Closed</strong>
               </div>
+
               <div className="hours-row emergency-row">
                 <span>
                   <i></i>
-                  Emergency Care
+                  AI Healthcare Assistant
                 </span>
                 <strong>24 / 7</strong>
               </div>
+
+              <div className="hours-row emergency-row">
+                <span>
+                  <i></i>
+                  Ambulance Service
+                </span>
+                <strong>24 / 7</strong>
+              </div>
+
             </div>
 
             <div className="availability-status">
               <span className="status-dot"></span>
-              Hospital currently available
+              Online Support &amp; Ambulance Service available 24/7
             </div>
           </div>
 
@@ -2479,6 +2458,123 @@ function Home() {
           </div>
         </div>
       </section>
+
+{/* =====================================================
+    AI HEALTH ASSISTANT — REDIRECT CARD
+===================================================== */}
+<section className="home-ai-section" id="ai-healthcare">
+
+  {/* LEFT SIDE */}
+  <div className="home-ai-content">
+
+    <span className="home-ai-label">
+      AI HEALTHCARE
+    </span>
+
+    <h2>
+      Smart Healthcare,
+      <br />
+      Powered by AI
+    </h2>
+
+    <p>
+      Get general health guidance from our AI Health
+      Assistant. Describe your symptoms and receive
+      helpful information instantly.
+    </p>
+
+    <button
+      type="button"
+      className="home-ai-button"
+      onClick={() => navigate("/ai-health-assistant")}
+    >
+      Open AI Health Assistant
+    </button>
+
+  </div>
+
+
+  {/* RIGHT SIDE */}
+  <button
+    type="button"
+    className="home-ai-card"
+    onClick={() => navigate("/ai-health-assistant")}
+  >
+
+    <div className="home-ai-image">
+
+      {/* Floating Features */}
+
+      <div className="ai-feature ai-feature-guidance">
+        <span className="ai-feature-icon guidance-icon"></span>
+        <strong>Instant<br />Guidance</strong>
+      </div>
+
+      <div className="ai-feature ai-feature-symptom">
+        <span className="ai-feature-icon symptom-icon"></span>
+        <strong>Symptom<br />Analysis</strong>
+      </div>
+
+      <div className="ai-feature ai-feature-safe">
+        <span className="ai-feature-icon safe-icon"></span>
+        <strong>Safe &<br />Reliable</strong>
+      </div>
+
+      <div className="ai-feature ai-feature-support">
+        <span className="ai-feature-icon support-icon"></span>
+        <strong>24/7<br />Support</strong>
+      </div>
+
+
+      {/* Online Status */}
+
+      <div className="ai-floating-card">
+        <span>AI Assistant</span>
+        <strong>Online</strong>
+      </div>
+
+
+      {/* AI Orb */}
+
+      <div className="ai-orbit ai-orbit-one"></div>
+      <div className="ai-orbit ai-orbit-two"></div>
+
+      <div className="ai-glow-circle">
+        <div className="ai-core-face">
+          <span className="ai-core-eye left"></span>
+          <span className="ai-core-eye right"></span>
+          <span className="ai-core-smile"></span>
+        </div>
+      </div>
+
+    </div>
+
+
+    {/* CARD CONTENT */}
+
+    <div className="home-ai-card-content">
+
+      <span>AI HEALTH ASSISTANT</span>
+
+      <h3>
+        Your Smart Healthcare Helper
+      </h3>
+
+      <p>
+        Click here to describe your symptoms and get
+        AI-powered general health guidance.
+      </p>
+
+      <strong>
+        Try AI Assistant
+      </strong>
+
+    </div>
+
+  </button>
+
+</section>
+
 
       {/* =====================================================
           CONTACT / SUPPORT CTA
@@ -2566,13 +2662,12 @@ function Home() {
               <span></span>
               AI Healthcare System Online
             </div>
-
-            <div className="footer-social">
-              <a href="#home" aria-label="Facebook">f</a>
-              <a href="#home" aria-label="LinkedIn">in</a>
-              <a href="#home" aria-label="X">X</a>
-              <a href="#home" aria-label="YouTube">▶</a>
-            </div>
+<div className="footer-social">
+  <a href="#contact" aria-label="Facebook">f</a>
+  <a href="#contact" aria-label="LinkedIn">in</a>
+  <a href="#contact" aria-label="X">X</a>
+  <a href="#contact" aria-label="YouTube">▶</a>
+</div>
           </div>
 
           <div className="footer-column">
@@ -2595,9 +2690,27 @@ function Home() {
             >
               Book Appointment
             </a>
-            <a href="#services">Medical Records</a>
-            <a href="#insurance">Ayushman Bharat</a>
-            <a href="#contact">Contact Support</a>
+               <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openLogin("Patient");
+                }}
+              >
+                Medical Records
+              </a>
+
+              <a
+                href="https://pmjay.gov.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ayushman Bharat
+              </a>
+
+              <a href="#contact">
+                Contact Support
+              </a>
           </div>
 
           <div className="footer-contact">
