@@ -2917,7 +2917,12 @@ function Home() {
 
                   console.log("LOGIN SUCCESS:", user);
 
-                  localStorage.clear();
+                  localStorage.removeItem("isLoggedIn");
+                  localStorage.removeItem("role");
+                  localStorage.removeItem("user");
+                  localStorage.removeItem("userId");
+                  localStorage.removeItem("patientId");
+                  localStorage.removeItem("doctorId");
 
                   localStorage.setItem("isLoggedIn", "true");
                   localStorage.setItem("role", user.role);
