@@ -123,11 +123,7 @@
 .welcome-content h1 {
   margin: 0 0 12px;
 
-  font-size: clamp(
-    30px,
-    3vw,
-    43px
-  );
+  font-size: 43px;
 
   line-height: 1.15;
   font-weight: 800;
@@ -1976,4 +1972,104 @@
     font-size: 9.5px;
   }
 
+}
+
+/* =========================================================
+   PATIENT WELCOME — ADMIN STYLE ANIMATION
+========================================================= */
+
+.dashboard-welcome {
+  animation: patientHeroIn 0.65s ease both;
+}
+
+@keyframes patientHeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating heart/medical icon */
+.welcome-icon {
+  animation: patientFloat 4s ease-in-out infinite;
+}
+
+@keyframes patientFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.primary-dashboard-button,
+.secondary-dashboard-button {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.primary-dashboard-button:hover,
+.secondary-dashboard-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================================
+   PATIENT WELCOME — ADMIN STYLE ANIMATION
+========================================================= */
+
+.dashboard-welcome {
+  animation: patientHeroIn 0.65s ease both;
+}
+
+@keyframes patientHeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating medical icon */
+.heart-circle {
+  animation: patientFloat 4s ease-in-out infinite;
+}
+
+@keyframes patientFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Welcome buttons */
+.primary-dashboard-button,
+.secondary-dashboard-button {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.primary-dashboard-button:hover,
+.secondary-dashboard-button:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.18);
 }
