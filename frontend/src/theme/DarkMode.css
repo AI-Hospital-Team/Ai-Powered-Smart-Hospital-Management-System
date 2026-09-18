@@ -1237,91 +1237,6 @@ html.dark-mode .home-page .ai-chat-footer {
   color: #718c95 !important;
 }
 
-
-/* =========================================================
-   HOME — AI HEALTHCARE / POWERED BY AI
-========================================================= */
-
-html.dark-mode .home-page .home-ai-section {
-  background:
-    radial-gradient(
-      circle at 20% 50%,
-      rgba(0, 190, 205, 0.12),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 80% 50%,
-      rgba(0, 120, 170, 0.10),
-      transparent 35%
-    ),
-    #061923 !important;
-
-  color: var(--dark-text) !important;
-}
-
-html.dark-mode .home-page .home-ai-content {
-  color: var(--dark-text) !important;
-}
-
-html.dark-mode .home-page .home-ai-label {
-  color: var(--dark-primary) !important;
-}
-
-html.dark-mode .home-page .home-ai-content h2 {
-  color: var(--dark-heading) !important;
-}
-
-html.dark-mode .home-page .home-ai-content h2 span {
-  color: #4fd5dc !important;
-}
-
-html.dark-mode .home-page .home-ai-content p {
-  color: var(--dark-muted) !important;
-}
-
-html.dark-mode .home-page .home-ai-card {
-  background:
-    linear-gradient(
-      145deg,
-      #102f3b,
-      #0a232d
-    ) !important;
-
-  border-color: var(--dark-border) !important;
-  color: var(--dark-text) !important;
-
-  box-shadow:
-    0 25px 65px rgba(0, 0, 0, 0.35) !important;
-}
-
-html.dark-mode .home-page .home-ai-card-content {
-  background: transparent !important;
-  color: var(--dark-text) !important;
-}
-
-html.dark-mode .home-page .home-ai-card-content h3 {
-  color: var(--dark-heading) !important;
-}
-
-html.dark-mode .home-page .home-ai-card-content p {
-  color: var(--dark-muted) !important;
-}
-
-html.dark-mode .home-page .home-ai-card-content strong {
-  color: var(--dark-primary) !important;
-}
-
-html.dark-mode .home-page .home-ai-image {
-  background:
-    radial-gradient(
-      circle,
-      rgba(40, 210, 220, 0.18),
-      transparent 60%
-    ),
-    #102f3b !important;
-}
-
-
 /* =========================================================
    HOME — AYUSHMAN BHARAT
 ========================================================= */
@@ -6279,4 +6194,960 @@ html.dark-mode .home-page .about-heading > p {
   font-size: 14px !important;
   font-weight: 600 !important;
   margin: 0 !important;
+}
+
+/* =========================================================
+   ABOUT SECTION HEADING — DARK MODE
+========================================================= */
+
+html.dark-mode .home-page .about-heading {
+  max-width: 760px !important;
+  margin: 0 auto 50px !important;
+  text-align: center !important;
+}
+
+
+/* Badge */
+
+html.dark-mode .home-page .about-badge {
+  position: relative;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  width: auto !important;
+  height: auto !important;
+
+  padding: 8px 22px !important;
+  margin: 0 0 18px !important;
+
+  border-radius: 50px !important;
+
+  background: #102f3b !important;
+  border: 1px solid #247487 !important;
+
+  color: #35d5df !important;
+
+  font-size: 10px !important;
+  font-weight: 900 !important;
+
+  letter-spacing: 3px !important;
+  line-height: 1 !important;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
+}
+
+
+/* Horizontal lines */
+
+html.dark-mode .home-page .about-badge::before,
+html.dark-mode .home-page .about-badge::after {
+  content: "";
+
+  display: block;
+
+  width: 34px;
+  height: 1px;
+
+  background: #45cbd5;
+
+  flex-shrink: 0;
+}
+
+
+/* Main heading */
+
+html.dark-mode .home-page .about-heading h2 {
+  margin: 0 0 18px !important;
+
+  font-size: clamp(42px, 5vw, 64px) !important;
+
+  line-height: 1.08 !important;
+
+  font-weight: 800 !important;
+
+  letter-spacing: -1.8px;
+
+  background: linear-gradient(
+    135deg,
+    #dff6f8 0%,
+    #8eeaf0 45%,
+    #35d5df 75%,
+    #75e9ef 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+/* Heading underline */
+
+html.dark-mode .home-page .about-heading h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 4px;
+
+  margin: 17px auto 0;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #159aaa,
+    #4edee5,
+    #159aaa
+  );
+
+  box-shadow: 0 0 14px rgba(50, 210, 220, 0.35);
+}
+
+
+/* Heading span */
+
+html.dark-mode .home-page .about-heading h2 span {
+  background: none !important;
+
+  -webkit-text-fill-color: inherit !important;
+
+  color: inherit !important;
+}
+
+
+/* Subtitle */
+
+html.dark-mode .home-page .about-heading > p {
+  max-width: 600px !important;
+
+  margin: 0 auto !important;
+
+  color: #a7c3cc !important;
+
+  font-size: 14px !important;
+
+  font-weight: 400 !important;
+
+  line-height: 1.7 !important;
+}
+
+/* =========================================================
+   HOME — AI HEALTHCARE / POWERED BY AI — DARK MODE
+========================================================= */
+
+html.dark-mode .home-page .home-ai-section {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 82% 18%,
+      rgba(0, 210, 225, 0.13),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 8% 90%,
+      rgba(0, 160, 190, 0.09),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #061923 0%,
+      #071f2a 52%,
+      #082833 100%
+    ) !important;
+
+  border-color: rgba(55, 207, 220, 0.42) !important;
+
+  color: #f2fbfd !important;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.42) !important;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+html.dark-mode .home-page .home-ai-content {
+  color: #f2fbfd !important;
+}
+
+
+/* AI HEALTHCARE badge */
+
+html.dark-mode .home-page .home-ai-label {
+  background:
+    rgba(8, 143, 162, 0.13) !important;
+
+  border-color:
+    rgba(40, 213, 225, 0.42) !important;
+
+  color:
+    #36d9e5 !important;
+
+  box-shadow:
+    0 0 22px rgba(20, 200, 215, 0.08) !important;
+}
+
+/* =====================================================
+   AI HEALTHCARE — DARK MODE BLENDED LINES
+===================================================== */
+
+html.dark-mode .home-page .home-ai-label::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #55d9e2 100%
+  ) !important;
+
+  box-shadow:
+    0 0 8px rgba(45, 210, 220, 0.22) !important;
+}
+
+html.dark-mode .home-page .home-ai-label::after {
+  background: linear-gradient(
+    90deg,
+    #55d9e2 0%,
+    transparent 100%
+  ) !important;
+
+  box-shadow:
+    0 0 8px rgba(45, 210, 220, 0.22) !important;
+}
+
+
+/* Main heading */
+
+html.dark-mode .home-page .home-ai-content h2 {
+  background:
+    linear-gradient(
+      135deg,
+      #f4fbfd 0%,
+      #d8f5f7 32%,
+      #54dce5 68%,
+      #00c9dc 100%
+    ) !important;
+
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+
+  color: transparent !important;
+}
+
+
+/* Heading underline */
+
+html.dark-mode .home-page .home-ai-content h2::after {
+  background:
+    linear-gradient(
+      90deg,
+      #08a8bc,
+      #36dce5
+    ) !important;
+
+  box-shadow:
+    0 0 18px rgba(25, 205, 220, 0.42) !important;
+}
+
+
+/* Description */
+
+html.dark-mode .home-page .home-ai-content > p {
+  color:
+    #9ec3ce !important;
+}
+
+
+/* =========================================================
+   MAIN BUTTON
+========================================================= */
+
+html.dark-mode .home-page .home-ai-button {
+  background:
+    linear-gradient(
+      135deg,
+      #078fa5,
+      #13c4d5
+    ) !important;
+
+  color:
+    #ffffff !important;
+
+  box-shadow:
+    0 14px 34px rgba(0, 190, 210, 0.25),
+    0 0 22px rgba(0, 190, 210, 0.08) !important;
+}
+
+
+html.dark-mode .home-page .home-ai-button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #09a1b7,
+      #20d3df
+    ) !important;
+
+  box-shadow:
+    0 20px 42px rgba(0, 205, 220, 0.34),
+    0 0 28px rgba(0, 205, 220, 0.13) !important;
+}
+
+
+/* =========================================================
+   RIGHT AI CARD
+========================================================= */
+
+html.dark-mode .home-page .home-ai-card {
+  background:
+    linear-gradient(
+      145deg,
+      #0b303c,
+      #071f29
+    ) !important;
+
+  border:
+    1px solid rgba(48, 202, 217, 0.38) !important;
+
+  color:
+    #f3fbfd !important;
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.45),
+    0 0 35px rgba(0, 170, 190, 0.06) !important;
+}
+
+
+html.dark-mode .home-page .home-ai-card:hover {
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 42px rgba(0, 190, 210, 0.10) !important;
+}
+
+
+/* =========================================================
+   AI VISUAL AREA
+========================================================= */
+
+html.dark-mode .home-page .home-ai-image {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(35, 220, 230, 0.28),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(0, 165, 190, 0.18),
+      transparent 63%
+    ),
+    linear-gradient(
+      145deg,
+      #0b3541,
+      #082630
+    ) !important;
+}
+
+
+/* =========================================================
+   ORBIT RINGS
+========================================================= */
+
+html.dark-mode .home-page .ai-orbit {
+  border-color:
+    rgba(35, 220, 230, 0.34) !important;
+
+  box-shadow:
+    0 0 18px rgba(20, 205, 220, 0.08);
+}
+
+
+html.dark-mode .home-page .ai-orbit-two {
+  border-color:
+    rgba(65, 230, 238, 0.48) !important;
+}
+
+
+/* =========================================================
+   AI CORE
+========================================================= */
+
+html.dark-mode .home-page .ai-glow-circle {
+  background:
+    rgba(231, 250, 252, 0.97) !important;
+
+  border-color:
+    rgba(55, 218, 229, 0.42) !important;
+
+  box-shadow:
+    0 0 0 15px rgba(20, 210, 225, 0.10),
+    0 0 0 30px rgba(20, 210, 225, 0.045),
+    0 0 60px rgba(20, 215, 225, 0.38) !important;
+}
+
+
+/* AI face */
+
+html.dark-mode .home-page .ai-core-face {
+  background:
+    linear-gradient(
+      145deg,
+      #061923,
+      #0b3442
+    ) !important;
+
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.40),
+    0 0 20px rgba(20, 210, 225, 0.12) !important;
+}
+
+
+/* AI eyes */
+
+html.dark-mode .home-page .ai-core-eye {
+  background:
+    #55edf4 !important;
+
+  box-shadow:
+    0 0 15px #35dce7 !important;
+}
+
+
+/* AI smile */
+
+html.dark-mode .home-page .ai-core-smile {
+  border-color:
+    #55edf4 !important;
+
+  filter:
+    drop-shadow(0 0 5px rgba(50, 220, 230, 0.5));
+}
+
+
+/* =========================================================
+   ONLINE CARD
+========================================================= */
+
+html.dark-mode .home-page .ai-floating-card {
+  background:
+    rgba(8, 35, 45, 0.94) !important;
+
+  border:
+    1px solid rgba(50, 205, 218, 0.34) !important;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+
+html.dark-mode .home-page .ai-floating-card span {
+  color:
+    #8eabb5 !important;
+}
+
+
+html.dark-mode .home-page .ai-floating-card strong {
+  color:
+    #35df8b !important;
+}
+
+
+html.dark-mode .home-page .ai-floating-card strong::before {
+  background:
+    #19d77c !important;
+
+  box-shadow:
+    0 0 0 5px rgba(25, 215, 124, 0.10),
+    0 0 12px rgba(25, 215, 124, 0.35) !important;
+}
+
+
+/* =========================================================
+   FLOATING FEATURE CARDS
+========================================================= */
+
+html.dark-mode .home-page .ai-feature {
+  background:
+    rgba(8, 36, 47, 0.88) !important;
+
+  border:
+    1px solid rgba(45, 204, 218, 0.32) !important;
+
+  color:
+    #d9f3f6 !important;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.32),
+    0 0 18px rgba(20, 190, 205, 0.06) !important;
+
+  backdrop-filter:
+    blur(10px);
+}
+
+
+html.dark-mode .home-page .ai-feature:hover {
+  background:
+    rgba(10, 48, 60, 0.96) !important;
+
+  border-color:
+    rgba(55, 220, 230, 0.52) !important;
+
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.42),
+    0 0 22px rgba(30, 210, 220, 0.10) !important;
+}
+
+
+/* Feature icons */
+
+html.dark-mode .home-page .ai-feature-icon {
+  background:
+    linear-gradient(
+      135deg,
+      #078fa5,
+      #24cddd
+    ) !important;
+
+  box-shadow:
+    0 0 16px rgba(25, 200, 215, 0.18);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+html.dark-mode .home-page .home-ai-card-content {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(7, 31, 41, 0.96),
+      rgba(5, 26, 35, 0.98)
+    ) !important;
+
+  color:
+    #eaf8fa !important;
+}
+
+
+html.dark-mode .home-page .home-ai-card-content > span {
+  color:
+    #35d5df !important;
+}
+
+
+html.dark-mode .home-page .home-ai-card-content h3 {
+  color:
+    #f0fafc !important;
+}
+
+
+html.dark-mode .home-page .home-ai-card-content p {
+  color:
+    #91b7c2 !important;
+}
+
+
+html.dark-mode .home-page .home-ai-card-content > strong {
+  color:
+    #31d5df !important;
+}
+
+
+html.dark-mode .home-page .home-ai-card-content > strong:hover {
+  color:
+    #6ce9f0 !important;
+}
+
+
+/* Decorative wave */
+
+html.dark-mode .home-page .home-ai-card-content::after {
+  border-color:
+    rgba(35, 210, 225, 0.25) !important;
+
+  box-shadow:
+    0 0 0 9px rgba(35, 210, 225, 0.045),
+    0 0 0 18px rgba(35, 210, 225, 0.028),
+    0 0 0 27px rgba(35, 210, 225, 0.018) !important;
+}
+
+/* =====================================================
+   HOSPITAL HOURS — DARK MODE
+===================================================== */
+
+html.dark-mode .home-page .hours-card {
+  background:
+    linear-gradient(
+      145deg,
+      #09232d,
+      #071b24
+    ) !important;
+
+  border-color:
+    rgba(45, 200, 215, 0.32) !important;
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.38) !important;
+
+  color: #eaf8fa !important;
+}
+
+
+/* Decorative circle */
+
+html.dark-mode .home-page .hours-card::before {
+  background:
+    rgba(25, 200, 215, 0.08) !important;
+}
+
+
+/* Icon */
+
+html.dark-mode .home-page .hours-card .info-icon {
+  background:
+    linear-gradient(
+      145deg,
+      #103d49,
+      #0b303b
+    ) !important;
+
+  border-color:
+    rgba(45, 205, 220, 0.28) !important;
+
+  color:
+    #35d5df !important;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+/* Label */
+
+html.dark-mode .home-page .hours-card .info-label {
+  color:
+    #35d5df !important;
+}
+
+
+/* Heading */
+
+html.dark-mode .home-page .hours-card .info-card-top h2 {
+  color:
+    #f1fbfd !important;
+}
+
+
+/* Description */
+
+html.dark-mode .home-page .hours-card .info-description {
+  color:
+    #91b8c3 !important;
+}
+
+
+/* Normal rows */
+
+html.dark-mode .home-page .hours-card .hours-row {
+  color:
+    #b8d1d8 !important;
+
+  border-color:
+    rgba(150, 210, 220, 0.10) !important;
+}
+
+
+html.dark-mode .home-page .hours-card .hours-row span {
+  color:
+    #9bbbc4 !important;
+}
+
+
+/* Time */
+
+html.dark-mode .home-page .hours-card .hours-row strong {
+  color:
+    #32cbd8 !important;
+}
+
+
+/* Sunday Closed */
+
+html.dark-mode .home-page .hours-card .hours-row:nth-child(3) strong {
+  color:
+    #ef8b8b !important;
+}
+
+
+/* =====================================================
+   24/7 SERVICES
+===================================================== */
+
+html.dark-mode .home-page .hours-card .emergency-row {
+  background:
+    rgba(20, 190, 205, 0.08) !important;
+
+  border:
+    1px solid rgba(35, 200, 215, 0.10) !important;
+}
+
+
+html.dark-mode .home-page .hours-card .emergency-row span {
+  color:
+    #c8e5e9 !important;
+}
+
+
+/* Green availability dot */
+
+html.dark-mode .home-page .hours-card .emergency-row i {
+  background:
+    #18d58a !important;
+
+  box-shadow:
+    0 0 0 5px rgba(24, 213, 138, 0.10),
+    0 0 12px rgba(24, 213, 138, 0.25) !important;
+}
+
+
+/* Bottom status */
+
+html.dark-mode .home-page .hours-card .availability-status {
+  color:
+    #91b5bf !important;
+}
+
+
+html.dark-mode .home-page .hours-card .status-dot {
+  background:
+    #18d58a !important;
+
+  box-shadow:
+    0 0 12px rgba(24, 213, 138, 0.35);
+}
+
+/* =====================================================
+   CONTACT / SUPPORT HEADING — DARK MODE
+===================================================== */
+
+html.dark-mode .support-section .support-label {
+  background: rgba(15, 185, 205, 0.08) !important;
+
+  color: #35d5df !important;
+
+  border-color:
+    rgba(45, 205, 220, 0.30) !important;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0, 180, 200, 0.08) !important;
+}
+
+
+/* Horizontal lines */
+
+html.dark-mode .support-section .support-label::before,
+html.dark-mode .support-section .support-label::after {
+  background:
+    #35cbd6 !important;
+
+  box-shadow:
+    0 0 8px
+    rgba(35, 205, 220, 0.25);
+}
+
+
+/* Main heading */
+
+html.dark-mode .support-section .support-heading h2 {
+  background:
+    linear-gradient(
+      135deg,
+      #eafcff 0%,
+      #d9f8fb 38%,
+      #35d5df 72%,
+      #22c7d5 100%
+    ) !important;
+
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+
+  color: transparent !important;
+}
+
+
+/* Cyan heading span */
+
+html.dark-mode .support-section .support-heading h2 span {
+  color: #35d5df !important;
+
+  background: none !important;
+
+  -webkit-text-fill-color: #35d5df !important;
+}
+
+
+/* Underline */
+
+html.dark-mode .support-section .support-heading h2::after {
+  background:
+    linear-gradient(
+      90deg,
+      #0798aa,
+      #35d5df
+    ) !important;
+
+  box-shadow:
+    0 4px 16px
+    rgba(30, 205, 220, 0.35) !important;
+}
+
+
+/* Subtitle */
+
+html.dark-mode .support-section .support-heading p {
+  color:
+    #91b8c3 !important;
+}
+
+/* =====================================================
+   PATIENT SUPPORT — DARK MODE
+===================================================== */
+
+html.dark-mode .home-page .support-label::before,
+html.dark-mode .home-page .support-label::after {
+  content: "" !important;
+
+  width: 34px !important;
+  height: 1px !important;
+
+  flex-shrink: 0;
+
+  opacity: 0.85;
+
+  background: #55cbd5 !important;
+}
+
+html.dark-mode .home-page .support-label::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #55cbd5
+  ) !important;
+}
+
+html.dark-mode .home-page .support-label::after {
+  background: linear-gradient(
+    90deg,
+    #55cbd5,
+    transparent
+  ) !important;
+}
+
+/* =====================================================
+   DARK MODE — AI HEALTHCARE LABEL
+===================================================== */
+
+html.dark-mode .home-page .home-ai-label {
+  color: #55d9e2 !important;
+}
+
+html.dark-mode .home-page .home-ai-line-left {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #55cbd5
+  ) !important;
+}
+
+html.dark-mode .home-page .home-ai-line-right {
+  background: linear-gradient(
+    90deg,
+    #55cbd5,
+    transparent
+  ) !important;
+}
+
+/* =====================================================
+   CONTACT / PATIENT SUPPORT — DARK MODE
+===================================================== */
+
+html.dark-mode .home-page .support-card {
+  background: linear-gradient(
+    145deg,
+    #102832,
+    #0d2029
+  ) !important;
+
+  border-color: rgba(61, 194, 205, 0.28) !important;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* Card heading */
+html.dark-mode .home-page .support-card h3 {
+  color: #f1f8fa !important;
+}
+
+/* Card description */
+html.dark-mode .home-page .support-card p {
+  color: #a9c1c9 !important;
+}
+
+/* Small label */
+html.dark-mode .home-page .support-small {
+  color: #45d2dc !important;
+}
+
+/* Normal support buttons */
+html.dark-mode .home-page .support-button {
+  background: #079caf !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .home-page .support-button:hover {
+  background: #0bb2c2 !important;
+  color: #ffffff !important;
+}
+
+/* Emergency card */
+html.dark-mode .home-page .emergency-card {
+  background: linear-gradient(
+    145deg,
+    #116f7d,
+    #075765
+  ) !important;
+
+  border-color: rgba(72, 211, 220, 0.25) !important;
+}
+
+/* Emergency text */
+html.dark-mode .home-page .emergency-card h3 {
+  color: #ffffff !important;
+}
+
+html.dark-mode .home-page .emergency-card p {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+/* Emergency button */
+html.dark-mode .home-page .emergency-button {
+  background: #ffffff !important;
+  color: #008c9e !important;
+}
+
+html.dark-mode .home-page .emergency-button:hover {
+  background: #e9fbfc !important;
+  color: #00788a !important;
 }
