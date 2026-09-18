@@ -11,21 +11,29 @@ import org.springframework.stereotype.Service;
 import com.hospital.management.dto.AppointmentResponse;
 import com.hospital.management.entity.Appointment;
 import com.hospital.management.entity.Doctor;
+import com.hospital.management.entity.User;
 import com.hospital.management.repository.AppointmentRepository;
 import com.hospital.management.repository.DoctorRepository;
+import com.hospital.management.repository.UserRepository;
 
 @Service
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
+    private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     public AppointmentService(
             AppointmentRepository appointmentRepository,
-            DoctorRepository doctorRepository) {
+            DoctorRepository doctorRepository,
+            UserRepository userRepository,
+            NotificationService notificationService) {
 
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
+        this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     // =====================================================
@@ -110,6 +118,48 @@ public class AppointmentService {
         Appointment savedAppointment =
                 appointmentRepository.save(appointment);
 
+        // =================================================
+        // DOCTOR NOTIFICATION
+        // =================================================
+
+        userRepository
+                .findByDoctorId(
+                        savedAppointment.getDoctorId()
+                )
+                .ifPresent(doctorUser -> {
+
+                    notificationService.notifyDoctor(
+                            doctorUser.getUserId(),
+                            "New Appointment Booked",
+                            "A new patient appointment has been booked for "
+                                    + savedAppointment.getAppointmentDate()
+                                    + " at "
+                                    + savedAppointment.getAppointmentTime()
+                                    + ".",
+                            "APPOINTMENT_BOOKED",
+                            savedAppointment.getAppointmentId()
+                    );
+                });
+
+        // =================================================
+        // ADMIN NOTIFICATION
+        // =================================================
+
+        List<User> admins =
+                userRepository
+                        .findByRoleIgnoreCase("ADMIN");
+
+        for (User admin : admins) {
+
+            notificationService.notifyAdmin(
+                    admin.getUserId(),
+                    "New Appointment",
+                    "A new appointment has been booked in the hospital system.",
+                    "NEW_APPOINTMENT",
+                    savedAppointment.getAppointmentId()
+            );
+        }
+
         return toResponse(savedAppointment);
     }
 
@@ -142,7 +192,6 @@ public class AppointmentService {
 
             String status = appointment.getStatus();
 
-            // Do not change finished appointments
             if ("Completed".equalsIgnoreCase(status) ||
                     "Cancelled".equalsIgnoreCase(status) ||
                     "Rejected".equalsIgnoreCase(status) ||
@@ -157,6 +206,79 @@ public class AppointmentService {
 
                 appointmentRepository.save(appointment);
             }
+        }
+    }
+
+    // =====================================================
+    // APPOINTMENT TOMORROW NOTIFICATION
+    // Runs every 1 hour
+    // =====================================================
+
+    @Scheduled(fixedRate = 3600000)
+    public void sendAppointmentTomorrowNotifications() {
+
+        List<Appointment> appointments =
+                appointmentRepository.findAll();
+
+        LocalDate tomorrow =
+                LocalDate.now().plusDays(1);
+
+        for (Appointment appointment : appointments) {
+
+            if (appointment.getAppointmentDate() == null) {
+                continue;
+            }
+
+            if (!tomorrow.equals(
+                    appointment.getAppointmentDate())) {
+
+                continue;
+            }
+
+            String status = appointment.getStatus();
+
+            if ("Cancelled".equalsIgnoreCase(status) ||
+                    "Rejected".equalsIgnoreCase(status) ||
+                    "Expired".equalsIgnoreCase(status)) {
+
+                continue;
+            }
+
+            // -------------------------------
+            // PATIENT
+            // -------------------------------
+
+            notificationService.createNotification(
+                    appointment.getPatientId(),
+                    "PATIENT",
+                    "Appointment Tomorrow",
+                    "Reminder: You have an appointment tomorrow at "
+                            + appointment.getAppointmentTime()
+                            + ".",
+                    "APPOINTMENT_TOMORROW",
+                    appointment.getAppointmentId()
+            );
+
+            // -------------------------------
+            // DOCTOR
+            // -------------------------------
+
+            userRepository
+                    .findByDoctorId(
+                            appointment.getDoctorId()
+                    )
+                    .ifPresent(doctorUser -> {
+
+                        notificationService.notifyDoctor(
+                                doctorUser.getUserId(),
+                                "Appointment Tomorrow",
+                                "You have a patient appointment tomorrow at "
+                                        + appointment.getAppointmentTime()
+                                        + ".",
+                                "APPOINTMENT_TOMORROW",
+                                appointment.getAppointmentId()
+                        );
+                    });
         }
     }
 
@@ -195,122 +317,201 @@ public class AppointmentService {
         );
     }
 
-// =====================================================
-// UPDATE APPOINTMENT STATUS
-// =====================================================
+    // =====================================================
+    // UPDATE APPOINTMENT STATUS
+    // =====================================================
 
-public AppointmentResponse updateAppointmentStatus(
-        Integer appointmentId,
-        String newStatus) {
+    public AppointmentResponse updateAppointmentStatus(
+            Integer appointmentId,
+            String newStatus) {
 
-    Appointment appointment =
-            appointmentRepository
-                    .findById(appointmentId)
-                    .orElseThrow(() ->
-                            new RuntimeException(
-                                    "Appointment not found with ID: "
-                                            + appointmentId
-                            )
-                    );
+        Appointment appointment =
+                appointmentRepository
+                        .findById(appointmentId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Appointment not found with ID: "
+                                                + appointmentId
+                                )
+                        );
 
-    if (newStatus == null || newStatus.isBlank()) {
-
-        throw new RuntimeException(
-                "Appointment status is required."
-        );
-    }
-
-    String currentStatus =
-            appointment.getStatus() == null
-                    ? "Pending"
-                    : appointment.getStatus().trim();
-
-    String requestedStatus =
-            newStatus.trim();
-
-    // =================================================
-    // FINAL STATUSES
-    // =================================================
-
-    if ("Completed".equalsIgnoreCase(currentStatus)) {
-
-        throw new RuntimeException(
-                "Completed appointment cannot be changed."
-        );
-    }
-
-    if ("Cancelled".equalsIgnoreCase(currentStatus)) {
-
-        throw new RuntimeException(
-                "Cancelled appointment cannot be changed."
-        );
-    }
-
-    if ("Rejected".equalsIgnoreCase(currentStatus)) {
-
-        throw new RuntimeException(
-                "Rejected appointment cannot be changed."
-        );
-    }
-
-    // =================================================
-    // EXPIRED MUST BE RESCHEDULED
-    // =================================================
-
-    if ("Expired".equalsIgnoreCase(currentStatus)) {
-
-        throw new RuntimeException(
-                "Expired appointment must be rescheduled before confirmation."
-        );
-    }
-
-    // =================================================
-    // PENDING
-    // Allowed:
-    // Pending → Confirmed
-    // Pending → Cancelled
-    // =================================================
-
-    if ("Pending".equalsIgnoreCase(currentStatus)) {
-
-        if (!"Confirmed".equalsIgnoreCase(requestedStatus) &&
-                !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+        if (newStatus == null ||
+                newStatus.isBlank()) {
 
             throw new RuntimeException(
-                    "Pending appointment can only be Confirmed or Cancelled."
+                    "Appointment status is required."
             );
         }
-    }
 
-    // =================================================
-    // CONFIRMED
-    // Allowed:
-    // Confirmed → Completed
-    // Confirmed → Cancelled
-    // =================================================
+        String currentStatus =
+                appointment.getStatus() == null
+                        ? "Pending"
+                        : appointment.getStatus().trim();
 
-    else if ("Confirmed".equalsIgnoreCase(currentStatus)) {
+        String requestedStatus =
+                newStatus.trim();
 
-        if (!"Completed".equalsIgnoreCase(requestedStatus) &&
-                !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+        // =================================================
+        // FINAL STATUSES
+        // =================================================
+
+        if ("Completed".equalsIgnoreCase(currentStatus)) {
 
             throw new RuntimeException(
-                    "Confirmed appointment can only be Completed or Cancelled."
+                    "Completed appointment cannot be changed."
             );
         }
+
+        if ("Cancelled".equalsIgnoreCase(currentStatus)) {
+
+            throw new RuntimeException(
+                    "Cancelled appointment cannot be changed."
+            );
+        }
+
+        if ("Rejected".equalsIgnoreCase(currentStatus)) {
+
+            throw new RuntimeException(
+                    "Rejected appointment cannot be changed."
+            );
+        }
+
+        if ("Expired".equalsIgnoreCase(currentStatus)) {
+
+            throw new RuntimeException(
+                    "Expired appointment must be rescheduled before confirmation."
+            );
+        }
+
+        // =================================================
+        // PENDING
+        // =================================================
+
+        if ("Pending".equalsIgnoreCase(currentStatus)) {
+
+            if (!"Confirmed".equalsIgnoreCase(requestedStatus) &&
+                    !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+                throw new RuntimeException(
+                        "Pending appointment can only be Confirmed or Cancelled."
+                );
+            }
+        }
+
+        // =================================================
+        // CONFIRMED
+        // =================================================
+
+        else if ("Confirmed".equalsIgnoreCase(currentStatus)) {
+
+            if (!"Completed".equalsIgnoreCase(requestedStatus) &&
+                    !"Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+                throw new RuntimeException(
+                        "Confirmed appointment can only be Completed or Cancelled."
+                );
+            }
+        }
+
+        // =================================================
+        // UPDATE
+        // =================================================
+
+        appointment.setStatus(requestedStatus);
+
+        Appointment updatedAppointment =
+                appointmentRepository.save(appointment);
+
+        // =================================================
+        // APPOINTMENT CONFIRMED
+        // PATIENT
+        // =================================================
+
+        if ("Confirmed".equalsIgnoreCase(requestedStatus)) {
+
+            notificationService.createNotification(
+                    appointment.getPatientId(),
+                    "PATIENT",
+                    "Appointment Confirmed",
+                    "Your appointment has been confirmed for "
+                            + appointment.getAppointmentDate()
+                            + " at "
+                            + appointment.getAppointmentTime()
+                            + ".",
+                    "APPOINTMENT_CONFIRMED",
+                    appointment.getAppointmentId()
+            );
+        }
+
+        // =================================================
+        // APPOINTMENT CANCELLED
+        // PATIENT + DOCTOR + ADMIN
+        // =================================================
+
+        if ("Cancelled".equalsIgnoreCase(requestedStatus)) {
+
+            // -------------------------------
+            // PATIENT
+            // -------------------------------
+
+            notificationService.createNotification(
+                    appointment.getPatientId(),
+                    "PATIENT",
+                    "Appointment Cancelled",
+                    "Your appointment scheduled for "
+                            + appointment.getAppointmentDate()
+                            + " at "
+                            + appointment.getAppointmentTime()
+                            + " has been cancelled.",
+                    "APPOINTMENT_CANCELLED",
+                    appointment.getAppointmentId()
+            );
+
+            // -------------------------------
+            // DOCTOR
+            // -------------------------------
+
+            userRepository
+                    .findByDoctorId(
+                            appointment.getDoctorId()
+                    )
+                    .ifPresent(doctorUser -> {
+
+                        notificationService.notifyDoctor(
+                                doctorUser.getUserId(),
+                                "Appointment Cancelled",
+                                "An appointment scheduled for "
+                                        + appointment.getAppointmentDate()
+                                        + " at "
+                                        + appointment.getAppointmentTime()
+                                        + " has been cancelled.",
+                                "APPOINTMENT_CANCELLED",
+                                appointment.getAppointmentId()
+                        );
+                    });
+
+            // -------------------------------
+            // ADMIN
+            // -------------------------------
+
+            List<User> admins =
+                    userRepository
+                            .findByRoleIgnoreCase("ADMIN");
+
+            for (User admin : admins) {
+
+                notificationService.notifyAdmin(
+                        admin.getUserId(),
+                        "Appointment Cancelled",
+                        "An appointment has been cancelled.",
+                        "APPOINTMENT_CANCELLED",
+                        appointment.getAppointmentId()
+                );
+            }
+        }
+
+        return toResponse(updatedAppointment);
     }
-
-    // =================================================
-    // UPDATE
-    // =================================================
-
-    appointment.setStatus(requestedStatus);
-
-    Appointment updatedAppointment =
-            appointmentRepository.save(appointment);
-
-    return toResponse(updatedAppointment);
-}
 
     // =====================================================
     // RESCHEDULE APPOINTMENT
@@ -331,11 +532,8 @@ public AppointmentResponse updateAppointmentStatus(
                                 )
                         );
 
-        String currentStatus = appointment.getStatus();
-
-        // =================================================
-        // ONLY PENDING AND EXPIRED CAN BE RESCHEDULED
-        // =================================================
+        String currentStatus =
+                appointment.getStatus();
 
         if (!"Pending".equalsIgnoreCase(currentStatus) &&
                 !"Expired".equalsIgnoreCase(currentStatus)) {
@@ -345,20 +543,12 @@ public AppointmentResponse updateAppointmentStatus(
             );
         }
 
-        // =================================================
-        // VALIDATE DATE AND TIME
-        // =================================================
-
         if (newDate == null || newTime == null) {
 
             throw new RuntimeException(
                     "New appointment date and time are required."
             );
         }
-
-        // =================================================
-        // PREVENT PAST DATE/TIME
-        // =================================================
 
         LocalDateTime newAppointmentDateTime =
                 LocalDateTime.of(newDate, newTime);
@@ -371,18 +561,52 @@ public AppointmentResponse updateAppointmentStatus(
             );
         }
 
-        // =================================================
-        // UPDATE APPOINTMENT
-        // =================================================
-
         appointment.setAppointmentDate(newDate);
         appointment.setAppointmentTime(newTime);
-
-        // Must be confirmed again
         appointment.setStatus("Pending");
 
         Appointment updatedAppointment =
                 appointmentRepository.save(appointment);
+
+        // =================================================
+        // PATIENT
+        // =================================================
+
+        notificationService.createNotification(
+                appointment.getPatientId(),
+                "PATIENT",
+                "Appointment Rescheduled",
+                "Your appointment has been rescheduled to "
+                        + newDate
+                        + " at "
+                        + newTime
+                        + ".",
+                "APPOINTMENT_RESCHEDULED",
+                appointment.getAppointmentId()
+        );
+
+        // =================================================
+        // DOCTOR
+        // =================================================
+
+        userRepository
+                .findByDoctorId(
+                        appointment.getDoctorId()
+                )
+                .ifPresent(doctorUser -> {
+
+                    notificationService.notifyDoctor(
+                            doctorUser.getUserId(),
+                            "Appointment Rescheduled",
+                            "A patient appointment has been rescheduled to "
+                                    + newDate
+                                    + " at "
+                                    + newTime
+                                    + ".",
+                            "APPOINTMENT_RESCHEDULED",
+                            appointment.getAppointmentId()
+                    );
+                });
 
         return toResponse(updatedAppointment);
     }
@@ -404,7 +628,6 @@ public AppointmentResponse updateAppointmentStatus(
                                 )
                         );
 
-        // Completed cannot be cancelled
         if ("Completed".equalsIgnoreCase(
                 appointment.getStatus())) {
 
@@ -413,7 +636,6 @@ public AppointmentResponse updateAppointmentStatus(
             );
         }
 
-        // Already cancelled
         if ("Cancelled".equalsIgnoreCase(
                 appointment.getStatus())) {
 
@@ -422,7 +644,6 @@ public AppointmentResponse updateAppointmentStatus(
             );
         }
 
-        // Expired cannot be cancelled
         if ("Expired".equalsIgnoreCase(
                 appointment.getStatus())) {
 
@@ -435,6 +656,65 @@ public AppointmentResponse updateAppointmentStatus(
 
         Appointment cancelledAppointment =
                 appointmentRepository.save(appointment);
+
+        // =================================================
+        // PATIENT
+        // =================================================
+
+        notificationService.createNotification(
+                appointment.getPatientId(),
+                "PATIENT",
+                "Appointment Cancelled",
+                "Your appointment scheduled for "
+                        + appointment.getAppointmentDate()
+                        + " at "
+                        + appointment.getAppointmentTime()
+                        + " has been cancelled.",
+                "APPOINTMENT_CANCELLED",
+                appointment.getAppointmentId()
+        );
+
+        // =================================================
+        // DOCTOR
+        // =================================================
+
+        userRepository
+                .findByDoctorId(
+                        appointment.getDoctorId()
+                )
+                .ifPresent(doctorUser -> {
+
+                    notificationService.notifyDoctor(
+                            doctorUser.getUserId(),
+                            "Appointment Cancelled",
+                            "A patient has cancelled an appointment scheduled for "
+                                    + appointment.getAppointmentDate()
+                                    + " at "
+                                    + appointment.getAppointmentTime()
+                                    + ".",
+                            "APPOINTMENT_CANCELLED",
+                            appointment.getAppointmentId()
+                    );
+                });
+
+        // =================================================
+        // ADMIN
+        // =================================================
+
+        List<User> admins =
+                userRepository
+                        .findByRoleIgnoreCase("ADMIN");
+
+        for (User admin : admins) {
+
+            notificationService.notifyAdmin(
+                    admin.getUserId(),
+                    "Appointment Cancelled",
+                    "An appointment has been cancelled.",
+                    "APPOINTMENT_CANCELLED",
+                    appointment.getAppointmentId()
+            );
+        }
 
         return toResponse(cancelledAppointment);
     }

@@ -12,9 +12,14 @@ import com.hospital.management.repository.BillRepository;
 public class BillService {
 
     private final BillRepository billRepository;
+    private final NotificationService notificationService;
 
-    public BillService(BillRepository billRepository) {
+    public BillService(
+            BillRepository billRepository,
+            NotificationService notificationService) {
+
         this.billRepository = billRepository;
+        this.notificationService = notificationService;
     }
 
     // ==========================================
@@ -24,7 +29,10 @@ public class BillService {
     public Bill createBill(Bill bill) {
 
         if (bill.getBillDate() == null) {
-            bill.setBillDate(LocalDate.now());
+
+            bill.setBillDate(
+                    LocalDate.now()
+            );
         }
 
         if (bill.getStatus() == null ||
@@ -33,7 +41,29 @@ public class BillService {
             bill.setStatus("Pending");
         }
 
-        return billRepository.save(bill);
+        Bill savedBill =
+                billRepository.save(bill);
+
+        // ==========================================
+        // PENDING BILL NOTIFICATION
+        // ==========================================
+
+        if ("Pending".equalsIgnoreCase(
+                savedBill.getStatus())) {
+
+            notificationService.createNotification(
+                    savedBill.getPatientId(),
+                    "PATIENT",
+                    "Pending Bill",
+                    "You have a pending bill of ₹"
+                            + savedBill.getAmount()
+                            + ".",
+                    "BILL_PENDING",
+                    savedBill.getBillId()
+            );
+        }
+
+        return savedBill;
     }
 
     // ==========================================
@@ -41,6 +71,7 @@ public class BillService {
     // ==========================================
 
     public List<Bill> getAllBills() {
+
         return billRepository.findAll();
     }
 
@@ -135,9 +166,31 @@ public class BillService {
             );
         }
 
-        return billRepository.save(
-                existingBill
-        );
+        Bill savedBill =
+                billRepository.save(
+                        existingBill
+                );
+
+        // ==========================================
+        // PENDING BILL NOTIFICATION
+        // ==========================================
+
+        if ("Pending".equalsIgnoreCase(
+                savedBill.getStatus())) {
+
+            notificationService.createNotification(
+                    savedBill.getPatientId(),
+                    "PATIENT",
+                    "Pending Bill",
+                    "You have a pending bill of ₹"
+                            + savedBill.getAmount()
+                            + ".",
+                    "BILL_PENDING",
+                    savedBill.getBillId()
+            );
+        }
+
+        return savedBill;
     }
 
     // ==========================================
@@ -151,8 +204,55 @@ public class BillService {
         Bill bill =
                 getBillById(billId);
 
+        if (status == null ||
+                status.isBlank()) {
+
+            throw new RuntimeException(
+                    "Bill status is required."
+            );
+        }
+
         bill.setStatus(status);
 
-        return billRepository.save(bill);
+        Bill updatedBill =
+                billRepository.save(bill);
+
+        // ==========================================
+        // BILL PAID NOTIFICATION
+        // ==========================================
+
+        if ("Paid".equalsIgnoreCase(status)) {
+
+            notificationService.createNotification(
+                    bill.getPatientId(),
+                    "PATIENT",
+                    "Bill Paid",
+                    "Your bill of ₹"
+                            + bill.getAmount()
+                            + " has been marked as paid.",
+                    "BILL_PAID",
+                    bill.getBillId()
+            );
+        }
+
+        // ==========================================
+        // BILL PENDING NOTIFICATION
+        // ==========================================
+
+        if ("Pending".equalsIgnoreCase(status)) {
+
+            notificationService.createNotification(
+                    bill.getPatientId(),
+                    "PATIENT",
+                    "Pending Bill",
+                    "You have a pending bill of ₹"
+                            + bill.getAmount()
+                            + ".",
+                    "BILL_PENDING",
+                    bill.getBillId()
+            );
+        }
+
+        return updatedBill;
     }
 }

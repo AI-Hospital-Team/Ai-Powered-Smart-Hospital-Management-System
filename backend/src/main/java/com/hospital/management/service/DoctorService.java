@@ -16,6 +16,7 @@ public class DoctorService {
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
     private final DoctorApprovalLogService doctorApprovalLogService;
+    private final NotificationService notificationService;
 
     // =========================================================
     // CONSTRUCTOR
@@ -24,11 +25,13 @@ public class DoctorService {
     public DoctorService(
             DoctorRepository doctorRepository,
             UserRepository userRepository,
-            DoctorApprovalLogService doctorApprovalLogService) {
+            DoctorApprovalLogService doctorApprovalLogService,
+            NotificationService notificationService) {
 
         this.doctorRepository = doctorRepository;
         this.userRepository = userRepository;
         this.doctorApprovalLogService = doctorApprovalLogService;
+        this.notificationService = notificationService;
     }
 
     // =========================================================
@@ -62,6 +65,7 @@ public class DoctorService {
     public List<Doctor> getDoctorsByShift(String shift) {
 
         if (shift == null || shift.trim().isEmpty()) {
+
             throw new RuntimeException(
                     "Shift cannot be empty"
             );
@@ -79,6 +83,7 @@ public class DoctorService {
     public Doctor createDoctor(Doctor doctor) {
 
         if (doctor == null) {
+
             throw new RuntimeException(
                     "Doctor data cannot be null"
             );
@@ -117,6 +122,7 @@ public class DoctorService {
             String password) {
 
         if (doctor == null) {
+
             throw new RuntimeException(
                     "Doctor data cannot be null"
             );
@@ -188,6 +194,7 @@ public class DoctorService {
         user.setPassword(password);
         user.setRole("Doctor");
         user.setStatus("ACTIVE");
+
         user.setDoctorId(
                 savedDoctor.getDoctorId()
         );
@@ -203,6 +210,7 @@ public class DoctorService {
     // Doctor status -> APPROVED
     // User status   -> ACTIVE
     // Log           -> APPROVED
+    // Notification  -> Doctor
     // =========================================================
 
     @Transactional
@@ -253,6 +261,19 @@ public class DoctorService {
                 "APPROVED"
         );
 
+        // -----------------------------------------
+        // DOCTOR NOTIFICATION
+        // -----------------------------------------
+
+        notificationService.notifyDoctor(
+                user.getUserId(),
+                "Doctor Account Approved",
+                "Your doctor account has been approved by Admin. "
+                        + "You can now login to the hospital system.",
+                "DOCTOR_APPROVED",
+                savedDoctor.getDoctorId()
+        );
+
         return savedDoctor;
     }
 
@@ -262,6 +283,7 @@ public class DoctorService {
     // Doctor status -> REJECTED
     // User status   -> REJECTED
     // Log           -> REJECTED
+    // Notification  -> Doctor
     // =========================================================
 
     @Transactional
@@ -312,6 +334,18 @@ public class DoctorService {
                 "REJECTED"
         );
 
+        // -----------------------------------------
+        // DOCTOR NOTIFICATION
+        // -----------------------------------------
+
+        notificationService.notifyDoctor(
+                user.getUserId(),
+                "Doctor Application Rejected",
+                "Your doctor application has been rejected by Admin.",
+                "DOCTOR_REJECTED",
+                savedDoctor.getDoctorId()
+        );
+
         return savedDoctor;
     }
 
@@ -328,6 +362,7 @@ public class DoctorService {
                 getDoctorById(doctorId);
 
         if (updatedDoctor == null) {
+
             throw new RuntimeException(
                     "Doctor data cannot be null"
             );

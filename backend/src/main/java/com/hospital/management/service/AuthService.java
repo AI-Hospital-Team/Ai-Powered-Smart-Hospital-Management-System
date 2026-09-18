@@ -1,11 +1,12 @@
 package com.hospital.management.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import com.hospital.management.dto.LoginResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hospital.management.dto.LoginResponse;
 import com.hospital.management.entity.Doctor;
 import com.hospital.management.entity.Patient;
 import com.hospital.management.entity.User;
@@ -19,15 +20,22 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
+    private final NotificationService notificationService;
+
+    // =====================================================
+    // CONSTRUCTOR
+    // =====================================================
 
     public AuthService(
             UserRepository userRepository,
             PatientRepository patientRepository,
-            DoctorRepository doctorRepository) {
+            DoctorRepository doctorRepository,
+            NotificationService notificationService) {
 
         this.userRepository = userRepository;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
+        this.notificationService = notificationService;
     }
 
     // =====================================================
@@ -530,11 +538,10 @@ public class AuthService {
         user.setEmail(cleanEmail);
         user.setPassword(password);
 
-        // Never trust frontend role.
-        // Backend decides that this is a Doctor.
+        // Backend decides the role
         user.setRole("Doctor");
 
-        // Doctor cannot login until Admin approves.
+        // Doctor cannot login until Admin approves
         user.setStatus("PENDING");
 
         // -------------------------------------------------
@@ -547,6 +554,26 @@ public class AuthService {
 
         User savedUser =
                 userRepository.save(user);
+
+        // =================================================
+        // NOTIFY ALL ADMINS
+        // =================================================
+
+        List<User> admins =
+                userRepository.findByRoleIgnoreCase("ADMIN");
+
+        for (User admin : admins) {
+
+            notificationService.notifyAdmin(
+                    admin.getUserId(),
+                    "New Doctor Registration",
+                    "Dr. "
+                            + savedDoctor.getName()
+                            + " has registered and is waiting for Admin approval.",
+                    "NEW_DOCTOR_REGISTERED",
+                    savedDoctor.getDoctorId()
+            );
+        }
 
         return savedUser;
     }

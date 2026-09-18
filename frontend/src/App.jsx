@@ -1,8 +1,7 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import {
-  useDarkMode,
-} from "./theme/DarkMode";
+import { useDarkMode } from "./theme/DarkMode";
 
 /* =========================================================
    PUBLIC PAGES
@@ -84,25 +83,13 @@ function App() {
             PUBLIC ROUTES
         ================================================= */}
 
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Route path="/" element={<Home />} />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+        <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/about"
-          element={<About />}
-        />
+        <Route path="/about" element={<About />} />
 
-        <Route
-          path="/project"
-          element={<Project />}
-        />
+        <Route path="/project" element={<Project />} />
 
         <Route
           path="/ai-health-assistant"
@@ -121,10 +108,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route
-            index
-            element={<Dashboard />}
-          />
+          <Route index element={<Dashboard />} />
 
           <Route
             path="patients"
@@ -154,11 +138,6 @@ function App() {
           <Route
             path="bills"
             element={<AdminBills />}
-          />
-
-          <Route
-            path="logs"
-            element={<AdminLogs />}
           />
 
           <Route

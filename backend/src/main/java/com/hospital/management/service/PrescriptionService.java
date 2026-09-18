@@ -14,13 +14,16 @@ public class PrescriptionService {
 
     private final PrescriptionRepository prescriptionRepository;
     private final DoctorRepository doctorRepository;
+    private final NotificationService notificationService;
 
     public PrescriptionService(
             PrescriptionRepository prescriptionRepository,
-            DoctorRepository doctorRepository) {
+            DoctorRepository doctorRepository,
+            NotificationService notificationService) {
 
         this.prescriptionRepository = prescriptionRepository;
         this.doctorRepository = doctorRepository;
+        this.notificationService = notificationService;
     }
 
     // =====================================================
@@ -38,6 +41,7 @@ public class PrescriptionService {
                             .orElse(null);
 
             if (doctor != null) {
+
                 prescription.setDoctorName(
                         doctor.getName()
                 );
@@ -66,6 +70,19 @@ public class PrescriptionService {
                 prescriptionRepository.save(
                         prescription
                 );
+
+        // =================================================
+        // PRESCRIPTION ADDED NOTIFICATION
+        // =================================================
+
+        notificationService.createNotification(
+                saved.getPatientId(),
+                "PATIENT",
+                "New Prescription Added",
+                "A new prescription has been added to your medical records.",
+                "PRESCRIPTION_ADDED",
+                saved.getPrescriptionId()
+        );
 
         return addDoctorName(saved);
     }
@@ -170,6 +187,19 @@ public class PrescriptionService {
 
         Prescription saved =
                 prescriptionRepository.save(existing);
+
+        // =================================================
+        // PRESCRIPTION UPDATED NOTIFICATION
+        // =================================================
+
+        notificationService.createNotification(
+                saved.getPatientId(),
+                "PATIENT",
+                "Prescription Updated",
+                "Your prescription has been updated. Please check your medical records.",
+                "PRESCRIPTION_UPDATED",
+                saved.getPrescriptionId()
+        );
 
         return addDoctorName(saved);
     }
