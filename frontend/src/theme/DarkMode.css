@@ -7151,3 +7151,750 @@ html.dark-mode .home-page .emergency-button:hover {
   background: #e9fbfc !important;
   color: #00788a !important;
 }
+
+/* =====================================================
+   LOGIN MODAL — DARK MODE
+   MATCH HOME PAGE DARK THEME
+===================================================== */
+
+/* Overlay */
+html.dark-mode .login-overlay,
+body.dark-mode .login-overlay {
+  background: rgba(2, 15, 22, 0.82) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+
+/* =====================================================
+   MAIN LOGIN CARD
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login,
+body.dark-mode .login-overlay .hospital-login {
+  background:
+    linear-gradient(
+      145deg,
+      #0b2934 0%,
+      #071f29 100%
+    ) !important;
+
+  border: 1px solid
+    rgba(42, 202, 216, 0.30) !important;
+
+  color: #eaf8fa !important;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(20, 190, 210, 0.08) !important;
+}
+
+
+/* =====================================================
+   LOGIN LOGO AREA
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login-logo,
+body.dark-mode .login-overlay .hospital-login-logo {
+  background:
+    linear-gradient(
+      145deg,
+      #123a46,
+      #0c2d38
+    ) !important;
+
+  border-color:
+    rgba(45, 205, 220, 0.25) !important;
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+/* =====================================================
+   LOGIN TITLE
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login h1,
+body.dark-mode .login-overlay .hospital-login h1 {
+  color: #f0fbfd !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f0fbfd,
+      #39d1dc
+    ) !important;
+
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+
+/* Subtitle */
+
+html.dark-mode .login-overlay .login-subtitle,
+body.dark-mode .login-overlay .login-subtitle {
+  color: #8eabb5 !important;
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+html.dark-mode .login-overlay .close-login,
+body.dark-mode .login-overlay .close-login {
+  background: #12313c !important;
+
+  color: #8fc0ca !important;
+
+  border-color:
+    rgba(50, 200, 215, 0.18) !important;
+}
+
+html.dark-mode .login-overlay .close-login:hover,
+body.dark-mode .login-overlay .close-login:hover {
+  background: #173d49 !important;
+
+  color: #ffffff !important;
+
+  border-color: #28c7d3 !important;
+
+  box-shadow:
+    0 0 15px rgba(30, 200, 215, 0.15) !important;
+}
+
+
+/* =====================================================
+   PATIENT / DOCTOR / ADMIN TABS
+===================================================== */
+
+html.dark-mode .login-overlay .role-tabs button,
+body.dark-mode .login-overlay .role-tabs button {
+  background:
+    linear-gradient(
+      145deg,
+      #102d38,
+      #0b252f
+    ) !important;
+
+  color: #91adb7 !important;
+
+  border-color:
+    #28505c !important;
+}
+
+
+/* Hover */
+
+html.dark-mode .login-overlay .role-tabs button:hover,
+body.dark-mode .login-overlay .role-tabs button:hover {
+  background: #143844 !important;
+
+  color: #52d6df !important;
+
+  border-color: #20aebb !important;
+
+  box-shadow:
+    0 8px 20px rgba(20, 190, 205, 0.12) !important;
+}
+
+
+/* Active */
+
+html.dark-mode .login-overlay .role-tabs button.active,
+body.dark-mode .login-overlay .role-tabs button.active {
+  background:
+    linear-gradient(
+      135deg,
+      #078fa1,
+      #16bdca
+    ) !important;
+
+  color: #ffffff !important;
+
+  border-color: #16bdca !important;
+
+  box-shadow:
+    0 8px 24px rgba(15, 190, 205, 0.25) !important;
+}
+
+
+/* Role SVG icons */
+
+html.dark-mode .login-overlay .role-tabs button svg,
+body.dark-mode .login-overlay .role-tabs button svg {
+  color: #2bc5d2 !important;
+  stroke: currentColor !important;
+}
+
+html.dark-mode .login-overlay .role-tabs button.active svg,
+body.dark-mode .login-overlay .role-tabs button.active svg {
+  color: #ffffff !important;
+}
+
+
+/* =====================================================
+   DOCTOR ICON
+===================================================== */
+
+html.dark-mode .login-overlay .doctor-login-icon,
+body.dark-mode .login-overlay .doctor-login-icon {
+  color: #35ced9 !important;
+}
+
+
+/* =====================================================
+   FORM LABELS
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login form label,
+body.dark-mode .login-overlay .hospital-login form label {
+  color: #c9e0e5 !important;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login form input,
+body.dark-mode .login-overlay .hospital-login form input {
+  background: #09252f !important;
+
+  color: #eaf8fa !important;
+
+  border-color: #294b56 !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Placeholder */
+
+html.dark-mode .login-overlay .hospital-login form input::placeholder,
+body.dark-mode .login-overlay .hospital-login form input::placeholder {
+  color: #6f8d97 !important;
+}
+
+
+/* Input hover */
+
+html.dark-mode .login-overlay .hospital-login form input:hover,
+body.dark-mode .login-overlay .hospital-login form input:hover {
+  border-color: #34707b !important;
+
+  box-shadow:
+    0 5px 16px rgba(0, 0, 0, 0.18) !important;
+}
+
+
+/* Input focus */
+
+html.dark-mode .login-overlay .hospital-login form input:focus,
+body.dark-mode .login-overlay .hospital-login form input:focus {
+  background: #0b2b36 !important;
+
+  color: #f0fbfd !important;
+
+  border-color: #22c5d2 !important;
+
+  box-shadow:
+    0 0 0 4px rgba(25, 197, 210, 0.12),
+    0 8px 22px rgba(0, 0, 0, 0.20) !important;
+}
+
+
+/* =====================================================
+   SHOW PASSWORD
+===================================================== */
+
+html.dark-mode .login-overlay .show-password-btn,
+body.dark-mode .login-overlay .show-password-btn {
+  color: #32cbd6 !important;
+}
+
+html.dark-mode .login-overlay .show-password-btn:hover,
+body.dark-mode .login-overlay .show-password-btn:hover {
+  color: #7be8ee !important;
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login-button,
+body.dark-mode .login-overlay .hospital-login-button {
+  background:
+    linear-gradient(
+      135deg,
+      #078fa1,
+      #16bdca
+    ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 12px 30px rgba(10, 180, 200, 0.22) !important;
+}
+
+
+html.dark-mode .login-overlay .hospital-login-button:hover,
+body.dark-mode .login-overlay .hospital-login-button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #0ba2b4,
+      #27cbd5
+    ) !important;
+
+  box-shadow:
+    0 16px 35px rgba(15, 200, 215, 0.30) !important;
+}
+
+
+/* =====================================================
+   OR DIVIDER
+===================================================== */
+
+html.dark-mode .login-overlay .login-or,
+body.dark-mode .login-overlay .login-or {
+  color: #7f9da7 !important;
+}
+
+html.dark-mode .login-overlay .login-or::before,
+html.dark-mode .login-overlay .login-or::after,
+body.dark-mode .login-overlay .login-or::before,
+body.dark-mode .login-overlay .login-or::after {
+  background: #294751 !important;
+}
+
+
+/* =====================================================
+   CREATE ACCOUNT TEXT
+===================================================== */
+
+html.dark-mode .login-overlay .register-text,
+body.dark-mode .login-overlay .register-text {
+  color: #819fa9 !important;
+}
+
+
+html.dark-mode .login-overlay .register-text button,
+body.dark-mode .login-overlay .register-text button {
+  color: #32cbd6 !important;
+}
+
+
+html.dark-mode .login-overlay .register-text button:hover,
+body.dark-mode .login-overlay .register-text button:hover {
+  color: #7be8ee !important;
+}
+
+
+/* =====================================================
+   LOGIN ERROR
+===================================================== */
+
+html.dark-mode .login-overlay .login-error,
+body.dark-mode .login-overlay .login-error {
+  background:
+    rgba(150, 35, 35, 0.16) !important;
+
+  border-color:
+    rgba(240, 100, 100, 0.28) !important;
+
+  color: #ff9c9c !important;
+}
+
+
+/* =====================================================
+   SMOOTH LOGIN MODAL TRANSITION
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login,
+body.dark-mode .login-overlay .hospital-login {
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease !important;
+}
+
+/* =====================================================
+   LOGIN TITLE — FIX VISIBILITY
+===================================================== */
+
+html.dark-mode .login-overlay .hospital-login h1,
+body.dark-mode .login-overlay .hospital-login h1 {
+  background: none !important;
+
+  color: #f4fbfc !important;
+
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #f4fbfc !important;
+  background-clip: initial !important;
+
+  opacity: 1 !important;
+
+  text-shadow:
+    0 2px 12px rgba(25, 197, 210, 0.12) !important;
+}
+
+/* =====================================================
+   DARK MODE — AUTOFILL / PASSKEY FIX
+===================================================== */
+
+html.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill,
+body.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill,
+
+html.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill:hover,
+body.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill:hover,
+
+html.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill:focus,
+body.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill:focus,
+
+html.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill:active,
+body.dark-mode .login-overlay
+.hospital-login input:-webkit-autofill:active {
+  -webkit-text-fill-color: #eaf8fa !important;
+
+  -webkit-box-shadow:
+    0 0 0 1000px #09252f inset !important;
+
+  box-shadow:
+    0 0 0 1000px #09252f inset !important;
+
+  background-color: #09252f !important;
+
+  caret-color: #eaf8fa !important;
+
+  transition:
+    background-color 9999s ease-in-out 0s !important;
+}
+
+
+/* Autofilled username/password — keep them bright */
+
+html.dark-mode .login-overlay
+.hospital-login input:-internal-autofill-selected,
+body.dark-mode .login-overlay
+.hospital-login input:-internal-autofill-selected {
+  background-color: #09252f !important;
+
+  color: #eaf8fa !important;
+
+  -webkit-text-fill-color: #eaf8fa !important;
+}
+
+
+/* Keep input text readable after autofill */
+
+html.dark-mode .login-overlay
+.hospital-login input,
+body.dark-mode .login-overlay
+.hospital-login input {
+  color: #eaf8fa !important;
+}
+
+
+/* Placeholder stays muted only when field is empty */
+
+html.dark-mode .login-overlay
+.hospital-login input::placeholder,
+body.dark-mode .login-overlay
+.hospital-login input::placeholder {
+  color: #6f8d97 !important;
+}
+
+/* =========================================================
+   REGISTER MODAL — DARK MODE
+   AI SMART HOSPITAL HOME THEME
+========================================================= */
+
+.home-page.dark-theme .register-modal {
+  background:
+    radial-gradient(
+      circle at 12% 15%,
+      rgba(24, 190, 205, 0.08),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(0, 130, 160, 0.08),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #071e27 0%,
+      #082832 55%,
+      #061b23 100%
+    ) !important;
+
+  color: #dff8fa !important;
+
+  border: 1px solid rgba(50, 202, 215, 0.35);
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 45px rgba(0, 180, 195, 0.08);
+}
+
+
+/* =========================================================
+   REGISTER TITLE
+========================================================= */
+
+.home-page.dark-theme .register-top h1 {
+  color: #70e0e7 !important;
+}
+
+.home-page.dark-theme .register-top p {
+  color: #8aadb7 !important;
+}
+
+
+/* =========================================================
+   REGISTER LOGO
+========================================================= */
+
+.home-page.dark-theme .register-logo {
+  background: #092b35;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 25px rgba(0, 190, 205, 0.10);
+}
+
+.home-page.dark-theme .register-logo img {
+  filter: drop-shadow(0 5px 12px rgba(0, 190, 205, 0.12));
+}
+
+
+/* =========================================================
+   REGISTER AS — PATIENT / DOCTOR
+========================================================= */
+
+.home-page.dark-theme .register-role-selector button {
+  background: #092832 !important;
+
+  border: 1px solid rgba(65, 190, 203, 0.28) !important;
+
+  color: #91adb6 !important;
+}
+
+.home-page.dark-theme .register-role-selector button:hover {
+  background: #0d3540 !important;
+
+  border-color: #16aebc !important;
+
+  color: #d5f6f8 !important;
+}
+
+.home-page.dark-theme .register-role-selector button.active {
+  background:
+    linear-gradient(
+      135deg,
+      #078f9e,
+      #12b8c5
+    ) !important;
+
+  border-color: #12b8c5 !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 8px 22px rgba(0, 180, 195, 0.18);
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.home-page.dark-theme .register-field label {
+  color: #b5d5dc !important;
+}
+
+
+/* =========================================================
+   INPUT WRAPPERS
+========================================================= */
+
+.home-page.dark-theme .register-input-wrap,
+.home-page.dark-theme .mobile-input {
+  background: #092832 !important;
+
+  border-color: rgba(65, 190, 203, 0.28) !important;
+
+  color: #dff8fa !important;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.home-page.dark-theme .register-field input,
+.home-page.dark-theme .register-field select {
+  background: #092832 !important;
+
+  border-color: rgba(65, 190, 203, 0.28) !important;
+
+  color: #e3f7f9 !important;
+}
+
+.home-page.dark-theme .register-field input::placeholder {
+  color: #668792 !important;
+
+  opacity: 1;
+}
+
+.home-page.dark-theme .register-field input:focus,
+.home-page.dark-theme .register-field select:focus {
+  background: #0b303a !important;
+
+  border-color: #16c4d1 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 196, 209, 0.12),
+    0 0 20px rgba(22, 196, 209, 0.06) !important;
+}
+
+
+/* =========================================================
+   INPUT ICONS
+========================================================= */
+
+.home-page.dark-theme .register-input-wrap svg,
+.home-page.dark-theme .mobile-input svg {
+  color: #14b8c6 !important;
+
+  stroke: currentColor;
+}
+
+
+/* =========================================================
+   MOBILE PREFIX
+========================================================= */
+
+.home-page.dark-theme .mobile-input span {
+  color: #d8f4f6 !important;
+}
+
+
+/* =========================================================
+   SELECT OPTIONS
+========================================================= */
+
+.home-page.dark-theme .register-field select option {
+  background: #092832;
+
+  color: #e3f7f9;
+}
+
+
+/* =========================================================
+   SHOW PASSWORD
+========================================================= */
+
+.home-page.dark-theme .register-field .show-password-btn {
+  color: #26c5d1 !important;
+}
+
+.home-page.dark-theme .register-field .show-password-btn:hover {
+  color: #73e6ec !important;
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT
+========================================================= */
+
+.home-page.dark-theme .register-submit {
+  background:
+    linear-gradient(
+      135deg,
+      #0798a8,
+      #16bdca
+    ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 12px 30px rgba(0, 180, 195, 0.16);
+}
+
+.home-page.dark-theme .register-submit:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #08a7b6,
+      #20c8d3
+    ) !important;
+
+  box-shadow:
+    0 16px 35px rgba(0, 190, 205, 0.24);
+}
+
+
+/* =========================================================
+   ALREADY HAVE ACCOUNT
+========================================================= */
+
+.home-page.dark-theme .already-account {
+  color: #7fa4ae !important;
+}
+
+.home-page.dark-theme .already-account button {
+  color: #35cbd6 !important;
+}
+
+.home-page.dark-theme .already-account button:hover {
+  color: #79e7ed !important;
+}
+
+
+/* =========================================================
+   REGISTER ERROR
+========================================================= */
+
+.home-page.dark-theme .register-error {
+  background: rgba(150, 35, 35, 0.14) !important;
+
+  border-color: rgba(255, 100, 100, 0.3) !important;
+
+  color: #ff9d9d !important;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.home-page.dark-theme .register-modal .close-login {
+  background: #0b303a !important;
+
+  border: 1px solid rgba(65, 190, 203, 0.25);
+
+  color: #8fc4cc !important;
+}
+
+.home-page.dark-theme .register-modal .close-login:hover {
+  background: #153b45 !important;
+
+  color: #7de4eb !important;
+
+  border-color: #25bfca;
+}

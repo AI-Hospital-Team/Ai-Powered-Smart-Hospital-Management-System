@@ -121,14 +121,6 @@
   display: none;
 }
 
-/* Hide browser credential button where supported */
-
-.login-password-wrap input::-webkit-credentials-auto-fill-button {
-  visibility: hidden;
-  display: none !important;
-  pointer-events: none;
-}
-
 /* =========================================
    SHOW / HIDE PASSWORD BUTTON
 ========================================= */
