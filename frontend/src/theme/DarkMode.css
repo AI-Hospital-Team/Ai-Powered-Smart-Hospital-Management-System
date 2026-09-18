@@ -10798,20 +10798,17 @@ body.dark-mode .reschedule-modal {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45) !important;
 }
 
-/* Icon */
 html.dark-mode .reschedule-modal-icon,
 body.dark-mode .reschedule-modal-icon {
     background: #123f4b !important;
     color: #27cbd6 !important;
 }
 
-/* Title */
 html.dark-mode .reschedule-modal h3,
 body.dark-mode .reschedule-modal h3 {
     color: #eaf7f9 !important;
 }
 
-/* Description */
 html.dark-mode .reschedule-modal > p,
 body.dark-mode .reschedule-modal > p {
     color: #8eabb4 !important;
@@ -10822,13 +10819,11 @@ body.dark-mode .reschedule-modal > p strong {
     color: #eaf7f9 !important;
 }
 
-/* Labels */
 html.dark-mode .reschedule-field label,
 body.dark-mode .reschedule-field label {
     color: #b9d4da !important;
 }
 
-/* Input boxes */
 html.dark-mode .reschedule-input-wrap,
 body.dark-mode .reschedule-input-wrap {
     background: #0d2f38 !important;
@@ -10843,13 +10838,11 @@ body.dark-mode .reschedule-input-wrap input {
     border: none !important;
 }
 
-/* Date/time icons */
 html.dark-mode .reschedule-input-wrap svg,
 body.dark-mode .reschedule-input-wrap svg {
     color: #27cbd6 !important;
 }
 
-/* Close button */
 html.dark-mode .reschedule-modal-close,
 body.dark-mode .reschedule-modal-close {
     background: #102f38 !important;
@@ -10857,7 +10850,6 @@ body.dark-mode .reschedule-modal-close {
     border: 1px solid #315b65 !important;
 }
 
-/* Reschedule button */
 html.dark-mode .reschedule-modal-confirm,
 body.dark-mode .reschedule-modal-confirm {
     background: #19aabd !important;
@@ -10865,7 +10857,6 @@ body.dark-mode .reschedule-modal-confirm {
     border: 1px solid #27cbd6 !important;
 }
 
-/* Disabled Reschedule */
 html.dark-mode .reschedule-modal-confirm:disabled,
 body.dark-mode .reschedule-modal-confirm:disabled {
     background: #27515a !important;
