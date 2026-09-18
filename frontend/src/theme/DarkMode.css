@@ -8742,48 +8742,2134 @@ body.dark-mode .dashboard-layout .header-notification-time {
 }
 
 /* =========================================================
-   PATIENT DASHBOARD — KEEP ORIGINAL TYPOGRAPHY
+   PATIENT WELCOME — BOOK APPOINTMENT BUTTON
 ========================================================= */
 
-html.dark-mode .patient-dashboard .welcome-content,
-body.dark-mode .patient-dashboard .welcome-content {
-  max-width: 780px !important;
-}
-
-html.dark-mode .patient-dashboard .welcome-content h1,
-body.dark-mode .patient-dashboard .welcome-content h1 {
-  font-size: clamp(30px, 3vw, 43px) !important;
-  line-height: 1.15 !important;
-  font-weight: 800 !important;
-  letter-spacing: normal !important;
-}
-
-html.dark-mode .patient-dashboard .welcome-content > p,
-body.dark-mode .patient-dashboard .welcome-content > p {
-  max-width: 680px !important;
-  font-size: 14px !important;
-  line-height: 1.7 !important;
-}
-
-html.dark-mode .patient-dashboard .welcome-label,
-body.dark-mode .patient-dashboard .welcome-label {
-  font-size: 11px !important;
-  letter-spacing: 1.5px !important;
-}
-
-html.dark-mode .patient-dashboard .patient-id span,
-body.dark-mode .patient-dashboard .patient-id span {
-  font-size: 10px !important;
-}
-
-html.dark-mode .patient-dashboard .patient-id strong,
-body.dark-mode .patient-dashboard .patient-id strong {
-  font-size: 12px !important;
-}
-
 html.dark-mode .patient-dashboard .primary-dashboard-button,
-html.dark-mode .patient-dashboard .secondary-dashboard-button,
-body.dark-mode .patient-dashboard .primary-dashboard-button,
-body.dark-mode .patient-dashboard .secondary-dashboard-button {
-  font-size: 12px !important;
+body.dark-mode .patient-dashboard .primary-dashboard-button {
+  background: #0d3945 !important;
+  color: #ffffff !important;
+  border: 1px solid #2a7180 !important;
+}
+
+html.dark-mode .patient-dashboard .primary-dashboard-button svg,
+body.dark-mode .patient-dashboard .primary-dashboard-button svg {
+  color: #ffffff !important;
+}
+
+html.dark-mode .patient-dashboard .primary-dashboard-button:hover,
+body.dark-mode .patient-dashboard .primary-dashboard-button:hover {
+  background: #124c59 !important;
+  border-color: #3a9aa8 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+html.dark-mode .patient-dashboard .quick-overview .section-label {
+  background: #dff7f9 !important;
+  color: #0795a4 !important;
+}
+
+/* =========================================================
+   PATIENT APPOINTMENTS — DARK MODE
+========================================================= */
+
+html.dark-mode .appointment-card {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+  box-shadow: none !important;
+  color: #eaf7f9 !important;
+}
+
+html.dark-mode .appointment-card:hover {
+  background: #164352 !important;
+  border-color: #19c5d2 !important;
+}
+
+/* Doctor box */
+html.dark-mode .doctor-icon {
+  background: #123744 !important;
+  color: #19c5d2 !important;
+}
+
+html.dark-mode .doctor-text h2 {
+  color: #f4fbfc !important;
+}
+
+html.dark-mode .doctor-text p {
+  color: #91adb7 !important;
+}
+
+/* Appointment detail icons */
+html.dark-mode .detail-icon {
+  background: #123744 !important;
+  color: #19c5d2 !important;
+}
+
+html.dark-mode .detail-label {
+  color: #91adb7 !important;
+}
+
+html.dark-mode .appointment-detail strong {
+  color: #dceff2 !important;
+}
+
+/* Cancelled badge */
+html.dark-mode .status-cancelled {
+  background: #422525 !important;
+  color: #ff9090 !important;
+}
+
+/* Cancelled message box */
+html.dark-mode .cancelled-info {
+  background: #422525 !important;
+  color: #ff9090 !important;
+}
+
+/* Completed */
+html.dark-mode .completed-info {
+  background: #1b3048 !important;
+  color: #8ab9ff !important;
+}
+
+/* Cancel button */
+html.dark-mode .cancel-appointment-btn {
+  background: #102f3b !important;
+  color: #ff8585 !important;
+  border-color: #a94b4b !important;
+}
+
+/* No appointments / loading boxes */
+html.dark-mode .no-appointments,
+html.dark-mode .appointments-loading {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+  color: #eaf7f9 !important;
+}
+
+html.dark-mode .no-appointments h2 {
+  color: #f4fbfc !important;
+}
+
+html.dark-mode .no-appointments p,
+html.dark-mode .appointments-loading p {
+  color: #91adb7 !important;
+}
+
+/* Cancel modal */
+html.dark-mode .cancel-modal {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+}
+
+html.dark-mode .cancel-modal h3 {
+  color: #f4fbfc !important;
+}
+
+html.dark-mode .cancel-modal p {
+  color: #91adb7 !important;
+}
+
+html.dark-mode .cancel-modal-close {
+  background: #123744 !important;
+  color: #dceff2 !important;
+  border-color: #24515f !important;
+}
+
+/* =========================================================
+   PATIENT APPOINTMENT - DOCTOR INFO BOX
+========================================================= */
+
+html.dark-mode .appointment-card .doctor-info,
+html.dark-mode .appointment-card .doctor-details,
+html.dark-mode .appointment-card .appointment-doctor-info,
+html.dark-mode .appointment-card .appointment-doctor-card {
+  background: #123744 !important;
+  color: #eaf7f9 !important;
+  border-color: #24515f !important;
+}
+
+/* Force nested elements away from white */
+html.dark-mode .appointment-card .doctor-info *,
+html.dark-mode .appointment-card .doctor-details *,
+html.dark-mode .appointment-card .appointment-doctor-info *,
+html.dark-mode .appointment-card .appointment-doctor-card * {
+  color: #eaf7f9 !important;
+}
+
+/* Doctor icon */
+html.dark-mode .appointment-card .doctor-info .doctor-icon,
+html.dark-mode .appointment-card .doctor-details .doctor-icon {
+  background: #0b2935 !important;
+  color: #19c5d2 !important;
+}
+
+/* Doctor name */
+html.dark-mode .appointment-card .doctor-info h2,
+html.dark-mode .appointment-card .doctor-details h2 {
+  color: #f4fbfc !important;
+}
+
+/* Department */
+html.dark-mode .appointment-card .doctor-info p,
+html.dark-mode .appointment-card .doctor-details p {
+  color: #91adb7 !important;
+}
+
+/* =========================================================
+   BOOK APPOINTMENT — DARK MODE
+========================================================= */
+
+html.dark-mode .book-page {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+
+/* Title */
+html.dark-mode .book-title-section h1 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .book-title-section p {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .book-title-icon {
+  background: #123744 !important;
+  color: var(--dark-primary) !important;
+}
+
+/* Back button */
+html.dark-mode .appointments-back-btn {
+  background: #123744 !important;
+  color: #35d5df !important;
+  border-color: var(--dark-border) !important;
+}
+
+html.dark-mode .appointments-back-btn:hover {
+  background: #164352 !important;
+  color: #ffffff !important;
+}
+
+/* Left health card */
+html.dark-mode .health-card {
+  background: #102f3b !important;
+  border-color: var(--dark-border) !important;
+  box-shadow: none !important;
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .health-icon {
+  background: #123744 !important;
+  color: var(--dark-primary) !important;
+}
+
+html.dark-mode .health-card h2 {
+  color: var(--dark-heading) !important;
+}
+
+html.dark-mode .health-description {
+  color: var(--dark-muted) !important;
+}
+
+html.dark-mode .health-feature-icon {
+  background: #123744 !important;
+  color: var(--dark-primary) !important;
+}
+
+html.dark-mode .health-feature strong {
+  color: var(--dark-text) !important;
+}
+
+html.dark-mode .health-feature span {
+  color: var(--dark-muted) !important;
+}
+
+/* Main booking white box */
+html.dark-mode .booking-card {
+  background: #102f3b !important;
+  border-color: var(--dark-border) !important;
+  box-shadow: none !important;
+  color: var(--dark-text) !important;
+}
+
+/* Labels */
+html.dark-mode .form-group label,
+html.dark-mode .reason-label-row label {
+  color: #c6dce1 !important;
+}
+
+html.dark-mode .reason-label-row span {
+  color: var(--dark-muted) !important;
+}
+
+/* Inputs + select */
+html.dark-mode .input-wrapper input,
+html.dark-mode .select-wrapper select,
+html.dark-mode .booking-form textarea {
+  background: #0d2935 !important;
+  color: var(--dark-text) !important;
+  border-color: #315664 !important;
+}
+
+html.dark-mode .input-wrapper input::placeholder,
+html.dark-mode .booking-form textarea::placeholder {
+  color: #76939d !important;
+}
+
+html.dark-mode .input-wrapper input:hover,
+html.dark-mode .select-wrapper select:hover,
+html.dark-mode .booking-form textarea:hover {
+  border-color: #3c6977 !important;
+}
+
+html.dark-mode .input-wrapper input:focus,
+html.dark-mode .select-wrapper select:focus,
+html.dark-mode .booking-form textarea:focus {
+  border-color: var(--dark-primary) !important;
+  box-shadow: 0 0 0 3px rgba(25, 197, 210, 0.12) !important;
+}
+
+html.dark-mode .input-wrapper input:disabled,
+html.dark-mode .select-wrapper select:disabled {
+  background: #102630 !important;
+  color: #718b94 !important;
+}
+
+/* Icons */
+html.dark-mode .field-icon {
+  color: var(--dark-primary) !important;
+}
+
+/* Note box */
+html.dark-mode .appointment-note {
+  background: #12324b !important;
+  color: #a9cde8 !important;
+}
+
+html.dark-mode .appointment-note svg {
+  color: #5ba8ff !important;
+}
+
+html.dark-mode .appointment-note strong {
+  color: #cce7ff !important;
+}
+
+/* Cancel button */
+html.dark-mode .cancel-booking-btn {
+  background: #102f3b !important;
+  color: #c9dde2 !important;
+  border-color: #315664 !important;
+}
+
+html.dark-mode .cancel-booking-btn:hover {
+  background: #164352 !important;
+  color: #ffffff !important;
+}
+
+/* Messages */
+html.dark-mode .booking-error {
+  background: #422525 !important;
+  color: #ff9090 !important;
+  border-color: #704040 !important;
+}
+
+html.dark-mode .booking-success {
+  background: #123c32 !important;
+  color: #62dfac !important;
+  border-color: #27634f !important;
+}
+
+/* =========================================================
+   MEDICAL RECORDS — DARK MODE FINAL FIX
+========================================================= */
+
+html.dark-mode .medical-records-page .record-card,
+body.dark-mode .medical-records-page .record-card {
+    background: #102f3b !important;
+    background-color: #102f3b !important;
+    color: #eaf7f9 !important;
+    border-color: #24515f !important;
+    box-shadow: none !important;
+}
+
+/* Record header */
+html.dark-mode .medical-records-page .record-card-header,
+body.dark-mode .medical-records-page .record-card-header {
+    background: transparent !important;
+    border-bottom-color: #24515f !important;
+}
+
+/* Record title */
+html.dark-mode .medical-records-page .record-title h2,
+body.dark-mode .medical-records-page .record-title h2 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .medical-records-page .record-title p,
+body.dark-mode .medical-records-page .record-title p {
+    color: #91adb7 !important;
+}
+
+/* Stethoscope icon */
+html.dark-mode .medical-records-page .record-icon,
+body.dark-mode .medical-records-page .record-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+    box-shadow: inset 0 0 0 1px #24515f !important;
+}
+
+/* Record ID */
+html.dark-mode .medical-records-page .record-id,
+body.dark-mode .medical-records-page .record-id {
+    background: #123744 !important;
+    color: #8fdfe5 !important;
+}
+
+/* Details area */
+html.dark-mode .medical-records-page .record-details,
+body.dark-mode .medical-records-page .record-details {
+    background: transparent !important;
+}
+
+/* Detail icon boxes */
+html.dark-mode .medical-records-page .record-detail-icon,
+body.dark-mode .medical-records-page .record-detail-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Detail labels */
+html.dark-mode .medical-records-page .record-detail-item small,
+body.dark-mode .medical-records-page .record-detail-item small {
+    color: #91adb7 !important;
+}
+
+/* Doctor / department / date values */
+html.dark-mode .medical-records-page .record-detail-item strong,
+body.dark-mode .medical-records-page .record-detail-item strong {
+    color: #dff7fa !important;
+}
+
+/* =========================================================
+   DIAGNOSIS / SYMPTOMS / TREATMENT / NOTES
+========================================================= */
+
+html.dark-mode .medical-records-page .record-section,
+body.dark-mode .medical-records-page .record-section {
+    background: #0d2935 !important;
+    background-color: #0d2935 !important;
+    border-color: #24515f !important;
+    color: #b8d0d6 !important;
+}
+
+/* Section heading */
+html.dark-mode .medical-records-page .record-section h3,
+body.dark-mode .medical-records-page .record-section h3 {
+    color: #8fdfe5 !important;
+}
+
+/* Section content */
+html.dark-mode .medical-records-page .record-section p,
+body.dark-mode .medical-records-page .record-section p {
+    color: #b8d0d6 !important;
+}
+
+/* Hover */
+html.dark-mode .medical-records-page .record-section:hover,
+body.dark-mode .medical-records-page .record-section:hover {
+    background: #12343f !important;
+    border-color: #2b6570 !important;
+}
+
+/* =========================================================
+   REMOVE ANY WHITE CHILD BACKGROUNDS
+========================================================= */
+
+html.dark-mode .medical-records-page .record-card > div,
+body.dark-mode .medical-records-page .record-card > div {
+    color: #dff7fa;
+}
+
+/* But keep the actual sections dark */
+html.dark-mode .medical-records-page .record-card .record-section,
+body.dark-mode .medical-records-page .record-card .record-section {
+    background: #0d2935 !important;
+}
+
+/* =========================================================
+   PATIENT PRESCRIPTIONS — DARK MODE FINAL FIX
+========================================================= */
+
+/* Main prescription card */
+html.dark-mode .prescriptions-page .prescription-card,
+body.dark-mode .prescriptions-page .prescription-card {
+  background: #102f3b !important;
+  background-color: #102f3b !important;
+  color: #eaf7f9 !important;
+  border-color: #24515f !important;
+  box-shadow: none !important;
+}
+
+/* Card header */
+html.dark-mode .prescriptions-page .prescription-card-header,
+body.dark-mode .prescriptions-page .prescription-card-header {
+  background: transparent !important;
+  border-bottom-color: #315762 !important;
+}
+
+/* Prescription title */
+html.dark-mode .prescriptions-page .prescription-title h2,
+body.dark-mode .prescriptions-page .prescription-title h2 {
+  color: #eaf7f9 !important;
+}
+
+html.dark-mode .prescriptions-page .prescription-title p,
+body.dark-mode .prescriptions-page .prescription-title p {
+  color: #91adb7 !important;
+}
+
+/* Medicine icon */
+html.dark-mode .prescriptions-page .medicine-icon,
+body.dark-mode .prescriptions-page .medicine-icon {
+  background: #123744 !important;
+  color: #27cbd6 !important;
+  box-shadow: inset 0 0 0 1px #24515f !important;
+}
+
+/* Active badge */
+html.dark-mode .prescriptions-page .active-badge,
+body.dark-mode .prescriptions-page .active-badge {
+  background: #123d33 !important;
+  color: #55d4ae !important;
+}
+
+/* =========================================================
+   DISEASE + DOCTOR BOXES
+========================================================= */
+
+html.dark-mode .prescriptions-page .prescription-info-box,
+body.dark-mode .prescriptions-page .prescription-info-box {
+  background: #0d2935 !important;
+  background-color: #0d2935 !important;
+  border-color: #24515f !important;
+}
+
+html.dark-mode .prescriptions-page .prescription-info-icon,
+body.dark-mode .prescriptions-page .prescription-info-icon {
+  background: #123744 !important;
+  color: #27cbd6 !important;
+}
+
+html.dark-mode .prescriptions-page .prescription-info-box span,
+body.dark-mode .prescriptions-page .prescription-info-box span {
+  color: #8caab2 !important;
+}
+
+html.dark-mode .prescriptions-page .prescription-info-box strong,
+body.dark-mode .prescriptions-page .prescription-info-box strong {
+  color: #dff7fa !important;
+}
+
+/* =========================================================
+   MEDICINES HEADING
+========================================================= */
+
+html.dark-mode .prescriptions-page .section-heading,
+body.dark-mode .prescriptions-page .section-heading {
+  color: #27cbd6 !important;
+}
+
+html.dark-mode .prescriptions-page .section-heading h3,
+body.dark-mode .prescriptions-page .section-heading h3 {
+  color: #e9fbfd !important;
+}
+
+/* =========================================================
+   MEDICINE DETAIL BOXES
+========================================================= */
+
+html.dark-mode .prescriptions-page .medicine-detail,
+body.dark-mode .prescriptions-page .medicine-detail {
+  background: #0d2935 !important;
+  background-color: #0d2935 !important;
+  border-color: #24515f !important;
+}
+
+html.dark-mode .prescriptions-page .medicine-detail:hover,
+body.dark-mode .prescriptions-page .medicine-detail:hover {
+  background: #12343f !important;
+  border-color: #2b6570 !important;
+}
+
+html.dark-mode .prescriptions-page .medicine-detail span,
+body.dark-mode .prescriptions-page .medicine-detail span {
+  color: #8caab2 !important;
+}
+
+html.dark-mode .prescriptions-page .medicine-detail strong,
+body.dark-mode .prescriptions-page .medicine-detail strong {
+  color: #dff7fa !important;
+}
+
+/* =========================================================
+   INSTRUCTIONS
+========================================================= */
+
+html.dark-mode .prescriptions-page .instructions-section,
+body.dark-mode .prescriptions-page .instructions-section {
+  background: #30291f !important;
+  background-color: #30291f !important;
+  border-color: #665338 !important;
+}
+
+html.dark-mode .prescriptions-page .instructions-heading,
+body.dark-mode .prescriptions-page .instructions-heading {
+  color: #e2a957 !important;
+}
+
+html.dark-mode .prescriptions-page .instructions-heading h3,
+body.dark-mode .prescriptions-page .instructions-heading h3 {
+  color: #f0c47c !important;
+}
+
+html.dark-mode .prescriptions-page .instructions-section p,
+body.dark-mode .prescriptions-page .instructions-section p {
+  color: #cbb99d !important;
+}
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+html.dark-mode .prescriptions-page .prescriptions-header h1,
+body.dark-mode .prescriptions-page .prescriptions-header h1 {
+  color: #edfafd !important;
+}
+
+html.dark-mode .prescriptions-page .prescriptions-header p,
+body.dark-mode .prescriptions-page .prescriptions-header p {
+  color: #89aab4 !important;
+}
+
+/* Header icon */
+html.dark-mode .prescriptions-page .prescriptions-heading-icon,
+body.dark-mode .prescriptions-page .prescriptions-heading-icon {
+  background: #123744 !important;
+  color: #27cbd6 !important;
+  box-shadow: inset 0 0 0 1px #24515f !important;
+}
+
+/* =========================================================
+   EMPTY BOX
+========================================================= */
+
+html.dark-mode .prescriptions-page .empty-box,
+body.dark-mode .prescriptions-page .empty-box {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+  color: #e9fbfd !important;
+}
+
+html.dark-mode .prescriptions-page .empty-box h2,
+body.dark-mode .prescriptions-page .empty-box h2 {
+  color: #e9fbfd !important;
+}
+
+html.dark-mode .prescriptions-page .empty-box p,
+body.dark-mode .prescriptions-page .empty-box p {
+  color: #8caab2 !important;
+}
+
+html.dark-mode .prescriptions-page .empty-icon,
+body.dark-mode .prescriptions-page .empty-icon {
+  background: #123744 !important;
+  color: #27cbd6 !important;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .prescriptions-page .prescriptions-loading,
+body.dark-mode .prescriptions-page .prescriptions-loading {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+}
+
+html.dark-mode .prescriptions-page .prescriptions-loading p,
+body.dark-mode .prescriptions-page .prescriptions-loading p {
+  color: #8caab2 !important;
+}
+
+/* =========================================================
+   PATIENT PROFILE — DARK MODE
+========================================================= */
+
+/* Main profile page */
+html.dark-mode .profile-page,
+body.dark-mode .profile-page {
+    background: #061c25 !important;
+    color: #eaf7f9 !important;
+}
+
+/* Health card */
+html.dark-mode .profile-health-card,
+body.dark-mode .profile-health-card {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+    box-shadow: none !important;
+}
+
+/* Health card text */
+html.dark-mode .profile-health-card h2,
+body.dark-mode .profile-health-card h2 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .health-intro,
+body.dark-mode .health-intro {
+    color: #91adb7 !important;
+}
+
+html.dark-mode .health-feature strong,
+body.dark-mode .health-feature strong {
+    color: #dff7fa !important;
+}
+
+html.dark-mode .health-feature p,
+body.dark-mode .health-feature p {
+    color: #91adb7 !important;
+}
+
+/* Health icons */
+html.dark-mode .health-main-icon,
+body.dark-mode .health-main-icon,
+html.dark-mode .health-feature-icon,
+body.dark-mode .health-feature-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Health message */
+html.dark-mode .health-message,
+body.dark-mode .health-message {
+    background: #0d2935 !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .health-message p,
+body.dark-mode .health-message p {
+    color: #91adb7 !important;
+}
+
+/* =========================================================
+   MAIN PROFILE CARD
+========================================================= */
+
+html.dark-mode .profile-card,
+body.dark-mode .profile-card {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+    box-shadow: none !important;
+}
+
+/* Top user area */
+html.dark-mode .profile-card-top,
+body.dark-mode .profile-card-top {
+    background: #0d2935 !important;
+    border-bottom-color: #24515f !important;
+}
+
+html.dark-mode .profile-user-name h2,
+body.dark-mode .profile-user-name h2 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .profile-user-name p,
+body.dark-mode .profile-user-name p {
+    color: #91adb7 !important;
+}
+
+/* Active patient */
+html.dark-mode .active-patient,
+body.dark-mode .active-patient {
+    background: #123d33 !important;
+    color: #55d4ae !important;
+}
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+html.dark-mode .profile-section,
+body.dark-mode .profile-section {
+    border-bottom-color: #24515f !important;
+}
+
+html.dark-mode .section-heading h3,
+body.dark-mode .section-heading h3 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .section-heading p,
+body.dark-mode .section-heading p {
+    color: #8caab2 !important;
+}
+
+/* =========================================================
+   PERSONAL INFORMATION BOXES
+========================================================= */
+
+html.dark-mode .profile-field,
+body.dark-mode .profile-field {
+    background: #0d2935 !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .profile-field > span,
+body.dark-mode .profile-field > span {
+    color: #8caab2 !important;
+}
+
+html.dark-mode .profile-field strong,
+body.dark-mode .profile-field strong {
+    color: #dff7fa !important;
+}
+
+/* Disabled fields */
+html.dark-mode .disabled-field,
+body.dark-mode .disabled-field {
+    background: #102b35 !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .disabled-field > span,
+body.dark-mode .disabled-field > span {
+    color: #78939d !important;
+}
+
+html.dark-mode .disabled-field strong,
+body.dark-mode .disabled-field strong {
+    color: #c1d4d9 !important;
+}
+
+/* =========================================================
+   INPUTS / SELECTS
+========================================================= */
+
+html.dark-mode .profile-field input,
+html.dark-mode .profile-field select,
+html.dark-mode .address-field input,
+body.dark-mode .profile-field input,
+body.dark-mode .profile-field select,
+body.dark-mode .address-field input {
+    background: #0d2935 !important;
+    color: #eaf7f9 !important;
+    border-color: #315b67 !important;
+}
+
+html.dark-mode .profile-field input::placeholder,
+html.dark-mode .address-field input::placeholder,
+body.dark-mode .profile-field input::placeholder,
+body.dark-mode .address-field input::placeholder {
+    color: #718d97 !important;
+}
+
+/* =========================================================
+   ADDRESS
+========================================================= */
+
+html.dark-mode .address-field,
+body.dark-mode .address-field {
+    background: #0d2935 !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .address-field span,
+body.dark-mode .address-field span {
+    color: #8caab2 !important;
+}
+
+html.dark-mode .address-field strong,
+body.dark-mode .address-field strong {
+    color: #dff7fa !important;
+}
+
+html.dark-mode .address-icon,
+body.dark-mode .address-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* =========================================================
+   ACCOUNT INFORMATION
+========================================================= */
+
+html.dark-mode .account-item,
+body.dark-mode .account-item {
+    background: #0d2935 !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .account-item span,
+body.dark-mode .account-item span {
+    color: #8caab2 !important;
+}
+
+html.dark-mode .account-item strong,
+body.dark-mode .account-item strong {
+    color: #dff7fa !important;
+}
+
+/* Active account */
+html.dark-mode .account-active,
+body.dark-mode .account-active {
+    background: #123d33 !important;
+    border-color: #286653 !important;
+}
+
+html.dark-mode .account-active strong,
+body.dark-mode .account-active strong {
+    color: #55d4ae !important;
+}
+
+/* =========================================================
+   EDIT / SAVE / CANCEL
+========================================================= */
+
+html.dark-mode .profile-actions,
+body.dark-mode .profile-actions {
+    background: #0d2935 !important;
+    border-top-color: #24515f !important;
+}
+
+html.dark-mode .cancel-button,
+body.dark-mode .cancel-button {
+    background: #102f3b !important;
+    border-color: #315b67 !important;
+    color: #b8cdd2 !important;
+}
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+html.dark-mode .profile-loading,
+html.dark-mode .profile-error,
+body.dark-mode .profile-loading,
+body.dark-mode .profile-error {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+    color: #eaf7f9 !important;
+}
+
+/* =========================================================
+   BILLS & PAYMENT — DARK MODE
+========================================================= */
+
+/* Main page */
+html.dark-mode .patient-bills-page,
+body.dark-mode .patient-bills-page {
+    background: #061c25 !important;
+    color: #eaf7f9 !important;
+}
+
+/* Header */
+html.dark-mode .bills-page-header,
+body.dark-mode .bills-page-header {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .bills-page-header h1,
+body.dark-mode .bills-page-header h1 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .bills-page-header p,
+body.dark-mode .bills-page-header p,
+html.dark-mode .patient-id-label,
+body.dark-mode .patient-id-label {
+    color: #91adb7 !important;
+}
+
+html.dark-mode .patient-id-label strong,
+body.dark-mode .patient-id-label strong {
+    color: #dff7fa !important;
+}
+
+/* Header icon */
+html.dark-mode .bills-title-icon,
+body.dark-mode .bills-title-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+html.dark-mode .bill-summary-card,
+body.dark-mode .bill-summary-card {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .bill-summary-card span,
+body.dark-mode .bill-summary-card span {
+    color: #91adb7 !important;
+}
+
+html.dark-mode .summary-blue .summary-icon,
+html.dark-mode .summary-teal .summary-icon,
+html.dark-mode .summary-orange .summary-icon,
+html.dark-mode .summary-green .summary-icon {
+    background: #123744 !important;
+}
+
+html.dark-mode .summary-blue .summary-icon,
+html.dark-mode .summary-teal .summary-icon,
+html.dark-mode .summary-orange .summary-icon,
+html.dark-mode .summary-green .summary-icon {
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .summary-blue strong,
+html.dark-mode .summary-teal strong,
+html.dark-mode .summary-orange strong,
+html.dark-mode .summary-green strong {
+    color: #dff7fa !important;
+}
+
+/* =========================================================
+   BILLING HISTORY
+========================================================= */
+
+html.dark-mode .bills-card,
+body.dark-mode .bills-card {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .bills-card-header,
+body.dark-mode .bills-card-header {
+    border-bottom-color: #315762 !important;
+}
+
+html.dark-mode .bills-card-header h2,
+body.dark-mode .bills-card-header h2 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .bills-card-header p,
+body.dark-mode .bills-card-header p {
+    color: #91adb7 !important;
+}
+
+html.dark-mode .bill-count,
+body.dark-mode .bill-count {
+    background: #123744 !important;
+    color: #8fdfe5 !important;
+}
+
+/* Table */
+html.dark-mode .bills-table th,
+body.dark-mode .bills-table th {
+    background: #0d2935 !important;
+    color: #a9c2c9 !important;
+    border-bottom-color: #315762 !important;
+}
+
+html.dark-mode .bills-table td,
+body.dark-mode .bills-table td {
+    background: #102f3b !important;
+    color: #b8d0d6 !important;
+    border-bottom-color: #24515f !important;
+}
+
+html.dark-mode .bills-table tbody tr:hover td,
+body.dark-mode .bills-table tbody tr:hover td {
+    background: #12343f !important;
+}
+
+/* Bill number */
+html.dark-mode .bill-number,
+body.dark-mode .bill-number {
+    background: #123744 !important;
+    color: #8fdfe5 !important;
+}
+
+/* Doctor chip */
+html.dark-mode .doctor-chip,
+body.dark-mode .doctor-chip {
+    background: #123744 !important;
+    color: #b8dce2 !important;
+}
+
+/* Bill type / description */
+html.dark-mode .bill-type,
+body.dark-mode .bill-type {
+    color: #b8d0d6 !important;
+}
+
+html.dark-mode .description,
+body.dark-mode .description {
+    color: #91adb7 !important;
+}
+
+/* Amount */
+html.dark-mode .amount,
+body.dark-mode .amount {
+    color: #36d69a !important;
+}
+
+/* =========================================================
+   STATUS / PAYMENT
+========================================================= */
+
+html.dark-mode .status-badge.paid,
+body.dark-mode .status-badge.paid {
+    background: #123d33 !important;
+    color: #55d4ae !important;
+}
+
+html.dark-mode .paid-label,
+body.dark-mode .paid-label {
+    background: #123d33 !important;
+    color: #55d4ae !important;
+}
+
+html.dark-mode .status-badge.pending,
+body.dark-mode .status-badge.pending {
+    background: #3d3021 !important;
+    color: #f3a45c !important;
+}
+
+html.dark-mode .status-badge.cancelled,
+body.dark-mode .status-badge.cancelled {
+    background: #30353a !important;
+    color: #aeb9bd !important;
+}
+
+/* =========================================================
+   EDUCATIONAL NOTE
+========================================================= */
+
+html.dark-mode .payment-note,
+body.dark-mode .payment-note {
+    background: #102f4a !important;
+    border-color: #285273 !important;
+}
+
+html.dark-mode .payment-note-icon,
+body.dark-mode .payment-note-icon {
+    background: #123b5a !important;
+    color: #62a9ff !important;
+}
+
+html.dark-mode .payment-note strong,
+body.dark-mode .payment-note strong {
+    color: #8fc5ff !important;
+}
+
+html.dark-mode .payment-note p,
+body.dark-mode .payment-note p {
+    color: #9db8cb !important;
+}
+
+/* =========================================================
+   HELP BOX
+========================================================= */
+
+html.dark-mode .billing-help,
+body.dark-mode .billing-help {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .billing-help-icon,
+body.dark-mode .billing-help-icon {
+    background: #123744 !important;
+    color: #8fb4bf !important;
+}
+
+html.dark-mode .billing-help strong,
+body.dark-mode .billing-help strong {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .billing-help p,
+body.dark-mode .billing-help p {
+    color: #91adb7 !important;
+}
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+html.dark-mode .bill-error,
+body.dark-mode .bill-error {
+    background: #422525 !important;
+    border-color: #704040 !important;
+    color: #ff9090 !important;
+}
+
+html.dark-mode .bill-success,
+body.dark-mode .bill-success {
+    background: #123d33 !important;
+    border-color: #286653 !important;
+    color: #55d4ae !important;
+}
+
+/* =========================================================
+   PAYMENT MODAL
+========================================================= */
+
+html.dark-mode .payment-modal,
+body.dark-mode .payment-modal {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .payment-modal-content h2,
+body.dark-mode .payment-modal-content h2 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .payment-modal-content > p,
+body.dark-mode .payment-modal-content > p {
+    color: #91adb7 !important;
+}
+
+html.dark-mode .payment-modal-details > div,
+body.dark-mode .payment-modal-details > div {
+    background: #0d2935 !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .payment-modal-details span,
+body.dark-mode .payment-modal-details span {
+    color: #8caab2 !important;
+}
+
+html.dark-mode .payment-modal-details strong,
+body.dark-mode .payment-modal-details strong {
+    color: #dff7fa !important;
+}
+
+html.dark-mode .payment-demo-warning,
+body.dark-mode .payment-demo-warning {
+    background: #30291f !important;
+    border-color: #665338 !important;
+}
+
+html.dark-mode .payment-demo-warning strong,
+body.dark-mode .payment-demo-warning strong {
+    color: #f0c47c !important;
+}
+
+html.dark-mode .payment-demo-warning p,
+body.dark-mode .payment-demo-warning p {
+    color: #cbb99d !important;
+}
+
+html.dark-mode .modal-cancel-btn,
+body.dark-mode .modal-cancel-btn {
+    background: #102f3b !important;
+    color: #b8cdd2 !important;
+    border-color: #315b67 !important;
+}
+
+/* =========================================================
+   SIDEBAR — DARK MODE FINAL FIX
+========================================================= */
+
+/* Sidebar itself */
+html.dark-mode .dashboard-sidebar,
+body.dark-mode .dashboard-sidebar {
+    background: #061c25 !important;
+    border-color: #163d48 !important;
+}
+
+/* Logo section */
+html.dark-mode .sidebar-logo,
+body.dark-mode .sidebar-logo {
+    background:
+        linear-gradient(
+            135deg,
+            #0b2934 0%,
+            #0d3440 65%,
+            #0f3b47 100%
+        ) !important;
+    border-bottom-color: #1d4c58 !important;
+}
+
+/* Logo circle */
+html.dark-mode .patient-logo-wrapper,
+body.dark-mode .patient-logo-wrapper {
+    background: #f1f8fa !important;
+    border-color: #2b5964 !important;
+}
+
+/* Logo text */
+html.dark-mode .logo-text h2,
+body.dark-mode .logo-text h2 {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .logo-text span,
+body.dark-mode .logo-text span {
+    color: #8caab2 !important;
+}
+
+/* Logged-in patient box */
+html.dark-mode .user-role-card,
+body.dark-mode .user-role-card {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+}
+
+html.dark-mode .user-role-card:hover,
+body.dark-mode .user-role-card:hover {
+    background: #12343f !important;
+    border-color: #2b6570 !important;
+}
+
+html.dark-mode .user-role-card .role-icon,
+body.dark-mode .user-role-card .role-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .user-role-card small,
+body.dark-mode .user-role-card small {
+    color: #8caab2 !important;
+}
+
+html.dark-mode .user-role-card strong,
+body.dark-mode .user-role-card strong {
+    color: #eaf7f9 !important;
+}
+
+/* Menu heading */
+html.dark-mode .menu-heading,
+body.dark-mode .menu-heading {
+    color: #789ba6 !important;
+}
+
+/* Normal menu items */
+html.dark-mode .sidebar-menu-item,
+body.dark-mode .sidebar-menu-item {
+    color: #b5cbd1 !important;
+}
+
+html.dark-mode .sidebar-menu-item:hover,
+body.dark-mode .sidebar-menu-item:hover {
+    background: #102f3b !important;
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .menu-icon,
+body.dark-mode .menu-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .sidebar-menu-item:hover .menu-icon,
+body.dark-mode .sidebar-menu-item:hover .menu-icon {
+    background: #174450 !important;
+    color: #27cbd6 !important;
+}
+
+/* Active menu */
+html.dark-mode .sidebar-menu-item.active,
+body.dark-mode .sidebar-menu-item.active {
+    background: linear-gradient(
+        135deg,
+        #078c99,
+        #10a7b3
+    ) !important;
+    color: #ffffff !important;
+}
+
+html.dark-mode .sidebar-menu-item.active .menu-icon,
+body.dark-mode .sidebar-menu-item.active .menu-icon {
+    background: rgba(255,255,255,0.18) !important;
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   NEED HELP / CONTACT US
+========================================================= */
+
+html.dark-mode .sidebar-bottom,
+body.dark-mode .sidebar-bottom {
+    background: #061c25 !important;
+}
+
+/* Support buttons */
+html.dark-mode .sidebar-support-item,
+body.dark-mode .sidebar-support-item {
+    background: #102f3b !important;
+    color: #dff7fa !important;
+    border-color: #24515f !important;
+}
+
+/* Support icon */
+html.dark-mode .sidebar-support-item .support-icon,
+body.dark-mode .sidebar-support-item .support-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Hover */
+html.dark-mode .sidebar-support-item:hover,
+body.dark-mode .sidebar-support-item:hover {
+    background: #12343f !important;
+    border-color: #2b6570 !important;
+    color: #27cbd6 !important;
+}
+
+/* =========================================================
+   SYSTEM ONLINE
+========================================================= */
+
+html.dark-mode .hospital-status,
+body.dark-mode .hospital-status {
+    background: #0b382f !important;
+    border-color: #176052 !important;
+}
+
+html.dark-mode .hospital-status strong,
+body.dark-mode .hospital-status strong {
+    color: #55d4ae !important;
+}
+
+html.dark-mode .hospital-status small,
+body.dark-mode .hospital-status small {
+    color: #8fb7aa !important;
+}
+
+/* =========================================================
+   EXTRA OVERRIDE FOR WHITE SUPPORT BOXES
+========================================================= */
+
+html.dark-mode .sidebar-support,
+html.dark-mode .support-section,
+html.dark-mode .support-item,
+html.dark-mode .need-help,
+html.dark-mode .contact-us,
+body.dark-mode .sidebar-support,
+body.dark-mode .support-section,
+body.dark-mode .support-item,
+body.dark-mode .need-help,
+body.dark-mode .contact-us {
+    background: #102f3b !important;
+    color: #dff7fa !important;
+    border-color: #24515f !important;
+}
+
+/* =========================================================
+   PATIENT DASHBOARD — DARK MODE FINAL FIX
+   Add at the VERY END of PatientDashboard.css
+========================================================= */
+
+html.dark-mode .patient-dashboard,
+body.dark-mode .patient-dashboard {
+    background: #061c25 !important;
+    color: #e8f7fa !important;
+}
+
+/* =========================================================
+   MAIN HEADINGS
+========================================================= */
+
+html.dark-mode .section-heading h2,
+html.dark-mode .panel-header h2,
+body.dark-mode .section-heading h2,
+body.dark-mode .panel-header h2 {
+    color: #f1fafc !important;
+}
+
+html.dark-mode .section-label,
+body.dark-mode .section-label {
+    color: #20c5d2 !important;
+}
+
+html.dark-mode .panel-link,
+body.dark-mode .panel-link {
+    color: #28c8d3 !important;
+}
+
+html.dark-mode .panel-link:hover,
+body.dark-mode .panel-link:hover {
+    color: #63e1e7 !important;
+}
+
+/* =========================================================
+   WELCOME CARD
+========================================================= */
+
+html.dark-mode .dashboard-welcome,
+body.dark-mode .dashboard-welcome {
+    background: linear-gradient(
+        135deg,
+        #07323f 0%,
+        #075866 55%,
+        #078d98 100%
+    ) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .welcome-label,
+body.dark-mode .welcome-label {
+    color: #91eef2 !important;
+}
+
+html.dark-mode .welcome-content h1,
+body.dark-mode .welcome-content h1 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .welcome-content h1 span,
+body.dark-mode .welcome-content h1 span {
+    color: #58e3e7 !important;
+}
+
+html.dark-mode .welcome-content > p,
+body.dark-mode .welcome-content > p {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+html.dark-mode .patient-id,
+body.dark-mode .patient-id {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.18) !important;
+}
+
+html.dark-mode .patient-id span,
+body.dark-mode .patient-id span {
+    color: rgba(255,255,255,0.68) !important;
+}
+
+html.dark-mode .patient-id strong,
+body.dark-mode .patient-id strong {
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   WELCOME BUTTONS
+========================================================= */
+
+html.dark-mode .primary-dashboard-button,
+body.dark-mode .primary-dashboard-button {
+    background: #ffffff !important;
+    color: #075365 !important;
+}
+
+html.dark-mode .secondary-dashboard-button,
+body.dark-mode .secondary-dashboard-button {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.25) !important;
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   OVERVIEW CARDS
+========================================================= */
+
+html.dark-mode .overview-card,
+body.dark-mode .overview-card {
+    background: #0d303b !important;
+    border-color: #20515d !important;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.18) !important;
+}
+
+html.dark-mode .overview-card:hover,
+body.dark-mode .overview-card:hover {
+    background: #103743 !important;
+    border-color: #2b6975 !important;
+}
+
+html.dark-mode .overview-info span,
+body.dark-mode .overview-info span {
+    color: #8baeb7 !important;
+}
+
+html.dark-mode .overview-info strong,
+body.dark-mode .overview-info strong {
+    color: #f0fafc !important;
+}
+
+html.dark-mode .overview-info small,
+body.dark-mode .overview-info small {
+    color: #2bc6d1 !important;
+}
+
+/* Overview icons */
+
+html.dark-mode .overview-icon.appointments,
+body.dark-mode .overview-icon.appointments {
+    background: #123e49 !important;
+    color: #26c8d3 !important;
+}
+
+html.dark-mode .overview-icon.records,
+body.dark-mode .overview-icon.records {
+    background: #202b52 !important;
+    color: #7795ff !important;
+}
+
+html.dark-mode .overview-icon.prescriptions,
+body.dark-mode .overview-icon.prescriptions {
+    background: #30224e !important;
+    color: #a783ff !important;
+}
+
+html.dark-mode .overview-icon.bills,
+body.dark-mode .overview-icon.bills {
+    background: #123e34 !important;
+    color: #35c99b !important;
+}
+
+/* =========================================================
+   MAIN DASHBOARD PANELS
+========================================================= */
+
+html.dark-mode .dashboard-panel,
+body.dark-mode .dashboard-panel {
+    background: #0d303b !important;
+    border-color: #20515d !important;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.18) !important;
+}
+
+html.dark-mode .dashboard-panel:hover,
+body.dark-mode .dashboard-panel:hover {
+    box-shadow:
+        0 9px 25px rgba(0,0,0,0.25) !important;
+}
+
+/* =========================================================
+   UPCOMING APPOINTMENT
+========================================================= */
+
+html.dark-mode .appointment-preview,
+body.dark-mode .appointment-preview {
+    background: #102f3a !important;
+}
+
+html.dark-mode .appointment-date-box,
+body.dark-mode .appointment-date-box {
+    background: #123e49 !important;
+    color: #29c8d2 !important;
+}
+
+html.dark-mode .appointment-details h3,
+body.dark-mode .appointment-details h3 {
+    color: #f0fafc !important;
+}
+
+html.dark-mode .appointment-details p,
+body.dark-mode .appointment-details p {
+    color: #8eabb4 !important;
+}
+
+html.dark-mode .appointment-meta,
+body.dark-mode .appointment-meta {
+    color: #9bb5bd !important;
+}
+
+/* =========================================================
+   EMPTY APPOINTMENT
+========================================================= */
+
+html.dark-mode .empty-panel-icon,
+body.dark-mode .empty-panel-icon {
+    background: #123e49 !important;
+    color: #29c8d2 !important;
+}
+
+html.dark-mode .empty-panel h3,
+body.dark-mode .empty-panel h3 {
+    color: #f0fafc !important;
+}
+
+html.dark-mode .empty-panel p,
+body.dark-mode .empty-panel p {
+    color: #8eabb4 !important;
+}
+
+/* =========================================================
+   BILLING
+========================================================= */
+
+html.dark-mode .billing-total,
+body.dark-mode .billing-total {
+    background: #0c3a32 !important;
+}
+
+html.dark-mode .billing-icon,
+body.dark-mode .billing-icon {
+    background: #123f36 !important;
+    color: #32d19f !important;
+}
+
+html.dark-mode .billing-total span,
+body.dark-mode .billing-total span {
+    color: #8eaaa5 !important;
+}
+
+html.dark-mode .billing-total strong,
+body.dark-mode .billing-total strong {
+    color: #36d3a0 !important;
+}
+
+html.dark-mode .billing-stats div,
+body.dark-mode .billing-stats div {
+    background: #102f3a !important;
+}
+
+html.dark-mode .billing-stats span,
+body.dark-mode .billing-stats span {
+    color: #8ca8b1 !important;
+}
+
+html.dark-mode .billing-stats strong,
+body.dark-mode .billing-stats strong {
+    color: #eef9fb !important;
+}
+
+html.dark-mode .mini-bill,
+body.dark-mode .mini-bill {
+    border-top-color: #24505b !important;
+}
+
+html.dark-mode .mini-bill strong,
+body.dark-mode .mini-bill strong {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .mini-bill span,
+body.dark-mode .mini-bill span {
+    color: #8da8b1 !important;
+}
+
+/* =========================================================
+   RECENT MEDICAL RECORDS / PRESCRIPTIONS
+========================================================= */
+
+html.dark-mode .recent-item,
+body.dark-mode .recent-item {
+    border-bottom-color: #24505b !important;
+}
+
+html.dark-mode .recent-item-content strong,
+body.dark-mode .recent-item-content strong {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .recent-item-content span,
+html.dark-mode .recent-item time,
+body.dark-mode .recent-item-content span,
+body.dark-mode .recent-item time {
+    color: #8da8b1 !important;
+}
+
+html.dark-mode .recent-item-icon.records,
+body.dark-mode .recent-item-icon.records {
+    background: #202b52 !important;
+    color: #7b99ff !important;
+}
+
+html.dark-mode .recent-item-icon.prescriptions,
+body.dark-mode .recent-item-icon.prescriptions {
+    background: #30224e !important;
+    color: #a783ff !important;
+}
+
+html.dark-mode .small-empty,
+body.dark-mode .small-empty {
+    color: #8da8b1 !important;
+}
+
+/* =========================================================
+   AI HEALTH ASSISTANT
+========================================================= */
+
+html.dark-mode .ai-health-panel,
+body.dark-mode .ai-health-panel {
+    background: #0d303b !important;
+    border-color: #20515d !important;
+}
+
+html.dark-mode .ai-dashboard-content > p,
+body.dark-mode .ai-dashboard-content > p {
+    color: #8da8b1 !important;
+}
+
+html.dark-mode .ai-dashboard-content textarea,
+body.dark-mode .ai-dashboard-content textarea {
+    background: #092630 !important;
+    color: #eaf8fa !important;
+    border-color: #28606c !important;
+}
+
+html.dark-mode .ai-dashboard-content textarea::placeholder,
+body.dark-mode .ai-dashboard-content textarea::placeholder {
+    color: #66848e !important;
+}
+
+html.dark-mode .ai-dashboard-content textarea:focus,
+body.dark-mode .ai-dashboard-content textarea:focus {
+    background: #0b2c37 !important;
+    border-color: #18b9c6 !important;
+}
+
+html.dark-mode .ai-response-box,
+body.dark-mode .ai-response-box {
+    background: #102f3a !important;
+    border-color: #285864 !important;
+}
+
+html.dark-mode .ai-response-header,
+body.dark-mode .ai-response-header {
+    color: #27c7d2 !important;
+}
+
+html.dark-mode .ai-response-content,
+body.dark-mode .ai-response-content {
+    color: #a5bec5 !important;
+}
+
+html.dark-mode .ai-response-content strong,
+body.dark-mode .ai-response-content strong {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .ai-response-content h1,
+html.dark-mode .ai-response-content h2,
+html.dark-mode .ai-response-content h3,
+body.dark-mode .ai-response-content h1,
+body.dark-mode .ai-response-content h2,
+body.dark-mode .ai-response-content h3 {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .ai-response-content code,
+body.dark-mode .ai-response-content code {
+    background: #173b46 !important;
+    color: #72dce2 !important;
+}
+
+html.dark-mode .ai-response-content blockquote,
+body.dark-mode .ai-response-content blockquote {
+    background: #10353f !important;
+    color: #9db8bf !important;
+}
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+html.dark-mode .quick-actions-grid button,
+body.dark-mode .quick-actions-grid button {
+    background: #0d303b !important;
+    border-color: #20515d !important;
+    color: #29c8d2 !important;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.18) !important;
+}
+
+html.dark-mode .quick-actions-grid button:hover,
+body.dark-mode .quick-actions-grid button:hover {
+    background: #103743 !important;
+    border-color: #2b6975 !important;
+}
+
+html.dark-mode .quick-actions-grid strong,
+body.dark-mode .quick-actions-grid strong {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .quick-actions-grid span,
+body.dark-mode .quick-actions-grid span {
+    color: #8da8b1 !important;
+}
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+html.dark-mode .notifications-panel,
+body.dark-mode .notifications-panel {
+    background: #0d303b !important;
+    border-color: #20515d !important;
+}
+
+html.dark-mode .notifications-title h2,
+body.dark-mode .notifications-title h2 {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .notification-item,
+body.dark-mode .notification-item {
+    background: #102f3a !important;
+    border-color: #24535e !important;
+}
+
+html.dark-mode .notification-item:hover,
+body.dark-mode .notification-item:hover {
+    background: #123742 !important;
+    border-color: #2d6974 !important;
+}
+
+html.dark-mode .notification-item.unread,
+body.dark-mode .notification-item.unread {
+    background: #123d47 !important;
+    border-color: #26717b !important;
+}
+
+html.dark-mode .notification-title strong,
+body.dark-mode .notification-title strong {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .notification-message,
+body.dark-mode .notification-message {
+    color: #9ab5bd !important;
+}
+
+html.dark-mode .notification-time,
+body.dark-mode .notification-time {
+    color: #708e98 !important;
+}
+
+html.dark-mode .notification-read-button,
+body.dark-mode .notification-read-button {
+    background: #153943 !important;
+    border-color: #2a5d68 !important;
+    color: #29c8d2 !important;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .patient-dashboard-loading,
+body.dark-mode .patient-dashboard-loading {
+    color: #dceff2 !important;
+}
+
+html.dark-mode .dashboard-loader,
+body.dark-mode .dashboard-loader {
+    border-color: #17404b !important;
+    border-top-color: #19beca !important;
+}
+
+/* =========================================================
+   FORCE DARK BACKGROUND ON COMMON DASHBOARD CONTAINERS
+========================================================= */
+
+html.dark-mode .dashboard-main-grid,
+html.dark-mode .recent-grid,
+html.dark-mode .overview-grid,
+html.dark-mode .quick-actions-grid,
+body.dark-mode .dashboard-main-grid,
+body.dark-mode .recent-grid,
+body.dark-mode .overview-grid,
+body.dark-mode .quick-actions-grid {
+    background: transparent !important;
+}
+
+/* QUICK ACCESS - DARK MODE COLORS ONLY */
+
+html.dark-mode .quick-actions-section .section-label,
+body.dark-mode .quick-actions-section .section-label {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+    border: 1px solid #245965 !important;
+}
+
+html.dark-mode .quick-actions-section .section-heading h2,
+body.dark-mode .quick-actions-section .section-heading h2 {
+    color: #eaf7f9 !important;
+}
+
+/* HEALTH OVERVIEW - FORCE DARK MODE */
+
+html.dark-mode .patient-dashboard .quick-overview .section-heading > div > span.section-label,
+body.dark-mode .patient-dashboard .quick-overview .section-heading > div > span.section-label {
+    background: #123744 !important;
+    background-color: #123744 !important;
+    color: #27cbd6 !important;
+    border: 1px solid #245965 !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .patient-dashboard .quick-overview .section-heading > div > h2,
+body.dark-mode .patient-dashboard .quick-overview .section-heading > div > h2 {
+    color: #eaf7f9 !important;
+}
+
+/* PAID BILL STATUS - DARK MODE */
+
+html.dark-mode .patient-dashboard .bill-mini-status.paid,
+body.dark-mode .patient-dashboard .bill-mini-status.paid {
+    background: #0d3b35 !important;
+    color: #35e0a2 !important;
+    border: 1px solid #185e51 !important;
+}
+
+/* NOTIFICATION EMPTY TEXT - DARK MODE */
+
+html.dark-mode .notification-dropdown-empty strong,
+body.dark-mode .notification-dropdown-empty strong {
+    color: #eaf7f9 !important;
+}
+
+html.dark-mode .notification-dropdown-empty span,
+body.dark-mode .notification-dropdown-empty span {
+    color: #8eabb4 !important;
+}
+
+html.dark-mode .notification-empty-icon,
+body.dark-mode .notification-empty-icon {
+    background: #eaf7f9 !important;
+    color: #f5b942 !important;
+}
+
+/* Reschedule Button - Dark Mode Only */
+
+html.dark-mode .reschedule-appointment-btn,
+body.dark-mode .reschedule-appointment-btn {
+    background: #123f4b !important;
+    background-color: #123f4b !important;
+    color: #7de3ed !important;
+    border: 1px solid #27cbd6 !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .reschedule-appointment-btn:hover,
+body.dark-mode .reschedule-appointment-btn:hover {
+    background: #0b9caf !important;
+    background-color: #0b9caf !important;
+    color: #ffffff !important;
+    border-color: #35d6e4 !important;
+}
+
+html.dark-mode .reschedule-appointment-btn:disabled,
+body.dark-mode .reschedule-appointment-btn:disabled {
+    background: #123f4b !important;
+    background-color: #123f4b !important;
+    color: #6f9da5 !important;
+    border-color: #275761 !important;
+    opacity: 0.7 !important;
+}
+
+/* =========================================
+   RESCHEDULE MODAL - DARK MODE
+========================================= */
+
+html.dark-mode .reschedule-modal-overlay,
+body.dark-mode .reschedule-modal-overlay {
+    background: rgba(2, 15, 20, 0.78) !important;
+}
+
+html.dark-mode .reschedule-modal,
+body.dark-mode .reschedule-modal {
+    background: #0d2f38 !important;
+    color: #eaf7f9 !important;
+    border: 1px solid #245965 !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Icon */
+html.dark-mode .reschedule-modal-icon,
+body.dark-mode .reschedule-modal-icon {
+    background: #123f4b !important;
+    color: #27cbd6 !important;
+}
+
+/* Title */
+html.dark-mode .reschedule-modal h3,
+body.dark-mode .reschedule-modal h3 {
+    color: #eaf7f9 !important;
+}
+
+/* Description */
+html.dark-mode .reschedule-modal > p,
+body.dark-mode .reschedule-modal > p {
+    color: #8eabb4 !important;
+}
+
+html.dark-mode .reschedule-modal > p strong,
+body.dark-mode .reschedule-modal > p strong {
+    color: #eaf7f9 !important;
+}
+
+/* Labels */
+html.dark-mode .reschedule-field label,
+body.dark-mode .reschedule-field label {
+    color: #b9d4da !important;
+}
+
+/* Input boxes */
+html.dark-mode .reschedule-input-wrap,
+body.dark-mode .reschedule-input-wrap {
+    background: #0d2f38 !important;
+    border: 1px solid #2a6170 !important;
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .reschedule-input-wrap input,
+body.dark-mode .reschedule-input-wrap input {
+    background: #0d2f38 !important;
+    color: #eaf7f9 !important;
+    border: none !important;
+}
+
+/* Date/time icons */
+html.dark-mode .reschedule-input-wrap svg,
+body.dark-mode .reschedule-input-wrap svg {
+    color: #27cbd6 !important;
+}
+
+/* Close button */
+html.dark-mode .reschedule-modal-close,
+body.dark-mode .reschedule-modal-close {
+    background: #102f38 !important;
+    color: #9bb8bf !important;
+    border: 1px solid #315b65 !important;
+}
+
+/* Reschedule button */
+html.dark-mode .reschedule-modal-confirm,
+body.dark-mode .reschedule-modal-confirm {
+    background: #19aabd !important;
+    color: #ffffff !important;
+    border: 1px solid #27cbd6 !important;
+}
+
+/* Disabled Reschedule */
+html.dark-mode .reschedule-modal-confirm:disabled,
+body.dark-mode .reschedule-modal-confirm:disabled {
+    background: #27515a !important;
+    color: #8aaeb5 !important;
+    border-color: #315e67 !important;
+    opacity: 1 !important;
 }
