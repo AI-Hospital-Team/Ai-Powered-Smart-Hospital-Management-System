@@ -10864,3 +10864,537 @@ body.dark-mode .reschedule-modal-confirm:disabled {
     border-color: #315e67 !important;
     opacity: 1 !important;
 }
+/* =========================================================
+   PATIENT DASHBOARD — FINAL OVERRIDES
+========================================================= */
+/*
+  Patient dashboard dark-mode cleanup.
+  Prevent white/light-mode child elements from leaking through.
+*/
+html.dark-mode .patient-dashboard,
+body.dark-mode .patient-dashboard {
+  background: #061c25 !important;
+  color: #dff7fa !important;
+}
+
+html.dark-mode .patient-dashboard .overview-card,
+body.dark-mode .patient-dashboard .overview-card,
+html.dark-mode .patient-dashboard .dashboard-panel,
+body.dark-mode .patient-dashboard .dashboard-panel,
+html.dark-mode .patient-dashboard .notifications-panel,
+body.dark-mode .patient-dashboard .notifications-panel {
+  background: #0b2731 !important;
+  color: #e9fbfd !important;
+  border-color: #174854 !important;
+}
+
+html.dark-mode .patient-dashboard .overview-card:hover,
+body.dark-mode .patient-dashboard .overview-card:hover,
+html.dark-mode .patient-dashboard .dashboard-panel:hover,
+body.dark-mode .patient-dashboard .dashboard-panel:hover,
+html.dark-mode .patient-dashboard .notifications-panel:hover,
+body.dark-mode .patient-dashboard .notifications-panel:hover {
+  background: #0e303b !important;
+  border-color: #287888 !important;
+}
+
+/* Main headings and values */
+html.dark-mode .patient-dashboard h1,
+html.dark-mode .patient-dashboard h2,
+html.dark-mode .patient-dashboard h3,
+html.dark-mode .patient-dashboard h4,
+html.dark-mode .patient-dashboard strong,
+body.dark-mode .patient-dashboard h1,
+body.dark-mode .patient-dashboard h2,
+body.dark-mode .patient-dashboard h3,
+body.dark-mode .patient-dashboard h4,
+body.dark-mode .patient-dashboard strong {
+  color: #e9fbfd !important;
+}
+
+/* Muted/supporting text */
+html.dark-mode .patient-dashboard p,
+html.dark-mode .patient-dashboard span,
+html.dark-mode .patient-dashboard small,
+html.dark-mode .patient-dashboard time,
+body.dark-mode .patient-dashboard p,
+body.dark-mode .patient-dashboard span,
+body.dark-mode .patient-dashboard small,
+body.dark-mode .patient-dashboard time {
+  color: #8caab2 !important;
+}
+
+/* Restore intended accent text */
+html.dark-mode .patient-dashboard .section-label,
+html.dark-mode .patient-dashboard .panel-link,
+html.dark-mode .patient-dashboard .overview-info small,
+html.dark-mode .patient-dashboard .welcome-label,
+body.dark-mode .patient-dashboard .section-label,
+body.dark-mode .patient-dashboard .panel-link,
+body.dark-mode .patient-dashboard .overview-info small,
+body.dark-mode .patient-dashboard .welcome-label {
+  color: #27cbd6 !important;
+}
+
+/* Welcome hero intentionally keeps white typography */
+html.dark-mode .patient-dashboard .dashboard-welcome,
+body.dark-mode .patient-dashboard .dashboard-welcome {
+  color: #ffffff !important;
+}
+html.dark-mode .patient-dashboard .dashboard-welcome h1,
+html.dark-mode .patient-dashboard .dashboard-welcome h2,
+html.dark-mode .patient-dashboard .dashboard-welcome h3,
+html.dark-mode .patient-dashboard .dashboard-welcome strong,
+body.dark-mode .patient-dashboard .dashboard-welcome h1,
+body.dark-mode .patient-dashboard .dashboard-welcome h2,
+body.dark-mode .patient-dashboard .dashboard-welcome h3,
+body.dark-mode .patient-dashboard .dashboard-welcome strong {
+  color: #ffffff !important;
+}
+html.dark-mode .patient-dashboard .dashboard-welcome p,
+body.dark-mode .patient-dashboard .dashboard-welcome p {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+html.dark-mode .patient-dashboard .dashboard-welcome .patient-id span,
+body.dark-mode .patient-dashboard .dashboard-welcome .patient-id span {
+  color: rgba(255, 255, 255, 0.68) !important;
+}
+html.dark-mode .patient-dashboard .dashboard-welcome .primary-dashboard-button,
+body.dark-mode .patient-dashboard .dashboard-welcome .primary-dashboard-button {
+  background: #ffffff !important;
+  color: #075365 !important;
+}
+
+/* Appointment / billing inner surfaces */
+html.dark-mode .patient-dashboard .appointment-preview,
+body.dark-mode .patient-dashboard .appointment-preview,
+html.dark-mode .patient-dashboard .billing-stats div,
+body.dark-mode .patient-dashboard .billing-stats div,
+html.dark-mode .patient-dashboard .notification-item,
+body.dark-mode .patient-dashboard .notification-item,
+html.dark-mode .patient-dashboard .notifications-empty,
+body.dark-mode .patient-dashboard .notifications-empty {
+  background: #0d303a !important;
+  color: #dff7fa !important;
+  border-color: #193b44 !important;
+}
+
+html.dark-mode .patient-dashboard .notification-item.unread,
+body.dark-mode .patient-dashboard .notification-item.unread {
+  background: #10343e !important;
+  border-color: #2b6570 !important;
+}
+
+/* Inputs/textareas/buttons that were inheriting white */
+html.dark-mode .patient-dashboard input,
+html.dark-mode .patient-dashboard select,
+html.dark-mode .patient-dashboard textarea,
+body.dark-mode .patient-dashboard input,
+body.dark-mode .patient-dashboard select,
+body.dark-mode .patient-dashboard textarea {
+  background: #092630 !important;
+  color: #e2f8fa !important;
+  border-color: #245764 !important;
+}
+html.dark-mode .patient-dashboard input::placeholder,
+html.dark-mode .patient-dashboard textarea::placeholder,
+body.dark-mode .patient-dashboard input::placeholder,
+body.dark-mode .patient-dashboard textarea::placeholder {
+  color: #648994 !important;
+}
+
+/* Status pills retain semantic colours but avoid light backgrounds */
+html.dark-mode .patient-dashboard .patient-status.confirmed,
+body.dark-mode .patient-dashboard .patient-status.confirmed,
+html.dark-mode .patient-dashboard .bill-mini-status.paid,
+body.dark-mode .patient-dashboard .bill-mini-status.paid {
+  background: #123d33 !important;
+  color: #55d4ae !important;
+}
+html.dark-mode .patient-dashboard .patient-status.pending,
+body.dark-mode .patient-dashboard .patient-status.pending,
+html.dark-mode .patient-dashboard .bill-mini-status.pending,
+body.dark-mode .patient-dashboard .bill-mini-status.pending {
+  background: #40341a !important;
+  color: #e7bb63 !important;
+}
+html.dark-mode .patient-dashboard .patient-status.cancelled,
+body.dark-mode .patient-dashboard .patient-status.cancelled,
+html.dark-mode .patient-dashboard .patient-status.rejected,
+body.dark-mode .patient-dashboard .patient-status.rejected,
+html.dark-mode .patient-dashboard .bill-mini-status.cancelled,
+body.dark-mode .patient-dashboard .bill-mini-status.cancelled {
+  background: #42252a !important;
+  color: #ff9292 !important;
+}
+html.dark-mode .patient-dashboard .patient-status.completed,
+body.dark-mode .patient-dashboard .patient-status.completed {
+  background: #1b3048 !important;
+  color: #8ab9ff !important;
+}
+html.dark-mode .patient-dashboard .patient-status.expired,
+body.dark-mode .patient-dashboard .patient-status.expired {
+  background: #253037 !important;
+  color: #9fb0b7 !important;
+}
+
+/* Notification action controls */
+html.dark-mode .patient-dashboard .notification-read-button,
+body.dark-mode .patient-dashboard .notification-read-button,
+html.dark-mode .patient-dashboard .mark-all-read-button,
+body.dark-mode .patient-dashboard .mark-all-read-button {
+  background: #102f39 !important;
+  color: #27cbd6 !important;
+  border-color: #285563 !important;
+}
+html.dark-mode .patient-dashboard .notification-read-button:hover,
+body.dark-mode .patient-dashboard .notification-read-button:hover,
+html.dark-mode .patient-dashboard .mark-all-read-button:hover,
+body.dark-mode .patient-dashboard .mark-all-read-button:hover {
+  background: #163d48 !important;
+  border-color: #27cbd6 !important;
+}
+
+/* Small icon containers */
+html.dark-mode .patient-dashboard .overview-icon,
+body.dark-mode .patient-dashboard .overview-icon,
+html.dark-mode .patient-dashboard .empty-panel-icon,
+body.dark-mode .patient-dashboard .empty-panel-icon,
+html.dark-mode .patient-dashboard .notifications-title-icon,
+body.dark-mode .patient-dashboard .notifications-title-icon,
+html.dark-mode .patient-dashboard .notification-icon,
+body.dark-mode .patient-dashboard .notification-icon,
+html.dark-mode .patient-dashboard .recent-item-icon,
+body.dark-mode .patient-dashboard .recent-item-icon {
+  background: #103943 !important;
+  color: #27cbd6 !important;
+}
+
+/* Billing emphasis */
+html.dark-mode .patient-dashboard .billing-total,
+body.dark-mode .patient-dashboard .billing-total {
+  background: #0d302b !important;
+}
+html.dark-mode .patient-dashboard .billing-total strong,
+body.dark-mode .patient-dashboard .billing-total strong {
+  color: #39d3a1 !important;
+}
+
+/* Prevent white fills on generic buttons inside dashboard */
+html.dark-mode .patient-dashboard button:not(.primary-dashboard-button):not(.secondary-dashboard-button),
+body.dark-mode .patient-dashboard button:not(.primary-dashboard-button):not(.secondary-dashboard-button) {
+  background-color: #102f39 !important;
+  color: #dff7fa !important;
+  border-color: #285563 !important;
+}
+
+/* =========================================
+   NOTIFICATION BELL - MATCH HEADER BUTTONS
+========================================= */
+
+html.dark-mode .notification-header-button,
+body.dark-mode .notification-header-button {
+    width: 45px !important;
+    height: 40px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border: 1px solid #245965 !important;
+    border-radius: 13px !important;
+
+    background: #0d3039 !important;
+    color: #eaf7f9 !important;
+
+    box-shadow: none !important;
+
+    transition: all 0.25s ease !important;
+}
+
+/* Bell icon */
+html.dark-mode .notification-header-icon,
+body.dark-mode .notification-header-icon {
+    width: 28px !important;
+    height: 28px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 9px !important;
+
+    background: #123744 !important;
+    color: #27cbd6 !important;
+
+    font-size: 17px !important;
+
+    transition: all 0.25s ease !important;
+}
+
+/* Hover */
+html.dark-mode .notification-header-button:hover,
+body.dark-mode .notification-header-button:hover {
+    background: #123f4b !important;
+    border-color: #27cbd6 !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 8px 20px rgba(39, 203, 214, 0.16) !important;
+}
+
+html.dark-mode .notification-header-button:hover
+.notification-header-icon,
+body.dark-mode .notification-header-button:hover
+.notification-header-icon {
+    background: #164653 !important;
+    color: #5be0e8 !important;
+
+    transform: scale(1.08) !important;
+}
+
+/* Active/open state */
+html.dark-mode .notification-header-button.active,
+body.dark-mode .notification-header-button.active {
+    background: #123f4b !important;
+    border-color: #27cbd6 !important;
+
+    box-shadow:
+        0 0 0 2px rgba(39, 203, 214, 0.10) !important;
+}
+
+/* Unread state */
+html.dark-mode .notification-header-button.has-unread,
+body.dark-mode .notification-header-button.has-unread {
+    border-color: #27cbd6 !important;
+}
+
+/* Unread badge */
+html.dark-mode .notification-badge,
+body.dark-mode .notification-badge {
+    background: #e35c5c !important;
+    color: #ffffff !important;
+    border: 2px solid #0d3039 !important;
+}
+
+/* Bell shine animation */
+html.dark-mode .notification-header-button.has-unread
+.notification-header-icon,
+body.dark-mode .notification-header-button.has-unread
+.notification-header-icon {
+    animation: notificationBellPulse 2s ease-in-out infinite;
+}
+
+@keyframes notificationBellPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+/* =========================================
+   ACCOUNT BUTTON - DARK MODE
+   ========================================= */
+
+html.dark-mode .account-button,
+body.dark-mode .account-button {
+    height: 44px !important;
+    min-width: 112px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 9px !important;
+    padding: 0 16px !important;
+
+    background: #0d3039 !important;
+    color: #f1fbfc !important;
+
+    border: 1px solid #245965 !important;
+    border-radius: 13px !important;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.18) !important;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+/* Account Icon */
+html.dark-mode .account-icon,
+body.dark-mode .account-icon {
+    width: 29px !important;
+    height: 29px !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    border-radius: 9px !important;
+
+    background: #3a216b !important;
+    color: #cdaeff !important;
+
+    font-size: 16px !important;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease !important;
+}
+
+/* Account Hover */
+html.dark-mode .account-button:hover,
+body.dark-mode .account-button:hover {
+    transform: translateY(-3px) !important;
+
+    background: #123f4b !important;
+
+    border-color: #27cbd6 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 8px 22px rgba(39, 203, 214, 0.18) !important;
+}
+
+/* Account Icon Hover */
+html.dark-mode .account-button:hover .account-icon,
+body.dark-mode .account-button:hover .account-icon {
+    transform: scale(1.12) rotate(-4deg) !important;
+
+    background: #512c88 !important;
+    color: #e0cfff !important;
+}
+
+/* Click effect */
+html.dark-mode .account-button:active,
+body.dark-mode .account-button:active {
+    transform: translateY(-1px) scale(0.97) !important;
+}
+
+
+/* =========================================
+   MAKE ALL HEADER BUTTONS MORE VISIBLE
+   ========================================= */
+
+html.dark-mode .dashboard-header .home-header-button,
+html.dark-mode .dashboard-header .notification-header-button,
+html.dark-mode .dashboard-header .account-button,
+html.dark-mode .dashboard-header .logout-button,
+
+body.dark-mode .dashboard-header .home-header-button,
+body.dark-mode .dashboard-header .notification-header-button,
+body.dark-mode .dashboard-header .account-button,
+body.dark-mode .dashboard-header .logout-button {
+    filter: brightness(1.08) !important;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.20) !important;
+}
+
+
+/* =========================================
+   SMOOTH COMMON HEADER HOVER
+   ========================================= */
+
+html.dark-mode .dashboard-header .home-header-button:hover,
+html.dark-mode .dashboard-header .notification-header-button:hover,
+html.dark-mode .dashboard-header .account-button:hover,
+html.dark-mode .dashboard-header .logout-button:hover,
+
+body.dark-mode .dashboard-header .home-header-button:hover,
+body.dark-mode .dashboard-header .notification-header-button:hover,
+body.dark-mode .dashboard-header .account-button:hover,
+body.dark-mode .dashboard-header .logout-button:hover {
+    transform: translateY(-3px) !important;
+
+    filter: brightness(1.15) !important;
+}
+
+
+/* =========================================
+   HEADER ICONS - MORE VISIBLE
+   ========================================= */
+
+html.dark-mode .home-header-icon,
+html.dark-mode .notification-header-icon,
+html.dark-mode .account-icon,
+html.dark-mode .logout-icon,
+
+body.dark-mode .home-header-icon,
+body.dark-mode .notification-header-icon,
+body.dark-mode .account-icon,
+body.dark-mode .logout-icon {
+    opacity: 1 !important;
+}
+
+
+/* =========================================
+   ACCOUNT SUBTLE IDLE ANIMATION
+   ========================================= */
+
+html.dark-mode .account-button,
+body.dark-mode .account-button {
+    animation: accountIdleGlow 3s ease-in-out infinite;
+}
+
+html.dark-mode .account-button:hover,
+body.dark-mode .account-button:hover {
+    animation: none !important;
+}
+
+@keyframes accountIdleGlow {
+    0%, 100% {
+        box-shadow:
+            0 4px 14px rgba(0, 0, 0, 0.20);
+    }
+
+    50% {
+        box-shadow:
+            0 5px 18px rgba(39, 203, 214, 0.12);
+    }
+}
+
+/* LIGHT MODE - SMALL BELL */
+
+html:not(.dark-mode) .notification-header-button,
+body:not(.dark-mode) .notification-header-button {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #ffffff !important;
+    border: 1px solid #cfe3ea !important;
+    border-radius: 13px !important;
+
+    transition: 0.25s ease !important;
+}
+
+html:not(.dark-mode) .notification-header-icon,
+body:not(.dark-mode) .notification-header-icon {
+    font-size: 19px !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+html:not(.dark-mode) .notification-header-button:hover,
+body:not(.dark-mode) .notification-header-button:hover {
+    background: #f4fbfd !important;
+    border-color: #27aebd !important;
+    transform: translateY(-2px) !important;
+}
