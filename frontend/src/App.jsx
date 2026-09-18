@@ -1,8 +1,7 @@
+```jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import {
-  useDarkMode,
-} from "./theme/DarkMode";
+import { useDarkMode } from "./theme/DarkMode";
 
 /* =========================================================
    PUBLIC PAGES
@@ -32,7 +31,6 @@ import AdminAppointments from "./pages/Admin/Appointments/Appointments";
 import AdminMedicalRecords from "./pages/Admin/MedicalRecords/MedicalRecords";
 import AdminPrescriptions from "./pages/Admin/Prescriptions/Prescriptions";
 import AdminBills from "./pages/Admin/Bills/Bills";
-import AdminLogs from "./pages/Admin/Logs/Logs";
 
 /* =========================================================
    DOCTOR PAGES
@@ -84,25 +82,13 @@ function App() {
             PUBLIC ROUTES
         ================================================= */}
 
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Route path="/" element={<Home />} />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+        <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/about"
-          element={<About />}
-        />
+        <Route path="/about" element={<About />} />
 
-        <Route
-          path="/project"
-          element={<Project />}
-        />
+        <Route path="/project" element={<Project />} />
 
         <Route
           path="/ai-health-assistant"
@@ -121,10 +107,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route
-            index
-            element={<Dashboard />}
-          />
+          <Route index element={<Dashboard />} />
 
           <Route
             path="patients"
@@ -154,11 +137,6 @@ function App() {
           <Route
             path="bills"
             element={<AdminBills />}
-          />
-
-          <Route
-            path="logs"
-            element={<AdminLogs />}
           />
         </Route>
 
@@ -268,3 +246,4 @@ function App() {
 }
 
 export default App;
+```
