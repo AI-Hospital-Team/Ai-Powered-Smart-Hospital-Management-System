@@ -2839,7 +2839,21 @@ function Home() {
                 className={loginRole === "Doctor" ? "active" : ""}
                 onClick={() => setLoginRole("Doctor")}
               >
-                <span className="doctor-login-icon">🩺</span>
+                <svg
+                  className="doctor-role-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 3v5a6 6 0 0 0 12 0V3" />
+                  <path d="M6 3H4" />
+                  <path d="M18 3h2" />
+                  <path d="M12 14v2a4 4 0 0 0 4 4h1" />
+                  <circle cx="19" cy="20" r="2" />
+                </svg>
                 <span>Doctor</span>
               </button>
 
@@ -2903,7 +2917,12 @@ function Home() {
 
                   console.log("LOGIN SUCCESS:", user);
 
-                  localStorage.clear();
+                  localStorage.removeItem("isLoggedIn");
+                  localStorage.removeItem("role");
+                  localStorage.removeItem("user");
+                  localStorage.removeItem("userId");
+                  localStorage.removeItem("patientId");
+                  localStorage.removeItem("doctorId");
 
                   localStorage.setItem("isLoggedIn", "true");
                   localStorage.setItem("role", user.role);
@@ -3508,21 +3527,37 @@ function Home() {
                         />
 
                         <button
-                          type="button"
-                          className="show-password-btn"
-                          onClick={() =>
-                            setShowRegisterPassword(
-                              (previous) => !previous
-                            )
-                          }
-                          aria-label={
-                            showRegisterPassword
-                              ? "Hide password"
-                              : "Show password"
-                          }
-                        >
-                          {showRegisterPassword ? "Hide" : "Show"}
-                        </button>
+                            type="button"
+                            className="show-password-btn"
+                            onClick={() =>
+                              setShowRegisterPassword((previous) => !previous)
+                            }
+                            aria-label={
+                              showRegisterPassword
+                                ? "Hide password"
+                                : "Show password"
+                            }
+                          >
+                            {showRegisterPassword ? (
+                              <>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                  <path d="M3 3l18 18" />
+                                  <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                                  <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 3.4 10 7-0.5 1.2-1.3 2.4-2.3 3.4" />
+                                  <path d="M6.2 6.2C4.7 7.2 3.5 8.6 2 12c1.5 3.6 5 7 10 7 1 0 2-.2 2.9-.5" />
+                                </svg>
+                                <span>Hide</span>
+                              </>
+                            ) : (
+                              <>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                                  <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                <span>Show</span>
+                              </>
+                            )}
+                          </button>
                       </div>
                     </div>
 
@@ -3549,21 +3584,37 @@ function Home() {
                         />
 
                         <button
-                          type="button"
-                          className="show-password-btn"
-                          onClick={() =>
-                            setShowConfirmPassword(
-                              (previous) => !previous
-                            )
-                          }
-                          aria-label={
-                            showConfirmPassword
-                              ? "Hide password"
-                              : "Show password"
-                          }
-                        >
-                          {showConfirmPassword ? "Hide" : "Show"}
-                        </button>
+                            type="button"
+                            className="show-password-btn"
+                            onClick={() =>
+                              setShowConfirmPassword((previous) => !previous)
+                            }
+                            aria-label={
+                              showConfirmPassword
+                                ? "Hide password"
+                                : "Show password"
+                            }
+                          >
+                            {showConfirmPassword ? (
+                              <>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                  <path d="M3 3l18 18" />
+                                  <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                                  <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 3.4 10 7-0.5 1.2-1.3 2.4-2.3 3.4" />
+                                  <path d="M6.2 6.2C4.7 7.2 3.5 8.6 2 12c1.5 3.6 5 7 10 7 1 0 2-.2 2.9-.5" />
+                                </svg>
+                                <span>Hide</span>
+                              </>
+                            ) : (
+                              <>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                                  <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                <span>Show</span>
+                              </>
+                            )}
+                          </button>
                       </div>
                     </div>
 
