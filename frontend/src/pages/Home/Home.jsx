@@ -2997,6 +2997,20 @@ function Home() {
                 </button>
               </div>
 
+              {/* FORGOT PASSWORD */}
+              <div className="forgot-password-link-wrap">
+                <button
+                  type="button"
+                  className="forgot-password-link"
+                  onClick={() => {
+                    setLoginOpen(false);
+                    navigate("/forgot-password");
+                  }}
+                >
+                  Forgot Password?
+                </button>
+              </div>
+
               <button
                 type="submit"
                 className="hospital-login-button"

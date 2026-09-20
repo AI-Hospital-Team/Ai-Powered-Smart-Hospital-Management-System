@@ -16,15 +16,13 @@ function Login() {
 
   const navigate = useNavigate();
 
+  // =========================================================
+  // LOGIN FUNCTION
+  // =========================================================
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    /*
-     * IMPORTANT:
-     * Save the current dark mode value BEFORE login starts.
-     * This prevents any component/navigation from accidentally
-     * changing it during the login process.
-     */
     const savedDarkMode =
       localStorage.getItem("darkMode");
 
@@ -46,9 +44,11 @@ function Login() {
         "http://localhost:8080/api/auth/login",
         {
           method: "POST",
+
           headers: {
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify({
             email: cleanEmail,
             password: password,
@@ -79,13 +79,14 @@ function Login() {
       );
 
       console.log(
-        "LOGIN RESPONSE FROM BACKEND:",
+        "LOGIN RESPONSE:",
         data
       );
 
-      /*
-       * LOGIN FAILED
-       */
+      // =====================================================
+      // LOGIN FAILED
+      // =====================================================
+
       if (!response.ok) {
         console.error(
           "Login failed:",
@@ -116,9 +117,7 @@ function Login() {
           );
         }
 
-        /*
-         * Restore dark mode even when login fails.
-         */
+        // Restore dark mode
         if (savedDarkMode !== null) {
           localStorage.setItem(
             "darkMode",
@@ -133,9 +132,10 @@ function Login() {
         return;
       }
 
-      /*
-       * INVALID BACKEND RESPONSE
-       */
+      // =====================================================
+      // INVALID BACKEND RESPONSE
+      // =====================================================
+
       if (
         !data ||
         typeof data !== "object"
@@ -170,9 +170,10 @@ function Login() {
         user
       );
 
-      /*
-       * BACKEND ROLE
-       */
+      // =====================================================
+      // ROLE
+      // =====================================================
+
       const backendRole =
         user.role || role;
 
@@ -186,9 +187,10 @@ function Login() {
         userRole
       );
 
-      /*
-       * VALIDATE ROLE
-       */
+      // =====================================================
+      // VALIDATE ROLE
+      // =====================================================
+
       if (
         userRole !== "admin" &&
         userRole !== "doctor" &&
@@ -198,9 +200,6 @@ function Login() {
           "Invalid user role received from server."
         );
 
-        /*
-         * Restore theme if role is invalid.
-         */
         if (savedDarkMode !== null) {
           localStorage.setItem(
             "darkMode",
@@ -215,12 +214,10 @@ function Login() {
         return;
       }
 
-      /*
-       * CLEAR ONLY OLD LOGIN DATA
-       *
-       * IMPORTANT:
-       * We DO NOT remove darkMode.
-       */
+      // =====================================================
+      // CLEAR OLD LOGIN DATA
+      // =====================================================
+
       localStorage.removeItem(
         "isLoggedIn"
       );
@@ -233,11 +230,10 @@ function Login() {
         "user"
       );
 
-      /*
-       * SAFE USER OBJECT
-       *
-       * Password is NEVER stored.
-       */
+      // =====================================================
+      // SAFE USER OBJECT
+      // =====================================================
+
       const safeUser = {
         userId:
           user.userId ??
@@ -271,9 +267,10 @@ function Login() {
         safeUser
       );
 
-      /*
-       * SAVE LOGIN STATE
-       */
+      // =====================================================
+      // SAVE LOGIN STATE
+      // =====================================================
+
       localStorage.setItem(
         "isLoggedIn",
         "true"
@@ -289,14 +286,10 @@ function Login() {
         JSON.stringify(safeUser)
       );
 
-      /*
-       * ==================================================
-       * RESTORE DARK MODE
-       * ==================================================
-       *
-       * If the user had dark mode ON before login,
-       * keep it ON after login.
-       */
+      // =====================================================
+      // RESTORE DARK MODE
+      // =====================================================
+
       if (savedDarkMode !== null) {
         localStorage.setItem(
           "darkMode",
@@ -308,14 +301,10 @@ function Login() {
         );
 
         console.log(
-          "DARK MODE RESTORED AFTER LOGIN:",
+          "DARK MODE RESTORED:",
           savedDarkMode
         );
       } else {
-        /*
-         * If there was no saved value, use the
-         * DarkMode utility's default.
-         */
         const currentDarkMode =
           getInitialDarkMode();
 
@@ -334,11 +323,12 @@ function Login() {
         );
       }
 
-      /*
-       * VERIFY LOCAL STORAGE
-       */
+      // =====================================================
+      // VERIFY LOCAL STORAGE
+      // =====================================================
+
       console.log(
-        "USER STORED IN LOCALSTORAGE:",
+        "USER STORED:",
         JSON.parse(
           localStorage.getItem("user")
         )
@@ -365,25 +355,37 @@ function Login() {
         )
       );
 
-      /*
-       * ==================================================
-       * REDIRECT BASED ON ROLE
-       * ==================================================
-       */
+      // =====================================================
+      // REDIRECT
+      // =====================================================
 
       if (userRole === "admin") {
-        navigate("/dashboard", {
-          replace: true,
-        });
-      } else if (userRole === "doctor") {
-        navigate("/doctor", {
-          replace: true,
-        });
-      } else if (userRole === "patient") {
-        navigate("/patient", {
-          replace: true,
-        });
+        navigate(
+          "/dashboard",
+          {
+            replace: true,
+          }
+        );
       }
+
+      else if (userRole === "doctor") {
+        navigate(
+          "/doctor",
+          {
+            replace: true,
+          }
+        );
+      }
+
+      else if (userRole === "patient") {
+        navigate(
+          "/patient",
+          {
+            replace: true,
+          }
+        );
+      }
+
     } catch (error) {
       console.error(
         "LOGIN ERROR:",
@@ -394,9 +396,7 @@ function Login() {
         "Cannot connect to the hospital server. Make sure Spring Boot is running on port 8080."
       );
 
-      /*
-       * Restore dark mode if network/server error occurs.
-       */
+      // Restore dark mode
       if (savedDarkMode !== null) {
         localStorage.setItem(
           "darkMode",
@@ -407,16 +407,38 @@ function Login() {
           savedDarkMode === "true"
         );
       }
+
     } finally {
       setLoading(false);
     }
   };
 
+  // =========================================================
+  // FORGOT PASSWORD
+  // =========================================================
+
+  const handleForgotPassword = () => {
+    console.log(
+      "FORGOT PASSWORD CLICKED"
+    );
+
+    navigate(
+      "/forgot-password"
+    );
+  };
+
+  // =========================================================
+  // UI
+  // =========================================================
+
   return (
     <div className="login-page">
+
       <div className="login-container">
 
-        {/* HEADER */}
+        {/* =================================================
+            HEADER
+        ================================================= */}
 
         <div className="login-header">
 
@@ -434,14 +456,18 @@ function Login() {
 
         </div>
 
-        {/* LOGIN FORM */}
+        {/* =================================================
+            LOGIN FORM
+        ================================================= */}
 
         <form
           className="login-form"
           onSubmit={handleLogin}
         >
 
-          {/* EMAIL */}
+          {/* =================================================
+              EMAIL
+          ================================================= */}
 
           <div className="form-group">
 
@@ -465,7 +491,9 @@ function Login() {
 
           </div>
 
-          {/* PASSWORD */}
+          {/* =================================================
+              PASSWORD
+          ================================================= */}
 
           <div className="form-group">
 
@@ -489,7 +517,71 @@ function Login() {
 
           </div>
 
-          {/* ROLE */}
+          {/* =================================================
+              FORGOT PASSWORD
+              
+              INLINE CSS IS INTENTIONAL.
+              This prevents Login.css from hiding it.
+          ================================================= */}
+
+          <div
+            style={{
+              width: "100%",
+              display: "block",
+              textAlign: "right",
+              marginTop: "8px",
+              marginBottom: "20px",
+              padding: "0",
+              position: "relative",
+              zIndex: 999999,
+            }}
+          >
+
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+
+              style={{
+                display: "inline-block",
+                visibility: "visible",
+                opacity: 1,
+
+                color: "#2563eb",
+
+                backgroundColor:
+                  "transparent",
+
+                border: "none",
+
+                outline: "none",
+
+                padding: "5px 0",
+
+                margin: "0",
+
+                fontSize: "14px",
+
+                fontWeight: "600",
+
+                lineHeight: "20px",
+
+                cursor: "pointer",
+
+                textDecoration: "none",
+
+                position: "relative",
+
+                zIndex: 999999,
+              }}
+            >
+              Forgot Password?
+            </button>
+
+          </div>
+
+          {/* =================================================
+              ROLE
+          ================================================= */}
 
           <div className="form-group">
 
@@ -523,7 +615,9 @@ function Login() {
 
           </div>
 
-          {/* ERROR */}
+          {/* =================================================
+              ERROR MESSAGE
+          ================================================= */}
 
           {errorMessage && (
             <div className="login-error">
@@ -531,21 +625,26 @@ function Login() {
             </div>
           )}
 
-          {/* LOGIN BUTTON */}
+          {/* =================================================
+              LOGIN BUTTON
+          ================================================= */}
 
           <button
             type="submit"
             className="login-button"
             disabled={loading}
           >
+
             {loading
               ? "Logging in..."
               : "Login"}
+
           </button>
 
         </form>
 
       </div>
+
     </div>
   );
 }

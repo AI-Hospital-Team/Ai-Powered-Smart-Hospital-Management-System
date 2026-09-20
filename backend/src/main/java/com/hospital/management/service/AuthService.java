@@ -1,16 +1,20 @@
 package com.hospital.management.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hospital.management.dto.LoginResponse;
 import com.hospital.management.entity.Doctor;
+import com.hospital.management.entity.PasswordResetOtp;
 import com.hospital.management.entity.Patient;
 import com.hospital.management.entity.User;
 import com.hospital.management.repository.DoctorRepository;
+import com.hospital.management.repository.PasswordResetOtpRepository;
 import com.hospital.management.repository.PatientRepository;
 import com.hospital.management.repository.UserRepository;
 
@@ -21,6 +25,8 @@ public class AuthService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final NotificationService notificationService;
+    private final PasswordResetOtpRepository passwordResetOtpRepository;
+    private final EmailService emailService;
 
     // =====================================================
     // CONSTRUCTOR
@@ -30,12 +36,16 @@ public class AuthService {
             UserRepository userRepository,
             PatientRepository patientRepository,
             DoctorRepository doctorRepository,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            PasswordResetOtpRepository passwordResetOtpRepository,
+            EmailService emailService) {
 
         this.userRepository = userRepository;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.notificationService = notificationService;
+        this.passwordResetOtpRepository = passwordResetOtpRepository;
+        this.emailService = emailService;
     }
 
     // =====================================================
@@ -162,6 +172,305 @@ public class AuthService {
                 user.getDoctorId(),
                 null
         );
+    }
+
+    // =====================================================
+    // FORGOT PASSWORD - SEND OTP
+    // =====================================================
+
+    @Transactional
+    public void sendPasswordResetOtp(String email) {
+
+        // -------------------------------------------------
+        // VALIDATE EMAIL
+        // -------------------------------------------------
+
+        if (email == null || email.trim().isEmpty()) {
+            throw new RuntimeException("Email is required");
+        }
+
+        String cleanEmail = email.trim();
+
+        // -------------------------------------------------
+        // FIND USER
+        // -------------------------------------------------
+
+        User user = userRepository
+                .findByEmail(cleanEmail)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "No account found with this email"
+                        )
+                );
+
+        // -------------------------------------------------
+        // GENERATE 6 DIGIT OTP
+        // -------------------------------------------------
+
+        Random random = new Random();
+
+        String otp = String.format(
+                "%06d",
+                random.nextInt(1000000)
+        );
+
+        // -------------------------------------------------
+        // OTP EXPIRES AFTER 5 MINUTES
+        // -------------------------------------------------
+
+        LocalDateTime expiresAt =
+                LocalDateTime.now().plusMinutes(5);
+
+        // -------------------------------------------------
+        // DELETE PREVIOUS OTP
+        // -------------------------------------------------
+
+        passwordResetOtpRepository
+                .findTopByEmailOrderByIdDesc(cleanEmail)
+                .ifPresent(existingOtp ->
+                        passwordResetOtpRepository.delete(existingOtp)
+                );
+
+        // -------------------------------------------------
+        // CREATE NEW OTP
+        // -------------------------------------------------
+
+        PasswordResetOtp resetOtp =
+                new PasswordResetOtp(
+                        cleanEmail,
+                        otp,
+                        expiresAt
+                );
+
+        passwordResetOtpRepository.save(resetOtp);
+
+        // -------------------------------------------------
+        // SEND OTP EMAIL
+        // -------------------------------------------------
+
+        try {
+
+            emailService.sendOtpEmail(
+                    cleanEmail,
+                    otp
+            );
+
+        } catch (Exception e) {
+
+            // Remove OTP if email sending fails
+            passwordResetOtpRepository.delete(resetOtp);
+
+            throw new RuntimeException(
+                    "Unable to send OTP email. Please try again."
+            );
+        }
+    }
+
+    // =====================================================
+    // VERIFY PASSWORD RESET OTP
+    // =====================================================
+
+    @Transactional
+    public void verifyPasswordResetOtp(
+            String email,
+            String otp) {
+
+        // -------------------------------------------------
+        // VALIDATE INPUT
+        // -------------------------------------------------
+
+        if (email == null || email.trim().isEmpty()) {
+            throw new RuntimeException("Email is required");
+        }
+
+        if (otp == null || otp.trim().isEmpty()) {
+            throw new RuntimeException("OTP is required");
+        }
+
+        String cleanEmail = email.trim();
+        String cleanOtp = otp.trim();
+
+        // -------------------------------------------------
+        // FIND LATEST OTP
+        // -------------------------------------------------
+
+        PasswordResetOtp resetOtp =
+                passwordResetOtpRepository
+                        .findTopByEmailOrderByIdDesc(cleanEmail)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "OTP not found. Please request a new OTP."
+                                )
+                        );
+
+        // -------------------------------------------------
+        // CHECK IF ALREADY USED
+        // -------------------------------------------------
+
+        if (resetOtp.isUsed()) {
+
+            throw new RuntimeException(
+                    "This OTP has already been used."
+            );
+        }
+
+        // -------------------------------------------------
+        // CHECK EXPIRY
+        // -------------------------------------------------
+
+        if (LocalDateTime.now()
+                .isAfter(resetOtp.getExpiresAt())) {
+
+            throw new RuntimeException(
+                    "OTP has expired. Please request a new OTP."
+            );
+        }
+
+        // -------------------------------------------------
+        // CHECK OTP
+        // -------------------------------------------------
+
+        if (!resetOtp.getOtp().equals(cleanOtp)) {
+
+            throw new RuntimeException(
+                    "Invalid OTP."
+            );
+        }
+
+        // -------------------------------------------------
+        // MARK OTP AS VERIFIED
+        // -------------------------------------------------
+
+        resetOtp.setVerified(true);
+
+        passwordResetOtpRepository.save(resetOtp);
+    }
+
+    // =====================================================
+    // RESET PASSWORD
+    // =====================================================
+
+    @Transactional
+    public void resetPassword(
+            String email,
+            String otp,
+            String newPassword) {
+
+        // -------------------------------------------------
+        // VALIDATE INPUT
+        // -------------------------------------------------
+
+        if (email == null || email.trim().isEmpty()) {
+            throw new RuntimeException("Email is required");
+        }
+
+        if (otp == null || otp.trim().isEmpty()) {
+            throw new RuntimeException("OTP is required");
+        }
+
+        if (newPassword == null ||
+                newPassword.trim().isEmpty()) {
+
+            throw new RuntimeException(
+                    "New password is required"
+            );
+        }
+
+        if (newPassword.length() < 6) {
+
+            throw new RuntimeException(
+                    "Password must be at least 6 characters"
+            );
+        }
+
+        String cleanEmail = email.trim();
+        String cleanOtp = otp.trim();
+
+        // -------------------------------------------------
+        // FIND OTP
+        // -------------------------------------------------
+
+        PasswordResetOtp resetOtp =
+                passwordResetOtpRepository
+                        .findTopByEmailOrderByIdDesc(cleanEmail)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "OTP not found. Please request a new OTP."
+                                )
+                        );
+
+        // -------------------------------------------------
+        // CHECK OTP
+        // -------------------------------------------------
+
+        if (!resetOtp.getOtp().equals(cleanOtp)) {
+
+            throw new RuntimeException(
+                    "Invalid OTP."
+            );
+        }
+
+        // -------------------------------------------------
+        // CHECK VERIFIED
+        // -------------------------------------------------
+
+        if (!resetOtp.isVerified()) {
+
+            throw new RuntimeException(
+                    "Please verify the OTP first."
+            );
+        }
+
+        // -------------------------------------------------
+        // CHECK USED
+        // -------------------------------------------------
+
+        if (resetOtp.isUsed()) {
+
+            throw new RuntimeException(
+                    "This OTP has already been used."
+            );
+        }
+
+        // -------------------------------------------------
+        // CHECK EXPIRY
+        // -------------------------------------------------
+
+        if (LocalDateTime.now()
+                .isAfter(resetOtp.getExpiresAt())) {
+
+            throw new RuntimeException(
+                    "OTP has expired. Please request a new OTP."
+            );
+        }
+
+        // -------------------------------------------------
+        // FIND USER
+        // -------------------------------------------------
+
+        User user = userRepository
+                .findByEmail(cleanEmail)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "User account not found."
+                        )
+                );
+
+        // -------------------------------------------------
+        // UPDATE PASSWORD
+        // -------------------------------------------------
+
+        user.setPassword(newPassword);
+
+        userRepository.save(user);
+
+        // -------------------------------------------------
+        // MARK OTP AS USED
+        // -------------------------------------------------
+
+        resetOtp.setUsed(true);
+
+        passwordResetOtpRepository.save(resetOtp);
     }
 
     // =====================================================
