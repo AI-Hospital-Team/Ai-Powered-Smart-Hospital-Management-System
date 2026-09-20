@@ -1,12 +1,16 @@
 package com.hospital.management.controller;
 
-import com.hospital.management.entity.User;
-import com.hospital.management.dto.LoginResponse;
-import com.hospital.management.service.AuthService;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hospital.management.dto.LoginResponse;
+import com.hospital.management.entity.User;
+import com.hospital.management.service.AuthService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -115,6 +119,87 @@ public class AuthController {
     }
 
     // =====================================================
+    // FORGOT PASSWORD - SEND OTP
+    // =====================================================
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(
+            @RequestBody ForgotPasswordRequest request) {
+
+        try {
+
+            authService.sendPasswordResetOtp(
+                    request.email()
+            );
+
+            return ResponseEntity.ok(
+                    "OTP sent successfully to your email"
+            );
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    // =====================================================
+    // VERIFY PASSWORD RESET OTP
+    // =====================================================
+
+    @PostMapping("/verify-reset-otp")
+    public ResponseEntity<?> verifyResetOtp(
+            @RequestBody VerifyOtpRequest request) {
+
+        try {
+
+            authService.verifyPasswordResetOtp(
+                    request.email(),
+                    request.otp()
+            );
+
+            return ResponseEntity.ok(
+                    "OTP verified successfully"
+            );
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    // =====================================================
+    // RESET PASSWORD
+    // =====================================================
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(
+            @RequestBody ResetPasswordRequest request) {
+
+        try {
+
+            authService.resetPassword(
+                    request.email(),
+                    request.otp(),
+                    request.newPassword()
+            );
+
+            return ResponseEntity.ok(
+                    "Password reset successfully"
+            );
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    // =====================================================
     // LOGIN REQUEST
     // =====================================================
 
@@ -157,6 +242,36 @@ public class AuthController {
             String medicalRegistrationNo,
             String hospitalAssociation,
             String address
+    ) {
+    }
+
+    // =====================================================
+    // FORGOT PASSWORD REQUEST
+    // =====================================================
+
+    public record ForgotPasswordRequest(
+            String email
+    ) {
+    }
+
+    // =====================================================
+    // VERIFY OTP REQUEST
+    // =====================================================
+
+    public record VerifyOtpRequest(
+            String email,
+            String otp
+    ) {
+    }
+
+    // =====================================================
+    // RESET PASSWORD REQUEST
+    // =====================================================
+
+    public record ResetPasswordRequest(
+            String email,
+            String otp,
+            String newPassword
     ) {
     }
 }
