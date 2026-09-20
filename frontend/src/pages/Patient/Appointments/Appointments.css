@@ -1211,3 +1211,489 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+/* =========================================================
+   RESCHEDULE MODAL BUTTONS - FINAL FIX
+========================================================= */
+
+.reschedule-modal-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    gap: 12px !important;
+    margin-top: 10px !important;
+}
+
+/* Both buttons */
+.reschedule-modal-actions .reschedule-modal-btn {
+    height: 42px !important;
+    min-width: 110px !important;
+
+    padding: 0 16px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 6px !important;
+
+    border-radius: 9px !important;
+
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    line-height: 1 !important;
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    box-sizing: border-box !important;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+/* SVG icons inside buttons */
+.reschedule-modal-actions .reschedule-modal-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+
+    flex-shrink: 0 !important;
+
+    stroke-width: 2.2 !important;
+}
+
+/* CLOSE BUTTON */
+.reschedule-modal-actions .reschedule-modal-close {
+    min-width: 110px !important;
+
+    background: #ffffff !important;
+    color: #334155 !important;
+
+    border: 1px solid #d5dfe5 !important;
+}
+
+.reschedule-modal-actions .reschedule-modal-close:hover {
+    background: #f5f8fa !important;
+
+    border-color: #b9cbd4 !important;
+
+    color: #17324d !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 4px 10px rgba(24, 74, 93, 0.08) !important;
+}
+
+/* RESCHEDULE BUTTON */
+.reschedule-modal-actions .reschedule-modal-confirm {
+    min-width: 132px !important;
+
+    background: #009db2 !important;
+    color: #ffffff !important;
+
+    border: 1px solid #009db2 !important;
+
+    box-shadow:
+        0 4px 10px rgba(0, 157, 178, 0.15) !important;
+}
+
+.reschedule-modal-actions .reschedule-modal-confirm:hover {
+    background: #00899c !important;
+
+    border-color: #00899c !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 7px 16px rgba(0, 157, 178, 0.22) !important;
+}
+
+/* CLICK */
+.reschedule-modal-actions .reschedule-modal-btn:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+/* DISABLED */
+.reschedule-modal-actions .reschedule-modal-btn:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+    .reschedule-modal-actions {
+        flex-direction: column-reverse !important;
+        width: 100% !important;
+    }
+
+    .reschedule-modal-actions .reschedule-modal-btn {
+        width: 100% !important;
+    }
+}
+
+/* =========================================================
+   PATIENT APPOINTMENTS - COMPACT CLEAN DESIGN
+   Put this at the VERY BOTTOM of Appointments.css
+========================================================= */
+
+/* Smaller appointment cards */
+.appointment-card {
+    min-height: 72px !important;
+
+    padding: 10px 12px !important;
+
+    grid-template-columns:
+        180px
+        minmax(350px, 1fr)
+        auto !important;
+
+    gap: 14px !important;
+
+    border-radius: 10px !important;
+}
+
+/* Smaller doctor section */
+.appointment-doctor {
+    gap: 8px !important;
+}
+
+.doctor-icon {
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+
+    border-radius: 9px !important;
+}
+
+.doctor-text h2 {
+    font-size: 13px !important;
+}
+
+/* REMOVE "Doctor #3" */
+.doctor-text p {
+    display: none !important;
+}
+
+/* Smaller information area */
+.appointment-details {
+    grid-template-columns:
+        repeat(2, minmax(100px, 1fr)) !important;
+
+    gap: 7px 14px !important;
+}
+
+/* Smaller icons */
+.detail-icon {
+    width: 27px !important;
+    height: 27px !important;
+    flex: 0 0 27px !important;
+
+    border-radius: 7px !important;
+}
+
+/* Slightly clearer text */
+.detail-label {
+    font-size: 7px !important;
+}
+
+.appointment-detail strong {
+    font-size: 10px !important;
+}
+
+/* =========================================================
+   REMOVE UNNECESSARY INFORMATION
+========================================================= */
+
+/* Hide Department */
+.appointment-detail:nth-child(3) {
+    display: none !important;
+}
+
+/* Hide Appointment ID */
+.appointment-detail:nth-child(4) {
+    display: none !important;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.appointment-status {
+    top: 8px !important;
+    right: 9px !important;
+
+    min-width: auto !important;
+
+    padding: 4px 8px !important;
+
+    font-size: 7px !important;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.appointment-actions {
+    min-width: auto !important;
+
+    gap: 6px !important;
+}
+
+/* Cancel */
+.cancel-appointment-btn,
+.reschedule-appointment-btn {
+    height: 34px !important;
+
+    padding: 0 10px !important;
+
+    border-radius: 8px !important;
+
+    font-size: 9px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    white-space: nowrap !important;
+}
+
+/* =========================================================
+   COMPLETED MESSAGE
+========================================================= */
+
+.appointment-info {
+    padding: 5px 7px !important;
+
+    font-size: 8px !important;
+}
+
+/* =========================================================
+   DESKTOP WIDTH
+========================================================= */
+
+@media (min-width: 1200px) {
+
+    .appointment-card {
+        min-height: 76px !important;
+
+        grid-template-columns:
+            200px
+            minmax(400px, 1fr)
+            auto !important;
+    }
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .appointment-card {
+        grid-template-columns:
+            170px
+            1fr
+            auto !important;
+
+        gap: 10px !important;
+    }
+
+    .appointment-details {
+        grid-template-columns:
+            repeat(2, minmax(90px, 1fr)) !important;
+    }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .appointment-card {
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+
+        gap: 12px !important;
+
+        padding: 14px !important;
+    }
+
+    .appointment-doctor {
+        padding-right: 70px !important;
+    }
+
+    .appointment-details {
+        width: 100% !important;
+
+        grid-template-columns:
+            repeat(2, 1fr) !important;
+    }
+
+    .appointment-actions {
+        width: 100% !important;
+
+        justify-content: flex-start !important;
+    }
+
+    .appointment-actions button {
+        flex: 1 !important;
+    }
+
+}
+
+/* =========================================================
+   2 APPOINTMENT BOXES IN ONE ROW
+========================================================= */
+
+.appointments-list {
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 14px !important;
+
+    width: 100% !important;
+}
+
+/* Small compact card */
+.appointment-card {
+    width: 100% !important;
+
+    min-height: 150px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+
+    gap: 10px !important;
+
+    padding: 12px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 10px !important;
+}
+
+/* Doctor section */
+.appointment-doctor {
+    padding-right: 55px !important;
+
+    gap: 8px !important;
+}
+
+.doctor-icon {
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+}
+
+.doctor-text h2 {
+    font-size: 13px !important;
+}
+
+.doctor-text p {
+    display: none !important;
+}
+
+/* Details in one compact row */
+.appointment-details {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns: repeat(2, 1fr) !important;
+
+    gap: 7px !important;
+}
+
+/* Hide unnecessary details */
+.appointment-detail:nth-child(3),
+.appointment-detail:nth-child(4) {
+    display: none !important;
+}
+
+.detail-icon {
+    width: 27px !important;
+    height: 27px !important;
+    flex: 0 0 27px !important;
+}
+
+.detail-label {
+    font-size: 7px !important;
+}
+
+.appointment-detail strong {
+    font-size: 9px !important;
+}
+
+/* Status */
+.appointment-status {
+    top: 8px !important;
+    right: 8px !important;
+
+    padding: 4px 7px !important;
+
+    font-size: 7px !important;
+}
+
+/* Buttons */
+.appointment-actions {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    justify-content: flex-end !important;
+
+    gap: 6px !important;
+}
+
+.cancel-appointment-btn,
+.reschedule-appointment-btn {
+    height: 31px !important;
+
+    padding: 0 9px !important;
+
+    font-size: 8px !important;
+
+    border-radius: 7px !important;
+}
+
+/* Completed / cancelled message */
+.appointment-info {
+    font-size: 8px !important;
+
+    padding: 5px 7px !important;
+
+    align-self: flex-end !important;
+}
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+    .appointments-list {
+        grid-template-columns: 1fr !important;
+    }
+}
+
