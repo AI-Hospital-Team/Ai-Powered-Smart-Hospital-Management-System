@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,21 +103,17 @@ public class MedicalRecordController {
         );
     }
 
-    // =====================================================
-    // UPDATE MEDICAL RECORD
-    // =====================================================
+// =====================================================
+// DELETE MEDICAL RECORD
+// =====================================================
 
-    @PutMapping("/{recordId}")
-    public ResponseEntity<MedicalRecord> updateMedicalRecord(
-            @PathVariable Integer recordId,
-            @RequestBody MedicalRecord medicalRecord) {
+@DeleteMapping("/{recordId}")
+public ResponseEntity<Void> deleteMedicalRecord(
+        @PathVariable Integer recordId) {
 
-        MedicalRecord updatedRecord =
-                medicalRecordService.updateMedicalRecord(
-                        recordId,
-                        medicalRecord
-                );
+    medicalRecordService.deleteMedicalRecord(recordId);
 
-        return ResponseEntity.ok(updatedRecord);
-    }
+    return ResponseEntity.noContent().build();
+}
+
 }

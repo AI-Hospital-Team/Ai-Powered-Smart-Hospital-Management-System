@@ -12211,3 +12211,938 @@ body.dark-mode .doctor-appointments-error {
         background: #081c24 !important;
     }
 }
+
+/* =========================================================
+   PATIENT MEDICAL RECORDS — DARK MODE
+   ========================================================= */
+
+/* Main Page */
+html.dark-mode .medical-records-page {
+  background: #071923 !important;
+  color: #eaf7f9 !important;
+}
+
+/* Page Header */
+html.dark-mode .medical-records-header h1 {
+  color: #f1fbfc !important;
+}
+
+html.dark-mode .medical-records-header p {
+  color: #91adb7 !important;
+}
+
+/* =========================================================
+   RECORD CARDS
+   ========================================================= */
+
+html.dark-mode .record-card {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+  box-shadow: none !important;
+  color: #eaf7f9 !important;
+}
+
+html.dark-mode .record-card:hover {
+  background: #123744 !important;
+  border-color: #2b6877 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Record Header */
+html.dark-mode .record-card-header {
+  border-bottom-color: #24515f !important;
+}
+
+/* Record Icon */
+html.dark-mode .record-icon {
+  background: #123744 !important;
+  color: #27cbd6 !important;
+  box-shadow: inset 0 0 0 1px #24515f !important;
+}
+
+/* Record Title */
+html.dark-mode .record-title h2 {
+  color: #eaf7f9 !important;
+}
+
+html.dark-mode .record-title p {
+  color: #91adb7 !important;
+}
+
+/* Record ID */
+html.dark-mode .record-id {
+  background: #123744 !important;
+  color: #8fdfe5 !important;
+}
+
+/* =========================================================
+   DELETE BUTTON
+   ========================================================= */
+
+html.dark-mode .delete-record-button {
+  background: #351f24 !important;
+  border-color: #70404a !important;
+  color: #ff8585 !important;
+}
+
+html.dark-mode .delete-record-button:hover {
+  background: #48252c !important;
+  border-color: #a0525d !important;
+  color: #ffaaaa !important;
+}
+
+/* =========================================================
+   RECORD INFORMATION
+   ========================================================= */
+
+html.dark-mode .record-detail-icon {
+  background: #123744 !important;
+  color: #27cbd6 !important;
+}
+
+html.dark-mode .record-detail-item small {
+  color: #91adb7 !important;
+}
+
+html.dark-mode .record-detail-item strong {
+  color: #dff7fa !important;
+}
+
+/* =========================================================
+   DIAGNOSIS / SYMPTOMS / TREATMENT / NOTES
+   ========================================================= */
+
+html.dark-mode .record-section {
+  background: #0d2935 !important;
+  border-color: #24515f !important;
+}
+
+html.dark-mode .record-section:hover {
+  background: #123744 !important;
+  border-color: #2b6877 !important;
+}
+
+html.dark-mode .record-section h3 {
+  color: #dff7fa !important;
+}
+
+html.dark-mode .record-section p {
+  color: #b8d0d6 !important;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+html.dark-mode .records-message {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+  box-shadow: none !important;
+}
+
+html.dark-mode .records-message p {
+  color: #91adb7 !important;
+}
+
+html.dark-mode .records-loader {
+  border-color: #24515f !important;
+  border-top-color: #27cbd6 !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .records-error {
+  background: #351f24 !important;
+  border-color: #70404a !important;
+  color: #ffaaaa !important;
+  box-shadow: none !important;
+}
+
+html.dark-mode .error-icon {
+  background: #48252c !important;
+  color: #ff8585 !important;
+}
+
+html.dark-mode .records-error p {
+  color: #ffaaaa !important;
+}
+
+html.dark-mode .records-error button {
+  background: #b83b47 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .records-error button:hover {
+  background: #cf4a56 !important;
+}
+
+/* =========================================================
+   NO RECORDS
+   ========================================================= */
+
+html.dark-mode .no-records {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+  box-shadow: none !important;
+}
+
+html.dark-mode .no-records-icon {
+  background: #123744 !important;
+  color: #27cbd6 !important;
+}
+
+html.dark-mode .no-records h2 {
+  color: #eaf7f9 !important;
+}
+
+html.dark-mode .no-records p {
+  color: #91adb7 !important;
+}
+
+/* =========================================================
+   DELETE CONFIRMATION MODAL
+   ========================================================= */
+
+html.dark-mode .delete-modal-overlay {
+  background: rgba(0, 0, 0, 0.72) !important;
+}
+
+/* Modal */
+html.dark-mode .delete-modal {
+  background: #102f3b !important;
+  border-color: #24515f !important;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.55),
+    0 5px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Close Button */
+html.dark-mode .delete-modal-close {
+  background: #163c49 !important;
+  color: #91adb7 !important;
+}
+
+html.dark-mode .delete-modal-close:hover {
+  background: #1d4c5a !important;
+  color: #eaf7f9 !important;
+}
+
+/* Modal Delete Icon */
+html.dark-mode .delete-modal-icon {
+  background: #351f24 !important;
+  color: #ff8585 !important;
+
+  box-shadow:
+    inset 0 0 0 8px #2b1b20 !important;
+}
+
+/* Modal Title */
+html.dark-mode .delete-modal h2 {
+  color: #f1fbfc !important;
+}
+
+/* Modal Text */
+html.dark-mode .delete-modal p {
+  color: #a9c2ca !important;
+}
+
+html.dark-mode .delete-modal p span {
+  color: #c28f94 !important;
+}
+
+/* =========================================================
+   MODAL BUTTONS
+   ========================================================= */
+
+/* Cancel */
+html.dark-mode .delete-cancel-button {
+  background: #163641 !important;
+  border-color: #315664 !important;
+  color: #c9dde2 !important;
+}
+
+html.dark-mode .delete-cancel-button:hover {
+  background: #1c4653 !important;
+  border-color: #426b79 !important;
+  color: #ffffff !important;
+}
+
+/* Delete */
+html.dark-mode .delete-confirm-button {
+  background: #b83b47 !important;
+  border-color: #b83b47 !important;
+  color: #ffffff !important;
+
+  box-shadow:
+    0 5px 14px rgba(184, 59, 71, 0.25) !important;
+}
+
+html.dark-mode .delete-confirm-button:hover {
+  background: #cf4a56 !important;
+  border-color: #cf4a56 !important;
+
+  box-shadow:
+    0 7px 18px rgba(184, 59, 71, 0.35) !important;
+}
+
+/* Disabled */
+html.dark-mode .delete-cancel-button:disabled,
+html.dark-mode .delete-confirm-button:disabled {
+  opacity: 0.55 !important;
+}
+
+/* =========================================================
+   DARK MODE MOBILE
+   ========================================================= */
+
+@media (max-width: 500px) {
+  html.dark-mode .delete-modal {
+    background: #102f3b !important;
+    border-color: #24515f !important;
+  }
+}
+
+/* =========================================================
+   DOCTOR MEDICAL RECORDS - DARK MODE
+   ========================================================= */
+
+html.dark-mode .doctor-records-page {
+  background: #071923;
+}
+
+/* Page Header */
+
+html.dark-mode .records-title-wrap h1 {
+  color: #e6f4f7;
+}
+
+html.dark-mode .records-title-wrap p {
+  color: #8faab5;
+}
+
+html.dark-mode .records-title-icon {
+  background: #123c43;
+  color: #35c9c2;
+}
+
+/* Add Button */
+
+html.dark-mode .add-record-button {
+  background: #079b96;
+  color: #ffffff;
+}
+
+html.dark-mode .add-record-button:hover {
+  background: #08b0aa;
+}
+
+/* Error */
+
+html.dark-mode .doctor-records-error {
+  background: #321d21;
+  border-color: #653238;
+  color: #ff8e8e;
+}
+
+html.dark-mode .doctor-records-error button {
+  color: #ff8e8e;
+}
+
+/* Record Card */
+
+html.dark-mode .doctor-record-card {
+  background: #102b36;
+  border-color: #214550;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+html.dark-mode .doctor-record-card:hover {
+  border-color: #2e6971;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+}
+
+html.dark-mode .doctor-record-card::before {
+  background: #16aaa4;
+}
+
+/* Record Header */
+
+html.dark-mode .doctor-record-icon {
+  background: #153f46;
+  color: #35c9c2;
+}
+
+html.dark-mode .doctor-record-title h2 {
+  color: #e5f3f5;
+}
+
+html.dark-mode .doctor-record-title p {
+  color: #8da8b3;
+}
+
+/* Record ID */
+
+html.dark-mode .doctor-record-id {
+  background: #173640;
+  color: #9ab8c1;
+}
+
+/* Delete Button */
+
+html.dark-mode .doctor-delete-record-button {
+  background: #351f24;
+  border-color: #69343c;
+  color: #ff7777;
+}
+
+html.dark-mode .doctor-delete-record-button:hover {
+  background: #4a252c;
+  border-color: #8b424d;
+  color: #ff9090;
+}
+
+/* Patient */
+
+html.dark-mode .doctor-record-patient {
+  background: #0d222c;
+}
+
+html.dark-mode .record-patient-icon {
+  background: #173750;
+  color: #72aaf0;
+}
+
+html.dark-mode .doctor-record-patient small {
+  color: #829da8;
+}
+
+html.dark-mode .doctor-record-patient strong {
+  color: #dcecef;
+}
+
+html.dark-mode .doctor-record-patient span {
+  color: #819ca7;
+}
+
+/* Date */
+
+html.dark-mode .doctor-record-date {
+  color: #8da8b3;
+}
+
+html.dark-mode .doctor-record-date svg {
+  color: #35c9c2;
+}
+
+/* Record Sections */
+
+html.dark-mode .doctor-record-section {
+  border-top-color: #23424c;
+}
+
+html.dark-mode .doctor-record-section h3 {
+  color: #a9c1c9;
+}
+
+html.dark-mode .doctor-record-section p {
+  color: #91aab4;
+}
+
+/* Loading */
+
+html.dark-mode .doctor-records-message {
+  color: #8da8b3;
+}
+
+html.dark-mode .doctor-records-loader {
+  border-color: #1c3d46;
+  border-top-color: #35c9c2;
+}
+
+/* Empty State */
+
+html.dark-mode .no-doctor-records {
+  background: #102b36;
+  border-color: #2a4a54;
+}
+
+html.dark-mode .no-records-icon {
+  background: #153f46;
+  color: #35c9c2;
+}
+
+html.dark-mode .no-doctor-records h2 {
+  color: #dcecef;
+}
+
+html.dark-mode .no-doctor-records p {
+  color: #8da8b3;
+}
+
+/* =========================================================
+   ADD RECORD MODAL - DARK MODE
+   ========================================================= */
+
+html.dark-mode .doctor-record-modal-overlay {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+html.dark-mode .doctor-record-modal {
+  background: #102b36;
+  border-color: #28505b;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+}
+
+html.dark-mode .doctor-record-modal-header {
+  background: #102b36;
+  border-bottom-color: #23424c;
+}
+
+html.dark-mode .doctor-record-modal-header h2 {
+  color: #e5f3f5;
+}
+
+html.dark-mode .doctor-record-modal-header p {
+  color: #8da8b3;
+}
+
+html.dark-mode .close-record-modal {
+  background: #173640;
+  color: #9bb3bc;
+}
+
+html.dark-mode .close-record-modal:hover {
+  background: #214550;
+  color: #e5f3f5;
+}
+
+/* Form */
+
+html.dark-mode .record-form-group label {
+  color: #a9c1c9;
+}
+
+html.dark-mode .record-form-group input,
+html.dark-mode .record-form-group select,
+html.dark-mode .record-form-group textarea {
+  background: #0b2029;
+  border-color: #2a4d58;
+  color: #e4f1f4;
+}
+
+html.dark-mode .record-form-group input::placeholder,
+html.dark-mode .record-form-group textarea::placeholder {
+  color: #6f8994;
+}
+
+html.dark-mode .record-form-group input:focus,
+html.dark-mode .record-form-group select:focus,
+html.dark-mode .record-form-group textarea:focus {
+  border-color: #25bdb6;
+  box-shadow: 0 0 0 3px rgba(37, 189, 182, 0.12);
+}
+
+html.dark-mode .record-form-group select:disabled {
+  background: #152d36;
+  color: #718993;
+}
+
+/* Form Actions */
+
+html.dark-mode .doctor-record-form-actions {
+  border-top-color: #23424c;
+}
+
+html.dark-mode .record-cancel-button {
+  background: #173640;
+  border-color: #2b4e59;
+  color: #a9c1c9;
+}
+
+html.dark-mode .record-cancel-button:hover {
+  background: #214550;
+}
+
+html.dark-mode .record-save-button {
+  background: #079b96;
+  color: #ffffff;
+}
+
+html.dark-mode .record-save-button:hover {
+  background: #08b0aa;
+}
+
+/* =========================================================
+   DELETE MODAL - DARK MODE
+   ========================================================= */
+
+html.dark-mode .doctor-delete-modal-overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+html.dark-mode .doctor-delete-modal {
+  background: #102b36;
+  border-color: #28505b;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.55),
+    0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-mode .doctor-delete-modal-close {
+  background: #173640;
+  color: #9bb3bc;
+}
+
+html.dark-mode .doctor-delete-modal-close:hover {
+  background: #214550;
+  color: #e5f3f5;
+}
+
+html.dark-mode .doctor-delete-modal-icon {
+  background: #3a2026;
+  color: #ff7777;
+  box-shadow: inset 0 0 0 8px #2a1b20;
+}
+
+html.dark-mode .doctor-delete-modal h2 {
+  color: #e5f3f5;
+}
+
+html.dark-mode .doctor-delete-modal p {
+  color: #91aab4;
+}
+
+html.dark-mode .doctor-delete-modal p span {
+  color: #c08b8b;
+}
+
+/* Delete Modal Buttons */
+
+html.dark-mode .doctor-delete-cancel-button {
+  background: #173640;
+  border-color: #2b4e59;
+  color: #a9c1c9;
+}
+
+html.dark-mode .doctor-delete-cancel-button:hover {
+  background: #214550;
+  border-color: #3a606b;
+}
+
+html.dark-mode .doctor-delete-confirm-button {
+  background: #c83f48;
+  border-color: #c83f48;
+  color: #ffffff;
+}
+
+html.dark-mode .doctor-delete-confirm-button:hover {
+  background: #dd4d56;
+  border-color: #dd4d56;
+}
+
+/* =========================================================
+   DARK MODE - MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+  html.dark-mode .doctor-delete-modal {
+    background: #102b36;
+  }
+
+  html.dark-mode .doctor-record-modal {
+    background: #102b36;
+  }
+}
+
+/* =========================================================
+   ADMIN MEDICAL RECORDS - DARK MODE
+========================================================= */
+
+html.dark-mode .medical-records-page {
+  background: #071923;
+  color: #e8f1f5;
+}
+
+/* Header */
+html.dark-mode .medical-records-header {
+  color: #e8f1f5;
+}
+
+html.dark-mode .medical-records-header h1 {
+  color: #ffffff;
+}
+
+html.dark-mode .medical-records-header p {
+  color: #a9c0ca;
+}
+
+/* Search / Filter Area */
+html.dark-mode .medical-records-toolbar {
+  background: #102f3b;
+  border-color: #24515f;
+}
+
+html.dark-mode .medical-records-search {
+  background: #0b2530;
+  border-color: #2b5663;
+  color: #ffffff;
+}
+
+html.dark-mode .medical-records-search input {
+  background: transparent;
+  color: #ffffff;
+}
+
+html.dark-mode .medical-records-search input::placeholder {
+  color: #8faab5;
+}
+
+html.dark-mode .medical-records-search svg {
+  color: #8faab5;
+}
+
+/* Record Cards */
+html.dark-mode .medical-record-card {
+  background: #102f3b;
+  border-color: #24515f;
+  color: #e8f1f5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+html.dark-mode .medical-record-card:hover {
+  border-color: #347487;
+}
+
+html.dark-mode .medical-record-card h3 {
+  color: #ffffff;
+}
+
+html.dark-mode .medical-record-card p {
+  color: #a9c0ca;
+}
+
+html.dark-mode .medical-record-card strong {
+  color: #dcebf0;
+}
+
+/* Icons */
+html.dark-mode .medical-record-icon {
+  background: #173f4d;
+  color: #7dd3fc;
+}
+
+/* Record ID */
+html.dark-mode .medical-record-id {
+  color: #8faab5;
+}
+
+/* View Button */
+html.dark-mode .medical-record-view-button {
+  background: #173f4d;
+  border-color: #2b6272;
+  color: #8ed8f2;
+}
+
+html.dark-mode .medical-record-view-button:hover {
+  background: #205465;
+  color: #ffffff;
+}
+
+/* Edit Button */
+html.dark-mode .medical-record-edit-button {
+  background: #173f4d;
+  border-color: #2b6272;
+  color: #8ed8f2;
+}
+
+html.dark-mode .medical-record-edit-button:hover {
+  background: #205465;
+  color: #ffffff;
+}
+
+/* Delete Button */
+html.dark-mode .medical-record-delete-button {
+  background: #4a1f24;
+  border-color: #713238;
+  color: #ff8f98;
+}
+
+html.dark-mode .medical-record-delete-button:hover {
+  background: #64272e;
+  border-color: #8d3b43;
+  color: #ffffff;
+}
+
+/* Close Button */
+html.dark-mode .medical-record-close-button {
+  background: #173f4d;
+  border-color: #2b6272;
+  color: #b9d0d8;
+}
+
+html.dark-mode .medical-record-close-button:hover {
+  background: #205465;
+  color: #ffffff;
+}
+
+/* =========================================================
+   VIEW RECORD MODAL
+========================================================= */
+
+html.dark-mode .medical-record-modal-overlay {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+html.dark-mode .medical-record-modal {
+  background: #102f3b;
+  border-color: #24515f;
+  color: #e8f1f5;
+}
+
+html.dark-mode .medical-record-modal h2 {
+  color: #ffffff;
+}
+
+html.dark-mode .medical-record-modal p {
+  color: #a9c0ca;
+}
+
+html.dark-mode .medical-record-modal strong {
+  color: #dcebf0;
+}
+
+/* =========================================================
+   EDIT MODAL
+========================================================= */
+
+html.dark-mode .medical-record-edit-modal-overlay {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+html.dark-mode .medical-record-edit-modal {
+  background: #102f3b;
+  border-color: #24515f;
+  color: #e8f1f5;
+}
+
+html.dark-mode .medical-record-edit-modal h2 {
+  color: #ffffff;
+}
+
+html.dark-mode .medical-record-edit-modal label {
+  color: #dcebf0;
+}
+
+html.dark-mode .medical-record-edit-modal input,
+html.dark-mode .medical-record-edit-modal textarea,
+html.dark-mode .medical-record-edit-modal select {
+  background: #0b2530;
+  border-color: #2b5663;
+  color: #ffffff;
+}
+
+html.dark-mode .medical-record-edit-modal input::placeholder,
+html.dark-mode .medical-record-edit-modal textarea::placeholder {
+  color: #8faab5;
+}
+
+html.dark-mode .medical-record-edit-modal input:focus,
+html.dark-mode .medical-record-edit-modal textarea:focus,
+html.dark-mode .medical-record-edit-modal select:focus {
+  border-color: #4b91a5;
+  outline: none;
+}
+
+/* =========================================================
+   DELETE CONFIRMATION MODAL
+========================================================= */
+
+html.dark-mode .medical-record-delete-modal-overlay {
+  background: rgba(0, 0, 0, 0.78);
+}
+
+html.dark-mode .medical-record-delete-modal {
+  background: #102f3b;
+  border-color: #24515f;
+  color: #e8f1f5;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+html.dark-mode .medical-record-delete-modal h2 {
+  color: #ffffff;
+}
+
+html.dark-mode .medical-record-delete-modal p {
+  color: #a9c0ca;
+}
+
+html.dark-mode .medical-record-delete-modal p span {
+  color: #8faab5;
+}
+
+html.dark-mode .medical-record-delete-modal-close {
+  background: #173f4d;
+  color: #b9d0d8;
+  border-color: #2b6272;
+}
+
+html.dark-mode .medical-record-delete-modal-close:hover {
+  background: #205465;
+  color: #ffffff;
+}
+
+/* Delete Icon */
+html.dark-mode .medical-record-delete-modal-icon {
+  background: #4a1f24;
+  color: #ff8f98;
+}
+
+/* Delete Modal Cancel */
+html.dark-mode .medical-record-delete-cancel-button {
+  background: #173f4d;
+  border-color: #2b6272;
+  color: #d0e0e5;
+}
+
+html.dark-mode .medical-record-delete-cancel-button:hover {
+  background: #205465;
+  color: #ffffff;
+}
+
+/* Delete Modal Confirm */
+html.dark-mode .medical-record-delete-confirm-button {
+  background: #8f3039;
+  border-color: #a83b45;
+  color: #ffffff;
+}
+
+html.dark-mode .medical-record-delete-confirm-button:hover {
+  background: #a83b45;
+}
+
+/* =========================================================
+   EMPTY / ERROR STATES
+========================================================= */
+
+html.dark-mode .medical-records-empty {
+  background: #102f3b;
+  border-color: #24515f;
+  color: #a9c0ca;
+}
+
+html.dark-mode .medical-records-error {
+  background: #3b1d22;
+  border-color: #713238;
+  color: #ff9da5;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .medical-records-loading {
+  color: #a9c0ca;
+}

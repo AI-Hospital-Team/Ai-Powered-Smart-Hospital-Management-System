@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Pencil,
   Save,
+  Trash2,
 } from "lucide-react";
 
 import {
@@ -40,6 +41,12 @@ function MedicalRecords() {
 
   const [editingRecord, setEditingRecord] =
     useState(null);
+
+  const [showDeleteModal, setShowDeleteModal] =
+    useState(false);
+  const [selectedRecordId, setSelectedRecordId] =
+    useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const [formData, setFormData] = useState({
     patientId: "",
@@ -262,6 +269,62 @@ function MedicalRecords() {
       ...previous,
       [name]: value,
     }));
+  };
+
+  const openDeleteModal = (recordId) => {
+    setSelectedRecordId(recordId);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    if (deleting) return;
+    setShowDeleteModal(false);
+    setSelectedRecordId(null);
+  };
+
+  const handleDeleteRecord = async () => {
+    if (!selectedRecordId) return;
+
+    try {
+      setDeleting(true);
+      setError("");
+
+      const response = await fetch(
+        `${API_BASE_URL}/medical-records/${selectedRecordId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete medical record: ${response.status}`
+        );
+      }
+
+      setRecords((previousRecords) =>
+        previousRecords.filter(
+          (record) =>
+            Number(record.recordId) !==
+            Number(selectedRecordId)
+        )
+      );
+
+      setSelectedRecord(null);
+      setShowDeleteModal(false);
+      setSelectedRecordId(null);
+    } catch (err) {
+      console.error(
+        "Medical record delete error:",
+        err
+      );
+
+      setError(
+        "Unable to delete medical record. Please try again."
+      );
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const handleUpdate = async (event) => {
@@ -913,6 +976,16 @@ function MedicalRecords() {
               </button>
 
               <button
+                className="medical-record-delete-button"
+                onClick={() =>
+                  openDeleteModal(selectedRecord.recordId)
+                }
+              >
+                <Trash2 size={14} />
+                Delete Record
+              </button>
+
+              <button
                 className="medical-record-close-button"
                 onClick={() =>
                   setSelectedRecord(null)
@@ -1200,12 +1273,84 @@ function MedicalRecords() {
                   )}
                 </button>
 
+                
+
               </div>
+
+              
 
             </form>
 
           </div>
 
+        </div>
+      )}
+
+            {/* =================================================
+          DELETE CONFIRMATION MODAL
+      ================================================= */}
+
+      {showDeleteModal && (
+        <div
+          className="medical-record-delete-modal-overlay"
+          onClick={closeDeleteModal}
+        >
+          <div
+            className="medical-record-delete-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="medical-record-delete-modal-close"
+              onClick={closeDeleteModal}
+              disabled={deleting}
+              title="Close"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="medical-record-delete-modal-icon">
+              <Trash2 size={26} />
+            </div>
+
+            <h2>Delete Medical Record?</h2>
+
+            <p>
+              Are you sure you want to delete this medical record?
+              <br />
+              <span>This action cannot be undone.</span>
+            </p>
+
+            <div className="medical-record-delete-modal-actions">
+              <button
+                type="button"
+                className="medical-record-delete-cancel-button"
+                onClick={closeDeleteModal}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="medical-record-delete-confirm-button"
+                onClick={handleDeleteRecord}
+                disabled={deleting}
+              >
+                {deleting ? (
+                  <>
+                    <span className="medical-record-delete-spinner"></span>
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={14} />
+                    Delete Record
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
