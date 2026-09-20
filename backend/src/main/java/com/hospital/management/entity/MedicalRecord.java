@@ -30,6 +30,9 @@ public class MedicalRecord {
 
     private LocalDate recordDate;
 
+    // Optional follow-up date
+    private LocalDate followUpDate;
+
     public MedicalRecord() {
     }
 
@@ -95,5 +98,13 @@ public class MedicalRecord {
 
     public void setRecordDate(LocalDate recordDate) {
         this.recordDate = recordDate;
+    }
+
+    public LocalDate getFollowUpDate() {
+        return followUpDate;
+    }
+
+    public void setFollowUpDate(LocalDate followUpDate) {
+        this.followUpDate = followUpDate;
     }
 }

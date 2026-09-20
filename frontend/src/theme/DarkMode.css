@@ -11444,3 +11444,770 @@ body.dark-mode .patient-dashboard .welcome-actions button:first-child svg {
     color: #ffffff !important;
 }
 
+/* =========================================================
+   DOCTOR PANEL — DARK MODE
+========================================================= */
+
+/* Main background */
+html.dark-mode .doctor-dashboard-page,
+body.dark-mode .doctor-dashboard-page {
+    background: #081c24 !important;
+    color: #eaf7f8 !important;
+}
+
+
+/* =========================================================
+   WELCOME CARD
+========================================================= */
+
+html.dark-mode .doctor-welcome-card,
+body.dark-mode .doctor-welcome-card {
+    background: linear-gradient(
+        120deg,
+        #073746 0%,
+        #07596a 48%,
+        #078b8c 100%
+    ) !important;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .doctor-welcome-badge,
+body.dark-mode .doctor-welcome-badge {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(100, 230, 225, 0.25) !important;
+    color: #52e1dc !important;
+}
+
+html.dark-mode .doctor-welcome-content h1,
+body.dark-mode .doctor-welcome-content h1 {
+    color: #f4fbfc !important;
+}
+
+html.dark-mode .doctor-welcome-content h1 span,
+body.dark-mode .doctor-welcome-content h1 span {
+    color: #51e1dc !important;
+}
+
+html.dark-mode .doctor-welcome-content > p,
+body.dark-mode .doctor-welcome-content > p {
+    color: #b6d5da !important;
+}
+
+html.dark-mode .doctor-welcome-info small,
+body.dark-mode .doctor-welcome-info small {
+    color: #82b8c1 !important;
+}
+
+html.dark-mode .doctor-welcome-info strong,
+body.dark-mode .doctor-welcome-info strong {
+    color: #f1f8fa !important;
+}
+
+html.dark-mode .doctor-welcome-info > div + div,
+body.dark-mode .doctor-welcome-info > div + div {
+    border-left-color: rgba(255,255,255,0.18) !important;
+}
+
+
+/* Welcome icon */
+
+html.dark-mode .doctor-welcome-icon,
+body.dark-mode .doctor-welcome-icon {
+    background: rgba(255,255,255,0.07) !important;
+    border-color: rgba(255,255,255,0.18) !important;
+    color: #5be3de !important;
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+html.dark-mode .doctor-stat-card,
+body.dark-mode .doctor-stat-card {
+    background: #102a33 !important;
+    border-color: #25434d !important;
+
+    box-shadow:
+        0 7px 22px rgba(0,0,0,0.28) !important;
+}
+
+html.dark-mode .doctor-stat-card:hover,
+body.dark-mode .doctor-stat-card:hover {
+    background: #14313a !important;
+    border-color: #37606a !important;
+
+    box-shadow:
+        0 13px 30px rgba(0,0,0,0.38) !important;
+}
+
+html.dark-mode .doctor-stat-card span,
+body.dark-mode .doctor-stat-card span {
+    color: #8faab3 !important;
+}
+
+html.dark-mode .doctor-stat-card strong,
+body.dark-mode .doctor-stat-card strong {
+    color: #f0f8fa !important;
+}
+
+
+/* =========================================================
+   STAT ICONS
+========================================================= */
+
+html.dark-mode .appointments-stat .doctor-stat-icon,
+body.dark-mode .appointments-stat .doctor-stat-icon {
+    background: #123b43 !important;
+    color: #42d4d0 !important;
+}
+
+html.dark-mode .patients-stat .doctor-stat-icon,
+body.dark-mode .patients-stat .doctor-stat-icon {
+    background: #192f4c !important;
+    color: #70a0ff !important;
+}
+
+html.dark-mode .records-stat .doctor-stat-icon,
+body.dark-mode .records-stat .doctor-stat-icon {
+    background: #2b2348 !important;
+    color: #a786ff !important;
+}
+
+html.dark-mode .prescriptions-stat .doctor-stat-icon,
+body.dark-mode .prescriptions-stat .doctor-stat-icon {
+    background: #12382f !important;
+    color: #35ca92 !important;
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD CARDS
+========================================================= */
+
+html.dark-mode .doctor-dashboard-card,
+body.dark-mode .doctor-dashboard-card {
+    background: #102a33 !important;
+    border-color: #25434d !important;
+
+    box-shadow:
+        0 7px 22px rgba(0,0,0,0.28) !important;
+}
+
+
+/* =========================================================
+   CARD HEADERS
+========================================================= */
+
+html.dark-mode .doctor-card-header h2,
+body.dark-mode .doctor-card-header h2 {
+    color: #edf7f8 !important;
+}
+
+html.dark-mode .doctor-card-header p,
+body.dark-mode .doctor-card-header p {
+    color: #829ca5 !important;
+}
+
+html.dark-mode .doctor-view-all,
+body.dark-mode .doctor-view-all {
+    color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-view-all:hover,
+body.dark-mode .doctor-view-all:hover {
+    color: #6be7e1 !important;
+}
+
+
+/* =========================================================
+   APPOINTMENTS
+========================================================= */
+
+html.dark-mode .doctor-appointment-item,
+body.dark-mode .doctor-appointment-item {
+    background: #0d232c !important;
+    border-color: #29434c !important;
+}
+
+html.dark-mode .doctor-appointment-item:hover,
+body.dark-mode .doctor-appointment-item:hover {
+    background: #13313a !important;
+    border-color: #3b646d !important;
+}
+
+html.dark-mode .appointment-date-box,
+body.dark-mode .appointment-date-box {
+    background: #123b43 !important;
+    color: #45d2cc !important;
+}
+
+html.dark-mode .appointment-main strong,
+body.dark-mode .appointment-main strong {
+    color: #e9f5f6 !important;
+}
+
+html.dark-mode .appointment-main span,
+body.dark-mode .appointment-main span {
+    color: #819ba4 !important;
+}
+
+
+/* =========================================================
+   APPOINTMENT STATUS
+========================================================= */
+
+html.dark-mode .doctor-status,
+body.dark-mode .doctor-status {
+    background: #20323a !important;
+    color: #9db1b8 !important;
+}
+
+html.dark-mode .doctor-status.confirmed,
+body.dark-mode .doctor-status.confirmed {
+    background: #12382d !important;
+    color: #35ca92 !important;
+}
+
+html.dark-mode .doctor-status.completed,
+body.dark-mode .doctor-status.completed {
+    background: #192e4b !important;
+    color: #70a0ff !important;
+}
+
+html.dark-mode .doctor-status.cancelled,
+body.dark-mode .doctor-status.cancelled,
+html.dark-mode .doctor-status.canceled,
+body.dark-mode .doctor-status.canceled {
+    background: #3b2023 !important;
+    color: #f07171 !important;
+}
+
+
+/* =========================================================
+   PATIENTS
+========================================================= */
+
+html.dark-mode .doctor-patient-item,
+body.dark-mode .doctor-patient-item {
+    background: #0d232c !important;
+    border-color: #29434c !important;
+}
+
+html.dark-mode .doctor-patient-item:hover,
+body.dark-mode .doctor-patient-item:hover {
+    background: #13313a !important;
+    border-color: #3b646d !important;
+}
+
+html.dark-mode .doctor-patient-avatar,
+body.dark-mode .doctor-patient-avatar {
+    background: #192f4c !important;
+    color: #70a0ff !important;
+}
+
+html.dark-mode .doctor-patient-main strong,
+body.dark-mode .doctor-patient-main strong {
+    color: #e9f5f6 !important;
+}
+
+html.dark-mode .doctor-patient-main span,
+body.dark-mode .doctor-patient-main span {
+    color: #819ba4 !important;
+}
+
+
+/* =========================================================
+   VIEW PATIENT BUTTON
+========================================================= */
+
+html.dark-mode .doctor-patient-view,
+body.dark-mode .doctor-patient-view {
+    background: #102a33 !important;
+    border-color: #2d4d57 !important;
+    color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-patient-view:hover,
+body.dark-mode .doctor-patient-view:hover {
+    background: #173640 !important;
+    border-color: #3e6c75 !important;
+    color: #6be7e1 !important;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+html.dark-mode .doctor-empty-small,
+body.dark-mode .doctor-empty-small {
+    color: #8199a3 !important;
+}
+
+html.dark-mode .doctor-empty-small svg,
+body.dark-mode .doctor-empty-small svg {
+    color: #47747c !important;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+html.dark-mode .doctor-dashboard-error,
+body.dark-mode .doctor-dashboard-error {
+    background: #30191b !important;
+    border-color: #683033 !important;
+    color: #ff8d8d !important;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .doctor-dashboard-loading,
+body.dark-mode .doctor-dashboard-loading {
+    color: #8fa8b1 !important;
+}
+
+html.dark-mode .doctor-dashboard-spinner,
+body.dark-mode .doctor-dashboard-spinner {
+    border-color: #24434b !important;
+    border-top-color: #18b8b1 !important;
+}
+
+
+/* =========================================================
+   PATIENT MODAL
+========================================================= */
+
+html.dark-mode .doctor-patient-modal-overlay,
+body.dark-mode .doctor-patient-modal-overlay {
+    background: rgba(2, 12, 17, 0.80) !important;
+}
+
+html.dark-mode .doctor-patient-modal,
+body.dark-mode .doctor-patient-modal {
+    background: #102a33 !important;
+    color: #eaf7f8 !important;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.58) !important;
+}
+
+html.dark-mode .doctor-patient-modal-header,
+body.dark-mode .doctor-patient-modal-header {
+    border-bottom-color: #29434c !important;
+}
+
+html.dark-mode .doctor-modal-avatar,
+body.dark-mode .doctor-modal-avatar {
+    background: #123b43 !important;
+    color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-modal-patient-title h2,
+body.dark-mode .doctor-modal-patient-title h2 {
+    color: #f1f8fa !important;
+}
+
+html.dark-mode .doctor-modal-patient-title p,
+body.dark-mode .doctor-modal-patient-title p {
+    color: #819ba4 !important;
+}
+
+html.dark-mode .doctor-modal-close,
+body.dark-mode .doctor-modal-close {
+    background: #1a3038 !important;
+    color: #91a8b0 !important;
+}
+
+html.dark-mode .doctor-modal-close:hover,
+body.dark-mode .doctor-modal-close:hover {
+    background: #28414a !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   MODAL INFORMATION
+========================================================= */
+
+html.dark-mode .doctor-patient-basic-grid > div,
+body.dark-mode .doctor-patient-basic-grid > div {
+    background: #0d222b !important;
+    border-color: #29434c !important;
+}
+
+html.dark-mode .doctor-patient-basic-grid span,
+body.dark-mode .doctor-patient-basic-grid span {
+    color: #7f98a2 !important;
+}
+
+html.dark-mode .doctor-patient-basic-grid strong,
+body.dark-mode .doctor-patient-basic-grid strong {
+    color: #e8f3f5 !important;
+}
+
+
+/* =========================================================
+   MODAL SUMMARY
+========================================================= */
+
+html.dark-mode .doctor-modal-summary > div,
+body.dark-mode .doctor-modal-summary > div {
+    background: #10242c !important;
+}
+
+html.dark-mode .doctor-modal-summary svg,
+body.dark-mode .doctor-modal-summary svg {
+    color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-modal-summary span,
+body.dark-mode .doctor-modal-summary span {
+    color: #edf7f8 !important;
+}
+
+html.dark-mode .doctor-modal-summary small,
+body.dark-mode .doctor-modal-summary small {
+    color: #8199a3 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    html.dark-mode .doctor-dashboard-page,
+    body.dark-mode .doctor-dashboard-page {
+        background: #0f1b22 !important;
+    }
+
+    html.dark-mode .doctor-dashboard-card,
+    body.dark-mode .doctor-dashboard-card {
+        background: #102a33 !important;
+    }
+
+    html.dark-mode .doctor-stat-card,
+    body.dark-mode .doctor-stat-card {
+        background: #102a33 !important;
+    }
+}
+
+/* =========================================================
+   DOCTOR APPOINTMENTS — DARK MODE
+========================================================= */
+
+/* PAGE */
+html.dark-mode .doctor-appointments-page,
+body.dark-mode .doctor-appointments-page {
+    background: #081c24 !important;
+    color: #eaf7f8 !important;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+html.dark-mode .appointments-title-icon,
+body.dark-mode .appointments-title-icon {
+    background: linear-gradient(
+        135deg,
+        #123c45,
+        #164952
+    ) !important;
+
+    color: #45d2cc !important;
+
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .doctor-appointments-header h1,
+body.dark-mode .doctor-appointments-header h1 {
+    color: #edf8fa !important;
+}
+
+html.dark-mode .doctor-appointments-header p,
+body.dark-mode .doctor-appointments-header p {
+    color: #91aeb7 !important;
+}
+
+html.dark-mode .appointment-count,
+body.dark-mode .appointment-count {
+    background: #123b43 !important;
+    color: #45d2cc !important;
+}
+
+
+/* =========================================================
+   APPOINTMENT CARD
+========================================================= */
+
+html.dark-mode .doctor-appointment-card,
+body.dark-mode .doctor-appointment-card {
+    background: #102a33 !important;
+    border-color: #29464f !important;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .doctor-appointment-card:hover,
+body.dark-mode .doctor-appointment-card:hover {
+    background: #14323b !important;
+    border-color: #3c626b !important;
+
+    box-shadow:
+        0 9px 25px rgba(0, 0, 0, 0.38) !important;
+}
+
+
+/* =========================================================
+   PATIENT
+========================================================= */
+
+html.dark-mode .patient-icon,
+body.dark-mode .patient-icon {
+    background: #123b43 !important;
+    color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-appointment-card:hover .patient-icon,
+body.dark-mode .doctor-appointment-card:hover .patient-icon {
+    background: #174851 !important;
+}
+
+html.dark-mode .patient-text h2,
+body.dark-mode .patient-text h2 {
+    color: #edf7f8 !important;
+}
+
+html.dark-mode .patient-text p,
+body.dark-mode .patient-text p {
+    color: #8ca8b1 !important;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+html.dark-mode .detail-icon,
+body.dark-mode .detail-icon {
+    background: #123b43 !important;
+    color: #45d2cc !important;
+}
+
+html.dark-mode .appointment-detail:hover .detail-icon,
+body.dark-mode .appointment-detail:hover .detail-icon {
+    background: #174851 !important;
+}
+
+html.dark-mode .detail-label,
+body.dark-mode .detail-label {
+    color: #7f9ba4 !important;
+}
+
+html.dark-mode .appointment-detail strong,
+body.dark-mode .appointment-detail strong {
+    color: #e8f5f7 !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+html.dark-mode .status-confirmed,
+body.dark-mode .status-confirmed {
+    background: #12382d !important;
+    color: #35ca92 !important;
+}
+
+html.dark-mode .status-pending,
+body.dark-mode .status-pending {
+    background: #3b3019 !important;
+    color: #e6b85c !important;
+}
+
+html.dark-mode .status-cancelled,
+body.dark-mode .status-cancelled {
+    background: #3b2023 !important;
+    color: #f07171 !important;
+}
+
+html.dark-mode .status-completed,
+body.dark-mode .status-completed {
+    background: #192e4b !important;
+    color: #70a0ff !important;
+}
+
+html.dark-mode .status-expired,
+body.dark-mode .status-expired {
+    background: #3a2918 !important;
+    color: #f0a94b !important;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+html.dark-mode .confirm-btn,
+body.dark-mode .confirm-btn {
+    background: #102a33 !important;
+    border-color: #3caa78 !important;
+    color: #35ca92 !important;
+}
+
+html.dark-mode .confirm-btn:hover,
+body.dark-mode .confirm-btn:hover {
+    background: #16834d !important;
+    color: #ffffff !important;
+}
+
+
+html.dark-mode .complete-btn,
+body.dark-mode .complete-btn {
+    background: #102a33 !important;
+    border-color: #4e83d7 !important;
+    color: #70a0ff !important;
+}
+
+html.dark-mode .complete-btn:hover,
+body.dark-mode .complete-btn:hover {
+    background: #3269c8 !important;
+    color: #ffffff !important;
+}
+
+
+html.dark-mode .cancel-btn,
+body.dark-mode .cancel-btn {
+    background: #102a33 !important;
+    border-color: #d45a5a !important;
+    color: #f07171 !important;
+}
+
+html.dark-mode .cancel-btn:hover,
+body.dark-mode .cancel-btn:hover {
+    background: #d43f3f !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   INFO MESSAGES
+========================================================= */
+
+html.dark-mode .appointment-info,
+body.dark-mode .appointment-info {
+    border: 1px solid transparent !important;
+}
+
+html.dark-mode .completed-info,
+body.dark-mode .completed-info {
+    background: #192e4b !important;
+    color: #70a0ff !important;
+}
+
+html.dark-mode .cancelled-info,
+body.dark-mode .cancelled-info {
+    background: #3b2023 !important;
+    color: #f07171 !important;
+}
+
+html.dark-mode .expired-info,
+body.dark-mode .expired-info {
+    background: #3a2918 !important;
+    color: #f0a94b !important;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+html.dark-mode .no-doctor-appointments,
+body.dark-mode .no-doctor-appointments {
+    background: #102a33 !important;
+    border-color: #29464f !important;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .no-appointments-icon,
+body.dark-mode .no-appointments-icon {
+    background: #123b43 !important;
+    color: #45d2cc !important;
+}
+
+html.dark-mode .no-doctor-appointments h2,
+body.dark-mode .no-doctor-appointments h2 {
+    color: #edf7f8 !important;
+}
+
+html.dark-mode .no-doctor-appointments p,
+body.dark-mode .no-doctor-appointments p {
+    color: #8ca6ae !important;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+html.dark-mode .doctor-appointments-loading,
+body.dark-mode .doctor-appointments-loading {
+    background: #102a33 !important;
+    border-color: #29464f !important;
+}
+
+html.dark-mode .loading-spinner,
+body.dark-mode .loading-spinner {
+    border-color: #24434b !important;
+    border-top-color: #18b8b1 !important;
+}
+
+html.dark-mode .doctor-appointments-loading p,
+body.dark-mode .doctor-appointments-loading p {
+    color: #8ca6ae !important;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+html.dark-mode .doctor-appointments-error,
+body.dark-mode .doctor-appointments-error {
+    background: #30191b !important;
+    border-color: #683033 !important;
+    color: #ff8d8d !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    html.dark-mode .doctor-appointment-card,
+    body.dark-mode .doctor-appointment-card {
+        background: #102a33 !important;
+    }
+
+    html.dark-mode .doctor-appointments-page,
+    body.dark-mode .doctor-appointments-page {
+        background: #081c24 !important;
+    }
+}

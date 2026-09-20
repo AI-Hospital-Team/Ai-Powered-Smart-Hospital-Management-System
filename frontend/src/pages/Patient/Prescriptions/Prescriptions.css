@@ -671,3 +671,81 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   PRESCRIPTION DATES
+   ========================================================= */
+
+.prescription-dates-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+
+  margin: 14px 0;
+}
+
+.prescription-date-box {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 12px 14px;
+
+  background: #f5f9fb;
+
+  border: 1px solid #e3edf1;
+  border-radius: 10px;
+}
+
+.prescription-date-box > svg {
+  width: 38px;
+  height: 38px;
+  padding: 9px;
+
+  box-sizing: border-box;
+
+  border-radius: 9px;
+
+  background: #e5f7fa;
+  color: #0b9caf;
+}
+
+.prescription-date-box > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.prescription-date-box span {
+  color: #8196a5;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.prescription-date-box strong {
+  color: #173f60;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   EXPIRED PRESCRIPTION
+   ========================================================= */
+
+.active-badge:has(+ *) {
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .prescription-dates-row {
+    grid-template-columns: 1fr;
+  }
+
+}
