@@ -192,6 +192,7 @@ public class AppointmentService {
 
             String status = appointment.getStatus();
 
+            // Already final / expired
             if ("Completed".equalsIgnoreCase(status) ||
                     "Cancelled".equalsIgnoreCase(status) ||
                     "Rejected".equalsIgnoreCase(status) ||
@@ -200,11 +201,77 @@ public class AppointmentService {
                 continue;
             }
 
+            // Appointment time has passed
             if (appointmentDateTime.isBefore(now)) {
 
                 appointment.setStatus("Expired");
 
-                appointmentRepository.save(appointment);
+                Appointment expiredAppointment =
+                        appointmentRepository.save(
+                                appointment
+                        );
+
+                // =================================================
+                // PATIENT NOTIFICATION
+                // =================================================
+
+                notificationService.notifyPatient(
+                        expiredAppointment.getPatientId(),
+                        "Appointment Expired",
+                        "Your appointment scheduled for "
+                                + expiredAppointment.getAppointmentDate()
+                                + " at "
+                                + expiredAppointment.getAppointmentTime()
+                                + " has expired because the scheduled time has passed.",
+                        "APPOINTMENT_EXPIRED",
+                        expiredAppointment.getAppointmentId()
+                );
+
+                // =================================================
+                // DOCTOR NOTIFICATION
+                // =================================================
+
+                userRepository
+                        .findByDoctorId(
+                                expiredAppointment.getDoctorId()
+                        )
+                        .ifPresent(doctorUser -> {
+
+                            notificationService.notifyDoctor(
+                                    doctorUser.getUserId(),
+                                    "Appointment Expired",
+                                    "A patient appointment scheduled for "
+                                            + expiredAppointment.getAppointmentDate()
+                                            + " at "
+                                            + expiredAppointment.getAppointmentTime()
+                                            + " has expired because the scheduled time has passed.",
+                                    "APPOINTMENT_EXPIRED",
+                                    expiredAppointment.getAppointmentId()
+                            );
+                        });
+
+                // =================================================
+                // ADMIN NOTIFICATION
+                // =================================================
+
+                List<User> admins =
+                        userRepository
+                                .findByRoleIgnoreCase("ADMIN");
+
+                for (User admin : admins) {
+
+                    notificationService.notifyAdmin(
+                            admin.getUserId(),
+                            "Appointment Expired",
+                            "An appointment scheduled for "
+                                    + expiredAppointment.getAppointmentDate()
+                                    + " at "
+                                    + expiredAppointment.getAppointmentTime()
+                                    + " has expired.",
+                            "APPOINTMENT_EXPIRED",
+                            expiredAppointment.getAppointmentId()
+                    );
+                }
             }
         }
     }
@@ -248,9 +315,8 @@ public class AppointmentService {
             // PATIENT
             // -------------------------------
 
-            notificationService.createNotification(
+            notificationService.notifyPatient(
                     appointment.getPatientId(),
-                    "PATIENT",
                     "Appointment Tomorrow",
                     "Reminder: You have an appointment tomorrow at "
                             + appointment.getAppointmentTime()
@@ -429,9 +495,8 @@ public class AppointmentService {
 
         if ("Confirmed".equalsIgnoreCase(requestedStatus)) {
 
-            notificationService.createNotification(
+            notificationService.notifyPatient(
                     appointment.getPatientId(),
-                    "PATIENT",
                     "Appointment Confirmed",
                     "Your appointment has been confirmed for "
                             + appointment.getAppointmentDate()
@@ -454,9 +519,8 @@ public class AppointmentService {
             // PATIENT
             // -------------------------------
 
-            notificationService.createNotification(
+            notificationService.notifyPatient(
                     appointment.getPatientId(),
-                    "PATIENT",
                     "Appointment Cancelled",
                     "Your appointment scheduled for "
                             + appointment.getAppointmentDate()
@@ -572,9 +636,8 @@ public class AppointmentService {
         // PATIENT
         // =================================================
 
-        notificationService.createNotification(
+        notificationService.notifyPatient(
                 appointment.getPatientId(),
-                "PATIENT",
                 "Appointment Rescheduled",
                 "Your appointment has been rescheduled to "
                         + newDate
@@ -661,9 +724,8 @@ public class AppointmentService {
         // PATIENT
         // =================================================
 
-        notificationService.createNotification(
+        notificationService.notifyPatient(
                 appointment.getPatientId(),
-                "PATIENT",
                 "Appointment Cancelled",
                 "Your appointment scheduled for "
                         + appointment.getAppointmentDate()

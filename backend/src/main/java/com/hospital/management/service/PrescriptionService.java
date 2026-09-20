@@ -112,6 +112,7 @@ public class PrescriptionService {
          * New prescriptions use the Start Date as
          * the prescription date.
          */
+
         if (prescription.getPrescriptionDate() == null) {
 
             prescription.setPrescriptionDate(
@@ -138,9 +139,8 @@ public class PrescriptionService {
         // PRESCRIPTION ADDED NOTIFICATION
         // =================================================
 
-        notificationService.createNotification(
+        notificationService.notifyPatient(
                 saved.getPatientId(),
-                "PATIENT",
                 "New Prescription Added",
                 "A new prescription has been added to your medical records.",
                 "PRESCRIPTION_ADDED",
@@ -174,9 +174,8 @@ public class PrescriptionService {
                 continue;
             }
 
-            notificationService.createNotification(
+            notificationService.notifyPatient(
                     prescription.getPatientId(),
-                    "PATIENT",
                     "Prescription End Date",
                     "Your prescription reaches its end date today. Please consult your doctor before continuing or changing your medication.",
                     "PRESCRIPTION_END_DATE",
@@ -329,9 +328,8 @@ public class PrescriptionService {
         // PRESCRIPTION UPDATED NOTIFICATION
         // =================================================
 
-        notificationService.createNotification(
+        notificationService.notifyPatient(
                 saved.getPatientId(),
-                "PATIENT",
                 "Prescription Updated",
                 "Your prescription has been updated. Please check your medical records.",
                 "PRESCRIPTION_UPDATED",

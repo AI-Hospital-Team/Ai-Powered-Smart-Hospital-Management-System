@@ -6,17 +6,22 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hospital.management.entity.Notification;
+import com.hospital.management.entity.User;
 import com.hospital.management.repository.NotificationRepository;
+import com.hospital.management.repository.UserRepository;
 
 @Service
 public class NotificationService {
 
     private final NotificationRepository notificationRepository;
+    private final UserRepository userRepository;
 
     public NotificationService(
-            NotificationRepository notificationRepository) {
+            NotificationRepository notificationRepository,
+            UserRepository userRepository) {
 
         this.notificationRepository = notificationRepository;
+        this.userRepository = userRepository;
     }
 
     // =====================================================
@@ -54,6 +59,32 @@ public class NotificationService {
         notification.setCreatedAt(LocalDateTime.now());
 
         return notificationRepository.save(notification);
+    }
+
+    // =====================================================
+    // PATIENT NOTIFICATION
+    // =====================================================
+
+    public Notification notifyPatient(
+            Integer patientId,
+            String title,
+            String message,
+            String type,
+            Integer referenceId) {
+
+        return userRepository
+                .findByPatientId(patientId)
+                .map(patientUser ->
+                        createNotification(
+                                patientUser.getUserId(),
+                                "PATIENT",
+                                title,
+                                message,
+                                type,
+                                referenceId
+                        )
+                )
+                .orElse(null);
     }
 
     // =====================================================
