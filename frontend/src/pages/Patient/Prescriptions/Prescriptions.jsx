@@ -134,6 +134,67 @@ function Prescriptions() {
   };
 
   // =====================================================
+  // GET START DATE
+  // =====================================================
+
+  const getStartDate = (prescription) => {
+    return (
+      prescription.startDate ||
+      prescription.prescriptionDate ||
+      null
+    );
+  };
+
+// =====================================================
+// GET PRESCRIPTION STATUS
+// =====================================================
+
+const getPrescriptionStatus = (prescription) => {
+  const startDate =
+    prescription.startDate ||
+    prescription.prescriptionDate ||
+    null;
+
+  const endDate =
+    prescription.endDate ||
+    null;
+
+  // Old prescription with no dates
+  if (!startDate && !endDate) {
+    return "ACTIVE";
+  }
+
+  // Old prescription with only historical date
+  if (startDate && !endDate) {
+    return "ACTIVE";
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const start = new Date(
+    `${startDate}T00:00:00`
+  );
+
+  const end = new Date(
+    `${endDate}T00:00:00`
+  );
+
+  // Before treatment starts
+  if (today < start) {
+    return "UPCOMING";
+  }
+
+  // Treatment is currently active
+  if (today >= start && today <= end) {
+    return "ACTIVE";
+  }
+
+  // Treatment has ended
+  return "EXPIRED";
+};
+
+  // =====================================================
   // LOADING
   // =====================================================
 
@@ -154,11 +215,13 @@ function Prescriptions() {
           </div>
 
           <div className="prescriptions-loading">
+
             <div className="prescription-spinner"></div>
 
             <p>
               Loading prescriptions...
             </p>
+
           </div>
 
         </div>
@@ -199,11 +262,13 @@ function Prescriptions() {
             </div>
 
             <div>
+
               <strong>
                 Unable to load prescriptions
               </strong>
 
               <p>{error}</p>
+
             </div>
 
           </div>
@@ -241,6 +306,7 @@ function Prescriptions() {
             </div>
 
             <div>
+
               <h1>
                 My Prescriptions
               </h1>
@@ -249,6 +315,7 @@ function Prescriptions() {
                 View medicines prescribed by your
                 doctors.
               </p>
+
             </div>
 
           </div>
@@ -289,235 +356,308 @@ function Prescriptions() {
 
         <div className="prescription-list">
 
-          {prescriptions.map((prescription) => (
+          {prescriptions.map((prescription) => {
 
-            <div
-              className="prescription-card"
-              key={prescription.prescriptionId}
-            >
+           const status =
+            getPrescriptionStatus(
+              prescription
+            );
 
-              {/* =========================================
-                  CARD HEADER
-              ========================================= */}
+            return (
 
-              <div className="prescription-card-header">
+              <div
+                className="prescription-card"
+                key={prescription.prescriptionId}
+              >
 
-                <div className="prescription-title">
+                {/* =========================================
+                    CARD HEADER
+                ========================================= */}
 
-                  <div
-                    className="medicine-icon"
-                    aria-hidden="true"
-                  >
-                    <Pill
-                      size={23}
-                      strokeWidth={2}
-                    />
+                <div className="prescription-card-header">
+
+                  <div className="prescription-title">
+
+                    <div
+                      className="medicine-icon"
+                      aria-hidden="true"
+                    >
+                      <Pill
+                        size={23}
+                        strokeWidth={2}
+                      />
+                    </div>
+
+                    <div>
+
+                      <h2>
+                        Prescription #
+                        {prescription.prescriptionId}
+                      </h2>
+
+                      <p>
+                        <CalendarDays
+                          size={13}
+                          strokeWidth={2}
+                        />
+
+                        Start:{" "}
+                          {formatDate(
+                            getStartDate(prescription)
+                          )}
+                        </p>
+
+                    </div>
+
                   </div>
 
-                  <div>
-                    <h2>
-                      Prescription #
-                      {prescription.prescriptionId}
-                    </h2>
+                  <span className="active-badge">
 
-                    <p>
-                      <CalendarDays
-                        size={13}
+                    <Activity
+                      size={14}
+                      strokeWidth={2.3}
+                    />
+
+                    {status}
+
+                  </span>
+
+                </div>
+
+                {/* =========================================
+                    DATES
+                ========================================= */}
+
+                <div className="prescription-dates-row">
+
+                  <div className="prescription-date-box">
+
+                    <CalendarDays
+                      size={18}
+                      strokeWidth={2}
+                    />
+
+                    <div>
+
+                      <span>
+                        Start Date
+                      </span>
+
+                      <strong>
+                        {formatDate(
+                          getStartDate(prescription)
+                        )}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+                  <div className="prescription-date-box">
+
+                    <CalendarDays
+                      size={18}
+                      strokeWidth={2}
+                    />
+
+                    <div>
+
+                      <span>
+                        End Date
+                      </span>
+
+                      <strong>
+                        {formatDate(
+                          prescription.endDate
+                        )}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                {/* =========================================
+                    DOCTOR / DIAGNOSIS
+                ========================================= */}
+
+                <div className="prescription-info-row">
+
+                  {/* DISEASE / DIAGNOSIS */}
+
+                  <div className="prescription-info-box">
+
+                    <div className="prescription-info-icon">
+
+                      <Activity
+                        size={20}
                         strokeWidth={2}
                       />
 
-                      {formatDate(
-                        prescription.prescriptionDate
-                      )}
-                    </p>
-                  </div>
+                    </div>
 
-                </div>
+                    <div>
 
-                <span className="active-badge">
+                      <span>
+                        Disease / Diagnosis
+                      </span>
 
-                  <Activity
-                    size={14}
-                    strokeWidth={2.3}
-                  />
+                      <strong>
+                        {prescription.diagnosis ||
+                          prescription.disease ||
+                          "Not specified"}
+                      </strong>
 
-                  Active
-
-                </span>
-
-              </div>
-
-         {/* =========================================
-                  DOCTOR
-          ========================================= */}
-
-           <div className="prescription-info-row">
-
-            {/* DISEASE / DIAGNOSIS */}
-
-            <div className="prescription-info-box">
-
-              <div className="prescription-info-icon">
-                <Activity
-                  size={20}
-                  strokeWidth={2}
-                />
-              </div>
-
-              <div>
-                <span>
-                  Disease / Diagnosis
-                </span>
-
-                <strong>
-                  {prescription.diagnosis ||
-                    prescription.disease ||
-                    "Not specified"}
-                </strong>
-              </div>
-
-            </div>
-
-
-            {/* DOCTOR */}
-
-            <div className="prescription-info-box">
-
-              <div className="prescription-info-icon">
-                <UserRound
-                  size={20}
-                  strokeWidth={2}
-                />
-              </div>
-
-              <div>
-                <span>
-                  Prescribed By
-                </span>
-
-                <strong>
-                  {prescription.doctorName ||
-                    `Doctor #${prescription.doctorId}`}
-                </strong>
-              </div>
-
-            </div>
-
-          </div>
-              {/* =========================================
-                  MEDICINES
-              ========================================= */}
-
-              <div className="medicine-section">
-
-                <div className="section-heading">
-
-                  <Pill
-                    size={17}
-                    strokeWidth={2}
-                  />
-
-                  <h3>
-                    Medicines
-                  </h3>
-
-                </div>
-
-                <div className="medicine-details">
-
-                  {/* MEDICINE */}
-
-                  <div className="medicine-detail">
-
-                    <span>
-                      Medicine
-                    </span>
-
-                    <strong>
-                      {prescription.medicineName ||
-                        "Not specified"}
-                    </strong>
+                    </div>
 
                   </div>
 
-                  {/* DOSAGE */}
+                  {/* DOCTOR */}
 
-                  <div className="medicine-detail">
+                  <div className="prescription-info-box">
 
-                    <span>
-                      Dosage
-                    </span>
+                    <div className="prescription-info-icon">
 
-                    <strong>
-                      {prescription.dosage ||
-                        "Not specified"}
-                    </strong>
+                      <UserRound
+                        size={20}
+                        strokeWidth={2}
+                      />
 
-                  </div>
+                    </div>
 
-                  {/* FREQUENCY */}
+                    <div>
 
-                  <div className="medicine-detail">
+                      <span>
+                        Prescribed By
+                      </span>
 
-                    <span>
-                      Frequency
-                    </span>
+                      <strong>
+                        {prescription.doctorName ||
+                          `Doctor #${prescription.doctorId}`}
+                      </strong>
 
-                    <strong>
-                      {prescription.frequency ||
-                        "Not specified"}
-                    </strong>
-
-                  </div>
-
-                  {/* DURATION */}
-
-                  <div className="medicine-detail">
-
-                    <span>
-                      Duration
-                    </span>
-
-                    <strong>
-                      {prescription.duration ||
-                        "Not specified"}
-                    </strong>
+                    </div>
 
                   </div>
 
                 </div>
 
-              </div>
+                {/* =========================================
+                    MEDICINES
+                ========================================= */}
 
-              {/* =========================================
-                  INSTRUCTIONS
-              ========================================= */}
+                <div className="medicine-section">
 
-              <div className="instructions-section">
+                  <div className="section-heading">
 
-                <div className="instructions-heading">
+                    <Pill
+                      size={17}
+                      strokeWidth={2}
+                    />
 
-                  <FileText
-                    size={17}
-                    strokeWidth={2}
-                  />
+                    <h3>
+                      Medicines
+                    </h3>
 
-                  <h3>
-                    Instructions
-                  </h3>
+                  </div>
+
+                  <div className="medicine-details">
+
+                    {/* MEDICINE */}
+
+                    <div className="medicine-detail">
+
+                      <span>
+                        Medicine
+                      </span>
+
+                      <strong>
+                        {prescription.medicineName ||
+                          "Not specified"}
+                      </strong>
+
+                    </div>
+
+                    {/* DOSAGE */}
+
+                    <div className="medicine-detail">
+
+                      <span>
+                        Dosage
+                      </span>
+
+                      <strong>
+                        {prescription.dosage ||
+                          "Not specified"}
+                      </strong>
+
+                    </div>
+
+                    {/* FREQUENCY */}
+
+                    <div className="medicine-detail">
+
+                      <span>
+                        Frequency
+                      </span>
+
+                      <strong>
+                        {prescription.frequency ||
+                          "Not specified"}
+                      </strong>
+
+                    </div>
+
+                    {/* DURATION */}
+
+                    <div className="medicine-detail">
+
+                      <span>
+                        Duration
+                      </span>
+
+                      <strong>
+                        {prescription.duration ||
+                          "Not specified"}
+                      </strong>
+
+                    </div>
+
+                  </div>
 
                 </div>
 
-                <p>
-                  {prescription.instructions ||
-                    "No instructions provided."}
-                </p>
+                {/* =========================================
+                    INSTRUCTIONS
+                ========================================= */}
+
+                <div className="instructions-section">
+
+                  <div className="instructions-heading">
+
+                    <FileText
+                      size={17}
+                      strokeWidth={2}
+                    />
+
+                    <h3>
+                      Instructions
+                    </h3>
+
+                  </div>
+
+                  <p>
+                    {prescription.instructions ||
+                      "No instructions provided."}
+                  </p>
+
+                </div>
 
               </div>
 
-            </div>
-
-          ))}
+            );
+          })}
 
         </div>
 

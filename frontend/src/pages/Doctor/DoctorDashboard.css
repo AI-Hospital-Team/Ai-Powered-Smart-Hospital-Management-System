@@ -792,3 +792,140 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   DOCTOR WELCOME — SAME ANIMATION AS PATIENT PANEL
+========================================================= */
+
+/* Main welcome card entrance */
+.doctor-welcome-card {
+  animation: doctorHeroIn 0.65s ease both !important;
+}
+
+@keyframes doctorHeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   DOCTOR WELCOME CONTENT
+========================================================= */
+
+.doctor-welcome-badge {
+  animation: doctorContentIn 0.55s ease 0.10s both;
+}
+
+.doctor-welcome-content h1 {
+  animation: doctorContentIn 0.55s ease 0.18s both;
+}
+
+.doctor-welcome-content > p {
+  animation: doctorContentIn 0.55s ease 0.28s both;
+}
+
+.doctor-welcome-info {
+  animation: doctorContentIn 0.55s ease 0.38s both;
+}
+
+@keyframes doctorContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   DOCTOR NAME — SMALL SLIDE EFFECT
+========================================================= */
+
+.doctor-welcome-content h1 span {
+  display: inline-block;
+
+  color: #50e1e4 !important;
+
+  animation: doctorNameIn 0.7s ease 0.22s both;
+}
+
+@keyframes doctorNameIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* =========================================================
+   FLOATING STETHOSCOPE
+   Same effect as Patient heart-circle
+========================================================= */
+
+.doctor-welcome-icon {
+  animation: doctorFloat 4s ease-in-out infinite !important;
+}
+
+@keyframes doctorFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+
+/* =========================================================
+   BADGE HOVER
+========================================================= */
+
+.doctor-welcome-badge {
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.doctor-welcome-badge:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+
+/* =========================================================
+   REDUCE MOTION ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .doctor-welcome-card,
+  .doctor-welcome-badge,
+  .doctor-welcome-content h1,
+  .doctor-welcome-content h1 span,
+  .doctor-welcome-content > p,
+  .doctor-welcome-info,
+  .doctor-welcome-icon {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
