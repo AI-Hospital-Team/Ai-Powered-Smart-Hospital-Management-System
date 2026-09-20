@@ -82,25 +82,53 @@ public class PrescriptionService {
         ) + 1;
 
         if (days < 1) {
+
             throw new RuntimeException(
                     "End date cannot be before start date."
             );
         }
 
         prescription.setDuration(
-                days + (days == 1 ? " day" : " days")
+                days +
+                (days == 1 ? " day" : " days")
         );
     }
 
     // =====================================================
-    // CREATE
+    // CREATE PRESCRIPTION
     // =====================================================
 
     public Prescription createPrescription(
             Prescription prescription) {
 
-        // Calculate duration automatically
+        // =================================================
+        // SET PRESCRIPTION DATE
+        // =================================================
+
+        /*
+         * prescription_date is an existing required
+         * database column.
+         *
+         * New prescriptions use the Start Date as
+         * the prescription date.
+         */
+
+        if (prescription.getPrescriptionDate() == null) {
+
+            prescription.setPrescriptionDate(
+                    prescription.getStartDate()
+            );
+        }
+
+        // =================================================
+        // CALCULATE DURATION
+        // =================================================
+
         calculateDuration(prescription);
+
+        // =================================================
+        // SAVE
+        // =================================================
 
         Prescription saved =
                 prescriptionRepository.save(
@@ -111,9 +139,8 @@ public class PrescriptionService {
         // PRESCRIPTION ADDED NOTIFICATION
         // =================================================
 
-        notificationService.createNotification(
+        notificationService.notifyPatient(
                 saved.getPatientId(),
-                "PATIENT",
                 "New Prescription Added",
                 "A new prescription has been added to your medical records.",
                 "PRESCRIPTION_ADDED",
@@ -124,7 +151,7 @@ public class PrescriptionService {
     }
 
     // =====================================================
-    // PRESCRIPTION END DATE REMINDER
+    // PRESCRIPTION END DATE NOTIFICATION
     // =====================================================
 
     @Scheduled(fixedRate = 3600000)
@@ -141,13 +168,14 @@ public class PrescriptionService {
                 continue;
             }
 
-            if (!today.equals(prescription.getEndDate())) {
+            if (!today.equals(
+                    prescription.getEndDate())) {
+
                 continue;
             }
 
-            notificationService.createNotification(
+            notificationService.notifyPatient(
                     prescription.getPatientId(),
-                    "PATIENT",
                     "Prescription End Date",
                     "Your prescription reaches its end date today. Please consult your doctor before continuing or changing your medication.",
                     "PRESCRIPTION_END_DATE",
@@ -213,7 +241,7 @@ public class PrescriptionService {
     }
 
     // =====================================================
-    // UPDATE
+    // UPDATE PRESCRIPTION
     // =====================================================
 
     public Prescription updatePrescription(
@@ -229,6 +257,10 @@ public class PrescriptionService {
                                                 + prescriptionId
                                 )
                         );
+
+        // =================================================
+        // UPDATE BASIC INFORMATION
+        // =================================================
 
         existing.setDiagnosis(
                 updatedPrescription.getDiagnosis()
@@ -266,19 +298,38 @@ public class PrescriptionService {
                 updatedPrescription.getEndDate()
         );
 
-        // Recalculate duration automatically
+        // =================================================
+        // KEEP PRESCRIPTION DATE
+        // =================================================
+
+        if (existing.getPrescriptionDate() == null) {
+
+            existing.setPrescriptionDate(
+                    existing.getStartDate()
+            );
+        }
+
+        // =================================================
+        // RECALCULATE DURATION
+        // =================================================
+
         calculateDuration(existing);
 
+        // =================================================
+        // SAVE
+        // =================================================
+
         Prescription saved =
-                prescriptionRepository.save(existing);
+                prescriptionRepository.save(
+                        existing
+                );
 
         // =================================================
         // PRESCRIPTION UPDATED NOTIFICATION
         // =================================================
 
-        notificationService.createNotification(
+        notificationService.notifyPatient(
                 saved.getPatientId(),
-                "PATIENT",
                 "Prescription Updated",
                 "Your prescription has been updated. Please check your medical records.",
                 "PRESCRIPTION_UPDATED",

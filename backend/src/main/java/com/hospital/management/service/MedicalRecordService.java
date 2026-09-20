@@ -7,23 +7,30 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.hospital.management.entity.MedicalRecord;
+import com.hospital.management.entity.User;
 import com.hospital.management.repository.MedicalRecordRepository;
+import com.hospital.management.repository.UserRepository;
 
 @Service
 public class MedicalRecordService {
 
     private final MedicalRecordRepository medicalRecordRepository;
     private final NotificationService notificationService;
+    private final UserRepository userRepository;
 
     public MedicalRecordService(
             MedicalRecordRepository medicalRecordRepository,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            UserRepository userRepository) {
 
         this.medicalRecordRepository =
                 medicalRecordRepository;
 
         this.notificationService =
                 notificationService;
+
+        this.userRepository =
+                userRepository;
     }
 
     // =====================================================
@@ -111,15 +118,38 @@ public class MedicalRecordService {
                 continue;
             }
 
-            // Send notification to patient
-            notificationService.createNotification(
+            // =================================================
+            // PATIENT NOTIFICATION
+            // =================================================
+
+            notificationService.notifyPatient(
                     record.getPatientId(),
-                    "PATIENT",
                     "Follow-up Reminder",
                     "Your follow-up date is today. Please consult your doctor for your scheduled follow-up.",
                     "FOLLOW_UP_REMINDER",
                     record.getRecordId()
             );
+
+            // =================================================
+            // DOCTOR NOTIFICATION
+            // =================================================
+
+            if (record.getDoctorId() != null) {
+
+                userRepository
+                        .findByDoctorId(
+                                record.getDoctorId()
+                        )
+                        .ifPresent(doctorUser ->
+                                notificationService.notifyDoctor(
+                                        doctorUser.getUserId(),
+                                        "Patient Follow-up Reminder",
+                                        "A patient's scheduled follow-up date is today. Please review the patient's medical record.",
+                                        "FOLLOW_UP_REMINDER",
+                                        record.getRecordId()
+                                )
+                        );
+            }
         }
     }
 

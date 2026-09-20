@@ -134,27 +134,65 @@ function Prescriptions() {
   };
 
   // =====================================================
-  // GET PRESCRIPTION STATUS
+  // GET START DATE
   // =====================================================
 
-  const getPrescriptionStatus = (endDate) => {
-    if (!endDate) {
-      return "ACTIVE";
-    }
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const end = new Date(
-      `${endDate}T00:00:00`
+  const getStartDate = (prescription) => {
+    return (
+      prescription.startDate ||
+      prescription.prescriptionDate ||
+      null
     );
-
-    if (end < today) {
-      return "EXPIRED";
-    }
-
-    return "ACTIVE";
   };
+
+// =====================================================
+// GET PRESCRIPTION STATUS
+// =====================================================
+
+const getPrescriptionStatus = (prescription) => {
+  const startDate =
+    prescription.startDate ||
+    prescription.prescriptionDate ||
+    null;
+
+  const endDate =
+    prescription.endDate ||
+    null;
+
+  // Old prescription with no dates
+  if (!startDate && !endDate) {
+    return "ACTIVE";
+  }
+
+  // Old prescription with only historical date
+  if (startDate && !endDate) {
+    return "ACTIVE";
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const start = new Date(
+    `${startDate}T00:00:00`
+  );
+
+  const end = new Date(
+    `${endDate}T00:00:00`
+  );
+
+  // Before treatment starts
+  if (today < start) {
+    return "UPCOMING";
+  }
+
+  // Treatment is currently active
+  if (today >= start && today <= end) {
+    return "ACTIVE";
+  }
+
+  // Treatment has ended
+  return "EXPIRED";
+};
 
   // =====================================================
   // LOADING
@@ -320,10 +358,10 @@ function Prescriptions() {
 
           {prescriptions.map((prescription) => {
 
-            const status =
-              getPrescriptionStatus(
-                prescription.endDate
-              );
+           const status =
+            getPrescriptionStatus(
+              prescription
+            );
 
             return (
 
@@ -364,10 +402,10 @@ function Prescriptions() {
                         />
 
                         Start:{" "}
-                        {formatDate(
-                          prescription.startDate
-                        )}
-                      </p>
+                          {formatDate(
+                            getStartDate(prescription)
+                          )}
+                        </p>
 
                     </div>
 
@@ -407,7 +445,7 @@ function Prescriptions() {
 
                       <strong>
                         {formatDate(
-                          prescription.startDate
+                          getStartDate(prescription)
                         )}
                       </strong>
 
