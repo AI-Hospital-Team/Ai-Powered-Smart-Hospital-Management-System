@@ -12,6 +12,7 @@ import {
   Pencil,
   X,
   ArrowRight,
+  Trash2,
 } from "lucide-react";
 
 import {
@@ -33,6 +34,14 @@ function Prescriptions() {
 
   const [selectedPrescription, setSelectedPrescription] =
     useState(null);
+
+  // =====================================================
+  // DELETE PRESCRIPTION
+  // =====================================================
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedPrescriptionId, setSelectedPrescriptionId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const loadData = async () => {
     try {
@@ -171,6 +180,59 @@ function Prescriptions() {
     doctors,
     searchTerm,
   ]);
+
+  const openDeleteModal = (prescriptionId) => {
+    setSelectedPrescriptionId(prescriptionId);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    if (deleting) return;
+
+    setShowDeleteModal(false);
+    setSelectedPrescriptionId(null);
+  };
+
+  const handleDeletePrescription = async () => {
+    if (!selectedPrescriptionId) return;
+
+    try {
+      setDeleting(true);
+      setError("");
+
+      const response = await fetch(
+        `http://localhost:8080/api/prescriptions/${selectedPrescriptionId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete prescription: ${response.status}`
+        );
+      }
+
+      setPrescriptions((previousPrescriptions) =>
+        previousPrescriptions.filter(
+          (prescription) =>
+            Number(prescription.prescriptionId) !==
+            Number(selectedPrescriptionId)
+        )
+      );
+
+      setSelectedPrescription(null);
+      setShowDeleteModal(false);
+      setSelectedPrescriptionId(null);
+    } catch (err) {
+      console.error("Prescription delete error:", err);
+      setError(
+        "Unable to delete prescription. Please try again."
+      );
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   return (
     <div className="admin-prescriptions-page">
@@ -400,6 +462,19 @@ function Prescriptions() {
 
                     </div>
 
+                  </div>
+                  <div className="admin-prescription-actions">
+                    <button
+                      type="button"
+                      className="admin-delete-prescription-button"
+                      onClick={() =>
+                        openDeleteModal(prescription.prescriptionId)
+                      }
+                      title="Delete prescription"
+                      aria-label="Delete prescription"
+                    >
+                      <Trash2 size={17} />
+                    </button>
                   </div>
 
                   {/* PATIENT */}
@@ -749,6 +824,73 @@ function Prescriptions() {
 
           </div>
 
+        </div>
+      )}
+
+      {/* DELETE CONFIRMATION MODAL */}
+
+      {showDeleteModal && (
+        <div
+          className="admin-delete-prescription-modal-overlay"
+          onClick={closeDeleteModal}
+        >
+          <div
+            className="admin-delete-prescription-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="admin-delete-prescription-modal-close"
+              onClick={closeDeleteModal}
+              disabled={deleting}
+              title="Close"
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="admin-delete-prescription-modal-icon">
+              <Trash2 size={26} />
+            </div>
+
+            <h2>Delete Prescription?</h2>
+
+            <p>
+              Are you sure you want to delete this prescription?
+              <br />
+              <span>This action cannot be undone.</span>
+            </p>
+
+            <div className="admin-delete-prescription-modal-actions">
+              <button
+                type="button"
+                className="admin-delete-prescription-cancel-button"
+                onClick={closeDeleteModal}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="admin-delete-prescription-confirm-button"
+                onClick={handleDeletePrescription}
+                disabled={deleting}
+              >
+                {deleting ? (
+                  <>
+                    <span className="admin-delete-prescription-spinner"></span>
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={14} />
+                    Delete Prescription
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

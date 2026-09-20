@@ -735,3 +735,500 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   DELETE MODAL ACTION BUTTONS
+========================================================= */
+
+.doctor-delete-prescription-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* CANCEL BUTTON */
+
+.doctor-delete-prescription-cancel-button {
+  min-width: 105px;
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 17px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d5e3e8;
+  border-radius: 9px;
+
+  background: #f7fafb;
+  color: #526f7e;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  appearance: none;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.doctor-delete-prescription-cancel-button:hover {
+  background: #edf4f6;
+  border-color: #c4d8df;
+  color: #294b5c;
+}
+
+.doctor-delete-prescription-cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* DELETE BUTTON */
+
+.doctor-delete-prescription-confirm-button {
+  min-width: 155px;
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 0 17px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d43b3b;
+  border-radius: 9px;
+
+  background: #d43b3b;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  appearance: none;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.doctor-delete-prescription-confirm-button:hover {
+  background: #bd2f2f;
+  border-color: #bd2f2f;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+.doctor-delete-prescription-confirm-button:active {
+  transform: translateY(0);
+}
+
+.doctor-delete-prescription-confirm-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* DELETE SPINNER */
+
+.doctor-delete-prescription-spinner {
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+
+  border-radius: 50%;
+
+  animation: doctorDeletePrescriptionSpin 0.7s linear infinite;
+}
+
+@keyframes doctorDeletePrescriptionSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .doctor-delete-prescription-modal-actions {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .doctor-delete-prescription-cancel-button,
+  .doctor-delete-prescription-confirm-button {
+    width: 100%;
+  }
+}
+/* =========================================================
+   DOCTOR PRESCRIPTION DELETE - FINAL OVERRIDE
+========================================================= */
+
+.doctor-delete-prescription-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  background: rgba(16, 32, 45, 0.58) !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+.doctor-delete-prescription-modal {
+  position: relative !important;
+  width: min(430px, 100%) !important;
+  padding: 30px !important;
+  box-sizing: border-box !important;
+  border: 1px solid #dceaf0 !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  color: #173f60 !important;
+  text-align: center !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.20) !important;
+}
+
+.doctor-delete-prescription-modal-close {
+  position: absolute !important;
+  top: 13px !important;
+  right: 13px !important;
+  width: 34px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  border: 1px solid #dce8ed !important;
+  border-radius: 9px !important;
+  background: #f6f9fa !important;
+  color: #718793 !important;
+  font-family: inherit !important;
+  cursor: pointer !important;
+  appearance: none !important;
+}
+
+.doctor-delete-prescription-modal-close:hover {
+  background: #edf4f6 !important;
+  color: #294b5c !important;
+}
+
+.doctor-delete-prescription-modal-icon {
+  width: 62px !important;
+  height: 62px !important;
+  margin: 0 auto 17px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  background: #fff0f0 !important;
+  color: #d43b3b !important;
+  box-shadow: inset 0 0 0 1px #f5d0d0 !important;
+}
+
+.doctor-delete-prescription-modal h2 {
+  margin: 0 0 9px !important;
+  color: #123f63 !important;
+  font-size: 21px !important;
+  line-height: 1.3 !important;
+  font-weight: 800 !important;
+}
+
+.doctor-delete-prescription-modal p {
+  margin: 0 !important;
+  color: #6d879b !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+}
+
+.doctor-delete-prescription-modal p span {
+  color: #8799a6 !important;
+  font-size: 12px !important;
+}
+
+.doctor-delete-prescription-modal-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  margin-top: 24px !important;
+}
+
+.doctor-delete-prescription-cancel-button {
+  min-width: 105px !important;
+  width: auto !important;
+  height: 40px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 17px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  border: 1px solid #d5e3e8 !important;
+  border-radius: 9px !important;
+  background: #f7fafb !important;
+  color: #526f7e !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  outline: none !important;
+}
+
+.doctor-delete-prescription-cancel-button:hover {
+  background: #edf4f6 !important;
+  border-color: #c4d8df !important;
+  color: #294b5c !important;
+}
+
+.doctor-delete-prescription-confirm-button {
+  min-width: 155px !important;
+  width: auto !important;
+  height: 40px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  padding: 0 17px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  border: 1px solid #d43b3b !important;
+  border-radius: 9px !important;
+  background: #d43b3b !important;
+  color: #ffffff !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  outline: none !important;
+}
+
+.doctor-delete-prescription-confirm-button:hover {
+  background: #bd2f2f !important;
+  border-color: #bd2f2f !important;
+  color: #ffffff !important;
+}
+
+.doctor-delete-prescription-confirm-button:disabled,
+.doctor-delete-prescription-cancel-button:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+}
+
+.doctor-delete-prescription-spinner {
+  width: 14px !important;
+  height: 14px !important;
+  display: inline-block !important;
+  box-sizing: border-box !important;
+  border: 2px solid rgba(255,255,255,0.4) !important;
+  border-top-color: #ffffff !important;
+  border-radius: 50% !important;
+  animation: doctorDeletePrescriptionSpinFinal 0.7s linear infinite !important;
+}
+
+@keyframes doctorDeletePrescriptionSpinFinal {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+  .doctor-delete-prescription-modal-overlay {
+    align-items: center !important;
+    padding: 15px !important;
+  }
+
+  .doctor-delete-prescription-modal {
+    width: 100% !important;
+    max-width: 430px !important;
+    padding: 27px 20px !important;
+  }
+
+  .doctor-delete-prescription-modal-actions {
+    flex-direction: column-reverse !important;
+    width: 100% !important;
+  }
+
+  .doctor-delete-prescription-cancel-button,
+  .doctor-delete-prescription-confirm-button {
+    width: 100% !important;
+  }
+}
+
+/* =========================================================
+   DOCTOR PRESCRIPTION CARD - DELETE BUTTON FIX
+========================================================= */
+
+.doctor-prescription-header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+
+.doctor-prescription-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-left: auto !important;
+}
+
+.doctor-prescription-id {
+  display: inline-flex !important;
+  align-items: center !important;
+
+  color: #526b7c !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+/* DELETE ICON BUTTON */
+
+.doctor-delete-prescription-button {
+  width: 34px !important;
+  height: 34px !important;
+
+  min-width: 34px !important;
+  min-height: 34px !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+
+  border: 1px solid #f0caca !important;
+  border-radius: 9px !important;
+
+  background: #fff4f4 !important;
+  color: #d43b3b !important;
+
+  font-family: inherit !important;
+  font-size: 0 !important;
+
+  cursor: pointer !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  outline: none !important;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease !important;
+}
+
+.doctor-delete-prescription-button svg {
+  width: 17px !important;
+  height: 17px !important;
+
+  display: block !important;
+
+  color: #d43b3b !important;
+  stroke: currentColor !important;
+}
+
+.doctor-delete-prescription-button:hover {
+  background: #ffe3e3 !important;
+  border-color: #e4a2a2 !important;
+  color: #b92828 !important;
+
+  transform: translateY(-1px) !important;
+}
+
+.doctor-delete-prescription-button:hover svg {
+  color: #b92828 !important;
+}
+
+.doctor-delete-prescription-button:active {
+  transform: translateY(0) !important;
+}
+
+.doctor-delete-prescription-button:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* =========================================================
+   MOVE DELETE BUTTON TO FAR RIGHT
+========================================================= */
+
+.doctor-prescription-card {
+  position: relative !important;
+}
+
+.doctor-delete-prescription-button {
+  position: absolute !important;
+
+  top: 20px !important;
+  right: 20px !important;
+
+  width: 34px !important;
+  height: 34px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 1px solid #f0caca !important;
+  border-radius: 9px !important;
+
+  background: #fff4f4 !important;
+  color: #d43b3b !important;
+
+  cursor: pointer !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  z-index: 5 !important;
+}
+
+.doctor-delete-prescription-button svg {
+  width: 17px !important;
+  height: 17px !important;
+  color: #d43b3b !important;
+}
+
+.doctor-delete-prescription-button:hover {
+  background: #ffe3e3 !important;
+  border-color: #e4a2a2 !important;
+  color: #b92828 !important;
+}
