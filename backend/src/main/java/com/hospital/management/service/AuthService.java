@@ -3,18 +3,18 @@ package com.hospital.management.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hospital.management.dto.LoginResponse;
 import com.hospital.management.entity.Doctor;
-import com.hospital.management.entity.PasswordResetOtp;
+import com.hospital.management.entity.PasswordResetRequest;
 import com.hospital.management.entity.Patient;
 import com.hospital.management.entity.User;
 import com.hospital.management.repository.DoctorRepository;
-import com.hospital.management.repository.PasswordResetOtpRepository;
+import com.hospital.management.repository.PasswordResetRequestRepository;
 import com.hospital.management.repository.PatientRepository;
 import com.hospital.management.repository.UserRepository;
 
@@ -25,8 +25,9 @@ public class AuthService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final NotificationService notificationService;
-    private final PasswordResetOtpRepository passwordResetOtpRepository;
-    private final EmailService emailService;
+
+    // New Admin Password Reset flow
+    private final PasswordResetRequestRepository passwordResetRequestRepository;
 
     // =====================================================
     // CONSTRUCTOR
@@ -37,15 +38,14 @@ public class AuthService {
             PatientRepository patientRepository,
             DoctorRepository doctorRepository,
             NotificationService notificationService,
-            PasswordResetOtpRepository passwordResetOtpRepository,
-            EmailService emailService) {
+            PasswordResetRequestRepository passwordResetRequestRepository) {
 
         this.userRepository = userRepository;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.notificationService = notificationService;
-        this.passwordResetOtpRepository = passwordResetOtpRepository;
-        this.emailService = emailService;
+        this.passwordResetRequestRepository =
+                passwordResetRequestRepository;
     }
 
     // =====================================================
@@ -175,11 +175,12 @@ public class AuthService {
     }
 
     // =====================================================
-    // FORGOT PASSWORD - SEND OTP
+    // NEW ADMIN PASSWORD RESET REQUEST
     // =====================================================
 
     @Transactional
-    public void sendPasswordResetOtp(String email) {
+    public PasswordResetRequest createPasswordResetRequest(
+            String email) {
 
         // -------------------------------------------------
         // VALIDATE EMAIL
@@ -189,7 +190,8 @@ public class AuthService {
             throw new RuntimeException("Email is required");
         }
 
-        String cleanEmail = email.trim();
+        String cleanEmail =
+                email.trim().toLowerCase();
 
         // -------------------------------------------------
         // FIND USER
@@ -204,169 +206,251 @@ public class AuthService {
                 );
 
         // -------------------------------------------------
-        // GENERATE 6 DIGIT OTP
+        // CHECK EXISTING PENDING REQUEST
         // -------------------------------------------------
 
-        Random random = new Random();
+        passwordResetRequestRepository
+                .findTopByEmailOrderByRequestIdDesc(cleanEmail)
+                .ifPresent(existing -> {
 
-        String otp = String.format(
-                "%06d",
-                random.nextInt(1000000)
+                    if ("PENDING".equalsIgnoreCase(
+                            existing.getStatus())) {
+
+                        throw new RuntimeException(
+                                "A password reset request is already pending"
+                        );
+                    }
+                });
+
+        // -------------------------------------------------
+        // GENERATE UNIQUE REQUEST CODE
+        // -------------------------------------------------
+
+        String requestCode;
+
+        do {
+
+            requestCode =
+                    UUID.randomUUID()
+                            .toString()
+                            .replace("-", "")
+                            .substring(0, 8)
+                            .toUpperCase();
+
+        } while (
+                passwordResetRequestRepository
+                        .findByRequestCode(requestCode)
+                        .isPresent()
         );
 
         // -------------------------------------------------
-        // OTP EXPIRES AFTER 5 MINUTES
+        // CREATE REQUEST
         // -------------------------------------------------
 
-        LocalDateTime expiresAt =
-                LocalDateTime.now().plusMinutes(5);
-
-        // -------------------------------------------------
-        // DELETE PREVIOUS OTP
-        // -------------------------------------------------
-
-        passwordResetOtpRepository
-                .findTopByEmailOrderByIdDesc(cleanEmail)
-                .ifPresent(existingOtp ->
-                        passwordResetOtpRepository.delete(existingOtp)
-                );
-
-        // -------------------------------------------------
-        // CREATE NEW OTP
-        // -------------------------------------------------
-
-        PasswordResetOtp resetOtp =
-                new PasswordResetOtp(
+        PasswordResetRequest request =
+                new PasswordResetRequest(
                         cleanEmail,
-                        otp,
-                        expiresAt
+                        user.getRole(),
+                        requestCode
                 );
 
-        passwordResetOtpRepository.save(resetOtp);
-
-        // -------------------------------------------------
-        // SEND OTP EMAIL
-        // -------------------------------------------------
-
-        try {
-
-            emailService.sendOtpEmail(
-                    cleanEmail,
-                    otp
-            );
-
-        } catch (Exception e) {
-
-            // Remove OTP if email sending fails
-            passwordResetOtpRepository.delete(resetOtp);
-
-            throw new RuntimeException(
-                    "Unable to send OTP email. Please try again."
-            );
-        }
+        return passwordResetRequestRepository.save(request);
     }
 
     // =====================================================
-    // VERIFY PASSWORD RESET OTP
+    // CHECK PASSWORD RESET REQUEST STATUS
     // =====================================================
 
-    @Transactional
-    public void verifyPasswordResetOtp(
+    public PasswordResetRequest getPasswordResetStatus(
             String email,
-            String otp) {
-
-        // -------------------------------------------------
-        // VALIDATE INPUT
-        // -------------------------------------------------
+            String requestCode) {
 
         if (email == null || email.trim().isEmpty()) {
             throw new RuntimeException("Email is required");
         }
 
-        if (otp == null || otp.trim().isEmpty()) {
-            throw new RuntimeException("OTP is required");
+        if (requestCode == null ||
+                requestCode.trim().isEmpty()) {
+
+            throw new RuntimeException(
+                    "Request code is required"
+            );
         }
 
-        String cleanEmail = email.trim();
-        String cleanOtp = otp.trim();
+        String cleanEmail =
+                email.trim().toLowerCase();
+
+        String cleanRequestCode =
+                requestCode.trim().toUpperCase();
 
         // -------------------------------------------------
-        // FIND LATEST OTP
+        // FIND REQUEST
         // -------------------------------------------------
 
-        PasswordResetOtp resetOtp =
-                passwordResetOtpRepository
-                        .findTopByEmailOrderByIdDesc(cleanEmail)
+        PasswordResetRequest request =
+                passwordResetRequestRepository
+                        .findByRequestCode(cleanRequestCode)
                         .orElseThrow(() ->
                                 new RuntimeException(
-                                        "OTP not found. Please request a new OTP."
+                                        "Invalid reset request code"
                                 )
                         );
 
         // -------------------------------------------------
-        // CHECK IF ALREADY USED
+        // CHECK EMAIL
         // -------------------------------------------------
 
-        if (resetOtp.isUsed()) {
+        if (!request.getEmail()
+                .equalsIgnoreCase(cleanEmail)) {
 
             throw new RuntimeException(
-                    "This OTP has already been used."
+                    "Invalid reset request"
             );
         }
 
-        // -------------------------------------------------
-        // CHECK EXPIRY
-        // -------------------------------------------------
-
-        if (LocalDateTime.now()
-                .isAfter(resetOtp.getExpiresAt())) {
-
-            throw new RuntimeException(
-                    "OTP has expired. Please request a new OTP."
-            );
-        }
-
-        // -------------------------------------------------
-        // CHECK OTP
-        // -------------------------------------------------
-
-        if (!resetOtp.getOtp().equals(cleanOtp)) {
-
-            throw new RuntimeException(
-                    "Invalid OTP."
-            );
-        }
-
-        // -------------------------------------------------
-        // MARK OTP AS VERIFIED
-        // -------------------------------------------------
-
-        resetOtp.setVerified(true);
-
-        passwordResetOtpRepository.save(resetOtp);
+        return request;
     }
 
     // =====================================================
-    // RESET PASSWORD
+    // ADMIN - GET ALL RESET REQUESTS
+    // =====================================================
+
+    public List<PasswordResetRequest>
+    getAllPasswordResetRequests() {
+
+        return passwordResetRequestRepository
+                .findAllByOrderByRequestIdDesc();
+    }
+
+    // =====================================================
+    // ADMIN - APPROVE PASSWORD RESET REQUEST
     // =====================================================
 
     @Transactional
-    public void resetPassword(
+    public PasswordResetRequest
+    approvePasswordResetRequest(
+            Integer requestId) {
+
+        PasswordResetRequest request =
+                passwordResetRequestRepository
+                        .findById(requestId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Reset request not found"
+                                )
+                        );
+
+        // -------------------------------------------------
+        // CHECK CURRENT STATUS
+        // -------------------------------------------------
+
+        if ("COMPLETED".equalsIgnoreCase(
+                request.getStatus())) {
+
+            throw new RuntimeException(
+                    "This reset request is already completed"
+            );
+        }
+
+        if ("REJECTED".equalsIgnoreCase(
+                request.getStatus())) {
+
+            throw new RuntimeException(
+                    "Rejected request cannot be approved"
+            );
+        }
+
+        // -------------------------------------------------
+        // APPROVE
+        // -------------------------------------------------
+
+        request.setStatus("APPROVED");
+
+        request.setReviewedAt(
+                LocalDateTime.now()
+        );
+
+        return passwordResetRequestRepository
+                .save(request);
+    }
+
+    // =====================================================
+    // ADMIN - REJECT PASSWORD RESET REQUEST
+    // =====================================================
+
+    @Transactional
+    public PasswordResetRequest
+    rejectPasswordResetRequest(
+            Integer requestId) {
+
+        PasswordResetRequest request =
+                passwordResetRequestRepository
+                        .findById(requestId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Reset request not found"
+                                )
+                        );
+
+        // -------------------------------------------------
+        // CHECK CURRENT STATUS
+        // -------------------------------------------------
+
+        if ("COMPLETED".equalsIgnoreCase(
+                request.getStatus())) {
+
+            throw new RuntimeException(
+                    "Completed request cannot be rejected"
+            );
+        }
+
+        // -------------------------------------------------
+        // REJECT
+        // -------------------------------------------------
+
+        request.setStatus("REJECTED");
+
+        request.setReviewedAt(
+                LocalDateTime.now()
+        );
+
+        return passwordResetRequestRepository
+                .save(request);
+    }
+
+    // =====================================================
+    // USER - RESET PASSWORD AFTER ADMIN APPROVAL
+    // =====================================================
+
+    @Transactional
+    public void resetPasswordByRequest(
             String email,
-            String otp,
+            String requestCode,
             String newPassword) {
 
         // -------------------------------------------------
-        // VALIDATE INPUT
+        // VALIDATE EMAIL
         // -------------------------------------------------
 
         if (email == null || email.trim().isEmpty()) {
             throw new RuntimeException("Email is required");
         }
 
-        if (otp == null || otp.trim().isEmpty()) {
-            throw new RuntimeException("OTP is required");
+        // -------------------------------------------------
+        // VALIDATE REQUEST CODE
+        // -------------------------------------------------
+
+        if (requestCode == null ||
+                requestCode.trim().isEmpty()) {
+
+            throw new RuntimeException(
+                    "Request code is required"
+            );
         }
+
+        // -------------------------------------------------
+        // VALIDATE PASSWORD
+        // -------------------------------------------------
 
         if (newPassword == null ||
                 newPassword.trim().isEmpty()) {
@@ -383,64 +467,62 @@ public class AuthService {
             );
         }
 
-        String cleanEmail = email.trim();
-        String cleanOtp = otp.trim();
+        String cleanEmail =
+                email.trim().toLowerCase();
+
+        String cleanRequestCode =
+                requestCode.trim().toUpperCase();
 
         // -------------------------------------------------
-        // FIND OTP
+        // FIND RESET REQUEST
         // -------------------------------------------------
 
-        PasswordResetOtp resetOtp =
-                passwordResetOtpRepository
-                        .findTopByEmailOrderByIdDesc(cleanEmail)
+        PasswordResetRequest request =
+                passwordResetRequestRepository
+                        .findByRequestCode(cleanRequestCode)
                         .orElseThrow(() ->
                                 new RuntimeException(
-                                        "OTP not found. Please request a new OTP."
+                                        "Invalid reset request code"
                                 )
                         );
 
         // -------------------------------------------------
-        // CHECK OTP
+        // CHECK EMAIL
         // -------------------------------------------------
 
-        if (!resetOtp.getOtp().equals(cleanOtp)) {
+        if (!request.getEmail()
+                .equalsIgnoreCase(cleanEmail)) {
 
             throw new RuntimeException(
-                    "Invalid OTP."
+                    "Invalid reset request"
             );
         }
 
         // -------------------------------------------------
-        // CHECK VERIFIED
+        // CHECK APPROVAL
         // -------------------------------------------------
 
-        if (!resetOtp.isVerified()) {
+        if (!"APPROVED".equalsIgnoreCase(
+                request.getStatus())) {
+
+            if ("PENDING".equalsIgnoreCase(
+                    request.getStatus())) {
+
+                throw new RuntimeException(
+                        "Your password reset request is still waiting for Admin approval"
+                );
+            }
+
+            if ("REJECTED".equalsIgnoreCase(
+                    request.getStatus())) {
+
+                throw new RuntimeException(
+                        "Your password reset request was rejected by Admin"
+                );
+            }
 
             throw new RuntimeException(
-                    "Please verify the OTP first."
-            );
-        }
-
-        // -------------------------------------------------
-        // CHECK USED
-        // -------------------------------------------------
-
-        if (resetOtp.isUsed()) {
-
-            throw new RuntimeException(
-                    "This OTP has already been used."
-            );
-        }
-
-        // -------------------------------------------------
-        // CHECK EXPIRY
-        // -------------------------------------------------
-
-        if (LocalDateTime.now()
-                .isAfter(resetOtp.getExpiresAt())) {
-
-            throw new RuntimeException(
-                    "OTP has expired. Please request a new OTP."
+                    "Password reset is not available for this request"
             );
         }
 
@@ -452,7 +534,7 @@ public class AuthService {
                 .findByEmail(cleanEmail)
                 .orElseThrow(() ->
                         new RuntimeException(
-                                "User account not found."
+                                "User account not found"
                         )
                 );
 
@@ -465,12 +547,17 @@ public class AuthService {
         userRepository.save(user);
 
         // -------------------------------------------------
-        // MARK OTP AS USED
+        // MARK REQUEST COMPLETED
         // -------------------------------------------------
 
-        resetOtp.setUsed(true);
+        request.setStatus("COMPLETED");
 
-        passwordResetOtpRepository.save(resetOtp);
+        request.setReviewedAt(
+                LocalDateTime.now()
+        );
+
+        passwordResetRequestRepository
+                .save(request);
     }
 
     // =====================================================

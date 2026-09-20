@@ -685,6 +685,40 @@ function DashboardLayout() {
       ),
     },
 
+    // ==========================================
+    // PASSWORD RESET REQUESTS
+    // ==========================================
+
+    {
+      name: "Password Reset Requests",
+      path: "/dashboard/password-reset-requests",
+      icon: (
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect
+            x="5"
+            y="11"
+            width="14"
+            height="10"
+            rx="2"
+          />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+          <circle
+            cx="12"
+            cy="16"
+            r="1"
+          />
+          <path d="M12 17v2" />
+        </svg>
+      ),
+    },
+
     {
       name: "Admin Logs",
       path: "/dashboard/logs",
@@ -1066,8 +1100,6 @@ function DashboardLayout() {
 
     setNotifications([]);
     setNotificationOpen(false);
-
-    // Dark mode remains saved.
 
     navigate("/", {
       replace: true,
@@ -1500,7 +1532,6 @@ function DashboardLayout() {
 
             {/* =================================
                 NOTIFICATION BELL
-                PATIENT + DOCTOR + ADMIN
             ================================= */}
 
             <div
@@ -1534,8 +1565,6 @@ function DashboardLayout() {
                   🔔
                 </span>
 
-                {/* UNREAD BADGE */}
-
                 {unreadNotificationCount >
                   0 && (
                   <span className="notification-badge">
@@ -1550,9 +1579,7 @@ function DashboardLayout() {
 
               </button>
 
-              {/* =================================
-                  NOTIFICATION DROPDOWN
-              ================================= */}
+              {/* NOTIFICATION DROPDOWN */}
 
               {notificationOpen && (
                 <div className="notification-dropdown">
