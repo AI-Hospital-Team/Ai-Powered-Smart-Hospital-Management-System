@@ -4,7 +4,6 @@ import {
   UserRound,
   CalendarDays,
   Plus,
-  Pencil,
   X,
   AlertCircle,
 } from "lucide-react";
@@ -19,17 +18,17 @@ function MedicalRecords() {
   const [error, setError] = useState("");
 
   const [showForm, setShowForm] = useState(false);
-  const [editingRecord, setEditingRecord] = useState(null);
   const [saving, setSaving] = useState(false);
 
- const [formData, setFormData] = useState({
-  patientId: "",
-  diagnosis: "",
-  symptoms: "",
-  treatment: "",
-  notes: "",
-  recordDate: new Date().toISOString().split("T")[0],
-});
+  const [formData, setFormData] = useState({
+    patientId: "",
+    diagnosis: "",
+    symptoms: "",
+    treatment: "",
+    notes: "",
+    recordDate: new Date().toISOString().split("T")[0],
+    followUpDate: "",
+  });
 
   // =====================================================
   // LOAD USER
@@ -118,22 +117,22 @@ function MedicalRecords() {
   // =====================================================
 
   const getPatientName = (patientId) => {
-  const patient = patients.find(
-    (item) =>
-      Number(item.patientId) === Number(patientId)
-  );
+    const patient = patients.find(
+      (item) =>
+        Number(item.patientId) === Number(patientId)
+    );
 
-  if (!patient) {
-    return `Patient #${patientId || "N/A"}`;
-  }
+    if (!patient) {
+      return `Patient #${patientId || "N/A"}`;
+    }
 
-  return (
-    patient.name ||
-    patient.fullName ||
-    patient.patientName ||
-    `Patient #${patientId}`
-  );
-};
+    return (
+      patient.name ||
+      patient.fullName ||
+      patient.patientName ||
+      `Patient #${patientId}`
+    );
+  };
 
   // =====================================================
   // FORM CHANGE
@@ -149,58 +148,23 @@ function MedicalRecords() {
   };
 
   // =====================================================
-  // OPEN ADD
+  // OPEN ADD FORM
   // =====================================================
 
-const openAddForm = () => {
-  setEditingRecord(null);
+  const openAddForm = () => {
+    setFormData({
+      patientId: "",
+      diagnosis: "",
+      symptoms: "",
+      treatment: "",
+      notes: "",
+      recordDate: new Date().toISOString().split("T")[0],
+      followUpDate: "",
+    });
 
-  setFormData({
-    patientId: "",
-    diagnosis: "",
-    symptoms: "",
-    treatment: "",
-    notes: "",
-    recordDate: new Date().toISOString().split("T")[0],
-  });
-
-  setError("");
-  setShowForm(true);
-};
-
-  // =====================================================
-  // OPEN EDIT
-  // =====================================================
-
- const openEditForm = (record) => {
-  setEditingRecord(record);
-
-  setFormData({
-    patientId:
-      record.patientId ||
-      record.patient?.patientId ||
-      "",
-
-    diagnosis:
-      record.diagnosis || "",
-
-    symptoms:
-      record.symptoms || "",
-
-    treatment:
-      record.treatment || "",
-
-    notes:
-      record.notes || "",
-
-    recordDate:
-      record.recordDate ||
-      new Date().toISOString().split("T")[0],
-  });
-
-  setError("");
-  setShowForm(true);
-};
+    setError("");
+    setShowForm(true);
+  };
 
   // =====================================================
   // CLOSE FORM
@@ -210,11 +174,10 @@ const openAddForm = () => {
     if (saving) return;
 
     setShowForm(false);
-    setEditingRecord(null);
   };
 
   // =====================================================
-  // SAVE RECORD
+  // SAVE MEDICAL RECORD
   // =====================================================
 
   const handleSubmit = async (event) => {
@@ -234,17 +197,7 @@ const openAddForm = () => {
       setSaving(true);
       setError("");
 
-      const isEditing = Boolean(editingRecord);
-
-      const url = isEditing
-        ? `http://localhost:8080/api/medical-records/${editingRecord.recordId}`
-        : "http://localhost:8080/api/medical-records";
-
-      const method = isEditing
-        ? "PUT"
-        : "POST";
-
-     const body = {
+      const body = {
         patientId: Number(formData.patientId),
         doctorId: Number(doctorId),
         diagnosis: formData.diagnosis.trim(),
@@ -252,15 +205,15 @@ const openAddForm = () => {
         treatment: formData.treatment.trim(),
         notes: formData.notes.trim(),
         recordDate: formData.recordDate,
+        followUpDate: formData.followUpDate || null,
       };
 
       const response = await fetch(
-        url,
+        "http://localhost:8080/api/medical-records",
         {
-          method,
+          method: "POST",
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(body),
         }
@@ -273,7 +226,6 @@ const openAddForm = () => {
       }
 
       setShowForm(false);
-      setEditingRecord(null);
 
       setFormData({
         patientId: "",
@@ -281,6 +233,8 @@ const openAddForm = () => {
         symptoms: "",
         treatment: "",
         notes: "",
+        recordDate: new Date().toISOString().split("T")[0],
+        followUpDate: "",
       });
 
       await fetchData();
@@ -482,17 +436,6 @@ const openAddForm = () => {
 
                 </div>
 
-                <button
-                  type="button"
-                  className="edit-record-button"
-                  onClick={() =>
-                    openEditForm(record)
-                  }
-                  title="Edit Record"
-                >
-                  <Pencil size={15} />
-                </button>
-
               </div>
 
               {/* PATIENT */}
@@ -504,6 +447,7 @@ const openAddForm = () => {
                 </div>
 
                 <div>
+
                   <small>Patient</small>
 
                   <strong>
@@ -516,11 +460,12 @@ const openAddForm = () => {
                     Patient #
                     {record.patientId || "N/A"}
                   </span>
+
                 </div>
 
               </div>
 
-              {/* DATE */}
+              {/* RECORD DATE */}
 
               <div className="doctor-record-date">
 
@@ -534,6 +479,21 @@ const openAddForm = () => {
                 </span>
 
               </div>
+
+              {/* FOLLOW-UP DATE */}
+
+              {record.followUpDate && (
+                <div className="doctor-record-date">
+
+                  <CalendarDays size={16} />
+
+                  <span>
+                    Follow-up:{" "}
+                    {formatDate(record.followUpDate)}
+                  </span>
+
+                </div>
+              )}
 
               {/* DETAILS */}
 
@@ -581,7 +541,7 @@ const openAddForm = () => {
       )}
 
       {/* =================================================
-          ADD / EDIT MODAL
+          ADD MEDICAL RECORD MODAL
       ================================================= */}
 
       {showForm && (
@@ -600,15 +560,15 @@ const openAddForm = () => {
             <div className="doctor-record-modal-header">
 
               <div>
+
                 <h2>
-                  {editingRecord
-                    ? "Edit Medical Record"
-                    : "Add Medical Record"}
+                  Add Medical Record
                 </h2>
 
                 <p>
                   Enter the patient's medical information.
                 </p>
+
               </div>
 
               <button
@@ -639,7 +599,6 @@ const openAddForm = () => {
                   name="patientId"
                   value={formData.patientId}
                   onChange={handleChange}
-                  disabled={Boolean(editingRecord)}
                   required
                 >
 
@@ -650,30 +609,53 @@ const openAddForm = () => {
                   {patients.map((patient) => (
 
                     <option
-                        key={patient.patientId}
-                        value={patient.patientId}
+                      key={patient.patientId}
+                      value={patient.patientId}
                     >
-                        {getPatientName(patient.patientId)}
-                        {" "}
-                        — #{patient.patientId}
+                      {getPatientName(patient.patientId)}
+                      {" "}
+                      — #{patient.patientId}
                     </option>
 
-                    ))}
+                  ))}
 
                 </select>
 
               </div>
 
-              <div className="record-form-group"> 
-                <label>Record Date</label> 
-              
-                <input 
-                  type="date" 
-                  name="recordDate" 
-                  value={formData.recordDate} 
-                  onChange={handleChange} 
-                  required 
-                /> 
+              {/* RECORD DATE */}
+
+              <div className="record-form-group">
+
+                <label>
+                  Record Date
+                </label>
+
+                <input
+                  type="date"
+                  name="recordDate"
+                  value={formData.recordDate}
+                  onChange={handleChange}
+                  required
+                />
+
+              </div>
+
+              {/* FOLLOW-UP DATE */}
+
+              <div className="record-form-group">
+
+                <label>
+                  Follow-up Date (Optional)
+                </label>
+
+                <input
+                  type="date"
+                  name="followUpDate"
+                  value={formData.followUpDate}
+                  onChange={handleChange}
+                />
+
               </div>
 
               {/* DIAGNOSIS */}
@@ -767,11 +749,7 @@ const openAddForm = () => {
                   className="record-save-button"
                   disabled={saving}
                 >
-                  {saving
-                    ? "Saving..."
-                    : editingRecord
-                    ? "Update Record"
-                    : "Save Record"}
+                  {saving ? "Saving..." : "Save Record"}
                 </button>
 
               </div>

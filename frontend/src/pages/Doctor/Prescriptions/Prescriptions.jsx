@@ -4,7 +4,6 @@ import {
   UserRound,
   CalendarDays,
   Plus,
-  Pencil,
   X,
   AlertCircle,
   Clock,
@@ -21,7 +20,6 @@ function Prescriptions() {
   const [error, setError] = useState("");
 
   const [showForm, setShowForm] = useState(false);
-  const [editingPrescription, setEditingPrescription] = useState(null);
   const [saving, setSaving] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -30,11 +28,9 @@ function Prescriptions() {
     medicineName: "",
     dosage: "",
     frequency: "",
-    duration: "",
     instructions: "",
-    prescriptionDate: new Date()
-      .toISOString()
-      .split("T")[0],
+    startDate: new Date().toISOString().split("T")[0],
+    endDate: "",
   });
 
   // =====================================================
@@ -78,16 +74,20 @@ function Prescriptions() {
       setLoading(true);
       setError("");
 
-      const [prescriptionsResponse, patientsResponse] =
-        await Promise.all([
-          fetch(
-            `http://localhost:8080/api/prescriptions/doctor/${doctorId}`
-          ),
-          fetch("http://localhost:8080/api/patients"),
-        ]);
+      const [
+        prescriptionsResponse,
+        patientsResponse,
+      ] = await Promise.all([
+        fetch(
+          `http://localhost:8080/api/prescriptions/doctor/${doctorId}`
+        ),
+        fetch("http://localhost:8080/api/patients"),
+      ]);
 
       if (!prescriptionsResponse.ok) {
-        throw new Error("Failed to load prescriptions.");
+        throw new Error(
+          "Failed to load prescriptions."
+        );
       }
 
       const prescriptionsData =
@@ -163,57 +163,15 @@ function Prescriptions() {
   // =====================================================
 
   const openAddForm = () => {
-    setEditingPrescription(null);
-
     setFormData({
       patientId: "",
       diagnosis: "",
       medicineName: "",
       dosage: "",
       frequency: "",
-      duration: "",
       instructions: "",
-      prescriptionDate: new Date()
-        .toISOString()
-        .split("T")[0],
-    });
-
-    setError("");
-    setShowForm(true);
-  };
-
-  // =====================================================
-  // EDIT FORM
-  // =====================================================
-
-  const openEditForm = (prescription) => {
-    setEditingPrescription(prescription);
-
-    setFormData({
-      patientId:
-        prescription.patientId || "",
-
-      diagnosis:
-        prescription.diagnosis || "",
-
-      medicineName:
-        prescription.medicineName || "",
-
-      dosage:
-        prescription.dosage || "",
-
-      frequency:
-        prescription.frequency || "",
-
-      duration:
-        prescription.duration || "",
-
-      instructions:
-        prescription.instructions || "",
-
-      prescriptionDate:
-        prescription.prescriptionDate ||
-        new Date().toISOString().split("T")[0],
+      startDate: new Date().toISOString().split("T")[0],
+      endDate: "",
     });
 
     setError("");
@@ -228,7 +186,6 @@ function Prescriptions() {
     if (saving) return;
 
     setShowForm(false);
-    setEditingPrescription(null);
   };
 
   // =====================================================
@@ -258,8 +215,20 @@ function Prescriptions() {
       return;
     }
 
-    if (!formData.duration.trim()) {
-      setError("Duration is required.");
+    if (!formData.startDate) {
+      setError("Start date is required.");
+      return;
+    }
+
+    if (!formData.endDate) {
+      setError("End date is required.");
+      return;
+    }
+
+    if (formData.endDate < formData.startDate) {
+      setError(
+        "End date cannot be before start date."
+      );
       return;
     }
 
@@ -267,26 +236,10 @@ function Prescriptions() {
       setSaving(true);
       setError("");
 
-      const isEditing =
-        Boolean(editingPrescription);
-
-      const url = isEditing
-        ? `http://localhost:8080/api/prescriptions/${editingPrescription.prescriptionId}`
-        : "http://localhost:8080/api/prescriptions";
-
-      const method = isEditing
-        ? "PUT"
-        : "POST";
-
       const body = {
-        prescriptionId:
-          editingPrescription?.prescriptionId,
+        patientId: Number(formData.patientId),
 
-        patientId:
-          Number(formData.patientId),
-
-        doctorId:
-          Number(doctorId),
+        doctorId: Number(doctorId),
 
         diagnosis:
           formData.diagnosis.trim(),
@@ -300,23 +253,22 @@ function Prescriptions() {
         frequency:
           formData.frequency.trim(),
 
-        duration:
-          formData.duration.trim(),
-
         instructions:
           formData.instructions.trim(),
 
-        prescriptionDate:
-          formData.prescriptionDate,
+        startDate:
+          formData.startDate,
+
+        endDate:
+          formData.endDate,
       };
 
       const response = await fetch(
-        url,
+        "http://localhost:8080/api/prescriptions",
         {
-          method,
+          method: "POST",
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(body),
         }
@@ -329,7 +281,19 @@ function Prescriptions() {
       }
 
       setShowForm(false);
-      setEditingPrescription(null);
+
+      setFormData({
+        patientId: "",
+        diagnosis: "",
+        medicineName: "",
+        dosage: "",
+        frequency: "",
+        instructions: "",
+        startDate: new Date()
+          .toISOString()
+          .split("T")[0],
+        endDate: "",
+      });
 
       await fetchData();
     } catch (err) {
@@ -399,7 +363,9 @@ function Prescriptions() {
 
           <div className="doctor-prescriptions-loader"></div>
 
-          <p>Loading prescriptions...</p>
+          <p>
+            Loading prescriptions...
+          </p>
 
         </div>
 
@@ -528,17 +494,6 @@ function Prescriptions() {
 
                 </div>
 
-                <button
-                  type="button"
-                  className="edit-prescription-button"
-                  onClick={() =>
-                    openEditForm(prescription)
-                  }
-                  title="Edit Prescription"
-                >
-                  <Pencil size={15} />
-                </button>
-
               </div>
 
               {/* PATIENT */}
@@ -568,15 +523,31 @@ function Prescriptions() {
 
               </div>
 
-              {/* DATE */}
+              {/* START DATE */}
 
               <div className="doctor-prescription-date">
 
                 <CalendarDays size={16} />
 
                 <span>
+                  Start Date:{" "}
                   {formatDate(
-                    prescription.prescriptionDate
+                    prescription.startDate
+                  )}
+                </span>
+
+              </div>
+
+              {/* END DATE */}
+
+              <div className="doctor-prescription-date">
+
+                <CalendarDays size={16} />
+
+                <span>
+                  End Date:{" "}
+                  {formatDate(
+                    prescription.endDate
                   )}
                 </span>
 
@@ -663,7 +634,7 @@ function Prescriptions() {
       )}
 
       {/* =================================================
-          ADD / EDIT MODAL
+          ADD PRESCRIPTION MODAL
       ================================================= */}
 
       {showForm && (
@@ -684,15 +655,15 @@ function Prescriptions() {
             <div className="doctor-prescription-modal-header">
 
               <div>
+
                 <h2>
-                  {editingPrescription
-                    ? "Edit Prescription"
-                    : "Add Prescription"}
+                  Add Prescription
                 </h2>
 
                 <p>
                   Enter medicine and treatment details.
                 </p>
+
               </div>
 
               <button
@@ -717,13 +688,14 @@ function Prescriptions() {
 
               <div className="prescription-form-group">
 
-                <label>Patient</label>
+                <label>
+                  Patient
+                </label>
 
                 <select
                   name="patientId"
                   value={formData.patientId}
                   onChange={handleChange}
-                  disabled={Boolean(editingPrescription)}
                   required
                 >
 
@@ -753,7 +725,9 @@ function Prescriptions() {
 
               <div className="prescription-form-group">
 
-                <label>Diagnosis</label>
+                <label>
+                  Diagnosis
+                </label>
 
                 <input
                   type="text"
@@ -769,7 +743,9 @@ function Prescriptions() {
 
               <div className="prescription-form-group">
 
-                <label>Medicine Name</label>
+                <label>
+                  Medicine Name
+                </label>
 
                 <input
                   type="text"
@@ -788,7 +764,9 @@ function Prescriptions() {
 
                 <div className="prescription-form-group">
 
-                  <label>Dosage</label>
+                  <label>
+                    Dosage
+                  </label>
 
                   <input
                     type="text"
@@ -803,7 +781,9 @@ function Prescriptions() {
 
                 <div className="prescription-form-group">
 
-                  <label>Frequency</label>
+                  <label>
+                    Frequency
+                  </label>
 
                   <input
                     type="text"
@@ -818,20 +798,21 @@ function Prescriptions() {
 
               </div>
 
-              {/* DURATION + DATE */}
+              {/* START DATE + END DATE */}
 
               <div className="prescription-form-row">
 
                 <div className="prescription-form-group">
 
-                  <label>Duration</label>
+                  <label>
+                    Start Date
+                  </label>
 
                   <input
-                    type="text"
-                    name="duration"
-                    value={formData.duration}
+                    type="date"
+                    name="startDate"
+                    value={formData.startDate}
                     onChange={handleChange}
-                    placeholder="e.g. 7 days"
                     required
                   />
 
@@ -839,13 +820,16 @@ function Prescriptions() {
 
                 <div className="prescription-form-group">
 
-                  <label>Prescription Date</label>
+                  <label>
+                    End Date
+                  </label>
 
                   <input
                     type="date"
-                    name="prescriptionDate"
-                    value={formData.prescriptionDate}
+                    name="endDate"
+                    value={formData.endDate}
                     onChange={handleChange}
+                    min={formData.startDate}
                     required
                   />
 
@@ -853,11 +837,50 @@ function Prescriptions() {
 
               </div>
 
+              {/* DURATION INFO */}
+
+              <div className="prescription-form-group">
+
+                <label>
+                  Duration
+                </label>
+
+                <input
+                  type="text"
+                  value={
+                    formData.startDate &&
+                    formData.endDate &&
+                    formData.endDate >=
+                      formData.startDate
+                      ? `${Math.floor(
+                          (
+                            new Date(
+                              formData.endDate
+                            ) -
+                            new Date(
+                              formData.startDate
+                            )
+                          ) /
+                            (1000 *
+                              60 *
+                              60 *
+                              24)
+                        ) + 1} days`
+                      : ""
+                  }
+                  placeholder="Automatically calculated"
+                  readOnly
+                />
+
+              </div>
+
               {/* INSTRUCTIONS */}
 
               <div className="prescription-form-group">
 
-                <label>Instructions</label>
+                <label>
+                  Instructions
+                </label>
 
                 <textarea
                   name="instructions"
@@ -889,8 +912,6 @@ function Prescriptions() {
                 >
                   {saving
                     ? "Saving..."
-                    : editingPrescription
-                    ? "Update Prescription"
                     : "Save Prescription"}
                 </button>
 

@@ -1,7 +1,9 @@
 package com.hospital.management.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.hospital.management.entity.MedicalRecord;
@@ -11,12 +13,17 @@ import com.hospital.management.repository.MedicalRecordRepository;
 public class MedicalRecordService {
 
     private final MedicalRecordRepository medicalRecordRepository;
+    private final NotificationService notificationService;
 
     public MedicalRecordService(
-            MedicalRecordRepository medicalRecordRepository) {
+            MedicalRecordRepository medicalRecordRepository,
+            NotificationService notificationService) {
 
         this.medicalRecordRepository =
                 medicalRecordRepository;
+
+        this.notificationService =
+                notificationService;
     }
 
     // =====================================================
@@ -78,6 +85,42 @@ public class MedicalRecordService {
                         "Medical record not found"
                 )
         );
+    }
+
+    // =====================================================
+    // FOLLOW-UP DATE REMINDER
+    // =====================================================
+
+    @Scheduled(fixedRate = 3600000)
+    public void sendFollowUpReminders() {
+
+        List<MedicalRecord> records =
+                medicalRecordRepository.findAll();
+
+        LocalDate today = LocalDate.now();
+
+        for (MedicalRecord record : records) {
+
+            // No follow-up date
+            if (record.getFollowUpDate() == null) {
+                continue;
+            }
+
+            // Follow-up date is not today
+            if (!today.equals(record.getFollowUpDate())) {
+                continue;
+            }
+
+            // Send notification to patient
+            notificationService.createNotification(
+                    record.getPatientId(),
+                    "PATIENT",
+                    "Follow-up Reminder",
+                    "Your follow-up date is today. Please consult your doctor for your scheduled follow-up.",
+                    "FOLLOW_UP_REMINDER",
+                    record.getRecordId()
+            );
+        }
     }
 
     // =====================================================
@@ -152,6 +195,14 @@ public class MedicalRecordService {
 
         existingRecord.setRecordDate(
                 updatedRecord.getRecordDate()
+        );
+
+        // =================================================
+        // UPDATE FOLLOW-UP DATE
+        // =================================================
+
+        existingRecord.setFollowUpDate(
+                updatedRecord.getFollowUpDate()
         );
 
         // =================================================

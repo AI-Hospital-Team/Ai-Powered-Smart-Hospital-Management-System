@@ -31,12 +31,30 @@ public class Prescription {
 
     private String frequency;
 
+    // Calculated automatically from startDate and endDate
     private String duration;
 
     @Column(length = 1000)
     private String instructions;
 
+    // =====================================================
+    // OLD / LEGACY PRESCRIPTION DATE
+    // =====================================================
+
+    // Kept for existing prescriptions already stored in DB
     private LocalDate prescriptionDate;
+
+    // =====================================================
+    // NEW PRESCRIPTION DATES
+    // =====================================================
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
+
+    // =====================================================
+    // DOCTOR NAME
+    // =====================================================
 
     // Returned by API, not stored in prescriptions table
     @Transient
@@ -117,6 +135,10 @@ public class Prescription {
         this.instructions = instructions;
     }
 
+    // =====================================================
+    // OLD PRESCRIPTION DATE
+    // =====================================================
+
     public LocalDate getPrescriptionDate() {
         return prescriptionDate;
     }
@@ -124,6 +146,34 @@ public class Prescription {
     public void setPrescriptionDate(LocalDate prescriptionDate) {
         this.prescriptionDate = prescriptionDate;
     }
+
+    // =====================================================
+    // START DATE
+    // =====================================================
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    // =====================================================
+    // END DATE
+    // =====================================================
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    // =====================================================
+    // DOCTOR NAME
+    // =====================================================
 
     public String getDoctorName() {
         return doctorName;

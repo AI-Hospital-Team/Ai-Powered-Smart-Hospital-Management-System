@@ -1,7 +1,10 @@
 package com.hospital.management.service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.hospital.management.entity.Doctor;
@@ -60,11 +63,44 @@ public class PrescriptionService {
     }
 
     // =====================================================
+    // CALCULATE DURATION
+    // =====================================================
+
+    private void calculateDuration(
+            Prescription prescription) {
+
+        if (prescription.getStartDate() == null ||
+                prescription.getEndDate() == null) {
+
+            prescription.setDuration(null);
+            return;
+        }
+
+        long days = ChronoUnit.DAYS.between(
+                prescription.getStartDate(),
+                prescription.getEndDate()
+        ) + 1;
+
+        if (days < 1) {
+            throw new RuntimeException(
+                    "End date cannot be before start date."
+            );
+        }
+
+        prescription.setDuration(
+                days + (days == 1 ? " day" : " days")
+        );
+    }
+
+    // =====================================================
     // CREATE
     // =====================================================
 
     public Prescription createPrescription(
             Prescription prescription) {
+
+        // Calculate duration automatically
+        calculateDuration(prescription);
 
         Prescription saved =
                 prescriptionRepository.save(
@@ -85,6 +121,39 @@ public class PrescriptionService {
         );
 
         return addDoctorName(saved);
+    }
+
+    // =====================================================
+    // PRESCRIPTION END DATE REMINDER
+    // =====================================================
+
+    @Scheduled(fixedRate = 3600000)
+    public void sendPrescriptionEndDateNotifications() {
+
+        List<Prescription> prescriptions =
+                prescriptionRepository.findAll();
+
+        LocalDate today = LocalDate.now();
+
+        for (Prescription prescription : prescriptions) {
+
+            if (prescription.getEndDate() == null) {
+                continue;
+            }
+
+            if (!today.equals(prescription.getEndDate())) {
+                continue;
+            }
+
+            notificationService.createNotification(
+                    prescription.getPatientId(),
+                    "PATIENT",
+                    "Prescription End Date",
+                    "Your prescription reaches its end date today. Please consult your doctor before continuing or changing your medication.",
+                    "PRESCRIPTION_END_DATE",
+                    prescription.getPrescriptionId()
+            );
+        }
     }
 
     // =====================================================
@@ -177,13 +246,28 @@ public class PrescriptionService {
                 updatedPrescription.getFrequency()
         );
 
-        existing.setDuration(
-                updatedPrescription.getDuration()
-        );
-
         existing.setInstructions(
                 updatedPrescription.getInstructions()
         );
+
+        // =================================================
+        // UPDATE START DATE
+        // =================================================
+
+        existing.setStartDate(
+                updatedPrescription.getStartDate()
+        );
+
+        // =================================================
+        // UPDATE END DATE
+        // =================================================
+
+        existing.setEndDate(
+                updatedPrescription.getEndDate()
+        );
+
+        // Recalculate duration automatically
+        calculateDuration(existing);
 
         Prescription saved =
                 prescriptionRepository.save(existing);
