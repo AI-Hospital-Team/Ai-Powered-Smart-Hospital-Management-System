@@ -24,9 +24,14 @@ public class PrescriptionService {
             DoctorRepository doctorRepository,
             NotificationService notificationService) {
 
-        this.prescriptionRepository = prescriptionRepository;
-        this.doctorRepository = doctorRepository;
-        this.notificationService = notificationService;
+        this.prescriptionRepository =
+                prescriptionRepository;
+
+        this.doctorRepository =
+                doctorRepository;
+
+        this.notificationService =
+                notificationService;
     }
 
     // =====================================================
@@ -241,101 +246,17 @@ public class PrescriptionService {
     }
 
     // =====================================================
-    // UPDATE PRESCRIPTION
+    // DELETE PRESCRIPTION
     // =====================================================
 
-    public Prescription updatePrescription(
-            Integer prescriptionId,
-            Prescription updatedPrescription) {
+    public void deletePrescription(Integer prescriptionId) {
 
-        Prescription existing =
-                prescriptionRepository
-                        .findById(prescriptionId)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Prescription not found with ID: "
-                                                + prescriptionId
-                                )
-                        );
-
-        // =================================================
-        // UPDATE BASIC INFORMATION
-        // =================================================
-
-        existing.setDiagnosis(
-                updatedPrescription.getDiagnosis()
-        );
-
-        existing.setMedicineName(
-                updatedPrescription.getMedicineName()
-        );
-
-        existing.setDosage(
-                updatedPrescription.getDosage()
-        );
-
-        existing.setFrequency(
-                updatedPrescription.getFrequency()
-        );
-
-        existing.setInstructions(
-                updatedPrescription.getInstructions()
-        );
-
-        // =================================================
-        // UPDATE START DATE
-        // =================================================
-
-        existing.setStartDate(
-                updatedPrescription.getStartDate()
-        );
-
-        // =================================================
-        // UPDATE END DATE
-        // =================================================
-
-        existing.setEndDate(
-                updatedPrescription.getEndDate()
-        );
-
-        // =================================================
-        // KEEP PRESCRIPTION DATE
-        // =================================================
-
-        if (existing.getPrescriptionDate() == null) {
-
-            existing.setPrescriptionDate(
-                    existing.getStartDate()
+        if (!prescriptionRepository.existsById(prescriptionId)) {
+            throw new RuntimeException(
+                    "Prescription not found with ID: " + prescriptionId
             );
         }
 
-        // =================================================
-        // RECALCULATE DURATION
-        // =================================================
-
-        calculateDuration(existing);
-
-        // =================================================
-        // SAVE
-        // =================================================
-
-        Prescription saved =
-                prescriptionRepository.save(
-                        existing
-                );
-
-        // =================================================
-        // PRESCRIPTION UPDATED NOTIFICATION
-        // =================================================
-
-        notificationService.notifyPatient(
-                saved.getPatientId(),
-                "Prescription Updated",
-                "Your prescription has been updated. Please check your medical records.",
-                "PRESCRIPTION_UPDATED",
-                saved.getPrescriptionId()
-        );
-
-        return addDoctorName(saved);
+        prescriptionRepository.deleteById(prescriptionId);
     }
 }

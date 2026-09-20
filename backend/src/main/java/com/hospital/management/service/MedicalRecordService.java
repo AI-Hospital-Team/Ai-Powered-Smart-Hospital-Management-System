@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.hospital.management.entity.MedicalRecord;
-import com.hospital.management.entity.User;
 import com.hospital.management.repository.MedicalRecordRepository;
 import com.hospital.management.repository.UserRepository;
 
@@ -154,93 +153,17 @@ public class MedicalRecordService {
     }
 
     // =====================================================
-    // UPDATE MEDICAL RECORD
+    // DELETE MEDICAL RECORD
     // =====================================================
 
-    public MedicalRecord updateMedicalRecord(
-            Integer recordId,
-            MedicalRecord updatedRecord) {
+    public void deleteMedicalRecord(Integer recordId) {
 
-        // Find existing record
-        MedicalRecord existingRecord =
-                medicalRecordRepository.findById(
-                        recordId
-                ).orElseThrow(() ->
-                        new RuntimeException(
-                                "Medical record not found"
-                        )
-                );
+        if (!medicalRecordRepository.existsById(recordId)) {
+            throw new RuntimeException(
+                    "Medical record not found with ID: " + recordId
+            );
+        }
 
-        // =================================================
-        // UPDATE PATIENT
-        // =================================================
-
-        existingRecord.setPatientId(
-                updatedRecord.getPatientId()
-        );
-
-        // =================================================
-        // UPDATE DOCTOR
-        // =================================================
-
-        existingRecord.setDoctorId(
-                updatedRecord.getDoctorId()
-        );
-
-        // =================================================
-        // UPDATE DIAGNOSIS
-        // =================================================
-
-        existingRecord.setDiagnosis(
-                updatedRecord.getDiagnosis()
-        );
-
-        // =================================================
-        // UPDATE SYMPTOMS
-        // =================================================
-
-        existingRecord.setSymptoms(
-                updatedRecord.getSymptoms()
-        );
-
-        // =================================================
-        // UPDATE TREATMENT
-        // =================================================
-
-        existingRecord.setTreatment(
-                updatedRecord.getTreatment()
-        );
-
-        // =================================================
-        // UPDATE NOTES
-        // =================================================
-
-        existingRecord.setNotes(
-                updatedRecord.getNotes()
-        );
-
-        // =================================================
-        // UPDATE RECORD DATE
-        // =================================================
-
-        existingRecord.setRecordDate(
-                updatedRecord.getRecordDate()
-        );
-
-        // =================================================
-        // UPDATE FOLLOW-UP DATE
-        // =================================================
-
-        existingRecord.setFollowUpDate(
-                updatedRecord.getFollowUpDate()
-        );
-
-        // =================================================
-        // SAVE UPDATED RECORD TO DATABASE
-        // =================================================
-
-        return medicalRecordRepository.save(
-                existingRecord
-        );
+        medicalRecordRepository.deleteById(recordId);
     }
 }

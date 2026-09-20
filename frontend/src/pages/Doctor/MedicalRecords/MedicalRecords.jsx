@@ -6,6 +6,7 @@ import {
   Plus,
   X,
   AlertCircle,
+  Trash2,
 } from "lucide-react";
 import "./MedicalRecords.css";
 
@@ -19,6 +20,11 @@ function MedicalRecords() {
 
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  // DELETE
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedRecordId, setSelectedRecordId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const [formData, setFormData] = useState({
     patientId: "",
@@ -99,10 +105,7 @@ function MedicalRecords() {
           : []
       );
     } catch (err) {
-      console.error(
-        "Medical records error:",
-        err
-      );
+      console.error("Medical records error:", err);
 
       setError(
         "Unable to load medical records. Please try again."
@@ -239,16 +242,73 @@ function MedicalRecords() {
 
       await fetchData();
     } catch (err) {
-      console.error(
-        "Save medical record error:",
-        err
-      );
+      console.error("Save medical record error:", err);
 
       setError(
         "Unable to save medical record. Please try again."
       );
     } finally {
       setSaving(false);
+    }
+  };
+
+  // =====================================================
+  // DELETE MEDICAL RECORD
+  // =====================================================
+
+  const openDeleteModal = (recordId) => {
+    setSelectedRecordId(recordId);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    if (deleting) return;
+
+    setShowDeleteModal(false);
+    setSelectedRecordId(null);
+  };
+
+  const handleDeleteRecord = async () => {
+    if (!selectedRecordId) return;
+
+    try {
+      setDeleting(true);
+      setError("");
+
+      const response = await fetch(
+        `http://localhost:8080/api/medical-records/${selectedRecordId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete medical record: ${response.status}`
+        );
+      }
+
+      setRecords((previousRecords) =>
+        previousRecords.filter(
+          (record) =>
+            Number(record.recordId) !==
+            Number(selectedRecordId)
+        )
+      );
+
+      setShowDeleteModal(false);
+      setSelectedRecordId(null);
+    } catch (err) {
+      console.error(
+        "Delete medical record error:",
+        err
+      );
+
+      setError(
+        "Unable to delete medical record. Please try again."
+      );
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -410,6 +470,8 @@ function MedicalRecords() {
               key={record.recordId}
             >
 
+              {/* RECORD HEADER */}
+
               <div className="doctor-record-header">
 
                 <div className="doctor-record-title">
@@ -433,6 +495,27 @@ function MedicalRecords() {
                     </p>
 
                   </div>
+
+                </div>
+
+                <div className="doctor-record-actions">
+
+                  <span className="doctor-record-id">
+                    #{record.recordId}
+                  </span>
+
+                  <button
+                    type="button"
+                    className="doctor-delete-record-button"
+                    onClick={() =>
+                      openDeleteModal(
+                        record.recordId
+                      )
+                    }
+                    title="Delete medical record"
+                  >
+                    <Trash2 size={17} />
+                  </button>
 
                 </div>
 
@@ -489,13 +572,15 @@ function MedicalRecords() {
 
                   <span>
                     Follow-up:{" "}
-                    {formatDate(record.followUpDate)}
+                    {formatDate(
+                      record.followUpDate
+                    )}
                   </span>
 
                 </div>
               )}
 
-              {/* DETAILS */}
+              {/* SYMPTOMS */}
 
               {record.symptoms && (
                 <div className="doctor-record-section">
@@ -509,6 +594,8 @@ function MedicalRecords() {
                 </div>
               )}
 
+              {/* TREATMENT */}
+
               {record.treatment && (
                 <div className="doctor-record-section">
 
@@ -520,6 +607,8 @@ function MedicalRecords() {
 
                 </div>
               )}
+
+              {/* NOTES */}
 
               {record.notes && (
                 <div className="doctor-record-section">
@@ -612,7 +701,9 @@ function MedicalRecords() {
                       key={patient.patientId}
                       value={patient.patientId}
                     >
-                      {getPatientName(patient.patientId)}
+                      {getPatientName(
+                        patient.patientId
+                      )}
                       {" "}
                       — #{patient.patientId}
                     </option>
@@ -749,12 +840,95 @@ function MedicalRecords() {
                   className="record-save-button"
                   disabled={saving}
                 >
-                  {saving ? "Saving..." : "Save Record"}
+                  {saving
+                    ? "Saving..."
+                    : "Save Record"}
                 </button>
 
               </div>
 
             </form>
+
+          </div>
+
+        </div>
+      )}
+
+      {/* =================================================
+          DELETE MEDICAL RECORD MODAL
+      ================================================= */}
+
+      {showDeleteModal && (
+        <div
+          className="doctor-delete-modal-overlay"
+          onClick={closeDeleteModal}
+        >
+
+          <div
+            className="doctor-delete-modal"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
+
+            <button
+              type="button"
+              className="doctor-delete-modal-close"
+              onClick={closeDeleteModal}
+              disabled={deleting}
+              title="Close"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="doctor-delete-modal-icon">
+              <Trash2 size={27} />
+            </div>
+
+            <h2>
+              Delete Medical Record?
+            </h2>
+
+            <p>
+              Are you sure you want to delete
+              this medical record?
+              <br />
+              <span>
+                This action cannot be undone.
+              </span>
+            </p>
+
+            <div className="doctor-delete-modal-actions">
+
+              <button
+                type="button"
+                className="doctor-delete-cancel-button"
+                onClick={closeDeleteModal}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="doctor-delete-confirm-button"
+                onClick={handleDeleteRecord}
+                disabled={deleting}
+              >
+                {deleting ? (
+                  <>
+                    <span className="doctor-delete-spinner"></span>
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={17} />
+                    Delete Record
+                  </>
+                )}
+              </button>
+
+            </div>
 
           </div>
 
