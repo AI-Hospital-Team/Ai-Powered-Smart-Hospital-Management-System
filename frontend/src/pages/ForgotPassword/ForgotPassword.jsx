@@ -5,10 +5,17 @@ import "./ForgotPassword.css";
 function ForgotPassword() {
   const navigate = useNavigate();
 
+  // =====================================================
+  // STEP
+  // 1 = Enter Email / Send Request
+  // 2 = Waiting for Admin Approval
+  // 3 = Enter Request Code + New Password
+  // =====================================================
+
   const [step, setStep] = useState(1);
 
   const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
+  const [requestCode, setRequestCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -19,10 +26,11 @@ function ForgotPassword() {
   const API_URL = "http://localhost:8080/api/auth";
 
   // =====================================================
-  // SEND OTP
+  // STEP 1
+  // CREATE PASSWORD RESET REQUEST
   // =====================================================
 
-  const handleSendOtp = async (e) => {
+  const handleCreateRequest = async (e) => {
     e.preventDefault();
 
     setMessage("");
@@ -39,7 +47,7 @@ function ForgotPassword() {
 
     try {
       const response = await fetch(
-        `${API_URL}/forgot-password`,
+        `${API_URL}/password-reset/request`,
         {
           method: "POST",
           headers: {
@@ -51,23 +59,43 @@ function ForgotPassword() {
         }
       );
 
-      const data = await response.text();
+      const data = await response.json().catch(() => null);
 
       if (!response.ok) {
         setErrorMessage(
-          data || "Unable to send OTP."
+          typeof data === "string"
+            ? data
+            : "Unable to create password reset request."
         );
         return;
       }
 
+      /*
+       * The backend returns:
+       * email
+       * role
+       * requestCode
+       * requestId
+       * requestedAt
+       * reviewedAt
+       * status
+       */
+
+      if (data.requestCode) {
+        setRequestCode(data.requestCode);
+      }
+
       setMessage(
-        "OTP has been sent to your registered email."
+        "Password reset request submitted successfully. Please wait for Admin approval."
       );
 
       setStep(2);
 
     } catch (error) {
-      console.error("SEND OTP ERROR:", error);
+      console.error(
+        "PASSWORD RESET REQUEST ERROR:",
+        error
+      );
 
       setErrorMessage(
         "Cannot connect to the hospital server. Make sure Spring Boot is running."
@@ -78,69 +106,18 @@ function ForgotPassword() {
   };
 
   // =====================================================
-  // VERIFY OTP
+  // STEP 2
+  // CONTINUE AFTER ADMIN APPROVAL
   // =====================================================
 
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
-
+  const handleContinueToReset = () => {
     setMessage("");
     setErrorMessage("");
-
-    const cleanOtp = otp.trim();
-
-    if (!cleanOtp) {
-      setErrorMessage("Please enter the OTP.");
-      return;
-    }
-
-    if (!/^\d{6}$/.test(cleanOtp)) {
-      setErrorMessage("OTP must be 6 digits.");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const response = await fetch(
-        `${API_URL}/verify-reset-otp`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email.trim(),
-            otp: cleanOtp,
-          }),
-        }
-      );
-
-      const data = await response.text();
-
-      if (!response.ok) {
-        setErrorMessage(
-          data || "Invalid OTP."
-        );
-        return;
-      }
-
-      setMessage("OTP verified successfully.");
-
-      setStep(3);
-
-    } catch (error) {
-      console.error("VERIFY OTP ERROR:", error);
-
-      setErrorMessage(
-        "Cannot connect to the hospital server."
-      );
-    } finally {
-      setLoading(false);
-    }
+    setStep(3);
   };
 
   // =====================================================
+  // STEP 3
   // RESET PASSWORD
   // =====================================================
 
@@ -149,6 +126,19 @@ function ForgotPassword() {
 
     setMessage("");
     setErrorMessage("");
+
+    const cleanEmail = email.trim();
+    const cleanRequestCode = requestCode.trim();
+
+    if (!cleanEmail) {
+      setErrorMessage("Email is required.");
+      return;
+    }
+
+    if (!cleanRequestCode) {
+      setErrorMessage("Please enter your request code.");
+      return;
+    }
 
     if (!newPassword.trim()) {
       setErrorMessage("Please enter a new password.");
@@ -173,15 +163,15 @@ function ForgotPassword() {
 
     try {
       const response = await fetch(
-        `${API_URL}/reset-password`,
+        `${API_URL}/password-reset/reset`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email.trim(),
-            otp: otp.trim(),
+            email: cleanEmail,
+            requestCode: cleanRequestCode,
             newPassword: newPassword,
           }),
         }
@@ -200,6 +190,9 @@ function ForgotPassword() {
         "Password reset successfully. You can now login with your new password."
       );
 
+      setNewPassword("");
+      setConfirmPassword("");
+
       setTimeout(() => {
         navigate("/login");
       }, 1500);
@@ -211,11 +204,27 @@ function ForgotPassword() {
       );
 
       setErrorMessage(
-        "Cannot connect to the hospital server."
+        "Cannot connect to the hospital server. Make sure Spring Boot is running."
       );
     } finally {
       setLoading(false);
     }
+  };
+
+  // =====================================================
+  // CHANGE EMAIL
+  // =====================================================
+
+  const handleChangeEmail = () => {
+    setStep(1);
+
+    setEmail("");
+    setRequestCode("");
+    setNewPassword("");
+    setConfirmPassword("");
+
+    setMessage("");
+    setErrorMessage("");
   };
 
   // =====================================================
@@ -235,7 +244,9 @@ function ForgotPassword() {
 
       <div className="forgot-password-container">
 
-        {/* HEADER */}
+        {/* =================================================
+            HEADER
+        ================================================= */}
 
         <div className="forgot-password-header">
 
@@ -253,7 +264,9 @@ function ForgotPassword() {
 
         </div>
 
-        {/* STEP INDICATOR */}
+        {/* =================================================
+            STEP INDICATOR
+        ================================================= */}
 
         <div className="reset-steps">
 
@@ -265,7 +278,7 @@ function ForgotPassword() {
             }
           >
             <span>1</span>
-            <small>Email</small>
+            <small>Request</small>
           </div>
 
           <div className="step-line"></div>
@@ -278,7 +291,7 @@ function ForgotPassword() {
             }
           >
             <span>2</span>
-            <small>OTP</small>
+            <small>Approval</small>
           </div>
 
           <div className="step-line"></div>
@@ -296,7 +309,9 @@ function ForgotPassword() {
 
         </div>
 
-        {/* SUCCESS MESSAGE */}
+        {/* =================================================
+            SUCCESS MESSAGE
+        ================================================= */}
 
         {message && (
           <div className="forgot-success">
@@ -304,7 +319,9 @@ function ForgotPassword() {
           </div>
         )}
 
-        {/* ERROR MESSAGE */}
+        {/* =================================================
+            ERROR MESSAGE
+        ================================================= */}
 
         {errorMessage && (
           <div className="forgot-error">
@@ -313,13 +330,13 @@ function ForgotPassword() {
         )}
 
         {/* =================================================
-            STEP 1 - EMAIL
+            STEP 1 - EMAIL / CREATE REQUEST
         ================================================= */}
 
         {step === 1 && (
           <form
             className="forgot-password-form"
-            onSubmit={handleSendOtp}
+            onSubmit={handleCreateRequest}
           >
 
             <h2>
@@ -328,7 +345,8 @@ function ForgotPassword() {
 
             <p className="form-description">
               Enter your registered email address
-              and we will send you a 6-digit OTP.
+              to submit a password reset request
+              to the Admin.
             </p>
 
             <div className="form-group">
@@ -357,85 +375,119 @@ function ForgotPassword() {
               disabled={loading}
             >
               {loading
-                ? "Sending OTP..."
-                : "Send OTP"}
+                ? "Submitting Request..."
+                : "Submit Reset Request"}
             </button>
 
           </form>
         )}
 
         {/* =================================================
-            STEP 2 - OTP
+            STEP 2 - WAITING FOR ADMIN APPROVAL
         ================================================= */}
 
         {step === 2 && (
-          <form
-            className="forgot-password-form"
-            onSubmit={handleVerifyOtp}
-          >
+          <div className="forgot-password-form">
 
             <h2>
-              Verify OTP
+              Request Submitted
             </h2>
 
             <p className="form-description">
-              Enter the 6-digit OTP sent to:
+              Your password reset request has been
+              submitted to the Admin.
             </p>
 
-            <p className="reset-email-display">
+            <div className="reset-email-display">
               {email}
-            </p>
-
-            <div className="form-group">
-
-              <label htmlFor="reset-otp">
-                OTP
-              </label>
-
-              <input
-                id="reset-otp"
-                type="text"
-                value={otp}
-                onChange={(e) =>
-                  setOtp(
-                    e.target.value
-                      .replace(/\D/g, "")
-                      .slice(0, 6)
-                  )
-                }
-                placeholder="Enter 6-digit OTP"
-                inputMode="numeric"
-                maxLength={6}
-                autoComplete="one-time-code"
-                required
-              />
-
             </div>
 
-            <button
-              type="submit"
-              className="reset-button"
-              disabled={loading}
+            {/* Request Code */}
+
+            {requestCode && (
+              <div
+                style={{
+                  marginTop: "18px",
+                  padding: "15px",
+                  borderRadius: "10px",
+                  background: "#f3f4f6",
+                  textAlign: "center",
+                }}
+              >
+
+                <p
+                  style={{
+                    margin: "0 0 8px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  Your Request Code
+                </p>
+
+                <strong
+                  style={{
+                    fontSize: "24px",
+                    letterSpacing: "3px",
+                  }}
+                >
+                  {requestCode}
+                </strong>
+
+                <p
+                  style={{
+                    marginTop: "8px",
+                    marginBottom: "0",
+                    fontSize: "12px",
+                  }}
+                >
+                  Keep this code safe. You will need it
+                  after Admin approval.
+                </p>
+
+              </div>
+            )}
+
+            {/* Pending Information */}
+
+            <div
+              style={{
+                marginTop: "18px",
+                padding: "14px",
+                borderRadius: "10px",
+                background: "#fff7ed",
+                color: "#9a3412",
+                textAlign: "center",
+                fontSize: "14px",
+              }}
             >
-              {loading
-                ? "Verifying..."
-                : "Verify OTP"}
+              ⏳ Waiting for Admin approval
+            </div>
+
+            {/* Continue */}
+
+            <button
+              type="button"
+              className="reset-button"
+              onClick={handleContinueToReset}
+              style={{
+                marginTop: "18px",
+              }}
+            >
+              Continue to Password Reset
             </button>
+
+            {/* Change Email */}
 
             <button
               type="button"
               className="secondary-button"
-              onClick={() => {
-                setStep(1);
-                setOtp("");
-                setMessage("");
-                setErrorMessage("");
-              }}
+              onClick={handleChangeEmail}
             >
               Change Email
             </button>
 
-          </form>
+          </div>
         )}
 
         {/* =================================================
@@ -453,8 +505,56 @@ function ForgotPassword() {
             </h2>
 
             <p className="form-description">
-              Enter your new password below.
+              Enter the request code provided when
+              you submitted your reset request and
+              create your new password.
             </p>
+
+            {/* Email */}
+
+            <div className="form-group">
+
+              <label htmlFor="reset-email-display">
+                Email Address
+              </label>
+
+              <input
+                id="reset-email-display"
+                type="email"
+                value={email}
+                readOnly
+              />
+
+            </div>
+
+            {/* Request Code */}
+
+            <div className="form-group">
+
+              <label htmlFor="request-code">
+                Request Code
+              </label>
+
+              <input
+                id="request-code"
+                type="text"
+                value={requestCode}
+                onChange={(e) =>
+                  setRequestCode(
+                    e.target.value
+                      .toUpperCase()
+                      .slice(0, 8)
+                  )
+                }
+                placeholder="Enter request code"
+                maxLength={8}
+                autoComplete="off"
+                required
+              />
+
+            </div>
+
+            {/* New Password */}
 
             <div className="form-group">
 
@@ -477,6 +577,8 @@ function ForgotPassword() {
               />
 
             </div>
+
+            {/* Confirm Password */}
 
             <div className="form-group">
 
@@ -510,10 +612,24 @@ function ForgotPassword() {
                 : "Reset Password"}
             </button>
 
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => {
+                setStep(2);
+                setMessage("");
+                setErrorMessage("");
+              }}
+            >
+              ← Back
+            </button>
+
           </form>
         )}
 
-        {/* BACK TO LOGIN */}
+        {/* =================================================
+            BACK TO LOGIN
+        ================================================= */}
 
         <button
           type="button"

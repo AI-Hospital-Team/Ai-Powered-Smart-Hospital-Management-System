@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hospital.management.dto.LoginResponse;
+import com.hospital.management.entity.PasswordResetRequest;
 import com.hospital.management.entity.User;
 import com.hospital.management.service.AuthService;
 
@@ -23,9 +24,9 @@ public class AuthController {
         this.authService = authService;
     }
 
-    // =====================================================
+    // =========================================================
     // LOGIN
-    // =====================================================
+    // =========================================================
 
     @PostMapping("/login")
     public ResponseEntity<?> login(
@@ -49,9 +50,9 @@ public class AuthController {
         }
     }
 
-    // =====================================================
-    // REGISTER PATIENT
-    // =====================================================
+    // =========================================================
+    // PATIENT REGISTRATION
+    // =========================================================
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
@@ -82,9 +83,9 @@ public class AuthController {
         }
     }
 
-    // =====================================================
-    // REGISTER DOCTOR
-    // =====================================================
+    // =========================================================
+    // DOCTOR REGISTRATION
+    // =========================================================
 
     @PostMapping("/register-doctor")
     public ResponseEntity<?> registerDoctor(
@@ -118,23 +119,28 @@ public class AuthController {
         }
     }
 
-    // =====================================================
-    // FORGOT PASSWORD - SEND OTP
-    // =====================================================
+    // =========================================================
+    // PASSWORD RESET REQUEST
+    // =========================================================
+    //
+    // User enters registered email.
+    // Request is created with PENDING status.
+    // Admin can approve/reject from Admin panel.
+    //
+    // =========================================================
 
-    @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(
-            @RequestBody ForgotPasswordRequest request) {
+    @PostMapping("/password-reset/request")
+    public ResponseEntity<?> createPasswordResetRequest(
+            @RequestBody PasswordResetRequestDto request) {
 
         try {
 
-            authService.sendPasswordResetOtp(
-                    request.email()
-            );
+            PasswordResetRequest result =
+                    authService.createPasswordResetRequest(
+                            request.email()
+                    );
 
-            return ResponseEntity.ok(
-                    "OTP sent successfully to your email"
-            );
+            return ResponseEntity.ok(result);
 
         } catch (RuntimeException e) {
 
@@ -144,46 +150,28 @@ public class AuthController {
         }
     }
 
-    // =====================================================
-    // VERIFY PASSWORD RESET OTP
-    // =====================================================
+    // =========================================================
+    // PASSWORD RESET AFTER ADMIN APPROVAL
+    // =========================================================
+    //
+    // User provides:
+    // Email
+    // Request Code
+    // New Password
+    //
+    // Request must have APPROVED status.
+    //
+    // =========================================================
 
-    @PostMapping("/verify-reset-otp")
-    public ResponseEntity<?> verifyResetOtp(
-            @RequestBody VerifyOtpRequest request) {
-
-        try {
-
-            authService.verifyPasswordResetOtp(
-                    request.email(),
-                    request.otp()
-            );
-
-            return ResponseEntity.ok(
-                    "OTP verified successfully"
-            );
-
-        } catch (RuntimeException e) {
-
-            return ResponseEntity
-                    .badRequest()
-                    .body(e.getMessage());
-        }
-    }
-
-    // =====================================================
-    // RESET PASSWORD
-    // =====================================================
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(
-            @RequestBody ResetPasswordRequest request) {
+    @PostMapping("/password-reset/reset")
+    public ResponseEntity<?> resetPasswordByRequest(
+            @RequestBody ResetPasswordByRequestDto request) {
 
         try {
 
-            authService.resetPassword(
+            authService.resetPasswordByRequest(
                     request.email(),
-                    request.otp(),
+                    request.requestCode(),
                     request.newPassword()
             );
 
@@ -199,9 +187,9 @@ public class AuthController {
         }
     }
 
-    // =====================================================
-    // LOGIN REQUEST
-    // =====================================================
+    // =========================================================
+    // REQUEST DTOs
+    // =========================================================
 
     public record LoginRequest(
             String email,
@@ -210,9 +198,9 @@ public class AuthController {
     ) {
     }
 
-    // =====================================================
-    // PATIENT REGISTER REQUEST
-    // =====================================================
+    // =========================================================
+    // PATIENT REGISTER DTO
+    // =========================================================
 
     public record RegisterRequest(
             String fullName,
@@ -226,9 +214,9 @@ public class AuthController {
     ) {
     }
 
-    // =====================================================
-    // DOCTOR REGISTER REQUEST
-    // =====================================================
+    // =========================================================
+    // DOCTOR REGISTER DTO
+    // =========================================================
 
     public record DoctorRegisterRequest(
             String fullName,
@@ -245,32 +233,22 @@ public class AuthController {
     ) {
     }
 
-    // =====================================================
-    // FORGOT PASSWORD REQUEST
-    // =====================================================
+    // =========================================================
+    // PASSWORD RESET REQUEST DTO
+    // =========================================================
 
-    public record ForgotPasswordRequest(
+    public record PasswordResetRequestDto(
             String email
     ) {
     }
 
-    // =====================================================
-    // VERIFY OTP REQUEST
-    // =====================================================
+    // =========================================================
+    // PASSWORD RESET DTO
+    // =========================================================
 
-    public record VerifyOtpRequest(
+    public record ResetPasswordByRequestDto(
             String email,
-            String otp
-    ) {
-    }
-
-    // =====================================================
-    // RESET PASSWORD REQUEST
-    // =====================================================
-
-    public record ResetPasswordRequest(
-            String email,
-            String otp,
+            String requestCode,
             String newPassword
     ) {
     }

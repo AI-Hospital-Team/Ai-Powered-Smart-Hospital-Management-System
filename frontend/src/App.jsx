@@ -31,6 +31,7 @@ import AdminAppointments from "./pages/Admin/Appointments/Appointments";
 import AdminMedicalRecords from "./pages/Admin/MedicalRecords/MedicalRecords";
 import AdminPrescriptions from "./pages/Admin/Prescriptions/Prescriptions";
 import AdminBills from "./pages/Admin/Bills/Bills";
+import PasswordResetRequests from "./pages/Admin/PasswordResetRequests";
 import AdminLogs from "./pages/Admin/Logs/Logs";
 
 /* =========================================================
@@ -163,6 +164,15 @@ function App() {
           <Route
             path="bills"
             element={<AdminBills />}
+          />
+
+          {/* =================================================
+              PASSWORD RESET REQUESTS
+          ================================================= */}
+
+          <Route
+            path="password-reset-requests"
+            element={<PasswordResetRequests />}
           />
 
           <Route
