@@ -8,6 +8,7 @@ import {
   AlertCircle,
   Clock,
   ClipboardList,
+  Trash2,
 } from "lucide-react";
 import "./Prescriptions.css";
 
@@ -18,6 +19,10 @@ function Prescriptions() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedPrescriptionId, setSelectedPrescriptionId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -311,6 +316,62 @@ function Prescriptions() {
   };
 
   // =====================================================
+  // DELETE PRESCRIPTION
+  // =====================================================
+
+  const openDeleteModal = (prescriptionId) => {
+    setSelectedPrescriptionId(prescriptionId);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    if (deleting) return;
+
+    setShowDeleteModal(false);
+    setSelectedPrescriptionId(null);
+  };
+
+  const handleDeletePrescription = async () => {
+    if (!selectedPrescriptionId) return;
+
+    try {
+      setDeleting(true);
+      setError("");
+
+      const response = await fetch(
+        `http://localhost:8080/api/prescriptions/${selectedPrescriptionId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete prescription: ${response.status}`
+        );
+      }
+
+      setPrescriptions((previousPrescriptions) =>
+        previousPrescriptions.filter(
+          (prescription) =>
+            Number(prescription.prescriptionId) !==
+            Number(selectedPrescriptionId)
+        )
+      );
+
+      setShowDeleteModal(false);
+      setSelectedPrescriptionId(null);
+    } catch (err) {
+      console.error("Delete prescription error:", err);
+      setError(
+        "Unable to delete prescription. Please try again."
+      );
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  // =====================================================
   // FORMAT DATE
   // =====================================================
 
@@ -494,6 +555,26 @@ function Prescriptions() {
 
                 </div>
 
+              </div>
+
+              <div className="doctor-prescription-actions">
+                <span className="doctor-prescription-id">
+                  #{prescription.prescriptionId}
+                </span>
+
+                <button
+                  type="button"
+                  className="doctor-delete-prescription-button"
+                  onClick={() =>
+                    openDeleteModal(
+                      prescription.prescriptionId
+                    )
+                  }
+                  title="Delete prescription"
+                  aria-label="Delete prescription"
+                >
+                  <Trash2 size={17} />
+                </button>
               </div>
 
               {/* PATIENT */}
@@ -921,6 +1002,75 @@ function Prescriptions() {
 
           </div>
 
+        </div>
+      )}
+
+      {/* =================================================
+          DELETE CONFIRMATION MODAL
+      ================================================= */}
+
+      {showDeleteModal && (
+        <div
+          className="doctor-delete-prescription-modal-overlay"
+          onClick={closeDeleteModal}
+        >
+          <div
+            className="doctor-delete-prescription-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="doctor-delete-prescription-modal-close"
+              onClick={closeDeleteModal}
+              disabled={deleting}
+              title="Close"
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="doctor-delete-prescription-modal-icon">
+              <Trash2 size={26} />
+            </div>
+
+            <h2>Delete Prescription?</h2>
+
+            <p>
+              Are you sure you want to delete this prescription?
+              <br />
+              <span>This action cannot be undone.</span>
+            </p>
+
+            <div className="doctor-delete-prescription-modal-actions">
+              <button
+                type="button"
+                className="doctor-delete-prescription-cancel-button"
+                onClick={closeDeleteModal}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="doctor-delete-prescription-confirm-button"
+                onClick={handleDeletePrescription}
+                disabled={deleting}
+              >
+                {deleting ? (
+                  <>
+                    <span className="doctor-delete-prescription-spinner"></span>
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={14} />
+                    Delete Prescription
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
