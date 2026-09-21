@@ -18,6 +18,9 @@ The system provides separate dashboards and role-based access for **Admin, Docto
 This project is developed as a collaborative full-stack hospital management project.
 
 ---
+## 🤖 AI Health Assistant
+
+The system provides AI-powered health guidance using Ollama and Llama 3.2 to help patients understand their reported symptoms.
 
 ## 📌 Project Overview
 
