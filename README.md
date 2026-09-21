@@ -11,13 +11,16 @@ The system provides separate dashboards and role-based access for **Admin, Docto
 1. **Prathmesh Gavram Panmand** — https://github.com/prathmesh235
 2. **Radheshyam Subhash Wayal** — https://github.com/Radheshamwayal7
 
-## 👥 Team
+## 👥 Team 
 
 **AI Hospital Team**
 
 This project is developed as a collaborative full-stack hospital management project.
 
 ---
+## 🤖 AI Health Assistant
+
+The system provides AI-powered health guidance using Ollama and Llama 3.2 to help patients understand their reported symptoms.
 
 ## 📌 Project Overview
 
