@@ -9,7 +9,6 @@ import { useDarkMode } from "./theme/DarkMode";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Project from "./pages/Project/Project";
-import Login from "./pages/Login/Login";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import AIHealthAssistant from "./pages/AIHealthAssistant/AIHealthAssistant";
 
@@ -88,11 +87,6 @@ function App() {
         <Route
           path="/"
           element={<Home />}
-        />
-
-        <Route
-          path="/login"
-          element={<Login />}
         />
 
         {/* =================================================

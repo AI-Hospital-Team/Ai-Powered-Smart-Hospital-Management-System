@@ -193,9 +193,9 @@ function ForgotPassword() {
       setNewPassword("");
       setConfirmPassword("");
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
 
     } catch (error) {
       console.error(
@@ -231,9 +231,14 @@ function ForgotPassword() {
   // BACK TO LOGIN
   // =====================================================
 
-  const handleBackToLogin = () => {
-    navigate("/login");
-  };
+ const handleBackToLogin = () => {
+  navigate("/", {
+    state: {
+      openLogin: true,
+      role: "Patient",
+    },
+  });
+}; 
 
   // =====================================================
   // UI
