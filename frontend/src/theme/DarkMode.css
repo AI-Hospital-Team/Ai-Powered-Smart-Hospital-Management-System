@@ -15609,3 +15609,140 @@ body.dark-mode .admin-add-doctor-button:hover {
   border-color: #55a6b1;
   box-shadow: 0 9px 22px rgba(0, 0, 0, 0.35);
 }
+
+/* =========================================================
+   FORGOT PASSWORD
+   STEP 2 — DARK MODE ONLY
+========================================================= */
+
+/* Main Step 2 area */
+html.dark-mode .forgot-password-form,
+body.dark-mode .forgot-password-form {
+  color: #e8f7f9;
+}
+
+/* Request Submitted heading */
+html.dark-mode .forgot-password-form h2,
+body.dark-mode .forgot-password-form h2 {
+  color: #eafcff !important;
+}
+
+/* Description */
+html.dark-mode .forgot-password-form .form-description,
+body.dark-mode .forgot-password-form .form-description {
+  color: #91adb4 !important;
+}
+
+/* =========================================================
+   EMAIL DISPLAY
+========================================================= */
+
+html.dark-mode .reset-email-display,
+body.dark-mode .reset-email-display {
+  background: #0d3039 !important;
+  border: 1px solid #285b65 !important;
+  color: #4bd4dd !important;
+}
+
+/* =========================================================
+   REQUEST CODE BOX
+   This is the first DIV after .reset-email-display
+========================================================= */
+
+html.dark-mode .reset-email-display + div,
+body.dark-mode .reset-email-display + div {
+  background: #102d35 !important;
+  border: 1px solid #315862 !important;
+}
+
+/* Request Code title */
+html.dark-mode .reset-email-display + div p:first-child,
+body.dark-mode .reset-email-display + div p:first-child {
+  color: #9ab7bf !important;
+}
+
+/* Request Code value */
+html.dark-mode .reset-email-display + div strong,
+body.dark-mode .reset-email-display + div strong {
+  color: #20c4cf !important;
+}
+
+/* Request Code description */
+html.dark-mode .reset-email-display + div p:last-child,
+body.dark-mode .reset-email-display + div p:last-child {
+  color: #91adb4 !important;
+}
+
+/* =========================================================
+   WAITING FOR ADMIN APPROVAL
+   This is the second DIV after .reset-email-display
+========================================================= */
+
+html.dark-mode .reset-email-display + div + div,
+body.dark-mode .reset-email-display + div + div {
+  background: #2d2117 !important;
+  border: 1px solid #6c4a2e !important;
+  color: #ff9b70 !important;
+}
+
+/* =========================================================
+   CONTINUE TO PASSWORD RESET
+========================================================= */
+
+html.dark-mode .reset-button,
+body.dark-mode .reset-button {
+  background: #078b9a !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+html.dark-mode .reset-button:hover,
+body.dark-mode .reset-button:hover {
+  background: #0aa5b5 !important;
+}
+
+/* =========================================================
+   CHANGE EMAIL
+========================================================= */
+
+html.dark-mode .secondary-button,
+body.dark-mode .secondary-button {
+  background: #0d3039 !important;
+  border: 1px solid #285b65 !important;
+  color: #a9c5ca !important;
+}
+
+html.dark-mode .secondary-button:hover,
+body.dark-mode .secondary-button:hover {
+  background: #123c46 !important;
+  border-color: #36717b !important;
+  color: #e5f8fa !important;
+}
+
+/* =========================================================
+   BACK TO LOGIN
+========================================================= */
+
+html.dark-mode .back-login-button,
+body.dark-mode .back-login-button {
+  color: #4bd4dd !important;
+}
+
+html.dark-mode .back-login-button:hover,
+body.dark-mode .back-login-button:hover {
+  color: #7ae3e8 !important;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html.dark-mode .forgot-password-link,
+body.dark-mode .forgot-password-link {
+  color: #4bd4dd !important;
+}
+
+html.dark-mode .forgot-password-link:hover,
+body.dark-mode .forgot-password-link:hover {
+  color: #7ae3e8 !important;
+}
