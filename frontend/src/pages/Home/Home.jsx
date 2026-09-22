@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./Home.css";
 import "./Home.responsive.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
 /* =====================================================
@@ -223,6 +223,7 @@ function Home() {
   const [registerRole, setRegisterRole] = useState("Patient");
 
   const navigate = useNavigate();
+  const location = useLocation();
   const [darkMode, setDarkMode] = useDarkMode();
 
   /* =====================================================
@@ -603,6 +604,17 @@ function Home() {
     setRegisterOpen(false);
     setLoginMenuOpen(false);
   };
+
+  useEffect(() => {
+  if (location.state?.openLogin) {
+    openLogin(location.state.role || "Patient");
+
+    navigate("/", {
+      replace: true,
+      state: {},
+    });
+  }
+}, [location, navigate]);
 
   const openRegister = () => {
     setRegisterOpen(true);

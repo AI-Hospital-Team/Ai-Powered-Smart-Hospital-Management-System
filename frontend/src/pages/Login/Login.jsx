@@ -13,6 +13,7 @@ function Login() {
   const [role, setRole] = useState("Patient");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,17 +24,14 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const savedDarkMode =
-      localStorage.getItem("darkMode");
+    const savedDarkMode = localStorage.getItem("darkMode");
 
     setErrorMessage("");
 
     const cleanEmail = email.trim();
 
     if (!cleanEmail || !password.trim()) {
-      setErrorMessage(
-        "Please enter email and password."
-      );
+      setErrorMessage("Please enter email and password.");
       return;
     }
 
@@ -73,25 +71,15 @@ function Login() {
         data = await response.text();
       }
 
-      console.log(
-        "LOGIN STATUS:",
-        response.status
-      );
-
-      console.log(
-        "LOGIN RESPONSE:",
-        data
-      );
+      console.log("LOGIN STATUS:", response.status);
+      console.log("LOGIN RESPONSE:", data);
 
       // =====================================================
       // LOGIN FAILED
       // =====================================================
 
       if (!response.ok) {
-        console.error(
-          "Login failed:",
-          data
-        );
+        console.error("Login failed:", data);
 
         if (
           typeof data === "object" &&
@@ -117,7 +105,6 @@ function Login() {
           );
         }
 
-        // Restore dark mode
         if (savedDarkMode !== null) {
           localStorage.setItem(
             "darkMode",
@@ -165,10 +152,7 @@ function Login() {
 
       const user = data;
 
-      console.log(
-        "LOGIN SUCCESS:",
-        user
-      );
+      console.log("LOGIN SUCCESS:", user);
 
       // =====================================================
       // ROLE
@@ -182,10 +166,7 @@ function Login() {
           .toString()
           .toLowerCase();
 
-      console.log(
-        "USER ROLE:",
-        userRole
-      );
+      console.log("USER ROLE:", userRole);
 
       // =====================================================
       // VALIDATE ROLE
@@ -218,17 +199,12 @@ function Login() {
       // CLEAR OLD LOGIN DATA
       // =====================================================
 
-      localStorage.removeItem(
-        "isLoggedIn"
-      );
-
-      localStorage.removeItem(
-        "role"
-      );
-
-      localStorage.removeItem(
-        "user"
-      );
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("role");
+      localStorage.removeItem("user");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("patientId");
+      localStorage.removeItem("doctorId");
 
       // =====================================================
       // SAFE USER OBJECT
@@ -286,6 +262,27 @@ function Login() {
         JSON.stringify(safeUser)
       );
 
+      if (safeUser.userId !== null) {
+        localStorage.setItem(
+          "userId",
+          String(safeUser.userId)
+        );
+      }
+
+      if (safeUser.patientId !== null) {
+        localStorage.setItem(
+          "patientId",
+          String(safeUser.patientId)
+        );
+      }
+
+      if (safeUser.doctorId !== null) {
+        localStorage.setItem(
+          "doctorId",
+          String(safeUser.doctorId)
+        );
+      }
+
       // =====================================================
       // RESTORE DARK MODE
       // =====================================================
@@ -299,11 +296,6 @@ function Login() {
         applyDarkMode(
           savedDarkMode === "true"
         );
-
-        console.log(
-          "DARK MODE RESTORED:",
-          savedDarkMode
-        );
       } else {
         const currentDarkMode =
           getInitialDarkMode();
@@ -316,44 +308,7 @@ function Login() {
         applyDarkMode(
           currentDarkMode
         );
-
-        console.log(
-          "DARK MODE INITIALIZED:",
-          currentDarkMode
-        );
       }
-
-      // =====================================================
-      // VERIFY LOCAL STORAGE
-      // =====================================================
-
-      console.log(
-        "USER STORED:",
-        JSON.parse(
-          localStorage.getItem("user")
-        )
-      );
-
-      console.log(
-        "FINAL DARK MODE:",
-        localStorage.getItem(
-          "darkMode"
-        )
-      );
-
-      console.log(
-        "HTML DARK MODE:",
-        document.documentElement.classList.contains(
-          "dark-mode"
-        )
-      );
-
-      console.log(
-        "BODY DARK MODE:",
-        document.body.classList.contains(
-          "dark-mode"
-        )
-      );
 
       // =====================================================
       // REDIRECT
@@ -366,18 +321,14 @@ function Login() {
             replace: true,
           }
         );
-      }
-
-      else if (userRole === "doctor") {
+      } else if (userRole === "doctor") {
         navigate(
           "/doctor",
           {
             replace: true,
           }
         );
-      }
-
-      else if (userRole === "patient") {
+      } else if (userRole === "patient") {
         navigate(
           "/patient",
           {
@@ -396,7 +347,6 @@ function Login() {
         "Cannot connect to the hospital server. Make sure Spring Boot is running on port 8080."
       );
 
-      // Restore dark mode
       if (savedDarkMode !== null) {
         localStorage.setItem(
           "darkMode",
@@ -418,13 +368,15 @@ function Login() {
   // =========================================================
 
   const handleForgotPassword = () => {
-    console.log(
-      "FORGOT PASSWORD CLICKED"
-    );
+    navigate("/forgot-password");
+  };
 
-    navigate(
-      "/forgot-password"
-    );
+  // =========================================================
+  // BACK TO HOME
+  // =========================================================
+
+  const handleBackToHome = () => {
+    navigate("/");
   };
 
   // =========================================================
@@ -434,214 +386,337 @@ function Login() {
   return (
     <div className="login-page">
 
+      <div className="login-background-glow login-glow-one"></div>
+      <div className="login-background-glow login-glow-two"></div>
+
       <div className="login-container">
 
         {/* =================================================
-            HEADER
+            LOGO / HEADER
         ================================================= */}
 
         <div className="login-header">
 
-          <div className="hospital-icon">
-            🏥
+          <button
+            type="button"
+            className="login-back-home"
+            onClick={handleBackToHome}
+          >
+            ← Back to Home
+          </button>
+
+          <div className="login-logo-wrapper">
+            <img
+              src="/github-logo.jpeg"
+              alt="AI Smart Hospital"
+              className="login-logo"
+            />
           </div>
 
           <h1>
-            AI Hospital
+            AI Smart Hospital
           </h1>
 
           <p>
-            Hospital Management System
+            Intelligent Healthcare Management
           </p>
+
+          <div className="login-status">
+            <span className="login-status-dot"></span>
+            Secure Hospital Login
+          </div>
 
         </div>
 
         {/* =================================================
-            LOGIN FORM
+            LOGIN CARD
         ================================================= */}
 
-        <form
-          className="login-form"
-          onSubmit={handleLogin}
-        >
+        <div className="login-card">
 
-          {/* =================================================
-              EMAIL
-          ================================================= */}
+          <div className="login-card-heading">
 
-          <div className="form-group">
+            <div>
+              <span className="login-kicker">
+                WELCOME BACK
+              </span>
 
-            <label htmlFor="email">
-              Email
-            </label>
+              <h2>
+                {role} Login
+              </h2>
 
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) =>
-                setEmail(
-                  e.target.value
-                )
-              }
-              placeholder="Enter your email"
-              autoComplete="email"
-              required
-            />
+              <p>
+                Login to your AI Smart Hospital account
+              </p>
+            </div>
 
           </div>
 
           {/* =================================================
-              PASSWORD
+              ROLE SELECTOR
           ================================================= */}
 
-          <div className="form-group">
+          <div className="login-role-section">
 
-            <label htmlFor="password">
-              Password
-            </label>
+            <span className="login-role-label">
+              Login As
+            </span>
 
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) =>
-                setPassword(
-                  e.target.value
-                )
-              }
-              placeholder="Enter your password"
-              autoComplete="current-password"
-              required
-            />
+            <div className="login-role-tabs">
+
+              <button
+                type="button"
+                className={
+                  role === "Patient"
+                    ? "login-role-tab active"
+                    : "login-role-tab"
+                }
+                onClick={() => {
+                  setRole("Patient");
+                  setErrorMessage("");
+                }}
+              >
+                <span className="role-icon">
+                  +
+                </span>
+                Patient
+              </button>
+
+              <button
+                type="button"
+                className={
+                  role === "Doctor"
+                    ? "login-role-tab active"
+                    : "login-role-tab"
+                }
+                onClick={() => {
+                  setRole("Doctor");
+                  setErrorMessage("");
+                }}
+              >
+                <span className="role-icon">
+                  +
+                </span>
+                Doctor
+              </button>
+
+              <button
+                type="button"
+                className={
+                  role === "Admin"
+                    ? "login-role-tab active"
+                    : "login-role-tab"
+                }
+                onClick={() => {
+                  setRole("Admin");
+                  setErrorMessage("");
+                }}
+              >
+                <span className="role-icon">
+                  +
+                </span>
+                Admin
+              </button>
+
+            </div>
 
           </div>
 
           {/* =================================================
-              FORGOT PASSWORD
-              
-              INLINE CSS IS INTENTIONAL.
-              This prevents Login.css from hiding it.
+              LOGIN FORM
           ================================================= */}
 
-          <div
-            style={{
-              width: "100%",
-              display: "block",
-              textAlign: "right",
-              marginTop: "8px",
-              marginBottom: "20px",
-              padding: "0",
-              position: "relative",
-              zIndex: 999999,
-            }}
+          <form
+            className="login-form"
+            onSubmit={handleLogin}
           >
+
+            {/* EMAIL */}
+
+            <div className="form-group">
+
+              <label htmlFor="email">
+                Email Address
+              </label>
+
+              <div className="login-input-wrapper">
+
+                <span className="login-input-icon">
+                  @
+                </span>
+
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setErrorMessage("");
+                  }}
+                  placeholder="Enter your email"
+                  autoComplete="email"
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            {/* PASSWORD */}
+
+            <div className="form-group">
+
+              <label htmlFor="password">
+                Password
+              </label>
+
+              <div className="login-input-wrapper">
+
+                <span className="login-input-icon">
+                  •
+                </span>
+
+                <input
+                  id="password"
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setErrorMessage("");
+                  }}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() =>
+                    setShowPassword(
+                      (previous) =>
+                        !previous
+                    )
+                  }
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                >
+                  {showPassword
+                    ? "Hide"
+                    : "Show"}
+                </button>
+
+              </div>
+
+            </div>
+
+            {/* FORGOT PASSWORD */}
+
+            <div className="forgot-password-row">
+
+              <button
+                type="button"
+                className="forgot-password-button"
+                onClick={
+                  handleForgotPassword
+                }
+              >
+                Forgot Password?
+              </button>
+
+            </div>
+
+            {/* ERROR */}
+
+            {errorMessage && (
+              <div className="login-error">
+                <span>!</span>
+                {errorMessage}
+              </div>
+            )}
+
+            {/* LOGIN BUTTON */}
 
             <button
-              type="button"
-              onClick={handleForgotPassword}
-
-              style={{
-                display: "inline-block",
-                visibility: "visible",
-                opacity: 1,
-
-                color: "#2563eb",
-
-                backgroundColor:
-                  "transparent",
-
-                border: "none",
-
-                outline: "none",
-
-                padding: "5px 0",
-
-                margin: "0",
-
-                fontSize: "14px",
-
-                fontWeight: "600",
-
-                lineHeight: "20px",
-
-                cursor: "pointer",
-
-                textDecoration: "none",
-
-                position: "relative",
-
-                zIndex: 999999,
-              }}
+              type="submit"
+              className="login-button"
+              disabled={loading}
             >
-              Forgot Password?
+
+              {loading ? (
+                <>
+                  <span className="login-spinner"></span>
+                  Logging in...
+                </>
+              ) : (
+                <>
+                  Login as {role}
+                  <span className="login-button-arrow">
+                    →
+                  </span>
+                </>
+              )}
+
             </button>
 
-          </div>
+          </form>
 
           {/* =================================================
-              ROLE
+              SECURITY INFO
           ================================================= */}
 
-          <div className="form-group">
+          <div className="login-security">
 
-            <label htmlFor="role">
-              Login As
-            </label>
+            <div className="security-item">
+              <span className="security-icon">
+                ✓
+              </span>
 
-            <select
-              id="role"
-              value={role}
-              onChange={(e) =>
-                setRole(
-                  e.target.value
-                )
-              }
-            >
-
-              <option value="Patient">
-                Patient
-              </option>
-
-              <option value="Doctor">
-                Doctor
-              </option>
-
-              <option value="Admin">
-                Admin
-              </option>
-
-            </select>
-
-          </div>
-
-          {/* =================================================
-              ERROR MESSAGE
-          ================================================= */}
-
-          {errorMessage && (
-            <div className="login-error">
-              {errorMessage}
+              <span>
+                Secure Login
+              </span>
             </div>
-          )}
 
-          {/* =================================================
-              LOGIN BUTTON
-          ================================================= */}
+            <div className="security-item">
+              <span className="security-icon">
+                ✓
+              </span>
 
-          <button
-            type="submit"
-            className="login-button"
-            disabled={loading}
-          >
+              <span>
+                Protected Account
+              </span>
+            </div>
 
-            {loading
-              ? "Logging in..."
-              : "Login"}
+          </div>
 
-          </button>
+        </div>
 
-        </form>
+        {/* =================================================
+            FOOTER
+        ================================================= */}
+
+        <div className="login-footer">
+
+          <span>
+            AI Smart Hospital
+          </span>
+
+          <span className="login-footer-dot">
+            •
+          </span>
+
+          <span>
+            Intelligent Healthcare
+          </span>
+
+        </div>
 
       </div>
 
