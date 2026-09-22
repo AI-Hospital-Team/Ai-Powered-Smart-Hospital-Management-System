@@ -10,6 +10,8 @@ import {
   Activity,
   Check,
   Ban,
+  Clock,
+  Phone,
 } from "lucide-react";
 
 import "./Doctors.css";
@@ -37,16 +39,11 @@ function Doctors() {
       setLoading(true);
       setError("");
 
-      const response = await fetch(
-        `${API_BASE_URL}/doctors`
-      );
+      const response = await fetch(`${API_BASE_URL}/doctors`);
 
       if (!response.ok) {
         const errorText = await response.text();
-
-        throw new Error(
-          errorText || "Failed to fetch doctors"
-        );
+        throw new Error(errorText || "Failed to fetch doctors");
       }
 
       const data = await response.json();
@@ -85,10 +82,12 @@ function Doctors() {
         doctor.qualification,
         doctor.medicalRegistrationNo,
         doctor.hospitalAssociation,
+        doctor.phone,
+        doctor.gender,
+        doctor.shift,
+        doctor.address,
       ]
-        .map((value) =>
-          String(value ?? "").toLowerCase()
-        )
+        .map((value) => String(value ?? "").toLowerCase())
         .some((value) => value.includes(search))
     );
   }, [doctors, searchTerm]);
@@ -98,9 +97,7 @@ function Doctors() {
   // =====================================================
 
   const getInitial = (name) => {
-    return (
-      name?.trim()?.charAt(0)?.toUpperCase() || "D"
-    );
+    return name?.trim()?.charAt(0)?.toUpperCase() || "D";
   };
 
   // =====================================================
@@ -127,10 +124,6 @@ function Doctors() {
         }
       );
 
-      /*
-       * Backend can return either JSON or plain text
-       * for an error. Therefore read text first.
-       */
       const responseText = await response.text();
 
       if (!response.ok) {
@@ -154,11 +147,6 @@ function Doctors() {
         updatedDoctor
       );
 
-      /*
-       * Important:
-       * Reload doctors directly from backend/database.
-       * This prevents frontend-only status changes.
-       */
       await loadDoctors();
 
       setSelectedDoctor(updatedDoctor);
@@ -167,10 +155,7 @@ function Doctors() {
         "Doctor approved successfully. The doctor can now login."
       );
     } catch (err) {
-      console.error(
-        "Approve doctor error:",
-        err
-      );
+      console.error("Approve doctor error:", err);
 
       alert(
         err.message ||
@@ -205,10 +190,6 @@ function Doctors() {
         }
       );
 
-      /*
-       * Read response as text first so plain-text backend
-       * errors do not cause JSON parsing errors.
-       */
       const responseText = await response.text();
 
       if (!response.ok) {
@@ -232,21 +213,13 @@ function Doctors() {
         updatedDoctor
       );
 
-      /*
-       * Reload from backend/database.
-       */
       await loadDoctors();
 
       setSelectedDoctor(updatedDoctor);
 
-      alert(
-        "Doctor application rejected."
-      );
+      alert("Doctor application rejected.");
     } catch (err) {
-      console.error(
-        "Reject doctor error:",
-        err
-      );
+      console.error("Reject doctor error:", err);
 
       alert(
         err.message ||
@@ -255,6 +228,33 @@ function Doctors() {
     } finally {
       setUpdatingDoctorId(null);
     }
+  };
+
+  // =====================================================
+  // STATUS HELPERS
+  // =====================================================
+
+  const getStatus = (doctor) => {
+    return String(
+      doctor?.status || "PENDING"
+    ).toUpperCase();
+  };
+
+  const isPendingStatus = (doctor) => {
+    return getStatus(doctor) === "PENDING";
+  };
+
+  const isRejectedStatus = (doctor) => {
+    return getStatus(doctor) === "REJECTED";
+  };
+
+  const isApprovedStatus = (doctor) => {
+    const status = getStatus(doctor);
+
+    return (
+      status === "APPROVED" ||
+      status === "ACTIVE"
+    );
   };
 
   // =====================================================
@@ -285,8 +285,7 @@ function Doctors() {
             <h1>Doctors</h1>
 
             <p>
-              View and manage all registered hospital
-              doctors.
+              View and manage all registered hospital doctors.
             </p>
 
           </div>
@@ -349,8 +348,7 @@ function Doctors() {
           </strong>
 
           <small>
-            {filteredDoctors.length} doctors currently
-            displayed
+            {filteredDoctors.length} doctors currently displayed
           </small>
 
         </div>
@@ -368,8 +366,7 @@ function Doctors() {
           <h2>Doctor Directory</h2>
 
           <p>
-            Search and view registered medical
-            professionals.
+            Search and view registered medical professionals.
           </p>
 
         </div>
@@ -430,8 +427,8 @@ function Doctors() {
           <h3>No Doctors Found</h3>
 
           <p>
-            There are no registered doctors in the
-            hospital system yet.
+            There are no registered doctors in the hospital
+            system yet.
           </p>
 
           <button onClick={loadDoctors}>
@@ -453,7 +450,7 @@ function Doctors() {
 
           <p>
             Try searching with a different name,
-            specialization or doctor ID.
+            specialization, shift or doctor ID.
           </p>
 
           <button
@@ -468,251 +465,276 @@ function Doctors() {
 
         <div className="doctors-grid">
 
-          {filteredDoctors.map(
-            (doctor, index) => {
+          {filteredDoctors.map((doctor, index) => {
 
-              const status =
-                String(
-                  doctor.status || "PENDING"
-                ).toUpperCase();
+            const status = getStatus(doctor);
 
-              const isPending =
-                status === "PENDING";
+            const isPending = isPendingStatus(doctor);
+            const isRejected = isRejectedStatus(doctor);
+            const isApproved = isApprovedStatus(doctor);
 
-              const isRejected =
-                status === "REJECTED";
+            const isUpdating =
+              updatingDoctorId === doctor.doctorId;
 
-              const isApproved =
-                status === "APPROVED" ||
-                status === "ACTIVE";
+            return (
 
-              const isUpdating =
-                updatingDoctorId ===
-                doctor.doctorId;
+              <div
+                className="admin-doctor-card"
+                key={
+                  doctor.doctorId ?? index
+                }
+                style={{
+                  animationDelay: `${index * 0.05}s`,
+                }}
+              >
 
-              return (
+                {/* =================================================
+                    CARD TOP
+                ================================================= */}
 
-                <div
-                  className="admin-doctor-card"
-                  key={
-                    doctor.doctorId ?? index
-                  }
-                  style={{
-                    animationDelay:
-                      `${index * 0.05}s`,
-                  }}
-                >
+                <div className="doctor-card-top">
 
-                  {/* CARD TOP */}
+                  <div className="doctor-avatar">
+                    {getInitial(doctor.name)}
+                  </div>
 
-                  <div className="doctor-card-top">
+                  <div className="doctor-card-name">
 
-                    <div className="doctor-avatar">
-                      {getInitial(doctor.name)}
-                    </div>
+                    <h3>
+                      {doctor.name ||
+                        `Doctor #${doctor.doctorId}`}
+                    </h3>
 
-                    <div className="doctor-card-name">
-
-                      <h3>
-                        {doctor.name ||
-                          `Doctor #${doctor.doctorId}`}
-                      </h3>
-
-                      <span>
-                        Doctor ID: #
-                        {doctor.doctorId ?? "-"}
-                      </span>
-
-                    </div>
-
-                    <div
-                      className={`doctor-active ${
-                        isPending
-                          ? "doctor-pending"
-                          : isRejected
-                          ? "doctor-rejected"
-                          : ""
-                      }`}
-                    >
-                      <span></span>
-                    </div>
+                    <span>
+                      Doctor ID: #
+                      {doctor.doctorId ?? "-"}
+                    </span>
 
                   </div>
 
-                  {/* SPECIALIZATION */}
-
-                  <div className="doctor-specialization">
-
-                    <div className="doctor-specialization-icon">
-                      <Stethoscope size={17} />
-                    </div>
-
-                    <div>
-
-                      <small>
-                        Specialization
-                      </small>
-
-                      <strong>
-                        {doctor.specialization ||
-                          "General Physician"}
-                      </strong>
-
-                    </div>
-
-                  </div>
-
-                  {/* STATUS */}
-
-                  <div className="doctor-status-row">
-
-                    <div className="doctor-status-icon">
-                      <Activity size={15} />
-                    </div>
-
-                    <div>
-
-                      <small>
-                        Account Status
-                      </small>
-
-                      <strong
-                        className={
-                          isPending
-                            ? "doctor-pending-text"
-                            : isRejected
-                            ? "doctor-rejected-text"
-                            : "doctor-active-text"
-                        }
-                      >
-                        {status}
-                      </strong>
-
-                    </div>
-
-                    {isApproved && (
-                      <BadgeCheck
-                        size={18}
-                        className="doctor-verified-icon"
-                      />
-                    )}
-
-                    {isPending && (
-                      <span
-                        style={{
-                          marginLeft: "auto",
-                          fontSize: "13px",
-                          fontWeight: "600",
-                        }}
-                      >
-                        Awaiting Review
-                      </span>
-                    )}
-
-                  </div>
-
-                  {/* VIEW */}
-
-                  <button
-                    className="doctor-view-button"
-                    onClick={() =>
-                      setSelectedDoctor(doctor)
-                    }
+                  <div
+                    className={`doctor-active ${
+                      isPending
+                        ? "doctor-pending"
+                        : isRejected
+                        ? "doctor-rejected"
+                        : ""
+                    }`}
                   >
-                    View Doctor
-                    <ArrowRight size={15} />
-                  </button>
+                    <span></span>
+                  </div>
 
-                  {/* APPROVE / REJECT */}
+                </div>
+
+                {/* =================================================
+                    SPECIALIZATION
+                ================================================= */}
+
+                <div className="doctor-specialization">
+
+                  <div className="doctor-specialization-icon">
+                    <Stethoscope size={17} />
+                  </div>
+
+                  <div>
+
+                    <small>
+                      Specialization
+                    </small>
+
+                    <strong>
+                      {doctor.specialization ||
+                        "General Physician"}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+                {/* =================================================
+                    SHIFT
+                ================================================= */}
+
+                <div className="doctor-specialization">
+
+                  <div className="doctor-specialization-icon">
+                    <Clock size={17} />
+                  </div>
+
+                  <div>
+
+                    <small>
+                      Shift
+                    </small>
+
+                    <strong>
+                      {doctor.shift
+                        ? String(doctor.shift).toUpperCase()
+                        : "Not Assigned"}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+                {/* =================================================
+                    STATUS
+                ================================================= */}
+
+                <div className="doctor-status-row">
+
+                  <div className="doctor-status-icon">
+                    <Activity size={15} />
+                  </div>
+
+                  <div>
+
+                    <small>
+                      Account Status
+                    </small>
+
+                    <strong
+                      className={
+                        isPending
+                          ? "doctor-pending-text"
+                          : isRejected
+                          ? "doctor-rejected-text"
+                          : "doctor-active-text"
+                      }
+                    >
+                      {status}
+                    </strong>
+
+                  </div>
+
+                  {isApproved && (
+                    <BadgeCheck
+                      size={18}
+                      className="doctor-verified-icon"
+                    />
+                  )}
 
                   {isPending && (
-                    <div
+                    <span
                       style={{
-                        display: "flex",
-                        gap: "10px",
-                        marginTop: "10px",
+                        marginLeft: "auto",
+                        fontSize: "13px",
+                        fontWeight: "600",
                       }}
                     >
-
-                      <button
-                        type="button"
-                        disabled={isUpdating}
-                        onClick={() =>
-                          handleApprove(doctor)
-                        }
-                        style={{
-                          flex: 1,
-                          border: "none",
-                          borderRadius: "8px",
-                          padding: "10px",
-                          background: "#16a34a",
-                          color: "#fff",
-                          fontWeight: "700",
-                          cursor: isUpdating
-                            ? "not-allowed"
-                            : "pointer",
-                          opacity: isUpdating
-                            ? 0.6
-                            : 1,
-                        }}
-                      >
-                        <Check
-                          size={15}
-                          style={{
-                            verticalAlign:
-                              "middle",
-                            marginRight: "5px",
-                          }}
-                        />
-
-                        {isUpdating
-                          ? "Approving..."
-                          : "Approve"}
-                      </button>
-
-                      <button
-                        type="button"
-                        disabled={isUpdating}
-                        onClick={() =>
-                          handleReject(doctor)
-                        }
-                        style={{
-                          flex: 1,
-                          border: "none",
-                          borderRadius: "8px",
-                          padding: "10px",
-                          background: "#dc2626",
-                          color: "#fff",
-                          fontWeight: "700",
-                          cursor: isUpdating
-                            ? "not-allowed"
-                            : "pointer",
-                          opacity: isUpdating
-                            ? 0.6
-                            : 1,
-                        }}
-                      >
-                        <Ban
-                          size={15}
-                          style={{
-                            verticalAlign:
-                              "middle",
-                            marginRight: "5px",
-                          }}
-                        />
-
-                        {isUpdating
-                          ? "Processing..."
-                          : "Reject"}
-                      </button>
-
-                    </div>
+                      Awaiting Review
+                    </span>
                   )}
 
                 </div>
-              );
-            }
-          )}
+
+                {/* =================================================
+                    VIEW
+                ================================================= */}
+
+                <button
+                  className="doctor-view-button"
+                  onClick={() =>
+                    setSelectedDoctor(doctor)
+                  }
+                >
+                  View Doctor
+                  <ArrowRight size={15} />
+                </button>
+
+                {/* =================================================
+                    APPROVE / REJECT
+                ================================================= */}
+
+                {isPending && (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      marginTop: "10px",
+                    }}
+                  >
+
+                    <button
+                      type="button"
+                      disabled={isUpdating}
+                      onClick={() =>
+                        handleApprove(doctor)
+                      }
+                      style={{
+                        flex: 1,
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "10px",
+                        background: "#16a34a",
+                        color: "#fff",
+                        fontWeight: "700",
+                        cursor: isUpdating
+                          ? "not-allowed"
+                          : "pointer",
+                        opacity: isUpdating
+                          ? 0.6
+                          : 1,
+                      }}
+                    >
+
+                      <Check
+                        size={15}
+                        style={{
+                          verticalAlign: "middle",
+                          marginRight: "5px",
+                        }}
+                      />
+
+                      {isUpdating
+                        ? "Approving..."
+                        : "Approve"}
+
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={isUpdating}
+                      onClick={() =>
+                        handleReject(doctor)
+                      }
+                      style={{
+                        flex: 1,
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "10px",
+                        background: "#dc2626",
+                        color: "#fff",
+                        fontWeight: "700",
+                        cursor: isUpdating
+                          ? "not-allowed"
+                          : "pointer",
+                        opacity: isUpdating
+                          ? 0.6
+                          : 1,
+                      }}
+                    >
+
+                      <Ban
+                        size={15}
+                        style={{
+                          verticalAlign: "middle",
+                          marginRight: "5px",
+                        }}
+                      />
+
+                      {isUpdating
+                        ? "Processing..."
+                        : "Reject"}
+
+                    </button>
+
+                  </div>
+                )}
+
+              </div>
+            );
+          })}
 
         </div>
       )}
@@ -737,7 +759,9 @@ function Doctors() {
             }
           >
 
-            {/* MODAL HEADER */}
+            {/* =================================================
+                MODAL HEADER
+            ================================================= */}
 
             <div className="doctor-modal-header">
 
@@ -758,8 +782,7 @@ function Doctors() {
 
                   <p>
                     Doctor ID: #
-                    {selectedDoctor.doctorId ||
-                      "-"}
+                    {selectedDoctor.doctorId || "-"}
                   </p>
 
                 </div>
@@ -777,11 +800,11 @@ function Doctors() {
 
             </div>
 
-            {/* MODAL CONTENT */}
+            {/* =================================================
+                MODAL CONTENT
+            ================================================= */}
 
             <div className="doctor-modal-content">
-
-              {/* PROFESSIONAL + PERSONAL INFORMATION */}
 
               <div className="doctor-detail-section">
 
@@ -790,6 +813,8 @@ function Doctors() {
                 </h3>
 
                 <div className="doctor-detail-grid">
+
+                  {/* FULL NAME */}
 
                   <div>
                     <small>
@@ -801,6 +826,8 @@ function Doctors() {
                     </strong>
                   </div>
 
+                  {/* DOCTOR ID */}
+
                   <div>
                     <small>
                       Doctor ID
@@ -810,6 +837,8 @@ function Doctors() {
                       #{selectedDoctor.doctorId || "-"}
                     </strong>
                   </div>
+
+                  {/* DATE OF BIRTH */}
 
                   <div>
                     <small>
@@ -821,6 +850,8 @@ function Doctors() {
                     </strong>
                   </div>
 
+                  {/* GENDER */}
+
                   <div>
                     <small>
                       Gender
@@ -831,6 +862,8 @@ function Doctors() {
                     </strong>
                   </div>
 
+                  {/* PHONE */}
+
                   <div>
                     <small>
                       Phone
@@ -840,6 +873,8 @@ function Doctors() {
                       {selectedDoctor.phone || "-"}
                     </strong>
                   </div>
+
+                  {/* SPECIALIZATION */}
 
                   <div>
                     <small>
@@ -852,6 +887,8 @@ function Doctors() {
                     </strong>
                   </div>
 
+                  {/* QUALIFICATION */}
+
                   <div>
                     <small>
                       Qualification
@@ -861,6 +898,8 @@ function Doctors() {
                       {selectedDoctor.qualification || "-"}
                     </strong>
                   </div>
+
+                  {/* REGISTRATION NUMBER */}
 
                   <div>
                     <small>
@@ -873,6 +912,8 @@ function Doctors() {
                     </strong>
                   </div>
 
+                  {/* HOSPITAL */}
+
                   <div>
                     <small>
                       Hospital Association
@@ -884,6 +925,24 @@ function Doctors() {
                     </strong>
                   </div>
 
+                  {/* SHIFT */}
+
+                  <div>
+                    <small>
+                      Shift
+                    </small>
+
+                    <strong>
+                      {selectedDoctor.shift
+                        ? String(
+                            selectedDoctor.shift
+                          ).toUpperCase()
+                        : "Not Assigned"}
+                    </strong>
+                  </div>
+
+                  {/* ACCOUNT STATUS */}
+
                   <div>
                     <small>
                       Account Status
@@ -891,23 +950,20 @@ function Doctors() {
 
                     <strong
                       className={
-                        String(
-                          selectedDoctor.status || ""
-                        ).toUpperCase() === "PENDING"
+                        getStatus(selectedDoctor) ===
+                        "PENDING"
                           ? "doctor-pending-text"
-                          : String(
-                              selectedDoctor.status || ""
-                            ).toUpperCase() === "REJECTED"
+                          : getStatus(selectedDoctor) ===
+                            "REJECTED"
                           ? "doctor-rejected-text"
                           : "doctor-active-text"
                       }
                     >
-                      {String(
-                        selectedDoctor.status ||
-                          "PENDING"
-                      ).toUpperCase()}
+                      {getStatus(selectedDoctor)}
                     </strong>
                   </div>
+
+                  {/* ADDRESS */}
 
                   <div
                     style={{
@@ -927,42 +983,42 @@ function Doctors() {
 
               </div>
 
-              {/* EMAIL */}
+              {/* =================================================
+                  EMAIL
+              ================================================= */}
 
-              {selectedDoctor.email && (
-                <div className="doctor-email-detail">
+              <div className="doctor-email-detail">
 
-                  <Mail size={15} />
+                <Mail size={15} />
 
-                  <div>
+                <div>
 
-                    <small>
-                      Email
-                    </small>
+                  <small>
+                    Email
+                  </small>
 
-                    <strong>
-                      {selectedDoctor.email}
-                    </strong>
-
-                  </div>
+                  <strong>
+                    {selectedDoctor.email || "-"}
+                  </strong>
 
                 </div>
-              )}
 
-              {/* VERIFICATION MESSAGE */}
+              </div>
+
+              {/* =================================================
+                  VERIFICATION MESSAGE
+              ================================================= */}
 
               <div className="doctor-care-message">
 
                 <Stethoscope size={18} />
 
                 <p>
-                  {String(
-                    selectedDoctor.status || ""
-                  ).toUpperCase() === "PENDING"
+                  {getStatus(selectedDoctor) ===
+                  "PENDING"
                     ? "Doctor application is awaiting Admin verification and approval. Please verify the registration number and hospital association before approving."
-                    : String(
-                        selectedDoctor.status || ""
-                      ).toUpperCase() === "REJECTED"
+                    : getStatus(selectedDoctor) ===
+                      "REJECTED"
                     ? "Doctor application has been rejected. This account cannot login."
                     : "Doctor account is registered and active in the hospital management system."}
                 </p>
@@ -971,22 +1027,19 @@ function Doctors() {
 
             </div>
 
-            {/* FOOTER */}
+            {/* =================================================
+                FOOTER
+            ================================================= */}
 
             <div className="doctor-modal-footer">
 
-              {String(
-                selectedDoctor.status || ""
-              ).toUpperCase() === "PENDING" && (
-
+              {getStatus(selectedDoctor) ===
+                "PENDING" && (
                 <>
-
                   <button
                     type="button"
                     onClick={() =>
-                      handleApprove(
-                        selectedDoctor
-                      )
+                      handleApprove(selectedDoctor)
                     }
                     disabled={
                       updatingDoctorId ===
@@ -1009,9 +1062,7 @@ function Doctors() {
                   <button
                     type="button"
                     onClick={() =>
-                      handleReject(
-                        selectedDoctor
-                      )
+                      handleReject(selectedDoctor)
                     }
                     disabled={
                       updatingDoctorId ===
@@ -1030,9 +1081,7 @@ function Doctors() {
                   >
                     ✕ Reject
                   </button>
-
                 </>
-
               )}
 
               <button
