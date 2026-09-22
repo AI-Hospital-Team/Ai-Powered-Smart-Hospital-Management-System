@@ -4542,3 +4542,55 @@
     font-size: 18px !important;
   }
 }
+
+/* ==========================================
+   NOTIFICATION APPOINTMENT ICON
+   ========================================== */
+
+.notification-dropdown-icon.appointment svg {
+  width: 28px !important;
+  height: 28px !important;
+  display: block !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* PASSWORD RESET USER ICON — LIGHT MODE */
+
+.password-reset-page .reset-user-icon {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border-radius: 10px !important;
+
+  background: #eff9fb !important;
+  color: #079caf !important;
+
+  border: 1px solid #c8e6eb !important;
+  box-shadow: none !important;
+}
+
+.password-reset-page .reset-user-icon svg {
+  width: 23px !important;
+  height: 23px !important;
+
+  display: block !important;
+
+  fill: none !important;
+  stroke: #079caf !important;
+  stroke-width: 1.8 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}

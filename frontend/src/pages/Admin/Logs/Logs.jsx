@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 import "./Logs.css";
+import {
+  RefreshCw,
+  ClipboardList,
+  Stethoscope,
+} from "lucide-react";
 
 const API_BASE_URL = "http://localhost:8080/api";
 
@@ -56,45 +61,69 @@ function Logs() {
 
   return (
     <div className="admin-logs-page">
+
+      {/* ================= HEADER ================= */}
       <div className="logs-header">
         <div>
           <h1>Admin Logs</h1>
+
           <p>
             Doctor approval and rejection history
           </p>
         </div>
 
-        <button className="refresh-logs-btn" onClick={fetchLogs}>
-          ↻ Refresh
+        <button
+          className="bills-refresh-button"
+          onClick={fetchLogs}
+          disabled={loading}
+        >
+          <RefreshCw size={15} />
+          Refresh
         </button>
       </div>
 
+      {/* ================= LOADING ================= */}
       {loading && (
         <div className="logs-message">
           Loading admin logs...
         </div>
       )}
 
+      {/* ================= ERROR ================= */}
       {error && !loading && (
         <div className="logs-error">
           <strong>Error:</strong> {error}
         </div>
       )}
 
+      {/* ================= EMPTY STATE ================= */}
       {!loading && !error && logs.length === 0 && (
         <div className="logs-empty">
-          <div className="empty-icon">📋</div>
+
+          <div className="empty-icon">
+            <ClipboardList
+              size={40}
+              strokeWidth={1.8}
+            />
+          </div>
+
           <h3>No Admin Logs Found</h3>
+
           <p>
             Doctor approval or rejection actions will appear here.
           </p>
+
         </div>
       )}
 
+      {/* ================= LOG TABLE ================= */}
       {!loading && !error && logs.length > 0 && (
         <div className="logs-card">
+
           <div className="logs-table-wrapper">
+
             <table className="logs-table">
+
               <thead>
                 <tr>
                   <th>Log ID</th>
@@ -108,9 +137,13 @@ function Logs() {
               </thead>
 
               <tbody>
+
                 {logs.map((log) => (
                   <tr key={log.logId}>
-                    <td>#{log.logId}</td>
+
+                    <td>
+                      #{log.logId}
+                    </td>
 
                     <td>
                       #{log.doctorId}
@@ -118,10 +151,18 @@ function Logs() {
 
                     <td>
                       <div className="doctor-name-cell">
+
                         <span className="doctor-log-icon">
-                          🩺
+                          <Stethoscope
+                            size={20}
+                            strokeWidth={1.8}
+                          />
                         </span>
-                        <span>{log.doctorName || "—"}</span>
+
+                        <span>
+                          {log.doctorName || "—"}
+                        </span>
+
                       </div>
                     </td>
 
@@ -148,13 +189,19 @@ function Logs() {
                     <td>
                       {formatDateTime(log.actionDateTime)}
                     </td>
+
                   </tr>
                 ))}
+
               </tbody>
+
             </table>
+
           </div>
+
         </div>
       )}
+
     </div>
   );
 }
