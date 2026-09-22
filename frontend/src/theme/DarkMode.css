@@ -21422,3 +21422,311 @@ body.dark-mode .logs-error {
   border-color: #653338;
   color: #ffaaaa;
 }
+
+/* =========================================================
+   NOTIFICATIONS — FINAL DARK MODE FIX
+   ========================================================= */
+
+html.dark-mode .notification-header-button,
+body.dark-mode .notification-header-button {
+  background: #102d37 !important;
+  border-color: #285763 !important;
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-header-button:hover,
+html.dark-mode .notification-header-button.active,
+body.dark-mode .notification-header-button:hover,
+body.dark-mode .notification-header-button.active {
+  background: #173b46 !important;
+  border-color: #35cbd5 !important;
+  color: #62e0e7 !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .notification-header-icon,
+body.dark-mode .notification-header-icon {
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-header-icon svg,
+body.dark-mode .notification-header-icon svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8 !important;
+}
+
+/* Badge */
+
+html.dark-mode .notification-badge,
+body.dark-mode .notification-badge {
+  background: #ef5350 !important;
+  color: #ffffff !important;
+  border-color: #102d37 !important;
+}
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+   ========================================================= */
+
+html.dark-mode .notification-dropdown,
+body.dark-mode .notification-dropdown {
+  background: #10252d !important;
+  border-color: #2b505a !important;
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.55),
+    0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Header */
+
+html.dark-mode .notification-dropdown-header,
+body.dark-mode .notification-dropdown-header {
+  background: #10252d !important;
+  border-bottom-color: #2b505a !important;
+}
+
+html.dark-mode .notification-dropdown-header h3,
+body.dark-mode .notification-dropdown-header h3 {
+  color: #e8f7fa !important;
+}
+
+html.dark-mode .notification-dropdown-header span,
+body.dark-mode .notification-dropdown-header span {
+  color: #8faeb8 !important;
+}
+
+/* Mark all */
+
+html.dark-mode .notification-mark-all,
+body.dark-mode .notification-mark-all {
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-mark-all:hover,
+body.dark-mode .notification-mark-all:hover {
+  color: #79e8ee !important;
+}
+
+/* =========================================================
+   NOTIFICATION ITEMS
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-item,
+body.dark-mode .notification-dropdown-item {
+  background: #10252d !important;
+  border-bottom-color: #294852 !important;
+}
+
+html.dark-mode .notification-dropdown-item:hover,
+body.dark-mode .notification-dropdown-item:hover {
+  background: #16353e !important;
+}
+
+html.dark-mode .notification-dropdown-item.unread,
+body.dark-mode .notification-dropdown-item.unread {
+  background: #12343d !important;
+  border-left: 3px solid #35cbd5 !important;
+}
+
+/* Title */
+
+html.dark-mode .notification-dropdown-title strong,
+body.dark-mode .notification-dropdown-title strong {
+  color: #e7f8fa !important;
+}
+
+/* Message */
+
+html.dark-mode .notification-dropdown-content p,
+body.dark-mode .notification-dropdown-content p {
+  color: #a4bdc4 !important;
+}
+
+/* Time */
+
+html.dark-mode .notification-dropdown-content small,
+body.dark-mode .notification-dropdown-content small {
+  color: #78959e !important;
+}
+
+/* =========================================================
+   NOTIFICATION ICON BOXES
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-icon,
+body.dark-mode .notification-dropdown-icon {
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 14px !important;
+
+  background: #173943 !important;
+  border: 1px solid #285966 !important;
+
+  color: #42d5df !important;
+}
+
+html.dark-mode .notification-dropdown-icon svg,
+body.dark-mode .notification-dropdown-icon svg {
+  width: 28px !important;
+  height: 28px !important;
+
+  display: block !important;
+
+  fill: none !important;
+  stroke: currentColor !important;
+
+  stroke-width: 1.8 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* Appointment */
+
+html.dark-mode .notification-dropdown-icon.appointment,
+body.dark-mode .notification-dropdown-icon.appointment {
+  background: #173943 !important;
+  color: #42d5df !important;
+}
+
+/* Bill */
+
+html.dark-mode .notification-dropdown-icon.bill,
+body.dark-mode .notification-dropdown-icon.bill {
+  background: #183b4d !important;
+  color: #65b8ff !important;
+}
+
+/* Prescription */
+
+html.dark-mode .notification-dropdown-icon.prescription,
+body.dark-mode .notification-dropdown-icon.prescription {
+  background: #25364d !important;
+  color: #9bafff !important;
+}
+
+/* Lab */
+
+html.dark-mode .notification-dropdown-icon.lab,
+body.dark-mode .notification-dropdown-icon.lab {
+  background: #173f3a !important;
+  color: #62d9bd !important;
+}
+
+/* Doctor */
+
+html.dark-mode .notification-dropdown-icon.doctor,
+body.dark-mode .notification-dropdown-icon.doctor {
+  background: #24364d !important;
+  color: #82baff !important;
+}
+
+/* Default */
+
+html.dark-mode .notification-dropdown-icon.default,
+body.dark-mode .notification-dropdown-icon.default {
+  background: #173943 !important;
+  color: #42d5df !important;
+}
+
+/* =========================================================
+   NEW BADGE
+   ========================================================= */
+
+html.dark-mode .notification-new-dot,
+body.dark-mode .notification-new-dot {
+  background: #17464e !important;
+  border-color: #28616b !important;
+  color: #55dce5 !important;
+}
+
+/* =========================================================
+   MARK AS READ
+   ========================================================= */
+
+html.dark-mode .notification-mark-read,
+body.dark-mode .notification-mark-read {
+  background: #16343d !important;
+  border-color: #315761 !important;
+  color: #65d8df !important;
+}
+
+html.dark-mode .notification-mark-read:hover,
+body.dark-mode .notification-mark-read:hover {
+  background: #1b424d !important;
+  border-color: #3d7883 !important;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-empty,
+body.dark-mode .notification-dropdown-empty {
+  background: #10252d !important;
+}
+
+html.dark-mode .notification-empty-icon,
+body.dark-mode .notification-empty-icon {
+  background: #173943 !important;
+  border-color: #285966 !important;
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-empty-icon svg,
+body.dark-mode .notification-empty-icon svg {
+  width: 30px !important;
+  height: 30px !important;
+  stroke: currentColor !important;
+}
+
+html.dark-mode .notification-dropdown-empty strong,
+body.dark-mode .notification-dropdown-empty strong {
+  color: #e7f8fa !important;
+}
+
+html.dark-mode .notification-dropdown-empty span,
+body.dark-mode .notification-dropdown-empty span {
+  color: #8faeb8 !important;
+}
+
+/* =========================================================
+   LOADING / ERROR
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-loading,
+body.dark-mode .notification-dropdown-loading {
+  background: #10252d !important;
+  color: #9ab6bf !important;
+}
+
+html.dark-mode .notification-dropdown-error,
+body.dark-mode .notification-dropdown-error {
+  background: #10252d !important;
+  color: #ff9ca7 !important;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-footer,
+body.dark-mode .notification-dropdown-footer {
+  background: #0d2027 !important;
+  border-top-color: #29464e !important;
+}
+
+html.dark-mode .notification-dropdown-footer span,
+body.dark-mode .notification-dropdown-footer span {
+  color: #78959e !important;
+}
