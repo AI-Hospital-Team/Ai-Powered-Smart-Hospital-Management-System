@@ -18211,258 +18211,6 @@ body.dark-mode .admin-doctor-card button[style*="background: #dc2626"] {
   }
 }
 
-
-/* =========================================================
-   ADMIN LOGS - DARK MODE
-   ========================================================= */
-
-html.dark-mode .admin-logs-page,
-body.dark-mode .admin-logs-page,
-.dark-mode .admin-logs-page {
-  background: #0f1b22 !important;
-  color: #eaf4f6 !important;
-}
-
-/* HEADER */
-html.dark-mode .logs-header h1,
-body.dark-mode .logs-header h1,
-.dark-mode .logs-header h1 {
-  color: #f1f8fa !important;
-}
-
-html.dark-mode .logs-header p,
-body.dark-mode .logs-header p,
-.dark-mode .logs-header p {
-  color: #91a8b2 !important;
-}
-
-/* REFRESH BUTTON */
-html.dark-mode .refresh-logs-btn,
-body.dark-mode .refresh-logs-btn,
-.dark-mode .refresh-logs-btn {
-  background: linear-gradient(
-    135deg,
-    #079b96,
-    #087f82
-  ) !important;
-
-  color: #ffffff !important;
-
-  border: 1px solid #159f9b !important;
-
-  box-shadow:
-    0 6px 16px rgba(0, 0, 0, 0.25) !important;
-}
-
-html.dark-mode .refresh-logs-btn:hover,
-body.dark-mode .refresh-logs-btn:hover,
-.dark-mode .refresh-logs-btn:hover {
-  opacity: 1 !important;
-
-  background: linear-gradient(
-    135deg,
-    #0aa9a3,
-    #07858a
-  ) !important;
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 9px 20px rgba(0, 0, 0, 0.32) !important;
-}
-
-/* MAIN CARD */
-html.dark-mode .logs-card,
-body.dark-mode .logs-card,
-.dark-mode .logs-card {
-  background: #14232b !important;
-
-  border-color: #293e48 !important;
-
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.28) !important;
-}
-
-/* TABLE */
-html.dark-mode .logs-table,
-body.dark-mode .logs-table,
-.dark-mode .logs-table {
-  background: #14232b !important;
-}
-
-/* TABLE HEADER */
-html.dark-mode .logs-table th,
-body.dark-mode .logs-table th,
-.dark-mode .logs-table th {
-  background: #102027 !important;
-
-  color: #dcebef !important;
-
-  border-bottom-color: #29414c !important;
-}
-
-/* TABLE DATA */
-html.dark-mode .logs-table td,
-body.dark-mode .logs-table td,
-.dark-mode .logs-table td {
-  background: #14232b !important;
-
-  color: #b8cbd1 !important;
-
-  border-bottom-color: #263b45 !important;
-}
-
-/* ROW HOVER */
-html.dark-mode .logs-table tbody tr:hover,
-body.dark-mode .logs-table tbody tr:hover,
-.dark-mode .logs-table tbody tr:hover {
-  background: #192d36 !important;
-}
-
-html.dark-mode .logs-table tbody tr:hover td,
-body.dark-mode .logs-table tbody tr:hover td,
-.dark-mode .logs-table tbody tr:hover td {
-  background: #192d36 !important;
-}
-
-/* DOCTOR NAME */
-html.dark-mode .doctor-name-cell,
-body.dark-mode .doctor-name-cell,
-.dark-mode .doctor-name-cell {
-  color: #eaf5f7 !important;
-}
-
-html.dark-mode .doctor-log-icon,
-body.dark-mode .doctor-log-icon,
-.dark-mode .doctor-log-icon {
-  color: #45d2cc !important;
-}
-
-/* ACTION BADGES */
-html.dark-mode .log-action.approved,
-body.dark-mode .log-action.approved,
-.dark-mode .log-action.approved {
-  background: #12372b !important;
-
-  color: #5fdda1 !important;
-
-  border: 1px solid #245d48 !important;
-}
-
-html.dark-mode .log-action.rejected,
-body.dark-mode .log-action.rejected,
-.dark-mode .log-action.rejected {
-  background: #391e22 !important;
-
-  color: #ff8585 !important;
-
-  border: 1px solid #69373d !important;
-}
-
-/* LOADING MESSAGE */
-html.dark-mode .logs-message,
-body.dark-mode .logs-message,
-.dark-mode .logs-message {
-  background: #14232b !important;
-
-  border-color: #293e48 !important;
-
-  color: #c4d5da !important;
-
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.25) !important;
-}
-
-/* ERROR */
-html.dark-mode .logs-error,
-body.dark-mode .logs-error,
-.dark-mode .logs-error {
-  background: #30191c !important;
-
-  border-color: #683237 !important;
-
-  color: #ff8d8d !important;
-}
-
-html.dark-mode .logs-error strong,
-body.dark-mode .logs-error strong,
-.dark-mode .logs-error strong {
-  color: #ff9b9b !important;
-}
-
-/* EMPTY */
-html.dark-mode .logs-empty,
-body.dark-mode .logs-empty,
-.dark-mode .logs-empty {
-  background: #14232b !important;
-
-  border-color: #293e48 !important;
-
-  color: #eaf4f6 !important;
-
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.25) !important;
-}
-
-html.dark-mode .logs-empty h3,
-body.dark-mode .logs-empty h3,
-.dark-mode .logs-empty h3 {
-  color: #edf7f9 !important;
-}
-
-html.dark-mode .logs-empty p,
-body.dark-mode .logs-empty p,
-.dark-mode .logs-empty p {
-  color: #849da7 !important;
-}
-
-html.dark-mode .empty-icon,
-body.dark-mode .empty-icon,
-.dark-mode .empty-icon {
-  opacity: 0.9;
-}
-
-/* SCROLLBAR */
-html.dark-mode .logs-table-wrapper::-webkit-scrollbar,
-body.dark-mode .logs-table-wrapper::-webkit-scrollbar {
-  height: 7px;
-}
-
-html.dark-mode .logs-table-wrapper::-webkit-scrollbar-track,
-body.dark-mode .logs-table-wrapper::-webkit-scrollbar-track {
-  background: #101e25;
-}
-
-html.dark-mode .logs-table-wrapper::-webkit-scrollbar-thumb,
-body.dark-mode .logs-table-wrapper::-webkit-scrollbar-thumb {
-  background: #35535e;
-  border-radius: 10px;
-}
-
-html.dark-mode .logs-table-wrapper::-webkit-scrollbar-thumb:hover,
-body.dark-mode .logs-table-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #4a717b;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  html.dark-mode .admin-logs-page,
-  body.dark-mode .admin-logs-page {
-    background: #0f1b22 !important;
-  }
-
-  html.dark-mode .logs-card,
-  body.dark-mode .logs-card {
-    background: #14232b !important;
-  }
-
-  html.dark-mode .refresh-logs-btn,
-  body.dark-mode .refresh-logs-btn {
-    width: 100%;
-  }
-}
-
-
 /* =========================================================
    ADMIN MEDICAL RECORDS - COMPLETE DARK MODE
    ========================================================= */
@@ -21224,4 +20972,453 @@ body.dark-mode .back-login-button {
 html.dark-mode .back-login-button:hover,
 body.dark-mode .back-login-button:hover {
   color: #7ce4e9;
+}
+
+/* =========================================================
+   PASSWORD RESET REQUESTS — DARK MODE
+   ========================================================= */
+
+html.dark-mode .password-reset-page,
+body.dark-mode .password-reset-page {
+  color: #e8f7fa !important;
+}
+
+/* ---------- HEADER ---------- */
+
+html.dark-mode .password-reset-title-wrapper h1,
+body.dark-mode .password-reset-title-wrapper h1 {
+  color: #f1fbfc !important;
+}
+
+html.dark-mode .password-reset-title-wrapper p,
+body.dark-mode .password-reset-title-wrapper p {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-title-icon,
+body.dark-mode .password-reset-title-icon {
+  background: linear-gradient(135deg, #3159e8, #4b46e8) !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .password-reset-refresh-button,
+body.dark-mode .password-reset-refresh-button {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* ---------- SUMMARY CARDS ---------- */
+
+html.dark-mode .password-reset-summary-card,
+body.dark-mode .password-reset-summary-card {
+  background: #102d37 !important;
+  border: 1px solid #28515b !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark-mode .password-reset-summary-card span,
+body.dark-mode .password-reset-summary-card span {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-summary-card strong,
+body.dark-mode .password-reset-summary-card strong {
+  color: #f1fbfc !important;
+}
+
+/* Summary icons */
+
+html.dark-mode .summary-card-icon.pending,
+body.dark-mode .summary-card-icon.pending {
+  background: #46351b !important;
+  color: #ffbd4a !important;
+}
+
+html.dark-mode .summary-card-icon.approved,
+body.dark-mode .summary-card-icon.approved {
+  background: #123d34 !important;
+  color: #5ee0bd !important;
+}
+
+html.dark-mode .summary-card-icon.rejected,
+body.dark-mode .summary-card-icon.rejected {
+  background: #482027 !important;
+  color: #ff8996 !important;
+}
+
+html.dark-mode .summary-card-icon.completed,
+body.dark-mode .summary-card-icon.completed {
+  background: #183d64 !important;
+  color: #72b8ff !important;
+}
+
+/* ---------- MAIN CARD ---------- */
+
+html.dark-mode .password-reset-card,
+body.dark-mode .password-reset-card {
+  background: #102d37 !important;
+  border: 1px solid #2b535d !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .password-reset-card-header,
+body.dark-mode .password-reset-card-header {
+  background: #102d37 !important;
+  border-bottom: 1px solid #2b535d !important;
+}
+
+html.dark-mode .password-reset-card-header h2,
+body.dark-mode .password-reset-card-header h2 {
+  color: #eefbfc !important;
+}
+
+html.dark-mode .password-reset-card-header p,
+body.dark-mode .password-reset-card-header p {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-total,
+body.dark-mode .password-reset-total {
+  background: #173f68 !important;
+  color: #72b8ff !important;
+}
+
+/* ---------- TABLE ---------- */
+
+html.dark-mode .password-reset-table,
+body.dark-mode .password-reset-table {
+  background: #102d37 !important;
+}
+
+html.dark-mode .password-reset-table th,
+body.dark-mode .password-reset-table th {
+  background: #193b45 !important;
+  color: #e1f3f5 !important;
+  border-bottom: 1px solid #2c555f !important;
+
+  padding: 10px 12px !important;
+  font-size: 11px !important;
+}
+
+html.dark-mode .password-reset-table td,
+body.dark-mode .password-reset-table td {
+  background: #102d37 !important;
+  color: #b9d2d7 !important;
+  border-bottom: 1px solid #294d56 !important;
+
+  padding: 10px 12px !important;
+  font-size: 12px !important;
+}
+
+html.dark-mode .password-reset-table tbody tr:hover,
+body.dark-mode .password-reset-table tbody tr:hover {
+  background: #163a44 !important;
+}
+
+html.dark-mode .password-reset-table tbody tr:hover td,
+body.dark-mode .password-reset-table tbody tr:hover td {
+  background: #163a44 !important;
+}
+
+/* ---------- REQUEST ID ---------- */
+
+html.dark-mode .reset-request-id,
+body.dark-mode .reset-request-id {
+  min-width: 34px !important;
+  padding: 5px 7px !important;
+
+  background: #e9f6f8 !important;
+  color: #173943 !important;
+
+  border-radius: 7px !important;
+  font-size: 11px !important;
+}
+
+/* ---------- USER ---------- */
+
+html.dark-mode .reset-user,
+body.dark-mode .reset-user {
+  gap: 9px !important;
+  min-width: 200px !important;
+}
+
+html.dark-mode .reset-user strong,
+body.dark-mode .reset-user strong {
+  color: #eef9fa !important;
+  font-size: 12px !important;
+}
+
+html.dark-mode .reset-user span,
+body.dark-mode .reset-user span {
+  color: #7fa5ae !important;
+  font-size: 10px !important;
+}
+
+/* USER ICON */
+
+html.dark-mode .reset-user-icon,
+body.dark-mode .reset-user-icon {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border-radius: 10px !important;
+
+  background: #173943 !important;
+  color: #32d3df !important;
+
+  border: 1px solid #285966 !important;
+
+  box-shadow: none !important;
+}
+
+html.dark-mode .reset-user-icon svg,
+body.dark-mode .reset-user-icon svg {
+  width: 23px !important;
+  height: 23px !important;
+
+  display: block !important;
+
+  fill: none !important;
+  stroke: #32d3df !important;
+
+  stroke-width: 1.8 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* ---------- ROLE ---------- */
+
+html.dark-mode .reset-role,
+body.dark-mode .reset-role {
+  padding: 5px 8px !important;
+
+  background: #1b3c46 !important;
+  color: #d9eef1 !important;
+
+  border-radius: 7px !important;
+  font-size: 11px !important;
+}
+
+/* ---------- REQUEST CODE ---------- */
+
+html.dark-mode .reset-request-code,
+body.dark-mode .reset-request-code {
+  min-width: 85px !important;
+
+  padding: 6px 8px !important;
+
+  background: #173a44 !important;
+  border: 1px dashed #37636d !important;
+
+  color: #72dce4 !important;
+
+  font-size: 11px !important;
+  letter-spacing: 1px !important;
+}
+
+/* ---------- DATES ---------- */
+
+html.dark-mode .reset-date,
+body.dark-mode .reset-date {
+  color: #7fa5ae !important;
+  font-size: 11px !important;
+}
+
+/* ---------- STATUS ---------- */
+
+html.dark-mode .reset-status.pending,
+body.dark-mode .reset-status.pending {
+  background: #46351b !important;
+  color: #ffc45c !important;
+}
+
+html.dark-mode .reset-status.approved,
+body.dark-mode .reset-status.approved {
+  background: #123d34 !important;
+  color: #5ee0bd !important;
+}
+
+html.dark-mode .reset-status.rejected,
+body.dark-mode .reset-status.rejected {
+  background: #482027 !important;
+  color: #ff8f9b !important;
+}
+
+html.dark-mode .reset-status.completed,
+body.dark-mode .reset-status.completed {
+  background: #183d64 !important;
+  color: #72b8ff !important;
+}
+
+/* ---------- ACTION ---------- */
+
+html.dark-mode .reset-no-action,
+body.dark-mode .reset-no-action {
+  color: #789da6 !important;
+}
+
+/* ---------- SUCCESS / ERROR ---------- */
+
+html.dark-mode .password-reset-success,
+body.dark-mode .password-reset-success {
+  background: #123d34 !important;
+  color: #65dfbd !important;
+  border-color: #246654 !important;
+}
+
+html.dark-mode .password-reset-error,
+body.dark-mode .password-reset-error {
+  background: #422127 !important;
+  color: #ff9ca7 !important;
+  border-color: #6d343d !important;
+}
+
+/* ---------- LOADING ---------- */
+
+html.dark-mode .password-reset-loading,
+body.dark-mode .password-reset-loading {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-spinner,
+body.dark-mode .password-reset-spinner {
+  border-color: #244852 !important;
+  border-top-color: #18b9c8 !important;
+}
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+html.dark-mode .admin-logs-page,
+body.dark-mode .admin-logs-page {
+  background: #0c1b22;
+  color: #e8f6fa;
+}
+
+html.dark-mode .logs-header h1,
+body.dark-mode .logs-header h1 {
+  color: #e8f6fa;
+}
+
+html.dark-mode .logs-header p,
+body.dark-mode .logs-header p {
+  color: #8faebc;
+}
+
+html.dark-mode .admin-logs-page .bills-refresh-button,
+body.dark-mode .admin-logs-page .bills-refresh-button {
+  background: #122a33 !important;
+  border-color: #294954 !important;
+  color: #b7d6df !important;
+}
+
+html.dark-mode .admin-logs-page .bills-refresh-button:hover:not(:disabled),
+body.dark-mode .admin-logs-page .bills-refresh-button:hover:not(:disabled) {
+  background: #173943 !important;
+  border-color: #39707e !important;
+  color: #d8f5f8 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+html.dark-mode .logs-message,
+body.dark-mode .logs-message,
+html.dark-mode .logs-empty,
+body.dark-mode .logs-empty,
+html.dark-mode .logs-card,
+body.dark-mode .logs-card {
+  background: #10242d;
+  border-color: #294954;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+html.dark-mode .logs-empty h3,
+body.dark-mode .logs-empty h3 {
+  color: #e5f5f8;
+}
+
+html.dark-mode .logs-empty p,
+body.dark-mode .logs-empty p {
+  color: #8faebc;
+}
+
+html.dark-mode .empty-icon,
+body.dark-mode .empty-icon {
+  background: #173943;
+  border-color: #285966;
+}
+
+html.dark-mode .logs-table thead th,
+body.dark-mode .logs-table thead th {
+  background: #132c35;
+  border-bottom-color: #294954;
+  color: #91b2bf;
+}
+
+html.dark-mode .logs-table tbody td,
+body.dark-mode .logs-table tbody td {
+  background: #10242d;
+  border-bottom-color: #213f49;
+  color: #b5cdd5;
+}
+
+html.dark-mode .logs-table tbody tr:hover td,
+body.dark-mode .logs-table tbody tr:hover td {
+  background: #142f39;
+}
+
+html.dark-mode .logs-table tbody td:first-child,
+body.dark-mode .logs-table tbody td:first-child {
+  color: #32d3df;
+}
+
+html.dark-mode .logs-table tbody td:nth-child(2),
+body.dark-mode .logs-table tbody td:nth-child(2) {
+  color: #9db8c3;
+}
+
+html.dark-mode .logs-table tbody td:last-child,
+body.dark-mode .logs-table tbody td:last-child {
+  color: #91abb6;
+}
+
+html.dark-mode .doctor-log-icon,
+body.dark-mode .doctor-log-icon {
+  background: #173943;
+  border-color: #285966;
+}
+
+html.dark-mode .doctor-name-cell > span:last-child,
+body.dark-mode .doctor-name-cell > span:last-child {
+  color: #d7edf1;
+}
+
+html.dark-mode .log-action.approved,
+body.dark-mode .log-action.approved {
+  color: #6ee7a8;
+  background: #123b2b;
+  border-color: #205c42;
+}
+
+html.dark-mode .log-action.rejected,
+body.dark-mode .log-action.rejected {
+  color: #ff9696;
+  background: #432326;
+  border-color: #69363b;
+}
+
+html.dark-mode .logs-error,
+body.dark-mode .logs-error {
+  background: #351d20;
+  border-color: #653338;
+  color: #ffaaaa;
 }
