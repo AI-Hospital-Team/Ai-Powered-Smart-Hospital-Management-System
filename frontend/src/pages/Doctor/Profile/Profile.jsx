@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import "./Profile.css";
 
+const API_URL = "http://localhost:8080/api";
+
 function Profile() {
   const [user, setUser] = useState(null);
   const [doctor, setDoctor] = useState(null);
   const [editDoctor, setEditDoctor] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -27,6 +31,7 @@ function Profile() {
         }
 
         const loggedInUser = JSON.parse(storedUser);
+
         setUser(loggedInUser);
 
         const doctorId = loggedInUser?.doctorId;
@@ -38,7 +43,7 @@ function Profile() {
         }
 
         const response = await fetch(
-          `http://localhost:8080/api/doctors/${doctorId}`
+          `${API_URL}/doctors/${doctorId}`
         );
 
         if (!response.ok) {
@@ -105,6 +110,10 @@ function Profile() {
       return;
     }
 
+    // -----------------------------
+    // VALIDATION
+    // -----------------------------
+
     if (!editDoctor.name?.trim()) {
       setError("Doctor name is required.");
       return;
@@ -115,38 +124,84 @@ function Profile() {
       return;
     }
 
+    if (!editDoctor.phone?.trim()) {
+      setError("Mobile number is required.");
+      return;
+    }
+
+    if (!editDoctor.qualification?.trim()) {
+      setError("Qualification is required.");
+      return;
+    }
+
+    if (!editDoctor.medicalRegistrationNo?.trim()) {
+      setError("Medical Registration No. is required.");
+      return;
+    }
+
+    if (!editDoctor.hospitalAssociation?.trim()) {
+      setError("Hospital Association is required.");
+      return;
+    }
+
+    if (!editDoctor.address?.trim()) {
+      setError("Address is required.");
+      return;
+    }
+
     try {
       setSaving(true);
       setError("");
       setMessage("");
 
+      // Only profile fields are sent.
+      // Doctor ID and status cannot be edited from this page.
+
+      const requestBody = {
+        name: editDoctor.name.trim(),
+        specialization: editDoctor.specialization.trim(),
+        phone: editDoctor.phone?.trim() || "",
+        dob: editDoctor.dob || null,
+        gender: editDoctor.gender?.trim() || "",
+        qualification: editDoctor.qualification.trim(),
+        medicalRegistrationNo:
+          editDoctor.medicalRegistrationNo.trim(),
+        hospitalAssociation:
+          editDoctor.hospitalAssociation.trim(),
+        address: editDoctor.address.trim(),
+        shift:
+          editDoctor.shift?.trim().toUpperCase() || "DAY",
+      };
+
       const response = await fetch(
-        `http://localhost:8080/api/doctors/${doctorId}`,
+        `${API_URL}/doctors/${doctorId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            doctorId: doctorId,
-            name: editDoctor.name.trim(),
-            specialization: editDoctor.specialization.trim(),
-          }),
+          body: JSON.stringify(requestBody),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update doctor profile.");
+        const errorText = await response.text();
+
+        throw new Error(
+          errorText || "Failed to update doctor profile."
+        );
       }
 
       const updatedDoctor = await response.json();
 
+      // Update UI
       setDoctor(updatedDoctor);
       setEditDoctor(updatedDoctor);
       setIsEditing(false);
+
       setMessage("Profile updated successfully.");
 
-      // Keep doctor name available in localStorage
+      // Update localStorage doctor information
       const updatedUser = {
         ...user,
         name: updatedDoctor.name,
@@ -160,9 +215,14 @@ function Profile() {
       );
 
       setUser(updatedUser);
+
     } catch (err) {
       console.error("Error saving doctor profile:", err);
-      setError("Unable to update profile. Please try again.");
+
+      setError(
+        err.message ||
+          "Unable to update profile. Please try again."
+      );
     } finally {
       setSaving(false);
     }
@@ -197,7 +257,9 @@ function Profile() {
     );
   }
 
-  const displayDoctor = isEditing ? editDoctor : doctor;
+  const displayDoctor = isEditing
+    ? editDoctor
+    : doctor;
 
   const doctorName =
     displayDoctor.name || "Doctor";
@@ -217,6 +279,7 @@ function Profile() {
         <div className="doctor-profile-title">
 
           <div className="doctor-profile-title-icon">
+
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -226,10 +289,12 @@ function Profile() {
               <circle cx="12" cy="8" r="4" />
               <path d="M4 21a8 8 0 0 1 16 0" />
             </svg>
+
           </div>
 
           <div>
             <h1>My Profile</h1>
+
             <p>
               View and manage your professional information.
             </p>
@@ -260,7 +325,7 @@ function Profile() {
       </div>
 
       {/* =================================================
-          MESSAGE
+          SUCCESS MESSAGE
       ================================================= */}
 
       {message && (
@@ -269,6 +334,10 @@ function Profile() {
           {message}
         </div>
       )}
+
+      {/* =================================================
+          ERROR MESSAGE
+      ================================================= */}
 
       {error && (
         <div className="doctor-profile-error-message">
@@ -312,6 +381,7 @@ function Profile() {
 
             <div>
               <span>Doctor ID</span>
+
               <strong>
                 #{doctor.doctorId}
               </strong>
@@ -319,8 +389,17 @@ function Profile() {
 
             <div>
               <span>Specialization</span>
+
               <strong>
                 {displayDoctor.specialization || "-"}
+              </strong>
+            </div>
+
+            <div>
+              <span>Shift</span>
+
+              <strong>
+                {displayDoctor.shift || "-"}
               </strong>
             </div>
 
@@ -328,6 +407,7 @@ function Profile() {
 
           <div className="doctor-side-message">
             <span>✦</span>
+
             <p>
               Providing better care through
               smarter healthcare technology.
@@ -337,23 +417,28 @@ function Profile() {
         </aside>
 
         {/* =================================================
-            RIGHT PROFILE CARD
+            RIGHT CARD
         ================================================= */}
 
         <section className="doctor-profile-card">
 
           <div className="doctor-card-heading">
+
             <div>
-              <h2>Professional Information</h2>
+              <h2>
+                Professional Information
+              </h2>
+
               <p>
                 Your registered doctor information.
               </p>
             </div>
+
           </div>
 
           <div className="doctor-profile-grid">
 
-            {/* NAME */}
+            {/* FULL NAME */}
 
             <div className="doctor-profile-field">
 
@@ -392,7 +477,7 @@ function Profile() {
 
             {/* SPECIALIZATION */}
 
-            <div className="doctor-profile-field full-width">
+            <div className="doctor-profile-field">
 
               <span>Specialization</span>
 
@@ -417,6 +502,238 @@ function Profile() {
 
             </div>
 
+            {/* PHONE */}
+
+            <div className="doctor-profile-field">
+
+              <span>Mobile Number</span>
+
+              {isEditing ? (
+                <input
+                  type="tel"
+                  value={editDoctor.phone || ""}
+                  onChange={(e) =>
+                    handleChange(
+                      "phone",
+                      e.target.value
+                    )
+                  }
+                />
+              ) : (
+                <strong>
+                  {doctor.phone || "-"}
+                </strong>
+              )}
+
+            </div>
+
+            {/* DOB */}
+
+            <div className="doctor-profile-field">
+
+              <span>Date of Birth</span>
+
+              {isEditing ? (
+                <input
+                  type="date"
+                  value={editDoctor.dob || ""}
+                  onChange={(e) =>
+                    handleChange(
+                      "dob",
+                      e.target.value
+                    )
+                  }
+                />
+              ) : (
+                <strong>
+                  {doctor.dob || "-"}
+                </strong>
+              )}
+
+            </div>
+
+            {/* GENDER */}
+
+            <div className="doctor-profile-field">
+
+              <span>Gender</span>
+
+              {isEditing ? (
+                <select
+                  value={editDoctor.gender || ""}
+                  onChange={(e) =>
+                    handleChange(
+                      "gender",
+                      e.target.value
+                    )
+                  }
+                >
+                  <option value="">
+                    Select Gender
+                  </option>
+
+                  <option value="Male">
+                    Male
+                  </option>
+
+                  <option value="Female">
+                    Female
+                  </option>
+
+                  <option value="Other">
+                    Other
+                  </option>
+                </select>
+              ) : (
+                <strong>
+                  {doctor.gender || "-"}
+                </strong>
+              )}
+
+            </div>
+
+            {/* QUALIFICATION */}
+
+            <div className="doctor-profile-field">
+
+              <span>Qualification</span>
+
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={
+                    editDoctor.qualification || ""
+                  }
+                  onChange={(e) =>
+                    handleChange(
+                      "qualification",
+                      e.target.value
+                    )
+                  }
+                />
+              ) : (
+                <strong>
+                  {doctor.qualification || "-"}
+                </strong>
+              )}
+
+            </div>
+
+            {/* MEDICAL REGISTRATION */}
+
+            <div className="doctor-profile-field">
+
+              <span>
+                Medical Registration No.
+              </span>
+
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={
+                    editDoctor.medicalRegistrationNo || ""
+                  }
+                  onChange={(e) =>
+                    handleChange(
+                      "medicalRegistrationNo",
+                      e.target.value
+                    )
+                  }
+                />
+              ) : (
+                <strong>
+                  {doctor.medicalRegistrationNo || "-"}
+                </strong>
+              )}
+
+            </div>
+
+            {/* HOSPITAL ASSOCIATION */}
+
+            <div className="doctor-profile-field">
+
+              <span>
+                Hospital Association
+              </span>
+
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={
+                    editDoctor.hospitalAssociation || ""
+                  }
+                  onChange={(e) =>
+                    handleChange(
+                      "hospitalAssociation",
+                      e.target.value
+                    )
+                  }
+                />
+              ) : (
+                <strong>
+                  {doctor.hospitalAssociation || "-"}
+                </strong>
+              )}
+
+            </div>
+
+            {/* SHIFT */}
+
+            <div className="doctor-profile-field">
+
+              <span>Shift</span>
+
+              {isEditing ? (
+                <select
+                  value={editDoctor.shift || "DAY"}
+                  onChange={(e) =>
+                    handleChange(
+                      "shift",
+                      e.target.value
+                    )
+                  }
+                >
+                  <option value="DAY">
+                    Day
+                  </option>
+
+                  <option value="NIGHT">
+                    Night
+                  </option>
+                </select>
+              ) : (
+                <strong>
+                  {doctor.shift || "-"}
+                </strong>
+              )}
+
+            </div>
+
+            {/* ADDRESS */}
+
+            <div className="doctor-profile-field full-width">
+
+              <span>Address</span>
+
+              {isEditing ? (
+                <textarea
+                  value={editDoctor.address || ""}
+                  onChange={(e) =>
+                    handleChange(
+                      "address",
+                      e.target.value
+                    )
+                  }
+                  rows="3"
+                />
+              ) : (
+                <strong>
+                  {doctor.address || "-"}
+                </strong>
+              )}
+
+            </div>
+
           </div>
 
           {/* =================================================
@@ -426,15 +743,24 @@ function Profile() {
           <div className="doctor-account-section">
 
             <div className="doctor-section-heading">
-              <h3>Account Information</h3>
+
+              <h3>
+                Account Information
+              </h3>
+
               <p>
-                Login account details associated with your profile.
+                Login account details associated
+                with your profile.
               </p>
+
             </div>
+
+            {/* EMAIL */}
 
             <div className="doctor-account-row">
 
               <div className="doctor-account-icon">
+
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -448,22 +774,32 @@ function Profile() {
                     height="14"
                     rx="2"
                   />
+
                   <path d="m3 7 9 6 9-6" />
                 </svg>
+
               </div>
 
               <div>
+
                 <span>Email</span>
+
                 <strong>
-                  {user?.email || "Not available"}
+                  {doctor.email ||
+                    user?.email ||
+                    "Not available"}
                 </strong>
+
               </div>
 
             </div>
 
+            {/* ROLE */}
+
             <div className="doctor-account-row">
 
               <div className="doctor-account-icon">
+
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -474,11 +810,17 @@ function Profile() {
                   <path d="M5 8h14" />
                   <path d="M5 16h14" />
                 </svg>
+
               </div>
 
               <div>
+
                 <span>Role</span>
-                <strong>Doctor</strong>
+
+                <strong>
+                  Doctor
+                </strong>
+
               </div>
 
             </div>
@@ -507,6 +849,7 @@ function Profile() {
                 onClick={handleSave}
                 disabled={saving}
               >
+
                 {saving ? (
                   <>
                     <span className="doctor-button-spinner"></span>
@@ -518,6 +861,7 @@ function Profile() {
                     Save Changes
                   </>
                 )}
+
               </button>
 
             </div>

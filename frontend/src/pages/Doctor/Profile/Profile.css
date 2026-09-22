@@ -54,6 +54,7 @@
 
 .doctor-profile-title-icon:hover {
   transform: translateY(-2px);
+
   box-shadow:
     0 8px 18px rgba(11, 156, 175, 0.16);
 }
@@ -150,18 +151,23 @@
 
 .doctor-profile-success {
   border: 1px solid #bfe8d0;
+
   background: #effbf4;
+
   color: #16834d;
 }
 
 .doctor-profile-success span {
   margin-right: 7px;
+
   font-weight: 800;
 }
 
 .doctor-profile-error-message {
   border: 1px solid #f3caca;
+
   background: #fff2f2;
+
   color: #c73535;
 }
 
@@ -310,7 +316,8 @@
 
   background: #61dc91;
 
-  box-shadow: 0 0 7px rgba(97, 220, 145, 0.7);
+  box-shadow:
+    0 0 7px rgba(97, 220, 145, 0.7);
 }
 
 .doctor-side-divider {
@@ -521,6 +528,10 @@
   text-overflow: ellipsis;
 }
 
+/* =========================================================
+   INPUT
+   ========================================================= */
+
 .doctor-profile-field input {
   width: 100%;
 
@@ -546,6 +557,84 @@
 }
 
 .doctor-profile-field input:focus {
+  border-color: #0b9caf;
+
+  box-shadow:
+    0 0 0 3px rgba(11, 156, 175, 0.08);
+}
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.doctor-profile-field select {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 8px 9px;
+
+  border: 1px solid #cfe0e6;
+
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #fff;
+
+  color: #173f60;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.doctor-profile-field select:focus {
+  border-color: #0b9caf;
+
+  box-shadow:
+    0 0 0 3px rgba(11, 156, 175, 0.08);
+}
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.doctor-profile-field textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 9px;
+
+  border: 1px solid #cfe0e6;
+
+  border-radius: 7px;
+
+  outline: none;
+
+  resize: vertical;
+
+  background: #fff;
+
+  color: #173f60;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+
+  transition: 0.2s ease;
+}
+
+.doctor-profile-field textarea:focus {
   border-color: #0b9caf;
 
   box-shadow:
@@ -629,7 +718,7 @@
   height: 17px;
 }
 
-.doctor-account-row div:last-child {
+.doctor-account-row > div:last-child {
   min-width: 0;
 }
 
@@ -682,7 +771,9 @@
 .doctor-cancel-button,
 .doctor-save-button {
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
 
   gap: 6px;
@@ -692,6 +783,7 @@
   border-radius: 8px;
 
   font-size: 11px;
+
   font-weight: 700;
 
   cursor: pointer;
@@ -754,7 +846,8 @@
 
   border-radius: 50%;
 
-  animation: doctorProfileSpin 0.7s linear infinite;
+  animation:
+    doctorProfileSpin 0.7s linear infinite;
 }
 
 /* =========================================================
@@ -765,9 +858,11 @@
   min-height: 300px;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   background: #fff;
@@ -789,7 +884,8 @@
 
   border-radius: 50%;
 
-  animation: doctorProfileSpin 0.8s linear infinite;
+  animation:
+    doctorProfileSpin 0.8s linear infinite;
 }
 
 .doctor-profile-loading p {
@@ -801,6 +897,10 @@
 
   font-weight: 600;
 }
+
+/* =========================================================
+   ERROR
+   ========================================================= */
 
 .doctor-profile-error {
   padding: 20px;
@@ -819,6 +919,20 @@
 }
 
 /* =========================================================
+   ADDRESS
+   ========================================================= */
+
+.doctor-profile-field.full-width strong {
+  white-space: normal;
+
+  overflow: visible;
+
+  text-overflow: unset;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
    ANIMATION
    ========================================================= */
 
@@ -833,6 +947,7 @@
    ========================================================= */
 
 @media (max-width: 900px) {
+
   .doctor-profile-page {
     padding: 25px 22px;
   }
@@ -847,24 +962,29 @@
 
   .doctor-side-info {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns: repeat(3, 1fr);
+
     text-align: center;
   }
 
   .doctor-side-message {
     max-width: 430px;
+
     margin-left: auto;
     margin-right: auto;
   }
 }
 
 @media (max-width: 650px) {
+
   .doctor-profile-page {
     padding: 20px 14px;
   }
 
   .doctor-profile-header {
     align-items: flex-start;
+
     flex-direction: column;
   }
 

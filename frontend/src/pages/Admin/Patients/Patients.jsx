@@ -3,7 +3,6 @@ import {
   Users,
   Search,
   RefreshCw,
-  UserRound,
   Phone,
   Mail,
   Droplets,
@@ -11,6 +10,7 @@ import {
   VenusAndMars,
   X,
   ArrowRight,
+  Trash2,
 } from "lucide-react";
 
 import "./Patients.css";
@@ -23,6 +23,11 @@ function Patients() {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
+
+  // ==========================================
+  // LOAD PATIENTS
+  // ==========================================
 
   useEffect(() => {
     loadPatients();
@@ -55,6 +60,89 @@ function Patients() {
     }
   };
 
+  // ==========================================
+  // DELETE PATIENT PERMANENTLY
+  // ==========================================
+
+  const handleDeletePatient = async (patient) => {
+    const patientId = patient?.patientId;
+
+    if (!patientId) {
+      alert("Patient ID not found.");
+      return;
+    }
+
+    const patientName =
+      patient?.name || `Patient #${patientId}`;
+
+    const confirmed = window.confirm(
+      `⚠️ DELETE PATIENT PERMANENTLY?\n\n` +
+        `Patient: ${patientName}\n` +
+        `Patient ID: #${patientId}\n\n` +
+        `This action cannot be undone.\n\n` +
+        `Do you want to permanently delete this patient?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      setDeletingId(patientId);
+      setError("");
+
+      const response = await fetch(
+        `${API_BASE_URL}/patients/${patientId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        const message = await response.text();
+
+        throw new Error(
+          message || "Failed to delete patient."
+        );
+      }
+
+      // Remove patient from UI immediately
+      setPatients((previousPatients) =>
+        previousPatients.filter(
+          (currentPatient) =>
+            currentPatient.patientId !== patientId
+        )
+      );
+
+      // Close modal if deleted patient was open
+      if (
+        selectedPatient?.patientId === patientId
+      ) {
+        setSelectedPatient(null);
+      }
+
+      alert(
+        `Patient "${patientName}" deleted successfully.`
+      );
+    } catch (err) {
+      console.error(
+        "Delete patient error:",
+        err
+      );
+
+      alert(
+        err.message ||
+          "Failed to delete patient."
+      );
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  // ==========================================
+  // FILTER
+  // ==========================================
+
   const filteredPatients = useMemo(() => {
     if (!searchTerm.trim()) {
       return patients;
@@ -74,18 +162,31 @@ function Patients() {
         .map((value) =>
           String(value ?? "").toLowerCase()
         )
-        .some((value) => value.includes(search))
+        .some((value) =>
+          value.includes(search)
+        )
     );
   }, [patients, searchTerm]);
 
+  // ==========================================
+  // INITIAL
+  // ==========================================
+
   const getInitial = (name) => {
     return (
-      name?.trim()?.charAt(0)?.toUpperCase() || "P"
+      name?.trim()?.charAt(0)?.toUpperCase() ||
+      "P"
     );
   };
 
+  // ==========================================
+  // DATE FORMAT
+  // ==========================================
+
   const formatDate = (date) => {
-    if (!date) return "-";
+    if (!date) {
+      return "-";
+    }
 
     try {
       return new Date(date).toLocaleDateString(
@@ -101,12 +202,20 @@ function Patients() {
     }
   };
 
+  // ==========================================
+  // LOADING
+  // ==========================================
+
   if (loading) {
     return (
       <div className="admin-patients-page">
         <div className="admin-patients-loading">
           <div className="patients-spinner"></div>
-          <h3>Loading patients...</h3>
+
+          <h3>
+            Loading patients...
+          </h3>
+
           <p>
             Please wait while we fetch patient data.
           </p>
@@ -115,12 +224,16 @@ function Patients() {
     );
   }
 
+  // ==========================================
+  // PAGE
+  // ==========================================
+
   return (
     <div className="admin-patients-page">
 
-      {/* =================================================
+      {/* ========================================
           PAGE HEADER
-      ================================================= */}
+      ======================================== */}
 
       <div className="patients-page-header">
 
@@ -131,6 +244,7 @@ function Patients() {
           </div>
 
           <div>
+
             <div className="patients-section-label">
               Patient Management
             </div>
@@ -141,6 +255,7 @@ function Patients() {
               View and manage all registered hospital
               patients.
             </p>
+
           </div>
 
         </div>
@@ -156,9 +271,9 @@ function Patients() {
 
       </div>
 
-      {/* =================================================
+      {/* ========================================
           ERROR
-      ================================================= */}
+      ======================================== */}
 
       {error && (
         <div className="patients-error">
@@ -178,9 +293,9 @@ function Patients() {
         </div>
       )}
 
-      {/* =================================================
+      {/* ========================================
           SUMMARY
-      ================================================= */}
+      ======================================== */}
 
       <div className="patients-summary-card">
 
@@ -189,30 +304,40 @@ function Patients() {
         </div>
 
         <div>
-          <span>Total Registered Patients</span>
 
-          <strong>{patients.length}</strong>
+          <span>
+            Total Registered Patients
+          </span>
+
+          <strong>
+            {patients.length}
+          </strong>
 
           <small>
             {filteredPatients.length} patients currently
             displayed
           </small>
+
         </div>
 
       </div>
 
-      {/* =================================================
+      {/* ========================================
           SEARCH
-      ================================================= */}
+      ======================================== */}
 
       <div className="patients-toolbar">
 
         <div className="patients-toolbar-heading">
-          <h2>Patient Directory</h2>
+
+          <h2>
+            Patient Directory
+          </h2>
 
           <p>
             Search and view patient information.
           </p>
+
         </div>
 
         <div className="patients-search">
@@ -224,14 +349,18 @@ function Patients() {
             placeholder="Search patients..."
             value={searchTerm}
             onChange={(event) =>
-              setSearchTerm(event.target.value)
+              setSearchTerm(
+                event.target.value
+              )
             }
           />
 
           {searchTerm && (
             <button
               type="button"
-              onClick={() => setSearchTerm("")}
+              onClick={() =>
+                setSearchTerm("")
+              }
               className="patients-clear-search"
             >
               <X size={15} />
@@ -242,9 +371,9 @@ function Patients() {
 
       </div>
 
-      {/* =================================================
+      {/* ========================================
           EMPTY
-      ================================================= */}
+      ======================================== */}
 
       {patients.length === 0 ? (
 
@@ -254,7 +383,9 @@ function Patients() {
             <Users size={36} />
           </div>
 
-          <h3>No Patients Found</h3>
+          <h3>
+            No Patients Found
+          </h3>
 
           <p>
             There are no registered patients in the
@@ -276,7 +407,9 @@ function Patients() {
             <Search size={34} />
           </div>
 
-          <h3>No Matching Patients</h3>
+          <h3>
+            No Matching Patients
+          </h3>
 
           <p>
             Try searching with a different name, email,
@@ -284,7 +417,9 @@ function Patients() {
           </p>
 
           <button
-            onClick={() => setSearchTerm("")}
+            onClick={() =>
+              setSearchTerm("")
+            }
           >
             Clear Search
           </button>
@@ -293,151 +428,239 @@ function Patients() {
 
       ) : (
 
-        /* =================================================
+        /* ========================================
             PATIENT GRID
-        ================================================= */
+        ======================================== */
 
         <div className="patients-grid">
 
           {filteredPatients.map(
-            (patient, index) => (
+            (patient, index) => {
 
-              <div
-                className="admin-patient-card"
-                key={patient.patientId ?? index}
-                style={{
-                  animationDelay: `${index * 0.05}s`,
-                }}
-              >
+              const isDeleting =
+                deletingId === patient.patientId;
 
-                {/* CARD TOP */}
+              return (
+                <div
+                  className="admin-patient-card"
+                  key={
+                    patient.patientId ?? index
+                  }
+                  style={{
+                    animationDelay:
+                      `${index * 0.05}s`,
+                  }}
+                >
 
-                <div className="patient-card-top">
+                  {/* CARD TOP */}
 
-                  <div className="patient-avatar">
-                    {getInitial(patient.name)}
+                  <div className="patient-card-top">
+
+                    <div className="patient-avatar">
+                      {getInitial(
+                        patient.name
+                      )}
+                    </div>
+
+                    <div className="patient-card-name">
+
+                      <h3>
+                        {patient.name ||
+                          `Patient #${patient.patientId}`}
+                      </h3>
+
+                      <span>
+                        Patient ID: #
+                        {patient.patientId ?? "-"}
+                      </span>
+
+                    </div>
+
+                    <div className="patient-active-dot">
+                      <span></span>
+                    </div>
+
                   </div>
 
-                  <div className="patient-card-name">
+                  {/* PATIENT INFO */}
 
-                    <h3>
-                      {patient.name ||
-                        `Patient #${patient.patientId}`}
-                    </h3>
+                  <div className="patient-info-grid">
+
+                    <div className="patient-info-item">
+
+                      <VenusAndMars size={15} />
+
+                      <div>
+                        <small>
+                          Gender
+                        </small>
+
+                        <strong>
+                          {patient.gender || "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+
+                    <div className="patient-info-item">
+
+                      <CalendarDays size={15} />
+
+                      <div>
+                        <small>
+                          Age
+                        </small>
+
+                        <strong>
+                          {patient.age
+                            ? `${patient.age} years`
+                            : "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+
+                    <div className="patient-info-item">
+
+                      <Droplets size={15} />
+
+                      <div>
+                        <small>
+                          Blood Group
+                        </small>
+
+                        <strong>
+                          {patient.bloodGroup || "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+
+                    <div className="patient-info-item">
+
+                      <Phone size={15} />
+
+                      <div>
+                        <small>
+                          Phone
+                        </small>
+
+                        <strong>
+                          {patient.phone || "-"}
+                        </strong>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  {/* EMAIL */}
+
+                  <div className="patient-email">
+
+                    <Mail size={14} />
 
                     <span>
-                      Patient ID: #
-                      {patient.patientId ?? "-"}
+                      {patient.email ||
+                        "No email available"}
                     </span>
 
                   </div>
 
-                  <div className="patient-active-dot">
-                    <span></span>
+                  {/* ACTIONS */}
+
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      marginTop: "12px",
+                    }}
+                  >
+
+                    {/* VIEW */}
+
+                    <button
+                      className="patient-view-button"
+                      onClick={() =>
+                        setSelectedPatient(
+                          patient
+                        )
+                      }
+                      disabled={isDeleting}
+                      style={{
+                        flex: 1,
+                      }}
+                    >
+                      View Patient
+                      <ArrowRight size={15} />
+                    </button>
+
+                    {/* DELETE */}
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleDeletePatient(
+                          patient
+                        )
+                      }
+                      disabled={isDeleting}
+                      title="Delete patient permanently"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px",
+                        border: "none",
+                        borderRadius: "10px",
+                        padding: "0 14px",
+                        background:
+                          isDeleting
+                            ? "#9ca3af"
+                            : "#dc2626",
+                        color: "#ffffff",
+                        fontWeight: "700",
+                        cursor:
+                          isDeleting
+                            ? "not-allowed"
+                            : "pointer",
+                        minWidth: "52px",
+                        opacity:
+                          isDeleting ? 0.7 : 1,
+                      }}
+                    >
+
+                      <Trash2 size={16} />
+
+                      <span>
+                        {isDeleting
+                          ? "Deleting..."
+                          : "Delete"}
+                      </span>
+
+                    </button>
+
                   </div>
 
                 </div>
-
-                {/* PATIENT INFO */}
-
-                <div className="patient-info-grid">
-
-                  <div className="patient-info-item">
-
-                    <VenusAndMars size={15} />
-
-                    <div>
-                      <small>Gender</small>
-                      <strong>
-                        {patient.gender || "-"}
-                      </strong>
-                    </div>
-
-                  </div>
-
-                  <div className="patient-info-item">
-
-                    <CalendarDays size={15} />
-
-                    <div>
-                      <small>Age</small>
-                      <strong>
-                        {patient.age
-                          ? `${patient.age} years`
-                          : "-"}
-                      </strong>
-                    </div>
-
-                  </div>
-
-                  <div className="patient-info-item">
-
-                    <Droplets size={15} />
-
-                    <div>
-                      <small>Blood Group</small>
-                      <strong>
-                        {patient.bloodGroup || "-"}
-                      </strong>
-                    </div>
-
-                  </div>
-
-                  <div className="patient-info-item">
-
-                    <Phone size={15} />
-
-                    <div>
-                      <small>Phone</small>
-                      <strong>
-                        {patient.phone || "-"}
-                      </strong>
-                    </div>
-
-                  </div>
-
-                </div>
-
-                {/* EMAIL */}
-
-                <div className="patient-email">
-
-                  <Mail size={14} />
-
-                  <span>
-                    {patient.email || "No email available"}
-                  </span>
-
-                </div>
-
-                {/* VIEW BUTTON */}
-
-                <button
-                  className="patient-view-button"
-                  onClick={() =>
-                    setSelectedPatient(patient)
-                  }
-                >
-                  View Patient
-                  <ArrowRight size={15} />
-                </button>
-
-              </div>
-
-            )
+              );
+            }
           )}
 
         </div>
       )}
 
-      {/* =================================================
+      {/* ========================================
           PATIENT DETAILS MODAL
-      ================================================= */}
+      ======================================== */}
 
       {selectedPatient && (
+
         <div
           className="patient-modal-overlay"
-          onClick={() => setSelectedPatient(null)}
+          onClick={() =>
+            setSelectedPatient(null)
+          }
         >
 
           <div
@@ -458,6 +681,7 @@ function Patients() {
                 </div>
 
                 <div>
+
                   <h2>
                     {selectedPatient.name ||
                       "Patient"}
@@ -468,6 +692,7 @@ function Patients() {
                     {selectedPatient.patientId ||
                       "-"}
                   </p>
+
                 </div>
 
               </div>
@@ -487,40 +712,61 @@ function Patients() {
 
               <div className="patient-detail-section">
 
-                <h3>Personal Information</h3>
+                <h3>
+                  Personal Information
+                </h3>
 
                 <div className="patient-detail-grid">
 
                   <div>
-                    <small>Full Name</small>
+                    <small>
+                      Full Name
+                    </small>
+
                     <strong>
-                      {selectedPatient.name || "-"}
+                      {selectedPatient.name ||
+                        "-"}
                     </strong>
                   </div>
 
                   <div>
-                    <small>Email</small>
+                    <small>
+                      Email
+                    </small>
+
                     <strong>
-                      {selectedPatient.email || "-"}
+                      {selectedPatient.email ||
+                        "-"}
                     </strong>
                   </div>
 
                   <div>
-                    <small>Phone</small>
+                    <small>
+                      Phone
+                    </small>
+
                     <strong>
-                      {selectedPatient.phone || "-"}
+                      {selectedPatient.phone ||
+                        "-"}
                     </strong>
                   </div>
 
                   <div>
-                    <small>Gender</small>
+                    <small>
+                      Gender
+                    </small>
+
                     <strong>
-                      {selectedPatient.gender || "-"}
+                      {selectedPatient.gender ||
+                        "-"}
                     </strong>
                   </div>
 
                   <div>
-                    <small>Age</small>
+                    <small>
+                      Age
+                    </small>
+
                     <strong>
                       {selectedPatient.age
                         ? `${selectedPatient.age} years`
@@ -529,7 +775,10 @@ function Patients() {
                   </div>
 
                   <div>
-                    <small>Blood Group</small>
+                    <small>
+                      Blood Group
+                    </small>
+
                     <strong>
                       {selectedPatient.bloodGroup ||
                         "-"}
@@ -537,7 +786,10 @@ function Patients() {
                   </div>
 
                   <div>
-                    <small>Date of Birth</small>
+                    <small>
+                      Date of Birth
+                    </small>
+
                     <strong>
                       {formatDate(
                         selectedPatient.dateOfBirth
@@ -546,9 +798,13 @@ function Patients() {
                   </div>
 
                   <div>
-                    <small>Patient ID</small>
+                    <small>
+                      Patient ID
+                    </small>
+
                     <strong>
-                      #{selectedPatient.patientId ||
+                      #
+                      {selectedPatient.patientId ||
                         "-"}
                     </strong>
                   </div>
@@ -559,7 +815,9 @@ function Patients() {
 
               <div className="patient-address">
 
-                <small>Address</small>
+                <small>
+                  Address
+                </small>
 
                 <p>
                   {selectedPatient.address ||
@@ -578,6 +836,50 @@ function Patients() {
                 }
               >
                 Close
+              </button>
+
+              {/* DELETE FROM MODAL */}
+
+              <button
+                type="button"
+                onClick={() =>
+                  handleDeletePatient(
+                    selectedPatient
+                  )
+                }
+                disabled={
+                  deletingId ===
+                  selectedPatient.patientId
+                }
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "7px",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "10px 16px",
+                  background:
+                    deletingId ===
+                    selectedPatient.patientId
+                      ? "#9ca3af"
+                      : "#dc2626",
+                  color: "#ffffff",
+                  fontWeight: "700",
+                  cursor:
+                    deletingId ===
+                    selectedPatient.patientId
+                      ? "not-allowed"
+                      : "pointer",
+                }}
+              >
+
+                <Trash2 size={16} />
+
+                {deletingId ===
+                selectedPatient.patientId
+                  ? "Deleting..."
+                  : "Delete Permanently"}
+
               </button>
 
             </div>
