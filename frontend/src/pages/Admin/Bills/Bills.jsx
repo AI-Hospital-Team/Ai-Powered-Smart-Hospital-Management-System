@@ -25,6 +25,7 @@ import {
 } from "../adminApi";
 
 import "./Bills.css";
+import SkeletonBills from "../../../components/Skeleton/SkeletonBills";
 
 const emptyForm = {
   patientId: "",
@@ -734,6 +735,14 @@ function Bills() {
       setUpdatingId(null);
     }
   };
+
+if (loading) {
+  return (
+    <div className="admin-bills-page">
+      <SkeletonBills />
+    </div>
+  );
+}
 
   /* =====================================================
      PAGE
