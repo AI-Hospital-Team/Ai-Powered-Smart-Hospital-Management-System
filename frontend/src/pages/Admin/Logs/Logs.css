@@ -3,6 +3,7 @@
    ========================================================= */
 
 .admin-logs-page {
+  animation: adminLogsPageIn 0.45s ease both;
   width: 100%;
   min-height: calc(100vh - 102px);
   padding: 42px 72px 60px;
@@ -505,4 +506,20 @@
   display: block;
   stroke: currentColor;
   stroke-width: 1.8;
+}
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+@keyframes adminLogsPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -20980,6 +20980,7 @@ body.dark-mode .back-login-button:hover {
 
 html.dark-mode .password-reset-page,
 body.dark-mode .password-reset-page {
+  background: transparent !important;
   color: #e8f7fa !important;
 }
 
@@ -20995,16 +20996,36 @@ body.dark-mode .password-reset-title-wrapper p {
   color: #91b5bd !important;
 }
 
+/* ---------- TITLE ICON ---------- */
+
 html.dark-mode .password-reset-title-icon,
 body.dark-mode .password-reset-title-icon {
-  background: linear-gradient(135deg, #3159e8, #4b46e8) !important;
-  color: #ffffff !important;
+  background: #173943 !important;
+  color: #32d3df !important;
+  border: 1px solid #285966 !important;
+  box-shadow: none !important;
 }
+
+html.dark-mode .password-reset-title-icon svg,
+body.dark-mode .password-reset-title-icon svg {
+  stroke: #32d3df !important;
+  color: #32d3df !important;
+}
+
+/* ---------- REFRESH BUTTON ---------- */
 
 html.dark-mode .password-reset-refresh-button,
 body.dark-mode .password-reset-refresh-button {
-  background: #2563eb !important;
-  color: #ffffff !important;
+  background: #173943 !important;
+  color: #45d5df !important;
+  border: 1px solid #285966 !important;
+}
+
+html.dark-mode .password-reset-refresh-button:hover,
+body.dark-mode .password-reset-refresh-button:hover {
+  background: #1d4651 !important;
+  border-color: #397582 !important;
+  color: #72e2e8 !important;
 }
 
 /* ---------- SUMMARY CARDS ---------- */
@@ -21026,7 +21047,7 @@ body.dark-mode .password-reset-summary-card strong {
   color: #f1fbfc !important;
 }
 
-/* Summary icons */
+/* ---------- SUMMARY ICONS ---------- */
 
 html.dark-mode .summary-card-icon.pending,
 body.dark-mode .summary-card-icon.pending {
@@ -21095,9 +21116,6 @@ body.dark-mode .password-reset-table th {
   background: #193b45 !important;
   color: #e1f3f5 !important;
   border-bottom: 1px solid #2c555f !important;
-
-  padding: 10px 12px !important;
-  font-size: 11px !important;
 }
 
 html.dark-mode .password-reset-table td,
@@ -21105,14 +21123,6 @@ body.dark-mode .password-reset-table td {
   background: #102d37 !important;
   color: #b9d2d7 !important;
   border-bottom: 1px solid #294d56 !important;
-
-  padding: 10px 12px !important;
-  font-size: 12px !important;
-}
-
-html.dark-mode .password-reset-table tbody tr:hover,
-body.dark-mode .password-reset-table tbody tr:hover {
-  background: #163a44 !important;
 }
 
 html.dark-mode .password-reset-table tbody tr:hover td,
@@ -21124,113 +21134,56 @@ body.dark-mode .password-reset-table tbody tr:hover td {
 
 html.dark-mode .reset-request-id,
 body.dark-mode .reset-request-id {
-  min-width: 34px !important;
-  padding: 5px 7px !important;
-
-  background: #e9f6f8 !important;
-  color: #173943 !important;
-
-  border-radius: 7px !important;
-  font-size: 11px !important;
+  background: #173943 !important;
+  color: #72dce4 !important;
 }
 
 /* ---------- USER ---------- */
 
-html.dark-mode .reset-user,
-body.dark-mode .reset-user {
-  gap: 9px !important;
-  min-width: 200px !important;
-}
-
 html.dark-mode .reset-user strong,
 body.dark-mode .reset-user strong {
   color: #eef9fa !important;
-  font-size: 12px !important;
 }
 
 html.dark-mode .reset-user span,
 body.dark-mode .reset-user span {
   color: #7fa5ae !important;
-  font-size: 10px !important;
 }
-
-/* USER ICON */
 
 html.dark-mode .reset-user-icon,
 body.dark-mode .reset-user-icon {
-  width: 44px !important;
-  height: 44px !important;
-  min-width: 44px !important;
-  min-height: 44px !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  padding: 0 !important;
-  margin: 0 !important;
-
-  border-radius: 10px !important;
-
   background: #173943 !important;
   color: #32d3df !important;
-
   border: 1px solid #285966 !important;
-
-  box-shadow: none !important;
 }
 
 html.dark-mode .reset-user-icon svg,
 body.dark-mode .reset-user-icon svg {
-  width: 23px !important;
-  height: 23px !important;
-
-  display: block !important;
-
-  fill: none !important;
   stroke: #32d3df !important;
-
-  stroke-width: 1.8 !important;
-  stroke-linecap: round !important;
-  stroke-linejoin: round !important;
 }
 
 /* ---------- ROLE ---------- */
 
 html.dark-mode .reset-role,
 body.dark-mode .reset-role {
-  padding: 5px 8px !important;
-
   background: #1b3c46 !important;
   color: #d9eef1 !important;
-
-  border-radius: 7px !important;
-  font-size: 11px !important;
 }
 
 /* ---------- REQUEST CODE ---------- */
 
 html.dark-mode .reset-request-code,
 body.dark-mode .reset-request-code {
-  min-width: 85px !important;
-
-  padding: 6px 8px !important;
-
   background: #173a44 !important;
-  border: 1px dashed #37636d !important;
-
+  border-color: #37636d !important;
   color: #72dce4 !important;
-
-  font-size: 11px !important;
-  letter-spacing: 1px !important;
 }
 
-/* ---------- DATES ---------- */
+/* ---------- DATE ---------- */
 
 html.dark-mode .reset-date,
 body.dark-mode .reset-date {
   color: #7fa5ae !important;
-  font-size: 11px !important;
 }
 
 /* ---------- STATUS ---------- */
@@ -21729,4 +21682,61 @@ body.dark-mode .notification-dropdown-footer {
 html.dark-mode .notification-dropdown-footer span,
 body.dark-mode .notification-dropdown-footer span {
   color: #78959e !important;
+}
+
+/* =========================================================
+   ADMIN PRESCRIPTIONS — DELETE BUTTON DARK MODE
+========================================================= */
+
+html.dark-mode .admin-delete-prescription-button,
+body.dark-mode .admin-delete-prescription-button {
+  background: #3a2025 !important;
+  background-color: #3a2025 !important;
+
+  border: 1px solid #6b353d !important;
+  border-color: #6b353d !important;
+
+  color: #ff7f8a !important;
+
+  box-shadow: none !important;
+}
+
+/* Trash icon */
+
+html.dark-mode .admin-delete-prescription-button svg,
+body.dark-mode .admin-delete-prescription-button svg {
+  color: #ff7f8a !important;
+  stroke: #ff7f8a !important;
+}
+
+/* Hover */
+
+html.dark-mode .admin-delete-prescription-button:hover,
+body.dark-mode .admin-delete-prescription-button:hover {
+  background: #4a252c !important;
+  background-color: #4a252c !important;
+
+  border-color: #8b424d !important;
+  color: #ff9da5 !important;
+}
+
+html.dark-mode .admin-delete-prescription-button:hover svg,
+body.dark-mode .admin-delete-prescription-button:hover svg {
+  color: #ff9da5 !important;
+  stroke: #ff9da5 !important;
+}
+
+/* Active */
+
+html.dark-mode .admin-delete-prescription-button:active,
+body.dark-mode .admin-delete-prescription-button:active {
+  background: #321a1f !important;
+}
+
+/* Disabled */
+
+html.dark-mode .admin-delete-prescription-button:disabled,
+body.dark-mode .admin-delete-prescription-button:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed;
 }
