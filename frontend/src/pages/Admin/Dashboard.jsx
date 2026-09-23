@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SkeletonDashboard from "../../components/Skeleton/SkeletonDashboard";
 import {
   ShieldCheck,
   Users,
@@ -296,20 +297,17 @@ function Dashboard() {
     }
   };
 
-  // =====================================================
-  // LOADING
-  // =====================================================
+// =====================================================
+// LOADING
+// =====================================================
 
-  if (loading) {
-    return (
-      <div className="admin-dashboard-page">
-        <div className="admin-dashboard-loading">
-          <div className="admin-dashboard-spinner"></div>
-          <p>Loading Admin Dashboard...</p>
-        </div>
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="admin-dashboard-page">
+      <SkeletonDashboard />
+    </div>
+  );
+}
 
   // =====================================================
   // PAGE
