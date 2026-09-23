@@ -365,12 +365,32 @@ function DashboardLayout() {
         String(type).toUpperCase();
 
       if (
-        notificationType.includes(
-          "APPOINTMENT"
-        )
-      ) {
-        return "📅";
-      }
+          notificationType.includes(
+            "APPOINTMENT"
+          )
+        ) {
+          return (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <rect
+                x="4"
+                y="5"
+                width="16"
+                height="15"
+                rx="2"
+              />
+              <path d="M8 3v4M16 3v4M4 9h16" />
+              <path d="M8 13h2M14 13h2M8 16h2" />
+            </svg>
+          );
+        }
 
       if (
         notificationType.includes(
@@ -690,7 +710,7 @@ function DashboardLayout() {
     // ==========================================
 
     {
-      name: "Password Reset Requests",
+      name: "Password Updation",
       path: "/dashboard/password-reset-requests",
       icon: (
         <svg

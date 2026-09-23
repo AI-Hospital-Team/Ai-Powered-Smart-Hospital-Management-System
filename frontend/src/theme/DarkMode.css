@@ -15609,3 +15609,6124 @@ body.dark-mode .admin-add-doctor-button:hover {
   border-color: #55a6b1;
   box-shadow: 0 9px 22px rgba(0, 0, 0, 0.35);
 }
+
+/* =========================================================
+   FORGOT PASSWORD
+   STEP 2 — DARK MODE ONLY
+========================================================= */
+
+/* Main Step 2 area */
+html.dark-mode .forgot-password-form,
+body.dark-mode .forgot-password-form {
+  color: #e8f7f9;
+}
+
+/* Request Submitted heading */
+html.dark-mode .forgot-password-form h2,
+body.dark-mode .forgot-password-form h2 {
+  color: #eafcff !important;
+}
+
+/* Description */
+html.dark-mode .forgot-password-form .form-description,
+body.dark-mode .forgot-password-form .form-description {
+  color: #91adb4 !important;
+}
+
+/* =========================================================
+   EMAIL DISPLAY
+========================================================= */
+
+html.dark-mode .reset-email-display,
+body.dark-mode .reset-email-display {
+  background: #0d3039 !important;
+  border: 1px solid #285b65 !important;
+  color: #4bd4dd !important;
+}
+
+/* =========================================================
+   REQUEST CODE BOX
+   This is the first DIV after .reset-email-display
+========================================================= */
+
+html.dark-mode .reset-email-display + div,
+body.dark-mode .reset-email-display + div {
+  background: #102d35 !important;
+  border: 1px solid #315862 !important;
+}
+
+/* Request Code title */
+html.dark-mode .reset-email-display + div p:first-child,
+body.dark-mode .reset-email-display + div p:first-child {
+  color: #9ab7bf !important;
+}
+
+/* Request Code value */
+html.dark-mode .reset-email-display + div strong,
+body.dark-mode .reset-email-display + div strong {
+  color: #20c4cf !important;
+}
+
+/* Request Code description */
+html.dark-mode .reset-email-display + div p:last-child,
+body.dark-mode .reset-email-display + div p:last-child {
+  color: #91adb4 !important;
+}
+
+/* =========================================================
+   WAITING FOR ADMIN APPROVAL
+   This is the second DIV after .reset-email-display
+========================================================= */
+
+html.dark-mode .reset-email-display + div + div,
+body.dark-mode .reset-email-display + div + div {
+  background: #2d2117 !important;
+  border: 1px solid #6c4a2e !important;
+  color: #ff9b70 !important;
+}
+
+/* =========================================================
+   CONTINUE TO PASSWORD RESET
+========================================================= */
+
+html.dark-mode .reset-button,
+body.dark-mode .reset-button {
+  background: #078b9a !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+html.dark-mode .reset-button:hover,
+body.dark-mode .reset-button:hover {
+  background: #0aa5b5 !important;
+}
+
+/* =========================================================
+   CHANGE EMAIL
+========================================================= */
+
+html.dark-mode .secondary-button,
+body.dark-mode .secondary-button {
+  background: #0d3039 !important;
+  border: 1px solid #285b65 !important;
+  color: #a9c5ca !important;
+}
+
+html.dark-mode .secondary-button:hover,
+body.dark-mode .secondary-button:hover {
+  background: #123c46 !important;
+  border-color: #36717b !important;
+  color: #e5f8fa !important;
+}
+
+/* =========================================================
+   BACK TO LOGIN
+========================================================= */
+
+html.dark-mode .back-login-button,
+body.dark-mode .back-login-button {
+  color: #4bd4dd !important;
+}
+
+html.dark-mode .back-login-button:hover,
+body.dark-mode .back-login-button:hover {
+  color: #7ae3e8 !important;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html.dark-mode .forgot-password-link,
+body.dark-mode .forgot-password-link {
+  color: #4bd4dd !important;
+}
+
+html.dark-mode .forgot-password-link:hover,
+body.dark-mode .forgot-password-link:hover {
+  color: #7ae3e8 !important;
+}
+
+/* Dark mode */
+html.dark-mode .notification-header-button,
+body.dark-mode .notification-header-button {
+  background: #102d37 !important;
+  border-color: #29535d !important;
+  color: #66d8df !important;
+}
+
+html.dark-mode .notification-dropdown,
+body.dark-mode .notification-dropdown {
+  background: #10252d !important;
+  border-color: #29454d !important;
+
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.50),
+    0 8px 25px rgba(0, 0, 0, 0.30) !important;
+}
+
+html.dark-mode .notification-dropdown-header,
+body.dark-mode .notification-dropdown-header,
+html.dark-mode .header-notification-item,
+body.dark-mode .header-notification-item,
+html.dark-mode .notification-dropdown-item,
+body.dark-mode .notification-dropdown-item {
+  background: #10252d !important;
+  border-color: #29454d !important;
+}
+
+html.dark-mode .header-notification-item.unread,
+body.dark-mode .header-notification-item.unread,
+html.dark-mode .notification-dropdown-item.unread,
+body.dark-mode .notification-dropdown-item.unread {
+  background: #12343d !important;
+}
+
+html.dark-mode .notification-dropdown-header h3,
+body.dark-mode .notification-dropdown-header h3,
+html.dark-mode .header-notification-title-row strong,
+body.dark-mode .header-notification-title-row strong,
+html.dark-mode .notification-dropdown-title strong,
+body.dark-mode .notification-dropdown-title strong {
+  color: #e7f8fa !important;
+}
+
+html.dark-mode .notification-dropdown-header p,
+body.dark-mode .notification-dropdown-header p,
+html.dark-mode .notification-dropdown-header span,
+body.dark-mode .notification-dropdown-header span,
+html.dark-mode .header-notification-content p,
+body.dark-mode .header-notification-content p,
+html.dark-mode .notification-dropdown-content p,
+body.dark-mode .notification-dropdown-content p {
+  color: #a4bdc4 !important;
+}
+
+
+
+/* Dark Mode */
+
+html.dark-mode .notification-header-button,
+body.dark-mode .notification-header-button {
+  background: #102f39 !important;
+  border-color: #285563 !important;
+  color: #27cbd6 !important;
+}
+
+html.dark-mode .notification-header-button:hover,
+html.dark-mode .notification-header-button.active,
+body.dark-mode .notification-header-button:hover,
+body.dark-mode .notification-header-button.active {
+  background: #163d48 !important;
+  border-color: #27cbd6 !important;
+}
+
+/* =========================================================
+   AI SMART HOSPITAL
+   DARK MODE
+   ========================================================= */
+
+/* =========================================================
+   NOTIFICATION DARK MODE
+   ========================================================= */
+
+html.dark-mode .notification-header-button,
+body.dark-mode .notification-header-button {
+  background: #102d37 !important;
+  border-color: #29535d !important;
+  color: #66d8df !important;
+}
+
+html.dark-mode .notification-dropdown,
+body.dark-mode .notification-dropdown {
+  background: #10252d !important;
+  border-color: #29454d !important;
+  box-shadow: 0 22px 55px rgba(0,0,0,.45) !important;
+}
+
+html.dark-mode .notification-dropdown-header,
+body.dark-mode .notification-dropdown-header,
+html.dark-mode .notification-dropdown-item,
+body.dark-mode .notification-dropdown-item {
+  background: #10252d !important;
+  border-color: #29454d !important;
+}
+
+html.dark-mode .notification-dropdown-item.unread,
+body.dark-mode .notification-dropdown-item.unread {
+  background: #12313a !important;
+}
+
+html.dark-mode .notification-dropdown-header h3,
+body.dark-mode .notification-dropdown-header h3,
+html.dark-mode .notification-dropdown-title strong,
+body.dark-mode .notification-dropdown-title strong,
+html.dark-mode .notification-dropdown-empty strong,
+body.dark-mode .notification-dropdown-empty strong {
+  color: #e8f7fa !important;
+}
+
+html.dark-mode .notification-dropdown-header span,
+body.dark-mode .notification-dropdown-header span,
+html.dark-mode .notification-dropdown-content p,
+body.dark-mode .notification-dropdown-content p,
+html.dark-mode .notification-dropdown-content small,
+body.dark-mode .notification-dropdown-content small {
+  color: #9ab6bf !important;
+}
+
+/* =========================================================
+   FINAL NOTIFICATION DARK MODE
+   ========================================================= */
+
+html.dark-mode .notification-dropdown,
+body.dark-mode .notification-dropdown {
+  background: #10252d !important;
+
+  border-color: #2b4b54 !important;
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.55),
+    0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .notification-dropdown-header,
+body.dark-mode .notification-dropdown-header {
+  background: #10252d !important;
+
+  border-color: #2b4b54 !important;
+}
+
+html.dark-mode .notification-dropdown-header h3,
+body.dark-mode .notification-dropdown-header h3 {
+  color: #e7f8fa !important;
+}
+
+html.dark-mode .notification-dropdown-header span,
+body.dark-mode .notification-dropdown-header span {
+  color: #8eabb4 !important;
+}
+
+html.dark-mode .notification-dropdown-item,
+body.dark-mode .notification-dropdown-item {
+  background: #10252d !important;
+
+  border-color: #29464e !important;
+}
+
+html.dark-mode .notification-dropdown-item.unread,
+body.dark-mode .notification-dropdown-item.unread {
+  background: #12343d !important;
+
+  border-left-color: #3dd1d9 !important;
+}
+
+html.dark-mode .notification-dropdown-item:hover,
+body.dark-mode .notification-dropdown-item:hover {
+  background: #16343d !important;
+}
+
+html.dark-mode .notification-dropdown-title strong,
+body.dark-mode .notification-dropdown-title strong {
+  color: #e7f8fa !important;
+}
+
+html.dark-mode .notification-dropdown-content p,
+body.dark-mode .notification-dropdown-content p {
+  color: #a4bdc4 !important;
+}
+
+html.dark-mode .notification-dropdown-content small,
+body.dark-mode .notification-dropdown-content small {
+  color: #78959e !important;
+}
+
+html.dark-mode .notification-mark-read,
+body.dark-mode .notification-mark-read {
+  background: #16343d !important;
+
+  border-color: #315761 !important;
+
+  color: #65d8df !important;
+}
+
+html.dark-mode .notification-dropdown-footer,
+body.dark-mode .notification-dropdown-footer {
+  background: #0d2027 !important;
+
+  border-color: #29464e !important;
+}
+
+
+/* =========================================================
+   ADMIN APPOINTMENTS - COMPLETE DARK MODE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-appointments-page,
+body.dark-mode .admin-appointments-page,
+.dark-mode .admin-appointments-page {
+  background: #0f1b22 !important;
+  color: #e8f4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .appointments-section-label,
+body.dark-mode .appointments-section-label,
+.dark-mode .appointments-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointments-page-title h1,
+body.dark-mode .appointments-page-title h1,
+.dark-mode .appointments-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .appointments-page-title p,
+body.dark-mode .appointments-page-title p,
+.dark-mode .appointments-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .appointments-title-icon,
+body.dark-mode .appointments-title-icon,
+.dark-mode .appointments-title-icon {
+  background: #16343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .appointments-title-icon:hover,
+body.dark-mode .appointments-title-icon:hover,
+.dark-mode .appointments-title-icon:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* REFRESH BUTTON */
+html.dark-mode .appointments-refresh-button,
+body.dark-mode .appointments-refresh-button,
+.dark-mode .appointments-refresh-button {
+  background: #142730 !important;
+  color: #b8cbd1 !important;
+  border-color: #304953 !important;
+}
+
+html.dark-mode .appointments-refresh-button:hover:not(:disabled),
+body.dark-mode .appointments-refresh-button:hover:not(:disabled),
+.dark-mode .appointments-refresh-button:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #eaf7f8 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .appointments-error,
+body.dark-mode .appointments-error,
+.dark-mode .appointments-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+}
+
+html.dark-mode .appointments-error strong,
+body.dark-mode .appointments-error strong,
+.dark-mode .appointments-error strong {
+  color: #ff9292 !important;
+}
+
+html.dark-mode .appointments-error p,
+body.dark-mode .appointments-error p,
+.dark-mode .appointments-error p {
+  color: #c89191 !important;
+}
+
+html.dark-mode .appointments-error button,
+body.dark-mode .appointments-error button,
+.dark-mode .appointments-error button {
+  background: #a33f45 !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   STAT CARDS
+   ========================================================= */
+
+html.dark-mode .appointment-stat-card,
+body.dark-mode .appointment-stat-card,
+.dark-mode .appointment-stat-card {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .appointment-stat-card:hover,
+body.dark-mode .appointment-stat-card:hover,
+.dark-mode .appointment-stat-card:hover {
+  background: #162832 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .appointment-stat-card.stat-selected,
+body.dark-mode .appointment-stat-card.stat-selected,
+.dark-mode .appointment-stat-card.stat-selected {
+  border-color: #16b8b1 !important;
+  box-shadow:
+    0 0 0 2px rgba(22, 184, 177, 0.12),
+    0 10px 26px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* STAT ICONS */
+html.dark-mode .appointment-stat-icon.all,
+body.dark-mode .appointment-stat-icon.all,
+.dark-mode .appointment-stat-icon.all {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointment-stat-icon.pending,
+body.dark-mode .appointment-stat-icon.pending,
+.dark-mode .appointment-stat-icon.pending {
+  background: #332a18 !important;
+  color: #e7ad45 !important;
+}
+
+html.dark-mode .appointment-stat-icon.confirmed,
+body.dark-mode .appointment-stat-icon.confirmed,
+.dark-mode .appointment-stat-icon.confirmed {
+  background: #15362f !important;
+  color: #45c99c !important;
+}
+
+html.dark-mode .appointment-stat-icon.completed,
+body.dark-mode .appointment-stat-icon.completed,
+.dark-mode .appointment-stat-icon.completed {
+  background: #1b2945 !important;
+  color: #79a0ff !important;
+}
+
+html.dark-mode .appointment-stat-card span,
+body.dark-mode .appointment-stat-card span,
+.dark-mode .appointment-stat-card span {
+  color: #819aa4 !important;
+}
+
+html.dark-mode .appointment-stat-card strong,
+body.dark-mode .appointment-stat-card strong,
+.dark-mode .appointment-stat-card strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .appointment-stat-card small,
+body.dark-mode .appointment-stat-card small,
+.dark-mode .appointment-stat-card small {
+  color: #718b95 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .appointments-toolbar h2,
+body.dark-mode .appointments-toolbar h2,
+.dark-mode .appointments-toolbar h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .appointments-toolbar p,
+body.dark-mode .appointments-toolbar p,
+.dark-mode .appointments-toolbar p {
+  color: #8da5ae !important;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+html.dark-mode .appointments-search,
+body.dark-mode .appointments-search,
+.dark-mode .appointments-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7faab4 !important;
+}
+
+html.dark-mode .appointments-search:focus-within,
+body.dark-mode .appointments-search:focus-within,
+.dark-mode .appointments-search:focus-within {
+  border-color: #16b8b1 !important;
+  box-shadow:
+    0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .appointments-search input,
+body.dark-mode .appointments-search input,
+.dark-mode .appointments-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .appointments-search input::placeholder,
+body.dark-mode .appointments-search input::placeholder,
+.dark-mode .appointments-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .appointments-search button,
+body.dark-mode .appointments-search button,
+.dark-mode .appointments-search button {
+  background: #1d343d !important;
+  color: #a5bcc4 !important;
+}
+
+html.dark-mode .appointments-search button:hover,
+body.dark-mode .appointments-search button:hover,
+.dark-mode .appointments-search button:hover {
+  background: #29444e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+html.dark-mode .appointment-filter,
+body.dark-mode .appointment-filter,
+.dark-mode .appointment-filter {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #91a8b1 !important;
+}
+
+html.dark-mode .appointment-filter:hover,
+body.dark-mode .appointment-filter:hover,
+.dark-mode .appointment-filter:hover {
+  background: #19323b !important;
+  border-color: #3b626c !important;
+}
+
+html.dark-mode .appointment-filter span,
+body.dark-mode .appointment-filter span,
+.dark-mode .appointment-filter span {
+  background: #1d343d !important;
+  color: #9eb5bd !important;
+}
+
+html.dark-mode .appointment-filter.active,
+body.dark-mode .appointment-filter.active,
+.dark-mode .appointment-filter.active {
+  background: #10373b !important;
+  border-color: #16a9a6 !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointment-filter.active span,
+body.dark-mode .appointment-filter.active span,
+.dark-mode .appointment-filter.active span {
+  background: #17494d !important;
+  color: #70e1dc !important;
+}
+
+/* =========================================================
+   APPOINTMENT CARDS
+   ========================================================= */
+
+html.dark-mode .admin-appointment-card,
+body.dark-mode .admin-appointment-card,
+.dark-mode .admin-appointment-card {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .admin-appointment-card:hover,
+body.dark-mode .admin-appointment-card:hover,
+.dark-mode .admin-appointment-card:hover {
+  background: #162832 !important;
+  border-color: #3b626c !important;
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.38) !important;
+}
+
+/* CARD TOP */
+html.dark-mode .appointment-card-top,
+body.dark-mode .appointment-card-top,
+.dark-mode .appointment-card-top {
+  border-bottom-color: #293e48 !important;
+}
+
+html.dark-mode .appointment-date-icon,
+body.dark-mode .appointment-date-icon,
+.dark-mode .appointment-date-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointment-main h3,
+body.dark-mode .appointment-main h3,
+.dark-mode .appointment-main h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .appointment-main span,
+body.dark-mode .appointment-main span,
+.dark-mode .appointment-main span {
+  color: #78929d !important;
+}
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+html.dark-mode .status-pending,
+body.dark-mode .status-pending,
+.dark-mode .status-pending {
+  background: #3a3019 !important;
+  color: #efbd59 !important;
+}
+
+html.dark-mode .status-confirmed,
+body.dark-mode .status-confirmed,
+.dark-mode .status-confirmed {
+  background: #15372f !important;
+  color: #55d2a5 !important;
+}
+
+html.dark-mode .status-completed,
+body.dark-mode .status-completed,
+.dark-mode .status-completed {
+  background: #1b2b4b !important;
+  color: #80a5ff !important;
+}
+
+html.dark-mode .status-cancelled,
+body.dark-mode .status-cancelled,
+.dark-mode .status-cancelled {
+  background: #3a2023 !important;
+  color: #ff8b8b !important;
+}
+
+html.dark-mode .status-expired,
+body.dark-mode .status-expired,
+.dark-mode .status-expired {
+  background: #3b2b1b !important;
+  color: #e9a94f !important;
+}
+
+/* EXPIRED MESSAGE */
+html.dark-mode .appointment-expired-info,
+body.dark-mode .appointment-expired-info,
+.dark-mode .appointment-expired-info {
+  background: #302519 !important;
+  color: #e3a454 !important;
+  border-color: #594329 !important;
+}
+
+/* =========================================================
+   DOCTOR SECTION
+   ========================================================= */
+
+html.dark-mode .appointment-small-icon,
+body.dark-mode .appointment-small-icon,
+.dark-mode .appointment-small-icon {
+  background: #1b2945 !important;
+  color: #79a0ff !important;
+}
+
+html.dark-mode .appointment-doctor small,
+body.dark-mode .appointment-doctor small,
+.dark-mode .appointment-doctor small,
+html.dark-mode .appointment-info-row small,
+body.dark-mode .appointment-info-row small,
+.dark-mode .appointment-info-row small,
+html.dark-mode .appointment-reason small,
+body.dark-mode .appointment-reason small,
+.dark-mode .appointment-reason small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .appointment-doctor strong,
+body.dark-mode .appointment-doctor strong,
+.dark-mode .appointment-doctor strong {
+  color: #d4e2e6 !important;
+}
+
+html.dark-mode .appointment-doctor span,
+body.dark-mode .appointment-doctor span,
+.dark-mode .appointment-doctor span {
+  color: #8ca5ae !important;
+}
+
+/* =========================================================
+   DATE / TIME
+   ========================================================= */
+
+html.dark-mode .appointment-info-row > div,
+body.dark-mode .appointment-info-row > div,
+.dark-mode .appointment-info-row > div {
+  background: #102027 !important;
+}
+
+html.dark-mode .appointment-info-row svg,
+body.dark-mode .appointment-info-row svg,
+.dark-mode .appointment-info-row svg {
+  color: #45cfc9 !important;
+}
+
+html.dark-mode .appointment-info-row strong,
+body.dark-mode .appointment-info-row strong,
+.dark-mode .appointment-info-row strong {
+  color: #c9d9de !important;
+}
+
+/* =========================================================
+   REASON
+   ========================================================= */
+
+html.dark-mode .appointment-reason,
+body.dark-mode .appointment-reason,
+.dark-mode .appointment-reason {
+  border-top-color: #293e48 !important;
+}
+
+html.dark-mode .appointment-reason p,
+body.dark-mode .appointment-reason p,
+.dark-mode .appointment-reason p {
+  color: #9bb0b8 !important;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+html.dark-mode .confirm-action,
+body.dark-mode .confirm-action,
+.dark-mode .confirm-action {
+  background: #12342b !important;
+  border-color: #28644f !important;
+  color: #5bd3a6 !important;
+}
+
+html.dark-mode .confirm-action:hover:not(:disabled),
+body.dark-mode .confirm-action:hover:not(:disabled),
+.dark-mode .confirm-action:hover:not(:disabled) {
+  background: #184439 !important;
+  border-color: #39826a !important;
+}
+
+html.dark-mode .complete-action,
+body.dark-mode .complete-action,
+.dark-mode .complete-action {
+  background: #192945 !important;
+  border-color: #344f82 !important;
+  color: #82a4ff !important;
+}
+
+html.dark-mode .complete-action:hover:not(:disabled),
+body.dark-mode .complete-action:hover:not(:disabled),
+.dark-mode .complete-action:hover:not(:disabled) {
+  background: #213556 !important;
+  border-color: #486aa5 !important;
+}
+
+html.dark-mode .cancel-action,
+body.dark-mode .cancel-action,
+.dark-mode .cancel-action {
+  background: #351d21 !important;
+  border-color: #633238 !important;
+  color: #ff8b8b !important;
+}
+
+html.dark-mode .cancel-action:hover:not(:disabled),
+body.dark-mode .cancel-action:hover:not(:disabled),
+.dark-mode .cancel-action:hover:not(:disabled) {
+  background: #44252a !important;
+  border-color: #814249 !important;
+}
+
+html.dark-mode .view-appointment-action,
+body.dark-mode .view-appointment-action,
+.dark-mode .view-appointment-action {
+  background: #102a31 !important;
+  border-color: #315760 !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .view-appointment-action:hover:not(:disabled),
+body.dark-mode .view-appointment-action:hover:not(:disabled),
+.dark-mode .view-appointment-action:hover:not(:disabled) {
+  background: #173a42 !important;
+  border-color: #4b7880 !important;
+  color: #70e2dc !important;
+}
+
+html.dark-mode .appointment-updating,
+body.dark-mode .appointment-updating,
+.dark-mode .appointment-updating {
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .appointments-loading,
+body.dark-mode .appointments-loading,
+.dark-mode .appointments-loading,
+html.dark-mode .appointments-empty,
+body.dark-mode .appointments-empty,
+.dark-mode .appointments-empty {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .appointments-spinner,
+body.dark-mode .appointments-spinner,
+.dark-mode .appointments-spinner {
+  border-color: #23424c !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .appointments-loading h3,
+body.dark-mode .appointments-loading h3,
+.dark-mode .appointments-loading h3,
+html.dark-mode .appointments-empty h3,
+body.dark-mode .appointments-empty h3,
+.dark-mode .appointments-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .appointments-loading p,
+body.dark-mode .appointments-loading p,
+.dark-mode .appointments-loading p,
+html.dark-mode .appointments-empty p,
+body.dark-mode .appointments-empty p,
+.dark-mode .appointments-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .appointments-empty-icon,
+body.dark-mode .appointments-empty-icon,
+.dark-mode .appointments-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointments-empty button,
+body.dark-mode .appointments-empty button,
+.dark-mode .appointments-empty button {
+  background: #102a31 !important;
+  border-color: #315760 !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointments-empty button:hover,
+body.dark-mode .appointments-empty button:hover,
+.dark-mode .appointments-empty button:hover {
+  background: #173a42 !important;
+  border-color: #4b7880 !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .appointment-modal-overlay,
+body.dark-mode .appointment-modal-overlay,
+.dark-mode .appointment-modal-overlay {
+  background: rgba(2, 12, 18, 0.80) !important;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+html.dark-mode .appointment-modal,
+body.dark-mode .appointment-modal,
+.dark-mode .appointment-modal {
+  background: #14232b !important;
+  color: #eaf5f7 !important;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.58) !important;
+}
+
+html.dark-mode .appointment-modal-header,
+body.dark-mode .appointment-modal-header,
+.dark-mode .appointment-modal-header {
+  border-bottom-color: #293e48 !important;
+}
+
+html.dark-mode .appointment-modal-icon,
+body.dark-mode .appointment-modal-icon,
+.dark-mode .appointment-modal-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointment-modal-title h2,
+body.dark-mode .appointment-modal-title h2,
+.dark-mode .appointment-modal-title h2 {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .appointment-modal-title p,
+body.dark-mode .appointment-modal-title p,
+.dark-mode .appointment-modal-title p {
+  color: #8099a4 !important;
+}
+
+/* CLOSE */
+html.dark-mode .appointment-modal-close,
+body.dark-mode .appointment-modal-close,
+.dark-mode .appointment-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .appointment-modal-close:hover,
+body.dark-mode .appointment-modal-close:hover,
+.dark-mode .appointment-modal-close:hover {
+  background: #29434d !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MODAL PATIENT
+   ========================================================= */
+
+html.dark-mode .appointment-detail-patient,
+body.dark-mode .appointment-detail-patient,
+.dark-mode .appointment-detail-patient {
+  background: #10242c !important;
+}
+
+html.dark-mode .appointment-patient-avatar,
+body.dark-mode .appointment-patient-avatar,
+.dark-mode .appointment-patient-avatar {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .appointment-detail-patient small,
+body.dark-mode .appointment-detail-patient small,
+.dark-mode .appointment-detail-patient small,
+html.dark-mode .appointment-detail-grid small,
+body.dark-mode .appointment-detail-grid small,
+.dark-mode .appointment-detail-grid small,
+html.dark-mode .appointment-modal-reason small,
+body.dark-mode .appointment-modal-reason small,
+.dark-mode .appointment-modal-reason small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .appointment-detail-patient strong,
+body.dark-mode .appointment-detail-patient strong,
+.dark-mode .appointment-detail-patient strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .appointment-detail-patient span,
+body.dark-mode .appointment-detail-patient span,
+.dark-mode .appointment-detail-patient span {
+  color: #809aa4 !important;
+}
+
+/* =========================================================
+   MODAL DETAILS GRID
+   ========================================================= */
+
+html.dark-mode .appointment-detail-grid > div,
+body.dark-mode .appointment-detail-grid > div,
+.dark-mode .appointment-detail-grid > div {
+  background: #101e27 !important;
+  border-color: #29414c !important;
+}
+
+html.dark-mode .appointment-detail-grid strong,
+body.dark-mode .appointment-detail-grid strong,
+.dark-mode .appointment-detail-grid strong {
+  color: #c6d6db !important;
+}
+
+/* Keep status colors inside modal */
+html.dark-mode .appointment-detail-grid .modal-status-text.status-pending,
+body.dark-mode .appointment-detail-grid .modal-status-text.status-pending,
+.dark-mode .appointment-detail-grid .modal-status-text.status-pending {
+  color: #efbd59 !important;
+}
+
+html.dark-mode .appointment-detail-grid .modal-status-text.status-confirmed,
+body.dark-mode .appointment-detail-grid .modal-status-text.status-confirmed,
+.dark-mode .appointment-detail-grid .modal-status-text.status-confirmed {
+  color: #55d2a5 !important;
+}
+
+html.dark-mode .appointment-detail-grid .modal-status-text.status-completed,
+body.dark-mode .appointment-detail-grid .modal-status-text.status-completed,
+.dark-mode .appointment-detail-grid .modal-status-text.status-completed {
+  color: #80a5ff !important;
+}
+
+html.dark-mode .appointment-detail-grid .modal-status-text.status-cancelled,
+body.dark-mode .appointment-detail-grid .modal-status-text.status-cancelled,
+.dark-mode .appointment-detail-grid .modal-status-text.status-cancelled {
+  color: #ff8b8b !important;
+}
+
+html.dark-mode .appointment-detail-grid .modal-status-text.status-expired,
+body.dark-mode .appointment-detail-grid .modal-status-text.status-expired,
+.dark-mode .appointment-detail-grid .modal-status-text.status-expired {
+  color: #e9a94f !important;
+}
+
+/* =========================================================
+   MODAL REASON
+   ========================================================= */
+
+html.dark-mode .appointment-modal-reason,
+body.dark-mode .appointment-modal-reason,
+.dark-mode .appointment-modal-reason {
+  background: #101e27 !important;
+}
+
+html.dark-mode .appointment-modal-reason p,
+body.dark-mode .appointment-modal-reason p,
+.dark-mode .appointment-modal-reason p {
+  color: #a7bcc4 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .appointment-modal-footer,
+body.dark-mode .appointment-modal-footer,
+.dark-mode .appointment-modal-footer {
+  border-top-color: #293e48 !important;
+}
+
+html.dark-mode .appointment-modal-footer button,
+body.dark-mode .appointment-modal-footer button,
+.dark-mode .appointment-modal-footer button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .appointment-modal-footer button:hover,
+body.dark-mode .appointment-modal-footer button:hover,
+.dark-mode .appointment-modal-footer button:hover {
+  background: linear-gradient(
+    135deg,
+    #0bb2aa,
+    #098d91
+  ) !important;
+}
+
+/* =========================================================
+   SVG
+   ========================================================= */
+
+html.dark-mode .admin-appointments-page svg,
+body.dark-mode .admin-appointments-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   RESPONSIVE DARK MODE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  html.dark-mode .admin-appointments-page,
+  body.dark-mode .admin-appointments-page {
+    background: #0f1b22 !important;
+  }
+}
+
+@media (max-width: 700px) {
+  html.dark-mode .appointments-refresh-button,
+  body.dark-mode .appointments-refresh-button {
+    background: #142730 !important;
+  }
+
+  html.dark-mode .appointments-search,
+  body.dark-mode .appointments-search {
+    background: #142730 !important;
+  }
+
+  html.dark-mode .appointment-filters,
+  body.dark-mode .appointment-filters {
+    scrollbar-color: #315760 #0f1b22;
+  }
+}
+
+@media (max-width: 500px) {
+  html.dark-mode .appointment-modal,
+  body.dark-mode .appointment-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .appointment-detail-grid > div,
+  body.dark-mode .appointment-detail-grid > div {
+    background: #101e27 !important;
+  }
+}
+
+/* =========================================================
+   ADMIN BILLS - COMPLETE DARK MODE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-bills-page,
+body.dark-mode .admin-bills-page,
+.dark-mode .admin-bills-page {
+  background: #0f1b22 !important;
+  color: #eaf4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .bills-section-label,
+body.dark-mode .bills-section-label,
+.dark-mode .bills-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bills-page-title h1,
+body.dark-mode .bills-page-title h1,
+.dark-mode .bills-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .bills-page-title p,
+body.dark-mode .bills-page-title p,
+.dark-mode .bills-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .bills-title-icon,
+body.dark-mode .bills-title-icon,
+.dark-mode .bills-title-icon {
+  background: #16343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .bills-title-icon:hover,
+body.dark-mode .bills-title-icon:hover,
+.dark-mode .bills-title-icon:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* HEADER BUTTONS */
+
+html.dark-mode .bills-refresh-button,
+body.dark-mode .bills-refresh-button,
+.dark-mode .bills-refresh-button {
+  background: #142730 !important;
+  color: #b7cbd2 !important;
+  border-color: #304953 !important;
+}
+
+html.dark-mode .bills-refresh-button:hover:not(:disabled),
+body.dark-mode .bills-refresh-button:hover:not(:disabled),
+.dark-mode .bills-refresh-button:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #edf8fa !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .bills-create-button,
+body.dark-mode .bills-create-button,
+.dark-mode .bills-create-button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .bills-create-button:hover,
+body.dark-mode .bills-create-button:hover,
+.dark-mode .bills-create-button:hover {
+  background: linear-gradient(
+    135deg,
+    #0bb0aa,
+    #098b8d
+  ) !important;
+
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* =========================================================
+   SUCCESS / ERROR
+   ========================================================= */
+
+html.dark-mode .bills-success,
+body.dark-mode .bills-success,
+.dark-mode .bills-success {
+  background: #102a20 !important;
+  border-color: #245b43 !important;
+  color: #73dfaa !important;
+}
+
+html.dark-mode .bills-success button,
+body.dark-mode .bills-success button,
+.dark-mode .bills-success button {
+  color: #8fe5ba !important;
+}
+
+html.dark-mode .bills-error,
+body.dark-mode .bills-error,
+.dark-mode .bills-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+  color: #ff9191 !important;
+}
+
+html.dark-mode .bills-error strong,
+body.dark-mode .bills-error strong,
+.dark-mode .bills-error strong {
+  color: #ff9a9a !important;
+}
+
+html.dark-mode .bills-error p,
+body.dark-mode .bills-error p,
+.dark-mode .bills-error p {
+  color: #c89191 !important;
+}
+
+html.dark-mode .bills-error button,
+body.dark-mode .bills-error button,
+.dark-mode .bills-error button {
+  color: #ff9a9a !important;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+html.dark-mode .bill-stat-card,
+body.dark-mode .bill-stat-card,
+.dark-mode .bill-stat-card {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .bill-stat-card:hover,
+body.dark-mode .bill-stat-card:hover,
+.dark-mode .bill-stat-card:hover {
+  background: #172832 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34) !important;
+}
+
+html.dark-mode .bill-stat-card.selected,
+body.dark-mode .bill-stat-card.selected,
+.dark-mode .bill-stat-card.selected {
+  border-color: #16b8b1 !important;
+  box-shadow:
+    0 0 0 2px rgba(22, 184, 177, 0.12),
+    0 10px 25px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .bill-stat-card span,
+body.dark-mode .bill-stat-card span,
+.dark-mode .bill-stat-card span {
+  color: #8da6b0 !important;
+}
+
+html.dark-mode .bill-stat-card strong,
+body.dark-mode .bill-stat-card strong,
+.dark-mode .bill-stat-card strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-stat-card small,
+body.dark-mode .bill-stat-card small,
+.dark-mode .bill-stat-card small {
+  color: #718b95 !important;
+}
+
+/* STAT ICONS */
+
+html.dark-mode .bill-stat-icon.total,
+body.dark-mode .bill-stat-icon.total,
+.dark-mode .bill-stat-icon.total {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-stat-icon.paid,
+body.dark-mode .bill-stat-icon.paid,
+.dark-mode .bill-stat-icon.paid {
+  background: #12352e !important;
+  color: #55d7a2 !important;
+}
+
+html.dark-mode .bill-stat-icon.pending,
+body.dark-mode .bill-stat-icon.pending,
+.dark-mode .bill-stat-icon.pending {
+  background: #392b17 !important;
+  color: #f0b84e !important;
+}
+
+html.dark-mode .bill-stat-icon.cancelled,
+body.dark-mode .bill-stat-icon.cancelled,
+.dark-mode .bill-stat-icon.cancelled {
+  background: #391e21 !important;
+  color: #ed7777 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .bills-toolbar h2,
+body.dark-mode .bills-toolbar h2,
+.dark-mode .bills-toolbar h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bills-toolbar p,
+body.dark-mode .bills-toolbar p,
+.dark-mode .bills-toolbar p {
+  color: #8da5ae !important;
+}
+
+/* SEARCH */
+
+html.dark-mode .bills-search,
+body.dark-mode .bills-search,
+.dark-mode .bills-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7faab4 !important;
+}
+
+html.dark-mode .bills-search:focus-within,
+body.dark-mode .bills-search:focus-within,
+.dark-mode .bills-search:focus-within {
+  border-color: #16b8b1 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .bills-search input,
+body.dark-mode .bills-search input,
+.dark-mode .bills-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .bills-search input::placeholder,
+body.dark-mode .bills-search input::placeholder,
+.dark-mode .bills-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .bills-search button,
+body.dark-mode .bills-search button,
+.dark-mode .bills-search button {
+  background: #1d343d !important;
+  color: #a6bdc5 !important;
+}
+
+html.dark-mode .bills-search button:hover,
+body.dark-mode .bills-search button:hover,
+.dark-mode .bills-search button:hover {
+  background: #29454e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+html.dark-mode .bill-filter,
+body.dark-mode .bill-filter,
+.dark-mode .bill-filter {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #8ea6af !important;
+}
+
+html.dark-mode .bill-filter:hover,
+body.dark-mode .bill-filter:hover,
+.dark-mode .bill-filter:hover {
+  background: #19333b !important;
+  border-color: #3c626c !important;
+  color: #eaf6f8 !important;
+}
+
+html.dark-mode .bill-filter span,
+body.dark-mode .bill-filter span,
+.dark-mode .bill-filter span {
+  background: #1e343d !important;
+  color: #9fb5bd !important;
+}
+
+html.dark-mode .bill-filter.active,
+body.dark-mode .bill-filter.active,
+.dark-mode .bill-filter.active {
+  background: #123a37 !important;
+  border-color: #16b8b1 !important;
+  color: #57d8d2 !important;
+}
+
+html.dark-mode .bill-filter.active span,
+body.dark-mode .bill-filter.active span,
+.dark-mode .bill-filter.active span {
+  background: #1b514d !important;
+  color: #75e4de !important;
+}
+
+/* =========================================================
+   BILL CARD
+   ========================================================= */
+
+html.dark-mode .admin-bill-card,
+body.dark-mode .admin-bill-card,
+.dark-mode .admin-bill-card {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .admin-bill-card:hover,
+body.dark-mode .admin-bill-card:hover,
+.dark-mode .admin-bill-card:hover {
+  background: #172832 !important;
+  border-color: #3b626c !important;
+
+  box-shadow:
+    0 16px 35px rgba(0, 0, 0, 0.36) !important;
+}
+
+/* CARD TOP */
+
+html.dark-mode .bill-card-top,
+body.dark-mode .bill-card-top,
+.dark-mode .bill-card-top {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .bill-icon,
+body.dark-mode .bill-icon,
+.dark-mode .bill-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-title h3,
+body.dark-mode .bill-title h3,
+.dark-mode .bill-title h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-title span,
+body.dark-mode .bill-title span,
+.dark-mode .bill-title span {
+  color: #78939d !important;
+}
+
+/* STATUS */
+
+html.dark-mode .bill-status-paid,
+body.dark-mode .bill-status-paid,
+.dark-mode .bill-status-paid {
+  background: #12382e !important;
+  color: #5ee0aa !important;
+}
+
+html.dark-mode .bill-status-pending,
+body.dark-mode .bill-status-pending,
+.dark-mode .bill-status-pending {
+  background: #3b2c17 !important;
+  color: #f0bb54 !important;
+}
+
+html.dark-mode .bill-status-cancelled,
+body.dark-mode .bill-status-cancelled,
+.dark-mode .bill-status-cancelled {
+  background: #3b2023 !important;
+  color: #ef8585 !important;
+}
+
+/* =========================================================
+   AMOUNT
+   ========================================================= */
+
+html.dark-mode .bill-amount-box,
+body.dark-mode .bill-amount-box,
+.dark-mode .bill-amount-box {
+  background: #102027 !important;
+}
+
+html.dark-mode .bill-amount-box small,
+body.dark-mode .bill-amount-box small,
+.dark-mode .bill-amount-box small {
+  color: #718a95 !important;
+}
+
+html.dark-mode .bill-amount-box strong,
+body.dark-mode .bill-amount-box strong,
+.dark-mode .bill-amount-box strong {
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   PATIENT / DOCTOR
+   ========================================================= */
+
+html.dark-mode .bill-person-icon.patient,
+body.dark-mode .bill-person-icon.patient,
+.dark-mode .bill-person-icon.patient {
+  background: #192d4b !important;
+  color: #78a0ff !important;
+}
+
+html.dark-mode .bill-person-icon.doctor,
+body.dark-mode .bill-person-icon.doctor,
+.dark-mode .bill-person-icon.doctor {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-person small,
+body.dark-mode .bill-person small,
+.dark-mode .bill-person small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .bill-person strong,
+body.dark-mode .bill-person strong,
+.dark-mode .bill-person strong {
+  color: #c6d6db !important;
+}
+
+html.dark-mode .bill-person span,
+body.dark-mode .bill-person span,
+.dark-mode .bill-person span {
+  color: #78939d !important;
+}
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+html.dark-mode .bill-date,
+body.dark-mode .bill-date,
+.dark-mode .bill-date {
+  background: #10242b !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-date span,
+body.dark-mode .bill-date span,
+.dark-mode .bill-date span {
+  color: #78939d !important;
+}
+
+html.dark-mode .bill-date strong,
+body.dark-mode .bill-date strong,
+.dark-mode .bill-date strong {
+  color: #b9ccd2 !important;
+}
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+html.dark-mode .bill-description,
+body.dark-mode .bill-description,
+.dark-mode .bill-description {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .bill-description small,
+body.dark-mode .bill-description small,
+.dark-mode .bill-description small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .bill-description p,
+body.dark-mode .bill-description p,
+.dark-mode .bill-description p {
+  color: #9db2b9 !important;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+html.dark-mode .bill-paid-action,
+body.dark-mode .bill-paid-action,
+.dark-mode .bill-paid-action {
+  background: #12382e !important;
+  border-color: #27664e !important;
+  color: #5ee0aa !important;
+}
+
+html.dark-mode .bill-paid-action:hover:not(:disabled),
+body.dark-mode .bill-paid-action:hover:not(:disabled),
+.dark-mode .bill-paid-action:hover:not(:disabled) {
+  background: #174a3b !important;
+  border-color: #398365 !important;
+}
+
+html.dark-mode .bill-cancel-action,
+body.dark-mode .bill-cancel-action,
+.dark-mode .bill-cancel-action {
+  background: #391e21 !important;
+  border-color: #663236 !important;
+  color: #ef8585 !important;
+}
+
+html.dark-mode .bill-cancel-action:hover:not(:disabled),
+body.dark-mode .bill-cancel-action:hover:not(:disabled),
+.dark-mode .bill-cancel-action:hover:not(:disabled) {
+  background: #482529 !important;
+  border-color: #814147 !important;
+}
+
+html.dark-mode .bill-edit-action,
+body.dark-mode .bill-edit-action,
+.dark-mode .bill-edit-action {
+  background: #102b32 !important;
+  border-color: #31545e !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-edit-action:hover:not(:disabled),
+body.dark-mode .bill-edit-action:hover:not(:disabled),
+.dark-mode .bill-edit-action:hover:not(:disabled) {
+  background: #173a42 !important;
+  border-color: #4a737c !important;
+  color: #6be2dc !important;
+}
+
+html.dark-mode .bill-updating,
+body.dark-mode .bill-updating,
+.dark-mode .bill-updating {
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .bills-loading,
+body.dark-mode .bills-loading,
+.dark-mode .bills-loading,
+html.dark-mode .bills-empty,
+body.dark-mode .bills-empty,
+.dark-mode .bills-empty {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .bills-spinner,
+body.dark-mode .bills-spinner,
+.dark-mode .bills-spinner {
+  border-color: #21414a !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .bills-loading h3,
+body.dark-mode .bills-loading h3,
+.dark-mode .bills-loading h3,
+html.dark-mode .bills-empty h3,
+body.dark-mode .bills-empty h3,
+.dark-mode .bills-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bills-loading p,
+body.dark-mode .bills-loading p,
+.dark-mode .bills-loading p,
+html.dark-mode .bills-empty p,
+body.dark-mode .bills-empty p,
+.dark-mode .bills-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .bills-empty-icon,
+body.dark-mode .bills-empty-icon,
+.dark-mode .bills-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bills-empty button,
+body.dark-mode .bills-empty button,
+.dark-mode .bills-empty button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bills-empty button:hover,
+body.dark-mode .bills-empty button:hover,
+.dark-mode .bills-empty button:hover {
+  background: #173a42 !important;
+  border-color: #4a737c !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .bill-modal-overlay,
+body.dark-mode .bill-modal-overlay,
+.dark-mode .bill-modal-overlay {
+  background: rgba(2, 12, 18, 0.78) !important;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+html.dark-mode .bill-modal,
+body.dark-mode .bill-modal,
+.dark-mode .bill-modal {
+  background: #14232b !important;
+  color: #eaf5f7 !important;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.58) !important;
+}
+
+html.dark-mode .bill-modal-header,
+body.dark-mode .bill-modal-header,
+.dark-mode .bill-modal-header {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .bill-modal-icon,
+body.dark-mode .bill-modal-icon,
+.dark-mode .bill-modal-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .bill-modal-title h2,
+body.dark-mode .bill-modal-title h2,
+.dark-mode .bill-modal-title h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-modal-title p,
+body.dark-mode .bill-modal-title p,
+.dark-mode .bill-modal-title p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .bill-modal-close,
+body.dark-mode .bill-modal-close,
+.dark-mode .bill-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .bill-modal-close:hover,
+body.dark-mode .bill-modal-close:hover,
+.dark-mode .bill-modal-close:hover {
+  background: #29444e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+html.dark-mode .bill-form-group label,
+body.dark-mode .bill-form-group label,
+.dark-mode .bill-form-group label {
+  color: #8fa7b0 !important;
+}
+
+html.dark-mode .bill-form-group input,
+body.dark-mode .bill-form-group input,
+.dark-mode .bill-form-group input,
+html.dark-mode .bill-form-group select,
+body.dark-mode .bill-form-group select,
+.dark-mode .bill-form-group select,
+html.dark-mode .bill-form-group textarea,
+body.dark-mode .bill-form-group textarea,
+.dark-mode .bill-form-group textarea {
+  background: #102027 !important;
+  border-color: #304953 !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .bill-form-group input::placeholder,
+body.dark-mode .bill-form-group input::placeholder,
+.dark-mode .bill-form-group input::placeholder,
+html.dark-mode .bill-form-group textarea::placeholder,
+body.dark-mode .bill-form-group textarea::placeholder,
+.dark-mode .bill-form-group textarea::placeholder {
+  color: #627b85 !important;
+}
+
+html.dark-mode .bill-form-group input:focus,
+body.dark-mode .bill-form-group input:focus,
+.dark-mode .bill-form-group input:focus,
+html.dark-mode .bill-form-group select:focus,
+body.dark-mode .bill-form-group select:focus,
+.dark-mode .bill-form-group select:focus,
+html.dark-mode .bill-form-group textarea:focus,
+body.dark-mode .bill-form-group textarea:focus,
+.dark-mode .bill-form-group textarea:focus {
+  background: #10242b !important;
+  border-color: #16b8b1 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+/* SELECT OPTIONS */
+
+html.dark-mode .bill-form-group select option,
+body.dark-mode .bill-form-group select option,
+.dark-mode .bill-form-group select option {
+  background: #102027 !important;
+  color: #e8f5f7 !important;
+}
+
+/* DATE INPUT */
+
+html.dark-mode .bill-form-group input[type="date"],
+body.dark-mode .bill-form-group input[type="date"],
+.dark-mode .bill-form-group input[type="date"] {
+  color-scheme: dark;
+}
+
+/* READ ONLY PATIENT NAME */
+
+html.dark-mode .bill-form-group input[readonly],
+body.dark-mode .bill-form-group input[readonly],
+.dark-mode .bill-form-group input[readonly] {
+  background: #0d1b21 !important;
+  color: #a9bec6 !important;
+}
+
+/* =========================================================
+   FORM FOOTER
+   ========================================================= */
+
+html.dark-mode .bill-form-footer,
+body.dark-mode .bill-form-footer,
+.dark-mode .bill-form-footer {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .bill-form-cancel,
+body.dark-mode .bill-form-cancel,
+.dark-mode .bill-form-cancel {
+  background: #17272e !important;
+  border-color: #38505a !important;
+  color: #b2c4ca !important;
+}
+
+html.dark-mode .bill-form-cancel:hover:not(:disabled),
+body.dark-mode .bill-form-cancel:hover:not(:disabled),
+.dark-mode .bill-form-cancel:hover:not(:disabled) {
+  background: #20353d !important;
+  border-color: #4a6670 !important;
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .bill-form-save,
+body.dark-mode .bill-form-save,
+.dark-mode .bill-form-save {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .bill-form-save:hover:not(:disabled),
+body.dark-mode .bill-form-save:hover:not(:disabled),
+.dark-mode .bill-form-save:hover:not(:disabled) {
+  background: linear-gradient(
+    135deg,
+    #0bb0aa,
+    #098b8d
+  ) !important;
+
+  transform: translateY(-2px);
+}
+
+/* DISABLED */
+
+html.dark-mode .bill-form-save:disabled,
+body.dark-mode .bill-form-save:disabled,
+.dark-mode .bill-form-save:disabled,
+html.dark-mode .bill-form-cancel:disabled,
+body.dark-mode .bill-form-cancel:disabled,
+.dark-mode .bill-form-cancel:disabled {
+  opacity: 0.5 !important;
+}
+
+/* =========================================================
+   SVG / ICON SAFETY
+   ========================================================= */
+
+html.dark-mode .admin-bills-page svg,
+body.dark-mode .admin-bills-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .admin-bills-page,
+  body.dark-mode .admin-bills-page {
+    background: #0f1b22 !important;
+  }
+
+  html.dark-mode .bills-search,
+  body.dark-mode .bills-search {
+    background: #142730 !important;
+  }
+
+  html.dark-mode .bill-stat-card,
+  body.dark-mode .bill-stat-card {
+    background: #14232b !important;
+  }
+}
+
+@media (max-width: 520px) {
+  html.dark-mode .bill-modal,
+  body.dark-mode .bill-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .bill-form-group input,
+  body.dark-mode .bill-form-group input,
+  html.dark-mode .bill-form-group select,
+  body.dark-mode .bill-form-group select,
+  html.dark-mode .bill-form-group textarea,
+  body.dark-mode .bill-form-group textarea {
+    background: #102027 !important;
+  }
+}
+
+
+/* =========================================================
+   ADMIN DOCTORS - DARK MODE
+   ========================================================= */
+
+html.dark-mode .admin-doctors-page,
+body.dark-mode .admin-doctors-page {
+  background: #0f1b22 !important;
+  color: #eaf4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .doctors-page-title h1,
+body.dark-mode .doctors-page-title h1 {
+  color: #f2f8fa !important;
+}
+
+html.dark-mode .doctors-page-title p,
+body.dark-mode .doctors-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .doctors-section-label,
+body.dark-mode .doctors-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctors-title-icon,
+body.dark-mode .doctors-title-icon {
+  background: linear-gradient(135deg, #16343c, #17414a) !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark-mode .doctors-refresh-button,
+body.dark-mode .doctors-refresh-button {
+  background: #14232b !important;
+  border-color: #2b424c !important;
+  color: #b4c7cd !important;
+}
+
+html.dark-mode .doctors-refresh-button:hover:not(:disabled),
+body.dark-mode .doctors-refresh-button:hover:not(:disabled) {
+  background: #1a3039 !important;
+  border-color: #3d6670 !important;
+  color: #edf7f8 !important;
+}
+
+/* =========================================================
+   SUMMARY CARD
+   ========================================================= */
+
+html.dark-mode .doctors-summary-card,
+body.dark-mode .doctors-summary-card {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  border-left-color: #4d86ff !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .doctors-summary-icon,
+body.dark-mode .doctors-summary-icon {
+  background: #182b45 !important;
+  color: #6e9cff !important;
+}
+
+html.dark-mode .doctors-summary-card span,
+body.dark-mode .doctors-summary-card span {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .doctors-summary-card strong,
+body.dark-mode .doctors-summary-card strong {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .doctors-summary-card small,
+body.dark-mode .doctors-summary-card small {
+  color: #718993 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .doctors-toolbar-heading h2,
+body.dark-mode .doctors-toolbar-heading h2 {
+  color: #f0f7f9 !important;
+}
+
+html.dark-mode .doctors-toolbar-heading p,
+body.dark-mode .doctors-toolbar-heading p {
+  color: #8ea5ae !important;
+}
+
+html.dark-mode .doctors-search,
+body.dark-mode .doctors-search {
+  background: #14232b !important;
+  border-color: #2c434c !important;
+  color: #8fa9b2 !important;
+}
+
+html.dark-mode .doctors-search:focus-within,
+body.dark-mode .doctors-search:focus-within {
+  border-color: #18b8b0 !important;
+  box-shadow: 0 0 0 3px rgba(24, 184, 176, 0.12) !important;
+}
+
+html.dark-mode .doctors-search input,
+body.dark-mode .doctors-search input {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctors-search input::placeholder,
+body.dark-mode .doctors-search input::placeholder {
+  color: #627b85 !important;
+}
+
+html.dark-mode .doctors-clear-search,
+body.dark-mode .doctors-clear-search {
+  background: #1b3038 !important;
+  color: #91a8b2 !important;
+}
+
+/* =========================================================
+   DOCTOR CARD
+   ========================================================= */
+
+html.dark-mode .admin-doctor-card,
+body.dark-mode .admin-doctor-card {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .admin-doctor-card:hover,
+body.dark-mode .admin-doctor-card:hover {
+  background: #172831 !important;
+  border-color: #3a626c !important;
+  box-shadow: 0 15px 32px rgba(0, 0, 0, 0.36) !important;
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+html.dark-mode .doctor-card-top,
+body.dark-mode .doctor-card-top {
+  border-bottom-color: #293e48 !important;
+}
+
+html.dark-mode .doctor-avatar,
+body.dark-mode .doctor-avatar {
+  background: #182b45 !important;
+  color: #73a0ff !important;
+}
+
+html.dark-mode .doctor-card-name h3,
+body.dark-mode .doctor-card-name h3 {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctor-card-name span,
+body.dark-mode .doctor-card-name span {
+  color: #78919b !important;
+}
+
+/* ACTIVE DOT */
+
+html.dark-mode .doctor-active,
+body.dark-mode .doctor-active {
+  background: #12352c !important;
+}
+
+html.dark-mode .doctor-active span,
+body.dark-mode .doctor-active span {
+  background: #25c78d !important;
+  box-shadow: 0 0 0 4px rgba(37, 199, 141, 0.10) !important;
+}
+
+/* PENDING DOT */
+
+html.dark-mode .doctor-active.doctor-pending,
+body.dark-mode .doctor-active.doctor-pending {
+  background: #3a3015 !important;
+}
+
+html.dark-mode .doctor-active.doctor-pending span,
+body.dark-mode .doctor-active.doctor-pending span {
+  background: #f2b84b !important;
+  box-shadow: 0 0 0 4px rgba(242, 184, 75, 0.10) !important;
+}
+
+/* REJECTED DOT */
+
+html.dark-mode .doctor-active.doctor-rejected,
+body.dark-mode .doctor-active.doctor-rejected {
+  background: #3b2023 !important;
+}
+
+html.dark-mode .doctor-active.doctor-rejected span,
+body.dark-mode .doctor-active.doctor-rejected span {
+  background: #ef6666 !important;
+  box-shadow: 0 0 0 4px rgba(239, 102, 102, 0.10) !important;
+}
+
+/* =========================================================
+   SPECIALIZATION
+   ========================================================= */
+
+html.dark-mode .doctor-specialization,
+body.dark-mode .doctor-specialization {
+  background: #10242c !important;
+}
+
+html.dark-mode .doctor-specialization-icon,
+body.dark-mode .doctor-specialization-icon {
+  background: #15363d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-specialization small,
+body.dark-mode .doctor-specialization small {
+  color: #7f98a2 !important;
+}
+
+html.dark-mode .doctor-specialization strong,
+body.dark-mode .doctor-specialization strong {
+  color: #d9eaed !important;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+html.dark-mode .doctor-status-row small,
+body.dark-mode .doctor-status-row small {
+  color: #7f98a2 !important;
+}
+
+html.dark-mode .doctor-status-icon,
+body.dark-mode .doctor-status-icon {
+  background: #12342d !important;
+  color: #35c991 !important;
+}
+
+html.dark-mode .doctor-status-row strong,
+body.dark-mode .doctor-status-row strong {
+  color: #35c991 !important;
+}
+
+html.dark-mode .doctor-pending-text,
+body.dark-mode .doctor-pending-text {
+  color: #f2bd52 !important;
+}
+
+html.dark-mode .doctor-rejected-text,
+body.dark-mode .doctor-rejected-text {
+  color: #f16d6d !important;
+}
+
+html.dark-mode .doctor-active-text,
+body.dark-mode .doctor-active-text {
+  color: #35c991 !important;
+}
+
+html.dark-mode .doctor-verified-icon,
+body.dark-mode .doctor-verified-icon {
+  color: #35c991 !important;
+}
+
+/* Awaiting Review text */
+html.dark-mode .doctor-status-row > span,
+body.dark-mode .doctor-status-row > span {
+  color: #d9b45a !important;
+}
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+html.dark-mode .doctor-view-button,
+body.dark-mode .doctor-view-button {
+  background: #10242c !important;
+  border-color: #2c4852 !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-view-button:hover,
+body.dark-mode .doctor-view-button:hover {
+  background: #15323b !important;
+  border-color: #3d6972 !important;
+  color: #68e1dc !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .doctors-error,
+body.dark-mode .doctors-error {
+  background: #30191b !important;
+  border-color: #683033 !important;
+}
+
+html.dark-mode .doctors-error strong,
+body.dark-mode .doctors-error strong {
+  color: #ff8d8d !important;
+}
+
+html.dark-mode .doctors-error p,
+body.dark-mode .doctors-error p {
+  color: #c99494 !important;
+}
+
+html.dark-mode .doctors-error button,
+body.dark-mode .doctors-error button {
+  background: #a93e3e !important;
+  color: #fff !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .doctors-loading,
+body.dark-mode .doctors-loading,
+html.dark-mode .doctors-empty,
+body.dark-mode .doctors-empty {
+  background: #14232b !important;
+  border-color: #293e48 !important;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .doctors-spinner,
+body.dark-mode .doctors-spinner {
+  border-color: #24414a !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .doctors-loading h3,
+body.dark-mode .doctors-loading h3,
+html.dark-mode .doctors-empty h3,
+body.dark-mode .doctors-empty h3 {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctors-loading p,
+body.dark-mode .doctors-loading p,
+html.dark-mode .doctors-empty p,
+body.dark-mode .doctors-empty p {
+  color: #8199a3 !important;
+}
+
+html.dark-mode .doctors-empty-icon,
+body.dark-mode .doctors-empty-icon {
+  background: #182b45 !important;
+  color: #6e9cff !important;
+}
+
+html.dark-mode .doctors-empty button,
+body.dark-mode .doctors-empty button {
+  background: #10242c !important;
+  border-color: #2d4b55 !important;
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .doctor-modal-overlay,
+body.dark-mode .doctor-modal-overlay {
+  background: rgba(2, 12, 17, 0.78) !important;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+html.dark-mode .doctor-modal,
+body.dark-mode .doctor-modal {
+  background: #14232b !important;
+  color: #eaf4f6 !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55) !important;
+}
+
+html.dark-mode .doctor-modal-header,
+body.dark-mode .doctor-modal-header {
+  border-bottom-color: #293e48 !important;
+}
+
+html.dark-mode .doctor-modal-avatar,
+body.dark-mode .doctor-modal-avatar {
+  background: #182b45 !important;
+  color: #73a0ff !important;
+}
+
+html.dark-mode .doctor-modal-title h2,
+body.dark-mode .doctor-modal-title h2 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .doctor-modal-title p,
+body.dark-mode .doctor-modal-title p {
+  color: #8199a3 !important;
+}
+
+html.dark-mode .doctor-modal-close,
+body.dark-mode .doctor-modal-close {
+  background: #1a2c34 !important;
+  color: #8ea6af !important;
+}
+
+html.dark-mode .doctor-modal-close:hover,
+body.dark-mode .doctor-modal-close:hover {
+  background: #253b44 !important;
+  color: #edf7f8 !important;
+}
+
+/* =========================================================
+   MODAL CONTENT
+   ========================================================= */
+
+html.dark-mode .doctor-detail-section h3,
+body.dark-mode .doctor-detail-section h3 {
+  color: #edf7f8 !important;
+}
+
+html.dark-mode .doctor-detail-grid > div,
+body.dark-mode .doctor-detail-grid > div {
+  background: #102027 !important;
+  border-color: #2b424c !important;
+}
+
+html.dark-mode .doctor-detail-grid > div:hover,
+body.dark-mode .doctor-detail-grid > div:hover {
+  border-color: #3a6069 !important;
+}
+
+html.dark-mode .doctor-detail-grid small,
+body.dark-mode .doctor-detail-grid small,
+html.dark-mode .doctor-email-detail small,
+body.dark-mode .doctor-email-detail small {
+  color: #8199a3 !important;
+}
+
+html.dark-mode .doctor-detail-grid strong,
+body.dark-mode .doctor-detail-grid strong,
+html.dark-mode .doctor-email-detail strong,
+body.dark-mode .doctor-email-detail strong {
+  color: #e8f3f5 !important;
+}
+
+/* =========================================================
+   EMAIL
+   ========================================================= */
+
+html.dark-mode .doctor-email-detail,
+body.dark-mode .doctor-email-detail {
+  background: #10242c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-email-detail strong,
+body.dark-mode .doctor-email-detail strong {
+  color: #e8f3f5 !important;
+}
+
+/* =========================================================
+   CARE / VERIFICATION MESSAGE
+   ========================================================= */
+
+html.dark-mode .doctor-care-message,
+body.dark-mode .doctor-care-message {
+  background: #12323a !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .doctor-care-message p,
+body.dark-mode .doctor-care-message p {
+  color: #a7c1c8 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .doctor-modal-footer,
+body.dark-mode .doctor-modal-footer {
+  border-top-color: #293e48 !important;
+}
+
+html.dark-mode .doctor-modal-footer button:last-child,
+body.dark-mode .doctor-modal-footer button:last-child {
+  background: #087f82 !important;
+  color: #fff !important;
+}
+
+html.dark-mode .doctor-modal-footer button:last-child:hover,
+body.dark-mode .doctor-modal-footer button:last-child:hover {
+  background: #079b96 !important;
+}
+
+/* =========================================================
+   APPROVE / REJECT BUTTONS
+   Inline styles need !important
+   ========================================================= */
+
+html.dark-mode .doctor-modal-footer button[style*="background: #16a34a"],
+body.dark-mode .doctor-modal-footer button[style*="background: #16a34a"] {
+  background: #168f55 !important;
+  color: #fff !important;
+}
+
+html.dark-mode .doctor-modal-footer button[style*="background: #dc2626"],
+body.dark-mode .doctor-modal-footer button[style*="background: #dc2626"] {
+  background: #b83b42 !important;
+  color: #fff !important;
+}
+
+/* Card approve/reject inline buttons */
+
+html.dark-mode .admin-doctor-card button[style*="background: #16a34a"],
+body.dark-mode .admin-doctor-card button[style*="background: #16a34a"] {
+  background: #168f55 !important;
+}
+
+html.dark-mode .admin-doctor-card button[style*="background: #dc2626"],
+body.dark-mode .admin-doctor-card button[style*="background: #dc2626"] {
+  background: #b83b42 !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .doctors-toolbar,
+  body.dark-mode .doctors-toolbar {
+    color: #eaf4f6 !important;
+  }
+}
+
+@media (max-width: 500px) {
+  html.dark-mode .doctor-modal,
+  body.dark-mode .doctor-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .doctor-detail-grid > div,
+  body.dark-mode .doctor-detail-grid > div {
+    background: #102027 !important;
+  }
+}
+
+/* =========================================================
+   ADMIN MEDICAL RECORDS - COMPLETE DARK MODE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-medical-records-page,
+body.dark-mode .admin-medical-records-page,
+.dark-mode .admin-medical-records-page {
+  background: #0f1b22 !important;
+  color: #e8f4f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .medical-records-title-icon,
+body.dark-mode .medical-records-title-icon,
+.dark-mode .medical-records-title-icon {
+  background: #17343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .medical-records-section-label,
+body.dark-mode .medical-records-section-label,
+.dark-mode .medical-records-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-records-page-title h1,
+body.dark-mode .medical-records-page-title h1,
+.dark-mode .medical-records-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .medical-records-page-title p,
+body.dark-mode .medical-records-page-title p,
+.dark-mode .medical-records-page-title p {
+  color: #91a8b2 !important;
+}
+
+/* REFRESH */
+html.dark-mode .medical-records-refresh,
+body.dark-mode .medical-records-refresh,
+.dark-mode .medical-records-refresh {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #b8cbd1 !important;
+}
+
+html.dark-mode .medical-records-refresh:hover:not(:disabled),
+body.dark-mode .medical-records-refresh:hover:not(:disabled),
+.dark-mode .medical-records-refresh:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #edf8f9 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .medical-records-error,
+body.dark-mode .medical-records-error,
+.dark-mode .medical-records-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+}
+
+html.dark-mode .medical-records-error strong,
+body.dark-mode .medical-records-error strong {
+  color: #ff9494 !important;
+}
+
+html.dark-mode .medical-records-error p,
+body.dark-mode .medical-records-error p {
+  color: #c99393 !important;
+}
+
+html.dark-mode .medical-records-error button,
+body.dark-mode .medical-records-error button {
+  background: #a33f45 !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+html.dark-mode .medical-records-summary,
+body.dark-mode .medical-records-summary,
+.dark-mode .medical-records-summary {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  border-left-color: #16b8b1 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .medical-records-summary-icon,
+body.dark-mode .medical-records-summary-icon,
+.dark-mode .medical-records-summary-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-records-summary span,
+body.dark-mode .medical-records-summary span {
+  color: #8da6b0 !important;
+}
+
+html.dark-mode .medical-records-summary strong,
+body.dark-mode .medical-records-summary strong {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .medical-records-summary small,
+body.dark-mode .medical-records-summary small {
+  color: #718b95 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .medical-records-toolbar h2,
+body.dark-mode .medical-records-toolbar h2,
+.dark-mode .medical-records-toolbar h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-records-toolbar p,
+body.dark-mode .medical-records-toolbar p,
+.dark-mode .medical-records-toolbar p {
+  color: #8da4ae !important;
+}
+
+/* SEARCH */
+html.dark-mode .medical-records-search,
+body.dark-mode .medical-records-search,
+.dark-mode .medical-records-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7fabb5 !important;
+}
+
+html.dark-mode .medical-records-search:focus-within,
+body.dark-mode .medical-records-search:focus-within,
+.dark-mode .medical-records-search:focus-within {
+  border-color: #16b8b1 !important;
+  box-shadow: 0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .medical-records-search input,
+body.dark-mode .medical-records-search input,
+.dark-mode .medical-records-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .medical-records-search input::placeholder,
+body.dark-mode .medical-records-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .medical-records-search button,
+body.dark-mode .medical-records-search button {
+  background: #1d343d !important;
+  color: #a5bcc4 !important;
+}
+
+html.dark-mode .medical-records-search button:hover,
+body.dark-mode .medical-records-search button:hover {
+  background: #29444e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MEDICAL RECORD CARDS
+   ========================================================= */
+
+html.dark-mode .admin-medical-record-card,
+body.dark-mode .admin-medical-record-card,
+.dark-mode .admin-medical-record-card {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .admin-medical-record-card:hover,
+body.dark-mode .admin-medical-record-card:hover,
+.dark-mode .admin-medical-record-card:hover {
+  background: #162932 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.36) !important;
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+html.dark-mode .medical-record-card-top,
+body.dark-mode .medical-record-card-top,
+.dark-mode .medical-record-card-top {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-patient-avatar,
+body.dark-mode .medical-record-patient-avatar,
+.dark-mode .medical-record-patient-avatar {
+  background: #17354a !important;
+  color: #65b7ff !important;
+}
+
+html.dark-mode .medical-record-patient-info h3,
+body.dark-mode .medical-record-patient-info h3,
+.dark-mode .medical-record-patient-info h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-patient-info span,
+body.dark-mode .medical-record-patient-info span,
+.dark-mode .medical-record-patient-info span {
+  color: #78929d !important;
+}
+
+html.dark-mode .medical-record-id,
+body.dark-mode .medical-record-id,
+.dark-mode .medical-record-id {
+  background: #2b2450 !important;
+  color: #b59aff !important;
+}
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+html.dark-mode .medical-record-date,
+body.dark-mode .medical-record-date,
+.dark-mode .medical-record-date {
+  background: #10262d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-date span,
+body.dark-mode .medical-record-date span {
+  color: #809aa4 !important;
+}
+
+html.dark-mode .medical-record-date strong,
+body.dark-mode .medical-record-date strong {
+  color: #b9cdd3 !important;
+}
+
+/* =========================================================
+   DOCTOR
+   ========================================================= */
+
+html.dark-mode .medical-record-doctor-icon,
+body.dark-mode .medical-record-doctor-icon,
+.dark-mode .medical-record-doctor-icon {
+  background: #17344a !important;
+  color: #69a9ff !important;
+}
+
+html.dark-mode .medical-record-doctor small,
+body.dark-mode .medical-record-doctor small,
+.dark-mode .medical-record-doctor small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .medical-record-doctor strong,
+body.dark-mode .medical-record-doctor strong,
+.dark-mode .medical-record-doctor strong {
+  color: #d7e5e9 !important;
+}
+
+html.dark-mode .medical-record-doctor span,
+body.dark-mode .medical-record-doctor span,
+.dark-mode .medical-record-doctor span {
+  color: #839ca6 !important;
+}
+
+/* =========================================================
+   DIAGNOSIS
+   ========================================================= */
+
+html.dark-mode .medical-record-diagnosis,
+body.dark-mode .medical-record-diagnosis,
+.dark-mode .medical-record-diagnosis {
+  background: #211d34 !important;
+}
+
+html.dark-mode .diagnosis-icon,
+body.dark-mode .diagnosis-icon,
+.dark-mode .diagnosis-icon {
+  background: #2b2450 !important;
+  color: #b59aff !important;
+}
+
+html.dark-mode .medical-record-diagnosis small,
+body.dark-mode .medical-record-diagnosis small {
+  color: #7e929c !important;
+}
+
+html.dark-mode .medical-record-diagnosis strong,
+body.dark-mode .medical-record-diagnosis strong {
+  color: #c9baff !important;
+}
+
+/* =========================================================
+   TREATMENT
+   ========================================================= */
+
+html.dark-mode .medical-record-treatment,
+body.dark-mode .medical-record-treatment {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-treatment small,
+body.dark-mode .medical-record-treatment small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .medical-record-treatment p,
+body.dark-mode .medical-record-treatment p {
+  color: #9eb3bb !important;
+}
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+html.dark-mode .medical-record-view-button,
+body.dark-mode .medical-record-view-button,
+.dark-mode .medical-record-view-button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-view-button:hover,
+body.dark-mode .medical-record-view-button:hover,
+.dark-mode .medical-record-view-button:hover {
+  background: #17363d !important;
+  border-color: #4a747d !important;
+  color: #68e1dc !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .medical-records-loading,
+body.dark-mode .medical-records-loading,
+.dark-mode .medical-records-loading,
+html.dark-mode .medical-records-empty,
+body.dark-mode .medical-records-empty,
+.dark-mode .medical-records-empty {
+  background: #14232b !important;
+  border-color: #293f49 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .medical-records-spinner,
+body.dark-mode .medical-records-spinner {
+  border-color: #23424c !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .medical-records-loading h3,
+body.dark-mode .medical-records-loading h3,
+html.dark-mode .medical-records-empty h3,
+body.dark-mode .medical-records-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-records-loading p,
+body.dark-mode .medical-records-loading p,
+html.dark-mode .medical-records-empty p,
+body.dark-mode .medical-records-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .medical-records-empty-icon,
+body.dark-mode .medical-records-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-records-empty button,
+body.dark-mode .medical-records-empty button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .medical-record-modal-overlay,
+body.dark-mode .medical-record-modal-overlay {
+  background: rgba(2, 12, 18, 0.80) !important;
+}
+
+/* =========================================================
+   VIEW / EDIT MODAL
+   ========================================================= */
+
+html.dark-mode .medical-record-modal,
+body.dark-mode .medical-record-modal,
+html.dark-mode .medical-record-edit-modal,
+body.dark-mode .medical-record-edit-modal {
+  background: #14232b !important;
+  color: #eaf5f7 !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.58) !important;
+}
+
+/* MODAL HEADER */
+html.dark-mode .medical-record-modal-header,
+body.dark-mode .medical-record-modal-header {
+  border-bottom-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-modal-icon,
+body.dark-mode .medical-record-modal-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-modal-title h2,
+body.dark-mode .medical-record-modal-title h2 {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .medical-record-modal-title p,
+body.dark-mode .medical-record-modal-title p {
+  color: #8099a4 !important;
+}
+
+/* CLOSE */
+html.dark-mode .medical-record-modal-close,
+body.dark-mode .medical-record-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .medical-record-modal-close:hover,
+body.dark-mode .medical-record-modal-close:hover {
+  background: #29434d !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MODAL PATIENT
+   ========================================================= */
+
+html.dark-mode .medical-record-modal-patient,
+body.dark-mode .medical-record-modal-patient {
+  background: #102a31 !important;
+}
+
+html.dark-mode .modal-patient-avatar,
+body.dark-mode .modal-patient-avatar {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .medical-record-modal-patient small,
+body.dark-mode .medical-record-modal-patient small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .medical-record-modal-patient strong,
+body.dark-mode .medical-record-modal-patient strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-modal-patient span,
+body.dark-mode .medical-record-modal-patient span {
+  color: #8099a4 !important;
+}
+
+/* =========================================================
+   MODAL DETAIL GRID
+   ========================================================= */
+
+html.dark-mode .medical-record-detail-grid > div,
+body.dark-mode .medical-record-detail-grid > div {
+  background: #101e27 !important;
+  border-color: #29414c !important;
+}
+
+html.dark-mode .medical-record-detail-grid small,
+body.dark-mode .medical-record-detail-grid small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .medical-record-detail-grid strong,
+body.dark-mode .medical-record-detail-grid strong {
+  color: #c7d7dc !important;
+}
+
+/* DETAIL BOXES */
+html.dark-mode .medical-record-detail-box,
+body.dark-mode .medical-record-detail-box {
+  background: #102027 !important;
+}
+
+html.dark-mode .medical-record-detail-box small,
+body.dark-mode .medical-record-detail-box small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .medical-record-detail-box p,
+body.dark-mode .medical-record-detail-box p {
+  color: #a9bdc4 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .medical-record-modal-footer,
+body.dark-mode .medical-record-modal-footer {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-edit-button,
+body.dark-mode .medical-record-edit-button {
+  background: #211d34 !important;
+  border-color: #4a3f70 !important;
+  color: #b9a5ff !important;
+}
+
+html.dark-mode .medical-record-edit-button:hover,
+body.dark-mode .medical-record-edit-button:hover {
+  background: #2b2450 !important;
+  border-color: #65558f !important;
+}
+
+html.dark-mode .medical-record-close-button,
+body.dark-mode .medical-record-close-button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   EDIT FORM
+   ========================================================= */
+
+html.dark-mode .medical-record-edit-form,
+body.dark-mode .medical-record-edit-form {
+  color: #eaf5f7 !important;
+}
+
+html.dark-mode .medical-record-form-group label,
+body.dark-mode .medical-record-form-group label {
+  color: #9ab0b9 !important;
+}
+
+html.dark-mode .medical-record-form-group input,
+body.dark-mode .medical-record-form-group input,
+html.dark-mode .medical-record-form-group select,
+body.dark-mode .medical-record-form-group select,
+html.dark-mode .medical-record-form-group textarea,
+body.dark-mode .medical-record-form-group textarea {
+  background: #0c1b21 !important;
+  border-color: #304953 !important;
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-form-group input:focus,
+body.dark-mode .medical-record-form-group input:focus,
+html.dark-mode .medical-record-form-group select:focus,
+body.dark-mode .medical-record-form-group select:focus,
+html.dark-mode .medical-record-form-group textarea:focus,
+body.dark-mode .medical-record-form-group textarea:focus {
+  background: #10232a !important;
+  border-color: #16b8b1 !important;
+  box-shadow: 0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .medical-record-form-group input::placeholder,
+body.dark-mode .medical-record-form-group input::placeholder,
+html.dark-mode .medical-record-form-group textarea::placeholder,
+body.dark-mode .medical-record-form-group textarea::placeholder {
+  color: #607984 !important;
+}
+
+/* SELECT OPTIONS */
+html.dark-mode .medical-record-form-group select option,
+body.dark-mode .medical-record-form-group select option {
+  background: #102027 !important;
+  color: #edf7f9 !important;
+}
+
+/* DATE */
+html.dark-mode .medical-record-form-group input[type="date"],
+body.dark-mode .medical-record-form-group input[type="date"] {
+  color-scheme: dark;
+}
+
+/* EDIT FOOTER */
+html.dark-mode .medical-record-edit-footer,
+body.dark-mode .medical-record-edit-footer {
+  border-top-color: #293f49 !important;
+}
+
+html.dark-mode .medical-record-cancel-button,
+body.dark-mode .medical-record-cancel-button {
+  background: #17272e !important;
+  border-color: #38505a !important;
+  color: #b2c4ca !important;
+}
+
+html.dark-mode .medical-record-cancel-button:hover,
+body.dark-mode .medical-record-cancel-button:hover {
+  background: #20333b !important;
+  border-color: #4a6670 !important;
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .medical-record-save-button,
+body.dark-mode .medical-record-save-button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+  color: #ffffff !important;
+}
+
+/* DISABLED */
+html.dark-mode .medical-record-save-button:disabled,
+body.dark-mode .medical-record-save-button:disabled,
+html.dark-mode .medical-record-cancel-button:disabled,
+body.dark-mode .medical-record-cancel-button:disabled {
+  opacity: 0.55;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar {
+  width: 7px;
+}
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar-track,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar-track {
+  background: #0d1a20;
+}
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar-thumb,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar-thumb {
+  background: #31505b;
+  border-radius: 10px;
+}
+
+html.dark-mode .medical-record-modal::-webkit-scrollbar-thumb:hover,
+html.dark-mode .medical-record-edit-modal::-webkit-scrollbar-thumb:hover {
+  background: #47717b;
+}
+
+/* =========================================================
+   SVG ICONS
+   ========================================================= */
+
+html.dark-mode .admin-medical-records-page svg,
+body.dark-mode .admin-medical-records-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   RESPONSIVE DARK MODE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .admin-medical-records-page,
+  body.dark-mode .admin-medical-records-page {
+    background: #0f1b22 !important;
+  }
+
+  html.dark-mode .medical-records-summary,
+  body.dark-mode .medical-records-summary {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .medical-records-search,
+  body.dark-mode .medical-records-search {
+    background: #142730 !important;
+  }
+}
+
+@media (max-width: 520px) {
+  html.dark-mode .medical-record-modal,
+  body.dark-mode .medical-record-modal,
+  html.dark-mode .medical-record-edit-modal,
+  body.dark-mode .medical-record-edit-modal {
+    background: #14232b !important;
+  }
+
+  html.dark-mode .medical-record-detail-grid > div,
+  body.dark-mode .medical-record-detail-grid > div {
+    background: #101e27 !important;
+  }
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dark-mode .admin-patients-page {
+  background: #0f1b24;
+  color: #e4f1f5;
+}
+
+.dark-mode .patients-page-title h1,
+.dark-mode .patients-toolbar-heading h2,
+.dark-mode .patients-summary-card strong,
+.dark-mode .patient-card-name h3,
+.dark-mode .patient-detail-section h3,
+.dark-mode .patient-modal-title h2 {
+  color: #e6f4f7;
+}
+
+.dark-mode .patients-page-title p,
+.dark-mode .patients-toolbar-heading p,
+.dark-mode .patients-summary-card span,
+.dark-mode .patients-summary-card small,
+.dark-mode .patient-card-name span,
+.dark-mode .patient-info-item small,
+.dark-mode .patient-email span,
+.dark-mode .patients-loading p,
+.dark-mode .patients-empty p,
+.dark-mode .patient-modal-title p {
+  color: #829aa8;
+}
+
+.dark-mode .patients-summary-card,
+.dark-mode .admin-patient-card,
+.dark-mode .patients-loading,
+.dark-mode .patients-empty,
+.dark-mode .patients-search,
+.dark-mode .patients-refresh-button,
+.dark-mode .patient-modal {
+  background: #14232d;
+  border-color: #29414c;
+}
+
+.dark-mode .admin-patient-card:hover {
+  border-color: #35616c;
+}
+
+.dark-mode .patient-card-top,
+.dark-mode .patient-email,
+.dark-mode .patient-modal-header,
+.dark-mode .patient-modal-footer {
+  border-color: #29414c;
+}
+
+.dark-mode .patient-info-item strong,
+.dark-mode .patient-detail-grid strong,
+.dark-mode .patient-address p {
+  color: #a9bec8;
+}
+
+.dark-mode .patient-info-item > svg,
+.dark-mode .patient-avatar,
+.dark-mode .patient-modal-avatar,
+.dark-mode .patients-title-icon,
+.dark-mode .patients-summary-icon,
+.dark-mode .patients-empty-icon {
+  background: #17323b;
+}
+
+.dark-mode .patient-detail-grid > div,
+.dark-mode .patient-address {
+  background: #101e27;
+  border-color: #29414c;
+}
+
+.dark-mode .patients-search input {
+  color: #e3f1f4;
+}
+
+.dark-mode .patients-clear-search,
+.dark-mode .patient-modal-close,
+.dark-mode .patients-refresh-button {
+  background: #1b303a;
+  color: #a4bac5;
+}
+/* =========================================================
+   ADMIN PATIENTS - DARK MODE COMPLETE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-patients-page,
+body.dark-mode .admin-patients-page,
+.dark-mode .admin-patients-page {
+  background: #0f1b24 !important;
+  color: #e7f3f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .patients-section-label,
+body.dark-mode .patients-section-label,
+.dark-mode .patients-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .patients-page-title h1,
+body.dark-mode .patients-page-title h1,
+.dark-mode .patients-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .patients-page-title p,
+body.dark-mode .patients-page-title p,
+.dark-mode .patients-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .patients-title-icon,
+body.dark-mode .patients-title-icon,
+.dark-mode .patients-title-icon {
+  background: #16343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Refresh button */
+
+html.dark-mode .patients-refresh-button,
+body.dark-mode .patients-refresh-button,
+.dark-mode .patients-refresh-button {
+  background: #142730 !important;
+  color: #b8cbd1 !important;
+  border-color: #304953 !important;
+}
+
+html.dark-mode .patients-refresh-button:hover:not(:disabled),
+body.dark-mode .patients-refresh-button:hover:not(:disabled),
+.dark-mode .patients-refresh-button:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #eaf7f8 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* =========================================================
+   SUMMARY CARD
+   ========================================================= */
+
+html.dark-mode .patients-summary-card,
+body.dark-mode .patients-summary-card,
+.dark-mode .patients-summary-card {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  border-left-color: #16b8b1 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .patients-summary-icon,
+body.dark-mode .patients-summary-icon,
+.dark-mode .patients-summary-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .patients-summary-card span,
+body.dark-mode .patients-summary-card span,
+.dark-mode .patients-summary-card span {
+  color: #8da6b0 !important;
+}
+
+html.dark-mode .patients-summary-card strong,
+body.dark-mode .patients-summary-card strong,
+.dark-mode .patients-summary-card strong {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .patients-summary-card small,
+body.dark-mode .patients-summary-card small,
+.dark-mode .patients-summary-card small {
+  color: #718b95 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .patients-toolbar-heading h2,
+body.dark-mode .patients-toolbar-heading h2,
+.dark-mode .patients-toolbar-heading h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .patients-toolbar-heading p,
+body.dark-mode .patients-toolbar-heading p,
+.dark-mode .patients-toolbar-heading p {
+  color: #8da4ae !important;
+}
+
+/* SEARCH */
+
+html.dark-mode .patients-search,
+body.dark-mode .patients-search,
+.dark-mode .patients-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7fabb5 !important;
+}
+
+html.dark-mode .patients-search:focus-within,
+body.dark-mode .patients-search:focus-within,
+.dark-mode .patients-search:focus-within {
+  border-color: #16b8b1 !important;
+  box-shadow: 0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .patients-search input,
+body.dark-mode .patients-search input,
+.dark-mode .patients-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .patients-search input::placeholder,
+body.dark-mode .patients-search input::placeholder,
+.dark-mode .patients-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .patients-clear-search,
+body.dark-mode .patients-clear-search,
+.dark-mode .patients-clear-search {
+  background: #1d343d !important;
+  color: #a5bcc4 !important;
+}
+
+html.dark-mode .patients-clear-search:hover,
+body.dark-mode .patients-clear-search:hover,
+.dark-mode .patients-clear-search:hover {
+  background: #29444e !important;
+  color: #eaf6f8 !important;
+}
+
+/* =========================================================
+   PATIENT CARD
+   ========================================================= */
+
+html.dark-mode .admin-patient-card,
+body.dark-mode .admin-patient-card,
+.dark-mode .admin-patient-card {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .admin-patient-card:hover,
+body.dark-mode .admin-patient-card:hover,
+.dark-mode .admin-patient-card:hover {
+  background: #162832 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+html.dark-mode .patient-card-top,
+body.dark-mode .patient-card-top,
+.dark-mode .patient-card-top {
+  border-bottom-color: #29414c !important;
+}
+
+html.dark-mode .patient-avatar,
+body.dark-mode .patient-avatar,
+.dark-mode .patient-avatar {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .patient-card-name h3,
+body.dark-mode .patient-card-name h3,
+.dark-mode .patient-card-name h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .patient-card-name span,
+body.dark-mode .patient-card-name span,
+.dark-mode .patient-card-name span {
+  color: #78929d !important;
+}
+
+/* Active indicator */
+
+html.dark-mode .patient-active-dot,
+body.dark-mode .patient-active-dot,
+.dark-mode .patient-active-dot {
+  background: #102d27 !important;
+}
+
+html.dark-mode .patient-active-dot span,
+body.dark-mode .patient-active-dot span,
+.dark-mode .patient-active-dot span {
+  background: #31c995 !important;
+  box-shadow: 0 0 0 4px rgba(49, 201, 149, 0.08) !important;
+}
+
+/* =========================================================
+   PATIENT INFO
+   ========================================================= */
+
+html.dark-mode .patient-info-item > svg,
+body.dark-mode .patient-info-item > svg,
+.dark-mode .patient-info-item > svg {
+  background: #17323b !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .patient-info-item small,
+body.dark-mode .patient-info-item small,
+.dark-mode .patient-info-item small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .patient-info-item strong,
+body.dark-mode .patient-info-item strong,
+.dark-mode .patient-info-item strong {
+  color: #c1d2d8 !important;
+}
+
+/* =========================================================
+   EMAIL
+   ========================================================= */
+
+html.dark-mode .patient-email,
+body.dark-mode .patient-email,
+.dark-mode .patient-email {
+  border-top-color: #29414c !important;
+}
+
+html.dark-mode .patient-email svg,
+body.dark-mode .patient-email svg,
+.dark-mode .patient-email svg {
+  color: #5fa9b1 !important;
+}
+
+html.dark-mode .patient-email span,
+body.dark-mode .patient-email span,
+.dark-mode .patient-email span {
+  color: #91aab4 !important;
+}
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+html.dark-mode .patient-view-button,
+body.dark-mode .patient-view-button,
+.dark-mode .patient-view-button {
+  background: #10272e !important;
+  color: #45d2cc !important;
+  border-color: #31525c !important;
+}
+
+html.dark-mode .patient-view-button:hover,
+body.dark-mode .patient-view-button:hover,
+.dark-mode .patient-view-button:hover {
+  background: #17363d !important;
+  border-color: #4a747d !important;
+  color: #68e1dc !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .patients-error,
+body.dark-mode .patients-error,
+.dark-mode .patients-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+}
+
+html.dark-mode .patients-error strong,
+body.dark-mode .patients-error strong,
+.dark-mode .patients-error strong {
+  color: #ff9191 !important;
+}
+
+html.dark-mode .patients-error p,
+body.dark-mode .patients-error p,
+.dark-mode .patients-error p {
+  color: #c89191 !important;
+}
+
+html.dark-mode .patients-error button,
+body.dark-mode .patients-error button,
+.dark-mode .patients-error button {
+  background: #a33f45 !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .patients-loading,
+body.dark-mode .patients-loading,
+.dark-mode .patients-loading,
+html.dark-mode .patients-empty,
+body.dark-mode .patients-empty,
+.dark-mode .patients-empty {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .patients-spinner,
+body.dark-mode .patients-spinner,
+.dark-mode .patients-spinner {
+  border-color: #23424c !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .patients-loading h3,
+body.dark-mode .patients-loading h3,
+.dark-mode .patients-loading h3,
+html.dark-mode .patients-empty h3,
+body.dark-mode .patients-empty h3,
+.dark-mode .patients-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .patients-loading p,
+body.dark-mode .patients-loading p,
+.dark-mode .patients-loading p,
+html.dark-mode .patients-empty p,
+body.dark-mode .patients-empty p,
+.dark-mode .patients-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .patients-empty-icon,
+body.dark-mode .patients-empty-icon,
+.dark-mode .patients-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .patients-empty button,
+body.dark-mode .patients-empty button,
+.dark-mode .patients-empty button {
+  background: #10272e !important;
+  color: #45d2cc !important;
+  border-color: #31525c !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .patient-modal-overlay,
+body.dark-mode .patient-modal-overlay,
+.dark-mode .patient-modal-overlay {
+  background: rgba(2, 12, 18, 0.78) !important;
+}
+
+/* =========================================================
+   PATIENT MODAL
+   ========================================================= */
+
+html.dark-mode .patient-modal,
+body.dark-mode .patient-modal,
+.dark-mode .patient-modal {
+  background: #14232d !important;
+  color: #eaf5f7 !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55) !important;
+}
+
+html.dark-mode .patient-modal-header,
+body.dark-mode .patient-modal-header,
+.dark-mode .patient-modal-header {
+  border-bottom-color: #29414c !important;
+}
+
+html.dark-mode .patient-modal-avatar,
+body.dark-mode .patient-modal-avatar,
+.dark-mode .patient-modal-avatar {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .patient-modal-title h2,
+body.dark-mode .patient-modal-title h2,
+.dark-mode .patient-modal-title h2 {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .patient-modal-title p,
+body.dark-mode .patient-modal-title p,
+.dark-mode .patient-modal-title p {
+  color: #8099a4 !important;
+}
+
+/* Close */
+
+html.dark-mode .patient-modal-close,
+body.dark-mode .patient-modal-close,
+.dark-mode .patient-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .patient-modal-close:hover,
+body.dark-mode .patient-modal-close:hover,
+.dark-mode .patient-modal-close:hover {
+  background: #29434d !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MODAL DETAILS
+   ========================================================= */
+
+html.dark-mode .patient-detail-section h3,
+body.dark-mode .patient-detail-section h3,
+.dark-mode .patient-detail-section h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .patient-detail-grid > div,
+body.dark-mode .patient-detail-grid > div,
+.dark-mode .patient-detail-grid > div {
+  background: #101e27 !important;
+  border-color: #29414c !important;
+}
+
+html.dark-mode .patient-detail-grid small,
+body.dark-mode .patient-detail-grid small,
+.dark-mode .patient-detail-grid small,
+html.dark-mode .patient-address small,
+body.dark-mode .patient-address small,
+.dark-mode .patient-address small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .patient-detail-grid strong,
+body.dark-mode .patient-detail-grid strong,
+.dark-mode .patient-detail-grid strong {
+  color: #c5d5da !important;
+}
+
+html.dark-mode .patient-address,
+body.dark-mode .patient-address,
+.dark-mode .patient-address {
+  background: #101e27 !important;
+  border: 1px solid #29414c !important;
+}
+
+html.dark-mode .patient-address p,
+body.dark-mode .patient-address p,
+.dark-mode .patient-address p {
+  color: #a7bcc4 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .patient-modal-footer,
+body.dark-mode .patient-modal-footer,
+.dark-mode .patient-modal-footer {
+  border-top-color: #29414c !important;
+}
+
+html.dark-mode .patient-modal-footer button,
+body.dark-mode .patient-modal-footer button,
+.dark-mode .patient-modal-footer button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* =========================================================
+   EXTRA TEXT SAFETY
+   ========================================================= */
+
+html.dark-mode .admin-patients-page svg,
+body.dark-mode .admin-patients-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   MOBILE DARK MODE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .admin-patients-page,
+  body.dark-mode .admin-patients-page {
+    background: #0f1b24 !important;
+  }
+
+  html.dark-mode .patients-toolbar-heading h2,
+  body.dark-mode .patients-toolbar-heading h2 {
+    color: #edf7f9 !important;
+  }
+
+  html.dark-mode .patients-search {
+    background: #142730 !important;
+  }
+}
+
+@media (max-width: 500px) {
+  html.dark-mode .patient-modal {
+    background: #14232d !important;
+  }
+
+  html.dark-mode .patient-detail-grid > div {
+    background: #101e27 !important;
+  }
+}
+
+
+/* =========================================================
+   ADMIN PRESCRIPTIONS - DARK MODE
+   ========================================================= */
+
+/* PAGE */
+html.dark-mode .admin-prescriptions-page,
+body.dark-mode .admin-prescriptions-page,
+.dark-mode .admin-prescriptions-page {
+  background: #0f1b24 !important;
+  color: #e7f3f6 !important;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+html.dark-mode .prescriptions-section-label,
+body.dark-mode .prescriptions-section-label,
+.dark-mode .prescriptions-section-label {
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-page-title h1,
+body.dark-mode .prescriptions-page-title h1,
+.dark-mode .prescriptions-page-title h1 {
+  color: #f1f8fa !important;
+}
+
+html.dark-mode .prescriptions-page-title p,
+body.dark-mode .prescriptions-page-title p,
+.dark-mode .prescriptions-page-title p {
+  color: #91a8b2 !important;
+}
+
+html.dark-mode .prescriptions-title-icon,
+body.dark-mode .prescriptions-title-icon,
+.dark-mode .prescriptions-title-icon {
+  background: #16343c !important;
+  color: #45d2cc !important;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .prescriptions-title-icon:hover,
+body.dark-mode .prescriptions-title-icon:hover,
+.dark-mode .prescriptions-title-icon:hover {
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* REFRESH BUTTON */
+html.dark-mode .prescriptions-refresh,
+body.dark-mode .prescriptions-refresh,
+.dark-mode .prescriptions-refresh {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #b8cbd1 !important;
+}
+
+html.dark-mode .prescriptions-refresh:hover:not(:disabled),
+body.dark-mode .prescriptions-refresh:hover:not(:disabled),
+.dark-mode .prescriptions-refresh:hover:not(:disabled) {
+  background: #19323b !important;
+  border-color: #3d6872 !important;
+  color: #eaf7f8 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .prescriptions-refresh:disabled,
+body.dark-mode .prescriptions-refresh:disabled,
+.dark-mode .prescriptions-refresh:disabled {
+  opacity: 0.55 !important;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+html.dark-mode .prescriptions-error,
+body.dark-mode .prescriptions-error,
+.dark-mode .prescriptions-error {
+  background: #30191c !important;
+  border-color: #693237 !important;
+}
+
+html.dark-mode .prescriptions-error strong,
+body.dark-mode .prescriptions-error strong,
+.dark-mode .prescriptions-error strong {
+  color: #ff9191 !important;
+}
+
+html.dark-mode .prescriptions-error p,
+body.dark-mode .prescriptions-error p,
+.dark-mode .prescriptions-error p {
+  color: #c89191 !important;
+}
+
+html.dark-mode .prescriptions-error button,
+body.dark-mode .prescriptions-error button,
+.dark-mode .prescriptions-error button {
+  background: #a33f45 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .prescriptions-error button:hover,
+body.dark-mode .prescriptions-error button:hover,
+.dark-mode .prescriptions-error button:hover {
+  background: #bd4b52 !important;
+}
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+html.dark-mode .prescriptions-summary,
+body.dark-mode .prescriptions-summary,
+.dark-mode .prescriptions-summary {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  border-left-color: #16b8b1 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .prescriptions-summary-icon,
+body.dark-mode .prescriptions-summary-icon,
+.dark-mode .prescriptions-summary-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-summary span,
+body.dark-mode .prescriptions-summary span,
+.dark-mode .prescriptions-summary span {
+  color: #8da6b0 !important;
+}
+
+html.dark-mode .prescriptions-summary strong,
+body.dark-mode .prescriptions-summary strong,
+.dark-mode .prescriptions-summary strong {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .prescriptions-summary small,
+body.dark-mode .prescriptions-summary small,
+.dark-mode .prescriptions-summary small {
+  color: #718b95 !important;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+html.dark-mode .prescriptions-toolbar h2,
+body.dark-mode .prescriptions-toolbar h2,
+.dark-mode .prescriptions-toolbar h2 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescriptions-toolbar p,
+body.dark-mode .prescriptions-toolbar p,
+.dark-mode .prescriptions-toolbar p {
+  color: #8da4ae !important;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+html.dark-mode .prescriptions-search,
+body.dark-mode .prescriptions-search,
+.dark-mode .prescriptions-search {
+  background: #142730 !important;
+  border-color: #304953 !important;
+  color: #7fabb5 !important;
+}
+
+html.dark-mode .prescriptions-search:focus-within,
+body.dark-mode .prescriptions-search:focus-within,
+.dark-mode .prescriptions-search:focus-within {
+  border-color: #16b8b1 !important;
+  box-shadow: 0 0 0 3px rgba(22, 184, 177, 0.12) !important;
+}
+
+html.dark-mode .prescriptions-search input,
+body.dark-mode .prescriptions-search input,
+.dark-mode .prescriptions-search input {
+  background: transparent !important;
+  color: #e8f5f7 !important;
+}
+
+html.dark-mode .prescriptions-search input::placeholder,
+body.dark-mode .prescriptions-search input::placeholder,
+.dark-mode .prescriptions-search input::placeholder {
+  color: #637d87 !important;
+}
+
+html.dark-mode .prescriptions-search button,
+body.dark-mode .prescriptions-search button,
+.dark-mode .prescriptions-search button {
+  background: #1d343d !important;
+  color: #a5bcc4 !important;
+}
+
+html.dark-mode .prescriptions-search button:hover,
+body.dark-mode .prescriptions-search button:hover,
+.dark-mode .prescriptions-search button:hover {
+  background: #29444e !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   PRESCRIPTION CARD
+   ========================================================= */
+
+html.dark-mode .admin-prescription-card,
+body.dark-mode .admin-prescription-card,
+.dark-mode .admin-prescription-card {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .admin-prescription-card:hover,
+body.dark-mode .admin-prescription-card:hover,
+.dark-mode .admin-prescription-card:hover {
+  background: #162832 !important;
+  border-color: #3b626c !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* CARD TOP */
+html.dark-mode .prescription-card-top,
+body.dark-mode .prescription-card-top,
+.dark-mode .prescription-card-top {
+  border-bottom-color: #29414c !important;
+}
+
+html.dark-mode .prescription-medicine-icon,
+body.dark-mode .prescription-medicine-icon,
+.dark-mode .prescription-medicine-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-card-title h3,
+body.dark-mode .prescription-card-title h3,
+.dark-mode .prescription-card-title h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescription-card-title span,
+body.dark-mode .prescription-card-title span,
+.dark-mode .prescription-card-title span {
+  color: #78929d !important;
+}
+
+/* =========================================================
+   PATIENT / DOCTOR
+   ========================================================= */
+
+html.dark-mode .prescription-person-icon.patient,
+body.dark-mode .prescription-person-icon.patient,
+.dark-mode .prescription-person-icon.patient {
+  background: #1a2946 !important;
+  color: #76a0ff !important;
+}
+
+html.dark-mode .prescription-person-icon.doctor,
+body.dark-mode .prescription-person-icon.doctor,
+.dark-mode .prescription-person-icon.doctor {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-person small,
+body.dark-mode .prescription-person small,
+.dark-mode .prescription-person small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .prescription-person strong,
+body.dark-mode .prescription-person strong,
+.dark-mode .prescription-person strong {
+  color: #c4d4da !important;
+}
+
+html.dark-mode .prescription-person span,
+body.dark-mode .prescription-person span,
+.dark-mode .prescription-person span {
+  color: #8199a3 !important;
+}
+
+/* =========================================================
+   MEDICINE DETAILS
+   ========================================================= */
+
+html.dark-mode .prescription-details > div,
+body.dark-mode .prescription-details > div,
+.dark-mode .prescription-details > div {
+  background: #101e27 !important;
+  border: 1px solid #29414c !important;
+}
+
+html.dark-mode .prescription-details small,
+body.dark-mode .prescription-details small,
+.dark-mode .prescription-details small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .prescription-details strong,
+body.dark-mode .prescription-details strong,
+.dark-mode .prescription-details strong {
+  color: #c4d4da !important;
+}
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+html.dark-mode .prescription-date,
+body.dark-mode .prescription-date,
+.dark-mode .prescription-date {
+  background: #10272e !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-date span,
+body.dark-mode .prescription-date span,
+.dark-mode .prescription-date span {
+  color: #9bb0b8 !important;
+}
+
+/* =========================================================
+   DIAGNOSIS
+   ========================================================= */
+
+html.dark-mode .prescription-diagnosis,
+body.dark-mode .prescription-diagnosis,
+.dark-mode .prescription-diagnosis {
+  border-top-color: #29414c !important;
+}
+
+html.dark-mode .prescription-diagnosis small,
+body.dark-mode .prescription-diagnosis small,
+.dark-mode .prescription-diagnosis small {
+  color: #718b95 !important;
+}
+
+html.dark-mode .prescription-diagnosis p,
+body.dark-mode .prescription-diagnosis p,
+.dark-mode .prescription-diagnosis p {
+  color: #9fb3bb !important;
+}
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+html.dark-mode .prescription-view-button,
+body.dark-mode .prescription-view-button,
+.dark-mode .prescription-view-button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-view-button:hover,
+body.dark-mode .prescription-view-button:hover,
+.dark-mode .prescription-view-button:hover {
+  background: #17363d !important;
+  border-color: #4a747d !important;
+  color: #68e1dc !important;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+html.dark-mode .prescriptions-loading,
+body.dark-mode .prescriptions-loading,
+.dark-mode .prescriptions-loading,
+html.dark-mode .prescriptions-empty,
+body.dark-mode .prescriptions-empty,
+.dark-mode .prescriptions-empty {
+  background: #14232d !important;
+  border-color: #29414c !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.27) !important;
+}
+
+html.dark-mode .prescriptions-spinner,
+body.dark-mode .prescriptions-spinner,
+.dark-mode .prescriptions-spinner {
+  border-color: #23424c !important;
+  border-top-color: #16b8b1 !important;
+}
+
+html.dark-mode .prescriptions-loading h3,
+body.dark-mode .prescriptions-loading h3,
+.dark-mode .prescriptions-loading h3,
+html.dark-mode .prescriptions-empty h3,
+body.dark-mode .prescriptions-empty h3,
+.dark-mode .prescriptions-empty h3 {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescriptions-loading p,
+body.dark-mode .prescriptions-loading p,
+.dark-mode .prescriptions-loading p,
+html.dark-mode .prescriptions-empty p,
+body.dark-mode .prescriptions-empty p,
+.dark-mode .prescriptions-empty p {
+  color: #829aa5 !important;
+}
+
+html.dark-mode .prescriptions-empty-icon,
+body.dark-mode .prescriptions-empty-icon,
+.dark-mode .prescriptions-empty-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-empty button,
+body.dark-mode .prescriptions-empty button,
+.dark-mode .prescriptions-empty button {
+  background: #10272e !important;
+  border-color: #31525c !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescriptions-empty button:hover,
+body.dark-mode .prescriptions-empty button:hover,
+.dark-mode .prescriptions-empty button:hover {
+  background: #17363d !important;
+  border-color: #4a747d !important;
+}
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+html.dark-mode .prescription-modal-overlay,
+body.dark-mode .prescription-modal-overlay,
+.dark-mode .prescription-modal-overlay {
+  background: rgba(2, 12, 18, 0.80) !important;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+html.dark-mode .prescription-modal,
+body.dark-mode .prescription-modal,
+.dark-mode .prescription-modal {
+  background: #14232d !important;
+  color: #eaf5f7 !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55) !important;
+}
+
+html.dark-mode .prescription-modal-header,
+body.dark-mode .prescription-modal-header,
+.dark-mode .prescription-modal-header {
+  border-bottom-color: #29414c !important;
+}
+
+html.dark-mode .prescription-modal-icon,
+body.dark-mode .prescription-modal-icon,
+.dark-mode .prescription-modal-icon {
+  background: #17353d !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-modal-title h2,
+body.dark-mode .prescription-modal-title h2,
+.dark-mode .prescription-modal-title h2 {
+  color: #f0f8fa !important;
+}
+
+html.dark-mode .prescription-modal-title p,
+body.dark-mode .prescription-modal-title p,
+.dark-mode .prescription-modal-title p {
+  color: #8099a4 !important;
+}
+
+html.dark-mode .prescription-modal-close,
+body.dark-mode .prescription-modal-close,
+.dark-mode .prescription-modal-close {
+  background: #1b3039 !important;
+  color: #a8bdc5 !important;
+}
+
+html.dark-mode .prescription-modal-close:hover,
+body.dark-mode .prescription-modal-close:hover,
+.dark-mode .prescription-modal-close:hover {
+  background: #29434d !important;
+  color: #edf7f9 !important;
+}
+
+/* =========================================================
+   MODAL PATIENT
+   ========================================================= */
+
+html.dark-mode .prescription-modal-patient,
+body.dark-mode .prescription-modal-patient,
+.dark-mode .prescription-modal-patient {
+  background: #10242c !important;
+}
+
+html.dark-mode .modal-prescription-avatar,
+body.dark-mode .modal-prescription-avatar,
+.dark-mode .modal-prescription-avatar {
+  background: #1a2946 !important;
+  color: #76a0ff !important;
+}
+
+html.dark-mode .prescription-modal-patient small,
+body.dark-mode .prescription-modal-patient small,
+.dark-mode .prescription-modal-patient small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-modal-patient strong,
+body.dark-mode .prescription-modal-patient strong,
+.dark-mode .prescription-modal-patient strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescription-modal-patient span,
+body.dark-mode .prescription-modal-patient span,
+.dark-mode .prescription-modal-patient span {
+  color: #8199a3 !important;
+}
+
+/* =========================================================
+   MODAL DOCTOR
+   ========================================================= */
+
+html.dark-mode .prescription-modal-doctor,
+body.dark-mode .prescription-modal-doctor,
+.dark-mode .prescription-modal-doctor {
+  background: #10272e !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-modal-doctor small,
+body.dark-mode .prescription-modal-doctor small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-modal-doctor strong,
+body.dark-mode .prescription-modal-doctor strong {
+  color: #edf7f9 !important;
+}
+
+html.dark-mode .prescription-modal-doctor span,
+body.dark-mode .prescription-modal-doctor span {
+  color: #8199a3 !important;
+}
+
+/* =========================================================
+   MODAL MEDICINE
+   ========================================================= */
+
+html.dark-mode .prescription-medicine-box,
+body.dark-mode .prescription-medicine-box,
+.dark-mode .prescription-medicine-box {
+  background: #12332f !important;
+}
+
+html.dark-mode .medicine-box-icon,
+body.dark-mode .medicine-box-icon,
+.dark-mode .medicine-box-icon {
+  background: #183b3b !important;
+  color: #45d2cc !important;
+}
+
+html.dark-mode .prescription-medicine-box small,
+body.dark-mode .prescription-medicine-box small,
+.dark-mode .prescription-medicine-box small {
+  color: #78939d !important;
+}
+
+html.dark-mode .prescription-medicine-box strong,
+body.dark-mode .prescription-medicine-box strong,
+.dark-mode .prescription-medicine-box strong {
+  color: #8ce4d2 !important;
+}
+
+/* =========================================================
+   MODAL DETAIL GRID
+   ========================================================= */
+
+html.dark-mode .prescription-detail-grid > div,
+body.dark-mode .prescription-detail-grid > div,
+.dark-mode .prescription-detail-grid > div {
+  background: #101e27 !important;
+  border-color: #29414c !important;
+}
+
+html.dark-mode .prescription-detail-grid small,
+body.dark-mode .prescription-detail-grid small,
+.dark-mode .prescription-detail-grid small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-detail-grid strong,
+body.dark-mode .prescription-detail-grid strong,
+.dark-mode .prescription-detail-grid strong {
+  color: #c5d5da !important;
+}
+
+/* =========================================================
+   MODAL DETAIL BOXES
+   ========================================================= */
+
+html.dark-mode .prescription-detail-box,
+body.dark-mode .prescription-detail-box,
+.dark-mode .prescription-detail-box {
+  background: #102027 !important;
+  border: 1px solid #29414c !important;
+}
+
+html.dark-mode .prescription-detail-box small,
+body.dark-mode .prescription-detail-box small,
+.dark-mode .prescription-detail-box small {
+  color: #748e99 !important;
+}
+
+html.dark-mode .prescription-detail-box p,
+body.dark-mode .prescription-detail-box p,
+.dark-mode .prescription-detail-box p {
+  color: #a7bcc4 !important;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+html.dark-mode .prescription-modal-footer,
+body.dark-mode .prescription-modal-footer,
+.dark-mode .prescription-modal-footer {
+  border-top-color: #29414c !important;
+}
+
+html.dark-mode .prescription-modal-footer button,
+body.dark-mode .prescription-modal-footer button,
+.dark-mode .prescription-modal-footer button {
+  background: linear-gradient(
+    135deg,
+    #079b96,
+    #087f82
+  ) !important;
+
+  color: #ffffff !important;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .prescription-modal-footer button:hover,
+body.dark-mode .prescription-modal-footer button:hover,
+.dark-mode .prescription-modal-footer button:hover {
+  background: linear-gradient(
+    135deg,
+    #10b5ae,
+    #09908f
+  ) !important;
+}
+
+/* =========================================================
+   SVG / ICONS
+   ========================================================= */
+
+html.dark-mode .admin-prescriptions-page svg,
+body.dark-mode .admin-prescriptions-page svg {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   MOBILE DARK MODE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  html.dark-mode .admin-prescriptions-page,
+  body.dark-mode .admin-prescriptions-page {
+    background: #0f1b24 !important;
+  }
+
+  html.dark-mode .prescriptions-toolbar h2,
+  body.dark-mode .prescriptions-toolbar h2 {
+    color: #edf7f9 !important;
+  }
+
+  html.dark-mode .prescriptions-search,
+  body.dark-mode .prescriptions-search {
+    background: #142730 !important;
+  }
+}
+
+@media (max-width: 500px) {
+  html.dark-mode .prescription-modal,
+  body.dark-mode .prescription-modal {
+    background: #14232d !important;
+  }
+
+  html.dark-mode .prescription-modal-header,
+  body.dark-mode .prescription-modal-header {
+    border-bottom-color: #29414c !important;
+  }
+
+  html.dark-mode .prescription-detail-grid > div,
+  body.dark-mode .prescription-detail-grid > div {
+    background: #101e27 !important;
+  }
+}
+
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html.dark-mode .ai-assistant-page,
+body.dark-mode .ai-assistant-page {
+  background:
+    radial-gradient(
+      circle at 8% 12%,
+      rgba(25, 193, 211, 0.08),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 92% 20%,
+      rgba(20, 128, 175, 0.07),
+      transparent 28%
+    ),
+    #071923;
+
+  color: #e3f0f3;
+}
+
+
+html.dark-mode .ai-assistant-header,
+body.dark-mode .ai-assistant-header {
+  background:
+    linear-gradient(
+      135deg,
+      #0b2834,
+      #0b3440
+    );
+
+  border-bottom-color: #244d59;
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.28);
+}
+
+
+html.dark-mode .ai-header-brand h1,
+body.dark-mode .ai-header-brand h1 {
+  color: #e5f4f6;
+}
+
+
+html.dark-mode .ai-header-brand p,
+body.dark-mode .ai-header-brand p {
+  color: #8ba7b1;
+}
+
+
+html.dark-mode .ai-header-logo,
+body.dark-mode .ai-header-logo {
+  color: #65dce5;
+
+  background:
+    linear-gradient(
+      135deg,
+      #143b47,
+      #164b57
+    );
+
+  border-color: #2e6975;
+}
+
+
+html.dark-mode .ai-back-btn,
+body.dark-mode .ai-back-btn {
+  background: #163a46;
+
+  border-color: #365e69;
+
+  color: #74d5de;
+}
+
+
+html.dark-mode .ai-back-btn:hover,
+body.dark-mode .ai-back-btn:hover {
+  background: #1c4b58;
+
+  color: #91e4ea;
+}
+
+
+html.dark-mode .ai-hero-badge,
+body.dark-mode .ai-hero-badge {
+  background: #10343e;
+
+  border-color: #28616b;
+
+  color: #63d2dc;
+}
+
+
+html.dark-mode .ai-hero h2,
+body.dark-mode .ai-hero h2 {
+  color: #e2f2f5;
+}
+
+
+html.dark-mode .ai-hero h2 span,
+body.dark-mode .ai-hero h2 span {
+  background:
+    linear-gradient(
+      135deg,
+      #5edce5,
+      #35bccc,
+      #66dce4
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  background-clip: text;
+}
+
+
+html.dark-mode .ai-hero p,
+body.dark-mode .ai-hero p {
+  color: #8ba7b2;
+}
+
+
+html.dark-mode .ai-hero-feature,
+body.dark-mode .ai-hero-feature {
+  background: #102b35;
+
+  border-color: #294d58;
+
+  color: #a4bdc5;
+}
+
+
+html.dark-mode .ai-hero-feature > div,
+body.dark-mode .ai-hero-feature > div {
+  background: #173b46;
+
+  color: #63d4de;
+}
+
+
+html.dark-mode .ai-card,
+body.dark-mode .ai-card {
+  background:
+    linear-gradient(
+      145deg,
+      #102a35,
+      #102f3b
+    );
+
+  border-color: #294e5a;
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.30);
+}
+
+
+html.dark-mode .ai-card-title span,
+body.dark-mode .ai-card-title span {
+  color: #5fd2dc;
+}
+
+
+html.dark-mode .ai-card-title h3,
+body.dark-mode .ai-card-title h3 {
+  color: #e2f0f3;
+}
+
+
+html.dark-mode .ai-card-icon,
+body.dark-mode .ai-card-icon {
+  background: #173b46;
+
+  border-color: #2d6571;
+
+  color: #66d7df;
+}
+
+
+html.dark-mode .ai-status,
+body.dark-mode .ai-status {
+  background: #12372f;
+
+  border-color: #286152;
+
+  color: #66d5bb;
+}
+
+
+html.dark-mode .ai-card textarea,
+body.dark-mode .ai-card textarea {
+  background: #0b2029;
+
+  border-color: #315865;
+
+  color: #e1eff2;
+}
+
+
+html.dark-mode .ai-card textarea::placeholder,
+body.dark-mode .ai-card textarea::placeholder {
+  color: #6f8d98;
+}
+
+
+html.dark-mode .ai-card textarea:focus,
+body.dark-mode .ai-card textarea:focus {
+  background: #0d252f;
+
+  border-color: #2bb5c3;
+
+  box-shadow:
+    0 0 0 4px rgba(43, 181, 195, 0.10);
+}
+
+
+html.dark-mode .ai-input-corner,
+body.dark-mode .ai-input-corner {
+  background: #163945;
+
+  border-color: #2b5d68;
+
+  color: #5fd4de;
+}
+
+
+html.dark-mode .ai-character-count,
+body.dark-mode .ai-character-count {
+  color: #718e99;
+}
+
+
+html.dark-mode .ai-character-count span:first-child,
+body.dark-mode .ai-character-count span:first-child {
+  color: #61d4de;
+}
+
+
+html.dark-mode .ai-clear-btn,
+body.dark-mode .ai-clear-btn {
+  background: #17343f;
+
+  border-color: #315865;
+
+  color: #a2bcc4;
+}
+
+
+html.dark-mode .ai-clear-btn:hover:not(:disabled),
+body.dark-mode .ai-clear-btn:hover:not(:disabled) {
+  background: #1d4652;
+
+  border-color: #3d7480;
+
+  color: #68d7df;
+}
+
+
+html.dark-mode .ai-loading,
+body.dark-mode .ai-loading {
+  background:
+    linear-gradient(
+      135deg,
+      #102f3b,
+      #123740
+    );
+
+  border-color: #2b5c68;
+}
+
+
+html.dark-mode .ai-loading p,
+body.dark-mode .ai-loading p {
+  color: #dceef1;
+}
+
+
+html.dark-mode .ai-loading > span,
+body.dark-mode .ai-loading > span {
+  color: #839fa9;
+}
+
+
+html.dark-mode .ai-error,
+body.dark-mode .ai-error {
+  background: #351d21;
+
+  border-color: #71343c;
+}
+
+
+html.dark-mode .ai-error strong,
+body.dark-mode .ai-error strong {
+  color: #ff9ca4;
+}
+
+
+html.dark-mode .ai-error p,
+body.dark-mode .ai-error p {
+  color: #d99198;
+}
+
+
+html.dark-mode .ai-response,
+body.dark-mode .ai-response {
+  background:
+    linear-gradient(
+      145deg,
+      #102f35,
+      #12383e
+    );
+
+  border-color: #2d6669;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+html.dark-mode .ai-response-title span,
+body.dark-mode .ai-response-title span {
+  color: #61d5de;
+}
+
+
+html.dark-mode .ai-response-title h3,
+body.dark-mode .ai-response-title h3 {
+  color: #e0f1f3;
+}
+
+
+html.dark-mode .ai-response-icon,
+body.dark-mode .ai-response-icon {
+  background: #173e47;
+
+  border-color: #2c6670;
+
+  color: #68d8e0;
+}
+
+
+html.dark-mode .ai-response-status,
+body.dark-mode .ai-response-status {
+  background: #12372f;
+
+  border-color: #286152;
+
+  color: #6bd5bc;
+}
+
+
+html.dark-mode .ai-response-content,
+body.dark-mode .ai-response-content {
+  color: #b6ccd2;
+}
+
+
+html.dark-mode .ai-response-content strong,
+body.dark-mode .ai-response-content strong {
+  color: #68d6df;
+}
+
+
+html.dark-mode .ai-response-content li,
+body.dark-mode .ai-response-content li {
+  background: rgba(18, 52, 60, 0.70);
+
+  border-color: #2c555e;
+}
+
+
+html.dark-mode .ai-response-bullet,
+body.dark-mode .ai-response-bullet {
+  background: #183d47;
+
+  color: #63d6df;
+}
+
+
+html.dark-mode .ai-response-footer,
+body.dark-mode .ai-response-footer {
+  background: rgba(18, 55, 62, 0.65);
+
+  border-top-color: #2b555d;
+
+  color: #829da6;
+}
+
+
+html.dark-mode .ai-section-heading h3,
+body.dark-mode .ai-section-heading h3 {
+  color: #dfedf0;
+}
+
+
+html.dark-mode .ai-section-heading span,
+body.dark-mode .ai-section-heading span {
+  color: #62d2dc;
+}
+
+
+html.dark-mode .ai-example-buttons button,
+body.dark-mode .ai-example-buttons button {
+  background: #102a35;
+
+  border-color: #294d59;
+
+  color: #b4cad0;
+}
+
+
+html.dark-mode .ai-example-buttons button:hover,
+body.dark-mode .ai-example-buttons button:hover {
+  background: #163b46;
+
+  border-color: #3d7580;
+}
+
+
+html.dark-mode .ai-example-buttons strong,
+body.dark-mode .ai-example-buttons strong {
+  color: #d4e6e9;
+}
+
+
+html.dark-mode .ai-example-buttons span,
+body.dark-mode .ai-example-buttons span {
+  color: #78949e;
+}
+
+
+html.dark-mode .ai-example-icon,
+body.dark-mode .ai-example-icon {
+  background: #173b46;
+
+  border-color: #2c626c;
+
+  color: #61d4de;
+}
+
+
+html.dark-mode .ai-disclaimer,
+body.dark-mode .ai-disclaimer {
+  background:
+    linear-gradient(
+      135deg,
+      #302c1c,
+      #352f1c
+    );
+
+  border-color: #66582a;
+}
+
+
+html.dark-mode .ai-disclaimer strong,
+body.dark-mode .ai-disclaimer strong {
+  color: #efd875;
+}
+
+
+html.dark-mode .ai-disclaimer p,
+body.dark-mode .ai-disclaimer p {
+  color: #d0c47d;
+}
+
+
+html.dark-mode .ai-disclaimer-icon,
+body.dark-mode .ai-disclaimer-icon {
+  background: #4a411e;
+
+  color: #f0d66b;
+}
+
+
+html.dark-mode .ai-footer,
+body.dark-mode .ai-footer {
+  background:
+    linear-gradient(
+      135deg,
+      #0b242e,
+      #0c2c36
+    );
+
+  border-top-color: #254c58;
+}
+
+
+html.dark-mode .ai-footer-brand p,
+body.dark-mode .ai-footer-brand p {
+  color: #b9d0d6;
+}
+
+
+html.dark-mode .ai-footer-brand span,
+body.dark-mode .ai-footer-brand span {
+  color: #708d98;
+}
+
+
+html.dark-mode .ai-footer-icon,
+body.dark-mode .ai-footer-icon {
+  background: #173943;
+
+  border-color: #2b5c67;
+
+  color: #63d5de;
+}
+
+
+html.dark-mode .ai-footer-tech,
+body.dark-mode .ai-footer-tech {
+  color: #78949e;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html.dark-mode .forgot-password-page,
+body.dark-mode .forgot-password-page {
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(39, 203, 214, 0.10),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 85% 85%,
+      rgba(37, 99, 235, 0.08),
+      transparent 32%
+    ),
+    #071820;
+
+  color: #e8f7fa;
+}
+
+html.dark-mode .forgot-password-container,
+body.dark-mode .forgot-password-container {
+  background: rgba(10, 34, 43, 0.95);
+
+  border-color: #1d4652;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.34),
+    0 5px 18px rgba(0, 0, 0, 0.18);
+}
+
+html.dark-mode .forgot-password-icon,
+body.dark-mode .forgot-password-icon {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(39, 203, 214, 0.12),
+      rgba(39, 203, 214, 0.04)
+    );
+
+  border-color: #24525c;
+}
+
+html.dark-mode .forgot-password-header h1,
+body.dark-mode .forgot-password-header h1 {
+  color: #e9f9fb;
+}
+
+html.dark-mode .forgot-password-header p,
+body.dark-mode .forgot-password-header p {
+  color: #8caab3;
+}
+
+html.dark-mode .reset-step,
+body.dark-mode .reset-step {
+  color: #6f8992;
+}
+
+html.dark-mode .reset-step.active,
+body.dark-mode .reset-step.active {
+  color: #51d3dc;
+}
+
+html.dark-mode .reset-step span,
+body.dark-mode .reset-step span {
+  background: #173640;
+
+  color: #86a4ac;
+}
+
+html.dark-mode .reset-step.active span,
+body.dark-mode .reset-step.active span {
+  background: linear-gradient(
+    135deg,
+    #087f8d,
+    #0aa6b8
+  );
+
+  color: #ffffff;
+}
+
+html.dark-mode .step-line,
+body.dark-mode .step-line {
+  background: #25454f;
+}
+
+html.dark-mode .forgot-success,
+body.dark-mode .forgot-success {
+  background: #102f29;
+
+  border-color: #245d4e;
+
+  color: #6ee0bd;
+}
+
+html.dark-mode .forgot-error,
+body.dark-mode .forgot-error {
+  background: #321d21;
+
+  border-color: #60343b;
+
+  color: #ffaaaa;
+}
+
+html.dark-mode .forgot-password-form h2,
+body.dark-mode .forgot-password-form h2 {
+  color: #e5f7fa;
+}
+
+html.dark-mode .form-description,
+body.dark-mode .form-description {
+  color: #8ba8b1;
+}
+
+html.dark-mode .form-group label,
+body.dark-mode .form-group label {
+  color: #bdd3d9;
+}
+
+html.dark-mode .form-group input,
+body.dark-mode .form-group input {
+  background: #0c2731;
+
+  border-color: #28515c;
+
+  color: #e7f7fa;
+}
+
+html.dark-mode .form-group input::placeholder,
+body.dark-mode .form-group input::placeholder {
+  color: #718f98;
+}
+
+html.dark-mode .form-group input:focus,
+body.dark-mode .form-group input:focus {
+  background: #0e2d37;
+
+  border-color: #27cbd6;
+
+  box-shadow:
+    0 0 0 3px rgba(39, 203, 214, 0.10);
+}
+
+html.dark-mode .form-group input[readonly],
+body.dark-mode .form-group input[readonly] {
+  background: #112f39;
+
+  color: #91adb5;
+}
+
+html.dark-mode .secondary-button,
+body.dark-mode .secondary-button {
+  background: #102d37;
+
+  border-color: #2b505b;
+
+  color: #abc4ca;
+}
+
+html.dark-mode .secondary-button:hover,
+body.dark-mode .secondary-button:hover {
+  background: #143943;
+
+  border-color: #39737d;
+
+  color: #5bd6de;
+}
+
+html.dark-mode .reset-email-display,
+body.dark-mode .reset-email-display {
+  background: rgba(39, 203, 214, 0.07);
+
+  border-color: #24505a;
+
+  color: #53d3db;
+}
+
+html.dark-mode .back-login-button,
+body.dark-mode .back-login-button {
+  color: #4ed0d9;
+}
+
+html.dark-mode .back-login-button:hover,
+body.dark-mode .back-login-button:hover {
+  color: #7ce4e9;
+}
+
+/* =========================================================
+   PASSWORD RESET REQUESTS — DARK MODE
+   ========================================================= */
+
+html.dark-mode .password-reset-page,
+body.dark-mode .password-reset-page {
+  color: #e8f7fa !important;
+}
+
+/* ---------- HEADER ---------- */
+
+html.dark-mode .password-reset-title-wrapper h1,
+body.dark-mode .password-reset-title-wrapper h1 {
+  color: #f1fbfc !important;
+}
+
+html.dark-mode .password-reset-title-wrapper p,
+body.dark-mode .password-reset-title-wrapper p {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-title-icon,
+body.dark-mode .password-reset-title-icon {
+  background: linear-gradient(135deg, #3159e8, #4b46e8) !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .password-reset-refresh-button,
+body.dark-mode .password-reset-refresh-button {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* ---------- SUMMARY CARDS ---------- */
+
+html.dark-mode .password-reset-summary-card,
+body.dark-mode .password-reset-summary-card {
+  background: #102d37 !important;
+  border: 1px solid #28515b !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark-mode .password-reset-summary-card span,
+body.dark-mode .password-reset-summary-card span {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-summary-card strong,
+body.dark-mode .password-reset-summary-card strong {
+  color: #f1fbfc !important;
+}
+
+/* Summary icons */
+
+html.dark-mode .summary-card-icon.pending,
+body.dark-mode .summary-card-icon.pending {
+  background: #46351b !important;
+  color: #ffbd4a !important;
+}
+
+html.dark-mode .summary-card-icon.approved,
+body.dark-mode .summary-card-icon.approved {
+  background: #123d34 !important;
+  color: #5ee0bd !important;
+}
+
+html.dark-mode .summary-card-icon.rejected,
+body.dark-mode .summary-card-icon.rejected {
+  background: #482027 !important;
+  color: #ff8996 !important;
+}
+
+html.dark-mode .summary-card-icon.completed,
+body.dark-mode .summary-card-icon.completed {
+  background: #183d64 !important;
+  color: #72b8ff !important;
+}
+
+/* ---------- MAIN CARD ---------- */
+
+html.dark-mode .password-reset-card,
+body.dark-mode .password-reset-card {
+  background: #102d37 !important;
+  border: 1px solid #2b535d !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .password-reset-card-header,
+body.dark-mode .password-reset-card-header {
+  background: #102d37 !important;
+  border-bottom: 1px solid #2b535d !important;
+}
+
+html.dark-mode .password-reset-card-header h2,
+body.dark-mode .password-reset-card-header h2 {
+  color: #eefbfc !important;
+}
+
+html.dark-mode .password-reset-card-header p,
+body.dark-mode .password-reset-card-header p {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-total,
+body.dark-mode .password-reset-total {
+  background: #173f68 !important;
+  color: #72b8ff !important;
+}
+
+/* ---------- TABLE ---------- */
+
+html.dark-mode .password-reset-table,
+body.dark-mode .password-reset-table {
+  background: #102d37 !important;
+}
+
+html.dark-mode .password-reset-table th,
+body.dark-mode .password-reset-table th {
+  background: #193b45 !important;
+  color: #e1f3f5 !important;
+  border-bottom: 1px solid #2c555f !important;
+
+  padding: 10px 12px !important;
+  font-size: 11px !important;
+}
+
+html.dark-mode .password-reset-table td,
+body.dark-mode .password-reset-table td {
+  background: #102d37 !important;
+  color: #b9d2d7 !important;
+  border-bottom: 1px solid #294d56 !important;
+
+  padding: 10px 12px !important;
+  font-size: 12px !important;
+}
+
+html.dark-mode .password-reset-table tbody tr:hover,
+body.dark-mode .password-reset-table tbody tr:hover {
+  background: #163a44 !important;
+}
+
+html.dark-mode .password-reset-table tbody tr:hover td,
+body.dark-mode .password-reset-table tbody tr:hover td {
+  background: #163a44 !important;
+}
+
+/* ---------- REQUEST ID ---------- */
+
+html.dark-mode .reset-request-id,
+body.dark-mode .reset-request-id {
+  min-width: 34px !important;
+  padding: 5px 7px !important;
+
+  background: #e9f6f8 !important;
+  color: #173943 !important;
+
+  border-radius: 7px !important;
+  font-size: 11px !important;
+}
+
+/* ---------- USER ---------- */
+
+html.dark-mode .reset-user,
+body.dark-mode .reset-user {
+  gap: 9px !important;
+  min-width: 200px !important;
+}
+
+html.dark-mode .reset-user strong,
+body.dark-mode .reset-user strong {
+  color: #eef9fa !important;
+  font-size: 12px !important;
+}
+
+html.dark-mode .reset-user span,
+body.dark-mode .reset-user span {
+  color: #7fa5ae !important;
+  font-size: 10px !important;
+}
+
+/* USER ICON */
+
+html.dark-mode .reset-user-icon,
+body.dark-mode .reset-user-icon {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border-radius: 10px !important;
+
+  background: #173943 !important;
+  color: #32d3df !important;
+
+  border: 1px solid #285966 !important;
+
+  box-shadow: none !important;
+}
+
+html.dark-mode .reset-user-icon svg,
+body.dark-mode .reset-user-icon svg {
+  width: 23px !important;
+  height: 23px !important;
+
+  display: block !important;
+
+  fill: none !important;
+  stroke: #32d3df !important;
+
+  stroke-width: 1.8 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* ---------- ROLE ---------- */
+
+html.dark-mode .reset-role,
+body.dark-mode .reset-role {
+  padding: 5px 8px !important;
+
+  background: #1b3c46 !important;
+  color: #d9eef1 !important;
+
+  border-radius: 7px !important;
+  font-size: 11px !important;
+}
+
+/* ---------- REQUEST CODE ---------- */
+
+html.dark-mode .reset-request-code,
+body.dark-mode .reset-request-code {
+  min-width: 85px !important;
+
+  padding: 6px 8px !important;
+
+  background: #173a44 !important;
+  border: 1px dashed #37636d !important;
+
+  color: #72dce4 !important;
+
+  font-size: 11px !important;
+  letter-spacing: 1px !important;
+}
+
+/* ---------- DATES ---------- */
+
+html.dark-mode .reset-date,
+body.dark-mode .reset-date {
+  color: #7fa5ae !important;
+  font-size: 11px !important;
+}
+
+/* ---------- STATUS ---------- */
+
+html.dark-mode .reset-status.pending,
+body.dark-mode .reset-status.pending {
+  background: #46351b !important;
+  color: #ffc45c !important;
+}
+
+html.dark-mode .reset-status.approved,
+body.dark-mode .reset-status.approved {
+  background: #123d34 !important;
+  color: #5ee0bd !important;
+}
+
+html.dark-mode .reset-status.rejected,
+body.dark-mode .reset-status.rejected {
+  background: #482027 !important;
+  color: #ff8f9b !important;
+}
+
+html.dark-mode .reset-status.completed,
+body.dark-mode .reset-status.completed {
+  background: #183d64 !important;
+  color: #72b8ff !important;
+}
+
+/* ---------- ACTION ---------- */
+
+html.dark-mode .reset-no-action,
+body.dark-mode .reset-no-action {
+  color: #789da6 !important;
+}
+
+/* ---------- SUCCESS / ERROR ---------- */
+
+html.dark-mode .password-reset-success,
+body.dark-mode .password-reset-success {
+  background: #123d34 !important;
+  color: #65dfbd !important;
+  border-color: #246654 !important;
+}
+
+html.dark-mode .password-reset-error,
+body.dark-mode .password-reset-error {
+  background: #422127 !important;
+  color: #ff9ca7 !important;
+  border-color: #6d343d !important;
+}
+
+/* ---------- LOADING ---------- */
+
+html.dark-mode .password-reset-loading,
+body.dark-mode .password-reset-loading {
+  color: #91b5bd !important;
+}
+
+html.dark-mode .password-reset-spinner,
+body.dark-mode .password-reset-spinner {
+  border-color: #244852 !important;
+  border-top-color: #18b9c8 !important;
+}
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+html.dark-mode .admin-logs-page,
+body.dark-mode .admin-logs-page {
+  background: #0c1b22;
+  color: #e8f6fa;
+}
+
+html.dark-mode .logs-header h1,
+body.dark-mode .logs-header h1 {
+  color: #e8f6fa;
+}
+
+html.dark-mode .logs-header p,
+body.dark-mode .logs-header p {
+  color: #8faebc;
+}
+
+html.dark-mode .admin-logs-page .bills-refresh-button,
+body.dark-mode .admin-logs-page .bills-refresh-button {
+  background: #122a33 !important;
+  border-color: #294954 !important;
+  color: #b7d6df !important;
+}
+
+html.dark-mode .admin-logs-page .bills-refresh-button:hover:not(:disabled),
+body.dark-mode .admin-logs-page .bills-refresh-button:hover:not(:disabled) {
+  background: #173943 !important;
+  border-color: #39707e !important;
+  color: #d8f5f8 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+html.dark-mode .logs-message,
+body.dark-mode .logs-message,
+html.dark-mode .logs-empty,
+body.dark-mode .logs-empty,
+html.dark-mode .logs-card,
+body.dark-mode .logs-card {
+  background: #10242d;
+  border-color: #294954;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+html.dark-mode .logs-empty h3,
+body.dark-mode .logs-empty h3 {
+  color: #e5f5f8;
+}
+
+html.dark-mode .logs-empty p,
+body.dark-mode .logs-empty p {
+  color: #8faebc;
+}
+
+html.dark-mode .empty-icon,
+body.dark-mode .empty-icon {
+  background: #173943;
+  border-color: #285966;
+}
+
+html.dark-mode .logs-table thead th,
+body.dark-mode .logs-table thead th {
+  background: #132c35;
+  border-bottom-color: #294954;
+  color: #91b2bf;
+}
+
+html.dark-mode .logs-table tbody td,
+body.dark-mode .logs-table tbody td {
+  background: #10242d;
+  border-bottom-color: #213f49;
+  color: #b5cdd5;
+}
+
+html.dark-mode .logs-table tbody tr:hover td,
+body.dark-mode .logs-table tbody tr:hover td {
+  background: #142f39;
+}
+
+html.dark-mode .logs-table tbody td:first-child,
+body.dark-mode .logs-table tbody td:first-child {
+  color: #32d3df;
+}
+
+html.dark-mode .logs-table tbody td:nth-child(2),
+body.dark-mode .logs-table tbody td:nth-child(2) {
+  color: #9db8c3;
+}
+
+html.dark-mode .logs-table tbody td:last-child,
+body.dark-mode .logs-table tbody td:last-child {
+  color: #91abb6;
+}
+
+html.dark-mode .doctor-log-icon,
+body.dark-mode .doctor-log-icon {
+  background: #173943;
+  border-color: #285966;
+}
+
+html.dark-mode .doctor-name-cell > span:last-child,
+body.dark-mode .doctor-name-cell > span:last-child {
+  color: #d7edf1;
+}
+
+html.dark-mode .log-action.approved,
+body.dark-mode .log-action.approved {
+  color: #6ee7a8;
+  background: #123b2b;
+  border-color: #205c42;
+}
+
+html.dark-mode .log-action.rejected,
+body.dark-mode .log-action.rejected {
+  color: #ff9696;
+  background: #432326;
+  border-color: #69363b;
+}
+
+html.dark-mode .logs-error,
+body.dark-mode .logs-error {
+  background: #351d20;
+  border-color: #653338;
+  color: #ffaaaa;
+}
+
+/* =========================================================
+   NOTIFICATIONS — FINAL DARK MODE FIX
+   ========================================================= */
+
+html.dark-mode .notification-header-button,
+body.dark-mode .notification-header-button {
+  background: #102d37 !important;
+  border-color: #285763 !important;
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-header-button:hover,
+html.dark-mode .notification-header-button.active,
+body.dark-mode .notification-header-button:hover,
+body.dark-mode .notification-header-button.active {
+  background: #173b46 !important;
+  border-color: #35cbd5 !important;
+  color: #62e0e7 !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+html.dark-mode .notification-header-icon,
+body.dark-mode .notification-header-icon {
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-header-icon svg,
+body.dark-mode .notification-header-icon svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8 !important;
+}
+
+/* Badge */
+
+html.dark-mode .notification-badge,
+body.dark-mode .notification-badge {
+  background: #ef5350 !important;
+  color: #ffffff !important;
+  border-color: #102d37 !important;
+}
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+   ========================================================= */
+
+html.dark-mode .notification-dropdown,
+body.dark-mode .notification-dropdown {
+  background: #10252d !important;
+  border-color: #2b505a !important;
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.55),
+    0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Header */
+
+html.dark-mode .notification-dropdown-header,
+body.dark-mode .notification-dropdown-header {
+  background: #10252d !important;
+  border-bottom-color: #2b505a !important;
+}
+
+html.dark-mode .notification-dropdown-header h3,
+body.dark-mode .notification-dropdown-header h3 {
+  color: #e8f7fa !important;
+}
+
+html.dark-mode .notification-dropdown-header span,
+body.dark-mode .notification-dropdown-header span {
+  color: #8faeb8 !important;
+}
+
+/* Mark all */
+
+html.dark-mode .notification-mark-all,
+body.dark-mode .notification-mark-all {
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-mark-all:hover,
+body.dark-mode .notification-mark-all:hover {
+  color: #79e8ee !important;
+}
+
+/* =========================================================
+   NOTIFICATION ITEMS
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-item,
+body.dark-mode .notification-dropdown-item {
+  background: #10252d !important;
+  border-bottom-color: #294852 !important;
+}
+
+html.dark-mode .notification-dropdown-item:hover,
+body.dark-mode .notification-dropdown-item:hover {
+  background: #16353e !important;
+}
+
+html.dark-mode .notification-dropdown-item.unread,
+body.dark-mode .notification-dropdown-item.unread {
+  background: #12343d !important;
+  border-left: 3px solid #35cbd5 !important;
+}
+
+/* Title */
+
+html.dark-mode .notification-dropdown-title strong,
+body.dark-mode .notification-dropdown-title strong {
+  color: #e7f8fa !important;
+}
+
+/* Message */
+
+html.dark-mode .notification-dropdown-content p,
+body.dark-mode .notification-dropdown-content p {
+  color: #a4bdc4 !important;
+}
+
+/* Time */
+
+html.dark-mode .notification-dropdown-content small,
+body.dark-mode .notification-dropdown-content small {
+  color: #78959e !important;
+}
+
+/* =========================================================
+   NOTIFICATION ICON BOXES
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-icon,
+body.dark-mode .notification-dropdown-icon {
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 14px !important;
+
+  background: #173943 !important;
+  border: 1px solid #285966 !important;
+
+  color: #42d5df !important;
+}
+
+html.dark-mode .notification-dropdown-icon svg,
+body.dark-mode .notification-dropdown-icon svg {
+  width: 28px !important;
+  height: 28px !important;
+
+  display: block !important;
+
+  fill: none !important;
+  stroke: currentColor !important;
+
+  stroke-width: 1.8 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* Appointment */
+
+html.dark-mode .notification-dropdown-icon.appointment,
+body.dark-mode .notification-dropdown-icon.appointment {
+  background: #173943 !important;
+  color: #42d5df !important;
+}
+
+/* Bill */
+
+html.dark-mode .notification-dropdown-icon.bill,
+body.dark-mode .notification-dropdown-icon.bill {
+  background: #183b4d !important;
+  color: #65b8ff !important;
+}
+
+/* Prescription */
+
+html.dark-mode .notification-dropdown-icon.prescription,
+body.dark-mode .notification-dropdown-icon.prescription {
+  background: #25364d !important;
+  color: #9bafff !important;
+}
+
+/* Lab */
+
+html.dark-mode .notification-dropdown-icon.lab,
+body.dark-mode .notification-dropdown-icon.lab {
+  background: #173f3a !important;
+  color: #62d9bd !important;
+}
+
+/* Doctor */
+
+html.dark-mode .notification-dropdown-icon.doctor,
+body.dark-mode .notification-dropdown-icon.doctor {
+  background: #24364d !important;
+  color: #82baff !important;
+}
+
+/* Default */
+
+html.dark-mode .notification-dropdown-icon.default,
+body.dark-mode .notification-dropdown-icon.default {
+  background: #173943 !important;
+  color: #42d5df !important;
+}
+
+/* =========================================================
+   NEW BADGE
+   ========================================================= */
+
+html.dark-mode .notification-new-dot,
+body.dark-mode .notification-new-dot {
+  background: #17464e !important;
+  border-color: #28616b !important;
+  color: #55dce5 !important;
+}
+
+/* =========================================================
+   MARK AS READ
+   ========================================================= */
+
+html.dark-mode .notification-mark-read,
+body.dark-mode .notification-mark-read {
+  background: #16343d !important;
+  border-color: #315761 !important;
+  color: #65d8df !important;
+}
+
+html.dark-mode .notification-mark-read:hover,
+body.dark-mode .notification-mark-read:hover {
+  background: #1b424d !important;
+  border-color: #3d7883 !important;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-empty,
+body.dark-mode .notification-dropdown-empty {
+  background: #10252d !important;
+}
+
+html.dark-mode .notification-empty-icon,
+body.dark-mode .notification-empty-icon {
+  background: #173943 !important;
+  border-color: #285966 !important;
+  color: #45d5df !important;
+}
+
+html.dark-mode .notification-empty-icon svg,
+body.dark-mode .notification-empty-icon svg {
+  width: 30px !important;
+  height: 30px !important;
+  stroke: currentColor !important;
+}
+
+html.dark-mode .notification-dropdown-empty strong,
+body.dark-mode .notification-dropdown-empty strong {
+  color: #e7f8fa !important;
+}
+
+html.dark-mode .notification-dropdown-empty span,
+body.dark-mode .notification-dropdown-empty span {
+  color: #8faeb8 !important;
+}
+
+/* =========================================================
+   LOADING / ERROR
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-loading,
+body.dark-mode .notification-dropdown-loading {
+  background: #10252d !important;
+  color: #9ab6bf !important;
+}
+
+html.dark-mode .notification-dropdown-error,
+body.dark-mode .notification-dropdown-error {
+  background: #10252d !important;
+  color: #ff9ca7 !important;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+html.dark-mode .notification-dropdown-footer,
+body.dark-mode .notification-dropdown-footer {
+  background: #0d2027 !important;
+  border-top-color: #29464e !important;
+}
+
+html.dark-mode .notification-dropdown-footer span,
+body.dark-mode .notification-dropdown-footer span {
+  color: #78959e !important;
+}

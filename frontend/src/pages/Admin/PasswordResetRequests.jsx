@@ -235,14 +235,13 @@ function PasswordResetRequests() {
         </div>
 
         <button
-          type="button"
-          className="password-reset-refresh-button"
-          onClick={loadRequests}
-          disabled={loading}
-        >
-          <RefreshCw size={16} />
-          Refresh
-        </button>
+  className="bills-refresh-button"
+  onClick={loadRequests}
+  disabled={loading}
+>
+  <RefreshCw size={15} />
+  Refresh
+</button>
 
       </div>
 

@@ -18,6 +18,8 @@ function ForgotPassword() {
   const [requestCode, setRequestCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -193,9 +195,9 @@ function ForgotPassword() {
       setNewPassword("");
       setConfirmPassword("");
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
 
     } catch (error) {
       console.error(
@@ -231,9 +233,14 @@ function ForgotPassword() {
   // BACK TO LOGIN
   // =====================================================
 
-  const handleBackToLogin = () => {
-    navigate("/login");
-  };
+ const handleBackToLogin = () => {
+  navigate("/", {
+    state: {
+      openLogin: true,
+      role: "Patient",
+    },
+  });
+}; 
 
   // =====================================================
   // UI
@@ -250,9 +257,13 @@ function ForgotPassword() {
 
         <div className="forgot-password-header">
 
-          <div className="forgot-password-icon">
-            🔐
-          </div>
+         <div className="forgot-password-icon">
+          <img
+            src="/github-logo.jpeg"
+            alt="AI Smart Hospital"
+            className="forgot-password-logo"
+          />
+        </div>
 
           <h1>
             Reset Password
@@ -561,20 +572,60 @@ function ForgotPassword() {
               <label htmlFor="new-password">
                 New Password
               </label>
+              <div className="login-password-wrap">
+                <input
+                  id="new-password"
+                  type={showNewPassword ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) =>
+                    setNewPassword(e.target.value)
+                  }
+                  placeholder="Enter new password"
+                  autoComplete="new-password"
+                  required
+                />
 
-              <input
-                id="new-password"
-                type="password"
-                value={newPassword}
-                onChange={(e) =>
-                  setNewPassword(
-                    e.target.value
-                  )
-                }
-                placeholder="Enter new password"
-                autoComplete="new-password"
-                required
-              />
+                <button
+                  type="button"
+                  className="show-password-btn"
+                  onClick={() =>
+                    setShowNewPassword(
+                      (previous) => !previous
+                    )
+                  }
+                  aria-label={
+                    showNewPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                >
+                  {showNewPassword ? (
+                    <>
+                      <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M3 3l18 18" />
+                        <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                        <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 3.4 10 7-0.5 1.2-1.3 2.4-2.3 3.4" />
+                        <path d="M6.2 6.2C4.7 7.2 3.5 8.6 2 12c1.5 3.6 5 7 10 7 1 0 2-.2 2.9-.5" />
+                      </svg>
+                      <span>Hide</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                      <span>Show</span>
+                    </>
+                  )}
+                </button>
+              </div>
 
             </div>
 
@@ -586,19 +637,66 @@ function ForgotPassword() {
                 Confirm Password
               </label>
 
-              <input
-                id="confirm-password"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) =>
-                  setConfirmPassword(
-                    e.target.value
-                  )
-                }
-                placeholder="Confirm new password"
-                autoComplete="new-password"
-                required
-              />
+              <div className="login-password-wrap">
+                <input
+                  id="confirm-password"
+                  type={
+                    showConfirmPassword
+                      ? "text"
+                      : "password"
+                  }
+                  value={confirmPassword}
+                  onChange={(e) =>
+                    setConfirmPassword(
+                      e.target.value
+                    )
+                  }
+                  placeholder="Confirm new password"
+                  autoComplete="new-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  className="show-password-btn"
+                  onClick={() =>
+                    setShowConfirmPassword(
+                      (previous) => !previous
+                    )
+                  }
+                  aria-label={
+                    showConfirmPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                >
+                  {showConfirmPassword ? (
+                    <>
+                      <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M3 3l18 18" />
+                        <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                        <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 3.4 10 7-0.5 1.2-1.3 2.4-2.3 3.4" />
+                        <path d="M6.2 6.2C4.7 6.2 3.5 8.6 2 12c1.5 3.6 5 7 10 7 1 0 2-.2 2.9-.5" />
+                      </svg>
+                      <span>Hide</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                      <span>Show</span>
+                    </>
+                  )}
+                </button>
+              </div>
 
             </div>
 
