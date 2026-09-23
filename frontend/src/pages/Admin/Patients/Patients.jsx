@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 
 import "./Patients.css";
+import SkeletonPatients from "../../../components/Skeleton/SkeletonPatients";
 
 const API_BASE_URL = "http://localhost:8080/api";
 
@@ -202,28 +203,16 @@ function Patients() {
     }
   };
 
-  // ==========================================
-  // LOADING
-  // ==========================================
-
-  if (loading) {
-    return (
-      <div className="admin-patients-page">
-        <div className="admin-patients-loading">
-          <div className="patients-spinner"></div>
-
-          <h3>
-            Loading patients...
-          </h3>
-
-          <p>
-            Please wait while we fetch patient data.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
+// ==========================================
+// LOADING
+// ==========================================
+if (loading) {
+  return (
+    <div className="admin-patients-page">
+      <SkeletonPatients />
+    </div>
+  );
+}
   // ==========================================
   // PAGE
   // ==========================================

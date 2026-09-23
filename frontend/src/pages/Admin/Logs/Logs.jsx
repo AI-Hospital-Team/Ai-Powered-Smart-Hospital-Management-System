@@ -6,6 +6,8 @@ import {
   Stethoscope,
 } from "lucide-react";
 
+import SkeletonLogs from "../../../components/Skeleton/SkeletonLogs";
+
 const API_BASE_URL = "http://localhost:8080/api";
 
 function Logs() {
@@ -84,11 +86,8 @@ function Logs() {
 
       {/* ================= LOADING ================= */}
       {loading && (
-        <div className="logs-message">
-          Loading admin logs...
-        </div>
+        <SkeletonLogs />
       )}
-
       {/* ================= ERROR ================= */}
       {error && !loading && (
         <div className="logs-error">

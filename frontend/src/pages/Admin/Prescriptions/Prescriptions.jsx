@@ -22,6 +22,7 @@ import {
 } from "../adminApi";
 
 import "./Prescriptions.css";
+import SkeletonPrescriptions from "../../../components/Skeleton/SkeletonPrescriptions";
 
 function Prescriptions() {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -357,24 +358,7 @@ function Prescriptions() {
 
       {/* CONTENT */}
 
-      {loading ? (
-
-        <div className="prescriptions-loading">
-
-          <div className="prescriptions-spinner" />
-
-          <h3>
-            Loading prescriptions...
-          </h3>
-
-          <p>
-            Please wait while we fetch prescription
-            data.
-          </p>
-
-        </div>
-
-      ) : filteredPrescriptions.length === 0 ? (
+     {filteredPrescriptions.length === 0 ? (
 
         <div className="prescriptions-empty">
 
@@ -425,6 +409,14 @@ function Prescriptions() {
                 getDoctorSpecialization(
                   prescription.doctorId
                 );
+
+              if (loading) {
+                return (
+                  <div className="admin-prescriptions-page">
+                    <SkeletonPrescriptions />
+                  </div>
+                );
+              }
 
               return (
                 <div

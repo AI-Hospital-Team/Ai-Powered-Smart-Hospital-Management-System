@@ -21,6 +21,7 @@ import {
 } from "../adminApi";
 
 import "./Appointments.css";
+import SkeletonAppointments from "../../../components/Skeleton/SkeletonAppointments";
 
 function Appointments() {
   const [appointments, setAppointments] = useState([]);
@@ -279,6 +280,14 @@ function Appointments() {
     }
   };
 
+if (loading) {
+  return (
+    <div className="admin-appointments-page">
+      <SkeletonAppointments />
+    </div>
+  );
+}
+
   return (
     <div className="admin-appointments-page">
 
@@ -509,22 +518,7 @@ function Appointments() {
           CONTENT
       ================================================= */}
 
-      {loading ? (
-
-        <div className="appointments-loading">
-
-          <div className="appointments-spinner"></div>
-
-          <h3>Loading appointments...</h3>
-
-          <p>
-            Please wait while we fetch appointment
-            data.
-          </p>
-
-        </div>
-
-      ) : filteredAppointments.length === 0 ? (
+     {filteredAppointments.length === 0 ? (
 
         <div className="appointments-empty">
 

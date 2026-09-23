@@ -22,6 +22,7 @@ import {
 } from "../adminApi";
 
 import "./MedicalRecords.css";
+import SkeletonMedicalRecords from "../../../components/Skeleton/SkeletonMedicalRecords";
 
 const API_BASE_URL = "http://localhost:8080/api";
 
@@ -404,6 +405,15 @@ function MedicalRecords() {
     }
   };
 
+
+if (loading) {
+  return (
+    <div className="admin-medical-records-page">
+      <SkeletonMedicalRecords />
+    </div>
+  );
+}
+
   return (
     <div className="admin-medical-records-page">
 
@@ -549,25 +559,7 @@ function MedicalRecords() {
           CONTENT
       ================================================= */}
 
-      {loading ? (
-
-        <div className="medical-records-loading">
-
-          <div className="medical-records-spinner"></div>
-
-          <h3>
-            Loading medical records...
-          </h3>
-
-          <p>
-            Please wait while we fetch the
-            clinical information.
-          </p>
-
-        </div>
-
-      ) : filteredRecords.length === 0 ? (
-
+     {filteredRecords.length === 0 ? (
         <div className="medical-records-empty">
 
           <div className="medical-records-empty-icon">

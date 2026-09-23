@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 import "./Doctors.css";
+import SkeletonDoctors from "../../../components/Skeleton/SkeletonDoctors";
 
 const API_BASE_URL = "http://localhost:8080/api";
 
@@ -257,6 +258,18 @@ function Doctors() {
     );
   };
 
+// =====================================================
+// LOADING
+// =====================================================
+
+if (loading) {
+  return (
+    <div className="admin-doctors-page">
+      <SkeletonDoctors />
+    </div>
+  );
+}
+
   // =====================================================
   // RETURN
   // =====================================================
@@ -402,22 +415,7 @@ function Doctors() {
           CONTENT
       ================================================= */}
 
-      {loading ? (
-
-        <div className="doctors-loading">
-
-          <div className="doctors-spinner"></div>
-
-          <h3>Loading doctors...</h3>
-
-          <p>
-            Please wait while we fetch doctor data.
-          </p>
-
-        </div>
-
-      ) : doctors.length === 0 ? (
-
+      {doctors.length === 0 ? (
         <div className="doctors-empty">
 
           <div className="doctors-empty-icon">

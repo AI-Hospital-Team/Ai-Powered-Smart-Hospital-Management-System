@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import "./PasswordResetRequests.css";
+import SkeletonPasswordReset from "../../components/Skeleton/SkeletonPasswordReset";
 
 const API_URL = "http://localhost:8080/api";
 
@@ -190,19 +191,13 @@ function PasswordResetRequests() {
   // LOADING
   // ==========================================
 
-  if (loading) {
-    return (
-      <div className="password-reset-page">
-        <div className="password-reset-loading">
-          <span className="password-reset-spinner"></span>
-
-          <p>
-            Loading password reset requests...
-          </p>
-        </div>
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="password-reset-page">
+      <SkeletonPasswordReset />
+    </div>
+  );
+}
 
   // ==========================================
   // PAGE
