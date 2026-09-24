@@ -39,7 +39,10 @@ function About() {
         {/* Team Section */}
         <section className="team-grid">
 
-          {/* Prathmesh */}
+          {/* =====================================================
+              PRATHMESH PANMAND
+          ===================================================== */}
+
           <article className="team-card">
 
             <div className="team-avatar">
@@ -53,13 +56,15 @@ function About() {
             <h2>Prathmesh Panmand</h2>
 
             <p>
-             Working on Java development,
-             Spring Boot, database management and 
-             AI integration while contributing to 
-             REST API development and intelligent hospital management features.
+              Working on Java development,
+              Spring Boot, database management and
+              AI integration while contributing to
+              REST API development and intelligent
+              hospital management features.
             </p>
 
             <div className="team-skills">
+
               <span>Java</span>
               <span>Spring Boot</span>
               <span>AI Integration</span>
@@ -70,7 +75,11 @@ function About() {
               <span>Ollama</span>
               <span>Vite</span>
               <span>LLM</span>
+
             </div>
+
+
+            {/* Social Links */}
 
             <div className="team-links">
 
@@ -97,20 +106,34 @@ function About() {
               >
                 Instagram
               </a>
-              <a href="mailto:shamwayal7@gmail.com">
+
+              <a href="mailto:prathmeshpanmand23@gmail.com">
                 Email
               </a>
 
             </div>
 
-            <button className="resume-button">
+
+            {/* =================================================
+                PRATHMESH RESUME
+            ================================================= */}
+
+            <a
+              href="/resumes/Prathmesh_Panmand_Resume_.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resume-button"
+            >
               View Resume →
-            </button>
+            </a>
 
           </article>
 
 
-          {/* Radheshyam */}
+          {/* =====================================================
+              RADHESHYAM WAYAL
+          ===================================================== */}
+
           <article className="team-card">
 
             <div className="team-avatar">
@@ -131,6 +154,7 @@ function About() {
             </p>
 
             <div className="team-skills">
+
               <span>Java</span>
               <span>Spring Boot</span>
               <span>AI Integration</span>
@@ -141,7 +165,12 @@ function About() {
               <span>Ollama</span>
               <span>Vite</span>
               <span>LLM</span>
+
             </div>
+
+
+            {/* Social Links */}
+
             <div className="team-links">
 
               <a
@@ -174,16 +203,29 @@ function About() {
 
             </div>
 
-            <button className="resume-button">
+
+            {/* =================================================
+                RADHESHYAM RESUME
+            ================================================= */}
+
+            <a
+              href="/resumes/Radheshyam-ResumeCurrent1.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resume-button"
+            >
               View Resume →
-            </button>
+            </a>
 
           </article>
 
         </section>
 
 
-        {/* Academic Information */}
+        {/* =====================================================
+            ACADEMIC INFORMATION
+        ===================================================== */}
+
         <section className="academic-section">
 
           <span className="about-badge">
@@ -196,34 +238,43 @@ function About() {
 
             <div>
               <strong>College</strong>
+
               <span>
                 Samarth College Of Computer Science, Belhe
               </span>
             </div>
 
+
             <div>
               <strong>Course</strong>
+
               <span>
                 BCA-(Science) Third Year
               </span>
             </div>
 
+
             <div>
               <strong>Duration</strong>
+
               <span>
                 2024 – 2027
               </span>
             </div>
 
+
             <div>
               <strong>Project Guide</strong>
+
               <span>
                 Miss K. Y. Yendhe Mam
               </span>
             </div>
 
+
             <div>
               <strong>Academic Year</strong>
+
               <span>
                 2026 – 27
               </span>
