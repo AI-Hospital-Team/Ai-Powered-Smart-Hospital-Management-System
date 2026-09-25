@@ -21,6 +21,11 @@ function Bills() {
     amount: 0,
   });
 
+  const [paymentMethod, setPaymentMethod] = useState("upi");
+  const [selectedUpiApp, setSelectedUpiApp] = useState("");
+  const [upiId, setUpiId] = useState("");
+  const [selectedBank, setSelectedBank] = useState("");
+
   // =========================================================
   // GET PATIENT ID
   // =========================================================
@@ -170,6 +175,11 @@ function Bills() {
   ) => {
     setError("");
     setPaymentMessage("");
+
+    setPaymentMethod("upi");
+    setSelectedUpiApp("");
+    setUpiId("");
+    setSelectedBank("");
 
     setPaymentModal({
       open: true,
@@ -788,7 +798,7 @@ function Bills() {
 
                   <th>Status</th>
 
-                  <th>Payment</th>
+                  <th>Action</th>
 
                 </tr>
 
@@ -918,7 +928,7 @@ function Bills() {
 
                         </td>
 
-                        {/* PAYMENT */}
+                        {/* ACTION */}
 
                         <td>
 
@@ -949,17 +959,13 @@ function Bills() {
                                   : "Pay Now"}
                               </button>
 
-                              <small>
-                                Demo payment
-                              </small>
-
                             </div>
 
                           )}
 
                           {isPaid && (
-                            <span className="paid-label">
-                              Paid
+                            <span className="completed-label">
+                              Completed
                             </span>
                           )}
 
@@ -1073,7 +1079,7 @@ function Bills() {
       </div>
 
       {/* =====================================================
-          PAYMENT CONFIRMATION MODAL
+          MODERN PAYMENT MODAL
       ===================================================== */}
 
       {paymentModal.open && (
@@ -1090,137 +1096,445 @@ function Bills() {
             }
           >
 
-            <div className="payment-modal-icon">
+            {/* PAYMENT HEADER */}
 
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <rect
-                  x="3"
-                  y="6"
-                  width="18"
-                  height="13"
-                  rx="2"
-                />
+            <div className="payment-modal-header">
 
-                <path d="M3 10h18M7 15h3" />
-              </svg>
+              <div className="payment-brand">
 
-            </div>
-
-            <div className="payment-modal-content">
-
-              <h2>
-                Confirm Payment
-              </h2>
-
-              <p>
-                Are you sure you want to
-                mark this bill as paid?
-              </p>
-
-              <div className="payment-modal-details">
-
-                <div>
-                  <span>
-                    Bill
-                  </span>
-
-                  <strong>
-                    #{paymentModal.billId}
-                  </strong>
-                </div>
-
-                <div>
-                  <span>
-                    Amount
-                  </span>
-
-                  <strong>
-                    {formatAmount(
-                      paymentModal.amount
-                    )}
-                  </strong>
-                </div>
-
-              </div>
-
-              <div className="payment-demo-warning">
-
-                <div className="warning-icon">
-
+                <div className="payment-brand-icon">
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.8"
                   >
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="9"
+                    <rect
+                      x="3"
+                      y="6"
+                      width="18"
+                      height="13"
+                      rx="2"
                     />
 
-                    <path d="M12 10v6M12 7.5v.5" />
+                    <path d="M3 10h18M7 15h3" />
                   </svg>
-
                 </div>
 
                 <div>
+                  <strong>Secure Payment</strong>
 
-                  <strong>
-                    Demo Payment
-                  </strong>
+                  <span>
+                    Hospital Bill Payment
+                  </span>
+                </div>
 
-                  <p>
-                    This is an educational
-                    demonstration only.
-                    No real money will be
-                    charged.
-                  </p>
+              </div>
+
+              <button
+                type="button"
+                className="payment-close-btn"
+                onClick={closePaymentModal}
+                disabled={payingBillId !== null}
+                aria-label="Close payment"
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            {/* AMOUNT */}
+
+            <div className="payment-amount-section">
+
+              <span>Amount to Pay</span>
+
+              <strong>
+                {formatAmount(
+                  paymentModal.amount
+                )}
+              </strong>
+
+              <small>
+                Bill #{paymentModal.billId}
+              </small>
+
+            </div>
+
+
+            {/* PAYMENT METHODS */}
+
+            <div className="payment-method-tabs">
+
+              <button
+                type="button"
+                className={
+                  paymentMethod === "upi"
+                    ? "payment-method-tab active"
+                    : "payment-method-tab"
+                }
+                onClick={() =>
+                  setPaymentMethod("upi")
+                }
+              >
+                <span className="method-icon">⌁</span>
+                UPI
+              </button>
+
+              <button
+                type="button"
+                className={
+                  paymentMethod === "card"
+                    ? "payment-method-tab active"
+                    : "payment-method-tab"
+                }
+                onClick={() =>
+                  setPaymentMethod("card")
+                }
+              >
+                <span className="method-icon">▣</span>
+                Card
+              </button>
+
+              <button
+                type="button"
+                className={
+                  paymentMethod === "netbanking"
+                    ? "payment-method-tab active"
+                    : "payment-method-tab"
+                }
+                onClick={() =>
+                  setPaymentMethod("netbanking")
+                }
+              >
+                <span className="method-icon">⌂</span>
+                Net Banking
+              </button>
+
+            </div>
+
+
+            {/* =================================================
+                UPI
+            ================================================= */}
+
+            {paymentMethod === "upi" && (
+
+              <div className="payment-method-content">
+
+                <h3>Pay with UPI</h3>
+
+                <p className="payment-method-description">
+                  Choose your preferred UPI app or enter
+                  your UPI ID.
+                </p>
+
+
+                {/* UPI APPS */}
+
+                <div className="upi-app-grid">
+
+                  <button
+                    type="button"
+                    className={
+                      selectedUpiApp === "Google Pay"
+                        ? "upi-app selected"
+                        : "upi-app"
+                    }
+                    onClick={() =>
+                      setSelectedUpiApp("Google Pay")
+                    }
+                  >
+                    <span className="upi-app-logo gpay">
+                      G
+                    </span>
+
+                    <span>Google Pay</span>
+                  </button>
+
+
+                  <button
+                    type="button"
+                    className={
+                      selectedUpiApp === "PhonePe"
+                        ? "upi-app selected"
+                        : "upi-app"
+                    }
+                    onClick={() =>
+                      setSelectedUpiApp("PhonePe")
+                    }
+                  >
+                    <span className="upi-app-logo phonepe">
+                      P
+                    </span>
+
+                    <span>PhonePe</span>
+                  </button>
+
+
+                  <button
+                    type="button"
+                    className={
+                      selectedUpiApp === "Paytm"
+                        ? "upi-app selected"
+                        : "upi-app"
+                    }
+                    onClick={() =>
+                      setSelectedUpiApp("Paytm")
+                    }
+                  >
+                    <span className="upi-app-logo paytm">
+                      ₹
+                    </span>
+
+                    <span>Paytm</span>
+                  </button>
+
+                </div>
+
+
+                {/* UPI ID */}
+
+                <div className="upi-divider">
+                  <span>OR</span>
+                </div>
+
+                <label className="payment-input-label">
+                  Enter UPI ID
+                </label>
+
+                <div className="upi-input-wrap">
+
+                  <input
+                    type="text"
+                    value={upiId}
+                    onChange={(event) =>
+                      setUpiId(event.target.value)
+                    }
+                    placeholder="example@upi"
+                  />
+
+                  <span className="upi-verified">
+                    UPI
+                  </span>
 
                 </div>
 
               </div>
 
+            )}
+
+
+            {/* =================================================
+                CARD
+            ================================================= */}
+
+            {paymentMethod === "card" && (
+
+              <div className="payment-method-content">
+
+                <h3>Pay with Card</h3>
+
+                <p className="payment-method-description">
+                  Enter your card details securely.
+                </p>
+
+                <label className="payment-input-label">
+                  Card Number
+                </label>
+
+                <input
+                  className="payment-input"
+                  type="text"
+                  maxLength="19"
+                  placeholder="1234 5678 9012 3456"
+                />
+
+                <div className="card-input-row">
+
+                  <div>
+                    <label className="payment-input-label">
+                      Expiry
+                    </label>
+
+                    <input
+                      className="payment-input"
+                      type="text"
+                      placeholder="MM / YY"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="payment-input-label">
+                      CVV
+                    </label>
+
+                    <input
+                      className="payment-input"
+                      type="password"
+                      maxLength="3"
+                      placeholder="•••"
+                    />
+                  </div>
+
+                </div>
+
+              </div>
+
+            )}
+
+
+            {/* =================================================
+                NET BANKING
+            ================================================= */}
+
+            {paymentMethod === "netbanking" && (
+
+              <div className="payment-method-content">
+
+                <h3>Net Banking</h3>
+
+                <p className="payment-method-description">
+                  Select your bank to continue.
+                </p>
+
+                <label className="payment-input-label">
+                  Select Bank
+                </label>
+
+                <select
+                  className="payment-input"
+                  value={selectedBank}
+                  onChange={(event) =>
+                    setSelectedBank(
+                      event.target.value
+                    )
+                  }
+                >
+                  <option value="">
+                    Select your bank
+                  </option>
+
+                  <option value="SBI">
+                    State Bank of India
+                  </option>
+
+                  <option value="HDFC">
+                    HDFC Bank
+                  </option>
+
+                  <option value="ICICI">
+                    ICICI Bank
+                  </option>
+
+                  <option value="Axis">
+                    Axis Bank
+                  </option>
+
+                  <option value="BOI">
+                    Bank of India
+                  </option>
+
+                  <option value="BOM">
+                    Bank of Maharashtra
+                  </option>
+
+                </select>
+
+              </div>
+
+            )}
+
+
+            {/* DEMO INFORMATION */}
+
+            <div className="payment-demo-warning">
+
+              <div className="warning-icon">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                  />
+
+                  <path d="M12 10v6M12 7.5v.5" />
+                </svg>
+
+              </div>
+
+              <div>
+
+                <strong>
+                  Academic Demo Payment
+                </strong>
+
+                <p>
+                  This payment interface is for
+                  demonstration purposes. No real
+                  money or payment gateway is used.
+                </p>
+
+              </div>
+
             </div>
 
-            <div className="payment-modal-actions">
+{/* ACTION */}
 
-              <button
-                type="button"
-                className="modal-cancel-btn"
-                onClick={closePaymentModal}
-                disabled={
-                  payingBillId !== null
-                }
-              >
-                Cancel
-              </button>
+<td>
 
-              <button
-                type="button"
-                className="modal-confirm-btn"
-                onClick={confirmPayment}
-                disabled={
-                  payingBillId !== null
-                }
-              >
-                {payingBillId !== null
-                  ? "Processing..."
-                  : "Confirm Payment"}
-              </button>
+  {isPending && (
+    <div className="payment-cell">
 
-            </div>
+      <button
+        className={`pay-button ${
+          isPaying ? "paying" : ""
+        }`}
+        type="button"
+        onClick={() =>
+          openPaymentModal(
+            billId,
+            bill?.amount
+          )
+        }
+        disabled={payingBillId !== null}
+      >
+        {isPaying
+          ? "Processing..."
+          : "Pay Now"}
+      </button>
+
+    </div>
+  )}
+
+  {isPaid && (
+    <span className="completed-label">
+      Completed
+    </span>
+  )}
+
+  {isCancelled && (
+    <span className="cancelled-label">
+      Not Available
+    </span>
+  )}
+
+</td>
 
           </div>
 
         </div>
 
       )}
+
+
 
     </div>
   );
