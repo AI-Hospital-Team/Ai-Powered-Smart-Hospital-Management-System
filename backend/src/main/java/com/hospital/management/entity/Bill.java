@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "bills")
@@ -42,6 +43,11 @@ public class Bill {
 
     @Column(name = "patient_name")
     private String patientName;
+
+    // Doctor name is used only for API response.
+    // It is NOT stored in the bills table.
+    @Transient
+    private String doctorName;
 
     public Bill() {
     }
@@ -116,5 +122,14 @@ public class Bill {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
+    }
+
+    // Doctor Name
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 }
