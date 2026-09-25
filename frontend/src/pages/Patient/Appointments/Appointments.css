@@ -7,6 +7,8 @@
   min-height: 100%;
   padding: 30px 44px;
   box-sizing: border-box;
+
+  animation: patientAppointmentsPageIn 0.45s ease both;
 }
 
 /* =========================================================
@@ -1697,3 +1699,22 @@
     }
 }
 
+/* PATIENT APPOINTMENTS PAGE ANIMATION */
+
+@keyframes patientAppointmentsPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appointments-page {
+    animation: none;
+  }
+}

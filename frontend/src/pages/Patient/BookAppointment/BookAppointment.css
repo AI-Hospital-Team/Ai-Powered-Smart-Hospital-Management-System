@@ -7,6 +7,7 @@
   min-height: 100%;
   padding: 38px 70px 55px;
   box-sizing: border-box;
+  animation: patientBookAppointmentPageIn 0.45s ease both;
 }
 
 /* =========================================================
@@ -788,5 +789,27 @@
   .cancel-booking-btn,
   .submit-booking-btn {
     width: 100%;
+  }
+}
+
+/* =========================================================
+   PATIENT BOOK APPOINTMENT PAGE ANIMATION
+========================================================= */
+
+@keyframes patientBookAppointmentPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-page {
+    animation: none;
   }
 }

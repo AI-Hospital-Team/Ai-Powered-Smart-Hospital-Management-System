@@ -8,6 +8,7 @@
   box-sizing: border-box;
 
   padding: 28px 34px 45px;
+  animation: patientProfilePageIn 0.45s ease both;
 
   background:
     radial-gradient(
@@ -829,4 +830,26 @@
     padding: 13px 17px;
   }
 
+}
+
+/* =========================================================
+   PATIENT PROFILE PAGE ANIMATION
+========================================================= */
+
+@keyframes patientProfilePageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-page {
+    animation: none;
+  }
 }
