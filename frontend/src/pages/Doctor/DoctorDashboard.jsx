@@ -10,6 +10,7 @@ import {
   Stethoscope,
 } from "lucide-react";
 import "./DoctorDashboard.css";
+import SkeletonDoctorDashboard from "../../components/Skeleton/SkeletonDoctorDashboard";
 
 function DoctorDashboard() {
   const [user, setUser] = useState(null);
@@ -351,18 +352,13 @@ function DoctorDashboard() {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="doctor-dashboard-page">
-
-        <div className="doctor-dashboard-loading">
-          <div className="doctor-dashboard-spinner"></div>
-          <p>Loading Doctor Dashboard...</p>
-        </div>
-
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="doctor-dashboard-page">
+      <SkeletonDoctorDashboard />
+    </div>
+  );
+}
 
   // =====================================================
   // PAGE
