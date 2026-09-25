@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import "./Appointments.css";
+import SkeletonDoctorAppointments from "../../../components/Skeleton/SkeletonDoctorAppointments";
 
 function Appointments() {
   const [user, setUser] = useState(null);
@@ -259,43 +260,13 @@ function Appointments() {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="doctor-appointments-page">
-
-        <div className="doctor-appointments-header">
-
-          <div className="appointments-title-wrap">
-
-            <div className="appointments-title-icon">
-              <CalendarDays size={25} />
-            </div>
-
-            <div>
-              <h1>Appointments</h1>
-
-              <p>
-                View and manage your patient appointments.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className="doctor-appointments-loading">
-
-          <div className="loading-spinner"></div>
-
-          <p>
-            Loading appointments...
-          </p>
-
-        </div>
-
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="doctor-appointments-page">
+      <SkeletonDoctorAppointments />
+    </div>
+  );
+}
 
   // =====================================================
   // RENDER

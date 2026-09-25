@@ -4,6 +4,8 @@
    ========================================================= */
 
 .doctor-appointments-page {
+  animation: doctorPageIn 0.45s ease both;
+
   width: 100%;
   min-height: 100%;
   padding: 30px 44px;
@@ -767,4 +769,20 @@
 
 .expired-info {
   color: #d97706;
+}
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+@keyframes doctorPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

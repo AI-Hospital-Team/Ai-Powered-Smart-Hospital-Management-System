@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Profile.css";
+import SkeletonDoctorProfile from "../../../components/Skeleton/SkeletonDoctorProfile";
 
 const API_URL = "http://localhost:8080/api";
 
@@ -232,16 +233,13 @@ function Profile() {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="doctor-profile-page">
-        <div className="doctor-profile-loading">
-          <div className="doctor-profile-spinner"></div>
-          <p>Loading profile...</p>
-        </div>
-      </div>
-    );
-  }
+ if (loading) {
+  return (
+    <div className="doctor-profile-page">
+      <SkeletonDoctorProfile />
+    </div>
+  );
+}
 
   // =====================================================
   // ERROR / NO PROFILE

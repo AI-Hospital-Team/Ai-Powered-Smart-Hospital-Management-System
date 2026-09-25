@@ -7,6 +7,7 @@
   min-height: 100%;
   padding: 32px 48px;
   box-sizing: border-box;
+  animation: patientPrescriptionsPageIn 0.45s ease both;
 }
 
 /* =========================================================
@@ -1097,5 +1098,27 @@
   .delete-prescription-cancel-button,
   .delete-prescription-confirm-button {
     width: 100%;
+  }
+}
+
+/* =========================================================
+   PATIENT PRESCRIPTIONS PAGE ANIMATION
+========================================================= */
+
+@keyframes patientPrescriptionsPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prescriptions-page {
+    animation: none;
   }
 }

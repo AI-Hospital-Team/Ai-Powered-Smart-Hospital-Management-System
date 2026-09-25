@@ -9,6 +9,7 @@ import {
   Trash2,
 } from "lucide-react";
 import "./MedicalRecords.css";
+import SkeletonDoctorMedicalRecords from "../../../components/Skeleton/SkeletonDoctorMedicalRecords";
 
 function MedicalRecords() {
   const [user, setUser] = useState(null);
@@ -337,43 +338,13 @@ function MedicalRecords() {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="doctor-records-page">
-
-        <div className="doctor-records-header">
-
-          <div className="records-title-wrap">
-
-            <div className="records-title-icon">
-              <ClipboardList size={25} />
-            </div>
-
-            <div>
-              <h1>Medical Records</h1>
-
-              <p>
-                Manage your patients' medical records.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className="doctor-records-message">
-
-          <div className="doctor-records-loader"></div>
-
-          <p>
-            Loading medical records...
-          </p>
-
-        </div>
-
-      </div>
-    );
-  }
+ if (loading) {
+  return (
+    <div className="doctor-records-page">
+      <SkeletonDoctorMedicalRecords />
+    </div>
+  );
+}
 
   // =====================================================
   // PAGE

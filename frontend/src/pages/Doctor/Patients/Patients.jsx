@@ -8,6 +8,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import "./Patients.css";
+import SkeletonDoctorPatients from "../../../components/Skeleton/SkeletonDoctorPatients";
 
 function Patients() {
   const [user, setUser] = useState(null);
@@ -251,38 +252,13 @@ function Patients() {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="doctor-patients-page">
-
-        <div className="doctor-patients-header">
-          <div className="patients-title-wrap">
-
-            <div className="patients-title-icon">
-              <UserRound size={25} />
-            </div>
-
-            <div>
-              <h1>My Patients</h1>
-              <p>
-                View and manage patients assigned to you.
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-        <div className="patients-message">
-
-          <div className="patients-loader"></div>
-
-          <p>Loading patients...</p>
-
-        </div>
-
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="doctor-patients-page">
+      <SkeletonDoctorPatients />
+    </div>
+  );
+}
 
   // =====================================================
   // PAGE

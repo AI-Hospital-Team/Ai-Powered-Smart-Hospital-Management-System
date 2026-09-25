@@ -21740,3 +21740,655 @@ body.dark-mode .admin-delete-prescription-button:disabled {
   opacity: 0.6 !important;
   cursor: not-allowed;
 }
+
+/* =========================================================
+   PATIENT BILLS - PAYMENT ACTION DARK MODE
+========================================================= */
+
+/* Completed button */
+html.dark-mode .completed-label,
+body.dark-mode .completed-label {
+    background: #123d33 !important;
+    border: 1px solid #286653 !important;
+    color: #55d4ae !important;
+}
+
+/* Pay Now button */
+html.dark-mode .pay-button,
+body.dark-mode .pay-button {
+    background: linear-gradient(
+        135deg,
+        #079cad,
+        #087dce
+    ) !important;
+
+    border: 1px solid #19b8c7 !important;
+    color: #ffffff !important;
+
+    box-shadow:
+        0 5px 14px rgba(0, 160, 190, 0.20) !important;
+}
+
+/* Pay Now hover */
+html.dark-mode .pay-button:hover:not(:disabled),
+body.dark-mode .pay-button:hover:not(:disabled) {
+    background: linear-gradient(
+        135deg,
+        #08b1c0,
+        #098de0
+    ) !important;
+
+    border-color: #2ac9d5 !important;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 18px rgba(0, 180, 210, 0.28) !important;
+}
+
+/* Processing / disabled */
+html.dark-mode .pay-button:disabled,
+body.dark-mode .pay-button:disabled {
+    background: #174451 !important;
+    border-color: #285965 !important;
+    color: #8daab3 !important;
+    box-shadow: none !important;
+}
+
+/* =========================================================
+   PATIENT PROFILE - ICONS DARK MODE
+========================================================= */
+
+/* Main profile icon */
+html.dark-mode .profile-icon,
+body.dark-mode .profile-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Health / heart icon */
+html.dark-mode .health-main-icon,
+body.dark-mode .health-main-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Health feature icons */
+html.dark-mode .health-feature-icon,
+body.dark-mode .health-feature-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Patient avatar icon */
+html.dark-mode .profile-avatar,
+body.dark-mode .profile-avatar {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Address/location icon */
+html.dark-mode .address-icon,
+body.dark-mode .address-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Any profile section icons */
+html.dark-mode .profile-section-icon,
+body.dark-mode .profile-section-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+/* Profile header human icon */
+html.dark-mode .profile-title-icon,
+body.dark-mode .profile-title-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+    box-shadow: inset 0 0 0 1px #24515f !important;
+}
+
+/* =========================================================
+   PAYMENT MODAL - DARK MODE
+========================================================= */
+
+html.dark-mode .payment-modal,
+body.dark-mode .payment-modal {
+    background: #102f3b !important;
+    border: 1px solid #24515f !important;
+    color: #e9f8fa !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+html.dark-mode .payment-modal-header,
+body.dark-mode .payment-modal-header {
+    background: #0d2935 !important;
+    border-bottom-color: #24515f !important;
+}
+
+html.dark-mode .payment-brand strong,
+body.dark-mode .payment-brand strong {
+    color: #f1f8fa !important;
+}
+
+html.dark-mode .payment-brand span,
+body.dark-mode .payment-brand span {
+    color: #8caab2 !important;
+}
+
+html.dark-mode .payment-brand-icon,
+body.dark-mode .payment-brand-icon {
+    background: #e8f9fb !important;
+    color: #079caf !important;
+}
+
+/* Close button */
+
+html.dark-mode .payment-close-btn,
+body.dark-mode .payment-close-btn {
+    background: #173d49 !important;
+    border: 1px solid #2b5967 !important;
+    color: #c7dce1 !important;
+}
+
+html.dark-mode .payment-close-btn:hover,
+body.dark-mode .payment-close-btn:hover {
+    background: #214b59 !important;
+    color: #ffffff !important;
+}
+
+/* ---------------------------------------------------------
+   AMOUNT
+--------------------------------------------------------- */
+
+html.dark-mode .payment-amount-section,
+body.dark-mode .payment-amount-section {
+    background: #102f3b !important;
+}
+
+html.dark-mode .payment-amount-section > span,
+body.dark-mode .payment-amount-section > span {
+    color: #8caab2 !important;
+}
+
+html.dark-mode .payment-amount-section strong,
+body.dark-mode .payment-amount-section strong {
+    color: #eaf8fa !important;
+}
+
+html.dark-mode .payment-amount-section small,
+body.dark-mode .payment-amount-section small {
+    color: #8caab2 !important;
+}
+
+/* ---------------------------------------------------------
+   PAYMENT METHOD TABS
+--------------------------------------------------------- */
+
+html.dark-mode .payment-method-tabs,
+body.dark-mode .payment-method-tabs {
+    background: #102f3b !important;
+}
+
+html.dark-mode .payment-method-tab,
+body.dark-mode .payment-method-tab {
+    background: #102f3b !important;
+    border-color: #315b67 !important;
+    color: #9db7bf !important;
+}
+
+html.dark-mode .payment-method-tab:hover,
+body.dark-mode .payment-method-tab:hover {
+    background: #153b47 !important;
+    border-color: #3a7180 !important;
+    color: #dff7fa !important;
+}
+
+html.dark-mode .payment-method-tab.active,
+body.dark-mode .payment-method-tab.active {
+    background: #123f4a !important;
+    border-color: #18b8c5 !important;
+    color: #35d5df !important;
+}
+
+html.dark-mode .method-icon,
+body.dark-mode .method-icon {
+    color: currentColor !important;
+}
+
+/* ---------------------------------------------------------
+   PAYMENT CONTENT
+--------------------------------------------------------- */
+
+html.dark-mode .payment-method-content,
+body.dark-mode .payment-method-content {
+    color: #e9f8fa !important;
+}
+
+html.dark-mode .payment-method-content h3,
+body.dark-mode .payment-method-content h3 {
+    color: #f1f8fa !important;
+}
+
+html.dark-mode .payment-method-description,
+body.dark-mode .payment-method-description {
+    color: #91adb7 !important;
+}
+
+/* ---------------------------------------------------------
+   UPI APP CARDS
+--------------------------------------------------------- */
+
+html.dark-mode .upi-app,
+body.dark-mode .upi-app {
+    background: #102f3b !important;
+    border-color: #315b67 !important;
+    color: #dff7fa !important;
+}
+
+html.dark-mode .upi-app:hover,
+body.dark-mode .upi-app:hover {
+    background: #153b47 !important;
+    border-color: #25c6d2 !important;
+}
+
+html.dark-mode .upi-app.selected,
+body.dark-mode .upi-app.selected {
+    background: #123f4a !important;
+    border-color: #19bfd0 !important;
+    color: #39d6df !important;
+}
+
+html.dark-mode .upi-app > span:last-child,
+body.dark-mode .upi-app > span:last-child {
+    color: #d8eef1 !important;
+}
+
+html.dark-mode .upi-app.selected > span:last-child,
+body.dark-mode .upi-app.selected > span:last-child {
+    color: #3bd7df !important;
+}
+
+/* Keep app logos visible */
+
+html.dark-mode .upi-app-logo.gpay,
+body.dark-mode .upi-app-logo.gpay {
+    background: #e8efff !important;
+    color: #4285f4 !important;
+}
+
+html.dark-mode .upi-app-logo.phonepe,
+body.dark-mode .upi-app-logo.phonepe {
+    background: #eee5ff !important;
+    color: #6f35c5 !important;
+}
+
+html.dark-mode .upi-app-logo.paytm,
+body.dark-mode .upi-app-logo.paytm {
+    background: #e3f7ff !important;
+    color: #008cff !important;
+}
+
+/* ---------------------------------------------------------
+   OR DIVIDER
+--------------------------------------------------------- */
+
+html.dark-mode .upi-divider,
+body.dark-mode .upi-divider {
+    color: #819ca5 !important;
+}
+
+html.dark-mode .upi-divider::before,
+html.dark-mode .upi-divider::after,
+body.dark-mode .upi-divider::before,
+body.dark-mode .upi-divider::after {
+    background: #315b67 !important;
+}
+
+/* ---------------------------------------------------------
+   INPUTS
+--------------------------------------------------------- */
+
+html.dark-mode .payment-input-label,
+body.dark-mode .payment-input-label {
+    color: #b7cdd3 !important;
+}
+
+html.dark-mode .payment-input,
+body.dark-mode .payment-input,
+html.dark-mode .upi-input-wrap,
+body.dark-mode .upi-input-wrap {
+    background: #0d2935 !important;
+    border-color: #315b67 !important;
+    color: #eaf8fa !important;
+}
+
+html.dark-mode .payment-input:focus,
+body.dark-mode .payment-input:focus,
+html.dark-mode .upi-input-wrap:focus-within,
+body.dark-mode .upi-input-wrap:focus-within {
+    border-color: #18b8c5 !important;
+    box-shadow: 0 0 0 3px rgba(24, 184, 197, 0.12) !important;
+}
+
+html.dark-mode .payment-input::placeholder,
+body.dark-mode .payment-input::placeholder,
+html.dark-mode .upi-input-wrap input::placeholder,
+body.dark-mode .upi-input-wrap input::placeholder {
+    color: #718e98 !important;
+}
+
+html.dark-mode .upi-input-wrap input,
+body.dark-mode .upi-input-wrap input {
+    color: #eaf8fa !important;
+}
+
+/* UPI label */
+
+html.dark-mode .upi-verified,
+body.dark-mode .upi-verified {
+    background: #123f4a !important;
+    color: #35d5df !important;
+}
+
+/* ---------------------------------------------------------
+   DEMO WARNING
+--------------------------------------------------------- */
+
+html.dark-mode .payment-demo-warning,
+body.dark-mode .payment-demo-warning {
+    background: #26301f !important;
+    border-color: #69552c !important;
+}
+
+html.dark-mode .payment-demo-warning strong,
+body.dark-mode .payment-demo-warning strong {
+    color: #f0c86a !important;
+}
+
+html.dark-mode .payment-demo-warning p,
+body.dark-mode .payment-demo-warning p {
+    color: #c2b99f !important;
+}
+
+html.dark-mode .warning-icon,
+body.dark-mode .warning-icon {
+    background: #edf5ff !important;
+    color: #1677ed !important;
+}
+
+/* ---------------------------------------------------------
+   MODAL ACTION BUTTONS
+--------------------------------------------------------- */
+
+html.dark-mode .modal-cancel-btn,
+body.dark-mode .modal-cancel-btn {
+    background: #102f3b !important;
+    border-color: #315b67 !important;
+    color: #bcd0d5 !important;
+}
+
+html.dark-mode .modal-cancel-btn:hover,
+body.dark-mode .modal-cancel-btn:hover {
+    background: #173d49 !important;
+    color: #ffffff !important;
+}
+
+html.dark-mode .modal-confirm-btn,
+body.dark-mode .modal-confirm-btn {
+    background: linear-gradient(
+        135deg,
+        #079caf,
+        #087fce
+    ) !important;
+
+    border-color: #19b8c7 !important;
+    color: #ffffff !important;
+
+    box-shadow:
+        0 6px 16px rgba(0, 160, 190, 0.22) !important;
+}
+
+html.dark-mode .modal-confirm-btn:hover:not(:disabled),
+body.dark-mode .modal-confirm-btn:hover:not(:disabled) {
+    background: linear-gradient(
+        135deg,
+        #08b3c1,
+        #098fe0
+    ) !important;
+}
+
+/* =========================================================
+   PAYMENT BRAND ICON - DARK MODE
+========================================================= */
+
+html.dark-mode .payment-brand-icon,
+body.dark-mode .payment-brand-icon {
+  background: #e8f7ff !important;
+  color: #008cff !important;
+  border: 1px solid #9edbea !important;
+}
+
+html.dark-mode .payment-brand-icon svg,
+body.dark-mode .payment-brand-icon svg {
+  stroke: #008cff !important;
+  color: #008cff !important;
+}
+
+/* =========================================================
+   PATIENT BILLS - ALL ICONS DARK MODE FINAL
+========================================================= */
+
+/* ---------------------------------------------------------
+   BILLS PAGE HEADER ICON
+--------------------------------------------------------- */
+
+html.dark-mode .bills-title-icon,
+body.dark-mode .bills-title-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .bills-title-icon svg,
+body.dark-mode .bills-title-icon svg {
+    stroke: #27cbd6 !important;
+    color: #27cbd6 !important;
+}
+
+
+/* ---------------------------------------------------------
+   SUMMARY CARD ICONS
+--------------------------------------------------------- */
+
+html.dark-mode .summary-icon,
+body.dark-mode .summary-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .summary-icon svg,
+body.dark-mode .summary-icon svg {
+    stroke: #27cbd6 !important;
+    color: #27cbd6 !important;
+}
+
+
+/* ---------------------------------------------------------
+   BILL NUMBER ICON / CHIP
+--------------------------------------------------------- */
+
+html.dark-mode .bill-number,
+body.dark-mode .bill-number {
+    background: #123744 !important;
+    color: #54d9df !important;
+}
+
+
+/* ---------------------------------------------------------
+   PAYMENT HEADER ICON
+--------------------------------------------------------- */
+
+html.dark-mode .payment-brand-icon,
+body.dark-mode .payment-brand-icon {
+    background: #e8f7ff !important;
+    color: #008cff !important;
+    border: 1px solid #9edbea !important;
+}
+
+html.dark-mode .payment-brand-icon svg,
+body.dark-mode .payment-brand-icon svg {
+    stroke: #008cff !important;
+    color: #008cff !important;
+}
+
+
+/* ---------------------------------------------------------
+   PAYMENT METHOD ICONS
+--------------------------------------------------------- */
+
+html.dark-mode .payment-method-tab .method-icon,
+body.dark-mode .payment-method-tab .method-icon {
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .payment-method-tab.active .method-icon,
+body.dark-mode .payment-method-tab.active .method-icon {
+    color: #35d5df !important;
+}
+
+
+/* ---------------------------------------------------------
+   UPI APP LOGOS
+   Keep actual app colors
+--------------------------------------------------------- */
+
+html.dark-mode .upi-app-logo.gpay,
+body.dark-mode .upi-app-logo.gpay {
+    background: #e8efff !important;
+    color: #4285f4 !important;
+}
+
+html.dark-mode .upi-app-logo.phonepe,
+body.dark-mode .upi-app-logo.phonepe {
+    background: #eee5ff !important;
+    color: #6f35c5 !important;
+}
+
+html.dark-mode .upi-app-logo.paytm,
+body.dark-mode .upi-app-logo.paytm {
+    background: #e3f7ff !important;
+    color: #008cff !important;
+}
+
+
+/* ---------------------------------------------------------
+   UPI VERIFIED ICON / LABEL
+--------------------------------------------------------- */
+
+html.dark-mode .upi-verified,
+body.dark-mode .upi-verified {
+    background: #123f4a !important;
+    color: #35d5df !important;
+}
+
+
+/* ---------------------------------------------------------
+   WARNING / INFORMATION ICON
+--------------------------------------------------------- */
+
+html.dark-mode .warning-icon,
+body.dark-mode .warning-icon {
+    background: #edf5ff !important;
+    color: #1677ed !important;
+    border: 1px solid #9fc5ef !important;
+}
+
+html.dark-mode .warning-icon svg,
+body.dark-mode .warning-icon svg {
+    stroke: #1677ed !important;
+    color: #1677ed !important;
+}
+
+
+/* ---------------------------------------------------------
+   EDUCATIONAL NOTE ICON
+--------------------------------------------------------- */
+
+html.dark-mode .payment-note-icon,
+body.dark-mode .payment-note-icon {
+    background: #123b5a !important;
+    color: #62a9ff !important;
+}
+
+html.dark-mode .payment-note-icon svg,
+body.dark-mode .payment-note-icon svg {
+    stroke: #62a9ff !important;
+    color: #62a9ff !important;
+}
+
+
+/* ---------------------------------------------------------
+   HELP ICON
+--------------------------------------------------------- */
+
+html.dark-mode .billing-help-icon,
+body.dark-mode .billing-help-icon {
+    background: #123744 !important;
+    color: #8fb4bf !important;
+}
+
+html.dark-mode .billing-help-icon svg,
+body.dark-mode .billing-help-icon svg {
+    stroke: #8fb4bf !important;
+    color: #8fb4bf !important;
+}
+
+
+/* ---------------------------------------------------------
+   NO BILLS ICON
+--------------------------------------------------------- */
+
+html.dark-mode .no-bills-icon,
+body.dark-mode .no-bills-icon {
+    background: #123744 !important;
+    color: #27cbd6 !important;
+}
+
+html.dark-mode .no-bills-icon svg,
+body.dark-mode .no-bills-icon svg {
+    stroke: #27cbd6 !important;
+    color: #27cbd6 !important;
+}
+
+
+/* ---------------------------------------------------------
+   CLOSE BUTTON ICON
+--------------------------------------------------------- */
+
+html.dark-mode .payment-close-btn,
+body.dark-mode .payment-close-btn {
+    background: #173d49 !important;
+    border: 1px solid #2b5967 !important;
+    color: #d7e8ed !important;
+}
+
+html.dark-mode .payment-close-btn:hover,
+body.dark-mode .payment-close-btn:hover {
+    background: #214b59 !important;
+    color: #ffffff !important;
+}
+
+
+/* ---------------------------------------------------------
+   PAYMENT PROCESSING SPINNER
+--------------------------------------------------------- */
+
+html.dark-mode .payment-processing-spinner,
+body.dark-mode .payment-processing-spinner {
+    border-color: rgba(255, 255, 255, 0.30) !important;
+    border-top-color: #ffffff !important;
+}
