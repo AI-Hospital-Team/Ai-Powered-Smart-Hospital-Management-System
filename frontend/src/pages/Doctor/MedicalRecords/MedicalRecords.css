@@ -3,6 +3,7 @@
    ========================================================= */
 
 .doctor-records-page {
+  animation: doctorPageIn 0.45s ease both;
   width: 100%;
   min-height: 100%;
   padding: 24px;
@@ -1196,5 +1197,21 @@
   .record-cancel-button,
   .record-save-button {
     width: 100%;
+  }
+}
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+@keyframes doctorPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
