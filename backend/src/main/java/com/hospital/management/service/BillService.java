@@ -6,20 +6,56 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hospital.management.entity.Bill;
+import com.hospital.management.entity.Doctor;
 import com.hospital.management.repository.BillRepository;
+import com.hospital.management.repository.DoctorRepository;
 
 @Service
 public class BillService {
 
     private final BillRepository billRepository;
+    private final DoctorRepository doctorRepository;
     private final NotificationService notificationService;
 
     public BillService(
             BillRepository billRepository,
+            DoctorRepository doctorRepository,
             NotificationService notificationService) {
 
         this.billRepository = billRepository;
+        this.doctorRepository = doctorRepository;
         this.notificationService = notificationService;
+    }
+
+    // ==========================================
+    // ATTACH DOCTOR NAME
+    // ==========================================
+
+    private Bill attachDoctorName(Bill bill) {
+
+        if (bill == null || bill.getDoctorId() == null) {
+            return bill;
+        }
+
+        doctorRepository.findById(
+                bill.getDoctorId()
+        ).ifPresent(doctor ->
+                bill.setDoctorName(
+                        doctor.getName()
+                )
+        );
+
+        return bill;
+    }
+
+    private List<Bill> attachDoctorNames(
+            List<Bill> bills) {
+
+        bills.forEach(
+                this::attachDoctorName
+        );
+
+        return bills;
     }
 
     // ==========================================
@@ -63,7 +99,7 @@ public class BillService {
             );
         }
 
-        return savedBill;
+        return attachDoctorName(savedBill);
     }
 
     // ==========================================
@@ -72,7 +108,9 @@ public class BillService {
 
     public List<Bill> getAllBills() {
 
-        return billRepository.findAll();
+        return attachDoctorNames(
+                billRepository.findAll()
+        );
     }
 
     // ==========================================
@@ -82,8 +120,10 @@ public class BillService {
     public List<Bill> getBillsByPatient(
             Integer patientId) {
 
-        return billRepository.findByPatientId(
-                patientId
+        return attachDoctorNames(
+                billRepository.findByPatientId(
+                        patientId
+                )
         );
     }
 
@@ -94,8 +134,10 @@ public class BillService {
     public List<Bill> getBillsByDoctor(
             Integer doctorId) {
 
-        return billRepository.findByDoctorId(
-                doctorId
+        return attachDoctorNames(
+                billRepository.findByDoctorId(
+                        doctorId
+                )
         );
     }
 
@@ -106,14 +148,17 @@ public class BillService {
     public Bill getBillById(
             Integer billId) {
 
-        return billRepository.findById(
-                billId
-        ).orElseThrow(
-                () -> new RuntimeException(
-                        "Bill not found with ID: "
-                                + billId
-                )
-        );
+        Bill bill =
+                billRepository.findById(
+                        billId
+                ).orElseThrow(
+                        () -> new RuntimeException(
+                                "Bill not found with ID: "
+                                        + billId
+                        )
+                );
+
+        return attachDoctorName(bill);
     }
 
     // ==========================================
@@ -190,7 +235,7 @@ public class BillService {
             );
         }
 
-        return savedBill;
+        return attachDoctorName(savedBill);
     }
 
     // ==========================================
@@ -253,6 +298,6 @@ public class BillService {
             );
         }
 
-        return updatedBill;
+        return attachDoctorName(updatedBill);
     }
 }

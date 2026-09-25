@@ -1486,47 +1486,7 @@ function Bills() {
 
             </div>
 
-{/* ACTION */}
 
-<td>
-
-  {isPending && (
-    <div className="payment-cell">
-
-      <button
-        className={`pay-button ${
-          isPaying ? "paying" : ""
-        }`}
-        type="button"
-        onClick={() =>
-          openPaymentModal(
-            billId,
-            bill?.amount
-          )
-        }
-        disabled={payingBillId !== null}
-      >
-        {isPaying
-          ? "Processing..."
-          : "Pay Now"}
-      </button>
-
-    </div>
-  )}
-
-  {isPaid && (
-    <span className="completed-label">
-      Completed
-    </span>
-  )}
-
-  {isCancelled && (
-    <span className="cancelled-label">
-      Not Available
-    </span>
-  )}
-
-</td>
 
           </div>
 
