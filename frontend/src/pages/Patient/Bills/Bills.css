@@ -8,6 +8,7 @@
   padding: 32px;
   box-sizing: border-box;
   color: #123b5d;
+  animation: patientBillsPageIn 0.45s ease both;
 }
 
 
@@ -853,5 +854,27 @@
   .modal-cancel-btn,
   .modal-confirm-btn {
     width: 100%;
+  }
+}
+
+/* =========================================================
+   PATIENT BILLS PAGE ANIMATION
+========================================================= */
+
+@keyframes patientBillsPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .patient-bills-page {
+    animation: none;
   }
 }

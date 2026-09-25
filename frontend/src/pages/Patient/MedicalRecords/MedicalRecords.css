@@ -7,6 +7,7 @@
   min-height: 100%;
   padding: 32px 48px;
   box-sizing: border-box;
+  animation: patientMedicalRecordsPageIn 0.45s ease both;
 }
 
 /* =========================================================
@@ -798,5 +799,27 @@
   .delete-cancel-button,
   .delete-confirm-button {
     width: 100%;
+  }
+}
+
+/* =========================================================
+   PATIENT MEDICAL RECORDS PAGE ANIMATION
+========================================================= */
+
+@keyframes patientMedicalRecordsPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medical-records-page {
+    animation: none;
   }
 }
