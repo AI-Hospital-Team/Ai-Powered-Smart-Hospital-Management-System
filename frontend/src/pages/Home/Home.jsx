@@ -1296,43 +1296,7 @@ function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          HEALTHCARE STATISTICS
-      ===================================================== */}
-      <section className="home-stats-section">
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="doctor" size={27} />
-          </div>
-          <strong>50+</strong>
-          <span>Expert Doctors</span>
-        </div>
-
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="hospital" size={27} />
-          </div>
-          <strong>15+</strong>
-          <span>Departments</span>
-        </div>
-
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="heart" size={27} />
-          </div>
-          <strong>10K+</strong>
-          <span>Happy Patients</span>
-        </div>
-
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="star" size={27} />
-          </div>
-          <strong>4.9/5</strong>
-          <span>Patient Rating</span>
-        </div>
-      </section>
-      
+     
 {/* =====================================================
     SERVICES
 ===================================================== */}
