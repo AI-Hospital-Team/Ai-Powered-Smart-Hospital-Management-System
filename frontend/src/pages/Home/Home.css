@@ -8334,10 +8334,7 @@ body {
   letter-spacing: 1px;
 }
 
-.project-team strong {
-  color: #123f52;
-  font-size: 12px;
-}
+
 
 .project-intro-main {
   display: grid;
@@ -17420,4 +17417,318 @@ body {
 .forgot-password-link:hover {
   color: #1d4ed8;
   text-decoration: underline;
+}
+
+/* =========================================================
+   PROJECT INTRO TOP CARDS
+   Educational | Team | GitHub
+   NORMAL / LIGHT MODE
+========================================================= */
+
+.project-intro-top {
+  width: 100% !important;
+
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+  gap: 18px !important;
+
+  align-items: stretch !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   COMMON SIZE
+========================================================= */
+
+.project-intro-top .project-intro-badge,
+.project-intro-top .project-team,
+.project-intro-top .hero-github-link {
+
+  width: 100% !important;
+
+  height: 76px !important;
+  min-height: 76px !important;
+  max-height: 76px !important;
+
+  box-sizing: border-box !important;
+
+  border-radius: 18px !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease !important;
+}
+
+
+/* =========================================================
+   EDUCATIONAL PROJECT
+========================================================= */
+
+.project-intro-top .project-intro-badge {
+
+  justify-content: flex-start !important;
+
+  gap: 12px !important;
+
+  padding: 0 24px !important;
+
+  background: rgba(255, 255, 255, 0.82) !important;
+
+  border: 1px solid rgba(20, 130, 145, 0.14) !important;
+
+  box-shadow:
+    0 8px 25px rgba(20, 90, 105, 0.06) !important;
+
+  color: #087f8c !important;
+}
+
+
+/* =========================================================
+   PROJECT TEAM
+========================================================= */
+
+.project-intro-top .project-team {
+
+  justify-content: flex-start !important;
+
+  gap: 12px !important;
+
+  padding: 0 24px !important;
+
+  background: rgba(255, 255, 255, 0.82) !important;
+
+  border: 1px solid rgba(20, 130, 145, 0.14) !important;
+
+  box-shadow:
+    0 8px 25px rgba(20, 90, 105, 0.06) !important;
+}
+
+
+/* Team icon */
+
+.project-intro-top .project-team-icon {
+
+  width: 24px !important;
+  height: 24px !important;
+
+  flex: 0 0 24px !important;
+
+  color: #0794a2 !important;
+
+  transition:
+    transform 0.3s ease !important;
+}
+
+
+/* =========================================================
+   GITHUB
+========================================================= */
+
+.project-intro-top .hero-github-link {
+
+  justify-content: center !important;
+
+  gap: 12px !important;
+
+  padding: 0 20px !important;
+
+  background: rgba(255, 255, 255, 0.82) !important;
+
+  border: 1px solid rgba(20, 130, 145, 0.14) !important;
+
+  box-shadow:
+    0 8px 25px rgba(20, 90, 105, 0.06) !important;
+
+  color: #123f52 !important;
+
+  text-decoration: none !important;
+}
+
+
+/* GitHub icon */
+
+.project-intro-top .hero-github-link .github-mark {
+
+  width: 40px !important;
+  height: 40px !important;
+
+  min-width: 40px !important;
+  min-height: 40px !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 12px !important;
+
+  background: #0b4862 !important;
+
+  color: #ffffff !important;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease !important;
+}
+
+
+/* GitHub text */
+
+.project-intro-top .hero-github-link > span:nth-child(2) {
+
+  font-size: 15px !important;
+
+  font-weight: 800 !important;
+
+  white-space: nowrap !important;
+}
+
+
+/* GitHub arrow */
+
+.project-intro-top .hero-github-link > svg {
+
+  color: #079db0 !important;
+
+  transition:
+    transform 0.3s ease !important;
+}
+
+
+/* =========================================================
+   SAME HOVER ANIMATION
+========================================================= */
+
+.project-intro-top .project-intro-badge:hover,
+.project-intro-top .project-team:hover,
+.project-intro-top .hero-github-link:hover {
+
+  transform: translateY(-4px) !important;
+
+  border-color:
+    rgba(20, 180, 195, 0.38) !important;
+
+  box-shadow:
+    0 14px 32px rgba(20, 100, 115, 0.13) !important;
+}
+
+
+/* Icon animation */
+
+.project-intro-top .project-intro-badge:hover
+.project-intro-badge-icon,
+
+.project-intro-top .project-team:hover
+.project-team-icon,
+
+.project-intro-top .hero-github-link:hover
+.github-mark {
+
+  transform: scale(1.08) !important;
+}
+
+
+/* GitHub arrow animation */
+
+.project-intro-top .hero-github-link:hover > svg {
+
+  transform: translateX(4px) !important;
+}
+
+
+/* =========================================================
+   MOBILE / TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .project-intro-top {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 16px !important;
+  }
+
+  .project-intro-top .hero-github-link {
+
+    grid-column: 1 / -1 !important;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .project-intro-top {
+
+    grid-template-columns: 1fr !important;
+
+    gap: 14px !important;
+  }
+
+  .project-intro-top .hero-github-link {
+
+    grid-column: auto !important;
+  }
+}
+
+/* PROJECT TEAM NAME — LIGHT MODE */
+.home-page.light-theme .project-intro-top .project-team > div > strong {
+  color: #123f52 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+  -webkit-text-fill-color: #123f52 !important;
+  text-shadow: none !important;
+}
+
+/* =========================================================
+   PROJECT HIGHLIGHT CARDS — COMPACT ALL MODES
+========================================================= */
+
+.project-highlight-card {
+  min-height: 82px !important;
+  height: 82px !important;
+  padding: 12px 14px !important;
+  gap: 11px !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+}
+
+/* Icon */
+.project-highlight-icon {
+  width: 38px !important;
+  height: 38px !important;
+  flex: 0 0 38px !important;
+  padding: 8px !important;
+  border-radius: 10px !important;
+}
+
+/* Title */
+.project-highlight-card strong {
+  margin: 0 0 4px !important;
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+}
+
+/* Description */
+.project-highlight-card small {
+  font-size: 9px !important;
+  line-height: 1.4 !important;
+}
+
+@media (max-width: 760px) {
+  .project-highlight-card {
+    height: auto !important;
+    min-height: 78px !important;
+    padding: 11px 13px !important;
+  }
 }

@@ -754,7 +754,7 @@ function Home() {
     );
   };
 
-  
+
 if (shiftLoading) {
   return (
     <div
@@ -972,7 +972,16 @@ return (
               </span>
               <div>
                 <span>PROJECT TEAM</span>
-                <strong>Prathmesh Panmand &amp; Radheshyam Wayal</strong>
+                <strong
+                  style={{
+                    color: darkMode ? "#d9eef1" : "#123f52",
+                    WebkitTextFillColor: darkMode ? "#d9eef1" : "#123f52",
+                    background: "none",
+                    backgroundImage: "none",
+                  }}
+                >
+                  Prathmesh Panmand &amp; Radheshyam Wayal
+                </strong>
               </div>
             </div>
 
