@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import "./PatientDashboard.css";
+import SkeletonPatientDashboard from "../../components/Skeleton/SkeletonPatientDashboard";
 
 const API_URL = "http://localhost:8080/api";
 
@@ -615,15 +616,13 @@ function PatientDashboard() {
      LOADING SCREEN
   ========================================================= */
 
-  if (loading) {
-    return (
-      <div className="patient-dashboard-loading">
-        <div className="dashboard-loader"></div>
-
-        <p>Loading your dashboard...</p>
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="patient-dashboard">
+      <SkeletonPatientDashboard />
+    </div>
+  );
+}
 
   /* =========================================================
      RENDER
