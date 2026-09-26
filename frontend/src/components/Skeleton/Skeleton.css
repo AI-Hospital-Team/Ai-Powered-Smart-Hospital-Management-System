@@ -9043,3 +9043,1966 @@ body.dark-mode .skeleton-book-form-card {
     width: 100% !important;
   }
 }
+
+/* =========================================================
+   HOME PAGE — FULL PAGE SKELETON
+========================================================= */
+
+.skeleton-home {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+.skeleton-home .skeleton {
+  display: block;
+}
+
+.skeleton-home-section-heading {
+  width: min(1180px, 90%);
+  margin: 75px auto 35px;
+  text-align: center;
+}
+
+.skeleton-home-section-heading > .skeleton:first-child {
+  width: 110px;
+  height: 11px;
+  margin: 0 auto 13px;
+}
+
+.skeleton-home-section-heading > .skeleton:nth-child(2) {
+  width: 300px;
+  height: 30px;
+  margin: 0 auto 12px;
+}
+
+.skeleton-home-section-heading > .skeleton:last-child {
+  width: 390px;
+  max-width: 90%;
+  height: 12px;
+  margin: auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.skeleton-home-header {
+  height: 82px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e4edf1;
+  background: #ffffff;
+}
+
+.skeleton-home-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.skeleton-home-logo {
+  width: 46px !important;
+  height: 46px !important;
+  min-width: 46px !important;
+  border-radius: 12px !important;
+}
+
+.skeleton-home-brand-title {
+  width: 155px;
+  height: 18px;
+  margin-bottom: 7px;
+}
+
+.skeleton-home-brand-subtitle {
+  width: 190px;
+  height: 9px;
+}
+
+.skeleton-home-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  flex: 1;
+}
+
+.skeleton-home-nav-item {
+  width: 55px;
+  height: 10px;
+}
+
+.skeleton-home-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.skeleton-home-action-btn {
+  width: 85px !important;
+  height: 38px !important;
+}
+
+
+/* =========================================================
+   PROJECT INTRO
+========================================================= */
+
+.skeleton-home-project {
+  width: min(1180px, 90%);
+  margin: 45px auto 0;
+  padding: 32px 38px;
+  box-sizing: border-box;
+  border: 1px solid #e3edf1;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.skeleton-project-label {
+  width: 125px;
+  height: 10px;
+  margin-bottom: 18px;
+}
+
+.skeleton-project-title {
+  width: 600px;
+  max-width: 90%;
+  height: 34px;
+  margin-bottom: 10px;
+}
+
+.skeleton-project-title.short {
+  width: 420px;
+}
+
+.skeleton-project-description {
+  width: 650px;
+  max-width: 90%;
+  height: 13px;
+  margin-top: 18px;
+}
+
+.skeleton-project-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.skeleton-project-actions .skeleton {
+  width: 140px !important;
+  height: 42px !important;
+}
+
+.skeleton-project-footer {
+  display: flex;
+  gap: 25px;
+  margin-top: 28px;
+}
+
+.skeleton-project-footer .skeleton {
+  width: 150px;
+  height: 10px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.skeleton-home-hero {
+  width: min(1180px, 90%);
+  min-height: 570px;
+  margin: 55px auto 0;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 55px;
+  align-items: center;
+}
+
+.skeleton-hero-content {
+  min-width: 0;
+}
+
+.skeleton-hero-badge {
+  width: 205px;
+  height: 11px;
+  margin-bottom: 23px;
+}
+
+.skeleton-hero-title {
+  width: 470px;
+  max-width: 95%;
+  height: 45px;
+  margin-bottom: 10px;
+}
+
+.skeleton-hero-title.short {
+  width: 330px;
+}
+
+.skeleton-hero-description {
+  width: 570px;
+  max-width: 95%;
+  height: 13px;
+  margin-top: 24px;
+  margin-bottom: 9px;
+}
+
+.skeleton-hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.skeleton-hero-actions .skeleton {
+  width: 155px !important;
+  height: 44px !important;
+}
+
+.skeleton-hero-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.skeleton-hero-feature {
+  width: 145px;
+  height: 10px;
+}
+
+.skeleton-hero-card {
+  min-height: 405px;
+  padding: 35px;
+  box-sizing: border-box;
+  border: 1px solid #dce9ee;
+  border-radius: 25px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.skeleton-hero-card-logo {
+  width: 55px !important;
+  height: 55px !important;
+  min-width: 55px !important;
+  margin-bottom: 20px;
+}
+
+.skeleton-hero-card-title {
+  width: 230px;
+  height: 21px;
+  margin-bottom: 12px;
+}
+
+.skeleton-hero-card-text {
+  width: 310px;
+  max-width: 100%;
+  height: 12px;
+  margin-bottom: 25px;
+}
+
+.skeleton-hero-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.skeleton-hero-tools .skeleton {
+  height: 105px !important;
+  border-radius: 15px !important;
+}
+
+.skeleton-hero-card-footer {
+  width: 230px;
+  height: 10px;
+  margin-top: 25px;
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.skeleton-home-services {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.skeleton-service-card {
+  min-height: 220px;
+  padding: 28px;
+  box-sizing: border-box;
+  border: 1px solid #e2edf1;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.skeleton-service-icon {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  margin-bottom: 20px;
+}
+
+.skeleton-service-title {
+  width: 150px;
+  height: 18px;
+  margin-bottom: 14px;
+}
+
+.skeleton-service-text {
+  width: 90%;
+  height: 10px;
+  margin-bottom: 7px;
+}
+
+.skeleton-service-text.short {
+  width: 65%;
+}
+
+.skeleton-service-link {
+  width: 90px;
+  height: 10px;
+  margin-top: 22px;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.skeleton-home-gallery {
+  width: min(1180px, 90%);
+  margin: 60px auto 0;
+  display: grid;
+  grid-template-columns: 1.45fr .8fr;
+  gap: 20px;
+}
+
+.skeleton-gallery-large {
+  min-height: 360px;
+}
+
+.skeleton-gallery-small {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+}
+
+.skeleton-gallery-large .skeleton,
+.skeleton-gallery-small .skeleton {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 170px;
+  border-radius: 18px !important;
+}
+
+
+/* =========================================================
+   INSURANCE
+========================================================= */
+
+.skeleton-home-insurance {
+  width: min(1180px, 90%);
+  margin: 75px auto 0;
+  padding: 45px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr .85fr;
+  gap: 55px;
+  align-items: center;
+  border: 1px solid #e0ebef;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.skeleton-insurance-label {
+  width: 230px;
+  height: 10px;
+  margin-bottom: 18px;
+}
+
+.skeleton-insurance-title {
+  width: 390px;
+  max-width: 95%;
+  height: 30px;
+  margin-bottom: 9px;
+}
+
+.skeleton-insurance-title.short {
+  width: 280px;
+}
+
+.skeleton-insurance-text {
+  width: 90%;
+  height: 11px;
+  margin-top: 16px;
+}
+
+.skeleton-insurance-button {
+  width: 145px !important;
+  height: 42px !important;
+  margin-top: 25px;
+}
+
+.skeleton-insurance-image {
+  width: 100% !important;
+  height: 300px !important;
+  border-radius: 18px !important;
+}
+
+
+/* =========================================================
+   DEPARTMENTS
+========================================================= */
+
+.skeleton-home-departments {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.skeleton-department-card {
+  min-height: 190px;
+  padding: 25px;
+  box-sizing: border-box;
+  border: 1px solid #e2edf1;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.skeleton-department-icon {
+  width: 45px !important;
+  height: 45px !important;
+  min-width: 45px !important;
+  margin-bottom: 18px;
+}
+
+.skeleton-department-title {
+  width: 120px;
+  height: 17px;
+  margin-bottom: 12px;
+}
+
+.skeleton-department-text {
+  width: 90%;
+  height: 10px;
+}
+
+.skeleton-department-link {
+  width: 105px;
+  height: 10px;
+  margin-top: 22px;
+}
+
+
+/* =========================================================
+   DOCTORS
+========================================================= */
+
+.skeleton-home-doctors {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.skeleton-doctor-card {
+  min-height: 340px;
+  padding: 22px;
+  box-sizing: border-box;
+  border: 1px solid #e1ebef;
+  border-radius: 17px;
+  background: #ffffff;
+}
+
+.skeleton-doctor-photo {
+  width: 100% !important;
+  height: 155px !important;
+  min-width: 0 !important;
+  border-radius: 14px !important;
+  margin-bottom: 17px;
+}
+
+.skeleton-doctor-status {
+  width: 105px;
+  height: 9px;
+  margin-bottom: 11px;
+}
+
+.skeleton-doctor-name {
+  width: 145px;
+  height: 18px;
+  margin-bottom: 9px;
+}
+
+.skeleton-doctor-specialization {
+  width: 110px;
+  height: 10px;
+  margin-bottom: 16px;
+}
+
+.skeleton-doctor-description {
+  width: 90%;
+  height: 10px;
+}
+
+.skeleton-doctor-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+}
+
+.skeleton-doctor-bottom .skeleton {
+  width: 65px;
+  height: 10px;
+}
+
+
+/* =========================================================
+   DOCTOR AVAILABILITY
+========================================================= */
+
+.skeleton-home-availability {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.skeleton-shift-column {
+  padding: 25px;
+  box-sizing: border-box;
+  border: 1px solid #e1ebef;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.skeleton-shift-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 25px;
+}
+
+.skeleton-shift-header > .skeleton {
+  width: 45px !important;
+  height: 45px !important;
+  min-width: 45px !important;
+}
+
+.skeleton-shift-header > div .skeleton:first-child {
+  width: 125px;
+  height: 15px;
+  margin-bottom: 7px;
+}
+
+.skeleton-shift-header > div .skeleton:last-child {
+  width: 90px;
+  height: 9px;
+}
+
+.skeleton-shift-doctor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #edf2f4;
+}
+
+.skeleton-shift-avatar {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+}
+
+.skeleton-shift-info {
+  flex: 1;
+}
+
+.skeleton-shift-info .skeleton:first-child {
+  width: 125px;
+  height: 11px;
+  margin-bottom: 6px;
+}
+
+.skeleton-shift-info .skeleton:last-child {
+  width: 90px;
+  height: 8px;
+}
+
+.skeleton-shift-status {
+  width: 70px;
+  height: 9px;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.skeleton-home-about {
+  width: min(1180px, 90%);
+  margin: 75px auto 0;
+  display: grid;
+  grid-template-columns: 1fr .85fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.skeleton-about-content > .skeleton:first-child {
+  width: 120px;
+  height: 10px;
+  margin-bottom: 17px;
+}
+
+.skeleton-about-content > .skeleton:nth-child(2) {
+  width: 370px;
+  max-width: 95%;
+  height: 31px;
+  margin-bottom: 8px;
+}
+
+.skeleton-about-content > .skeleton:nth-child(3) {
+  width: 260px;
+  height: 31px;
+  margin-bottom: 22px;
+}
+
+.skeleton-about-content > .skeleton:nth-child(4),
+.skeleton-about-content > .skeleton:nth-child(5) {
+  width: 90%;
+  height: 11px;
+  margin-bottom: 9px;
+}
+
+.skeleton-about-features {
+  margin-top: 28px;
+}
+
+.skeleton-about-feature {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 17px;
+}
+
+.skeleton-about-feature > .skeleton {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+}
+
+.skeleton-about-feature > div {
+  flex: 1;
+}
+
+.skeleton-about-feature .skeleton:first-child {
+  width: 150px;
+  height: 10px;
+  margin-bottom: 6px;
+}
+
+.skeleton-about-feature .skeleton:last-child {
+  width: 80%;
+  height: 8px;
+}
+
+.skeleton-about-card {
+  min-height: 380px;
+  padding: 30px;
+  box-sizing: border-box;
+  border: 1px solid #e0ebef;
+  border-radius: 22px;
+  background: #ffffff;
+}
+
+.skeleton-about-card > .skeleton:first-child {
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  margin-bottom: 20px;
+}
+
+.skeleton-about-card > .skeleton:nth-child(2) {
+  width: 200px;
+  height: 20px;
+  margin-bottom: 12px;
+}
+
+.skeleton-about-card > .skeleton:nth-child(3) {
+  width: 260px;
+  max-width: 100%;
+  height: 10px;
+}
+
+.skeleton-about-inner-card {
+  width: 100% !important;
+  height: 145px !important;
+  margin-top: 25px;
+  border-radius: 14px !important;
+}
+
+
+/* =========================================================
+   AI CHATBOT
+========================================================= */
+
+.skeleton-home-chat {
+  width: min(1000px, 90%);
+  margin: 75px auto 0;
+}
+
+.skeleton-chat-intro {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.skeleton-chat-intro > .skeleton {
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+}
+
+.skeleton-chat-intro > div .skeleton:first-child {
+  width: 145px;
+  height: 9px;
+  margin-bottom: 8px;
+}
+
+.skeleton-chat-intro > div .skeleton:last-child {
+  width: 240px;
+  height: 18px;
+}
+
+.skeleton-chat-window {
+  border: 1px solid #dfeaed;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.skeleton-chat-header {
+  height: 72px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e5edef;
+}
+
+.skeleton-chat-header > .skeleton {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+}
+
+.skeleton-chat-header > div .skeleton:first-child {
+  width: 160px;
+  height: 11px;
+  margin-bottom: 6px;
+}
+
+.skeleton-chat-header > div .skeleton:last-child {
+  width: 90px;
+  height: 8px;
+}
+
+.skeleton-chat-messages {
+  min-height: 240px;
+  padding: 25px;
+}
+
+.skeleton-message {
+  height: 48px !important;
+  border-radius: 13px !important;
+  margin-bottom: 16px;
+}
+
+.skeleton-message.bot {
+  width: 65% !important;
+}
+
+.skeleton-message.user {
+  width: 45% !important;
+  margin-left: auto;
+}
+
+.skeleton-chat-input {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid #e5edef;
+}
+
+.skeleton-chat-input .skeleton:first-child {
+  flex: 1;
+  height: 43px !important;
+}
+
+.skeleton-chat-input .skeleton:last-child {
+  width: 75px !important;
+  height: 43px !important;
+}
+
+
+/* =========================================================
+   HOSPITAL INFO
+========================================================= */
+
+.skeleton-home-info {
+  width: min(1180px, 90%);
+  margin: 65px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.skeleton-info-card {
+  min-height: 180px;
+  padding: 25px;
+  box-sizing: border-box;
+  border: 1px solid #e1ebef;
+  border-radius: 17px;
+  background: #ffffff;
+}
+
+.skeleton-info-card > .skeleton:first-child {
+  width: 43px !important;
+  height: 43px !important;
+  min-width: 43px !important;
+  margin-bottom: 17px;
+}
+
+.skeleton-info-card > .skeleton:nth-child(2) {
+  width: 145px;
+  height: 17px;
+  margin-bottom: 12px;
+}
+
+.skeleton-info-card > .skeleton:nth-child(3),
+.skeleton-info-card > .skeleton:nth-child(4) {
+  width: 85%;
+  height: 9px;
+  margin-bottom: 7px;
+}
+
+.skeleton-info-card > .skeleton:last-child {
+  width: 110px;
+  height: 9px;
+  margin-top: 13px;
+}
+
+
+/* =========================================================
+   AI HEALTHCARE
+========================================================= */
+
+.skeleton-home-ai {
+  width: min(1180px, 90%);
+  margin: 80px auto 0;
+  padding: 50px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 50px;
+  align-items: center;
+  border: 1px solid #dfeaed;
+  border-radius: 22px;
+  background: #ffffff;
+}
+
+.skeleton-ai-content > .skeleton:first-child {
+  width: 130px;
+  height: 10px;
+  margin-bottom: 18px;
+}
+
+.skeleton-ai-content > .skeleton:nth-child(2) {
+  width: 330px;
+  height: 31px;
+  margin-bottom: 8px;
+}
+
+.skeleton-ai-content > .skeleton:nth-child(3) {
+  width: 240px;
+  height: 31px;
+  margin-bottom: 22px;
+}
+
+.skeleton-ai-content > .skeleton:nth-child(4),
+.skeleton-ai-content > .skeleton:nth-child(5) {
+  width: 90%;
+  height: 10px;
+  margin-bottom: 8px;
+}
+
+.skeleton-ai-content > .skeleton:last-child {
+  width: 150px !important;
+  height: 43px !important;
+  margin-top: 23px;
+}
+
+.skeleton-ai-visual {
+  min-height: 390px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skeleton-ai-core {
+  width: 180px !important;
+  height: 180px !important;
+  min-width: 180px !important;
+}
+
+.skeleton-ai-feature {
+  position: absolute;
+  width: 125px !important;
+  height: 55px !important;
+  border-radius: 13px !important;
+}
+
+.skeleton-ai-feature-1 {
+  top: 35px;
+  left: 0;
+}
+
+.skeleton-ai-feature-2 {
+  top: 70px;
+  right: 0;
+}
+
+.skeleton-ai-feature-3 {
+  bottom: 55px;
+  left: 15px;
+}
+
+.skeleton-ai-feature-4 {
+  bottom: 25px;
+  right: 15px;
+}
+
+
+/* =========================================================
+   SUPPORT
+========================================================= */
+
+.skeleton-home-support {
+  width: min(1180px, 90%);
+  margin: 75px auto 0;
+}
+
+.skeleton-support-heading {
+  text-align: center;
+}
+
+.skeleton-support-heading .skeleton:first-child {
+  width: 120px;
+  height: 10px;
+  margin: 0 auto 13px;
+}
+
+.skeleton-support-heading .skeleton:nth-child(2) {
+  width: 300px;
+  height: 29px;
+  margin: 0 auto 12px;
+}
+
+.skeleton-support-heading .skeleton:last-child {
+  width: 370px;
+  max-width: 90%;
+  height: 10px;
+  margin: auto;
+}
+
+.skeleton-support-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 35px;
+}
+
+.skeleton-support-card {
+  min-height: 135px;
+  padding: 23px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  border: 1px solid #e1ebef;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.skeleton-support-card > .skeleton {
+  width: 43px !important;
+  height: 43px !important;
+  min-width: 43px !important;
+}
+
+.skeleton-support-card-content {
+  flex: 1;
+}
+
+.skeleton-support-card .skeleton:nth-child(2) {
+  width: 100px;
+  height: 8px;
+  margin-bottom: 8px;
+}
+
+.skeleton-support-card .skeleton:nth-child(3) {
+  width: 145px;
+  height: 15px;
+  margin-bottom: 10px;
+}
+
+.skeleton-support-card .skeleton:nth-child(4) {
+  width: 120px;
+  height: 9px;
+}
+
+.skeleton-support-footer {
+  width: 290px;
+  max-width: 90%;
+  height: 10px;
+  margin: 25px auto 0;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.skeleton-home-footer {
+  margin-top: 80px;
+  padding: 55px 5% 25px;
+  background: #ffffff;
+  border-top: 1px solid #e1ebef;
+}
+
+.skeleton-footer-main {
+  width: min(1180px, 100%);
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.4fr .7fr .8fr 1fr;
+  gap: 45px;
+}
+
+.skeleton-footer-brand {
+  min-width: 0;
+}
+
+.skeleton-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.skeleton-footer-logo > .skeleton {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+}
+
+.skeleton-footer-logo > div .skeleton:first-child {
+  width: 145px;
+  height: 16px;
+  margin-bottom: 7px;
+}
+
+.skeleton-footer-logo > div .skeleton:last-child {
+  width: 180px;
+  height: 8px;
+}
+
+.skeleton-footer-brand > .skeleton {
+  width: 90%;
+  height: 9px;
+  margin-bottom: 8px;
+}
+
+.skeleton-footer-social {
+  width: 150px !important;
+  height: 38px !important;
+  margin-top: 18px;
+}
+
+.skeleton-footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-footer-column > .skeleton:first-child {
+  width: 100px;
+  height: 15px;
+  margin-bottom: 6px;
+}
+
+.skeleton-footer-column > .skeleton:not(:first-child) {
+  width: 90px;
+  height: 9px;
+}
+
+.skeleton-footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.skeleton-footer-contact > .skeleton:first-child {
+  width: 110px;
+  height: 15px;
+  margin-bottom: 5px;
+}
+
+.skeleton-footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skeleton-footer-contact-item .skeleton:first-child {
+  width: 27px !important;
+  height: 27px !important;
+  min-width: 27px !important;
+}
+
+.skeleton-footer-contact-item .skeleton:last-child {
+  width: 140px;
+  height: 9px;
+}
+
+.skeleton-footer-emergency {
+  width: 100% !important;
+  height: 65px !important;
+  margin-top: 8px;
+  border-radius: 11px !important;
+}
+
+.skeleton-footer-project {
+  width: min(1180px, 100%);
+  margin: 45px auto 0;
+  padding: 25px 0;
+  border-top: 1px solid #e5edef;
+  border-bottom: 1px solid #e5edef;
+}
+
+.skeleton-footer-project .skeleton:first-child {
+  width: 95px;
+  height: 9px;
+  margin-bottom: 11px;
+}
+
+.skeleton-footer-project .skeleton:nth-child(2) {
+  width: 310px;
+  height: 21px;
+  margin-bottom: 9px;
+}
+
+.skeleton-footer-project .skeleton:last-child {
+  width: 390px;
+  max-width: 90%;
+  height: 9px;
+}
+
+.skeleton-footer-bottom {
+  width: min(1180px, 100%);
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.skeleton-footer-bottom .skeleton {
+  width: 150px;
+  height: 9px;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html.dark-mode .skeleton-home-header,
+body.dark-mode .skeleton-home-header,
+html.dark-mode .skeleton-home-project,
+body.dark-mode .skeleton-home-project,
+html.dark-mode .skeleton-hero-card,
+body.dark-mode .skeleton-hero-card,
+html.dark-mode .skeleton-service-card,
+body.dark-mode .skeleton-service-card,
+html.dark-mode .skeleton-home-insurance,
+body.dark-mode .skeleton-home-insurance,
+html.dark-mode .skeleton-department-card,
+body.dark-mode .skeleton-department-card,
+html.dark-mode .skeleton-doctor-card,
+body.dark-mode .skeleton-doctor-card,
+html.dark-mode .skeleton-shift-column,
+body.dark-mode .skeleton-shift-column,
+html.dark-mode .skeleton-about-card,
+body.dark-mode .skeleton-about-card,
+html.dark-mode .skeleton-chat-window,
+body.dark-mode .skeleton-chat-window,
+html.dark-mode .skeleton-info-card,
+body.dark-mode .skeleton-info-card,
+html.dark-mode .skeleton-home-ai,
+body.dark-mode .skeleton-home-ai,
+html.dark-mode .skeleton-support-card,
+body.dark-mode .skeleton-support-card,
+html.dark-mode .skeleton-home-footer,
+body.dark-mode .skeleton-home-footer {
+  background: #10242d;
+  border-color: #294954;
+}
+
+html.dark-mode .skeleton-home-header,
+body.dark-mode .skeleton-home-header {
+  border-bottom-color: #294954;
+}
+
+html.dark-mode .skeleton-footer-project,
+body.dark-mode .skeleton-footer-project,
+html.dark-mode .skeleton-footer-bottom,
+body.dark-mode .skeleton-footer-bottom {
+  border-color: #294954;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .skeleton-home-nav {
+    gap: 15px;
+  }
+
+  .skeleton-home-services {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .skeleton-home-departments {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .skeleton-home-doctors {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .skeleton-footer-main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .skeleton-home-header {
+    height: 70px;
+    padding: 0 4%;
+  }
+
+  .skeleton-home-nav {
+    display: none;
+  }
+
+  .skeleton-home-hero {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .skeleton-hero-card {
+    min-height: 350px;
+  }
+
+  .skeleton-home-insurance,
+  .skeleton-home-about,
+  .skeleton-home-ai {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-home-availability {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-home-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skeleton-support-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .skeleton-home-header {
+    padding: 0 18px;
+  }
+
+  .skeleton-home-brand-subtitle {
+    width: 130px;
+  }
+
+  .skeleton-home-actions {
+    display: none;
+  }
+
+  .skeleton-home-project {
+    padding: 25px 20px;
+    margin-top: 25px;
+  }
+
+  .skeleton-project-title {
+    width: 90%;
+    height: 29px;
+  }
+
+  .skeleton-project-title.short {
+    width: 65%;
+  }
+
+  .skeleton-project-actions {
+    flex-direction: column;
+  }
+
+  .skeleton-project-actions .skeleton {
+    width: 100% !important;
+  }
+
+  .skeleton-project-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .skeleton-home-hero {
+    width: 92%;
+    min-height: auto;
+    margin-top: 35px;
+    gap: 30px;
+  }
+
+  .skeleton-hero-title {
+    width: 90%;
+    height: 34px;
+  }
+
+  .skeleton-hero-title.short {
+    width: 65%;
+  }
+
+  .skeleton-hero-actions {
+    flex-direction: column;
+  }
+
+  .skeleton-hero-actions .skeleton {
+    width: 100% !important;
+  }
+
+  .skeleton-hero-features {
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .skeleton-hero-card {
+    min-height: 300px;
+    padding: 25px;
+  }
+
+  .skeleton-home-services,
+  .skeleton-home-departments,
+  .skeleton-home-doctors,
+  .skeleton-home-info {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-home-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-gallery-small {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 150px;
+  }
+
+  .skeleton-home-insurance {
+    padding: 25px;
+    gap: 30px;
+  }
+
+  .skeleton-insurance-image {
+    height: 220px !important;
+  }
+
+  .skeleton-home-about,
+  .skeleton-home-ai {
+    gap: 30px;
+  }
+
+  .skeleton-home-ai {
+    padding: 28px 20px;
+  }
+
+  .skeleton-ai-visual {
+    min-height: 310px;
+  }
+
+  .skeleton-ai-core {
+    width: 135px !important;
+    height: 135px !important;
+    min-width: 135px !important;
+  }
+
+  .skeleton-ai-feature {
+    width: 95px !important;
+    height: 45px !important;
+  }
+
+  .skeleton-home-chat {
+    width: 92%;
+  }
+
+  .skeleton-chat-messages {
+    min-height: 200px;
+    padding: 18px;
+  }
+
+  .skeleton-message.bot {
+    width: 80% !important;
+  }
+
+  .skeleton-message.user {
+    width: 65% !important;
+  }
+
+  .skeleton-home-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .skeleton-footer-main {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .skeleton-footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .skeleton-footer-project .skeleton:nth-child(2) {
+    width: 90%;
+  }
+
+  .skeleton-footer-project .skeleton:last-child {
+    width: 90%;
+  }
+}
+
+/* =========================================================
+   HOME — PROJECT INTRO SKELETON
+   Matches actual Home project introduction
+========================================================= */
+
+.skeleton-home-project {
+  width: min(1060px, calc(100% - 80px));
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 28px 0 38px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TOP ROW
+   Educational | Team | GitHub
+========================================================= */
+
+.skeleton-project-top {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 42px;
+}
+
+
+/* Educational */
+
+.skeleton-project-badge {
+  height: 92px;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 0 24px;
+
+  border-radius: 18px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(8, 164, 187, 0.18);
+  background: rgba(255, 255, 255, 0.75);
+
+  box-shadow: 0 8px 25px rgba(8, 110, 130, 0.06);
+}
+
+
+.skeleton-project-badge-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 12px;
+}
+
+
+.skeleton-project-badge-text {
+  width: 190px;
+  height: 13px;
+}
+
+
+/* Team */
+
+.skeleton-project-team {
+  height: 92px;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 0 28px;
+
+  border-radius: 18px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(8, 164, 187, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+
+  box-shadow: 0 8px 25px rgba(8, 110, 130, 0.06);
+}
+
+
+.skeleton-project-team-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 12px;
+}
+
+
+.skeleton-project-team-info {
+  min-width: 0;
+  flex: 1;
+}
+
+
+.skeleton-project-team-label {
+  width: 90px;
+  height: 10px;
+  margin-bottom: 9px;
+}
+
+
+.skeleton-project-team-name {
+  width: 230px;
+  max-width: 100%;
+  height: 15px;
+}
+
+
+/* GitHub */
+
+.skeleton-project-github {
+  min-width: 0;
+
+  height: 92px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+}
+
+
+.skeleton-project-github-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 14px;
+}
+
+
+.skeleton-project-github-text {
+  width: 165px;
+  height: 17px;
+}
+
+
+.skeleton-project-github-arrow {
+  width: 20px;
+  height: 12px;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.skeleton-project-main {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 0.92fr);
+
+  gap: 42px;
+
+  align-items: start;
+
+  margin-bottom: 30px;
+}
+
+
+/* Left */
+
+.skeleton-project-heading {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+
+.skeleton-project-kicker {
+  width: 280px;
+  max-width: 100%;
+  height: 12px;
+  margin-bottom: 22px;
+}
+
+
+.skeleton-project-welcome {
+  width: 500px;
+  max-width: 100%;
+  height: 55px;
+}
+
+
+/* Right */
+
+.skeleton-project-description {
+  min-width: 0;
+
+  padding-left: 30px;
+
+  border-left: 1px solid rgba(20, 157, 190, 0.18);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  box-sizing: border-box;
+}
+
+
+.skeleton-project-paragraph {
+  width: 100%;
+  height: 72px;
+}
+
+
+/* =========================================================
+   THREE HIGHLIGHTS
+========================================================= */
+
+.skeleton-project-highlights {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+.skeleton-project-highlight {
+  min-width: 0;
+  min-height: 112px;
+
+  padding: 18px;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  box-sizing: border-box;
+
+  border-radius: 17px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  border: 1px solid rgba(15, 130, 145, 0.12);
+
+  box-shadow: 0 8px 25px rgba(20, 90, 105, 0.06);
+}
+
+
+.skeleton-project-highlight-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+
+  border-radius: 12px;
+}
+
+
+.skeleton-project-highlight-content {
+  min-width: 0;
+  flex: 1;
+}
+
+
+.skeleton-project-highlight-title {
+  width: 135px;
+  max-width: 100%;
+  height: 14px;
+
+  margin-bottom: 9px;
+}
+
+
+.skeleton-project-highlight-text {
+  width: 100%;
+  height: 10px;
+
+  margin-bottom: 7px;
+}
+
+
+.skeleton-project-highlight-text.short {
+  width: 75%;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .skeleton-home-project {
+    width: calc(100% - 48px);
+    max-width: 760px;
+  }
+
+  .skeleton-project-top {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skeleton-project-github {
+    grid-column: 1 / -1;
+    height: 70px;
+  }
+
+  .skeleton-project-main {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .skeleton-project-description {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .skeleton-project-highlights {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .skeleton-home-project {
+    width: calc(100% - 28px);
+    padding: 28px 0;
+  }
+
+  .skeleton-project-top {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    margin-bottom: 30px;
+  }
+
+  .skeleton-project-badge,
+  .skeleton-project-team {
+    width: 100%;
+  }
+
+  .skeleton-project-github {
+    width: 100%;
+  }
+
+  .skeleton-project-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .skeleton-project-description {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .skeleton-project-highlights {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .skeleton-project-highlight {
+    min-height: 96px;
+  }
+
+}
+
+/* =========================================================
+   HOME PROJECT INTRO SKELETON — DARK MODE
+========================================================= */
+
+[data-theme="dark"] .skeleton-home-project {
+  color: #e6f7fa;
+}
+
+
+/* =========================================================
+   TOP ROW
+========================================================= */
+
+[data-theme="dark"] .skeleton-project-badge,
+[data-theme="dark"] .skeleton-project-team {
+
+  background: rgba(14, 39, 49, 0.82);
+
+  border-color: rgba(74, 201, 214, 0.18);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.20);
+}
+
+
+/* GitHub area */
+
+[data-theme="dark"] .skeleton-project-github {
+  background: transparent;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+[data-theme="dark"] .skeleton-project-description {
+  border-left-color: rgba(74, 201, 214, 0.18);
+}
+
+
+/* =========================================================
+   HIGHLIGHT CARDS
+========================================================= */
+
+[data-theme="dark"] .skeleton-project-highlight {
+
+  background: rgba(14, 39, 49, 0.82);
+
+  border-color: rgba(74, 201, 214, 0.15);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================================
+   SKELETON COLORS
+========================================================= */
+
+[data-theme="dark"] .skeleton-project-badge-icon,
+[data-theme="dark"] .skeleton-project-team-icon,
+[data-theme="dark"] .skeleton-project-github-icon,
+[data-theme="dark"] .skeleton-project-highlight-icon {
+
+  background: #1d4b59;
+}
+
+
+/* Text skeletons */
+
+[data-theme="dark"] .skeleton-project-badge-text,
+[data-theme="dark"] .skeleton-project-team-label,
+[data-theme="dark"] .skeleton-project-team-name,
+[data-theme="dark"] .skeleton-project-github-text,
+[data-theme="dark"] .skeleton-project-github-arrow,
+[data-theme="dark"] .skeleton-project-kicker,
+[data-theme="dark"] .skeleton-project-welcome,
+[data-theme="dark"] .skeleton-project-paragraph,
+[data-theme="dark"] .skeleton-project-highlight-title,
+[data-theme="dark"] .skeleton-project-highlight-text {
+
+  background: linear-gradient(
+    90deg,
+    #203f49 25%,
+    #315965 50%,
+    #203f49 75%
+  );
+
+  background-size: 200% 100%;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./Home.css";
 import "./Home.responsive.css";
+import SkeletonHome from "../../components/Skeleton/SkeletonHome";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
@@ -753,10 +754,21 @@ function Home() {
     );
   };
 
+  
+if (shiftLoading) {
   return (
     <div
       className={`home-page ${darkMode ? "dark-theme" : "light-theme"}`}
       data-theme={darkMode ? "dark" : "light"}
+    >
+      <SkeletonHome />
+    </div>
+  );
+}
+
+return (
+    <div
+      className={`home-page ${darkMode ? "dark-theme" : "light-theme"}`}
     >
       {/* =====================================================
           MAIN HEADER

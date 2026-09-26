@@ -22392,3 +22392,18 @@ body.dark-mode .payment-processing-spinner {
     border-color: rgba(255, 255, 255, 0.30) !important;
     border-top-color: #ffffff !important;
 }
+
+/* =========================================================
+   PROJECT HIGHLIGHT ICONS — DARK MODE
+========================================================= */
+
+[data-theme="dark"] .project-highlight-icon {
+  background: rgba(37, 190, 201, 0.12);
+  color: #49d5df;
+  border: 1px solid rgba(73, 213, 223, 0.16);
+}
+
+[data-theme="dark"] .project-highlight-icon svg {
+  color: #49d5df;
+  stroke: currentColor;
+}
