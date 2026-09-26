@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Bills.css";
+import SkeletonPatientBills from "../../../components/Skeleton/SkeletonPatientBills";
 
 function Bills() {
   const [bills, setBills] = useState([]);
@@ -714,23 +715,11 @@ function Bills() {
 
         </div>
 
-        {/* ===================================================
-            LOADING
-        =================================================== */}
+{loading ? (
 
-        {loading ? (
+  <SkeletonPatientBills />
 
-          <div className="bill-loading">
-
-            <div className="loading-spinner"></div>
-
-            <p>
-              Loading your bills...
-            </p>
-
-          </div>
-
-        ) : bills.length === 0 ? (
+) : bills.length === 0 ? (
 
           /* =================================================
              EMPTY

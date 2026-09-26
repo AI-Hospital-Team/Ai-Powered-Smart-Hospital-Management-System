@@ -14,6 +14,7 @@ import {
   XCircle,
 } from "lucide-react";
 import "./Appointments.css";
+import SkeletonPatientAppointments from "../../../components/Skeleton/SkeletonPatientAppointments";
 
 function Appointments() {
   const navigate = useNavigate();
@@ -529,49 +530,13 @@ function Appointments() {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="appointments-page">
-
-        <div className="appointments-header">
-
-          <div>
-            <h1>My Appointments</h1>
-
-            <p>
-              View and manage your hospital
-              appointments.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            className="book-appointment-btn"
-            onClick={handleBookAppointment}
-          >
-            <Plus size={18} />
-            Book Appointment
-          </button>
-
-        </div>
-
-        <div className="appointments-loading">
-
-          <div
-            className="loading-spinner"
-            aria-hidden="true"
-          >
-            <span className="spinner-ring"></span>
-          </div>
-
-          <p>Loading appointments...</p>
-
-        </div>
-
-      </div>
-    );
-  }
-
+if (loading) {
+  return (
+    <div className="appointments-page">
+      <SkeletonPatientAppointments />
+    </div>
+  );
+}
   // =====================================================
   // RENDER
   // =====================================================

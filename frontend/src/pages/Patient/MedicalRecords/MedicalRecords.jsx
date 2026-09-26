@@ -10,6 +10,7 @@ import {
   X,
 } from "lucide-react";
 import "./MedicalRecords.css";
+import SkeletonPatientMedicalRecords from "../../../components/Skeleton/SkeletonPatientMedicalRecords";
 
 function MedicalRecords() {
   const [records, setRecords] = useState([]);
@@ -204,24 +205,13 @@ function MedicalRecords() {
 
       </div>
 
-      {/* ======================================
+{/* ======================================
           LOADING
-      ====================================== */}
+====================================== */}
 
-      {loading && (
-        <div className="records-message">
-
-          <div
-            className="records-loader"
-            aria-hidden="true"
-          ></div>
-
-          <p>
-            Loading medical records...
-          </p>
-
-        </div>
-      )}
+{loading && (
+  <SkeletonPatientMedicalRecords />
+)}
 
       {/* ======================================
           ERROR

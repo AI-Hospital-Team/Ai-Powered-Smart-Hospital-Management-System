@@ -11,6 +11,7 @@ import {
   Trash2,
 } from "lucide-react";
 import "./Prescriptions.css";
+import SkeletonPatientPrescriptions from "../../../components/Skeleton/SkeletonPatientPrescriptions";
 
 function Prescriptions() {
   const [user, setUser] = useState(null);
@@ -251,36 +252,15 @@ const getPrescriptionStatus = (prescription) => {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="prescriptions-page">
-        <div className="prescriptions-container">
-
-          <div className="prescriptions-header">
-            <div>
-              <h1>My Prescriptions</h1>
-
-              <p>
-                View medicines prescribed by your
-                doctors.
-              </p>
-            </div>
-          </div>
-
-          <div className="prescriptions-loading">
-
-            <div className="prescription-spinner"></div>
-
-            <p>
-              Loading prescriptions...
-            </p>
-
-          </div>
-
-        </div>
+if (loading) {
+  return (
+    <div className="prescriptions-page">
+      <div className="prescriptions-container">
+        <SkeletonPatientPrescriptions />
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // =====================================================
   // ERROR
