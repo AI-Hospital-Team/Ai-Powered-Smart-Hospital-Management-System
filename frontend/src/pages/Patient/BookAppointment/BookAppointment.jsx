@@ -15,6 +15,7 @@ import {
   Plus,
 } from "lucide-react";
 import "./BookAppointment.css";
+import SkeletonPatientBookAppointment from "../../../components/Skeleton/SkeletonPatientBookAppointment";
 
 const API_URL = "http://localhost:8080/api";
 
@@ -250,6 +251,15 @@ function BookAppointment() {
       `Doctor #${doctor.doctorId || doctor.id}`
     );
   };
+
+// LOADING SKELETON
+if (loadingDoctors) {
+  return (
+    <div className="book-page">
+      <SkeletonPatientBookAppointment />
+    </div>
+  );
+}
 
   return (
     <div className="book-page">

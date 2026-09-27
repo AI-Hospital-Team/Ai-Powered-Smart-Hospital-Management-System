@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./Home.css";
 import "./Home.responsive.css";
+import SkeletonHome from "../../components/Skeleton/SkeletonHome";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDarkMode } from "../../theme/DarkMode";
 
@@ -753,10 +754,21 @@ function Home() {
     );
   };
 
+
+if (shiftLoading) {
   return (
     <div
       className={`home-page ${darkMode ? "dark-theme" : "light-theme"}`}
       data-theme={darkMode ? "dark" : "light"}
+    >
+      <SkeletonHome />
+    </div>
+  );
+}
+
+return (
+    <div
+      className={`home-page ${darkMode ? "dark-theme" : "light-theme"}`}
     >
       {/* =====================================================
           MAIN HEADER
@@ -960,7 +972,16 @@ function Home() {
               </span>
               <div>
                 <span>PROJECT TEAM</span>
-                <strong>Prathmesh Panmand &amp; Radheshyam Wayal</strong>
+                <strong
+                  style={{
+                    color: darkMode ? "#d9eef1" : "#123f52",
+                    WebkitTextFillColor: darkMode ? "#d9eef1" : "#123f52",
+                    background: "none",
+                    backgroundImage: "none",
+                  }}
+                >
+                  Prathmesh Panmand &amp; Radheshyam Wayal
+                </strong>
               </div>
             </div>
 
@@ -1296,43 +1317,7 @@ function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          HEALTHCARE STATISTICS
-      ===================================================== */}
-      <section className="home-stats-section">
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="doctor" size={27} />
-          </div>
-          <strong>50+</strong>
-          <span>Expert Doctors</span>
-        </div>
-
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="hospital" size={27} />
-          </div>
-          <strong>15+</strong>
-          <span>Departments</span>
-        </div>
-
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="heart" size={27} />
-          </div>
-          <strong>10K+</strong>
-          <span>Happy Patients</span>
-        </div>
-
-        <div className="home-stat-card">
-          <div className="home-stat-icon">
-            <Icon name="star" size={27} />
-          </div>
-          <strong>4.9/5</strong>
-          <span>Patient Rating</span>
-        </div>
-      </section>
-      
+     
 {/* =====================================================
     SERVICES
 ===================================================== */}

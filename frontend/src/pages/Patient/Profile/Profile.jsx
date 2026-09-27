@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Profile.css";
+import SkeletonPatientProfile from "../../../components/Skeleton/SkeletonPatientProfile";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -250,15 +251,13 @@ const handleSave = async () => {
   // LOADING
   // =====================================================
 
-  if (loading) {
-    return (
-      <div className="profile-page">
-        <div className="profile-loading">
-          Loading profile...
-        </div>
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="profile-page">
+      <SkeletonPatientProfile />
+    </div>
+  );
+}
 
   // =====================================================
   // NO USER
