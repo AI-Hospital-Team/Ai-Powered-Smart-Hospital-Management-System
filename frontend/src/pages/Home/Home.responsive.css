@@ -470,3 +470,38 @@
   }
 }
 
+/* =========================================================
+   PROJECT INTRO — MOBILE FIX
+   Override desktop paragraph layout only on mobile
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Stack the two project paragraphs */
+  .project-intro-paragraphs {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    width: 100% !important;
+  }
+
+  .project-intro-paragraphs > * {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Remove desktop divider on mobile */
+  .project-intro-paragraphs .project-intro-description {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  /* Prevent long text from forcing width */
+  .project-intro-lead,
+  .project-intro-description,
+  .project-intro-description p {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+  }
+}
