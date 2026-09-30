@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 
 import {
   CalendarDays,
@@ -14,7 +13,6 @@ import {
   UserRound,
   HeartPulse,
   Bell,
-  CheckCircle2,
   FlaskConical,
 } from "lucide-react";
 
@@ -48,17 +46,9 @@ function PatientDashboard() {
   ========================================================= */
 
   const [notifications, setNotifications] = useState([]);
-  const [notificationLoading, setNotificationLoading] = useState(false);
+  const [notificationLoading, setNotificationLoading] =
+    useState(false);
   const [notificationError, setNotificationError] = useState("");
-
-  /* =========================================================
-     AI HEALTH ASSISTANT
-  ========================================================= */
-
-  const [aiSymptoms, setAiSymptoms] = useState("");
-  const [aiResponse, setAiResponse] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiError, setAiError] = useState("");
 
   /* =========================================================
      LOAD USER
@@ -107,10 +97,18 @@ function PatientDashboard() {
 
       try {
         const results = await Promise.allSettled([
-          fetch(`${API_URL}/appointments/patient/${patientId}`),
-          fetch(`${API_URL}/medical-records/patient/${patientId}`),
-          fetch(`${API_URL}/prescriptions/patient/${patientId}`),
-          fetch(`${API_URL}/bills/patient/${patientId}`),
+          fetch(
+            `${API_URL}/appointments/patient/${patientId}`
+          ),
+          fetch(
+            `${API_URL}/medical-records/patient/${patientId}`
+          ),
+          fetch(
+            `${API_URL}/prescriptions/patient/${patientId}`
+          ),
+          fetch(
+            `${API_URL}/bills/patient/${patientId}`
+          ),
         ]);
 
         /* -------------------------
@@ -121,8 +119,12 @@ function PatientDashboard() {
           results[0].status === "fulfilled" &&
           results[0].value.ok
         ) {
-          const data = await results[0].value.json();
-          setAppointments(Array.isArray(data) ? data : []);
+          const data =
+            await results[0].value.json();
+
+          setAppointments(
+            Array.isArray(data) ? data : []
+          );
         } else {
           setAppointments([]);
         }
@@ -135,8 +137,12 @@ function PatientDashboard() {
           results[1].status === "fulfilled" &&
           results[1].value.ok
         ) {
-          const data = await results[1].value.json();
-          setMedicalRecords(Array.isArray(data) ? data : []);
+          const data =
+            await results[1].value.json();
+
+          setMedicalRecords(
+            Array.isArray(data) ? data : []
+          );
         } else {
           setMedicalRecords([]);
         }
@@ -149,8 +155,12 @@ function PatientDashboard() {
           results[2].status === "fulfilled" &&
           results[2].value.ok
         ) {
-          const data = await results[2].value.json();
-          setPrescriptions(Array.isArray(data) ? data : []);
+          const data =
+            await results[2].value.json();
+
+          setPrescriptions(
+            Array.isArray(data) ? data : []
+          );
         } else {
           setPrescriptions([]);
         }
@@ -163,13 +173,20 @@ function PatientDashboard() {
           results[3].status === "fulfilled" &&
           results[3].value.ok
         ) {
-          const data = await results[3].value.json();
-          setBills(Array.isArray(data) ? data : []);
+          const data =
+            await results[3].value.json();
+
+          setBills(
+            Array.isArray(data) ? data : []
+          );
         } else {
           setBills([]);
         }
       } catch (error) {
-        console.error("Dashboard loading error:", error);
+        console.error(
+          "Dashboard loading error:",
+          error
+        );
       } finally {
         setLoading(false);
       }
@@ -195,14 +212,21 @@ function PatientDashboard() {
         );
 
         if (!response.ok) {
-          throw new Error("Failed to load notifications");
+          throw new Error(
+            "Failed to load notifications"
+          );
         }
 
         const data = await response.json();
 
-        setNotifications(Array.isArray(data) ? data : []);
+        setNotifications(
+          Array.isArray(data) ? data : []
+        );
       } catch (error) {
-        console.error("Notification loading error:", error);
+        console.error(
+          "Notification loading error:",
+          error
+        );
 
         setNotificationError(
           "Unable to load notifications. Please try again."
@@ -229,7 +253,9 @@ function PatientDashboard() {
      MARK SINGLE NOTIFICATION AS READ
   ========================================================= */
 
-  const markNotificationAsRead = async (notificationId) => {
+  const markNotificationAsRead = async (
+    notificationId
+  ) => {
     try {
       const response = await fetch(
         `${API_URL}/notifications/${notificationId}/read`,
@@ -239,18 +265,23 @@ function PatientDashboard() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to mark notification as read");
+        throw new Error(
+          "Failed to mark notification as read"
+        );
       }
 
-      setNotifications((previousNotifications) =>
-        previousNotifications.map((notification) =>
-          notification.notificationId === notificationId
-            ? {
-                ...notification,
-                read: true,
-              }
-            : notification
-        )
+      setNotifications(
+        (previousNotifications) =>
+          previousNotifications.map(
+            (notification) =>
+              notification.notificationId ===
+              notificationId
+                ? {
+                    ...notification,
+                    read: true,
+                  }
+                : notification
+          )
       );
     } catch (error) {
       console.error(
@@ -265,7 +296,12 @@ function PatientDashboard() {
   ========================================================= */
 
   const markAllNotificationsAsRead = async () => {
-    if (!patientId || unreadNotificationCount === 0) return;
+    if (
+      !patientId ||
+      unreadNotificationCount === 0
+    ) {
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -281,11 +317,14 @@ function PatientDashboard() {
         );
       }
 
-      setNotifications((previousNotifications) =>
-        previousNotifications.map((notification) => ({
-          ...notification,
-          read: true,
-        }))
+      setNotifications(
+        (previousNotifications) =>
+          previousNotifications.map(
+            (notification) => ({
+              ...notification,
+              read: true,
+            })
+          )
       );
     } catch (error) {
       console.error(
@@ -300,10 +339,14 @@ function PatientDashboard() {
   ========================================================= */
 
   const getNotificationIcon = (type) => {
-    const notificationType = String(type || "").toUpperCase();
+    const notificationType = String(
+      type || ""
+    ).toUpperCase();
 
     if (
-      notificationType.includes("APPOINTMENT")
+      notificationType.includes(
+        "APPOINTMENT"
+      )
     ) {
       return {
         icon: CalendarDays,
@@ -321,7 +364,9 @@ function PatientDashboard() {
     }
 
     if (
-      notificationType.includes("PRESCRIPTION")
+      notificationType.includes(
+        "PRESCRIPTION"
+      )
     ) {
       return {
         icon: Pill,
@@ -348,20 +393,21 @@ function PatientDashboard() {
      NOTIFICATION DATE FORMAT
   ========================================================= */
 
-  const formatNotificationDate = (dateValue) => {
+  const formatNotificationDate = (
+    dateValue
+  ) => {
     if (!dateValue) return "";
 
     try {
-      return new Date(dateValue).toLocaleString(
-        "en-IN",
-        {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        }
-      );
+      return new Date(
+        dateValue
+      ).toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
     } catch {
       return dateValue;
     }
@@ -374,45 +420,49 @@ function PatientDashboard() {
   const upcomingAppointment = useMemo(() => {
     const now = new Date();
 
-    const validAppointments = appointments
-      .filter((appointment) => {
-        if (!appointment.appointmentDate) {
-          return false;
-        }
+    const validAppointments =
+      appointments
+        .filter((appointment) => {
+          if (!appointment.appointmentDate) {
+            return false;
+          }
 
-        const date = new Date(
-          `${appointment.appointmentDate}T${
-            appointment.appointmentTime || "00:00:00"
-          }`
-        );
+          const date = new Date(
+            `${appointment.appointmentDate}T${
+              appointment.appointmentTime ||
+              "00:00:00"
+            }`
+          );
 
-        const status = String(
-          appointment.status || ""
-        ).toLowerCase();
+          const status = String(
+            appointment.status || ""
+          ).toLowerCase();
 
-        return (
-          date >= now &&
-          status !== "cancelled" &&
-          status !== "completed" &&
-          status !== "rejected" &&
-          status !== "expired"
-        );
-      })
-      .sort((a, b) => {
-        const dateA = new Date(
-          `${a.appointmentDate}T${
-            a.appointmentTime || "00:00:00"
-          }`
-        );
+          return (
+            date >= now &&
+            status !== "cancelled" &&
+            status !== "completed" &&
+            status !== "rejected" &&
+            status !== "expired"
+          );
+        })
+        .sort((a, b) => {
+          const dateA = new Date(
+            `${a.appointmentDate}T${
+              a.appointmentTime ||
+              "00:00:00"
+            }`
+          );
 
-        const dateB = new Date(
-          `${b.appointmentDate}T${
-            b.appointmentTime || "00:00:00"
-          }`
-        );
+          const dateB = new Date(
+            `${b.appointmentDate}T${
+              b.appointmentTime ||
+              "00:00:00"
+            }`
+          );
 
-        return dateA - dateB;
-      });
+          return dateA - dateB;
+        });
 
     return validAppointments[0] || null;
   }, [appointments]);
@@ -475,7 +525,7 @@ function PatientDashboard() {
         const dateB = new Date(
           b.billDate ||
             b.createdAt ||
-          0
+            0
         );
 
         return dateB - dateA;
@@ -490,16 +540,18 @@ function PatientDashboard() {
   const pendingBills = useMemo(() => {
     return bills.filter(
       (bill) =>
-        String(bill.status || "").toLowerCase() ===
-        "pending"
+        String(
+          bill.status || ""
+        ).toLowerCase() === "pending"
     );
   }, [bills]);
 
   const paidBills = useMemo(() => {
     return bills.filter(
       (bill) =>
-        String(bill.status || "").toLowerCase() ===
-        "paid"
+        String(
+          bill.status || ""
+        ).toLowerCase() === "paid"
     );
   }, [bills]);
 
@@ -519,7 +571,10 @@ function PatientDashboard() {
     const hour = new Date().getHours();
 
     if (hour < 12) return "Good Morning";
-    if (hour < 17) return "Good Afternoon";
+
+    if (hour < 17) {
+      return "Good Afternoon";
+    }
 
     return "Good Evening";
   };
@@ -532,83 +587,15 @@ function PatientDashboard() {
     if (!dateValue) return "";
 
     try {
-      return new Date(dateValue).toLocaleDateString(
-        "en-IN",
-        {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        }
-      );
+      return new Date(
+        dateValue
+      ).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
     } catch {
       return dateValue;
-    }
-  };
-
-  /* =========================================================
-     AI HEALTH ASSISTANT
-  ========================================================= */
-
-  const handleAiAssistant = async () => {
-    const symptoms = aiSymptoms.trim();
-
-    setAiError("");
-    setAiResponse("");
-
-    if (!symptoms) {
-      setAiError(
-        "Please describe your symptoms first."
-      );
-      return;
-    }
-
-    if (symptoms.length < 20) {
-      setAiError(
-        "Please provide at least 20 characters describing your symptoms."
-      );
-      return;
-    }
-
-    setAiLoading(true);
-
-    try {
-      const response = await fetch(
-        `${API_URL}/ai/health-assistant`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            symptoms: symptoms,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          "AI Health Assistant request failed"
-        );
-      }
-
-      const data = await response.json();
-
-      setAiResponse(
-        data.response ||
-          data.message ||
-          "No response received from AI assistant."
-      );
-    } catch (error) {
-      console.error(
-        "AI Health Assistant error:",
-        error
-      );
-
-      setAiError(
-        "Unable to connect to the AI Health Assistant. Please make sure the backend and Ollama are running."
-      );
-    } finally {
-      setAiLoading(false);
     }
   };
 
@@ -616,13 +603,13 @@ function PatientDashboard() {
      LOADING SCREEN
   ========================================================= */
 
-if (loading) {
-  return (
-    <div className="patient-dashboard">
-      <SkeletonPatientDashboard />
-    </div>
-  );
-}
+  if (loading) {
+    return (
+      <div className="patient-dashboard">
+        <SkeletonPatientDashboard />
+      </div>
+    );
+  }
 
   /* =========================================================
      RENDER
@@ -630,7 +617,6 @@ if (loading) {
 
   return (
     <div className="patient-dashboard">
-
 
       {/* =====================================================
           WELCOME
@@ -662,7 +648,9 @@ if (loading) {
 
               <UserRound size={15} />
 
-              <span>Patient ID</span>
+              <span>
+                Patient ID
+              </span>
 
               <strong>
                 #{patientId}
@@ -677,7 +665,9 @@ if (loading) {
               type="button"
               className="primary-dashboard-button"
               onClick={() =>
-                navigate("/patient/book-appointment")
+                navigate(
+                  "/patient/book-appointment"
+                )
               }
             >
               <CalendarDays size={15} />
@@ -743,7 +733,9 @@ if (loading) {
             type="button"
             className="overview-card"
             onClick={() =>
-              navigate("/patient/appointments")
+              navigate(
+                "/patient/appointments"
+              )
             }
           >
 
@@ -753,7 +745,9 @@ if (loading) {
 
             <div className="overview-info">
 
-              <span>Appointments</span>
+              <span>
+                Appointments
+              </span>
 
               <strong>
                 {appointments.length}
@@ -774,7 +768,9 @@ if (loading) {
             type="button"
             className="overview-card"
             onClick={() =>
-              navigate("/patient/medical-records")
+              navigate(
+                "/patient/medical-records"
+              )
             }
           >
 
@@ -784,7 +780,9 @@ if (loading) {
 
             <div className="overview-info">
 
-              <span>Medical Records</span>
+              <span>
+                Medical Records
+              </span>
 
               <strong>
                 {medicalRecords.length}
@@ -805,7 +803,9 @@ if (loading) {
             type="button"
             className="overview-card"
             onClick={() =>
-              navigate("/patient/prescriptions")
+              navigate(
+                "/patient/prescriptions"
+              )
             }
           >
 
@@ -815,7 +815,9 @@ if (loading) {
 
             <div className="overview-info">
 
-              <span>Prescriptions</span>
+              <span>
+                Prescriptions
+              </span>
 
               <strong>
                 {prescriptions.length}
@@ -846,7 +848,9 @@ if (loading) {
 
             <div className="overview-info">
 
-              <span>Total Bills</span>
+              <span>
+                Total Bills
+              </span>
 
               <strong>
                 {bills.length}
@@ -895,7 +899,9 @@ if (loading) {
               type="button"
               className="panel-link"
               onClick={() =>
-                navigate("/patient/appointments")
+                navigate(
+                  "/patient/appointments"
+                )
               }
             >
               View all
@@ -905,6 +911,7 @@ if (loading) {
           </div>
 
           {upcomingAppointment ? (
+
             <div className="appointment-preview">
 
               <div className="appointment-date-box">
@@ -943,18 +950,22 @@ if (loading) {
                 <div className="appointment-meta">
 
                   <span>
+
                     <CalendarDays size={12} />
 
                     {formatDate(
                       upcomingAppointment.appointmentDate
                     )}
+
                   </span>
 
                   <span>
+
                     <Clock3 size={12} />
 
                     {upcomingAppointment.appointmentTime ||
                       "Time not available"}
+
                   </span>
 
                 </div>
@@ -972,7 +983,9 @@ if (loading) {
               </div>
 
             </div>
+
           ) : (
+
             <div className="empty-panel">
 
               <div className="empty-panel-icon">
@@ -1000,6 +1013,7 @@ if (loading) {
               </button>
 
             </div>
+
           )}
 
         </section>
@@ -1091,6 +1105,7 @@ if (loading) {
             </div>
 
             {recentBills.length > 0 && (
+
               <div className="mini-bill-list">
 
                 {recentBills
@@ -1145,6 +1160,7 @@ if (loading) {
                   ))}
 
               </div>
+
             )}
 
           </div>
@@ -1183,7 +1199,9 @@ if (loading) {
               type="button"
               className="panel-link"
               onClick={() =>
-                navigate("/patient/medical-records")
+                navigate(
+                  "/patient/medical-records"
+                )
               }
             >
               View all
@@ -1193,57 +1211,63 @@ if (loading) {
           </div>
 
           {recentRecords.length > 0 ? (
+
             <div className="recent-list">
 
-              {recentRecords.map((record) => (
+              {recentRecords.map(
+                (record) => (
 
-                <div
-                  className="recent-item"
-                  key={
-                    record.recordId ||
-                    record.medicalRecordId ||
-                    record.id
-                  }
-                >
+                  <div
+                    className="recent-item"
+                    key={
+                      record.recordId ||
+                      record.medicalRecordId ||
+                      record.id
+                    }
+                  >
 
-                  <div className="recent-item-icon records">
-                    <FileText size={17} />
+                    <div className="recent-item-icon records">
+                      <FileText size={17} />
+                    </div>
+
+                    <div className="recent-item-content">
+
+                      <strong>
+                        {record.diagnosis ||
+                          record.title ||
+                          record.condition ||
+                          "Medical Record"}
+                      </strong>
+
+                      <span>
+                        {record.doctorName ||
+                          record.description ||
+                          "Medical record available"}
+                      </span>
+
+                    </div>
+
+                    <time>
+                      {formatDate(
+                        record.recordDate ||
+                          record.date ||
+                          record.createdAt
+                      )}
+                    </time>
+
                   </div>
 
-                  <div className="recent-item-content">
-
-                    <strong>
-                      {record.diagnosis ||
-                        record.title ||
-                        record.condition ||
-                        "Medical Record"}
-                    </strong>
-
-                    <span>
-                      {record.doctorName ||
-                        record.description ||
-                        "Medical record available"}
-                    </span>
-
-                  </div>
-
-                  <time>
-                    {formatDate(
-                      record.recordDate ||
-                        record.date ||
-                        record.createdAt
-                    )}
-                  </time>
-
-                </div>
-
-              ))}
+                )
+              )}
 
             </div>
+
           ) : (
+
             <div className="small-empty">
               No medical records available.
             </div>
+
           )}
 
         </section>
@@ -1272,7 +1296,9 @@ if (loading) {
               type="button"
               className="panel-link"
               onClick={() =>
-                navigate("/patient/prescriptions")
+                navigate(
+                  "/patient/prescriptions"
+                )
               }
             >
               View all
@@ -1282,6 +1308,7 @@ if (loading) {
           </div>
 
           {recentPrescriptions.length > 0 ? (
+
             <div className="recent-list">
 
               {recentPrescriptions.map(
@@ -1330,117 +1357,18 @@ if (loading) {
               )}
 
             </div>
+
           ) : (
+
             <div className="small-empty">
               No prescriptions available.
             </div>
+
           )}
 
         </section>
 
       </div>
-
-      {/* =====================================================
-          AI HEALTH ASSISTANT
-      ===================================================== */}
-
-      <section className="dashboard-panel ai-health-panel">
-
-        <div className="panel-header">
-
-          <div>
-
-            <span className="section-label">
-              AI HEALTH ASSISTANT
-            </span>
-
-            <h2>
-              Describe Your Symptoms
-            </h2>
-
-          </div>
-
-        </div>
-
-        <div className="ai-dashboard-content">
-
-          <p>
-            Describe your symptoms and get
-            AI-powered general health guidance.
-          </p>
-
-          <textarea
-            value={aiSymptoms}
-            onChange={(event) =>
-              setAiSymptoms(event.target.value)
-            }
-            placeholder="Example: I have fever, cough, weakness and headache for the last two days..."
-            disabled={aiLoading}
-          />
-
-          {aiError && (
-            <div className="notifications-error">
-              {aiError}
-            </div>
-          )}
-
-          <button
-            type="button"
-            className="primary-dashboard-button"
-            onClick={handleAiAssistant}
-            disabled={aiLoading}
-          >
-
-            {aiLoading ? (
-              <>
-                <Clock3 size={15} />
-
-                Analyzing symptoms...
-              </>
-            ) : (
-              <>
-                <HeartPulse size={15} />
-
-                Analyze Symptoms
-
-                <ArrowRight size={14} />
-              </>
-            )}
-
-          </button>
-
-          {aiResponse && (
-            <div className="ai-response-box">
-
-              <div className="ai-response-header">
-                <strong>
-                  Patient Analysis
-                </strong>
-              </div>
-
-              <div className="ai-response-content">
-
-                <ReactMarkdown>
-                  {aiResponse}
-                </ReactMarkdown>
-
-              </div>
-
-              <small>
-                AI-generated information is for
-                general guidance only and should
-                not replace professional medical
-                advice. Please consult a qualified
-                healthcare professional for diagnosis
-                and treatment.
-              </small>
-
-            </div>
-          )}
-
-        </div>
-
-      </section>
 
       {/* =====================================================
           QUICK ACTIONS
@@ -1471,7 +1399,9 @@ if (loading) {
           <button
             type="button"
             onClick={() =>
-              navigate("/patient/appointments")
+              navigate(
+                "/patient/appointments"
+              )
             }
           >
 
@@ -1498,7 +1428,9 @@ if (loading) {
           <button
             type="button"
             onClick={() =>
-              navigate("/patient/medical-records")
+              navigate(
+                "/patient/medical-records"
+              )
             }
           >
 
@@ -1525,7 +1457,9 @@ if (loading) {
           <button
             type="button"
             onClick={() =>
-              navigate("/patient/prescriptions")
+              navigate(
+                "/patient/prescriptions"
+              )
             }
           >
 
