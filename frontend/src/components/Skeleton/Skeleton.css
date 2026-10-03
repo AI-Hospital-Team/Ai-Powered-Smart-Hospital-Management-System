@@ -11529,3 +11529,28 @@ body.dark-mode .skeleton-footer-bottom {
   }
 
 }
+
+/* =========================
+   AI ANALYZING STATE
+   ========================= */
+
+.skeleton-ai-loading {
+  margin-top: 25px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+  background: #f4fbfc;
+  border: 1px solid #d5eaec;
+}
+
+.skeleton-ai-loading-icon {
+  margin-bottom: 4px;
+}
+
+.dark-theme .skeleton-ai-loading {
+  background: #10262e;
+  border-color: #28505a;
+}
