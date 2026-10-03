@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import "./AIHealthAssistant.css";
+import SkeletonAIHealthAssistant from "../../components/Skeleton/SkeletonAIHealthAssistant";
 
 function AIHealthAssistant() {
   const navigate = useNavigate();
@@ -217,6 +218,10 @@ function AIHealthAssistant() {
   /* =========================================================
      PAGE
   ========================================================= */
+
+if (loading) {
+  return <SkeletonAIHealthAssistant />;
+}
 
   return (
     <div className="ai-assistant-page">
