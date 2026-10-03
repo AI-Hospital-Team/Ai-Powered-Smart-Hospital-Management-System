@@ -113,7 +113,7 @@ function SkeletonAIHealthAssistant() {
         </section>
 
 
-        {/* AI CARD */}
+        {/* AI ANALYSIS CARD */}
         <section className="skeleton-ai-card">
 
           {/* CARD HEADER */}
@@ -153,7 +153,10 @@ function SkeletonAIHealthAssistant() {
 
           {/* CHARACTER COUNT */}
           <div className="skeleton-ai-character-count">
-            <Skeleton width="115px" height="9px" />
+            <Skeleton
+              width="115px"
+              height="9px"
+            />
           </div>
 
 
@@ -172,70 +175,47 @@ function SkeletonAIHealthAssistant() {
 
           </div>
 
-        </section>
 
-
-        {/* AI RESPONSE */}
-        <section className="skeleton-ai-response">
-
-          <div className="skeleton-ai-response-header">
-
-            <div className="skeleton-ai-response-title">
-
-              <Skeleton
-                type="circle"
-                width="42px"
-                height="42px"
-              />
-
-              <div>
-                <Skeleton width="145px" height="9px" />
-                <Skeleton width="150px" height="17px" />
-              </div>
-
-            </div>
+          {/* AI ANALYZING */}
+          <div className="skeleton-ai-loading">
 
             <Skeleton
-              width="90px"
-              height="27px"
-              className="skeleton-ai-response-status"
+              type="circle"
+              width="52px"
+              height="52px"
+              className="skeleton-ai-loading-icon"
+            />
+
+            <Skeleton
+              width="230px"
+              height="15px"
+            />
+
+            <Skeleton
+              width="280px"
+              height="10px"
             />
 
           </div>
 
-          <div className="skeleton-ai-response-divider" />
-
-          <div className="skeleton-ai-response-content">
-
-            <Skeleton width="92%" height="12px" />
-            <Skeleton width="84%" height="12px" />
-            <Skeleton width="88%" height="12px" />
-
-            <div className="skeleton-ai-response-list">
-
-              <Skeleton width="100%" height="42px" />
-              <Skeleton width="100%" height="42px" />
-              <Skeleton width="100%" height="42px" />
-
-            </div>
-
-          </div>
-
-          <div className="skeleton-ai-response-footer">
-            <Skeleton width="360px" height="10px" />
-          </div>
-
         </section>
 
 
-        {/* EXAMPLES */}
+        {/* QUICK EXAMPLES */}
         <section className="skeleton-ai-examples">
 
           <div className="skeleton-ai-section-heading">
 
             <div>
-              <Skeleton width="90px" height="8px" />
-              <Skeleton width="190px" height="19px" />
+              <Skeleton
+                width="90px"
+                height="8px"
+              />
+
+              <Skeleton
+                width="190px"
+                height="19px"
+              />
             </div>
 
             <Skeleton
@@ -251,6 +231,7 @@ function SkeletonAIHealthAssistant() {
 
             {/* Example 1 */}
             <div className="skeleton-ai-example">
+
               <Skeleton
                 type="circle"
                 width="42px"
@@ -258,14 +239,23 @@ function SkeletonAIHealthAssistant() {
               />
 
               <div>
-                <Skeleton width="110px" height="12px" />
-                <Skeleton width="125px" height="9px" />
+                <Skeleton
+                  width="110px"
+                  height="12px"
+                />
+
+                <Skeleton
+                  width="125px"
+                  height="9px"
+                />
               </div>
+
             </div>
 
 
             {/* Example 2 */}
             <div className="skeleton-ai-example">
+
               <Skeleton
                 type="circle"
                 width="42px"
@@ -273,14 +263,23 @@ function SkeletonAIHealthAssistant() {
               />
 
               <div>
-                <Skeleton width="120px" height="12px" />
-                <Skeleton width="115px" height="9px" />
+                <Skeleton
+                  width="120px"
+                  height="12px"
+                />
+
+                <Skeleton
+                  width="115px"
+                  height="9px"
+                />
               </div>
+
             </div>
 
 
             {/* Example 3 */}
             <div className="skeleton-ai-example">
+
               <Skeleton
                 type="circle"
                 width="42px"
@@ -288,9 +287,17 @@ function SkeletonAIHealthAssistant() {
               />
 
               <div>
-                <Skeleton width="135px" height="12px" />
-                <Skeleton width="130px" height="9px" />
+                <Skeleton
+                  width="135px"
+                  height="12px"
+                />
+
+                <Skeleton
+                  width="130px"
+                  height="9px"
+                />
               </div>
+
             </div>
 
           </div>
@@ -308,10 +315,27 @@ function SkeletonAIHealthAssistant() {
           />
 
           <div>
-            <Skeleton width="145px" height="12px" />
-            <Skeleton width="100%" height="10px" />
-            <Skeleton width="90%" height="10px" />
-            <Skeleton width="78%" height="10px" />
+
+            <Skeleton
+              width="145px"
+              height="12px"
+            />
+
+            <Skeleton
+              width="100%"
+              height="10px"
+            />
+
+            <Skeleton
+              width="90%"
+              height="10px"
+            />
+
+            <Skeleton
+              width="78%"
+              height="10px"
+            />
+
           </div>
 
         </section>
@@ -331,8 +355,15 @@ function SkeletonAIHealthAssistant() {
           />
 
           <div>
-            <Skeleton width="250px" height="10px" />
-            <Skeleton width="290px" height="8px" />
+            <Skeleton
+              width="250px"
+              height="10px"
+            />
+
+            <Skeleton
+              width="290px"
+              height="8px"
+            />
           </div>
 
         </div>

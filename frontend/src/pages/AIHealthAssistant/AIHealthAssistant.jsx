@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -27,6 +27,11 @@ function AIHealthAssistant() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+  setPageLoading(false);
+}, []);
 
   /* =========================================================
      ANALYZE SYMPTOMS
@@ -219,7 +224,7 @@ function AIHealthAssistant() {
      PAGE
   ========================================================= */
 
-if (loading) {
+if (pageLoading || loading) {
   return <SkeletonAIHealthAssistant />;
 }
 
