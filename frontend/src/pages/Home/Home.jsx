@@ -2742,9 +2742,9 @@ return (
 
         <div className="footer-project">
           <div className="project-left">
-            <span className="project-badge">OUR PROJECT</span>
+            
             <h3>
-              AI-Powered Smart Hospital
+                  AI Smart Hospital
               <span> Management System</span>
             </h3>
             <p>

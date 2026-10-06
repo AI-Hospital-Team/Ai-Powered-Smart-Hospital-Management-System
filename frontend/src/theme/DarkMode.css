@@ -22698,3 +22698,43 @@ body.dark-mode .payment-processing-spinner {
   text-shadow: none !important;
 }
 
+/* LIGHT */
+
+.home-page.light-theme .footer-project .project-action-link {
+  background: #f7fcfd !important;
+  border: 1px solid #ccecef !important;
+  color: #24576a !important;
+}
+
+.home-page.light-theme .footer-project .project-action-link b {
+  color: #08a5b5 !important;
+}
+
+
+/* DARK */
+
+.home-page.dark-theme .footer-project .project-action-link {
+  background: #f4fbfc !important;
+  border: 1px solid #d5eef1 !important;
+  color: #164d61 !important;
+}
+
+.home-page.dark-theme .footer-project .project-action-link b {
+  color: #009caf !important;
+}
+
+
+/* HOVER */
+
+.home-page.light-theme .footer-project .project-action-link:hover,
+.home-page.dark-theme .footer-project .project-action-link:hover {
+  background: #0799aa !important;
+  border-color: #0799aa !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+.home-page.light-theme .footer-project .project-action-link:hover b,
+.home-page.dark-theme .footer-project .project-action-link:hover b {
+  color: #ffffff !important;
+}
