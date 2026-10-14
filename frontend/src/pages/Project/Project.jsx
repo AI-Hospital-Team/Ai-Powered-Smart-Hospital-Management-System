@@ -20,7 +20,6 @@ function Project() {
         <span>Our Project</span>
       </header>
 
-
       <main className="project-container">
 
         {/* Hero */}
@@ -43,7 +42,6 @@ function Project() {
 
         </section>
 
-
         {/* Project Content */}
         <section className="project-content">
 
@@ -61,7 +59,6 @@ function Project() {
 
           </div>
 
-
           {/* Objectives */}
           <div className="project-card">
 
@@ -76,7 +73,6 @@ function Project() {
             </ul>
 
           </div>
-
 
           {/* Technologies */}
           <div className="project-card">
@@ -97,7 +93,6 @@ function Project() {
             </div>
 
           </div>
-
 
           {/* Documentation */}
           <div className="project-card">
@@ -134,7 +129,6 @@ function Project() {
 
           </div>
 
-
           {/* Future Scope */}
           <div className="project-card">
 
@@ -152,7 +146,6 @@ function Project() {
         </section>
 
       </main>
-
 
       {/* =====================================================
           DOCUMENT MODAL
@@ -174,6 +167,7 @@ function Project() {
             <div className="document-modal-header">
 
               <div>
+
                 {activeDocument === "report" && (
                   <>
                     <h2>📄 Project Report</h2>
@@ -200,6 +194,7 @@ function Project() {
                     </p>
                   </>
                 )}
+
               </div>
 
               <button
@@ -211,7 +206,6 @@ function Project() {
               </button>
 
             </div>
-
 
             {/* =================================================
                 PROJECT REPORT
@@ -240,7 +234,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>2. Problem Statement</h3>
 
@@ -262,7 +255,6 @@ function Project() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h3>3. Project Objectives</h3>
 
@@ -279,7 +271,6 @@ function Project() {
                     <li>Integrate an AI Health Assistant.</li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h3>4. Scope of the Project</h3>
@@ -301,7 +292,6 @@ function Project() {
                     <li>AI Health Assistant</li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h3>5. User Roles</h3>
@@ -330,7 +320,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>6. Technologies Used</h3>
 
@@ -348,25 +337,28 @@ function Project() {
                   </div>
                 </section>
 
-
                 <section>
                   <h3>7. System Architecture</h3>
 
                   <div className="architecture-box">
                     <div>User</div>
                     <span>↓</span>
+
                     <div>React + Vite Frontend</div>
                     <span>↓</span>
+
                     <div>REST API</div>
                     <span>↓</span>
+
                     <div>Spring Boot Backend</div>
                     <span>↓</span>
+
                     <div>MySQL Database</div>
                     <span>+</span>
+
                     <div>Ollama + Llama 3.2</div>
                   </div>
                 </section>
-
 
                 <section>
                   <h3>8. Major Modules</h3>
@@ -384,7 +376,6 @@ function Project() {
                     <li>AI Health Assistant Module</li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h3>9. Appointment Management</h3>
@@ -404,7 +395,6 @@ function Project() {
                   </div>
                 </section>
 
-
                 <section>
                   <h3>10. Medical Records</h3>
 
@@ -417,7 +407,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>11. Prescription Management</h3>
 
@@ -428,7 +417,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>12. Billing & Payments</h3>
 
@@ -438,7 +426,6 @@ function Project() {
                     and payment status.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>13. Doctor Management</h3>
@@ -454,7 +441,6 @@ function Project() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h3>14. Password Reset</h3>
 
@@ -464,7 +450,6 @@ function Project() {
                     reviewed and processed by the Admin.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>15. Role-Based Security</h3>
@@ -480,7 +465,6 @@ function Project() {
                     <div>Patient → /patient/*</div>
                   </div>
                 </section>
-
 
                 <section>
                   <h3>16. AI Health Assistant</h3>
@@ -502,7 +486,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>17. Database</h3>
 
@@ -514,7 +497,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>18. REST API</h3>
 
@@ -525,7 +507,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>19. Git & GitHub</h3>
 
@@ -535,7 +516,6 @@ function Project() {
                     project development.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>20. Advantages</h3>
@@ -551,7 +531,6 @@ function Project() {
                     <li>Reduced manual paperwork.</li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h3>21. Limitations</h3>
@@ -569,7 +548,6 @@ function Project() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h3>22. Future Scope</h3>
 
@@ -583,7 +561,6 @@ function Project() {
                     <li>Mobile application.</li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h3>23. Testing</h3>
@@ -600,7 +577,6 @@ function Project() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h3>24. Project Outcome</h3>
 
@@ -611,7 +587,6 @@ function Project() {
                     functionality with AI-assisted healthcare support.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>25. Conclusion</h3>
@@ -634,7 +609,6 @@ function Project() {
               </div>
             )}
 
-
             {/* =================================================
                 THEORY WORK
             ================================================= */}
@@ -654,7 +628,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>🌱 Spring Boot</h3>
 
@@ -665,7 +638,6 @@ function Project() {
                     service management.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>⚛️ React.js</h3>
@@ -678,7 +650,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>🗄️ MySQL</h3>
 
@@ -690,7 +661,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>🔗 REST API</h3>
 
@@ -699,7 +669,6 @@ function Project() {
                     frontend and Spring Boot backend.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>🤖 Artificial Intelligence</h3>
@@ -712,7 +681,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>🦙 Ollama & Llama 3.2</h3>
 
@@ -723,7 +691,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>🔐 Role-Based Access</h3>
 
@@ -733,7 +700,6 @@ function Project() {
                     their respective roles.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>📊 Hospital Management Concepts</h3>
@@ -750,7 +716,6 @@ function Project() {
 
               </div>
             )}
-
 
             {/* =================================================
                 PRESENTATION
@@ -774,7 +739,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>Slide 2 — Team Members</h3>
 
@@ -783,7 +747,6 @@ function Project() {
                     <li>Radheshyam Wayal</li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h3>Slide 3 — Introduction</h3>
@@ -795,7 +758,6 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>Slide 4 — Problem Statement</h3>
 
@@ -805,7 +767,6 @@ function Project() {
                     healthcare management difficult.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>Slide 5 — Objectives</h3>
@@ -818,7 +779,6 @@ function Project() {
                     <li>AI-assisted healthcare support</li>
                   </ul>
                 </section>
-
 
                 <section>
                   <h3>Slide 6 — Technologies</h3>
@@ -835,7 +795,6 @@ function Project() {
                   </div>
                 </section>
 
-
                 <section>
                   <h3>Slide 7 — System Architecture</h3>
 
@@ -848,7 +807,6 @@ function Project() {
                     AI Health Assistant → Ollama → Llama 3.2
                   </p>
                 </section>
-
 
                 <section>
                   <h3>Slide 8 — Main Modules</h3>
@@ -865,7 +823,6 @@ function Project() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h3>Slide 9 — AI Health Assistant</h3>
 
@@ -875,7 +832,6 @@ function Project() {
                     user-provided symptoms.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>Slide 10 — Security</h3>
@@ -889,7 +845,6 @@ function Project() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h3>Slide 11 — Database</h3>
 
@@ -898,7 +853,6 @@ function Project() {
                     application's hospital data.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>Slide 12 — Testing</h3>
@@ -914,7 +868,6 @@ function Project() {
                   </ul>
                 </section>
 
-
                 <section>
                   <h3>Slide 13 — Project Outcome</h3>
 
@@ -924,7 +877,6 @@ function Project() {
                     healthcare support.
                   </p>
                 </section>
-
 
                 <section>
                   <h3>Slide 14 — Conclusion</h3>
@@ -936,14 +888,12 @@ function Project() {
                   </p>
                 </section>
 
-
                 <section>
                   <h3>Slide 15 — Thank You</h3>
 
                   <p className="presentation-thank-you">
                     Thank You
                   </p>
-
                 </section>
 
               </div>
@@ -952,7 +902,6 @@ function Project() {
           </div>
 
         </div>
-
       )}
 
     </div>
