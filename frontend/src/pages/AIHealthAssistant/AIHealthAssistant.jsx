@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import "./AIHealthAssistant.css";
+import SkeletonAIHealthAssistant from "../../components/Skeleton/SkeletonAIHealthAssistant";
 
 function AIHealthAssistant() {
   const navigate = useNavigate();
@@ -26,6 +27,11 @@ function AIHealthAssistant() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+  setPageLoading(false);
+}, []);
 
   /* =========================================================
      ANALYZE SYMPTOMS
@@ -217,6 +223,10 @@ function AIHealthAssistant() {
   /* =========================================================
      PAGE
   ========================================================= */
+
+if (pageLoading || loading) {
+  return <SkeletonAIHealthAssistant />;
+}
 
   return (
     <div className="ai-assistant-page">
