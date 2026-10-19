@@ -1,18 +1,17 @@
-
 import "./About.css";
 import { useEffect, useState } from "react";
 import "../../components/Skeleton/Skeleton.css";
 
 function AboutSkeleton() {
   return (
-    <div className="skeleton-info-page">
-      <header className="skeleton-info-header">
+    <div className="about-page skeleton-info-page">
+      <header className="about-page-header skeleton-info-header">
         <div className="skeleton skeleton-info-back" />
         <div className="skeleton skeleton-info-header-label" />
       </header>
 
-      <main className="skeleton-info-container">
-        <section className="skeleton-info-hero">
+      <main className="about-container skeleton-info-container">
+        <section className="about-hero skeleton-info-hero">
           <div className="skeleton skeleton-info-badge" />
           <div className="skeleton skeleton-info-hero-title" />
           <div className="skeleton skeleton-info-hero-title second" />
@@ -20,9 +19,9 @@ function AboutSkeleton() {
           <div className="skeleton skeleton-info-hero-text second" />
         </section>
 
-        <section className="skeleton-info-team-grid">
+        <section className="team-grid skeleton-info-team-grid">
           {[1, 2].map((item) => (
-            <article className="skeleton-info-team-card" key={item}>
+            <article className="team-card skeleton-info-team-card" key={item}>
               <div className="skeleton skeleton-info-avatar" />
               <div className="skeleton skeleton-info-role" />
               <div className="skeleton skeleton-info-name" />
@@ -30,15 +29,16 @@ function AboutSkeleton() {
               <div className="skeleton skeleton-info-line" />
               <div className="skeleton skeleton-info-line short" />
 
-              <div className="skeleton-info-tags">
-                <div className="skeleton skeleton-info-tag" />
-                <div className="skeleton skeleton-info-tag" />
-                <div className="skeleton skeleton-info-tag" />
+              <div className="team-skills skeleton-info-tags">
+                {Array.from({ length: 10 }, (_, index) => (
+                  <div className="skeleton skeleton-info-tag" key={index} />
+                ))}
               </div>
 
-              <div className="skeleton-info-links">
-                <div className="skeleton skeleton-info-link" />
-                <div className="skeleton skeleton-info-link" />
+              <div className="team-links skeleton-info-links">
+                {Array.from({ length: 4 }, (_, index) => (
+                  <div className="skeleton skeleton-info-link" key={index} />
+                ))}
               </div>
 
               <div className="skeleton skeleton-info-resume" />
@@ -46,10 +46,11 @@ function AboutSkeleton() {
           ))}
         </section>
 
-        <section className="skeleton-info-academic">
+        <section className="academic-section skeleton-info-academic">
+          <div className="skeleton skeleton-info-badge" />
           <div className="skeleton skeleton-info-academic-title" />
 
-          <div className="skeleton-info-academic-grid">
+          <div className="academic-grid skeleton-info-academic-grid">
             {[1, 2, 3, 4, 5].map((item) => (
               <div className="skeleton-info-academic-card" key={item}>
                 <div className="skeleton skeleton-info-academic-label" />
@@ -90,10 +91,9 @@ function About() {
       </header>
 
       <main className="about-container">
+        {/* Hero Section */}
         <section className="about-hero">
-          <span className="about-badge">
-            ✨ MEET THE TEAM
-          </span>
+          <span className="about-badge">✨ MEET THE TEAM</span>
 
           <h1>
             The People Behind
@@ -108,6 +108,7 @@ function About() {
           </p>
         </section>
 
+        {/* Team Section */}
         <section className="team-grid">
           <article className="team-card">
             <div className="team-avatar">PP</div>
@@ -163,9 +164,7 @@ function About() {
                 Instagram
               </a>
 
-              <a href="mailto:prathmeshpanmand23@gmail.com">
-                Email
-              </a>
+              <a href="mailto:prathmeshpanmand23@gmail.com">Email</a>
             </div>
 
             <a
@@ -232,9 +231,7 @@ function About() {
                 Instagram
               </a>
 
-              <a href="mailto:shamwayal7@gmail.com">
-                Email
-              </a>
+              <a href="mailto:shamwayal7@gmail.com">Email</a>
             </div>
 
             <a
@@ -248,6 +245,7 @@ function About() {
           </article>
         </section>
 
+        {/* Academic Information */}
         <section className="academic-section">
           <span className="about-badge">
             🎓 ACADEMIC INFORMATION
@@ -258,9 +256,7 @@ function About() {
           <div className="academic-grid">
             <div>
               <strong>College</strong>
-              <span>
-                Samarth College Of Computer Science, Belhe
-              </span>
+              <span>Samarth College Of Computer Science, Belhe</span>
             </div>
 
             <div>
