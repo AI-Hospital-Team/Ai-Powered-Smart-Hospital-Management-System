@@ -1,135 +1,79 @@
-# 🏥 AI-Powered Smart Hospital Management System
-
+🏥 AI-Powered Smart Hospital Management System
 An intelligent full-stack Hospital Management System designed to digitally manage hospital operations and provide patients with AI-powered general health guidance.
 
-The system provides separate dashboards and role-based access for **Admin, Doctor, and Patient**, along with **appointment management, medical records, prescriptions, billing, profile management, and an AI Health Assistant powered by Ollama + Llama 3.2**.
+The application combines a React frontend, Spring Boot backend, MySQL database, and a local Ollama + Llama 3.2 AI service. It is designed around three user roles: Admin, Doctor, and Patient.
+Project note: This README documents the intended architecture and the features described by the project team. The status table near the end distinguishes implemented features from items that still need verification. Do not treat documentation alone as proof that every feature has passed testing.
 
----
+👨‍💻 Authors
+1. Prathmesh Gavram Panmand — GitHub
+2. Radheshyam Subhash Wayal — GitHub
+👥 Team
+AI Hospital Team
 
-## 👨‍💻 Authors
+This is a collaborative full-stack hospital management project.
+📌 Project Overview
+The AI-Powered Smart Hospital Management System is a web-based healthcare management platform intended to simplify hospital activities through a centralized digital application.
 
-1. **Prathmesh Gavram Panmand** — https://github.com/prathmesh235
-2. **Radheshyam Subhash Wayal** — https://github.com/Radheshamwayal7
-
-## 👥 Team 
-
-**AI Hospital Team**
-
-This project is developed as a collaborative full-stack hospital management project.
-
----
-## 🤖 AI Health Assistant
-
-The system provides AI-powered health guidance using Ollama and Llama 3.2 to help patients understand their reported symptoms.
-
-## 📌 Project Overview
-
-The **AI-Powered Smart Hospital Management System** is a web-based healthcare management platform developed to simplify and organize hospital activities through a centralized digital system.
-
-The application connects the **React frontend, Spring Boot backend, MySQL database, and local Ollama AI service** to provide an integrated hospital management experience.
-
-### 🎯 Main Goals
-
-* **Digitize hospital management operations**
-* **Provide role-based access for Admin, Doctor, and Patient**
-* **Manage patient and doctor information**
-* **Manage appointments**
-* **Maintain medical records**
-* **Manage prescriptions**
-* **Manage hospital bills**
-* **Provide patient profile management**
-* **Provide AI-powered general health guidance**
-* **Improve hospital workflow and user experience**
-* **Maintain database consistency and role-based navigation**
-
----
-
-# ✨ Key Features
-
-## 👨‍💼 Admin Features
-
-The Admin dashboard provides centralized management of hospital data.
-
-* **📊 Admin Dashboard**
-* **👥 Patient Management**
-* **👨‍⚕️ Doctor Management**
-* **📅 Appointment Management**
-* **📋 Medical Record Management**
-* **💊 Prescription Management**
-* **💰 Billing Management**
-* **🔐 Role-Based Access**
-* **👤 Account Navigation**
-* **🚪 Logout**
-* **🌙 Dark/Light Mode**
-
----
-
-## 👨‍⚕️ Doctor Features
-
-Doctors have a dedicated dashboard for managing appointments and accessing relevant patient information.
-
-* **Doctor Dashboard**
-* **View Appointments**
-* **Manage Appointment Status**
-* **Confirm Appointments**
-* **Cancel Appointments**
-* **Complete Appointments**
-* **View Patient-Related Information**
-* **Role-Protected Doctor Access**
-* **Account Navigation**
-* **Logout Protection**
-
-### 📅 Appointment Status
-
-The system supports:
-
-* **`Pending`**
-* **`Confirmed`**
-* **`Cancelled`**
-* **`Completed`**
-
----
-
-## 🧑‍🦱 Patient Features
-
-Patients have a dedicated dashboard where they can access their healthcare information.
-
-* **Patient Dashboard**
-* **View Appointments**
-* **Book Appointments**
-* **Cancel Appointments**
-* **View Medical Records**
-* **View Prescriptions**
-* **View Bills**
-* **View/Manage Profile**
-* **View Appointment Status**
-* **View Billing Information**
-* **AI Health Assistant**
-* **Account Navigation**
-* **Logout**
-* **Home Navigation**
-* **Dark/Light Mode**
-
----
-
-# 🤖 AI Health Assistant
-
-The project includes a **local AI-powered health assistant**.
-
-Patients can enter symptoms and receive **general educational health guidance**.
-
-### Example Input
-
-```text
+It brings together patient and doctor information, appointments, medical records, prescriptions, billing, profile management, and an AI assistant that provides general educational information about symptoms.
+Main goals
+- Digitize hospital management operations.
+- Provide role-based experiences for Admin, Doctor, and Patient.
+- Manage patient and doctor information.
+- Book and manage appointments.
+- Maintain medical records and prescriptions.
+- Create and display hospital bills.
+- Allow patients to view and manage profile information.
+- Provide general AI-powered health guidance.
+- Improve navigation and consistency across the application.
+✨ Key Features
+👨‍💼 Admin
+The Admin dashboard is intended to provide centralized management of hospital data.
+- Admin dashboard
+- Patient management
+- Doctor management
+- Appointment management
+- Medical record management
+- Prescription management
+- Billing management
+- Role-based navigation
+- Account navigation and logout
+- Dark/light mode, where enabled in the current build
+👨‍⚕️ Doctor
+The Doctor dashboard provides access to appointments and relevant patient information.
+- Doctor dashboard
+- View appointments
+- Update appointment status
+- Confirm, cancel, or complete appointments
+- View patient-related information permitted by the application
+- Role-protected dashboard access
+- Account navigation and logout
+Appointment statuses
+- Pending
+- Confirmed
+- Cancelled
+- Completed
+🧑‍🦱 Patient
+The Patient dashboard provides access to personal healthcare information.
+- Patient dashboard
+- Book and view appointments
+- Cancel appointments, subject to application rules
+- View medical records
+- View prescriptions
+- View bills and billing status
+- View and manage profile information
+- View appointment status
+- Use the AI Health Assistant
+- Account navigation and logout
+- Home navigation
+- Dark/light mode, where enabled in the current build
+🤖 AI Health Assistant
+The project includes a local AI-powered health assistant. A patient can enter symptoms and receive general educational health guidance generated by the configured Llama 3.2 model through Ollama.
+Example input
 Fever, cough and weakness
-```
-
-### 🧠 AI Architecture
-
-```text
+AI request flow
 React Frontend
       ↓
-Spring Boot Backend
+Spring Boot REST API
       ↓
 AIController
       ↓
@@ -139,41 +83,25 @@ Ollama API
       ↓
 Llama 3.2
       ↓
-AI Response
+Generated Response
       ↓
-Spring Boot
+Spring Boot Response
       ↓
 React Frontend
-```
-
-### 🤖 AI Technology
-
-* **Local AI**
-* **Ollama**
-* **Llama 3.2**
-* **Ollama REST API**
-* **Local AI Inference**
-* **React Markdown Response Formatting**
-
-Ollama normally runs at:
-
-```text
+AI technologies
+- Ollama
+- Llama 3.2
+- Ollama REST API
+- Local model inference
+- React Markdown for response formatting
+Default local Ollama address:
 http://localhost:11434
-```
-
-Model:
-
-```text
+Model name:
 llama3.2
-```
-
-The model runs locally through **Ollama** instead of requiring a cloud AI API.
-
----
-
-# 🏗️ System Architecture
-
-```text
+The model runs locally through Ollama; the AI feature does not inherently require a cloud AI API. Ollama must be installed, the model must be available, and the service must be running for the feature to work.
+Medical safety notice
+The assistant provides general educational information only. It is not a medical professional, cannot confirm a diagnosis, and must not be used to decide whether emergency care is needed. Users should consult a qualified healthcare professional. Severe or emergency symptoms require immediate professional medical assistance.
+🏗️ System Architecture
                     ┌──────────────────────────┐
                     │      React Frontend      │
                     │                          │
@@ -209,64 +137,56 @@ The model runs locally through **Ollama** instead of requiring a cloud AI API.
           │ prescriptions     │
           │ bills             │
           └───────────────────┘
-```
+Request lifecycle
+1. The user interacts with the React interface.
+2. The frontend sends HTTP requests to Spring Boot REST endpoints.
+3. Controllers receive requests and delegate business logic to services.
+4. Repositories access application data in MySQL.
+5. For symptom guidance, the AI service sends a request to Ollama.
+6. The backend returns a response to the frontend for display.
+💻 Technology Stack
+Layer	Technologies
+Frontend	React, Vite, JavaScript, HTML5, CSS3
+Routing	React Router
+HTTP client	Axios
+UI icons	Lucide React
+AI response UI	React Markdown
+Backend	Java, Spring Boot, Spring Web
+API	REST APIs
+Build tool	Maven
+Database	MySQL
+Database tool	MySQL Workbench
+AI	Ollama, Llama 3.2
+Development tools	VS Code, Git, GitHub, PowerShell
+Runtime/package tools	Node.js, npm, Java JDK, Maven
 
----
 
-# 💻 Technology Stack
-
-| Layer                     | Technologies                             |
-| ------------------------- | ---------------------------------------- |
-| **Frontend**              | **React, Vite, JavaScript, HTML5, CSS3** |
-| **Routing**               | **React Router**                         |
-| **HTTP Client**           | **Axios**                                |
-| **UI Icons**              | **Lucide React**                         |
-| **AI Response UI**        | **React Markdown**                       |
-| **Backend**               | **Java, Spring Boot, Spring Web**        |
-| **API**                   | **REST APIs**                            |
-| **Build Tool**            | **Maven**                                |
-| **Database**              | **MySQL**                                |
-| **Database Tool**         | **MySQL Workbench**                      |
-| **AI**                    | **Ollama, Llama 3.2**                    |
-| **Development**           | **VS Code, Git, GitHub, PowerShell**     |
-| **Runtime/Package Tools** | **Node.js, npm, Java JDK, Maven**        |
-
----
-
-# 📂 Project Structure
-
-```text
+📂 Project Structure
+The following is a high-level structure. Exact filenames may vary as the codebase evolves.
 Ai-Powered-Smart-Hospital-Management-System/
 │
 ├── backend/
 │   ├── src/
 │   │   └── main/
-│   │       ├── java/
-│   │       │   └── com/
-│   │       │       └── hospital/
-│   │       │           └── management/
-│   │       │               ├── controller/
-│   │       │               │   ├── AIController.java
-│   │       │               │   ├── AuthController.java
-│   │       │               │   ├── PatientController.java
-│   │       │               │   ├── DoctorController.java
-│   │       │               │   ├── AppointmentController.java
-│   │       │               │   ├── MedicalRecordController.java
-│   │       │               │   ├── PrescriptionController.java
-│   │       │               │   └── BillController.java
-│   │       │               │
-│   │       │               ├── service/
-│   │       │               │   ├── AIService.java
-│   │       │               │   ├── AppointmentService.java
-│   │       │               │   ├── DoctorService.java
-│   │       │               │   ├── MedicalRecordService.java
-│   │       │               │   ├── PrescriptionService.java
-│   │       │               │   └── BillService.java
-│   │       │               │
-│   │       │               └── repository/
-│   │       │
+│   │       ├── java/com/hospital/management/
+│   │       │   ├── controller/
+│   │       │   │   ├── AIController.java
+│   │       │   │   ├── AuthController.java
+│   │       │   │   ├── PatientController.java
+│   │       │   │   ├── DoctorController.java
+│   │       │   │   ├── AppointmentController.java
+│   │       │   │   ├── MedicalRecordController.java
+│   │       │   │   ├── PrescriptionController.java
+│   │       │   │   └── BillController.java
+│   │       │   ├── service/
+│   │       │   │   ├── AIService.java
+│   │       │   │   ├── AppointmentService.java
+│   │       │   │   ├── DoctorService.java
+│   │       │   │   ├── MedicalRecordService.java
+│   │       │   │   ├── PrescriptionService.java
+│   │       │   │   └── BillService.java
+│   │       │   └── repository/
 │   │       └── resources/
-│   │
 │   ├── pom.xml
 │   └── mvnw
 │
@@ -275,176 +195,102 @@ Ai-Powered-Smart-Hospital-Management-System/
 │   │   ├── components/
 │   │   │   ├── ProtectedRoute.jsx
 │   │   │   └── ConfirmModal.jsx
-│   │   │
 │   │   ├── layouts/
 │   │   │   ├── DashboardLayout.jsx
 │   │   │   └── DashboardLayout.css
-│   │   │
 │   │   ├── pages/
 │   │   │   ├── Home/
 │   │   │   ├── Admin/
 │   │   │   ├── Doctor/
 │   │   │   └── Patient/
-│   │   │
 │   │   ├── App.jsx
 │   │   └── main.jsx
-│   │
 │   ├── package.json
 │   └── vite.config.js
 │
 ├── README.md
 └── .gitignore
-```
+🗄️ Database
+The project uses MySQL as its primary database.
 
----
-
-# 🗄️ Database
-
-The project uses **MySQL** as the primary database.
-
-### 🗃️ Main Database
-
-```text
+Database name:
 hospital_db
-```
-
-### 📋 Main Tables
-
-* **`users`**
-* **`patients`**
-* **`doctors`**
-* **`appointments`**
-* **`medical_records`**
-* **`prescriptions`**
-* **`bills`**
-
----
-
-# 👤 Users
-
-The `users` table manages application login information and user roles.
-
-### Supported Roles
-
-```text
+Main tables described by the project:
+- users
+- patients
+- doctors
+- appointments
+- medical_records
+- prescriptions
+- bills
+The actual table definitions, foreign keys, and constraints should be checked against the SQL schema or entity classes in the repository.
+User roles
 ADMIN
 DOCTOR
 PATIENT
-```
+The application uses roles to determine the dashboard and navigation available to a user. Production deployments must also enforce authorization on the backend; hiding frontend routes alone is not secure authorization.
+📅 Appointment Management
+Patients can book appointments with doctors. Authorized users can view appointments and update their status according to the application's rules.
+Appointment information
+- Appointment ID
+- Patient ID
+- Doctor ID
+- Appointment date
+- Appointment time
+- Reason
+- Status
+Possible status flow
+Pending → Confirmed → Completed
+   └──────────────→ Cancelled
+The exact allowed transitions should be enforced and tested in the backend. For example, the application should prevent invalid changes to completed or expired appointments when that is part of its business rules.
+📋 Medical Records
+The medical record module is intended to maintain patient healthcare information.
 
-**Role-based navigation** redirects users to the appropriate dashboard.
+Record fields may include:
+- Patient
+- Diagnosis
+- Symptoms
+- Treatment
+- Notes
+- Date
+Only appropriately authorized users should be able to create, edit, or view medical records.
+💊 Prescription Management
+The prescription module is intended to allow authorized users to manage patient prescriptions.
 
----
+Prescription information may include:
+- Patient
+- Doctor
+- Medicine
+- Dosage
+- Frequency
+- Instructions
+- Prescription date
+Prescription access and editing should be restricted to authorized roles and verified on the backend.
+💰 Billing Management
+The billing module allows administrators to create and manage patient bills, while patients can view their own billing information.
 
-# 📅 Appointment Management
+Bill information may include:
+- Bill ID
+- Patient ID
+- Patient name
+- Doctor ID
+- Bill type
+- Amount
+- Description
+- Status
+- Bill date
+Example statuses:
+- Pending
+- PAID
+Amounts, patient ownership, and payment status must be validated on the server. A displayed PAID status should only be used when the application has a reliable process for recording payment; it should not imply an online payment gateway exists unless one has actually been integrated.
+👤 Patient Profile
+Patients can open their profile from the Patient Dashboard and view or update the account details supported by the application.
 
-Patients can **book appointments with doctors**.
-
-### Appointment Information
-
-* **Appointment ID**
-* **Patient ID**
-* **Doctor ID**
-* **Appointment Date**
-* **Appointment Time**
-* **Reason**
-* **Status**
-
-### Status Flow
-
-```text
-Pending
-   ↓
-Confirmed
-   ↓
-Completed
-```
-
-Appointments can also be:
-
-```text
-Cancelled
-```
-
----
-
-# 📋 Medical Records
-
-Medical records allow the hospital system to maintain patient healthcare information.
-
-### Records Can Include
-
-* **Patient**
-* **Diagnosis**
-* **Symptoms**
-* **Treatment**
-* **Notes**
-* **Date**
-
----
-
-# 💊 Prescription Management
-
-The prescription module allows authorized users to manage patient prescriptions.
-
-### Prescription Information
-
-* **Patient**
-* **Doctor**
-* **Medicine**
-* **Dosage**
-* **Frequency**
-* **Instructions**
-* **Prescription Date**
-
----
-
-# 💰 Billing Management
-
-The billing module allows administrators to create and manage patient bills.
-
-### Bill Information
-
-* **Bill ID**
-* **Patient ID**
-* **Patient Name**
-* **Doctor ID**
-* **Bill Type**
-* **Amount**
-* **Description**
-* **Status**
-* **Bill Date**
-
-### Example Statuses
-
-* **Pending**
-* **PAID**
-
-Patients can **view their billing information from the Patient Dashboard**.
-
----
-
-# 👤 Patient Profile
-
-Patients can access their profile through:
-
-```text
-Patient Dashboard
-        ↓
-Profile
-```
-
-The profile module allows patients to **manage their account information and keep their details updated**.
-
----
-
-# 🔐 Authentication & Role Protection
-
-The application implements **login and role-based navigation**.
-
-### Login Flow
-
-```text
+Profile updates should validate input and ensure a patient can only modify permitted fields belonging to their own account.
+🔐 Authentication and Route Protection
+The frontend includes a route-protection component:
+ProtectedRoute.jsx
+The intended login flow is:
 Login
   ↓
 Validate Credentials
@@ -454,76 +300,37 @@ Identify Role
 Admin / Doctor / Patient
   ↓
 Open Appropriate Dashboard
-```
+Expected route behavior:
+- Unauthenticated users are redirected to the login page when they attempt to access protected routes.
+- Patients should not access Admin or Doctor pages.
+- Doctors should not access Admin-only pages.
+- Users should be redirected to the appropriate dashboard for their role.
+- Logout should clear the application's authentication state and redirect the user to the public home page.
+Security limitation: Frontend route protection and local-storage values are not sufficient security for a production healthcare system. Authentication and role authorization must be enforced by the backend. Use secure password hashing and a properly configured session or token-based approach.
 
-## 🛡️ Protected Routes
+🏠 Home Page
+The public Home page is intended to present the hospital system and its services.
 
-The frontend contains:
+Possible sections include:
+- Hospital introduction
+- Hero section
+- Services
+- Departments
+- Doctors
+- Facilities
+- Healthcare information
+- AI healthcare section
+- Ayushman Bharat information section
+- Contact and footer information
+Any healthcare scheme information should be reviewed against current official sources before publication.
+🌙 Dark / Light Mode
+The dashboard has been described as supporting dark and light themes. The current build should be tested to confirm that the theme control works on each relevant dashboard and persists as intended.
 
-```text
-ProtectedRoute.jsx
-```
-
-It protects dashboard routes from unauthorized access.
-
-Examples:
-
-* A **patient** should not directly access `/dashboard`
-* A **doctor** should not directly access `/patient`
-* An **unauthenticated user** is redirected to `/login`
-
-## 🚪 Logout Protection
-
-When the user logs out, authentication-related local storage values are cleared.
-
-The user is redirected to:
-
-```text
-/
-```
-
-Protected dashboard pages should not remain accessible through normal navigation after logout.
-
----
-
-# 🏠 Home Page
-
-The Home page provides the public landing page of the hospital system.
-
-### Home Page Sections
-
-* **Hospital Introduction**
-* **Hero Section**
-* **Services**
-* **Departments**
-* **Doctors**
-* **Facilities**
-* **Healthcare Information**
-* **AI Healthcare Section**
-* **Ayushman Bharat Section**
-* **Contact/Footer Information**
-
----
-
-# 🌙 Dark / Light Mode
-
-The dashboard supports **Dark and Light mode**.
-
-The selected theme is stored locally using:
-
-```text
+The project has used the following local-storage key:
 darkMode
-```
-
-The application applies the selected theme dynamically without requiring a page reload.
-
----
-
-# 🔄 Frontend ↔ Backend Communication
-
-The frontend communicates with the Spring Boot backend through **REST APIs**.
-
-```text
+Do not store passwords, session secrets, or sensitive medical information in local storage.
+🔄 Frontend–Backend Communication
+The frontend communicates with Spring Boot through HTTP requests to REST endpoints.
 React
   ↓
 Axios / HTTP Request
@@ -535,132 +342,75 @@ Service
 Repository
   ↓
 MySQL
-```
+For AI health guidance, the backend additionally communicates with Ollama.
 
----
-
-# ⚙️ Installation & Setup
-
-## 1️⃣ Clone Repository
-
-```bash
+The API base URL used during local development is:
+http://localhost:8080/api
+Configure URLs appropriately for deployment rather than hardcoding local development addresses into production builds.
+⚙️ Installation and Setup
+Prerequisites
+Install and configure:
+- Java JDK compatible with the project's Maven configuration
+- Node.js and npm
+- MySQL Server
+- MySQL Workbench (optional, but useful for database administration)
+- Git
+- Ollama
+- The Llama 3.2 model
+Check the installed versions:
+java -version
+node --version
+npm --version
+git --version
+ollama --version
+The Java version must match the version configured in backend/pom.xml.
+1. Clone the repository
 git clone https://github.com/AI-Hospital-Team/Ai-Powered-Smart-Hospital-Management-System.git
 cd Ai-Powered-Smart-Hospital-Management-System
-```
-
-## 2️⃣ Setup MySQL
-
-Install **MySQL** and **MySQL Workbench**.
-
-Create the database:
-
-```sql
+2. Create the MySQL database
+Start MySQL and run:
 CREATE DATABASE hospital_db;
-```
-
-Configure the database connection:
-
-```properties
+Configure the backend database connection in the project's application configuration. For example:
 spring.datasource.url=jdbc:mysql://localhost:3306/hospital_db
-spring.datasource.username=root
-spring.datasource.password=YOUR_PASSWORD
-```
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+Set DB_USERNAME and DB_PASSWORD in your local environment, or use the configuration method supported by the project. The exact property names depend on the backend configuration.
 
-> **Use your own MySQL password. Do not commit real database credentials to GitHub.**
+Never commit real database passwords, API keys, email credentials, or other secrets to GitHub.
 
----
-
-## 3️⃣ Setup Backend
-
-Move to backend:
-
-```bash
+Check whether the application creates tables automatically or requires SQL scripts or migrations. Creating the database alone may not create the required tables.
+3. Start the backend
+Open a terminal:
 cd backend
-```
-
-Run Spring Boot:
-
-```powershell
+On Windows, use the Maven wrapper if it is present:
 .\mvnw.cmd spring-boot:run
-```
-
-Or build:
-
-```powershell
+Build the backend package:
 .\mvnw.cmd clean package
-```
-
-### Backend URL
-
-```text
+On macOS/Linux, if the wrapper script is present:
+./mvnw spring-boot:run
+Local backend address:
 http://localhost:8080
-```
-
----
-
-## 4️⃣ Setup Ollama
-
-Verify installation:
-
-```powershell
+4. Install and start Ollama
+Check Ollama:
 ollama --version
-```
-
-Check models:
-
-```powershell
 ollama list
-```
-
-Install Llama 3.2 if required:
-
-```powershell
+Download the model if needed:
 ollama pull llama3.2
-```
-
-Verify:
-
-```powershell
+Confirm that the model is listed:
 ollama list
-```
-
-Expected:
-
-```text
+The expected model name is generally:
 llama3.2:latest
-```
-
----
-
-## 5️⃣ Start Ollama
-
-```powershell
+Start the Ollama service if it is not already running:
 ollama serve
-```
-
-Ollama:
-
-```text
+Default local address:
 http://127.0.0.1:11434
-```
+Some Ollama installations start the service automatically. If the port is already in use, check whether Ollama is already running rather than starting a duplicate process.
 
-Keep Ollama running while using the **AI Health Assistant**.
-
----
-
-## 6️⃣ Test Ollama
-
-```powershell
+Optional interactive test:
 ollama run llama3.2
-```
-
----
-
-## 7️⃣ Test AI Backend API
-
-PowerShell:
-
-```powershell
+Keep Ollama running while using the AI Health Assistant.
+5. Test the AI backend endpoint
+With the backend and Ollama running, send a test request from PowerShell:
 $body = @{
     symptoms = "fever, cough and weakness"
 } | ConvertTo-Json
@@ -670,497 +420,334 @@ Invoke-RestMethod `
   -Method POST `
   -ContentType "application/json" `
   -Body $body
-```
-
-Expected:
-
-```text
-AI generated health guidance
-```
-
----
-
-## 8️⃣ Setup Frontend
-
-Open a new terminal:
-
-```bash
+A successful response should contain an AI-generated guidance field, based on the response format implemented by the backend. The exact response depends on the model output and backend implementation.
+6. Install and start the frontend
+Open a separate terminal at the repository root:
 cd frontend
 npm install
 npm run dev
-```
-
-Frontend:
-
-```text
+Vite's default local address is commonly:
 http://localhost:5173
-```
-
----
-
-## 9️⃣ Production Build
-
-```bash
+Use the exact URL printed in the terminal if Vite selects a different port.
+7. Build the frontend
+From the frontend directory:
 npm run build
-```
-
-Generated folder:
-
-```text
+Vite normally generates the production build in:
 dist/
-```
+A successful build confirms that the frontend compiles; it does not prove that every API integration or user workflow works correctly.
+🔌 Default Local Ports
+Service	Port
+React / Vite frontend	5173
+Spring Boot backend	8080
+Ollama	11434
+MySQL	3306
 
----
 
-# 🔌 Important Ports
+These are default local-development ports and may differ if your configuration changes.
+🔌 API Endpoints
+The following endpoints are documented from the project's described API design. Verify each path, HTTP method, request body, and authorization requirement against the current controller code before relying on this list.
+Authentication
+Method	Endpoint	Purpose
+POST	/api/auth/login	Authenticate a user
 
-| Service          |      Port |
-| ---------------- | --------: |
-| **React / Vite** |  **5173** |
-| **Spring Boot**  |  **8080** |
-| **Ollama**       | **11434** |
-| **MySQL**        |  **3306** |
 
----
+Patients
+Method	Endpoint	Purpose
+GET	/api/patients	Retrieve patient records, subject to authorization
 
-# 🌐 API Endpoints
 
-### Authentication
+Doctors
+Method	Endpoint	Purpose
+GET	/api/doctors	Retrieve doctor records, subject to authorization
 
-```http
-POST /api/auth/login
-```
 
-### Patients
+Appointments
+Method	Endpoint	Purpose
+GET	/api/appointments	Retrieve appointments, subject to authorization
+GET	/api/appointments/patient/{patientId}	Retrieve appointments for a patient
+GET	/api/appointments/doctor/{doctorId}	Retrieve appointments for a doctor
+PUT	/api/appointments/{appointmentId}/status	Update appointment status
 
-```http
-GET /api/patients
-```
 
-### Doctors
-
-```http
-GET /api/doctors
-```
-
-### Appointments
-
-```http
-GET /api/appointments
-```
-
-Patient appointments:
-
-```http
-GET /api/appointments/patient/{patientId}
-```
-
-Doctor appointments:
-
-```http
-GET /api/appointments/doctor/{doctorId}
-```
-
-Update appointment status:
-
-```http
-PUT /api/appointments/{appointmentId}/status
-```
-
-### Medical Records
-
-```http
+Medical records
 /api/medical-records
-```
-
-### Prescriptions
-
-```http
+Prescriptions
 /api/prescriptions
-```
-
-### Bills
-
-```http
+Bills
 /api/bills
-```
-
-### AI Health Assistant
-
-```http
+The supported methods and request formats for these resources must be confirmed from the controllers.
+AI Health Assistant
+Request
 POST /api/ai/health-assistant
-```
-
-Request:
-
-```json
+Content-Type: application/json
+Request body:
 {
   "symptoms": "fever, cough and weakness"
 }
-```
-
-Response:
-
-```json
+Illustrative response shape:
 {
-  "response": "AI generated health guidance..."
+  "response": "AI-generated general health guidance..."
 }
-```
-
----
-
-# 🧪 Testing
-
-### 🔐 Authentication
-
-* **Login with valid credentials**
-* **Login with invalid credentials**
-* **Logout**
-* **Protected routes**
-* **Role-based access**
-
-### 👨‍💼 Admin
-
-* **Admin Dashboard**
-* **Patient Management**
-* **Doctor Management**
-* **Appointment Management**
-* **Medical Records**
-* **Prescriptions**
-* **Bills**
-
-### 👨‍⚕️ Doctor
-
-* **Doctor Dashboard**
-* **View Appointments**
-* **Update Appointment Status**
-* **Account Navigation**
-* **Logout**
-
-### 🧑‍🦱 Patient
-
-* **Patient Dashboard**
-* **Book Appointment**
-* **View Appointments**
-* **Cancel Appointment**
-* **View Medical Records**
-* **View Prescriptions**
-* **View Bills**
-* **Profile**
-* **AI Health Assistant**
-* **Logout**
-
-### 🤖 AI
-
-* **Ollama Running**
-* **Llama 3.2 Available**
-* **Backend Running**
-* **AI API Working**
-* **Symptoms Validation**
-* **AI Response Display**
-* **AI Error Handling**
-
----
-
-# ⚠️ AI Medical Disclaimer
-
-The AI Health Assistant is intended only for **general educational health information**.
-
-It:
-
-* **Does not provide a definitive diagnosis**
-* **Does not replace a qualified doctor**
-* **Does not prescribe medicines**
-* **Should not be used for emergency decision-making**
-
-Users should consult a **qualified healthcare professional** for medical concerns.
-
-If a user experiences severe or emergency symptoms, they should seek **immediate professional medical assistance**.
-
----
-
-# 🔒 Security Considerations
-
-Important security improvements for production include:
-
-* **Password hashing**
-* **Secure authentication**
-* **JWT/session-based authentication**
-* **HTTP-only cookies where appropriate**
-* **Backend-side role authorization**
-* **Input validation**
-* **API authentication**
-* **CORS configuration**
-* **Environment variables for secrets**
-* **Database access control**
-* **HTTPS**
-
-> **Important:** Frontend local storage should not be treated as a secure authentication mechanism for a production healthcare application.
-
----
-
-# 🔄 Git & GitHub Workflow
-
-### Main Branches
-
-```text
+This response is an example of the documented format, not a guaranteed literal model response.
+🧪 Testing Checklist
+Use this checklist during manual testing. Mark an item complete only after the relevant behavior has been tested in the current build.
+Authentication and access
+- [ ] Login with valid credentials
+- [ ] Invalid login is rejected with a useful error
+- [ ] Logout clears authentication state
+- [ ] Protected routes redirect unauthenticated users
+- [ ] Patients cannot access Admin-only functions
+- [ ] Doctors cannot access Admin-only functions
+- [ ] Backend APIs enforce role authorization
+- [ ] Direct URL navigation behaves correctly
+Admin
+- [ ] Admin dashboard loads
+- [ ] Patient management works
+- [ ] Doctor management works
+- [ ] Appointment management works
+- [ ] Medical record management works
+- [ ] Prescription management works
+- [ ] Bills can be created and updated
+- [ ] Doctor approval or rejection behavior is recorded correctly, if implemented
+Doctor
+- [ ] Doctor dashboard loads
+- [ ] Doctor can view the correct appointments
+- [ ] Appointment status updates persist in MySQL
+- [ ] Authorized patient information is accessible
+- [ ] Unauthorized actions are blocked
+Patient
+- [ ] Patient dashboard loads
+- [ ] Appointment booking works
+- [ ] Patient can view their own appointments
+- [ ] Cancellation rules work correctly
+- [ ] Medical records display correctly
+- [ ] Prescriptions display correctly
+- [ ] Only the patient's own bills are displayed
+- [ ] Profile view and permitted edits work
+- [ ] AI Health Assistant displays responses and errors correctly
+AI integration
+- [ ] Ollama is running
+- [ ] Llama 3.2 is installed
+- [ ] Backend can reach Ollama
+- [ ] AI endpoint accepts valid input
+- [ ] Empty or invalid symptoms are rejected
+- [ ] Loading state is displayed
+- [ ] Response formatting works
+- [ ] Ollama-unavailable errors are handled
+- [ ] The interface displays an appropriate medical disclaimer
+Build and responsive layout
+- [ ] npm run build succeeds
+- [ ] Backend Maven build succeeds
+- [ ] Desktop layout tested
+- [ ] Tablet layout tested
+- [ ] Mobile layout tested
+- [ ] Main navigation links tested
+- [ ] Browser console checked for errors
+🔒 Security Considerations
+This project handles healthcare-related data. Before production use, review and implement the following controls:
+- Password hashing with a suitable password-hashing algorithm.
+- Secure session or token-based authentication.
+- Backend-side role and resource authorization.
+- Input validation and safe error handling.
+- API authentication and authorization.
+- Restricted CORS configuration.
+- HTTPS in deployed environments.
+- Environment variables or a secrets manager for credentials.
+- Database accounts with least-privilege access.
+- Protection against SQL injection and other common web vulnerabilities.
+- Audit logging for sensitive actions.
+- Access controls for medical records and prescriptions.
+- Rate limiting and abuse protection for AI endpoints.
+- Clear data-retention and privacy practices.
+- Backups and a recovery plan.
+Important: Frontend route protection and local-storage flags are not secure authentication by themselves. A production deployment must not rely on them to protect patient data. Do not deploy real patient information until security and privacy controls have been reviewed.
+🔄 Git and GitHub Workflow
+Main project branches described by the team:
 main
 prathmesh
 sham
-```
-
-### Typical Workflow
-
-```bash
-git pull
-git add .
-git commit -m "Your commit message"
-git push
-```
-
-Check status:
-
-```bash
+Check the current branch and working tree:
 git status
-```
-
-Update current branch from main:
-
-```bash
-git merge main
-```
-
-Push Prathmesh branch:
-
-```bash
+git branch
+Pull updates:
+git pull
+Stage and commit changes:
+git add .
+git commit -m "Describe the change clearly"
+Push the prathmesh branch:
 git push origin prathmesh
-```
+Merge the latest main branch into the current branch only after checking the working tree and resolving any conflicts:
+git fetch origin
+git merge origin/main
+Use descriptive commit messages, review changes before committing, and never commit secrets or local configuration containing credentials.
+🎨 UI and Responsive Design
+The interface is intended to provide:
+- Hospital-themed visual design
+- Dashboard cards
+- Sidebar navigation
+- Separate role-based dashboard layouts
+- Responsive page sections
+- Confirmation modal
+- AI response formatting
+- User-friendly navigation
+Test the interface on desktop, laptop, tablet, and mobile screen sizes. Responsive support should be considered verified only after testing the current build at relevant viewport sizes.
+🚀 Future Enhancements
+Potential improvements include:
+- JWT or secure session authentication
+- Strong password hashing and password-reset workflow
+- Email notifications
+- SMS notifications
+- Appointment reminders
+- Doctor availability calendar
+- Advanced patient search
+- Hospital analytics and reports
+- PDF prescription generation
+- PDF bill generation
+- Online payment gateway integration
+- AI-assisted medical record summarization with privacy controls
+- AI appointment assistance
+- Voice-based or multilingual assistant
+- Cloud deployment
+- Docker support
+- Automated backend and frontend tests
+- Audit logs
+- Improved monitoring and security
+These are proposed enhancements, not claims that the features are currently implemented.
+🎓 Academic Project
+This project demonstrates practical work in:
+- Full-stack web development
+- React-based user interfaces
+- Java and Spring Boot backend development
+- REST API design and integration
+- MySQL database operations
+- CRUD workflows
+- Authentication and role-aware navigation
+- Git and GitHub collaboration
+- Local AI integration using Ollama and Llama 3.2
+- Responsive UI development
+🧠 Skills Demonstrated
+Programming
+- Java
+- JavaScript
+- SQL
+- HTML
+- CSS
+Frontend
+- React
+- React Router
+- Axios
+- Vite
+- Component-based development
+- UI state management
+- Responsive styling
+Backend
+- Spring Boot
+- REST API development
+- Controllers, services, and repositories
+- Request validation
+- Exception handling
+- Backend integration
+Database
+- MySQL
+- SQL queries
+- Database relationships
+- CRUD operations
+- Data consistency
+AI
+- Ollama
+- Llama 3.2
+- Local large-language-model integration
+- AI REST API integration
+- Prompt design
+- Markdown response formatting
+Tools
+- Git
+- GitHub
+- VS Code
+- MySQL Workbench
+- PowerShell
+- Maven
+- Node.js
+- npm
+📊 Project Highlights
+Area	Intended / documented implementation
+Full stack	React + Spring Boot + MySQL
+AI integration	Spring Boot + Ollama + Llama 3.2
+User roles	Admin, Doctor, Patient
+Authentication	Login and role-aware navigation
+Appointments	Booking and status management
+Medical records	Patient healthcare records
+Prescriptions	Prescription management
+Billing	Bill creation and viewing
+Profiles	Patient profile management
+AI assistant	Local symptom-based general health guidance
+UI	Responsive interface and described theme support
 
----
 
-# 🎨 UI Features
+📌 Project Status
+Status key
+- Implemented — verify: described as implemented, but current end-to-end behavior has not been independently verified from this README.
+- Needs testing: test the workflow in the current build before marking it complete.
+- Planned / review: confirm whether it exists; otherwise treat it as future work.
+Feature / Area	Current documentation status
+React frontend	Implemented — verify build and runtime
+Spring Boot backend	Implemented — verify startup and endpoints
+MySQL integration	Implemented — verify schema and CRUD
+Login and role-aware navigation	Needs end-to-end testing
+Protected routes	Needs access-control testing
+Backend role authorization	Must be verified; required before production
+Admin dashboard	Needs testing
+Doctor dashboard	Needs testing
+Patient dashboard	Needs testing
+Appointment booking and status updates	Needs testing, including persistence
+Medical records	Needs CRUD and authorization testing
+Prescriptions	Needs CRUD and authorization testing
+Billing	Needs creation, status, and patient-ownership testing
+Patient profile	Needs view/edit and ownership testing
+AI Health Assistant UI	Needs testing
+Ollama connection	Needs testing on the target machine
+Llama 3.2 availability	Verify with ollama list
+AI input validation and error handling	Needs testing
+Dark/light mode	Verify in the current build
+Responsive layout	Needs device/viewport testing
+Production frontend build	Verify with npm run build
+Backend package build	Verify with Maven wrapper
+Production deployment	Not confirmed by the supplied information
+Security readiness for real patient data	Not confirmed; review required
 
-The system includes:
 
-* **Modern hospital-themed interface**
-* **Dashboard cards**
-* **Sidebar navigation**
-* **Role-based dashboard layouts**
-* **Responsive sections**
-* **Dark/Light mode**
-* **Interactive buttons**
-* **Confirmation modal**
-* **AI response formatting**
-* **Healthcare-focused visual design**
-* **User-friendly navigation**
-
----
-
-# 📱 Responsive Design
-
-The frontend supports:
-
-* **Desktop**
-* **Laptop**
-* **Tablet**
-* **Mobile**
-
-Responsive testing should be performed before final deployment.
-
----
-
-# 🚀 Future Enhancements
-
-* **JWT Authentication**
-* **Password Encryption/Hashing**
-* **Email Notifications**
-* **SMS Notifications**
-* **Online Appointment Reminders**
-* **Doctor Availability Calendar**
-* **Advanced Patient Search**
-* **Hospital Analytics**
-* **Admin Reports**
-* **PDF Prescription Generation**
-* **PDF Bill Generation**
-* **Online Payment Gateway**
-* **AI Medical Record Summarization**
-* **AI Appointment Assistance**
-* **Voice-Based AI Assistant**
-* **Multilingual AI Assistant**
-* **Cloud Deployment**
-* **Docker Support**
-* **Automated Testing**
-* **Audit Logs**
-* **Advanced Security**
-
----
-
-# 🎓 Academic Project
-
-This project can be used as a **Final-Year BCA / Computer Application Project** demonstrating practical implementation of:
-
-* **Full-Stack Web Development**
-* **React**
-* **Java**
-* **Spring Boot**
-* **REST APIs**
-* **MySQL**
-* **Database Management**
-* **Authentication**
-* **Role-Based Authorization**
-* **Git & GitHub**
-* **Local AI Integration**
-* **Ollama**
-* **Llama 3.2**
-* **Responsive UI Design**
-
----
-
-# 🧠 Skills Demonstrated
-
-### Programming
-
-* **Java**
-* **JavaScript**
-* **SQL**
-* **HTML**
-* **CSS**
-
-### Frontend
-
-* **React**
-* **React Router**
-* **Axios**
-* **Vite**
-* **Component-Based Development**
-* **State Management**
-* **Responsive UI**
-
-### Backend
-
-* **Spring Boot**
-* **REST API Development**
-* **Controllers**
-* **Services**
-* **Repositories**
-* **Exception Handling**
-* **Backend Integration**
-
-### Database
-
-* **MySQL**
-* **SQL Queries**
-* **Database Relationships**
-* **CRUD Operations**
-* **Data Consistency**
-
-### AI
-
-* **Ollama**
-* **Llama 3.2**
-* **Local LLM Integration**
-* **AI REST API Integration**
-* **Prompt Engineering**
-* **AI Response Formatting**
-
-### Tools
-
-* **Git**
-* **GitHub**
-* **VS Code**
-* **MySQL Workbench**
-* **PowerShell**
-* **Maven**
-* **npm**
-
----
-
-# 📊 Project Highlights
-
-| Area                | Implementation                          |
-| ------------------- | --------------------------------------- |
-| **Full Stack**      | **React + Spring Boot + MySQL**         |
-| **AI Integration**  | **Spring Boot + Ollama + Llama 3.2**    |
-| **User Roles**      | **Admin, Doctor, Patient**              |
-| **Authentication**  | **Login + Role-Based Navigation**       |
-| **Appointments**    | **Booking + Status Management**         |
-| **Medical Records** | **Patient Healthcare Records**          |
-| **Prescriptions**   | **Prescription Management**             |
-| **Billing**         | **Bill Creation and Viewing**           |
-| **Profiles**        | **Patient Profile Management**          |
-| **AI Assistant**    | **Local Symptom-Based Health Guidance** |
-| **UI**              | **Responsive + Dark/Light Mode**        |
-
----
-
-# 📌 Project Status
-
-| Feature                 | Status |
-| ----------------------- | :----: |
-| **Frontend**            |    ✅   |
-| **Backend**             |    ✅   |
-| **MySQL Integration**   |    ✅   |
-| **Role-Based Routing**  |    ✅   |
-| **Protected Routes**    |    ✅   |
-| **Logout Protection**   |    ✅   |
-| **Admin Dashboard**     |    ✅   |
-| **Doctor Dashboard**    |    ✅   |
-| **Patient Dashboard**   |    ✅   |
-| **Appointments**        |    ✅   |
-| **Medical Records**     |    ✅   |
-| **Prescriptions**       |    ✅   |
-| **Billing**             |    ✅   |
-| **Patient Profile**     |    ✅   |
-| **AI Health Assistant** |    ✅   |
-| **Ollama Integration**  |    ✅   |
-| **Llama 3.2**           |    ✅   |
-| **Dark/Light Mode**     |    ✅   |
-| **Production Build**    |    ✅   |
-
----
-
-# 🏁 Final Run Checklist
-
-Before demonstrating the project:
-
-* [ ] **MySQL is running**
-* [ ] **Database is available**
-* [ ] **Backend is running on port `8080`**
-* [ ] **Ollama is running**
-* [ ] **`llama3.2` is installed**
-* [ ] **Frontend is running on port `5173`**
-* [ ] **Admin login works**
-* [ ] **Doctor login works**
-* [ ] **Patient login works**
-* [ ] **Role protection works**
-* [ ] **Logout works**
-* [ ] **Appointment booking works**
-* [ ] **Appointment status works**
-* [ ] **Medical records work**
-* [ ] **Prescriptions work**
-* [ ] **Bills work**
-* [ ] **Profile works**
-* [ ] **AI Health Assistant works**
-* [ ] **Home page navigation works**
-* [ ] **Responsive UI tested**
-* [ ] **`npm run build` succeeds**
-
----
-
-# 📜 License
-
-This project is developed for **educational and academic purposes**.
-
----
-
-# ⭐ Conclusion
-
-The **AI-Powered Smart Hospital Management System** combines traditional hospital management functionality with modern web technologies and local AI capabilities.
-
-```text
+Do not change an item to “Verified” until it has been tested. A successful frontend build alone does not verify backend behavior, database persistence, authorization, or AI availability.
+🏁 Final Run Checklist
+Before a project demonstration:
+- [ ] MySQL is running.
+- [ ] hospital_db exists and required tables are available.
+- [ ] Backend starts successfully on port 8080.
+- [ ] Ollama is running.
+- [ ] llama3.2 is installed.
+- [ ] AI backend endpoint responds as expected.
+- [ ] Frontend starts successfully on the Vite URL.
+- [ ] Admin login and permitted actions work.
+- [ ] Doctor login and permitted actions work.
+- [ ] Patient login and permitted actions work.
+- [ ] Unauthorized role access is blocked.
+- [ ] Logout behaves correctly.
+- [ ] Appointment booking and status changes persist.
+- [ ] Medical records and prescriptions work.
+- [ ] Billing and patient bill visibility work.
+- [ ] Profile functionality works.
+- [ ] AI Health Assistant success and error states work.
+- [ ] Home page navigation works.
+- [ ] Responsive layout has been checked.
+- [ ] npm run build succeeds.
+- [ ] Backend Maven build succeeds.
+- [ ] No credentials or secrets are committed.
+📜 License
+This project is developed for educational and academic purposes. No separate open-source license has been specified in this README. If you want others to reuse or redistribute the code, add an appropriate LICENSE file and confirm that all contributors agree.
+🏁 Conclusion
+The AI-Powered Smart Hospital Management System brings hospital-management workflows together with a modern full-stack architecture and a local AI health-guidance feature.
 Hospital Management
         +
-Role-Based Access
+Role-Aware Access
         +
 Appointment Management
         +
@@ -1170,19 +757,12 @@ Prescriptions
         +
 Billing
         +
-Patient Profile
+Patient Profiles
         +
-Local AI Health Assistant
+Local AI Health Guidance
         =
 AI-Powered Smart Hospital Management System
-```
-
-The project demonstrates how a modern full-stack application can integrate **React, Spring Boot, MySQL, Ollama, and Llama 3.2** into a single healthcare management platform.
-
----
-
-## 🏥 AI Smart Hospital
-
-### Intelligent Healthcare Management
-
-**Manage Healthcare. Simplify Operations. Empower Patients.**
+The project combines React, Spring Boot, MySQL, Ollama, and Llama 3.2 to demonstrate a full-stack academic application. Before production use, complete functional testing and implement the required security and privacy controls.
+🏥 AI Smart Hospital
+Intelligent Healthcare Management
+Manage Healthcare. Simplify Operations. Empower Patients.

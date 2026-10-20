@@ -11554,3 +11554,565 @@ body.dark-mode .skeleton-footer-bottom {
   background: #10262e;
   border-color: #28505a;
 }
+
+/* About Us Page Skeleton */
+
+.skeleton-info-page .skeleton {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 8px;
+  animation: skeletonInfoPulse 1.2s ease-in-out infinite;
+}
+
+.skeleton-info-header {
+  box-sizing: border-box;
+}
+
+.skeleton-info-back {
+  width: 190px;
+  height: 16px;
+}
+
+.skeleton-info-header-label {
+  width: 90px;
+  height: 14px;
+}
+
+.skeleton-info-container {
+  box-sizing: border-box;
+}
+
+.skeleton-info-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.skeleton-info-badge {
+  width: 145px;
+  height: 25px;
+  border-radius: 20px !important;
+}
+
+.skeleton-info-hero-title {
+  width: min(520px, 80%);
+  height: 34px;
+}
+
+.skeleton-info-hero-title.second {
+  width: min(360px, 65%);
+  margin-bottom: 5px;
+}
+
+.skeleton-info-hero-text {
+  width: min(650px, 92%);
+  height: 12px;
+}
+
+.skeleton-info-hero-text.second {
+  width: min(510px, 75%);
+}
+
+.skeleton-info-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.skeleton-info-team-card,
+.skeleton-info-academic-card {
+  min-width: 0;
+  padding: 26px;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #dcecf1;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 70, 100, 0.06);
+}
+
+.skeleton-info-avatar {
+  width: 62px !important;
+  height: 62px !important;
+  margin-bottom: 12px;
+  border-radius: 16px !important;
+}
+
+.skeleton-info-role {
+  width: 62%;
+  height: 11px;
+  margin-bottom: 12px;
+}
+
+.skeleton-info-name {
+  width: 65%;
+  height: 22px;
+  margin-bottom: 17px;
+}
+
+.skeleton-info-line {
+  width: 100%;
+  height: 11px;
+  margin-bottom: 10px;
+}
+
+.skeleton-info-line.short {
+  width: 68%;
+}
+
+.skeleton-info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 19px 0;
+}
+
+.skeleton-info-tag {
+  width: 65px;
+  height: 24px;
+  border-radius: 20px !important;
+}
+
+.skeleton-info-tag:nth-child(2n) {
+  width: 82px;
+}
+
+.skeleton-info-tag:nth-child(3n) {
+  width: 56px;
+}
+
+.skeleton-info-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.skeleton-info-link {
+  width: 68px;
+  height: 30px;
+  border-radius: 8px !important;
+}
+
+.skeleton-info-resume {
+  width: 100%;
+  height: 40px;
+  border-radius: 9px !important;
+}
+
+.skeleton-info-academic {
+  margin-top: 52px;
+  text-align: center;
+}
+
+.skeleton-info-academic-title {
+  width: 240px;
+  max-width: 90%;
+  height: 25px;
+  margin: 16px auto 24px;
+}
+
+.skeleton-info-academic-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.skeleton-info-academic-card {
+  min-height: 98px;
+  padding: 18px 12px;
+}
+
+.skeleton-info-academic-label {
+  width: 65%;
+  height: 11px;
+  margin: 0 auto 14px;
+}
+
+.skeleton-info-academic-value {
+  width: 100%;
+  height: 10px;
+  margin-bottom: 7px;
+}
+
+.skeleton-info-academic-value.short {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes skeletonInfoPulse {
+  0%,
+  100% {
+    opacity: 0.62;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Dark Mode */
+
+.dark-mode .skeleton-info-team-card,
+.dark-mode .skeleton-info-academic-card {
+  background: #0f1b22;
+  border-color: rgba(0, 229, 255, 0.16);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.dark-mode .skeleton-info-badge,
+.dark-mode .skeleton-info-role,
+.dark-mode .skeleton-info-name,
+.dark-mode .skeleton-info-line,
+.dark-mode .skeleton-info-academic-label,
+.dark-mode .skeleton-info-academic-value,
+.dark-mode .skeleton-info-back,
+.dark-mode .skeleton-info-header-label,
+.dark-mode .skeleton-info-hero-title,
+.dark-mode .skeleton-info-hero-text {
+  background: linear-gradient(
+    90deg,
+    #203f49 25%,
+    #315965 50%,
+    #203f49 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* Responsive Design */
+
+@media (max-width: 900px) {
+  .skeleton-info-academic-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .skeleton-info-team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-info-container {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .skeleton-info-hero-title {
+    width: 90%;
+    height: 27px;
+  }
+
+  .skeleton-info-hero-text {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .skeleton-info-header {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .skeleton-info-back {
+    width: 150px;
+  }
+
+  .skeleton-info-academic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-info-team-card {
+    padding: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-info-page .skeleton {
+    animation: none;
+  }
+}
+
+/* =========================================
+   PROJECT DETAILS SKELETON
+========================================= */
+
+.project-skeleton-page {
+  --project-skeleton-base: #e5edf1;
+  --project-skeleton-highlight: #f7fafc;
+}
+
+.project-skeleton-page .project-skeleton-block {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: linear-gradient(
+    90deg,
+    var(--project-skeleton-base) 25%,
+    var(--project-skeleton-highlight) 50%,
+    var(--project-skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: projectSkeletonShimmer 1.4s ease-in-out infinite;
+}
+
+/* Header */
+
+.project-skeleton-page .project-skeleton-back {
+  width: 190px;
+  height: 16px;
+}
+
+.project-skeleton-page .project-skeleton-header-label {
+  width: 95px;
+  height: 15px;
+}
+
+/* Hero Section */
+
+.project-skeleton-page .project-skeleton-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 13px;
+}
+
+.project-skeleton-page .project-skeleton-badge {
+  width: 145px;
+  height: 26px;
+  border-radius: 20px;
+}
+
+.project-skeleton-page .project-skeleton-hero-title {
+  width: min(570px, 85%);
+  height: 32px;
+}
+
+.project-skeleton-page .project-skeleton-hero-title.second {
+  width: min(390px, 68%);
+  margin-bottom: 5px;
+}
+
+.project-skeleton-page .project-skeleton-hero-text {
+  width: min(650px, 90%);
+  height: 12px;
+}
+
+.project-skeleton-page .project-skeleton-hero-text.short {
+  width: min(470px, 72%);
+}
+
+/* Project Content Layout */
+
+.project-skeleton-page .project-skeleton-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 22px;
+}
+
+.project-skeleton-page .project-skeleton-card {
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Card Headings */
+
+.project-skeleton-page .project-skeleton-card-title {
+  width: 48%;
+  height: 22px;
+  margin-bottom: 22px;
+}
+
+/* Paragraph Lines */
+
+.project-skeleton-page .project-skeleton-paragraph {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 13px;
+}
+
+.project-skeleton-page .project-skeleton-line {
+  width: 100%;
+  height: 12px;
+}
+
+.project-skeleton-page .project-skeleton-line.medium {
+  width: 76%;
+}
+
+.project-skeleton-page .project-skeleton-line.short {
+  width: 60%;
+}
+
+/* Project Objectives */
+
+.project-skeleton-page .project-skeleton-objectives {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.project-skeleton-page .project-skeleton-objectives li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.project-skeleton-page .project-skeleton-objectives li::before {
+  content: "";
+  display: block;
+  flex: 0 0 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--project-skeleton-base);
+}
+
+.project-skeleton-page .project-skeleton-line.objective {
+  height: 12px;
+}
+
+.project-skeleton-page .objective-1 {
+  max-width: 95%;
+}
+
+.project-skeleton-page .objective-2 {
+  max-width: 82%;
+}
+
+.project-skeleton-page .objective-3 {
+  max-width: 91%;
+}
+
+.project-skeleton-page .objective-4 {
+  max-width: 73%;
+}
+
+.project-skeleton-page .objective-5 {
+  max-width: 86%;
+}
+
+/* Technology Tags */
+
+.project-skeleton-page .project-skeleton-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.project-skeleton-page .project-skeleton-tag {
+  width: 76px;
+  height: 29px;
+  border-radius: 20px;
+}
+
+.project-skeleton-page .tag-2,
+.project-skeleton-page .tag-5,
+.project-skeleton-page .tag-8 {
+  width: 94px;
+}
+
+.project-skeleton-page .tag-3,
+.project-skeleton-page .tag-7 {
+  width: 110px;
+}
+
+.project-skeleton-page .tag-4,
+.project-skeleton-page .tag-9 {
+  width: 66px;
+}
+
+/* Documentation Buttons */
+
+.project-skeleton-page .project-skeleton-document-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.project-skeleton-page .project-skeleton-button {
+  flex: 1 1 125px;
+  min-width: 0;
+  height: 42px;
+  border-radius: 9px;
+}
+
+/* Dark Mode */
+
+.dark-mode .project-skeleton-page {
+  --project-skeleton-base: #203c46;
+  --project-skeleton-highlight: #31535e;
+}
+
+/* Animation */
+
+@keyframes projectSkeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .project-skeleton-page .project-skeleton-content {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .project-skeleton-page .project-skeleton-card-title {
+    width: 58%;
+  }
+
+  .project-skeleton-page .project-skeleton-hero-title {
+    width: 92%;
+    height: 27px;
+  }
+
+  .project-skeleton-page .project-skeleton-hero-text {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-skeleton-page .project-skeleton-back {
+    width: 145px;
+  }
+
+  .project-skeleton-page .project-skeleton-document-buttons {
+    flex-direction: column;
+  }
+
+  .project-skeleton-page .project-skeleton-button {
+    flex-basis: 40px;
+    width: 100%;
+  }
+
+  .project-skeleton-page .project-skeleton-card {
+    padding: 20px;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-skeleton-page .project-skeleton-block {
+    animation: none;
+  }
+}
+

@@ -1,12 +1,111 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import "../../components/Skeleton/Skeleton.css";
 import "./Project.css";
+function ProjectSkeleton() {
+  return (
+    <div className="project-page project-skeleton-page" aria-busy="true" aria-label="Loading project details">
+      {/* Header matches the real Project Details header */}
+      <header className="project-page-header">
+        <div className="project-skeleton-block project-skeleton-back" />
+        <span className="project-skeleton-block project-skeleton-header-label" />
+      </header>
+
+      <main className="project-container">
+        {/* Hero: badge, two title lines, and description lines */}
+        <section className="project-hero project-skeleton-hero">
+          <div className="project-skeleton-block project-skeleton-badge" />
+          <div className="project-skeleton-block project-skeleton-hero-title" />
+          <div className="project-skeleton-block project-skeleton-hero-title second" />
+          <div className="project-skeleton-block project-skeleton-hero-text" />
+          <div className="project-skeleton-block project-skeleton-hero-text short" />
+        </section>
+
+        {/* Keep the same five cards and order as the real page */}
+        <section className="project-content project-skeleton-content">
+          {/* 1. Project Overview */}
+          <article className="project-card project-skeleton-card">
+            <div className="project-skeleton-block project-skeleton-card-title" />
+            <div className="project-skeleton-paragraph">
+              <div className="project-skeleton-block project-skeleton-line" />
+              <div className="project-skeleton-block project-skeleton-line" />
+              <div className="project-skeleton-block project-skeleton-line medium" />
+            </div>
+          </article>
+
+          {/* 2. Project Objectives: five list items */}
+          <article className="project-card project-skeleton-card">
+            <div className="project-skeleton-block project-skeleton-card-title" />
+            <ul className="project-skeleton-objectives">
+              {[1, 2, 3, 4, 5].map((item) => (
+                <li key={item}>
+                  <div className={`project-skeleton-block project-skeleton-line objective objective-${item}`} />
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          {/* 3. Technologies Used: ten technology tags */}
+          <article className="project-card project-skeleton-card">
+            <div className="project-skeleton-block project-skeleton-card-title" />
+            <div className="technology-list project-skeleton-technologies">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+                <span
+                  className={`project-skeleton-block project-skeleton-tag tag-${item}`}
+                  key={item}
+                />
+              ))}
+            </div>
+          </article>
+
+          {/* 4. Theory & Documentation: paragraph and three buttons */}
+          <article className="project-card project-skeleton-card">
+            <div className="project-skeleton-block project-skeleton-card-title" />
+            <div className="project-skeleton-paragraph">
+              <div className="project-skeleton-block project-skeleton-line" />
+              <div className="project-skeleton-block project-skeleton-line" />
+              <div className="project-skeleton-block project-skeleton-line medium" />
+            </div>
+            <div className="document-buttons project-skeleton-document-buttons">
+              <div className="project-skeleton-block project-skeleton-button" />
+              <div className="project-skeleton-block project-skeleton-button" />
+              <div className="project-skeleton-block project-skeleton-button" />
+            </div>
+          </article>
+
+          {/* 5. Future Scope */}
+          <article className="project-card project-skeleton-card">
+            <div className="project-skeleton-block project-skeleton-card-title" />
+            <div className="project-skeleton-paragraph">
+              <div className="project-skeleton-block project-skeleton-line" />
+              <div className="project-skeleton-block project-skeleton-line" />
+              <div className="project-skeleton-block project-skeleton-line short" />
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  );
+}
 
 function Project() {
   const [activeDocument, setActiveDocument] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const closeDocument = () => {
     setActiveDocument(null);
   };
+
+  if (isLoading) {
+    return <ProjectSkeleton />;
+  }
 
   return (
     <div className="project-page">
