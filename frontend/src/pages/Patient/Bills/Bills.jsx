@@ -26,6 +26,11 @@ function Bills() {
   const [selectedUpiApp, setSelectedUpiApp] = useState("");
   const [upiId, setUpiId] = useState("");
   const [selectedBank, setSelectedBank] = useState("");
+  const [bankReference, setBankReference] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cardCvv, setCardCvv] = useState("");
+  const [paymentValidationError, setPaymentValidationError] = useState("");
 
   // =========================================================
   // GET PATIENT ID
@@ -181,6 +186,11 @@ function Bills() {
     setSelectedUpiApp("");
     setUpiId("");
     setSelectedBank("");
+    setBankReference("");
+    setCardNumber("");
+    setCardExpiry("");
+    setCardCvv("");
+    setPaymentValidationError("");
 
     setPaymentModal({
       open: true,
@@ -198,6 +208,7 @@ function Bills() {
       return;
     }
 
+    setPaymentValidationError("");
     setPaymentModal({
       open: false,
       billId: null,
@@ -216,6 +227,68 @@ function Bills() {
     if (!billId) {
       setError("Invalid bill ID.");
       return;
+    }
+
+    // Validate the selected demo payment method before changing bill status.
+    // This is only a simulation; it does not verify or charge real payments.
+    setPaymentValidationError("");
+
+    if (paymentMethod === "upi") {
+      const normalizedUpiId = upiId.trim();
+      const validUpiId = /^[a-zA-Z0-9._-]{2,}@[a-zA-Z][a-zA-Z0-9.-]{1,}$/.test(normalizedUpiId);
+
+      if (!validUpiId) {
+        setPaymentValidationError(
+          "Enter a valid demo UPI ID (for example, name@upi). Selecting an app alone is not enough."
+        );
+        return;
+      }
+    } else if (paymentMethod === "card") {
+      const normalizedCardNumber = cardNumber.replace(/\s/g, "");
+
+      if (!/^\d{13,19}$/.test(normalizedCardNumber)) {
+        setPaymentValidationError(
+          "Enter a card number containing 13 to 19 digits. Use demo details only."
+        );
+        return;
+      }
+
+      const expiryMatch = cardExpiry.trim().match(/^(0[1-9]|1[0-2])\/(\d{2}|\d{4})$/);
+      if (!expiryMatch) {
+        setPaymentValidationError("Enter a valid expiry date in MM/YY format.");
+        return;
+      }
+
+      const expiryMonth = Number(expiryMatch[1]);
+      const expiryYearText = expiryMatch[2];
+      const expiryYear = Number(
+        expiryYearText.length === 2 ? `20${expiryYearText}` : expiryYearText
+      );
+      const today = new Date();
+      const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+      const expiryMonthStart = new Date(expiryYear, expiryMonth - 1, 1);
+
+      if (expiryYear < today.getFullYear() || expiryMonthStart < currentMonthStart) {
+        setPaymentValidationError("The card expiry date has passed.");
+        return;
+      }
+
+      if (!/^\d{3,4}$/.test(cardCvv)) {
+        setPaymentValidationError("Enter a 3- or 4-digit CVV. Use demo details only.");
+        return;
+      }
+    } else if (paymentMethod === "netbanking") {
+      if (!selectedBank) {
+        setPaymentValidationError("Select a bank before confirming the demo payment.");
+        return;
+      }
+
+      if (bankReference.trim().length < 4) {
+        setPaymentValidationError(
+          "Enter a demo reference ID with at least 4 characters."
+        );
+        return;
+      }
     }
 
     try {
@@ -284,7 +357,7 @@ function Bills() {
       });
 
       setPaymentMessage(
-        `Payment marked as successful for Bill #${billId}.`
+        `Demo payment marked as successful for Bill #${billId}. No real money was charged.`
       );
 
       // Refresh data automatically after payment
@@ -1111,10 +1184,10 @@ function Bills() {
                 </div>
 
                 <div>
-                  <strong>Secure Payment</strong>
+                  <strong>Demo Payment</strong>
 
                   <span>
-                    Hospital Bill Payment
+                    Simulated hospital bill payment
                   </span>
                 </div>
 
@@ -1215,8 +1288,7 @@ function Bills() {
                 <h3>Pay with UPI</h3>
 
                 <p className="payment-method-description">
-                  Choose your preferred UPI app or enter
-                  your UPI ID.
+                  Enter a demo UPI ID below. Selecting an app alone will not confirm payment.
                 </p>
 
 
@@ -1301,7 +1373,7 @@ function Bills() {
                     onChange={(event) =>
                       setUpiId(event.target.value)
                     }
-                    placeholder="example@upi"
+                    placeholder="name@upi (demo only)"
                   />
 
                   <span className="upi-verified">
@@ -1326,17 +1398,23 @@ function Bills() {
                 <h3>Pay with Card</h3>
 
                 <p className="payment-method-description">
-                  Enter your card details securely.
+                  Enter sample details only. Never use a real card; no payment gateway is connected.
                 </p>
 
                 <label className="payment-input-label">
-                  Card Number
+                  Card Number (demo only)
                 </label>
 
                 <input
                   className="payment-input"
                   type="text"
+                  inputMode="numeric"
+                  autoComplete="off"
                   maxLength="19"
+                  value={cardNumber}
+                  onChange={(event) =>
+                    setCardNumber(event.target.value.replace(/[^0-9 ]/g, "").slice(0, 19))
+                  }
                   placeholder="1234 5678 9012 3456"
                 />
 
@@ -1350,7 +1428,15 @@ function Bills() {
                     <input
                       className="payment-input"
                       type="text"
-                      placeholder="MM / YY"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      maxLength="7"
+                      value={cardExpiry}
+                      onChange={(event) => {
+                        const value = event.target.value.replace(/[^0-9/]/g, "").slice(0, 7);
+                        setCardExpiry(value);
+                      }}
+                      placeholder="MM/YY"
                     />
                   </div>
 
@@ -1362,8 +1448,14 @@ function Bills() {
                     <input
                       className="payment-input"
                       type="password"
-                      maxLength="3"
-                      placeholder="•••"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      maxLength="4"
+                      value={cardCvv}
+                      onChange={(event) =>
+                        setCardCvv(event.target.value.replace(/\D/g, "").slice(0, 4))
+                      }
+                      placeholder="3–4 digits"
                     />
                   </div>
 
@@ -1395,11 +1487,10 @@ function Bills() {
                 <select
                   className="payment-input"
                   value={selectedBank}
-                  onChange={(event) =>
-                    setSelectedBank(
-                      event.target.value
-                    )
-                  }
+                  onChange={(event) => {
+                    setSelectedBank(event.target.value);
+                    setPaymentValidationError("");
+                  }}
                 >
                   <option value="">
                     Select your bank
@@ -1431,10 +1522,54 @@ function Bills() {
 
                 </select>
 
+                <label className="payment-input-label" style={{ marginTop: 14 }}>
+                  Demo Account / Reference ID
+                </label>
+                <input
+                  className="payment-input"
+                  type="text"
+                  autoComplete="off"
+                  value={bankReference}
+                  onChange={(event) => {
+                    setBankReference(event.target.value);
+                    setPaymentValidationError("");
+                  }}
+                  placeholder="DEMO-REF-1234 (not real bank details)"
+                />
+
               </div>
 
             )}
 
+
+            {paymentValidationError && (
+              <div
+                className="bill-message bill-error payment-validation-error"
+                role="alert"
+                style={{
+                  padding: "8px 12px",
+                  margin: "12px 24px 0",
+                  gap: "8px",
+                  fontSize: "12px",
+                  lineHeight: 1.4,
+                  borderRadius: "9px",
+                  alignItems: "flex-start",
+                }}
+              >
+                <span
+                  style={{
+                    width: "22px",
+                    height: "22px",
+                    minWidth: "22px",
+                    fontSize: "12px",
+                    marginTop: "1px",
+                  }}
+                >
+                  !
+                </span>
+                <div>{paymentValidationError}</div>
+              </div>
+            )}
 
             {/* DEMO INFORMATION */}
 
@@ -1475,7 +1610,35 @@ function Bills() {
 
             </div>
 
+            {/* PAYMENT ACTIONS */}
+            <div className="payment-modal-actions">
+              <button
+                type="button"
+                className="modal-cancel-btn"
+                onClick={closePaymentModal}
+                disabled={payingBillId !== null}
+              >
+                Cancel
+              </button>
 
+              <button
+                type="button"
+                className="modal-confirm-btn"
+                onClick={confirmPayment}
+                disabled={payingBillId !== null}
+              >
+                {payingBillId === paymentModal.billId ? (
+                  <>
+                    <span className="payment-processing-spinner" />
+                    Processing...
+                  </>
+                ) : (
+                  `Confirm Demo Payment · ${formatAmount(
+                    paymentModal.amount
+                  )}`
+                )}
+              </button>
+            </div>
 
           </div>
 
