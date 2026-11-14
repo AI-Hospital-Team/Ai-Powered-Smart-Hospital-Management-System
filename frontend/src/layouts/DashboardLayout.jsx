@@ -1242,7 +1242,7 @@ function DashboardLayout() {
           <div className="patient-logo-wrapper">
 
             <img
-              src="/ai-smart-hospital-logo.jpeg"
+              src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
               alt="AI Smart Hospital"
               className="patient-hospital-logo"
               onError={

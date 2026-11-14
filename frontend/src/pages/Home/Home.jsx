@@ -786,7 +786,7 @@ return (
           >
             <div className="brand-logo">
               <img
-                src="/github-logo.jpeg"
+                src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                 alt="AI Smart Hospital"
               />
             </div>
@@ -1222,7 +1222,7 @@ return (
               <div className="hero-card-brand">
                 <div className="hero-card-logo">
                   <img
-                    src="/github-logo.jpeg"
+                    src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                     alt="AI Smart Hospital"
                   />
                 </div>
@@ -1770,7 +1770,7 @@ return (
           <div className="ayushman-right">
             <div className="ayushman-image-wrap">
               <img
-                src="/ayushman.png"
+                src={`${import.meta.env.BASE_URL}ayushman.png`}
                 alt="Ayushman Bharat"
                 className="ayushman-main-image"
               />
@@ -2809,7 +2809,7 @@ return (
 
             <div className="hospital-login-logo">
               <img
-                src="/github-logo.jpeg"
+                src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                 alt="AI Smart Hospital"
                 className="login-hospital-logo"
               />
@@ -3060,7 +3060,7 @@ return (
             <div className="register-top">
               <div className="register-logo">
                 <img
-                  src="/github-logo.jpeg"
+                  src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                   alt="AI Smart Hospital"
                 />
               </div>
