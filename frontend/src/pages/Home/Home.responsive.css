@@ -505,3 +505,641 @@
     word-break: normal !important;
   }
 }
+
+/* =========================================================
+   MOBILE HOME PAGE — FINAL OVERRIDES
+   Desktop remains unchanged.
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* ---------- PROJECT TOP CARDS ---------- */
+
+  .project-intro-top {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+
+    gap: 12px !important;
+    margin: 0 auto 30px !important;
+
+    transform: none !important;
+    align-items: stretch !important;
+  }
+
+  .project-intro-top > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .project-intro-top .project-intro-badge,
+  .project-intro-top .project-team,
+  .project-intro-top .hero-project-badge,
+  .project-intro-top .hero-team-card {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 68px !important;
+    max-height: none !important;
+
+    padding: 14px 16px !important;
+    justify-content: flex-start !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Team content */
+  .project-intro-top .project-team {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .project-team-icon {
+    flex-shrink: 0 !important;
+  }
+
+  /* GitHub card */
+  .project-intro-top .hero-github-link {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 68px !important;
+    max-height: none !important;
+
+    padding: 14px 16px !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .hero-github-link > span:not(.github-mark) {
+    min-width: 0 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .github-mark {
+    flex-shrink: 0 !important;
+  }
+
+  /* ---------- PROJECT INTRO CONTENT ---------- */
+
+  .project-intro-main {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .project-intro-paragraphs {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  .project-intro-paragraphs > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  .project-intro-lead,
+  .project-intro-description,
+  .project-intro-description p {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* ---------- ANIMATED PROJECT HEADING ---------- */
+
+  .project-intro-heading {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 4px !important;
+  }
+
+  .fold-title-typing {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    font-size: clamp(23px, 6vw, 34px) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.8px !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+  }
+
+  /* ---------- FEATURE CARDS ---------- */
+
+  .project-highlights {
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .project-highlights > * {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* ---------- SMALL PHONES ---------- */
+
+@media (max-width: 480px) {
+
+  .project-intro-top {
+    gap: 10px !important;
+    margin-bottom: 26px !important;
+  }
+
+  .project-intro-top .project-intro-badge,
+  .project-intro-top .project-team,
+  .project-intro-top .hero-project-badge,
+  .project-intro-top .hero-team-card,
+  .project-intro-top .hero-github-link {
+    padding: 13px !important;
+    border-radius: 15px !important;
+  }
+
+  .fold-title-typing {
+    font-size: clamp(21px, 6.2vw, 29px) !important;
+  }
+}
+
+/* ---------- EXTRA SMALL PHONES ---------- */
+
+@media (max-width: 375px) {
+
+  .project-intro-top {
+    gap: 9px !important;
+  }
+
+  .project-intro-top .hero-github-link {
+    gap: 9px !important;
+    font-size: 13px !important;
+  }
+
+  .project-team {
+    font-size: 13px !important;
+  }
+
+  .fold-title-typing {
+    font-size: 22px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE HEADER — BRAND + LOGIN + REGISTER
+   Desktop navigation remains unchanged.
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Hide mobile navigation and hamburger */
+  .main-nav,
+  .mobile-menu-toggle,
+  .mobile-nav-actions {
+    display: none !important;
+  }
+
+  /* Header layout */
+  .main-header {
+    height: 68px !important;
+    min-height: 68px !important;
+  }
+
+  .header-container {
+    height: 68px !important;
+    min-height: 68px !important;
+
+    padding: 8px 12px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+
+  /* Logo and website name */
+  .brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 7px !important;
+  }
+
+  .brand-logo {
+    width: 36px !important;
+    height: 36px !important;
+    flex: 0 0 36px !important;
+  }
+
+  .brand-text {
+    min-width: 0 !important;
+  }
+
+  .brand-text h2 {
+    font-size: clamp(11px, 3.5vw, 15px) !important;
+    white-space: nowrap !important;
+  }
+
+  .brand-text span {
+    display: none !important;
+  }
+
+  /* Header action buttons */
+  .header-actions {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+  }
+
+  /* Hide theme button to make room */
+  .header-actions .theme-toggle {
+    display: none !important;
+  }
+
+  .header-actions .login-btn,
+  .header-actions .register-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    height: 36px !important;
+    min-height: 36px !important;
+
+    padding: 0 10px !important;
+    border-radius: 9px !important;
+
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  .header-actions .login-btn {
+    min-width: 48px !important;
+  }
+
+  .header-actions .register-btn {
+    min-width: 60px !important;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 375px) {
+
+  .header-container {
+    padding-left: 9px !important;
+    padding-right: 9px !important;
+    gap: 5px !important;
+  }
+
+  .brand {
+    gap: 5px !important;
+  }
+
+  .brand-logo {
+    width: 33px !important;
+    height: 33px !important;
+    flex-basis: 33px !important;
+  }
+
+  .brand-text h2 {
+    font-size: 11px !important;
+  }
+
+  .header-actions {
+    gap: 4px !important;
+  }
+
+  .header-actions .login-btn,
+  .header-actions .register-btn {
+    padding: 0 8px !important;
+    font-size: 10px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE — DISABLE HORIZONTAL PAGE SCROLL
+   Keep vertical scrolling enabled.
+   Desktop remains unchanged.
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  #root,
+  .home-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip !important;
+  }
+
+  .home-page {
+    position: relative;
+  }
+
+  /* Prevent wide sections from expanding the page */
+  .home-page section,
+  .home-page header,
+  .home-page footer {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Keep images and media inside their containers */
+  .home-page img,
+  .home-page video,
+  .home-page iframe {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE LOGIN / REGISTER — ENABLE VERTICAL SCROLLING
+   Desktop remains unchanged.
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .login-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    padding: 12px !important;
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+  }
+
+  .login-overlay .hospital-login,
+  .login-overlay .register-modal {
+    flex: 0 0 auto !important;
+
+    width: 100% !important;
+    max-width: 480px !important;
+
+    max-height: calc(100dvh - 24px) !important;
+
+    margin: 0 auto 12px !important;
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+  }
+}
+
+/* Short mobile screens */
+@media (max-width: 768px) and (max-height: 700px) {
+
+  .login-overlay .hospital-login,
+  .login-overlay .register-modal {
+    max-height: calc(100dvh - 20px) !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL MOBILE AUTHENTICATION DESIGN
+   Login + Registration
+   Desktop remains unchanged.
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  /* ---------- MODAL BACKDROP ---------- */
+
+  .login-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    padding: 16px 12px !important;
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* ---------- LOGIN CARD ---------- */
+
+  .login-overlay .hospital-login {
+    width: 100% !important;
+    max-width: 440px !important;
+    height: auto !important;
+
+    max-height: none !important;
+    flex: 0 0 auto !important;
+
+    margin: auto 0 !important;
+    padding: 28px 22px !important;
+
+    box-sizing: border-box !important;
+    border-radius: 24px !important;
+
+    overflow: visible !important;
+  }
+
+  .hospital-login-logo {
+    width: 68px !important;
+    height: 68px !important;
+    margin: 5px auto 14px !important;
+  }
+
+  .hospital-login h1 {
+    font-size: 29px !important;
+    line-height: 1.2 !important;
+  }
+
+  .login-subtitle {
+    font-size: 14px !important;
+    margin: 7px 0 20px !important;
+  }
+
+  /* Role selection */
+  .role-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .role-tabs button {
+    min-width: 0 !important;
+    padding: 10px 4px !important;
+    font-size: 12px !important;
+    justify-content: center !important;
+  }
+
+  /* Login fields */
+  .hospital-login form {
+    gap: 10px !important;
+  }
+
+  .hospital-login form input {
+    width: 100% !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    box-sizing: border-box !important;
+    font-size: 14px !important;
+  }
+
+  .hospital-login-button {
+    width: 100% !important;
+    min-height: 49px !important;
+    margin-top: 10px !important;
+  }
+
+  /* ---------- REGISTER CARD ---------- */
+
+  .login-overlay .register-modal {
+    width: 100% !important;
+    max-width: 440px !important;
+
+    height: auto !important;
+    max-height: none !important;
+
+    flex: 0 0 auto !important;
+
+    margin: auto 0 !important;
+    padding: 24px 20px !important;
+
+    box-sizing: border-box !important;
+    border-radius: 24px !important;
+
+    overflow: visible !important;
+  }
+
+  /* Register heading */
+  .register-modal .register-top {
+    margin-bottom: 20px !important;
+  }
+
+  .register-modal .register-top h1 {
+    font-size: 27px !important;
+    line-height: 1.2 !important;
+  }
+
+  .register-modal .register-top p {
+    font-size: 13px !important;
+  }
+
+  .register-modal .register-logo {
+    width: 58px !important;
+    height: 58px !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Single-column registration form */
+  .login-overlay .register-modal form {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  .login-overlay .register-modal form > *,
+  .login-overlay .register-modal form > .register-field,
+  .login-overlay .register-modal .register-field {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .register-modal .register-field label {
+    font-size: 13px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .register-modal .register-input-wrap {
+    width: 100% !important;
+    height: 48px !important;
+  }
+
+  .register-modal .register-input-wrap input,
+  .register-modal .register-input-wrap select {
+    width: 100% !important;
+    height: 48px !important;
+    font-size: 14px !important;
+    border-radius: 11px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Register submit */
+  .login-overlay .register-modal .register-submit {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-height: 49px !important;
+    margin: 8px 0 0 !important;
+  }
+
+  /* Close button */
+  .login-overlay .close-login {
+    width: 36px !important;
+    height: 36px !important;
+    top: 12px !important;
+    right: 12px !important;
+    z-index: 10 !important;
+  }
+}
+
+/* ---------- EXTRA SMALL PHONES ---------- */
+
+@media screen and (max-width: 375px) {
+
+  .login-overlay {
+    padding: 10px !important;
+  }
+
+  .login-overlay .hospital-login,
+  .login-overlay .register-modal {
+    padding: 22px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .hospital-login h1 {
+    font-size: 26px !important;
+  }
+
+  .register-modal .register-top h1 {
+    font-size: 25px !important;
+  }
+}
