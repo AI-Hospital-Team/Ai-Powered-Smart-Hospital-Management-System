@@ -2209,3 +2209,82 @@
     margin-top: 0 !important;
   }
 }
+
+/* ==========================================
+   DOCTORS — MOBILE HORIZONTAL ROW
+   Original card design preserved
+========================================== */
+
+@media (max-width: 768px) {
+
+  .doctors-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 8px 2px 18px !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  .doctors-grid .doctor-card {
+    flex: 0 0 265px !important;
+    width: 265px !important;
+    min-width: 265px !important;
+    height: auto !important;
+    min-height: 460px !important;
+    box-sizing: border-box !important;
+    scroll-snap-align: start;
+  }
+
+  /* Keep card content centered */
+  .doctors-grid .doctor-card > * {
+    min-width: 0;
+  }
+
+  /* Hide scrollbar but retain swipe */
+  .doctors-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .doctors-grid {
+    scrollbar-width: none;
+  }
+}
+@media (max-width: 768px) {
+  .doctors-grid {
+    align-items: stretch !important;
+  }
+
+  .doctors-grid .doctor-card {
+    align-self: stretch !important;
+    margin-top: 0 !important;
+    transform: none !important;
+    scroll-snap-align: start !important;
+  }
+
+  .doctors-grid .doctor-card:nth-child(3) {
+    margin-top: 0 !important;
+    transform: none !important;
+  }
+}
+
+/* Reduce gap between Departments and Doctors */
+@media (max-width: 768px) {
+  .departments-section {
+    padding-bottom: 20px !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important;
+  }
+
+  .doctors-section {
+    padding-top: 20px !important;
+    margin-top: 0 !important;
+  }
+
+  .departments-grid {
+    margin-bottom: 0 !important;
+  }
+}
