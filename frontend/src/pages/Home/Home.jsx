@@ -1153,7 +1153,7 @@ return (
           <div className="hero-content">
             <div className="hero-badge">
               <span className="hero-badge-dot"></span>
-              <span>AI-POWERED SMART HEALTHCARE</span>
+              <span>AI SMART HEALTHCARE</span>
             </div>
 
             <h1 className="hero-title">
@@ -1730,8 +1730,14 @@ return (
             <div className="insurance-title-row">
               <div>
                 <div className="section-label">
-                  AYUSHMAN BHARAT • HEALTHCARE SUPPORT
-                </div>
+  <span className="insurance-label-desktop">
+    AYUSHMAN BHARAT • HEALTHCARE SUPPORT
+  </span>
+
+  <span className="insurance-label-mobile">
+    AYUSHMAN BHARAT
+  </span>
+</div>
                 <h2>
                   Get Free Healthcare
                   <br />

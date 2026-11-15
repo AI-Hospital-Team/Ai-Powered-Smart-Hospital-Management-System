@@ -1409,3 +1409,803 @@
     font-size: 16px !important;
   }
 }
+
+
+/* =========================================================
+   MOBILE HOME — SKIP PROJECT INTRO
+   Show Hero section directly
+   Desktop remains unchanged
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Hide complete project introduction */
+  #project-intro {
+    display: none !important;
+  }
+
+  /* Hero section spacing */
+  #home {
+    padding-top: 22px !important;
+  }
+
+  /* Hero heading */
+  .hero-title {
+    font-size: clamp(23px, 6vw, 26px) !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  /* Hero description */
+  .hero-description {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Hero card */
+  .compact-hero-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+}
+
+
+/* Hide Hero Features on mobile only */
+@media (max-width: 768px) {
+  .hero-features {
+    display: none !important;
+  }
+}
+
+
+/* =====================================================
+   PROFESSIONAL COMPACT HERO CARD — MOBILE
+   Desktop design remains unchanged
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .hero-card.compact-hero-card {
+    width: 100% !important;
+    max-width: 350px !important;
+    padding: 18px !important;
+    margin: 0 auto !important;
+
+    border-radius: 24px !important;
+    box-sizing: border-box !important;
+
+    box-shadow: 0 12px 32px rgba(0, 40, 55, 0.13) !important;
+  }
+
+  /* Brand section */
+  .hero-card-brand {
+    gap: 11px !important;
+    margin-bottom: 15px !important;
+    align-items: center !important;
+  }
+
+  .hero-card-logo {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    padding: 4px !important;
+    border-radius: 50% !important;
+  }
+
+  .hero-card-logo img {
+    border-radius: 50% !important;
+    object-fit: contain !important;
+  }
+
+  .hero-card-label {
+    font-size: 8px !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  .hero-card-heading h2 {
+    font-size: 21px !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-card-heading p {
+    font-size: 10px !important;
+    margin-top: 4px !important;
+  }
+
+  /* Healthcare platform */
+  .hero-card-message {
+    padding: 12px !important;
+    gap: 11px !important;
+    border-radius: 16px !important;
+  }
+
+  .hero-card-message-icon {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 13px !important;
+  }
+
+  .hero-card-message-content strong {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  .hero-card-message-content p {
+    font-size: 10px !important;
+    line-height: 1.45 !important;
+    margin-top: 3px !important;
+  }
+
+  /* AI assistant cards */
+  .hero-assistants {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+    margin-top: 10px !important;
+  }
+
+  .hero-assistant-card {
+    min-width: 0 !important;
+    min-height: 82px !important;
+    padding: 10px !important;
+    gap: 8px !important;
+    border-radius: 15px !important;
+  }
+
+  .assistant-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border-radius: 12px !important;
+  }
+
+  .assistant-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .assistant-content {
+    min-width: 0 !important;
+  }
+
+  .assistant-content strong {
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .assistant-arrow {
+    display: none !important;
+  }
+
+  /* Footer */
+  .hero-card-footer {
+    flex-wrap: wrap !important;
+    gap: 7px !important;
+    margin-top: 13px !important;
+    padding-top: 11px !important;
+  }
+
+  .footer-status {
+    font-size: 9px !important;
+  }
+
+  .footer-separator {
+    display: none !important;
+  }
+
+  .footer-text {
+    width: 100% !important;
+    font-size: 9px !important;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 375px) {
+
+  .hero-card.compact-hero-card {
+    padding: 15px !important;
+  }
+
+  .hero-assistant-card {
+    padding: 8px !important;
+    gap: 6px !important;
+  }
+
+  .assistant-icon {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+
+  .assistant-content strong {
+    font-size: 9px !important;
+  }
+}
+
+
+/* =====================================================
+   MOBILE AI TOOL CARDS — ICON & TEXT ALIGNMENT
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .hero-assistants {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .hero-assistant-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 9px !important;
+
+    min-height: 78px !important;
+    padding: 12px 10px !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+  }
+
+  /* Consistent icon alignment */
+  .hero-assistant-card .assistant-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    flex: 0 0 36px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    border-radius: 12px !important;
+  }
+
+  .hero-assistant-card .assistant-content {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Consistent AI tool names */
+  .hero-assistant-card .assistant-content strong {
+    display: block !important;
+    width: 100% !important;
+
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+    font-weight: 800 !important;
+
+    text-align: left !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+
+  .hero-assistant-card .assistant-arrow {
+    display: none !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero-assistant-card {
+    gap: 7px !important;
+    padding: 9px 7px !important;
+  }
+
+  .hero-assistant-card .assistant-icon {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    flex-basis: 32px !important;
+  }
+
+  .hero-assistant-card .assistant-content strong {
+    font-size: 9px !important;
+  }
+}
+
+/* Hide Hero Card footer on mobile only */
+@media (max-width: 768px) {
+  .hero-card-footer {
+    display: none !important;
+  }
+}
+
+
+/* Mobile header — Theme + Login + Register */
+@media (max-width: 480px) {
+
+  .header-container {
+    gap: 7px !important;
+    padding: 8px 10px !important;
+  }
+
+  .brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .brand-text h2 {
+    font-size: 13px !important;
+  }
+
+  .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex: 0 0 auto !important;
+    gap: 6px !important;
+  }
+
+  .header-actions .theme-toggle {
+    display: flex !important;
+    order: 1 !important;
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+  }
+
+  .header-actions .login-btn {
+    display: flex !important;
+    order: 2 !important;
+    min-height: 38px !important;
+    padding: 0 10px !important;
+  }
+
+  .header-actions .register-btn {
+    display: flex !important;
+    order: 3 !important;
+    min-height: 38px !important;
+    padding: 0 10px !important;
+  }
+}
+
+/* =====================================================
+   MOBILE HEADER — LIGHT & DARK MODE
+   Consistent alignment for Theme, Login and Register
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .header-container {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .header-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+  }
+
+  .header-actions .theme-toggle,
+  .header-actions .login-btn,
+  .header-actions .register-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: center !important;
+
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    vertical-align: middle !important;
+  }
+
+  .header-actions .theme-toggle {
+    order: 1 !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 0 !important;
+    flex: 0 0 38px !important;
+  }
+
+  .header-actions .login-btn {
+    order: 2 !important;
+    min-height: 38px !important;
+  }
+
+  .header-actions .register-btn {
+    order: 3 !important;
+    min-height: 38px !important;
+  }
+}
+
+
+/* ==========================================
+   SERVICES — PROFESSIONAL MOBILE TYPOGRAPHY
+========================================== */
+
+@media (max-width: 768px) {
+
+  #services h2 {
+    font-size: 26px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.7px !important;
+    font-weight: 800 !important;
+  }
+
+  #services .section-description {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    font-weight: 500 !important;
+    max-width: 310px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #services .service-card h3 {
+    font-size: 17px !important;
+    line-height: 1.4 !important;
+    font-weight: 700 !important;
+  }
+
+  #services .service-card p {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+
+  #services .service-card a {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+}
+
+/* ==========================================
+   SERVICES CARDS — HORIZONTAL MOBILE LAYOUT
+========================================== */
+
+@media (max-width: 768px) {
+
+  #services .service-card {
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) !important;
+    grid-template-areas:
+      "icon title"
+      "icon description"
+      "icon action" !important;
+
+    column-gap: 14px !important;
+    row-gap: 5px !important;
+
+    align-items: center !important;
+    padding: 20px !important;
+    min-height: 145px !important;
+    text-align: left !important;
+  }
+
+  #services .service-card > :first-child {
+    grid-area: icon !important;
+    align-self: start !important;
+    margin: 0 !important;
+  }
+
+  #services .service-card h3 {
+    grid-area: title !important;
+    margin: 0 !important;
+    align-self: end !important;
+  }
+
+  #services .service-card p {
+    grid-area: description !important;
+    margin: 0 !important;
+    align-self: center !important;
+  }
+
+  #services .service-card a {
+    grid-area: action !important;
+    justify-self: start !important;
+    margin-top: 5px !important;
+  }
+}
+/* Reduce excessive gap before Modern Healthcare */
+@media (max-width: 768px) {
+  .home-page .home-ai-section {
+    margin-bottom: 16px !important;
+  }
+
+  .home-page .healthcare-gallery {
+    margin-top: 0 !important;
+    padding-top: 24px !important;
+  }
+}
+/* Hide Gallery Features cards on mobile only */
+@media (max-width: 768px) {
+  .home-page .healthcare-gallery .gallery-features {
+    display: none !important;
+  }
+}
+
+
+/* ==========================================
+   AYUSHMAN BHARAT — MOBILE ONLY
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  .home-page .insurance-section {
+    padding: 35px 18px !important;
+    overflow: hidden !important;
+  }
+
+  .home-page .insurance-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    width: 100% !important;
+  }
+
+  /* Heading */
+  .home-page .insurance-title-row h2 {
+    font-size: 30px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.8px !important;
+  }
+
+  .home-page .insurance-title-row h2 br {
+    display: none !important;
+  }
+
+  .home-page .insurance-title-row .section-label {
+    white-space: normal !important;
+    font-size: 9px !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  /* Description */
+  .home-page .insurance-description {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Benefits */
+  .home-page .insurance-features {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .home-page .insurance-features div {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+    padding: 5px !important;
+  }
+
+  /* Scheme image */
+  .home-page .ayushman-right {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-page .ayushman-image-wrap {
+    width: 100% !important;
+    border-radius: 18px 18px 0 0 !important;
+  }
+
+  .home-page .ayushman-main-image {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Information card */
+  .home-page .ayushman-info-card {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 15px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    border-radius: 0 0 18px 18px !important;
+  }
+
+  .home-page .ayushman-info-card h3 {
+    font-size: 19px !important;
+  }
+
+  .home-page .ayushman-info-card p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  .home-page .ayushman-info-card .card-btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* ==========================================
+   AYUSHMAN BHARAT — MOBILE CONTENT CLEANUP
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Professional heading */
+  .home-page .insurance-title-row h2 {
+    font-size: 28px !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.6px !important;
+  }
+
+  /* Keep the intended heading line break */
+  .home-page .insurance-title-row h2 br {
+    display: block !important;
+  }
+
+  /* Shorter description */
+  .home-page .insurance-description {
+    font-size: 13px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Keep only the two important benefits */
+  .home-page .insurance-features > div:nth-child(n+3) {
+    display: none !important;
+  }
+
+  /* Remove repeated information below the scheme image */
+  .home-page .ayushman-mini-label,
+  .home-page .ayushman-info-content p {
+    display: none !important;
+  }
+
+  /* Compact information card */
+  .home-page .ayushman-info-card {
+    padding: 14px !important;
+    gap: 10px !important;
+  }
+
+  .home-page .ayushman-info-card h3 {
+    font-size: 18px !important;
+    margin: 0 !important;
+  }
+
+  .home-page .ayushman-info-card .card-btn {
+    margin-top: 4px !important;
+  }
+}
+/* Ayushman label — responsive text */
+.insurance-label-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .insurance-label-desktop {
+    display: none !important;
+  }
+
+  .insurance-label-mobile {
+    display: inline !important;
+    font-size: 10px !important;
+    letter-spacing: 2px !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* ==========================================
+   MOBILE — GALLERY TO AYUSHMAN SPACING
+   Desktop unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Reduce bottom space after gallery */
+  .home-page .healthcare-gallery {
+    padding-bottom: 20px !important;
+  }
+
+  /* Reduce top space before Ayushman */
+  .home-page .insurance-section {
+    padding-top: 20px !important;
+  }
+
+  /* Center Ayushman label */
+  .home-page .insurance-title-row {
+    text-align: center !important;
+    margin: 0 auto 18px !important;
+  }
+
+  .home-page .insurance-section .section-label {
+    display: flex !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+  }
+}
+/* Center Ayushman heading underline — mobile only */
+@media (max-width: 768px) {
+  .home-page .insurance-title-row h2::after {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* ==========================================
+   DEPARTMENT CARDS — MOBILE HORIZONTAL LAYOUT
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  .departments-grid .department-card {
+    display: grid !important;
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto !important;
+    column-gap: 14px !important;
+    row-gap: 6px !important;
+    align-items: center !important;
+    padding: 20px !important;
+    min-height: auto !important;
+    text-align: left !important;
+  }
+
+  /* Icon on the left */
+  .departments-grid .department-card > div:first-child {
+    grid-column: 1 !important;
+    grid-row: 1 / 4 !important;
+    width: 48px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    font-size: 24px !important;
+    border-radius: 13px !important;
+  }
+
+  /* Department name */
+  .departments-grid .department-card h3 {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Description */
+  .departments-grid .department-card p {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* View link */
+  .departments-grid .department-card .department-view-link {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
+    margin: 5px 0 0 !important;
+    font-size: 13px !important;
+    justify-self: start !important;
+  }
+}
+
+/* Reduce excessive gap between Ayushman Bharat and Departments */
+@media (max-width: 768px) {
+  .home-page .insurance-section {
+    padding-bottom: 24px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .home-page .departments-section {
+    padding-top: 24px !important;
+    margin-top: 0 !important;
+  }
+}
