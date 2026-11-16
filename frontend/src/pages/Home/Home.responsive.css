@@ -3559,3 +3559,93 @@
     margin: 0 !important;
   }
 }
+/* Mobile-only Meet Our Doctors button */
+.mobile-doctors-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-doctors-btn {
+    display: inline-flex;
+    width: 100%;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    cursor: pointer;
+    font: inherit;
+    color: #ffffff;
+    appearance: none;
+  }
+}
+@media (max-width: 768px) {
+  .hero-section .hero-container,
+  .hero-section .hero-content,
+  .hero-section .hero-actions {
+    position: relative !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+  }
+
+  .hero-section .hero-background-overlay {
+    pointer-events: none !important;
+  }
+
+  .hero-section .mobile-doctors-btn {
+    display: flex !important;
+    position: relative !important;
+    z-index: 20 !important;
+    width: 100%;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto !important;
+    cursor: pointer;
+  }
+}
+@media (max-width: 768px) {
+  .hero-section .mobile-doctors-btn {
+    display: flex !important;
+    width: 100%;
+    min-height: 54px;
+    padding: 0 20px;
+
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    font-family: "Poppins", "Segoe UI", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.2px;
+
+    color: #ffffff !important;
+    text-decoration: none;
+
+    background: linear-gradient(
+      135deg,
+      rgba(17, 181, 199, 0.25),
+      rgba(7, 132, 164, 0.35)
+    );
+
+    border: 1px solid rgba(101, 220, 231, 0.55);
+    border-radius: 13px;
+
+    box-shadow: 0 8px 22px rgba(0, 40, 55, 0.16);
+
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .hero-section .mobile-doctors-btn:active {
+    transform: scale(0.97);
+    background: linear-gradient(135deg, #11b5c7, #0784a4);
+  }
+
+  .hero-section .mobile-doctors-btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+}

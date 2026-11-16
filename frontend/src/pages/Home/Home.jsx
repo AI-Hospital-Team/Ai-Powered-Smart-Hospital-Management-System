@@ -1170,31 +1170,29 @@ return (
               services from one secure platform.
             </p>
 
-            <div className="hero-actions">
-              <a
-                href="#contact"
-                className="hero-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openLogin("Patient");
-                }}
-              >
-                <Icon name="appointment" size={17} />
-                <span>Book Appointment</span>
-              </a>
+<div className="hero-actions">
+  {/* Book Appointment */}
+  <a
+    href="#contact"
+    className="hero-primary"
+    onClick={(e) => {
+      e.preventDefault();
+      openLogin("Patient");
+    }}
+  >
+    <Icon name="appointment" size={17} />
+    <span>Book Appointment</span>
+  </a>
 
-              <a
-                href="#services"
-                className="hero-secondary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("services");
-                }}
-              >
-                <span>Explore Services</span>
-                <Icon name="arrow" size={17} />
-              </a>
-            </div>
+  {/* Mobile-only Meet Our Doctors */}
+<a
+  href="#doctors"
+  className="hero-secondary mobile-doctors-btn"
+>
+  <span>Meet Our Doctors</span>
+  <Icon name="arrow" size={17} />
+</a>
+</div>
 
             <div className="hero-features">
               <span className="hero-feature">
