@@ -37,6 +37,8 @@ jobs:
       - name: Build frontend
         run: npm run build
         working-directory: frontend
+        env:
+          GITHUB_PAGES: 'true'
 
       - name: Upload build
         uses: actions/upload-pages-artifact@v3
