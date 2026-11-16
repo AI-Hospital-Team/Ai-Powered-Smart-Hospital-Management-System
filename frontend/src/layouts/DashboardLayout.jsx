@@ -20,6 +20,9 @@ function DashboardLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Mobile navigation drawer
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // ==========================================
   // LOGIN / ROLE
   // ==========================================
@@ -525,6 +528,35 @@ function DashboardLayout() {
         return "";
       }
     };
+
+  // ==========================================
+  // MOBILE DRAWER: ESCAPE + BODY SCROLL LOCK
+  // ==========================================
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleDrawerEscape = (event) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleDrawerEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleDrawerEscape);
+    };
+  }, [mobileMenuOpen]);
+
+  // Close the drawer whenever the route changes.
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   // ==========================================
   // LOGIN PROTECTION
@@ -1091,6 +1123,7 @@ function DashboardLayout() {
     path
   ) => {
     navigate(path);
+    setMobileMenuOpen(false);
   };
 
   // ==========================================
@@ -1229,11 +1262,41 @@ function DashboardLayout() {
   return (
     <div className="dashboard-layout">
 
+      {/* MOBILE DRAWER BACKDROP */}
+      {mobileMenuOpen && (
+        <button
+          type="button"
+          className="mobile-sidebar-backdrop"
+          aria-label="Close navigation menu"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       {/* =====================================
           SIDEBAR
       ===================================== */}
 
-      <aside className="dashboard-sidebar">
+      <aside
+        id="dashboard-mobile-sidebar"
+        className={`dashboard-sidebar ${
+          mobileMenuOpen ? "mobile-sidebar-open" : ""
+        }`}
+        aria-label="Dashboard navigation"
+        aria-hidden={window.innerWidth <= 700 ? !mobileMenuOpen : undefined}
+      >
+
+        <div className="mobile-sidebar-top">
+          <span>Navigation</span>
+          <button
+            type="button"
+            className="mobile-sidebar-close"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <span aria-hidden="true">×</span>
+            <span>Close menu</span>
+          </button>
+        </div>
 
         {/* LOGO */}
 
@@ -1473,6 +1536,364 @@ function DashboardLayout() {
           </div>
         )}
 
+        {/* MOBILE QUICK ACTIONS — ORIGINAL HEADER CONTROLS */}
+        <div className="mobile-sidebar-actions">
+          <div className="mobile-sidebar-actions-title">
+            QUICK ACTIONS
+          </div>
+
+        {/* =================================
+            NOTIFICATION BELL
+        ================================= */}
+
+        <div
+          className="notification-header-wrapper"
+          ref={notificationRef}
+        >
+
+          <button
+            type="button"
+            className={`notification-header-button ${
+              notificationOpen
+                ? "active"
+                : ""
+            } ${
+              unreadNotificationCount >
+              0
+                ? "has-unread"
+                : ""
+            }`}
+            onClick={
+              handleNotificationToggle
+            }
+            title="Notifications"
+            aria-label="Notifications"
+            aria-expanded={
+              notificationOpen
+            }
+          >
+
+            <span className="notification-header-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+                <path d="M10 21h4" />
+              </svg>
+            </span>
+
+            {unreadNotificationCount >
+              0 && (
+              <span className="notification-badge">
+
+                {unreadNotificationCount >=
+                10
+                  ? "9+"
+                  : unreadNotificationCount}
+
+              </span>
+            )}
+
+          </button>
+
+          {/* NOTIFICATION DROPDOWN */}
+
+          {notificationOpen && (
+            <div className="notification-dropdown">
+
+              {/* HEADER */}
+
+              <div className="notification-dropdown-header">
+
+                <div>
+
+                  <h3>
+                    Notifications
+                  </h3>
+
+                  <span>
+                    {unreadNotificationCount ===
+                    0
+                      ? "You're all caught up"
+                      : `${unreadNotificationCount} unread notification${
+                          unreadNotificationCount >
+                          1
+                            ? "s"
+                            : ""
+                        }`}
+                  </span>
+
+                </div>
+
+                {unreadNotificationCount >
+                  0 && (
+                  <button
+                    type="button"
+                    className="notification-mark-all"
+                    onClick={
+                      markAllNotificationsAsRead
+                    }
+                  >
+                    Mark all as read
+                  </button>
+                )}
+
+              </div>
+
+              {/* CONTENT */}
+
+              <div className="notification-dropdown-body">
+
+                {notificationLoading ? (
+                  <div className="notification-dropdown-loading">
+
+                    <span className="notification-small-loader"></span>
+
+                    <span>
+                      Loading notifications...
+                    </span>
+
+                  </div>
+                ) : notificationError ? (
+                  <div className="notification-dropdown-error">
+
+                    <span>
+                      {notificationError}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={
+                        loadNotifications
+                      }
+                    >
+                      Retry
+                    </button>
+
+                  </div>
+                ) : notifications.length ===
+                  0 ? (
+                  <div className="notification-dropdown-empty">
+
+                    <div className="notification-empty-icon">
+                      🔔
+                    </div>
+
+                    <strong>
+                      No notifications
+                    </strong>
+
+                    <span>
+                      You're all caught up.
+                    </span>
+
+                  </div>
+                ) : (
+                  <div className="notification-dropdown-list">
+
+                    {notifications
+                      .slice(
+                        0,
+                        6
+                      )
+                      .map(
+                        (
+                          notification
+                        ) => (
+                          <div
+                            key={
+                              notification.notificationId
+                            }
+                            className={`notification-dropdown-item ${
+                              !notification.read
+                                ? "unread"
+                                : ""
+                            }`}
+                          >
+
+                            {/* ICON */}
+
+                            <div
+                              className={`notification-dropdown-icon ${getNotificationTypeClass(
+                                notification.type
+                              )}`}
+                            >
+                              {getNotificationIcon(
+                                notification.type
+                              )}
+                            </div>
+
+                            {/* CONTENT */}
+
+                            <div className="notification-dropdown-content">
+
+                              <div className="notification-dropdown-title">
+
+                                <strong>
+                                  {
+                                    notification.title
+                                  }
+                                </strong>
+
+                                {!notification.read && (
+                                  <span className="notification-new-dot">
+                                    New
+                                  </span>
+                                )}
+
+                              </div>
+
+                              <p>
+                                {
+                                  notification.message
+                                }
+                              </p>
+
+                              <small>
+                                {formatNotificationTime(
+                                  notification.createdAt
+                                )}
+                              </small>
+
+                            </div>
+
+                            {/* MARK AS READ */}
+
+                            {!notification.read && (
+                              <button
+                                type="button"
+                                className="notification-mark-read"
+                                onClick={() =>
+                                  markNotificationAsRead(
+                                    notification.notificationId
+                                  )
+                                }
+                                title="Mark as read"
+                                aria-label="Mark notification as read"
+                              >
+                                ✓
+                              </button>
+                            )}
+
+                          </div>
+                        )
+                      )}
+
+                  </div>
+                )}
+
+              </div>
+
+              {/* FOOTER */}
+
+              {notifications.length >
+                6 && (
+                <div className="notification-dropdown-footer">
+
+                  <span>
+                    Showing latest 6 notifications
+                  </span>
+
+                </div>
+              )}
+
+            </div>
+          )}
+
+        </div>
+
+        {/* =================================
+            DARK MODE
+        ================================= */}
+
+        <button
+          type="button"
+          className="header-button"
+          onClick={
+            handleDarkMode
+          }
+          title={
+            darkMode
+              ? "Switch to Light Mode"
+              : "Switch to Dark Mode"
+          }
+          aria-label={
+            darkMode
+              ? "Switch to Light Mode"
+              : "Switch to Dark Mode"
+          }
+          aria-pressed={
+            darkMode
+          }
+        >
+
+          <span className="theme-icon" aria-hidden="true">
+            {darkMode ? (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z" />
+              </svg>
+            )}
+          </span>
+
+          <span className="mobile-theme-label">
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </span>
+
+        </button>
+
+        {/* ACCOUNT */}
+
+        <button
+          type="button"
+          className="account-button"
+          onClick={
+            handleAccount
+          }
+          title="My Account"
+        >
+
+          <span className="account-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="8" r="3.5" />
+              <path d="M5 20c.8-3.6 3.1-5.5 7-5.5s6.2 1.9 7 5.5" />
+            </svg>
+          </span>
+
+          <span>
+            Account
+          </span>
+
+        </button>
+
+        {/* LOGOUT */}
+
+        <button
+          type="button"
+          className="logout-button"
+          onClick={
+            handleLogout
+          }
+          title="Logout"
+        >
+
+          <span className="logout-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10 17l5-5-5-5" />
+              <path d="M15 12H3" />
+              <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6" />
+            </svg>
+          </span>
+
+          <span>
+            Logout
+          </span>
+
+        </button>
+        </div>
+
         {/* SIDEBAR BOTTOM */}
 
         <div className="sidebar-bottom">
@@ -1510,6 +1931,19 @@ function DashboardLayout() {
         ===================================== */}
 
         <header className="dashboard-header">
+
+          <button
+            type="button"
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open navigation menu"
+            aria-controls="dashboard-mobile-sidebar"
+            aria-expanded={mobileMenuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
 
           <div className="header-left">
 
@@ -1550,335 +1984,6 @@ function DashboardLayout() {
 
             </button>
 
-            {/* =================================
-                NOTIFICATION BELL
-            ================================= */}
-
-            <div
-              className="notification-header-wrapper"
-              ref={notificationRef}
-            >
-
-              <button
-                type="button"
-                className={`notification-header-button ${
-                  notificationOpen
-                    ? "active"
-                    : ""
-                } ${
-                  unreadNotificationCount >
-                  0
-                    ? "has-unread"
-                    : ""
-                }`}
-                onClick={
-                  handleNotificationToggle
-                }
-                title="Notifications"
-                aria-label="Notifications"
-                aria-expanded={
-                  notificationOpen
-                }
-              >
-
-                <span className="notification-header-icon">
-                  🔔
-                </span>
-
-                {unreadNotificationCount >
-                  0 && (
-                  <span className="notification-badge">
-
-                    {unreadNotificationCount >=
-                    10
-                      ? "9+"
-                      : unreadNotificationCount}
-
-                  </span>
-                )}
-
-              </button>
-
-              {/* NOTIFICATION DROPDOWN */}
-
-              {notificationOpen && (
-                <div className="notification-dropdown">
-
-                  {/* HEADER */}
-
-                  <div className="notification-dropdown-header">
-
-                    <div>
-
-                      <h3>
-                        Notifications
-                      </h3>
-
-                      <span>
-                        {unreadNotificationCount ===
-                        0
-                          ? "You're all caught up"
-                          : `${unreadNotificationCount} unread notification${
-                              unreadNotificationCount >
-                              1
-                                ? "s"
-                                : ""
-                            }`}
-                      </span>
-
-                    </div>
-
-                    {unreadNotificationCount >
-                      0 && (
-                      <button
-                        type="button"
-                        className="notification-mark-all"
-                        onClick={
-                          markAllNotificationsAsRead
-                        }
-                      >
-                        Mark all as read
-                      </button>
-                    )}
-
-                  </div>
-
-                  {/* CONTENT */}
-
-                  <div className="notification-dropdown-body">
-
-                    {notificationLoading ? (
-                      <div className="notification-dropdown-loading">
-
-                        <span className="notification-small-loader"></span>
-
-                        <span>
-                          Loading notifications...
-                        </span>
-
-                      </div>
-                    ) : notificationError ? (
-                      <div className="notification-dropdown-error">
-
-                        <span>
-                          {notificationError}
-                        </span>
-
-                        <button
-                          type="button"
-                          onClick={
-                            loadNotifications
-                          }
-                        >
-                          Retry
-                        </button>
-
-                      </div>
-                    ) : notifications.length ===
-                      0 ? (
-                      <div className="notification-dropdown-empty">
-
-                        <div className="notification-empty-icon">
-                          🔔
-                        </div>
-
-                        <strong>
-                          No notifications
-                        </strong>
-
-                        <span>
-                          You're all caught up.
-                        </span>
-
-                      </div>
-                    ) : (
-                      <div className="notification-dropdown-list">
-
-                        {notifications
-                          .slice(
-                            0,
-                            6
-                          )
-                          .map(
-                            (
-                              notification
-                            ) => (
-                              <div
-                                key={
-                                  notification.notificationId
-                                }
-                                className={`notification-dropdown-item ${
-                                  !notification.read
-                                    ? "unread"
-                                    : ""
-                                }`}
-                              >
-
-                                {/* ICON */}
-
-                                <div
-                                  className={`notification-dropdown-icon ${getNotificationTypeClass(
-                                    notification.type
-                                  )}`}
-                                >
-                                  {getNotificationIcon(
-                                    notification.type
-                                  )}
-                                </div>
-
-                                {/* CONTENT */}
-
-                                <div className="notification-dropdown-content">
-
-                                  <div className="notification-dropdown-title">
-
-                                    <strong>
-                                      {
-                                        notification.title
-                                      }
-                                    </strong>
-
-                                    {!notification.read && (
-                                      <span className="notification-new-dot">
-                                        New
-                                      </span>
-                                    )}
-
-                                  </div>
-
-                                  <p>
-                                    {
-                                      notification.message
-                                    }
-                                  </p>
-
-                                  <small>
-                                    {formatNotificationTime(
-                                      notification.createdAt
-                                    )}
-                                  </small>
-
-                                </div>
-
-                                {/* MARK AS READ */}
-
-                                {!notification.read && (
-                                  <button
-                                    type="button"
-                                    className="notification-mark-read"
-                                    onClick={() =>
-                                      markNotificationAsRead(
-                                        notification.notificationId
-                                      )
-                                    }
-                                    title="Mark as read"
-                                    aria-label="Mark notification as read"
-                                  >
-                                    ✓
-                                  </button>
-                                )}
-
-                              </div>
-                            )
-                          )}
-
-                      </div>
-                    )}
-
-                  </div>
-
-                  {/* FOOTER */}
-
-                  {notifications.length >
-                    6 && (
-                    <div className="notification-dropdown-footer">
-
-                      <span>
-                        Showing latest 6 notifications
-                      </span>
-
-                    </div>
-                  )}
-
-                </div>
-              )}
-
-            </div>
-
-            {/* =================================
-                DARK MODE
-            ================================= */}
-
-            <button
-              type="button"
-              className="header-button"
-              onClick={
-                handleDarkMode
-              }
-              title={
-                darkMode
-                  ? "Switch to Light Mode"
-                  : "Switch to Dark Mode"
-              }
-              aria-label={
-                darkMode
-                  ? "Switch to Light Mode"
-                  : "Switch to Dark Mode"
-              }
-              aria-pressed={
-                darkMode
-              }
-            >
-
-              <span className="theme-icon">
-                {darkMode
-                  ? "☀️"
-                  : "🌙"}
-              </span>
-
-            </button>
-
-            {/* ACCOUNT */}
-
-            <button
-              type="button"
-              className="account-button"
-              onClick={
-                handleAccount
-              }
-              title="My Account"
-            >
-
-              <span className="account-icon">
-                👤
-              </span>
-
-              <span>
-                Account
-              </span>
-
-            </button>
-
-            {/* LOGOUT */}
-
-            <button
-              type="button"
-              className="logout-button"
-              onClick={
-                handleLogout
-              }
-              title="Logout"
-            >
-
-              <span className="logout-icon">
-                ↪
-              </span>
-
-              <span>
-                Logout
-              </span>
-
-            </button>
 
           </div>
 
