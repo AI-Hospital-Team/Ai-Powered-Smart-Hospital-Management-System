@@ -786,7 +786,7 @@ return (
           >
             <div className="brand-logo">
               <img
-                src="/github-logo.jpeg"
+                src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                 alt="AI Smart Hospital"
               />
             </div>
@@ -1153,7 +1153,7 @@ return (
           <div className="hero-content">
             <div className="hero-badge">
               <span className="hero-badge-dot"></span>
-              <span>AI-POWERED SMART HEALTHCARE</span>
+              <span>AI SMART HEALTHCARE</span>
             </div>
 
             <h1 className="hero-title">
@@ -1170,31 +1170,29 @@ return (
               services from one secure platform.
             </p>
 
-            <div className="hero-actions">
-              <a
-                href="#contact"
-                className="hero-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openLogin("Patient");
-                }}
-              >
-                <Icon name="appointment" size={17} />
-                <span>Book Appointment</span>
-              </a>
+<div className="hero-actions">
+  {/* Book Appointment */}
+  <a
+    href="#contact"
+    className="hero-primary"
+    onClick={(e) => {
+      e.preventDefault();
+      openLogin("Patient");
+    }}
+  >
+    <Icon name="appointment" size={17} />
+    <span>Book Appointment</span>
+  </a>
 
-              <a
-                href="#services"
-                className="hero-secondary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("services");
-                }}
-              >
-                <span>Explore Services</span>
-                <Icon name="arrow" size={17} />
-              </a>
-            </div>
+  {/* Mobile-only Meet Our Doctors */}
+<a
+  href="#doctors"
+  className="hero-secondary mobile-doctors-btn"
+>
+  <span>Meet Our Doctors</span>
+  <Icon name="arrow" size={17} />
+</a>
+</div>
 
             <div className="hero-features">
               <span className="hero-feature">
@@ -1222,7 +1220,7 @@ return (
               <div className="hero-card-brand">
                 <div className="hero-card-logo">
                   <img
-                    src="/github-logo.jpeg"
+                    src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                     alt="AI Smart Hospital"
                   />
                 </div>
@@ -1730,8 +1728,14 @@ return (
             <div className="insurance-title-row">
               <div>
                 <div className="section-label">
-                  AYUSHMAN BHARAT • HEALTHCARE SUPPORT
-                </div>
+  <span className="insurance-label-desktop">
+    AYUSHMAN BHARAT • HEALTHCARE SUPPORT
+  </span>
+
+  <span className="insurance-label-mobile">
+    AYUSHMAN BHARAT
+  </span>
+</div>
                 <h2>
                   Get Free Healthcare
                   <br />
@@ -1770,7 +1774,7 @@ return (
           <div className="ayushman-right">
             <div className="ayushman-image-wrap">
               <img
-                src="/ayushman.png"
+                src={`${import.meta.env.BASE_URL}ayushman.png`}
                 alt="Ayushman Bharat"
                 className="ayushman-main-image"
               />
@@ -2809,7 +2813,7 @@ return (
 
             <div className="hospital-login-logo">
               <img
-                src="/github-logo.jpeg"
+                src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                 alt="AI Smart Hospital"
                 className="login-hospital-logo"
               />
@@ -3060,7 +3064,7 @@ return (
             <div className="register-top">
               <div className="register-logo">
                 <img
-                  src="/github-logo.jpeg"
+                  src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
                   alt="AI Smart Hospital"
                 />
               </div>

@@ -259,7 +259,7 @@ function ForgotPassword() {
 
          <div className="forgot-password-icon">
           <img
-            src="/github-logo.jpeg"
+            src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
             alt="AI Smart Hospital"
             className="forgot-password-logo"
           />

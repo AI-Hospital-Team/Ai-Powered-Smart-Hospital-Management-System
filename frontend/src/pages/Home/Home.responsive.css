@@ -505,3 +505,3147 @@
     word-break: normal !important;
   }
 }
+
+/* =========================================================
+   MOBILE HOME PAGE — FINAL OVERRIDES
+   Desktop remains unchanged.
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* ---------- PROJECT TOP CARDS ---------- */
+
+  .project-intro-top {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+
+    gap: 12px !important;
+    margin: 0 auto 30px !important;
+
+    transform: none !important;
+    align-items: stretch !important;
+  }
+
+  .project-intro-top > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .project-intro-top .project-intro-badge,
+  .project-intro-top .project-team,
+  .project-intro-top .hero-project-badge,
+  .project-intro-top .hero-team-card {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 68px !important;
+    max-height: none !important;
+
+    padding: 14px 16px !important;
+    justify-content: flex-start !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Team content */
+  .project-intro-top .project-team {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .project-team-icon {
+    flex-shrink: 0 !important;
+  }
+
+  /* GitHub card */
+  .project-intro-top .hero-github-link {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 68px !important;
+    max-height: none !important;
+
+    padding: 14px 16px !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .hero-github-link > span:not(.github-mark) {
+    min-width: 0 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .github-mark {
+    flex-shrink: 0 !important;
+  }
+
+  /* ---------- PROJECT INTRO CONTENT ---------- */
+
+  .project-intro-main {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .project-intro-paragraphs {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  .project-intro-paragraphs > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  .project-intro-lead,
+  .project-intro-description,
+  .project-intro-description p {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* ---------- ANIMATED PROJECT HEADING ---------- */
+
+  .project-intro-heading {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 4px !important;
+  }
+
+  .fold-title-typing {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    font-size: clamp(23px, 6vw, 34px) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.8px !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+  }
+
+  /* ---------- FEATURE CARDS ---------- */
+
+  .project-highlights {
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .project-highlights > * {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* ---------- SMALL PHONES ---------- */
+
+@media (max-width: 480px) {
+
+  .project-intro-top {
+    gap: 10px !important;
+    margin-bottom: 26px !important;
+  }
+
+  .project-intro-top .project-intro-badge,
+  .project-intro-top .project-team,
+  .project-intro-top .hero-project-badge,
+  .project-intro-top .hero-team-card,
+  .project-intro-top .hero-github-link {
+    padding: 13px !important;
+    border-radius: 15px !important;
+  }
+
+  .fold-title-typing {
+    font-size: clamp(21px, 6.2vw, 29px) !important;
+  }
+}
+
+/* ---------- EXTRA SMALL PHONES ---------- */
+
+@media (max-width: 375px) {
+
+  .project-intro-top {
+    gap: 9px !important;
+  }
+
+  .project-intro-top .hero-github-link {
+    gap: 9px !important;
+    font-size: 13px !important;
+  }
+
+  .project-team {
+    font-size: 13px !important;
+  }
+
+  .fold-title-typing {
+    font-size: 22px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE HEADER — BRAND + LOGIN + REGISTER
+   Desktop navigation remains unchanged.
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Hide mobile navigation and hamburger */
+  .main-nav,
+  .mobile-menu-toggle,
+  .mobile-nav-actions {
+    display: none !important;
+  }
+
+  /* Header layout */
+  .main-header {
+    height: 68px !important;
+    min-height: 68px !important;
+  }
+
+  .header-container {
+    height: 68px !important;
+    min-height: 68px !important;
+
+    padding: 8px 12px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+
+  /* Logo and website name */
+  .brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 7px !important;
+  }
+
+  .brand-logo {
+    width: 36px !important;
+    height: 36px !important;
+    flex: 0 0 36px !important;
+  }
+
+  .brand-text {
+    min-width: 0 !important;
+  }
+
+  .brand-text h2 {
+    font-size: clamp(11px, 3.5vw, 15px) !important;
+    white-space: nowrap !important;
+  }
+
+  .brand-text span {
+    display: none !important;
+  }
+
+  /* Header action buttons */
+  .header-actions {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+  }
+
+  /* Hide theme button to make room */
+  .header-actions .theme-toggle {
+    display: none !important;
+  }
+
+  .header-actions .login-btn,
+  .header-actions .register-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    height: 36px !important;
+    min-height: 36px !important;
+
+    padding: 0 10px !important;
+    border-radius: 9px !important;
+
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  .header-actions .login-btn {
+    min-width: 48px !important;
+  }
+
+  .header-actions .register-btn {
+    min-width: 60px !important;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 375px) {
+
+  .header-container {
+    padding-left: 9px !important;
+    padding-right: 9px !important;
+    gap: 5px !important;
+  }
+
+  .brand {
+    gap: 5px !important;
+  }
+
+  .brand-logo {
+    width: 33px !important;
+    height: 33px !important;
+    flex-basis: 33px !important;
+  }
+
+  .brand-text h2 {
+    font-size: 11px !important;
+  }
+
+  .header-actions {
+    gap: 4px !important;
+  }
+
+  .header-actions .login-btn,
+  .header-actions .register-btn {
+    padding: 0 8px !important;
+    font-size: 10px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE — DISABLE HORIZONTAL PAGE SCROLL
+   Keep vertical scrolling enabled.
+   Desktop remains unchanged.
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  #root,
+  .home-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip !important;
+  }
+
+  .home-page {
+    position: relative;
+  }
+
+  /* Prevent wide sections from expanding the page */
+  .home-page section,
+  .home-page header,
+  .home-page footer {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Keep images and media inside their containers */
+  .home-page img,
+  .home-page video,
+  .home-page iframe {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE LOGIN / REGISTER — ENABLE VERTICAL SCROLLING
+   Desktop remains unchanged.
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .login-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    padding: 12px !important;
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+  }
+
+  .login-overlay .hospital-login,
+  .login-overlay .register-modal {
+    flex: 0 0 auto !important;
+
+    width: 100% !important;
+    max-width: 480px !important;
+
+    max-height: calc(100dvh - 24px) !important;
+
+    margin: 0 auto 12px !important;
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+  }
+}
+
+/* Short mobile screens */
+@media (max-width: 768px) and (max-height: 700px) {
+
+  .login-overlay .hospital-login,
+  .login-overlay .register-modal {
+    max-height: calc(100dvh - 20px) !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL MOBILE AUTHENTICATION DESIGN
+   Login + Registration
+   Desktop remains unchanged.
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  /* ---------- MODAL BACKDROP ---------- */
+
+  .login-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    padding: 16px 12px !important;
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* ---------- LOGIN CARD ---------- */
+
+  .login-overlay .hospital-login {
+    width: 100% !important;
+    max-width: 440px !important;
+    height: auto !important;
+
+    max-height: none !important;
+    flex: 0 0 auto !important;
+
+    margin: auto 0 !important;
+    padding: 28px 22px !important;
+
+    box-sizing: border-box !important;
+    border-radius: 24px !important;
+
+    overflow: visible !important;
+  }
+
+  .hospital-login-logo {
+    width: 68px !important;
+    height: 68px !important;
+    margin: 5px auto 14px !important;
+  }
+
+  .hospital-login h1 {
+    font-size: 29px !important;
+    line-height: 1.2 !important;
+  }
+
+  .login-subtitle {
+    font-size: 14px !important;
+    margin: 7px 0 20px !important;
+  }
+
+  /* Role selection */
+  .role-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .role-tabs button {
+    min-width: 0 !important;
+    padding: 10px 4px !important;
+    font-size: 12px !important;
+    justify-content: center !important;
+  }
+
+  /* Login fields */
+  .hospital-login form {
+    gap: 10px !important;
+  }
+
+  .hospital-login form input {
+    width: 100% !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    box-sizing: border-box !important;
+    font-size: 14px !important;
+  }
+
+  .hospital-login-button {
+    width: 100% !important;
+    min-height: 49px !important;
+    margin-top: 10px !important;
+  }
+
+  /* ---------- REGISTER CARD ---------- */
+
+  .login-overlay .register-modal {
+    width: 100% !important;
+    max-width: 440px !important;
+
+    height: auto !important;
+    max-height: none !important;
+
+    flex: 0 0 auto !important;
+
+    margin: auto 0 !important;
+    padding: 24px 20px !important;
+
+    box-sizing: border-box !important;
+    border-radius: 24px !important;
+
+    overflow: visible !important;
+  }
+
+  /* Register heading */
+  .register-modal .register-top {
+    margin-bottom: 20px !important;
+  }
+
+  .register-modal .register-top h1 {
+    font-size: 27px !important;
+    line-height: 1.2 !important;
+  }
+
+  .register-modal .register-top p {
+    font-size: 13px !important;
+  }
+
+  .register-modal .register-logo {
+    width: 58px !important;
+    height: 58px !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Single-column registration form */
+  .login-overlay .register-modal form {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  .login-overlay .register-modal form > *,
+  .login-overlay .register-modal form > .register-field,
+  .login-overlay .register-modal .register-field {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .register-modal .register-field label {
+    font-size: 13px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .register-modal .register-input-wrap {
+    width: 100% !important;
+    height: 48px !important;
+  }
+
+  .register-modal .register-input-wrap input,
+  .register-modal .register-input-wrap select {
+    width: 100% !important;
+    height: 48px !important;
+    font-size: 14px !important;
+    border-radius: 11px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Register submit */
+  .login-overlay .register-modal .register-submit {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-height: 49px !important;
+    margin: 8px 0 0 !important;
+  }
+
+  /* Close button */
+  .login-overlay .close-login {
+    width: 36px !important;
+    height: 36px !important;
+    top: 12px !important;
+    right: 12px !important;
+    z-index: 10 !important;
+  }
+}
+
+/* ---------- EXTRA SMALL PHONES ---------- */
+
+@media screen and (max-width: 375px) {
+
+  .login-overlay {
+    padding: 10px !important;
+  }
+
+  .login-overlay .hospital-login,
+  .login-overlay .register-modal {
+    padding: 22px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .hospital-login h1 {
+    font-size: 26px !important;
+  }
+
+  .register-modal .register-top h1 {
+    font-size: 25px !important;
+  }
+}
+
+
+/* =========================================================
+   PROFESSIONAL LOGO SIZING — MOBILE
+   Header + Login + Register
+   Desktop remains unchanged.
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  /* ---------- WEBSITE HEADER LOGO ---------- */
+
+  .brand-logo {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+
+    padding: 3px !important;
+    box-sizing: border-box !important;
+
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+  }
+
+  .brand-logo img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    padding: 1px !important;
+    box-sizing: border-box !important;
+
+    border-radius: 50% !important;
+  }
+
+  /* ---------- LOGIN LOGO ---------- */
+
+  .hospital-login-logo {
+    width: 82px !important;
+    height: 82px !important;
+    min-width: 82px !important;
+    min-height: 82px !important;
+
+    margin: 5px auto 16px !important;
+    padding: 5px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    border: 1px solid #dcebef !important;
+
+    box-shadow: 0 5px 18px rgba(5, 100, 120, 0.12) !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .hospital-login-logo .login-hospital-logo {
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    padding: 2px !important;
+    box-sizing: border-box !important;
+
+    border-radius: 50% !important;
+  }
+
+  /* ---------- REGISTER LOGO ---------- */
+
+  .register-modal .register-logo {
+    width: 72px !important;
+    height: 72px !important;
+
+    min-width: 72px !important;
+    min-height: 72px !important;
+
+    max-width: 72px !important;
+    max-height: 72px !important;
+
+    margin: 0 auto 12px !important;
+    padding: 4px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    border: 1px solid #dcebef !important;
+
+    box-shadow: 0 5px 18px rgba(5, 100, 120, 0.12) !important;
+
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .register-modal .register-logo img {
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    padding: 2px !important;
+    box-sizing: border-box !important;
+
+    border-radius: 50% !important;
+  }
+}
+
+/* Smaller phones */
+@media screen and (max-width: 375px) {
+
+  .brand-logo {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+  }
+
+  .hospital-login-logo {
+    width: 76px !important;
+    height: 76px !important;
+  }
+
+  .register-modal .register-logo {
+    width: 68px !important;
+    height: 68px !important;
+    min-width: 68px !important;
+    min-height: 68px !important;
+  }
+}
+
+
+/* =========================================================
+   EXTRA COMPACT PROJECT CARDS — MOBILE ONLY
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .project-intro-top {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .project-intro-top > * {
+    width: 100% !important;
+    min-height: 34px !important;
+    height: auto !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    gap: 8px !important;
+  }
+
+  /* Smaller text */
+  .project-intro-top > * p,
+  .project-intro-top > * span,
+  .project-intro-top > * strong,
+  .project-intro-top > * h3,
+  .project-intro-top > * h4 {
+    font-size: 9px !important;
+    line-height: 1.25 !important;
+    margin: 0 !important;
+  }
+
+  /* Smaller icons */
+  .project-intro-top svg {
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Team card */
+  .project-intro-top .project-team {
+    min-height: 38px !important;
+    padding: 7px 10px !important;
+  }
+
+  /* GitHub card */
+  .project-intro-top .hero-github-link {
+    min-height: 38px !important;
+    padding: 6px 10px !important;
+    font-size: 10px !important;
+  }
+
+  .project-intro-top .github-mark {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
+/* Hide project information cards on mobile only */
+@media (max-width: 768px) {
+  .project-intro-top {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE — WELCOME HEADING SIZE & SPACING
+   Desktop unchanged
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .project-intro-heading {
+    width: 100% !important;
+    margin: 0 auto 18px !important;
+    padding: 0 4px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .fold-title-typing {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    font-size: clamp(16px, 4.5vw, 19px) !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.4px !important;
+
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    margin: 8px auto 0 !important;
+  }
+
+  .project-intro-main {
+    gap: 0 !important;
+  }
+
+  .project-intro-paragraphs {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .fold-title-typing {
+    font-size: 16px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE HOME — SKIP PROJECT INTRO
+   Show Hero section directly
+   Desktop remains unchanged
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Hide complete project introduction */
+  #project-intro {
+    display: none !important;
+  }
+
+  /* Hero section spacing */
+  #home {
+    padding-top: 22px !important;
+  }
+
+  /* Hero heading */
+  .hero-title {
+    font-size: clamp(23px, 6vw, 26px) !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  /* Hero description */
+  .hero-description {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Hero card */
+  .compact-hero-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+}
+
+
+/* Hide Hero Features on mobile only */
+@media (max-width: 768px) {
+  .hero-features {
+    display: none !important;
+  }
+}
+
+
+/* =====================================================
+   PROFESSIONAL COMPACT HERO CARD — MOBILE
+   Desktop design remains unchanged
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .hero-card.compact-hero-card {
+    width: 100% !important;
+    max-width: 350px !important;
+    padding: 18px !important;
+    margin: 0 auto !important;
+
+    border-radius: 24px !important;
+    box-sizing: border-box !important;
+
+    box-shadow: 0 12px 32px rgba(0, 40, 55, 0.13) !important;
+  }
+
+  /* Brand section */
+  .hero-card-brand {
+    gap: 11px !important;
+    margin-bottom: 15px !important;
+    align-items: center !important;
+  }
+
+  .hero-card-logo {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    padding: 4px !important;
+    border-radius: 50% !important;
+  }
+
+  .hero-card-logo img {
+    border-radius: 50% !important;
+    object-fit: contain !important;
+  }
+
+  .hero-card-label {
+    font-size: 8px !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  .hero-card-heading h2 {
+    font-size: 21px !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-card-heading p {
+    font-size: 10px !important;
+    margin-top: 4px !important;
+  }
+
+  /* Healthcare platform */
+  .hero-card-message {
+    padding: 12px !important;
+    gap: 11px !important;
+    border-radius: 16px !important;
+  }
+
+  .hero-card-message-icon {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 13px !important;
+  }
+
+  .hero-card-message-content strong {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  .hero-card-message-content p {
+    font-size: 10px !important;
+    line-height: 1.45 !important;
+    margin-top: 3px !important;
+  }
+
+  /* AI assistant cards */
+  .hero-assistants {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+    margin-top: 10px !important;
+  }
+
+  .hero-assistant-card {
+    min-width: 0 !important;
+    min-height: 82px !important;
+    padding: 10px !important;
+    gap: 8px !important;
+    border-radius: 15px !important;
+  }
+
+  .assistant-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border-radius: 12px !important;
+  }
+
+  .assistant-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .assistant-content {
+    min-width: 0 !important;
+  }
+
+  .assistant-content strong {
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .assistant-arrow {
+    display: none !important;
+  }
+
+  /* Footer */
+  .hero-card-footer {
+    flex-wrap: wrap !important;
+    gap: 7px !important;
+    margin-top: 13px !important;
+    padding-top: 11px !important;
+  }
+
+  .footer-status {
+    font-size: 9px !important;
+  }
+
+  .footer-separator {
+    display: none !important;
+  }
+
+  .footer-text {
+    width: 100% !important;
+    font-size: 9px !important;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 375px) {
+
+  .hero-card.compact-hero-card {
+    padding: 15px !important;
+  }
+
+  .hero-assistant-card {
+    padding: 8px !important;
+    gap: 6px !important;
+  }
+
+  .assistant-icon {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+
+  .assistant-content strong {
+    font-size: 9px !important;
+  }
+}
+
+
+/* =====================================================
+   MOBILE AI TOOL CARDS — ICON & TEXT ALIGNMENT
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .hero-assistants {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .hero-assistant-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 9px !important;
+
+    min-height: 78px !important;
+    padding: 12px 10px !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+  }
+
+  /* Consistent icon alignment */
+  .hero-assistant-card .assistant-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    flex: 0 0 36px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    border-radius: 12px !important;
+  }
+
+  .hero-assistant-card .assistant-content {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Consistent AI tool names */
+  .hero-assistant-card .assistant-content strong {
+    display: block !important;
+    width: 100% !important;
+
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+    font-weight: 800 !important;
+
+    text-align: left !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+
+  .hero-assistant-card .assistant-arrow {
+    display: none !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero-assistant-card {
+    gap: 7px !important;
+    padding: 9px 7px !important;
+  }
+
+  .hero-assistant-card .assistant-icon {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    flex-basis: 32px !important;
+  }
+
+  .hero-assistant-card .assistant-content strong {
+    font-size: 9px !important;
+  }
+}
+
+/* Hide Hero Card footer on mobile only */
+@media (max-width: 768px) {
+  .hero-card-footer {
+    display: none !important;
+  }
+}
+
+
+/* Mobile header — Theme + Login + Register */
+@media (max-width: 480px) {
+
+  .header-container {
+    gap: 7px !important;
+    padding: 8px 10px !important;
+  }
+
+  .brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .brand-text h2 {
+    font-size: 13px !important;
+  }
+
+  .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex: 0 0 auto !important;
+    gap: 6px !important;
+  }
+
+  .header-actions .theme-toggle {
+    display: flex !important;
+    order: 1 !important;
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+  }
+
+  .header-actions .login-btn {
+    display: flex !important;
+    order: 2 !important;
+    min-height: 38px !important;
+    padding: 0 10px !important;
+  }
+
+  .header-actions .register-btn {
+    display: flex !important;
+    order: 3 !important;
+    min-height: 38px !important;
+    padding: 0 10px !important;
+  }
+}
+
+/* =====================================================
+   MOBILE HEADER — LIGHT & DARK MODE
+   Consistent alignment for Theme, Login and Register
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .header-container {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .header-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+  }
+
+  .header-actions .theme-toggle,
+  .header-actions .login-btn,
+  .header-actions .register-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: center !important;
+
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    vertical-align: middle !important;
+  }
+
+  .header-actions .theme-toggle {
+    order: 1 !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 0 !important;
+    flex: 0 0 38px !important;
+  }
+
+  .header-actions .login-btn {
+    order: 2 !important;
+    min-height: 38px !important;
+  }
+
+  .header-actions .register-btn {
+    order: 3 !important;
+    min-height: 38px !important;
+  }
+}
+
+
+/* ==========================================
+   SERVICES — PROFESSIONAL MOBILE TYPOGRAPHY
+========================================== */
+
+@media (max-width: 768px) {
+
+  #services h2 {
+    font-size: 26px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.7px !important;
+    font-weight: 800 !important;
+  }
+
+  #services .section-description {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    font-weight: 500 !important;
+    max-width: 310px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #services .service-card h3 {
+    font-size: 17px !important;
+    line-height: 1.4 !important;
+    font-weight: 700 !important;
+  }
+
+  #services .service-card p {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+
+  #services .service-card a {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+}
+
+/* ==========================================
+   SERVICES CARDS — HORIZONTAL MOBILE LAYOUT
+========================================== */
+
+@media (max-width: 768px) {
+
+  #services .service-card {
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) !important;
+    grid-template-areas:
+      "icon title"
+      "icon description"
+      "icon action" !important;
+
+    column-gap: 14px !important;
+    row-gap: 5px !important;
+
+    align-items: center !important;
+    padding: 20px !important;
+    min-height: 145px !important;
+    text-align: left !important;
+  }
+
+  #services .service-card > :first-child {
+    grid-area: icon !important;
+    align-self: start !important;
+    margin: 0 !important;
+  }
+
+  #services .service-card h3 {
+    grid-area: title !important;
+    margin: 0 !important;
+    align-self: end !important;
+  }
+
+  #services .service-card p {
+    grid-area: description !important;
+    margin: 0 !important;
+    align-self: center !important;
+  }
+
+  #services .service-card a {
+    grid-area: action !important;
+    justify-self: start !important;
+    margin-top: 5px !important;
+  }
+}
+/* Reduce excessive gap before Modern Healthcare */
+@media (max-width: 768px) {
+  .home-page .home-ai-section {
+    margin-bottom: 16px !important;
+  }
+
+  .home-page .healthcare-gallery {
+    margin-top: 0 !important;
+    padding-top: 24px !important;
+  }
+}
+/* Hide Gallery Features cards on mobile only */
+@media (max-width: 768px) {
+  .home-page .healthcare-gallery .gallery-features {
+    display: none !important;
+  }
+}
+
+
+/* ==========================================
+   AYUSHMAN BHARAT — MOBILE ONLY
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  .home-page .insurance-section {
+    padding: 35px 18px !important;
+    overflow: hidden !important;
+  }
+
+  .home-page .insurance-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    width: 100% !important;
+  }
+
+  /* Heading */
+  .home-page .insurance-title-row h2 {
+    font-size: 30px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.8px !important;
+  }
+
+  .home-page .insurance-title-row h2 br {
+    display: none !important;
+  }
+
+  .home-page .insurance-title-row .section-label {
+    white-space: normal !important;
+    font-size: 9px !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  /* Description */
+  .home-page .insurance-description {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Benefits */
+  .home-page .insurance-features {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .home-page .insurance-features div {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+    padding: 5px !important;
+  }
+
+  /* Scheme image */
+  .home-page .ayushman-right {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-page .ayushman-image-wrap {
+    width: 100% !important;
+    border-radius: 18px 18px 0 0 !important;
+  }
+
+  .home-page .ayushman-main-image {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Information card */
+  .home-page .ayushman-info-card {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 15px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    border-radius: 0 0 18px 18px !important;
+  }
+
+  .home-page .ayushman-info-card h3 {
+    font-size: 19px !important;
+  }
+
+  .home-page .ayushman-info-card p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  .home-page .ayushman-info-card .card-btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* ==========================================
+   AYUSHMAN BHARAT — MOBILE CONTENT CLEANUP
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Professional heading */
+  .home-page .insurance-title-row h2 {
+    font-size: 28px !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.6px !important;
+  }
+
+  /* Keep the intended heading line break */
+  .home-page .insurance-title-row h2 br {
+    display: block !important;
+  }
+
+  /* Shorter description */
+  .home-page .insurance-description {
+    font-size: 13px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Keep only the two important benefits */
+  .home-page .insurance-features > div:nth-child(n+3) {
+    display: none !important;
+  }
+
+  /* Remove repeated information below the scheme image */
+  .home-page .ayushman-mini-label,
+  .home-page .ayushman-info-content p {
+    display: none !important;
+  }
+
+  /* Compact information card */
+  .home-page .ayushman-info-card {
+    padding: 14px !important;
+    gap: 10px !important;
+  }
+
+  .home-page .ayushman-info-card h3 {
+    font-size: 18px !important;
+    margin: 0 !important;
+  }
+
+  .home-page .ayushman-info-card .card-btn {
+    margin-top: 4px !important;
+  }
+}
+/* Ayushman label — responsive text */
+.insurance-label-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .insurance-label-desktop {
+    display: none !important;
+  }
+
+  .insurance-label-mobile {
+    display: inline !important;
+    font-size: 10px !important;
+    letter-spacing: 2px !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* ==========================================
+   MOBILE — GALLERY TO AYUSHMAN SPACING
+   Desktop unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Reduce bottom space after gallery */
+  .home-page .healthcare-gallery {
+    padding-bottom: 20px !important;
+  }
+
+  /* Reduce top space before Ayushman */
+  .home-page .insurance-section {
+    padding-top: 20px !important;
+  }
+
+  /* Center Ayushman label */
+  .home-page .insurance-title-row {
+    text-align: center !important;
+    margin: 0 auto 18px !important;
+  }
+
+  .home-page .insurance-section .section-label {
+    display: flex !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+  }
+}
+/* Center Ayushman heading underline — mobile only */
+@media (max-width: 768px) {
+  .home-page .insurance-title-row h2::after {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* ==========================================
+   DEPARTMENT CARDS — MOBILE HORIZONTAL LAYOUT
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  .departments-grid .department-card {
+    display: grid !important;
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto !important;
+    column-gap: 14px !important;
+    row-gap: 6px !important;
+    align-items: center !important;
+    padding: 20px !important;
+    min-height: auto !important;
+    text-align: left !important;
+  }
+
+  /* Icon on the left */
+  .departments-grid .department-card > div:first-child {
+    grid-column: 1 !important;
+    grid-row: 1 / 4 !important;
+    width: 48px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    font-size: 24px !important;
+    border-radius: 13px !important;
+  }
+
+  /* Department name */
+  .departments-grid .department-card h3 {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Description */
+  .departments-grid .department-card p {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* View link */
+  .departments-grid .department-card .department-view-link {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
+    margin: 5px 0 0 !important;
+    font-size: 13px !important;
+    justify-self: start !important;
+  }
+}
+
+/* Reduce excessive gap between Ayushman Bharat and Departments */
+@media (max-width: 768px) {
+  .home-page .insurance-section {
+    padding-bottom: 24px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .home-page .departments-section {
+    padding-top: 24px !important;
+    margin-top: 0 !important;
+  }
+}
+
+/* ==========================================
+   DOCTORS — MOBILE HORIZONTAL ROW
+   Original card design preserved
+========================================== */
+
+@media (max-width: 768px) {
+
+  .doctors-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 8px 2px 18px !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  .doctors-grid .doctor-card {
+    flex: 0 0 265px !important;
+    width: 265px !important;
+    min-width: 265px !important;
+    height: auto !important;
+    min-height: 460px !important;
+    box-sizing: border-box !important;
+    scroll-snap-align: start;
+  }
+
+  /* Keep card content centered */
+  .doctors-grid .doctor-card > * {
+    min-width: 0;
+  }
+
+  /* Hide scrollbar but retain swipe */
+  .doctors-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .doctors-grid {
+    scrollbar-width: none;
+  }
+}
+@media (max-width: 768px) {
+  .doctors-grid {
+    align-items: stretch !important;
+  }
+
+  .doctors-grid .doctor-card {
+    align-self: stretch !important;
+    margin-top: 0 !important;
+    transform: none !important;
+    scroll-snap-align: start !important;
+  }
+
+  .doctors-grid .doctor-card:nth-child(3) {
+    margin-top: 0 !important;
+    transform: none !important;
+  }
+}
+
+/* Reduce gap between Departments and Doctors */
+@media (max-width: 768px) {
+  .departments-section {
+    padding-bottom: 20px !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important;
+  }
+
+  .doctors-section {
+    padding-top: 20px !important;
+    margin-top: 0 !important;
+  }
+
+  .departments-grid {
+    margin-bottom: 0 !important;
+  }
+}
+/* Hide Doctor Availability on mobile only */
+@media (max-width: 768px) {
+  .shift-availability-section {
+    display: none !important;
+  }
+}
+
+/* ==========================================
+   ABOUT SECTION — CLEAN MOBILE DESIGN
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  .about-section {
+    padding: 42px 20px !important;
+  }
+
+  .about-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 28px !important;
+  }
+
+  /* Main About heading */
+  .about-heading {
+    margin-bottom: 24px !important;
+    text-align: center !important;
+  }
+
+  .about-heading h2 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.8px !important;
+    margin: 14px 0 !important;
+  }
+
+  .about-heading > p {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Vision content */
+  .about-main {
+    display: block !important;
+    margin-top: 24px !important;
+  }
+
+  .about-information {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .about-small-title {
+    font-size: 11px !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .about-information h3 {
+    font-size: 27px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.5px !important;
+    margin: 0 0 16px !important;
+  }
+
+  .about-text {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+    margin: 0 !important;
+  }
+
+  /* Remove repeated information on mobile */
+  .about-information .about-text + .about-text,
+  .about-feature-list {
+    display: none !important;
+  }
+
+  /* Hide platform card only if it creates unnecessary
+     repeated content; keep it visible otherwise */
+}
+
+/* ==========================================
+   ABOUT SECTION — MOBILE CLEANUP
+   Hide inaccurate platform statistics card
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Remove the entire statistics card */
+  .about-platform-card {
+    display: none !important;
+  }
+
+  /* Use full available width for About content */
+  .about-main {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    gap: 0 !important;
+    margin: 24px auto 0 !important;
+  }
+
+  .about-information {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .about-small-title {
+    margin-bottom: 12px !important;
+    font-size: 11px !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  .about-information h3 {
+    font-size: 27px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .about-information .about-text {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+}
+/* Center About Vision content — mobile only */
+@media (max-width: 768px) {
+  .about-information {
+    text-align: center !important;
+  }
+
+  .about-small-title {
+    text-align: center !important;
+  }
+
+  .about-information h3,
+  .about-information .about-text {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .about-information .about-text {
+    max-width: 340px !important;
+  }
+}
+/* Reduce gap between Doctors and About — mobile only */
+@media (max-width: 768px) {
+  .doctors-section {
+    padding-bottom: 24px !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important;
+  }
+
+  .doctors-grid {
+    margin-bottom: 0 !important;
+  }
+
+  .about-section {
+    padding-top: 24px !important;
+    margin-top: 0 !important;
+    min-height: auto !important;
+  }
+}
+
+/* ==========================================
+   HOSPITAL HOURS — COMPACT MOBILE DESIGN
+   Desktop remains unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  .hospital-info-section {
+    padding: 24px 16px !important;
+  }
+
+  .hospital-info-container {
+    width: 100% !important;
+    gap: 16px !important;
+  }
+
+  .hours-card {
+    padding: 22px !important;
+    border-radius: 24px !important;
+    min-height: auto !important;
+  }
+
+  .hours-card .info-card-top {
+    gap: 12px !important;
+    align-items: center !important;
+  }
+
+  .hours-card .info-icon {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 23px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .hours-card .info-label {
+    font-size: 10px !important;
+    letter-spacing: 1.2px !important;
+  }
+
+  .hours-card h2 {
+    font-size: 23px !important;
+    line-height: 1.25 !important;
+    margin: 5px 0 0 !important;
+  }
+
+  .hours-card .info-description {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    margin: 16px 0 !important;
+  }
+
+  .hours-card .hours-list {
+    gap: 0 !important;
+  }
+
+  .hours-card .hours-row {
+    padding: 10px 0 !important;
+    font-size: 12px !important;
+    gap: 8px !important;
+  }
+
+  .hours-card .hours-row strong {
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  .hours-card .emergency-row {
+    margin-top: 7px !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Remove repeated 24/7 status message */
+  .hours-card .availability-status {
+    display: none !important;
+  }
+}
+
+/* Hospital Location — compact mobile layout */
+@media (max-width: 768px) {
+
+  .location-card {
+    padding: 22px !important;
+    border-radius: 24px !important;
+    min-height: auto !important;
+  }
+
+  .location-card .info-card-top {
+    gap: 12px !important;
+    align-items: center !important;
+  }
+
+  .location-card .info-icon {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 23px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .location-card .info-label {
+    font-size: 10px !important;
+    letter-spacing: 1.2px !important;
+  }
+
+  .location-card h2 {
+    font-size: 23px !important;
+    line-height: 1.25 !important;
+    margin: 5px 0 0 !important;
+  }
+
+  .location-card .location-content {
+    padding: 14px !important;
+    margin: 18px 0 !important;
+    gap: 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .location-card .location-pin {
+    width: 44px !important;
+    height: 44px !important;
+    flex-shrink: 0 !important;
+    font-size: 20px !important;
+  }
+
+  .location-card .location-content h3 {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .location-card .location-content p {
+    font-size: 13px !important;
+    margin: 0 0 6px !important;
+  }
+
+  .location-card .location-content span {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  .location-card .location-actions {
+    margin-top: 12px !important;
+  }
+
+  .location-card .map-button {
+    padding: 12px 18px !important;
+    font-size: 13px !important;
+    border-radius: 12px !important;
+  }
+}
+
+/* FIX: AI CHATBOT → HOSPITAL HOURS GAP */
+@media (max-width: 768px) {
+
+  /* Remove excessive space after chatbot */
+  .home-page .about-section {
+    padding-bottom: 12px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .home-page .about-chat-area {
+    margin-bottom: 0 !important;
+  }
+
+  /* Reduce space before Hospital Hours */
+  .home-page .hospital-info-section {
+    padding-top: 12px !important;
+    margin-top: 0 !important;
+  }
+
+}
+
+/* ==========================================
+   AI HEALTHCARE SECTION — MOBILE REDESIGN
+   Light + Dark Mode | Desktop unchanged
+========================================== */
+
+@media (max-width: 768px) {
+
+  .home-page .home-ai-section {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+
+    width: calc(100% - 32px) !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 28px auto 20px !important;
+    padding: 32px 20px !important;
+
+    gap: 28px !important;
+
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    border-radius: 24px !important;
+  }
+
+  /* Text content */
+  .home-page .home-ai-content {
+    width: 100% !important;
+    min-width: 0 !important;
+    text-align: left !important;
+  }
+
+  /* Section label */
+  .home-page .home-ai-label {
+    display: inline-flex !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 9px 12px !important;
+    margin: 0 0 22px !important;
+
+    gap: 9px !important;
+    font-size: 9px !important;
+    letter-spacing: 1.8px !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+  }
+
+  .home-page .home-ai-label::before,
+  .home-page .home-ai-label::after {
+    width: 20px !important;
+    flex-shrink: 1 !important;
+  }
+
+  /* Main heading */
+  .home-page .home-ai-content h2 {
+    max-width: 100% !important;
+    margin: 0 !important;
+
+    font-size: clamp(30px, 8vw, 36px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -1.2px !important;
+
+    overflow-wrap: break-word !important;
+  }
+
+  .home-page .home-ai-content h2::after {
+    width: 70px !important;
+    height: 4px !important;
+    margin-top: 18px !important;
+  }
+
+  /* Description */
+  .home-page .home-ai-content > p {
+    max-width: 100% !important;
+    margin: 22px 0 !important;
+
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+
+  /* Main action button */
+  .home-page .home-ai-button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    padding: 15px 12px !important;
+    font-size: 14px !important;
+
+    border-radius: 13px !important;
+    box-sizing: border-box !important;
+  }
+
+  .home-page .home-ai-button::after {
+    margin-left: 8px !important;
+    font-size: 18px !important;
+  }
+
+  /* AI visual card */
+  .home-page .home-ai-card {
+    display: block !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    border-radius: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .home-page .home-ai-image {
+    width: 100% !important;
+    height: 230px !important;
+    min-height: 230px !important;
+  }
+
+  .home-page .ai-orbit-one {
+    width: 175px !important;
+    height: 175px !important;
+  }
+
+  .home-page .ai-orbit-two {
+    width: 135px !important;
+    height: 135px !important;
+  }
+
+  .home-page .ai-glow-circle {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .home-page .ai-core-face {
+    transform: scale(.8);
+  }
+
+  .home-page .home-ai-card-content {
+    padding: 18px !important;
+  }
+
+  /* Prevent horizontal overflow */
+  .home-page .home-ai-section *,
+  .home-page .home-ai-section *::before,
+  .home-page .home-ai-section *::after {
+    box-sizing: border-box;
+  }
+}
+
+/* ==========================================
+   AI HEALTHCARE — FINAL MOBILE ALIGNMENT
+   Light + Dark Mode
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Main section */
+  .home-page .home-ai-section {
+    width: calc(100% - 32px) !important;
+    margin: 28px auto !important;
+    padding: 30px 18px !important;
+    gap: 26px !important;
+    align-items: stretch !important;
+  }
+
+  /* Heading and description */
+  .home-page .home-ai-content {
+    text-align: left !important;
+  }
+
+  .home-page .home-ai-content h2 {
+    font-size: clamp(29px, 7.5vw, 35px) !important;
+    line-height: 1.18 !important;
+    letter-spacing: -1px !important;
+  }
+
+  .home-page .home-ai-content > p {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+    margin: 20px 0 22px !important;
+  }
+
+  /* Button */
+  .home-page .home-ai-button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 52px !important;
+    padding: 13px 10px !important;
+    font-size: 14px !important;
+  }
+
+  /* AI card */
+  .home-page .home-ai-card {
+    width: 100% !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+  }
+
+  /* Illustration area */
+  .home-page .home-ai-image {
+    position: relative !important;
+    height: 245px !important;
+    min-height: 245px !important;
+    overflow: hidden !important;
+  }
+
+  /* Center AI orb */
+  .home-page .ai-glow-circle {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .home-page .ai-core-face {
+    transform: scale(.75) !important;
+  }
+
+  .home-page .ai-orbit-one {
+    width: 165px !important;
+    height: 165px !important;
+  }
+
+  .home-page .ai-orbit-two {
+    width: 130px !important;
+    height: 130px !important;
+  }
+
+  /* Floating feature boxes */
+  .home-page .ai-feature {
+    gap: 7px !important;
+    padding: 9px 10px !important;
+    border-radius: 13px !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  .home-page .ai-feature-icon {
+    width: 27px !important;
+    height: 27px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Left side */
+  .home-page .ai-feature-guidance {
+    top: 18px !important;
+    left: 10px !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+
+  .home-page .ai-feature-symptom {
+    top: auto !important;
+    left: 10px !important;
+    right: auto !important;
+    bottom: 18px !important;
+  }
+
+  /* Right side */
+  .home-page .ai-feature-safe {
+    top: 105px !important;
+    right: 10px !important;
+    left: auto !important;
+    bottom: auto !important;
+  }
+
+  .home-page .ai-feature-support {
+    top: auto !important;
+    right: 10px !important;
+    left: auto !important;
+    bottom: 18px !important;
+  }
+
+  /* Online status */
+  .home-page .ai-floating-card {
+    top: 12px !important;
+    right: 10px !important;
+    padding: 8px 11px !important;
+    border-radius: 11px !important;
+  }
+
+  .home-page .ai-floating-card span {
+    font-size: 10px !important;
+  }
+
+  .home-page .ai-floating-card strong {
+    font-size: 12px !important;
+  }
+
+  /* Card content */
+  .home-page .home-ai-card-content {
+    padding: 22px 18px 24px !important;
+    text-align: left !important;
+  }
+
+  .home-page .home-ai-card-content > span {
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .home-page .home-ai-card-content h3 {
+    font-size: 23px !important;
+    line-height: 1.3 !important;
+    margin: 10px 0 !important;
+  }
+
+  .home-page .home-ai-card-content p {
+    font-size: 13px !important;
+    line-height: 1.65 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .home-page .home-ai-card-content > strong {
+    font-size: 13px !important;
+  }
+}
+
+/* AI Healthcare — final mobile adjustments */
+@media (max-width: 768px) {
+
+  /* Center main heading */
+  .home-page .home-ai-content h2 {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Center heading underline */
+  .home-page .home-ai-content h2::after {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Remove duplicate 24/7 floating badge */
+  .home-page .ai-feature-support {
+    display: none !important;
+  }
+
+  /* Center AI card title */
+  .home-page .home-ai-card-content h3 {
+    text-align: center !important;
+  }
+
+  /* Center card description and label */
+  .home-page .home-ai-card-content > span,
+  .home-page .home-ai-card-content p {
+    text-align: center !important;
+  }
+
+  /* Center Try AI Assistant link */
+  .home-page .home-ai-card-content > strong {
+    display: block !important;
+    text-align: center !important;
+  }
+}
+/* AI Healthcare label — mobile only */
+@media (max-width: 768px) {
+
+  .home-page .home-ai-label {
+    display: flex !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 0 auto 22px !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+
+    text-align: center !important;
+  }
+
+  .home-page .home-ai-label::before,
+  .home-page .home-ai-label::after {
+    content: "" !important;
+    display: block !important;
+    width: 28px !important;
+    height: 1px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Keep AI Assistant status at top-right */
+  .home-page .ai-floating-card {
+    top: 12px !important;
+    right: 10px !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}
+
+/* Fix AI HEALTHCARE label alignment — mobile only */
+@media (max-width: 768px) {
+
+  .home-page .home-ai-section .home-ai-content {
+    text-align: center !important;
+  }
+
+  .home-page .home-ai-section .home-ai-label {
+    display: flex !important;
+
+    width: fit-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 auto 22px !important;
+    padding: 9px 14px !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+
+  .home-page .home-ai-section .home-ai-label::before,
+  .home-page .home-ai-section .home-ai-label::after {
+    display: block !important;
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 1px !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* ==========================================
+   PATIENT SUPPORT — MOBILE HORIZONTAL CARDS
+========================================== */
+
+@media (max-width: 768px) {
+
+  .home-page .support-section {
+    padding: 45px 16px !important;
+    overflow: hidden !important;
+  }
+
+  .home-page .support-container {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Compact section heading */
+  .home-page .support-heading {
+    margin: 0 auto 28px !important;
+    text-align: center !important;
+  }
+
+  .home-page .support-heading h2 {
+    font-size: 32px !important;
+    line-height: 1.15 !important;
+    margin: 18px 0 14px !important;
+  }
+
+  .home-page .support-heading p {
+    font-size: 13px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Three cards in one horizontal row */
+  .home-page .support-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+
+    width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+
+    padding: 5px 2px 16px !important;
+
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .home-page .support-options::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Compact individual cards */
+  .home-page .support-card {
+    flex: 0 0 245px !important;
+    width: 245px !important;
+    min-width: 245px !important;
+    min-height: 255px !important;
+
+    padding: 20px !important;
+    border-radius: 19px !important;
+
+    box-sizing: border-box !important;
+    scroll-snap-align: start !important;
+  }
+
+  .home-page .support-icon {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 12px !important;
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .home-page .support-small {
+    font-size: 9px !important;
+    margin-bottom: 6px !important;
+    letter-spacing: 1.3px !important;
+  }
+
+  .home-page .support-card h3 {
+    font-size: 19px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .home-page .support-card p {
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 15px !important;
+  }
+
+  .home-page .support-button,
+  .home-page .emergency-button {
+    padding: 10px 13px !important;
+    font-size: 11px !important;
+    border-radius: 9px !important;
+  }
+
+  .home-page .support-footer {
+    margin-top: 14px !important;
+    font-size: 11px !important;
+    text-align: center !important;
+  }
+}
+
+/* ==========================================
+   MOBILE FOOTER — CLEAN & PROFESSIONAL
+   Desktop and both themes preserved
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Remove availability line above footer */
+  .home-page .support-footer {
+    display: none !important;
+  }
+
+  /* Main footer layout */
+  .home-page .footer-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 30px 20px !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 28px 18px !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* Brand occupies full width */
+  .home-page .footer-brand {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-page .footer-logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .home-page .footer-logo h3 {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+  }
+
+  .home-page .footer-description {
+    max-width: 100% !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+  }
+
+  /* Explore and Patient Care */
+  .home-page .footer-column {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  .home-page .footer-column h4 {
+    margin: 0 0 5px !important;
+    font-size: 14px !important;
+  }
+
+  .home-page .footer-column a {
+    display: block !important;
+    width: 100% !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Contact details get their own row */
+  .home-page .footer-contact {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-page .footer-contact h4 {
+    margin-bottom: 15px !important;
+  }
+
+  .home-page .footer-contact-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+  }
+
+  .home-page .footer-contact-item p,
+  .home-page .footer-contact-item a {
+    min-width: 0 !important;
+    overflow-wrap: anywhere !important;
+    font-size: 12px !important;
+  }
+
+  .home-page .footer-emergency {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Project information */
+  .home-page .footer-project {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 18px !important;
+
+    width: 100% !important;
+    padding: 25px 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .home-page .project-left {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-page .project-left h3 {
+    font-size: 23px !important;
+    line-height: 1.3 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .home-page .project-left p {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+
+  .home-page .project-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .home-page .project-action-link {
+    min-width: 0 !important;
+    padding: 12px 8px !important;
+    justify-content: center !important;
+    font-size: 11px !important;
+    gap: 6px !important;
+  }
+
+  /* Copyright and credits */
+  .home-page .footer-bottom {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 14px !important;
+
+    padding: 20px 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .home-page .footer-credit,
+  .home-page .footer-creators,
+  .home-page .footer-legal {
+    width: 100% !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    text-align: center !important;
+  }
+
+  .home-page .footer-credit p,
+  .home-page .footer-credit span,
+  .home-page .footer-creators span,
+  .home-page .footer-creators strong,
+  .home-page .footer-legal a {
+    font-size: 11px !important;
+  }
+
+  /* Prevent horizontal overflow */
+  .home-page .home-footer,
+  .home-page .home-footer * {
+    box-sizing: border-box;
+    min-width: 0;
+  }
+}
+
+/* ==========================================
+   MOBILE FOOTER — COMPACT VERSION
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Remove unnecessary availability messages */
+  .home-page .support-footer,
+  .home-page .footer-status {
+    display: none !important;
+  }
+
+  /* Main footer */
+  .home-page .footer-main {
+    width: 100% !important;
+    padding: 24px 20px 20px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px 16px !important;
+  }
+
+  /* Brand section */
+  .home-page .footer-brand {
+    grid-column: 1 / -1 !important;
+    margin: 0 !important;
+  }
+
+  .home-page .footer-logo {
+    gap: 11px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .home-page .logo-symbol {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 22px !important;
+    border-radius: 12px !important;
+  }
+
+  .home-page .footer-logo h3 {
+    font-size: 19px !important;
+    margin: 0 !important;
+  }
+
+  .home-page .footer-logo p {
+    font-size: 10px !important;
+    margin-top: 3px !important;
+  }
+
+  .home-page .footer-description {
+    margin: 0 0 12px !important;
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+  }
+
+  .home-page .footer-social {
+    gap: 8px !important;
+    margin-top: 10px !important;
+  }
+
+  .home-page .footer-social a {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  /* Explore and Patient Care */
+  .home-page .footer-column {
+    gap: 9px !important;
+  }
+
+  .home-page .footer-column h4 {
+    margin: 0 0 5px !important;
+    font-size: 13px !important;
+  }
+
+  .home-page .footer-column a {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Contact section */
+  .home-page .footer-contact {
+    grid-column: 1 / -1 !important;
+    margin-top: 0 !important;
+  }
+
+  .home-page .footer-contact h4 {
+    margin: 0 0 12px !important;
+    font-size: 13px !important;
+  }
+
+  .home-page .footer-contact-item {
+    gap: 9px !important;
+    margin-bottom: 8px !important;
+    align-items: center !important;
+  }
+
+  .home-page .footer-contact-item > span {
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  .home-page .footer-contact-item p,
+  .home-page .footer-contact-item a {
+    font-size: 11px !important;
+    line-height: 1.45 !important;
+  }
+
+  .home-page .footer-emergency {
+    margin-top: 8px !important;
+    padding: 10px 12px !important;
+  }
+
+  /* Project section */
+  .home-page .footer-project {
+    width: 100% !important;
+    padding: 20px !important;
+    gap: 14px !important;
+  }
+
+  .home-page .project-left h3 {
+    font-size: 21px !important;
+    line-height: 1.25 !important;
+    margin: 0 0 7px !important;
+  }
+
+  .home-page .project-left p {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+  }
+
+  .home-page .project-actions {
+    gap: 8px !important;
+  }
+
+  .home-page .project-action-link {
+    padding: 10px 7px !important;
+    font-size: 10px !important;
+  }
+
+  /* Bottom credits */
+  .home-page .footer-bottom {
+    padding: 14px 12px !important;
+    gap: 9px !important;
+  }
+
+  .home-page .footer-credit,
+  .home-page .footer-creators,
+  .home-page .footer-legal {
+    gap: 6px !important;
+  }
+}
+
+/* Compact Get In Touch — mobile only */
+@media (max-width: 768px) {
+
+  .home-page .footer-contact {
+    margin-top: 0 !important;
+    gap: 5px !important;
+  }
+
+  .home-page .footer-contact h4 {
+    font-size: 12px !important;
+    margin-bottom: 7px !important;
+  }
+
+  .home-page .footer-contact-item {
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .home-page .footer-contact-item > span {
+    width: 23px !important;
+    height: 23px !important;
+    min-width: 23px !important;
+    border-radius: 7px !important;
+    font-size: 11px !important;
+  }
+
+  .home-page .footer-contact-item p,
+  .home-page .footer-contact-item a {
+    font-size: 10px !important;
+    line-height: 1.35 !important;
+    margin: 0 !important;
+  }
+
+  .home-page .footer-emergency {
+    margin-top: 5px !important;
+    padding: 8px 10px !important;
+    min-height: 0 !important;
+    border-radius: 12px !important;
+  }
+
+  .home-page .footer-emergency > span {
+    width: 31px !important;
+    height: 31px !important;
+    min-width: 31px !important;
+    font-size: 15px !important;
+  }
+
+  .home-page .footer-emergency h4 {
+    font-size: 11px !important;
+    margin: 0 0 2px !important;
+  }
+
+  .home-page .footer-emergency p {
+    font-size: 9px !important;
+    margin: 0 !important;
+  }
+}
+/* Mobile-only Meet Our Doctors button */
+.mobile-doctors-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-doctors-btn {
+    display: inline-flex;
+    width: 100%;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    cursor: pointer;
+    font: inherit;
+    color: #ffffff;
+    appearance: none;
+  }
+}
+@media (max-width: 768px) {
+  .hero-section .hero-container,
+  .hero-section .hero-content,
+  .hero-section .hero-actions {
+    position: relative !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+  }
+
+  .hero-section .hero-background-overlay {
+    pointer-events: none !important;
+  }
+
+  .hero-section .mobile-doctors-btn {
+    display: flex !important;
+    position: relative !important;
+    z-index: 20 !important;
+    width: 100%;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto !important;
+    cursor: pointer;
+  }
+}
+@media (max-width: 768px) {
+  .hero-section .mobile-doctors-btn {
+    display: flex !important;
+    width: 100%;
+    min-height: 54px;
+    padding: 0 20px;
+
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    font-family: "Poppins", "Segoe UI", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.2px;
+
+    color: #ffffff !important;
+    text-decoration: none;
+
+    background: linear-gradient(
+      135deg,
+      rgba(17, 181, 199, 0.25),
+      rgba(7, 132, 164, 0.35)
+    );
+
+    border: 1px solid rgba(101, 220, 231, 0.55);
+    border-radius: 13px;
+
+    box-shadow: 0 8px 22px rgba(0, 40, 55, 0.16);
+
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .hero-section .mobile-doctors-btn:active {
+    transform: scale(0.97);
+    background: linear-gradient(135deg, #11b5c7, #0784a4);
+  }
+
+  .hero-section .mobile-doctors-btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+}

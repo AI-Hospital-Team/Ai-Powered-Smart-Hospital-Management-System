@@ -407,7 +407,7 @@ function Login() {
 
           <div className="login-logo-wrapper">
             <img
-              src="/github-logo.jpeg"
+              src={`${import.meta.env.BASE_URL}github-logo.jpeg`}
               alt="AI Smart Hospital"
               className="login-logo"
             />
