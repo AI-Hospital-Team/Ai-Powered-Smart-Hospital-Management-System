@@ -5554,3 +5554,213 @@
     border-color: #55e5eb !important;
   }
 }
+
+
+/* =========================================================
+   RESTORE DESKTOP HEADER ACTIONS
+   Keep the mobile drawer controls separate.
+========================================================= */
+
+/* Desktop: controls belong in the top header, not the sidebar */
+@media (min-width: 701px) {
+  .dashboard-sidebar .mobile-sidebar-actions {
+    display: none !important;
+  }
+
+  .dashboard-header .desktop-header-actions {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .dashboard-header .desktop-header-actions-title {
+    display: none !important;
+  }
+
+  .dashboard-header .desktop-header-actions .notification-header-wrapper {
+    position: relative;
+  }
+
+  .dashboard-header .desktop-header-actions .notification-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    left: auto;
+    z-index: 10050;
+  }
+
+  .dashboard-header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* Mobile: hide the desktop copy; preserve the existing drawer UI */
+@media (max-width: 700px) {
+  .dashboard-header .desktop-header-actions {
+    display: none !important;
+  }
+
+  .dashboard-sidebar .mobile-sidebar-actions {
+    display: flex !important;
+  }
+}
+@media (max-width: 700px) {
+  .mobile-sidebar-actions .header-button {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
+    font-size: 0 !important;
+    justify-content: center !important;
+  }
+
+  .mobile-sidebar-actions .theme-icon {
+    display: flex !important;
+    width: 22px !important;
+    height: 22px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mobile-sidebar-actions .theme-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+/* Desktop theme toggle — icon only */
+@media (min-width: 701px) {
+  .dashboard-header .desktop-header-actions .header-button {
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    justify-content: center !important;
+  }
+
+  .dashboard-header .desktop-header-actions .mobile-theme-label {
+    display: none !important;
+  }
+
+  .dashboard-header .desktop-header-actions .theme-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+/* DESKTOP: RESTORE NOTIFICATION + THEME ICONS */
+@media (min-width: 701px) {
+  .dashboard-header .desktop-header-actions
+  .notification-header-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #087f8c !important;
+  }
+
+  .dashboard-header .desktop-header-actions
+  .notification-header-icon {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #087f8c !important;
+    font-size: 20px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .dashboard-header .desktop-header-actions
+  .notification-header-icon svg,
+  .dashboard-header .desktop-header-actions
+  .theme-icon svg {
+    display: block !important;
+    width: 22px !important;
+    height: 22px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .dashboard-header .desktop-header-actions
+  .theme-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #087f8c !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+@media (max-width: 700px) {
+  .dashboard-header .home-header-button {
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border: 1px solid #cfe4e9 !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+  }
+
+  .dashboard-header .home-header-button .home-header-icon {
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .dashboard-header .home-header-button > span:last-child {
+    display: none !important;
+  }
+}@media (max-width: 700px) {
+  .dashboard-header .home-header-button {
+    width: 48px !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    max-width: 48px !important;
+    padding: 0 !important;
+  }
+
+  .dashboard-header .home-header-icon {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    font-size: 22px !important;
+  }
+
+  .dashboard-header .home-header-icon svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+.home-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.home-header-icon svg {
+  display: block;
+  width: 21px;
+  height: 21px;
+}
