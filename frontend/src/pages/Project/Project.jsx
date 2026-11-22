@@ -89,6 +89,7 @@ function ProjectSkeleton() {
 
 function Project() {
   const [activeDocument, setActiveDocument] = useState(null);
+  const [viewDocument, setViewDocument] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -206,23 +207,45 @@ function Project() {
 
             <div className="document-buttons">
 
-              <button
-                onClick={() => setActiveDocument("report")}
-              >
-                📄 Project Report
-              </button>
+              <div className="project-document-group">
+                <span className="project-document-title">📄 Project Report</span>
+                <div className="project-document-actions">
+                  <button
+                    type="button"
+                    className="project-document-link"
+                    onClick={() => setViewDocument("report")}
+                  >
+                    View
+                  </button>
+                  <a
+                    className="project-document-link"
+                    href="/documents/AI-Smart-Hospital-Project-Report.pdf"
+                    download="AI-Smart-Hospital-Project-Report.pdf"
+                  >
+                    Download
+                  </a>
+                </div>
+              </div>
 
-              <button
-                onClick={() => setActiveDocument("theory")}
-              >
-                📚 Theory Work
-              </button>
-
-              <button
-                onClick={() => setActiveDocument("presentation")}
-              >
-                📊 Project Presentation
-              </button>
+              <div className="project-document-group">
+                <span className="project-document-title">📊 Project Presentation</span>
+                <div className="project-document-actions">
+                  <button
+                    type="button"
+                    className="project-document-link"
+                    onClick={() => setViewDocument("presentation")}
+                  >
+                    View
+                  </button>
+                  <a
+                    className="project-document-link"
+                    href="/documents/AI-Smart-Hospital-Project-Presentation.pptx"
+                    download="AI-Smart-Hospital-Project-Presentation.pptx"
+                  >
+                    Download PPTX
+                  </a>
+                </div>
+              </div>
 
             </div>
 
@@ -249,6 +272,89 @@ function Project() {
       {/* =====================================================
           DOCUMENT MODAL
       ===================================================== */}
+
+
+      {/* PDF VIEWER — opens inside the Project page */}
+      {viewDocument && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={viewDocument === "report" ? "Project Report viewer" : "Project Presentation viewer"}
+          onClick={() => setViewDocument(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            background: "rgba(0, 0, 0, 0.82)",
+            display: "flex",
+            flexDirection: "column",
+            padding: "16px",
+          }}
+        >
+          <div
+            onClick={(event) => event.stopPropagation()}
+            style={{
+              width: "min(1100px, 100%)",
+              height: "100%",
+              margin: "0 auto",
+              display: "flex",
+              flexDirection: "column",
+              background: "#ffffff",
+              borderRadius: "14px",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                minHeight: "56px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "12px",
+                padding: "8px 16px",
+                color: "#123746",
+                borderBottom: "1px solid #dce7eb",
+              }}
+            >
+              <strong>
+                {viewDocument === "report" ? "Project Report" : "Project Presentation"}
+              </strong>
+              <button
+                type="button"
+                onClick={() => setViewDocument(null)}
+                aria-label="Close document viewer"
+                style={{
+                  border: 0,
+                  borderRadius: "8px",
+                  padding: "8px 14px",
+                  cursor: "pointer",
+                  background: "#eaf4f6",
+                  color: "#123746",
+                  fontWeight: 700,
+                }}
+              >
+                ✕ Close
+              </button>
+            </div>
+
+            <iframe
+              title={viewDocument === "report" ? "Project Report PDF" : "Project Presentation PDF"}
+              src={
+                viewDocument === "report"
+                  ? "/documents/AI-Smart-Hospital-Project-Report.pdf"
+                  : "/documents/AI-Smart-Hospital-Project-Presentation.pdf"
+              }
+              style={{
+                flex: 1,
+                width: "100%",
+                minHeight: 0,
+                border: 0,
+                background: "#ffffff",
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {activeDocument && (
 
