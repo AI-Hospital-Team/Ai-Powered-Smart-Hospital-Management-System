@@ -7,9 +7,8 @@ import {
 } from "lucide-react";
 
 import SkeletonLogs from "../../../components/Skeleton/SkeletonLogs";
-
-const API_BASE_URL = "http://localhost:8080/api";
-
+import API_URL from "../../../config/api";
+const API_BASE_URL = API_URL;
 function Logs() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);

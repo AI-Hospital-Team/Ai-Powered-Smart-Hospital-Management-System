@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Notifications.css";
+import API_URL from "../../../config/api";
 
 function Notifications() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function Notifications() {
       }
 
       const response = await fetch(
-        `http://localhost:8080/api/notifications/patient/${user.patientId}`
+        `${API_URL}/notifications/patient/${user.patientId}`
       );
 
       if (!response.ok) {
@@ -57,25 +58,18 @@ function Notifications() {
     switch (type.toLowerCase()) {
       case "appointment":
         return "📅";
-
       case "medical":
         return "🩺";
-
       case "prescription":
         return "💊";
-
       case "bill":
         return "💳";
-
       case "success":
         return "✅";
-
       case "warning":
         return "⚠️";
-
       case "alert":
         return "🚨";
-
       default:
         return "🔔";
     }
@@ -87,25 +81,18 @@ function Notifications() {
     switch (type.toLowerCase()) {
       case "appointment":
         return "notification-appointment";
-
       case "medical":
         return "notification-medical";
-
       case "prescription":
         return "notification-prescription";
-
       case "bill":
         return "notification-bill";
-
       case "success":
         return "notification-success";
-
       case "warning":
         return "notification-warning";
-
       case "alert":
         return "notification-alert";
-
       default:
         return "notification-default";
     }
@@ -134,8 +121,7 @@ function Notifications() {
   const markAsRead = (notificationId) => {
     setNotifications((previous) =>
       previous.map((notification) =>
-        (notification.notificationId || notification.id) ===
-        notificationId
+        (notification.notificationId || notification.id) === notificationId
           ? {
               ...notification,
               read: true,
@@ -165,20 +151,16 @@ function Notifications() {
 
   return (
     <div className="notifications-page">
-
       {/* HEADER */}
       <div className="notifications-header">
-
         <div>
           <h1>Notifications</h1>
-
           <p>
             Stay updated with your appointments, medical records and bills.
           </p>
         </div>
 
         <div className="notification-header-actions">
-
           {unreadCount > 0 && (
             <button
               className="mark-all-btn"
@@ -194,90 +176,58 @@ function Notifications() {
           >
             ← Dashboard
           </button>
-
         </div>
-
       </div>
 
       {/* UNREAD COUNT */}
       {!loading && !error && notifications.length > 0 && (
         <div className="notification-summary">
-
-          <div className="summary-icon">
-            🔔
-          </div>
-
+          <div className="summary-icon">🔔</div>
           <div>
-            <strong>
-              {unreadCount}
-            </strong>
-
+            <strong>{unreadCount}</strong>
             <span>
               {unreadCount === 1
                 ? " unread notification"
                 : " unread notifications"}
             </span>
           </div>
-
         </div>
       )}
 
       {/* LOADING */}
       {loading && (
         <div className="notifications-message">
-
           <div className="notification-loader"></div>
-
-          <p>
-            Loading notifications...
-          </p>
-
+          <p>Loading notifications...</p>
         </div>
       )}
 
       {/* ERROR */}
       {!loading && error && (
         <div className="notifications-error">
-
-          <div className="error-icon">
-            ⚠️
-          </div>
-
+          <div className="error-icon">⚠️</div>
           <p>{error}</p>
-
           <button onClick={fetchNotifications}>
             Try Again
           </button>
-
         </div>
       )}
 
       {/* NO NOTIFICATIONS */}
       {!loading && !error && notifications.length === 0 && (
         <div className="no-notifications">
-
-          <div className="empty-notification-icon">
-            🔔
-          </div>
-
+          <div className="empty-notification-icon">🔔</div>
           <h2>No Notifications</h2>
-
-          <p>
-            You don't have any notifications right now.
-          </p>
-
+          <p>You don't have any notifications right now.</p>
         </div>
       )}
 
       {/* NOTIFICATIONS */}
       {!loading && !error && notifications.length > 0 && (
         <div className="notifications-container">
-
           {notifications.map((notification) => {
-
             const notificationId =
-              notification.notificationId ||
-              notification.id;
+              notification.notificationId || notification.id;
 
             const isUnread =
               notification.read === false ||
@@ -292,31 +242,24 @@ function Notifications() {
                 }`}
                 onClick={() => markAsRead(notificationId)}
               >
-
                 <div
                   className={`notification-icon ${getNotificationClass(
                     notification.type
                   )}`}
                 >
-                  {getNotificationIcon(
-                    notification.type
-                  )}
+                  {getNotificationIcon(notification.type)}
                 </div>
 
                 <div className="notification-content">
-
                   <div className="notification-title-row">
-
                     <h2>
                       {notification.title ||
                         notification.subject ||
                         "Notification"}
                     </h2>
-
                     {isUnread && (
                       <span className="unread-dot"></span>
                     )}
-
                   </div>
 
                   <p>
@@ -332,16 +275,12 @@ function Notifications() {
                         notification.timestamp
                     )}
                   </small>
-
                 </div>
-
               </div>
             );
           })}
-
         </div>
       )}
-
     </div>
   );
 }

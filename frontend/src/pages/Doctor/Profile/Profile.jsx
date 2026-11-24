@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
+import API_URL from "../../../config/api";
 import "./Profile.css";
 import SkeletonDoctorProfile from "../../../components/Skeleton/SkeletonDoctorProfile";
-
-const API_URL = "http://localhost:8080/api";
 
 function Profile() {
   const [user, setUser] = useState(null);

@@ -16,7 +16,7 @@ import com.hospital.management.service.NotificationService;
 
 @RestController
 @RequestMapping("/api/notifications")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class NotificationController {
 
     private final NotificationService notificationService;

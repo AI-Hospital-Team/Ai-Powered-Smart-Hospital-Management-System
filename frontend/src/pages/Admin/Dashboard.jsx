@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import "./Dashboard.css";
-
+import API_URL from "../../config/api";
 function Dashboard() {
   const navigate = useNavigate();
 
@@ -65,10 +65,10 @@ function Dashboard() {
         appointmentsResponse,
         billsResponse,
       ] = await Promise.all([
-        fetch("http://localhost:8080/api/patients"),
-        fetch("http://localhost:8080/api/doctors"),
-        fetch("http://localhost:8080/api/appointments"),
-        fetch("http://localhost:8080/api/bills"),
+fetch(`${API_URL}/patients`),
+fetch(`${API_URL}/doctors`),
+fetch(`${API_URL}/appointments`),
+fetch(`${API_URL}/bills`),
       ]);
 
       const patientsData = patientsResponse.ok
@@ -249,9 +249,9 @@ function Dashboard() {
       setAddingDoctor(true);
 
       const response = await fetch(
-        "http://localhost:8080/api/doctors/account",
-        {
-          method: "POST",
+  `${API_URL}/doctors/account`,
+  {
+    method: "POST",
           headers: {
             "Content-Type": "application/json",
           },

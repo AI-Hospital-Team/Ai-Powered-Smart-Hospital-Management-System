@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import API_URL from "../../../config/api";
 import {
   Pill,
   Search,
@@ -202,8 +203,7 @@ function Prescriptions() {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/prescriptions/${selectedPrescriptionId}`,
-        {
+`${API_URL}/prescriptions/${selectedPrescriptionId}`,        {
           method: "DELETE",
         }
       );

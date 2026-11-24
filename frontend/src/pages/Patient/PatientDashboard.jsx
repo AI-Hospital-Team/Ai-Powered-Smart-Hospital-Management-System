@@ -18,8 +18,7 @@ import {
 
 import "./PatientDashboard.css";
 import SkeletonPatientDashboard from "../../components/Skeleton/SkeletonPatientDashboard";
-
-const API_URL = "http://localhost:8080/api";
+import API_URL from "../../config/api";
 
 function PatientDashboard() {
   const navigate = useNavigate();

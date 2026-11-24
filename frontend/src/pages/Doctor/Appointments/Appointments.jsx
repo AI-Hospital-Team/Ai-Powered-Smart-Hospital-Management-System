@@ -10,6 +10,7 @@ import {
 
 import "./Appointments.css";
 import SkeletonDoctorAppointments from "../../../components/Skeleton/SkeletonDoctorAppointments";
+import API_URL from "../../../config/api";
 
 function Appointments() {
   const [user, setUser] = useState(null);
@@ -69,11 +70,11 @@ function Appointments() {
           patientsResponse,
         ] = await Promise.all([
           fetch(
-            `http://localhost:8080/api/appointments/doctor/${doctorId}`
+            `${API_URL}/appointments/doctor/${doctorId}`
           ),
 
           fetch(
-            "http://localhost:8080/api/patients"
+            `${API_URL}/patients`
           ),
         ]);
 
@@ -180,7 +181,7 @@ function Appointments() {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/appointments/${appointmentId}/status`,
+        `${API_URL}/appointments/${appointmentId}/status`,
         {
           method: "PUT",
 

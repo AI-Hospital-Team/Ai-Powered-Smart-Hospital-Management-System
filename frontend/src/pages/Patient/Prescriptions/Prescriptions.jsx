@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import "./Prescriptions.css";
 import SkeletonPatientPrescriptions from "../../../components/Skeleton/SkeletonPatientPrescriptions";
+import API_URL from "../../../config/api";
 
 function Prescriptions() {
   const [user, setUser] = useState(null);
@@ -78,7 +79,7 @@ function Prescriptions() {
         setError("");
 
         const response = await fetch(
-          `http://localhost:8080/api/prescriptions/patient/${patientId}`
+          `${API_URL}/prescriptions/patient/${patientId}`
         );
 
         if (!response.ok) {
@@ -223,7 +224,7 @@ const getPrescriptionStatus = (prescription) => {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/prescriptions/${selectedPrescriptionId}`,
+        `${API_URL}/prescriptions/${selectedPrescriptionId}`,
         { method: "DELETE" }
       );
 

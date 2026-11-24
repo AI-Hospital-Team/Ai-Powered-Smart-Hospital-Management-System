@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
+import API_URL from "../../config/api";
 import "./Home.css";
 import "./Home.responsive.css";
 import SkeletonHome from "../../components/Skeleton/SkeletonHome";
@@ -659,8 +660,8 @@ function Home() {
 
       try {
         const [dayResponse, nightResponse] = await Promise.all([
-          fetch("http://localhost:8080/api/doctors/shift/DAY"),
-          fetch("http://localhost:8080/api/doctors/shift/NIGHT"),
+          fetch(`${API_URL}/doctors/shift/DAY`),
+          fetch(`${API_URL}/doctors/shift/NIGHT`),
         ]);
 
         if (!dayResponse.ok || !nightResponse.ok) {
@@ -2888,7 +2889,7 @@ return (
 
                 try {
                   const response = await fetch(
-                    "http://localhost:8080/api/auth/login",
+                    `${API_URL}/auth/login`,
                     {
                       method: "POST",
                       headers: {
@@ -3155,8 +3156,8 @@ return (
 
                   const response = await fetch(
                     isDoctor
-                      ? "http://localhost:8080/api/auth/register-doctor"
-                      : "http://localhost:8080/api/auth/register",
+                      ? `${API_URL}/auth/register-doctor`
+                      : `${API_URL}/auth/register`,
                     {
                       method: "POST",
                       headers: {
