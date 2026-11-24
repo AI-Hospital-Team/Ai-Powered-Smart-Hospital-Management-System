@@ -10,7 +10,7 @@ import com.hospital.management.service.DoctorService;
 
 @RestController
 @RequestMapping("/api/doctors")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class DoctorController {
 
     private final DoctorService doctorService;

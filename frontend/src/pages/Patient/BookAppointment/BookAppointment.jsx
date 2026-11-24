@@ -17,7 +17,7 @@ import {
 import "./BookAppointment.css";
 import SkeletonPatientBookAppointment from "../../../components/Skeleton/SkeletonPatientBookAppointment";
 
-const API_URL = "http://localhost:8080/api";
+import API_URL from "../../../config/api";
 
 function BookAppointment() {
   const navigate = useNavigate();

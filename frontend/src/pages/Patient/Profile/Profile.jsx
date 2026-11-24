@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Profile.css";
 import SkeletonPatientProfile from "../../../components/Skeleton/SkeletonPatientProfile";
+import API_URL from "../../../config/api";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -37,7 +38,7 @@ useEffect(() => {
 
       // Fetch the REAL patient record created during registration
       const response = await fetch(
-        `http://localhost:8080/api/patients/${patientId}`
+        `${API_URL}/patients/${patientId}`
       );
 
       if (!response.ok) {
@@ -135,7 +136,7 @@ const handleSave = async () => {
     }
 
     const response = await fetch(
-      `http://localhost:8080/api/patients/${patientId}`,
+      `${API_URL}/patients/${patientId}`,
       {
         method: "PUT",
 

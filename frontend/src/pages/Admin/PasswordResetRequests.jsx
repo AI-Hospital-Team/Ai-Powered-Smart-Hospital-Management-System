@@ -11,8 +11,7 @@ import {
 
 import "./PasswordResetRequests.css";
 import SkeletonPasswordReset from "../../components/Skeleton/SkeletonPasswordReset";
-
-const API_URL = "http://localhost:8080/api";
+import API_URL from "../../config/api";
 
 function PasswordResetRequests() {
   const [requests, setRequests] = useState([]);

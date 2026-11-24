@@ -13,7 +13,7 @@ import com.hospital.management.service.AIService;
 
 @RestController
 @RequestMapping("/api/ai")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class AIController {
 
     private final AIService aiService;

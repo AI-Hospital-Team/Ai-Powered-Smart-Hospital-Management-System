@@ -16,7 +16,7 @@ import com.hospital.management.service.AuthService;
 
 @RestController
 @RequestMapping("/api/admin/password-reset")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class PasswordResetAdminController {
 
     private final PasswordResetRequestRepository repository;

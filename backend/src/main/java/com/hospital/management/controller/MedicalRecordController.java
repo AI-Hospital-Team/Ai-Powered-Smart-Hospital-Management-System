@@ -18,7 +18,7 @@ import com.hospital.management.service.MedicalRecordService;
 
 @RestController
 @RequestMapping("/api/medical-records")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class MedicalRecordController {
 
     private final MedicalRecordService medicalRecordService;

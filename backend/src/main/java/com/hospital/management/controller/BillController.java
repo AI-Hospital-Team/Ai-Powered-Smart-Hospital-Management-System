@@ -19,7 +19,7 @@ import com.hospital.management.service.BillService;
 
 @RestController
 @RequestMapping("/api/bills")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class BillController {
 
     private final BillService billService;
