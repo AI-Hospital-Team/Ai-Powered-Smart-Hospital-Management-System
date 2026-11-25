@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import "./MedicalRecords.css";
 import SkeletonPatientMedicalRecords from "../../../components/Skeleton/SkeletonPatientMedicalRecords";
+import API_URL from "../../../config/api";
 
 function MedicalRecords() {
   const [records, setRecords] = useState([]);
@@ -60,7 +61,7 @@ function MedicalRecords() {
       );
 
       const response = await fetch(
-        `http://localhost:8080/api/medical-records/patient/${user.patientId}`
+        `${API_URL}/medical-records/patient/${user.patientId}`
       );
 
       if (!response.ok) {
@@ -145,7 +146,7 @@ function MedicalRecords() {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/medical-records/${selectedRecordId}`,
+        `${API_URL}/medical-records/${selectedRecordId}`,
         {
           method: "DELETE",
         }

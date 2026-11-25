@@ -15,9 +15,8 @@ import {
 
 import "./Patients.css";
 import SkeletonPatients from "../../../components/Skeleton/SkeletonPatients";
-
-const API_BASE_URL = "http://localhost:8080/api";
-
+import API_URL from "../../../config/api";
+const API_BASE_URL = API_URL;
 function Patients() {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);

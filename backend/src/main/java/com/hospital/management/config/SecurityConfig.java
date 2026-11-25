@@ -55,11 +55,12 @@ public class SecurityConfig {
 
         // Allow React/Vite running on any localhost port
         configuration.setAllowedOriginPatterns(
-            List.of(
-                "http://localhost:*",
-                "http://127.0.0.1:*"
-            )
-        );
+    List.of(
+        "http://localhost:*",
+        "http://127.0.0.1:*",
+        "https://ai-powered-smart-hospital-managemen.vercel.app"
+    )
+);
 
         // Allowed HTTP methods
         configuration.setAllowedMethods(

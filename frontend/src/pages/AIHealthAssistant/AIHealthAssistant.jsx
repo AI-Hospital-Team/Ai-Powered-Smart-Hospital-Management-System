@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import API_URL from "../../config/api";
 import {
   ArrowLeft,
   Activity,
@@ -59,8 +59,7 @@ function AIHealthAssistant() {
 
     try {
       const res = await fetch(
-        "http://localhost:8080/api/ai/health-assistant",
-        {
+`${API_URL}/ai/health-assistant`,        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

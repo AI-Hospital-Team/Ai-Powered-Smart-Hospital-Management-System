@@ -18,7 +18,7 @@ import com.hospital.management.service.PrescriptionService;
 
 @RestController
 @RequestMapping("/api/prescriptions")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class PrescriptionController {
 
     private final PrescriptionService prescriptionService;

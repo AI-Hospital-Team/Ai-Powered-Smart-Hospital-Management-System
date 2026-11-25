@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import "./Appointments.css";
 import SkeletonPatientAppointments from "../../../components/Skeleton/SkeletonPatientAppointments";
+import API_URL from "../../../config/api";
 
 function Appointments() {
   const navigate = useNavigate();
@@ -110,11 +111,11 @@ function Appointments() {
         doctorsResponse,
       ] = await Promise.all([
         fetch(
-          `http://localhost:8080/api/appointments/patient/${patientId}`
+          `${API_URL}/appointments/patient/${patientId}`
         ),
 
         fetch(
-          "http://localhost:8080/api/doctors"
+          `${API_URL}/doctors`
         ),
       ]);
 
@@ -262,7 +263,7 @@ function Appointments() {
       );
 
       const response = await fetch(
-        `http://localhost:8080/api/appointments/${appointmentId}/status`,
+        `${API_URL}/appointments/${appointmentId}/status`,
         {
           method: "PUT",
 
@@ -386,7 +387,7 @@ function Appointments() {
       );
 
       const response = await fetch(
-        `http://localhost:8080/api/appointments/${appointmentId}/reschedule`,
+        `${API_URL}/appointments/${appointmentId}/reschedule`,
         {
           method: "PUT",
 

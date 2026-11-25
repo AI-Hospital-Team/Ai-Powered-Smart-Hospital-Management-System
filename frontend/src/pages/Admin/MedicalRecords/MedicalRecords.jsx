@@ -23,9 +23,8 @@ import {
 
 import "./MedicalRecords.css";
 import SkeletonMedicalRecords from "../../../components/Skeleton/SkeletonMedicalRecords";
-
-const API_BASE_URL = "http://localhost:8080/api";
-
+import API_URL from "../../../config/api";
+const API_BASE_URL = API_URL;
 function MedicalRecords() {
   const [records, setRecords] = useState([]);
   const [patients, setPatients] = useState([]);

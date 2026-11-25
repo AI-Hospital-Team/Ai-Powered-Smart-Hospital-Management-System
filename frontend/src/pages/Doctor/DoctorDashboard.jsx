@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Stethoscope,
 } from "lucide-react";
+import API_URL from "../../config/api";
 import "./DoctorDashboard.css";
 import SkeletonDoctorDashboard from "../../components/Skeleton/SkeletonDoctorDashboard";
 
@@ -74,20 +75,15 @@ function DoctorDashboard() {
           prescriptionsResponse,
         ] = await Promise.all([
           fetch(
-            `http://localhost:8080/api/doctors/${doctorId}`
-          ),
+`${API_URL}/doctors/${doctorId}`          ),
           fetch(
-            `http://localhost:8080/api/appointments/doctor/${doctorId}`
-          ),
+`${API_URL}/appointments/doctor/${doctorId}`          ),
           fetch(
-            "http://localhost:8080/api/patients"
-          ),
+`${API_URL}/patients`          ),
           fetch(
-            `http://localhost:8080/api/medical-records/doctor/${doctorId}`
-          ),
+`${API_URL}/medical-records/doctor/${doctorId}`          ),
           fetch(
-            `http://localhost:8080/api/prescriptions/doctor/${doctorId}`
-          ),
+`${API_URL}/prescriptions/doctor/${doctorId}`          ),
         ]);
 
         const doctorData = doctorResponse.ok
@@ -285,14 +281,11 @@ function DoctorDashboard() {
         prescriptionsResponse,
       ] = await Promise.all([
         fetch(
-          `http://localhost:8080/api/appointments/patient/${patientId}`
-        ),
+`${API_URL}/appointments/patient/${patientId}`        ),
         fetch(
-          `http://localhost:8080/api/medical-records/patient/${patientId}`
-        ),
+`${API_URL}/medical-records/patient/${patientId}`        ),
         fetch(
-          `http://localhost:8080/api/prescriptions/patient/${patientId}`
-        ),
+`${API_URL}/prescriptions/patient/${patientId}`        ),
       ]);
 
       const appointmentsData =

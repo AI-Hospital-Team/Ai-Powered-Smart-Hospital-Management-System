@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../../../config/api";
 import {
   UserRound,
   CalendarDays,
@@ -64,9 +65,9 @@ function Patients() {
 
         const [patientsResponse, appointmentsResponse] =
           await Promise.all([
-            fetch("http://localhost:8080/api/patients"),
+            fetch(`${API_URL}/patients`),
             fetch(
-              `http://localhost:8080/api/appointments/doctor/${doctorId}`
+              `${API_URL}/appointments/doctor/${doctorId}`
             ),
           ]);
 
@@ -161,13 +162,13 @@ function Patients() {
         prescriptionsResponse,
       ] = await Promise.all([
         fetch(
-          `http://localhost:8080/api/appointments/patient/${patientId}`
+          `${API_URL}/appointments/patient/${patientId}`
         ),
         fetch(
-          `http://localhost:8080/api/medical-records/patient/${patientId}`
+          `${API_URL}/medical-records/patient/${patientId}`
         ),
         fetch(
-          `http://localhost:8080/api/prescriptions/patient/${patientId}`
+          `${API_URL}/prescriptions/patient/${patientId}`
         ),
       ]);
 

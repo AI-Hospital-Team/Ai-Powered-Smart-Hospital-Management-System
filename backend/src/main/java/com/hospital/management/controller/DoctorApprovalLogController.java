@@ -13,7 +13,7 @@ import com.hospital.management.service.DoctorApprovalLogService;
 
 @RestController
 @RequestMapping("/api/doctor-approval-logs")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class DoctorApprovalLogController {
 
     private final DoctorApprovalLogService logService;

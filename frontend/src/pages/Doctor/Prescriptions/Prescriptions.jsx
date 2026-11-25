@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../../../config/api";
 import {
   Pill,
   UserRound,
@@ -85,9 +86,9 @@ function Prescriptions() {
         patientsResponse,
       ] = await Promise.all([
         fetch(
-          `http://localhost:8080/api/prescriptions/doctor/${doctorId}`
+          `${API_URL}/prescriptions/doctor/${doctorId}`
         ),
-        fetch("http://localhost:8080/api/patients"),
+        fetch(`${API_URL}/patients`),
       ]);
 
       if (!prescriptionsResponse.ok) {
@@ -270,7 +271,7 @@ function Prescriptions() {
       };
 
       const response = await fetch(
-        "http://localhost:8080/api/prescriptions",
+        `${API_URL}/prescriptions`,
         {
           method: "POST",
           headers: {
@@ -340,7 +341,7 @@ function Prescriptions() {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/prescriptions/${selectedPrescriptionId}`,
+        `${API_URL}/prescriptions/${selectedPrescriptionId}`,
         {
           method: "DELETE",
         }

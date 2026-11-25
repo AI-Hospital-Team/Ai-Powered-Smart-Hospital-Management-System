@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import "./MedicalRecords.css";
 import SkeletonDoctorMedicalRecords from "../../../components/Skeleton/SkeletonDoctorMedicalRecords";
+import API_URL from "../../../config/api";
 
 function MedicalRecords() {
   const [user, setUser] = useState(null);
@@ -79,9 +80,9 @@ function MedicalRecords() {
       const [recordsResponse, patientsResponse] =
         await Promise.all([
           fetch(
-            `http://localhost:8080/api/medical-records/doctor/${doctorId}`
+            `${API_URL}/medical-records/doctor/${doctorId}`
           ),
-          fetch("http://localhost:8080/api/patients"),
+          fetch(`${API_URL}/patients`),
         ]);
 
       if (!recordsResponse.ok) {
@@ -213,7 +214,7 @@ function MedicalRecords() {
       };
 
       const response = await fetch(
-        "http://localhost:8080/api/medical-records",
+        `${API_URL}/medical-records`,
         {
           method: "POST",
           headers: {
@@ -277,7 +278,7 @@ function MedicalRecords() {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/medical-records/${selectedRecordId}`,
+        `${API_URL}/medical-records/${selectedRecordId}`,
         {
           method: "DELETE",
         }

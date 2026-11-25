@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from "../../config/api";
 import { useNavigate } from "react-router-dom";
 import "./ForgotPassword.css";
 
@@ -25,8 +26,6 @@ function ForgotPassword() {
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const API_URL = "http://localhost:8080/api/auth";
-
   // =====================================================
   // STEP 1
   // CREATE PASSWORD RESET REQUEST
@@ -49,7 +48,7 @@ function ForgotPassword() {
 
     try {
       const response = await fetch(
-        `${API_URL}/password-reset/request`,
+        `${API_URL}/auth/password-reset/request`,
         {
           method: "POST",
           headers: {
@@ -165,7 +164,7 @@ function ForgotPassword() {
 
     try {
       const response = await fetch(
-        `${API_URL}/password-reset/reset`,
+        `${API_URL}/auth/password-reset/reset`,
         {
           method: "POST",
           headers: {
